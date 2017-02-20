@@ -87,3 +87,10 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# wercker files
+.wercker
+
+# models
+models
+agora*

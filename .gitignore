@@ -93,4 +93,6 @@ ENV/
 
 # models
 models
-agora*
+agora*/
+*.csv
+*.pickle

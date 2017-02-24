@@ -39,9 +39,9 @@ class Community(cobra.Model):
         obj = S.Zero
         self.objectives = {}
         for idx, row in self.taxonomy.iterrows():
-            logger.info("reading model from {}".format(row.file))
             model = load_model(row.file)
             suffix = "__" + idx.replace(" ", "_").strip()
+            logger.info("converting IDs for {}".format(idx))
             for r in model.reactions:
                 r.global_id = r.id
                 r.id += suffix
@@ -51,6 +51,7 @@ class Community(cobra.Model):
                 m.id += suffix
                 m.compartment += suffix
                 m.community_id = idx
+            logger.info("adding reactions for {} to community".format(idx))
             self.add_reactions(model.reactions)
             o = self.solver.interface.Objective.clone(model.objective,
                                                       model=self.solver)

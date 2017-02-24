@@ -33,6 +33,7 @@ def _read_model(file):
 
 def load_model(filepath):
     """Load a cobra model from several file types."""
+    logger.info("reading model from {}".format(filepath))
     with tempfile.TemporaryDirectory() as tmpdir:
         parsed = urlparse(filepath)
         if parsed.scheme and parsed.netloc:

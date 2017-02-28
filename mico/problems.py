@@ -1,1 +1,1 @@
-"""Implements optimization problems."""
+"""Implements optimization and model problems."""

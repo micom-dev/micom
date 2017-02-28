@@ -3,10 +3,13 @@
 import pandas as pd
 import numpy as np
 from mico.util import load_model
+from mico.logger import logger
 
 
 def jaccard(inclusion):
     """Calculate jaccard distances for a community."""
+    logger.info("calculating jaccard distance for {}x{} input matrix".format(
+                inclusion.shape))
     jaccard = np.apply_along_axis(
         lambda a: (a & inclusion).sum(1), 1, inclusion)
     jaccard = jaccard / np.apply_along_axis(

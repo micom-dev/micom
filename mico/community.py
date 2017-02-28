@@ -15,11 +15,16 @@ class Community(cobra.Model):
     """A community of models."""
 
     def __init__(self, taxonomy, id=None, name=None, idmap=None,
-                 rel_threshold=1e-6):
+                 rel_threshold=1e-6, solver=None):
         """Constructor for the class."""
         super(Community, self).__init__(id, name)
 
         logger.info("building new mico model {}.".format(id))
+        if not solver:
+            self.solver = ("cplex" if "cplex" in cobra.util.solver.solvers
+                           else "glpk")
+        else:
+            self.solver = solver
 
         if not (isinstance(taxonomy, pd.DataFrame) and
                 all(col in taxonomy.columns for col in _taxonomy_cols)):
@@ -28,11 +33,12 @@ class Community(cobra.Model):
 
         self._rtol = rel_threshold
 
-        if "abundance" in taxonomy.columns:
-            taxonomy.abundance /= taxonomy.abundance.sum()
-            logger.info("{} models with abundances below threshold".format(
-                        (taxonomy.abundance <= self._rtol).sum()))
-            taxonomy = taxonomy[taxonomy.abundance > self._rtol]
+        if "abundance" not in taxonomy.columns:
+            taxonomy["abundance"] = 1
+        taxonomy.abundance /= taxonomy.abundance.sum()
+        logger.info("{} models with abundances below threshold".format(
+                    (taxonomy.abundance <= self._rtol).sum()))
+        taxonomy = taxonomy[taxonomy.abundance > self._rtol]
 
         self.taxonomy = taxonomy.set_index("id")
 
@@ -56,7 +62,7 @@ class Community(cobra.Model):
             o = self.solver.interface.Objective.clone(model.objective,
                                                       model=self.solver)
             obj += o.expression
-            self.objectives[idx] = o
+            self.objectives[idx] = o.expression
             self.__add_exchanges(model)
 
         self.objective = self.solver.interface.Objective(obj, direction="max")

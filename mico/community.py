@@ -121,4 +121,5 @@ class Community(cobra.Model):
 
         ab = self.taxonomy.abundance
         self.taxonomy.abundance /= ab.sum()
-        self.taxonomy.abundance[ab < self._rtol] = self._rtol
+        small = ab < self._rtol
+        self.taxonomy.abundance[small] = self._rtol

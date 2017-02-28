@@ -1,0 +1,22 @@
+language: python
+
+cache: pip
+sudo: false
+python:
+    - 2.7
+    - 3.4
+    - 3.5
+    - 3.6
+
+before_install:
+    - pip install -U pip
+    - pip install -U pytest pytest-cov pytest-benchmark codecov
+
+install:
+  - pip install -U pandas python-libsbml lxml optlang
+  - pip install -U https://github.com/opencobra/cobrapy/archive/devel-2.zip
+  - pip install .
+
+script:
+    - py.test --benchmark-skip --cov=mico
+    - codecov

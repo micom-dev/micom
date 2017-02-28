@@ -94,4 +94,3 @@ ENV/
 # models
 models
 agora*/
-*.pickle

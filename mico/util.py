@@ -11,6 +11,7 @@ from mico.logger import logger
 
 
 _read_funcs = {".xml": io.read_sbml_model,
+               ".gz": io.read_sbml_model,
                ".mat": io.load_matlab_model,
                ".json": io.load_json_model,
                ".pickle": lambda fn: pickle.load(open(fn, "rb"))}
@@ -52,13 +53,13 @@ def serialize_models(files, dir="."):
 
 def fluxes_from_primals(model, info):
     """Extract a list of fluxes from the model primals."""
-    suffix = "__" + info.name.replace(" ", "_").strip()
+    suffix = "__" + info.id.strip()
     primals = model.solver.primal_values
-    rxns = model.reactions.query(lambda r: suffix in r.id)
+    rxns = model.reactions.query(lambda r: info.id == r.community_id)
     rids = [r.id.replace(suffix, "") for r in rxns]
 
     fluxes = (primals[rxn.forward_variable.name] -
               primals[rxn.reverse_variable.name] for rxn in rxns)
-    fluxes = pd.Series(fluxes, rids, name=info.name)
+    fluxes = pd.Series(fluxes, rids, name=info.id)
 
     return fluxes

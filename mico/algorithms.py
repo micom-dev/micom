@@ -9,7 +9,7 @@ from mico.logger import logger
 def jaccard(inclusion):
     """Calculate jaccard distances for a community."""
     logger.info("calculating jaccard distance for {}x{} input matrix".format(
-                inclusion.shape))
+                *inclusion.shape))
     jaccard = np.apply_along_axis(
         lambda a: (a & inclusion).sum(1), 1, inclusion)
     jaccard = jaccard / np.apply_along_axis(
@@ -20,10 +20,12 @@ def jaccard(inclusion):
 
 def euclidean(inclusion):
     """Calculate euclidean distances for a community."""
+    logger.info("calculating euclidean distance for {}x{} input matrix".format(
+                *inclusion.shape))
     euclidean = np.apply_along_axis(
-        lambda a: ((a - inclusion) ** 2).sum(2), 1, inclusion)
+        lambda a: ((a - inclusion) ** 2).sum(1), 1, inclusion)
 
-    return euclidean.sqrt()
+    return np.sqrt(euclidean)
 
 
 def reaction_matrix(files):

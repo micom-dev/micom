@@ -2,7 +2,7 @@
 
 import cobra.io as io
 import os.path as path
-import pickle
+import six.moves.cPickle as pickle
 from six.moves.urllib.parse import urlparse
 import six.moves.urllib.request as urlreq
 import tempfile

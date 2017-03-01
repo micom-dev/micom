@@ -15,8 +15,10 @@ before_install:
 install:
     - pip install -U pandas python-libsbml lxml optlang
     - pip install -U https://github.com/opencobra/cobrapy/archive/devel-2.zip
-    - pip install .
+    - pip install -e .
 
 script:
-    - py.test --benchmark-skip --cov=./
+    - py.test --benchmark-skip --cov=mico
+
+after_success:
     - codecov

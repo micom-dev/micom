@@ -6,6 +6,7 @@ import pickle
 from six.moves.urllib.parse import urlparse
 import six.moves.urllib.request as urlreq
 import tempfile
+from shutil import rmtree
 import pandas as pd
 from mico.logger import logger
 
@@ -35,11 +36,17 @@ def _read_model(file):
 def load_model(filepath):
     """Load a cobra model from several file types."""
     logger.info("reading model from {}".format(filepath))
-    with tempfile.TemporaryDirectory() as tmpdir:
-        parsed = urlparse(filepath)
-        if parsed.scheme and parsed.netloc:
-            filepath = download_model(filepath, folder=tmpdir)
-        return _read_model(filepath)
+    parsed = urlparse(filepath)
+    if parsed.scheme and parsed.netloc:
+        tmpdir = tempfile.mkdtemp()
+        logger.info("created temporary directory {}".format(tmpdir))
+        filepath = download_model(filepath, folder=tmpdir)
+        model = _read_model(filepath)
+        rmtree(tmpdir)
+        logger.info("deleted temporary directory {}".format(tmpdir))
+    else:
+        model = _read_model(filepath)
+    return model
 
 
 def serialize_models(files, dir="."):

@@ -23,7 +23,7 @@ install:
   - "%PYTHON%\\python.exe -m pip install wheel pytest pytest-benchmark"
   - "%PYTHON%\\python.exe -m pip install pandas python-libsbml optlang"
   - "%PYTHON%\\python.exe -m pip install http://github.com/opencobra/cobrapy/archive/devel-2.zip"
-  - "%PYTHON%\\python.exe -m pip install .
+  - "%PYTHON%\\python.exe -m pip install ."
 
 build: off
 

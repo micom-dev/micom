@@ -55,7 +55,8 @@ def serialize_models(files, dir="."):
         fname, _ = path.splitext(path.basename(f))
         model = load_model(f)
         logger.info("serializing {}".format(f))
-        pickle.dump(model, open(path.join(dir, fname + ".pickle"), "wb"))
+        pickle.dump(model, open(path.join(dir, fname + ".pickle"), "wb"),
+                    protocol=2)  # required for Python 2 compat
 
 
 def fluxes_from_primals(model, info):

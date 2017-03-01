@@ -19,7 +19,7 @@ install:
   # We need wheel installed to build wheels
   - "%PYTHON%\\python.exe -m pip install -U pip"
   - "%PYTHON%\\python.exe -m pip install wheel pytest pytest-benchmark"
-  - "%PYTHON%\\python.exe -m pip install pandas python-libsbml lxml optlang"
+  - "%PYTHON%\\python.exe -m pip install pandas python-libsbml optlang"
   - "%PYTHON%\\python.exe -m pip install http://github.com/opencobra/cobrapy/archive/devel-2.zip"
 
 build: off

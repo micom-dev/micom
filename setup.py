@@ -65,7 +65,8 @@ setup(
     # simple. Or you can use find_packages().
     packages=find_packages(exclude=['docs', 'tests']),
 
-    package_data={'mico-model': [path.join("data", "*.csv")]},
+    package_data={'mico': [path.join("data", "*.csv"),
+                           path.join("data", "*.pickle")]},
 
     # Alternatively, if you want to distribute just a my_module.py, uncomment
     # this:

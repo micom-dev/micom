@@ -19,4 +19,6 @@ install:
 
 script:
     - py.test --benchmark-skip --cov=mico
-    - codecov
+
+after_success:
+  - codecov

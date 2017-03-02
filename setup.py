@@ -28,7 +28,7 @@ setup(
 
     # Author details
     author='Christian Diener',
-    author_email='mail [at] cdiener.com',
+    author_email='mail@cdiener.com',
 
     # Choose your license
     license='Apache License 2.0',

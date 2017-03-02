@@ -64,7 +64,7 @@ def fluxes_from_primals(model, info):
     suffix = "__" + info.id.strip()
     primals = model.solver.primal_values
     rxns = model.reactions.query(lambda r: info.id == r.community_id)
-    rids = [r.id.replace(suffix, "") for r in rxns]
+    rids = [r.global_id for r in rxns]
 
     fluxes = (primals[rxn.forward_variable.name] -
               primals[rxn.reverse_variable.name] for rxn in rxns)

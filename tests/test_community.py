@@ -12,8 +12,13 @@ def test_construction():
     com = Community(tax)
     assert len(com.objectives) == 5
     assert len(com.taxonomy) == 5
-    assert len(com.reactions) == tax.reactions.sum()
-    assert len(com.metabolites) == tax.metabolites.sum()
+    assert len(com.reactions) > tax.reactions.sum()
+    assert len(com.metabolites) > tax.metabolites.sum()
+
+
+def test_benchmark_construction(benchmark):
+    tax = test_taxonomy(3)
+    benchmark(Community, tax)
 
 
 def test_abundance_cutoff():
@@ -31,3 +36,13 @@ def test_abundances(community):
     expected = np.array([1.0/6, 2.0/6, 1e-6, 3.0/6, 1e-6])
     community.abundances = ab
     assert np.allclose(community.abundances, expected)
+
+
+def test_exchanges(community):
+    assert "glc__D_m" in community.metabolites
+    assert "EX_glc__D_m" in community.reactions
+    r = community.reactions.EX_glc__D_e__Escherichia_coli_1
+    glc_e = community.metabolites.get_by_id("glc__D_e__Escherichia_coli_1")
+    glc_m = community.metabolites.get_by_id("glc__D_m")
+    assert r.metabolites[glc_e] == -1
+    assert r.metabolites[glc_m] == 0.2

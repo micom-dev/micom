@@ -1,5 +1,6 @@
 """A class representing a microbial or tissue community."""
 
+import re
 import six
 import cobra
 import pandas as pd
@@ -40,7 +41,8 @@ class Community(cobra.Model):
                     (taxonomy.abundance <= self._rtol).sum()))
         taxonomy = taxonomy[taxonomy.abundance > self._rtol]
 
-        self.taxonomy = taxonomy.set_index("id")
+        self.taxonomy = taxonomy.copy()
+        self.taxonomy.index = self.taxonomy.id
 
         obj = S.Zero
         self.objectives = {}
@@ -61,15 +63,48 @@ class Community(cobra.Model):
             self.add_reactions(model.reactions)
             o = self.solver.interface.Objective.clone(model.objective,
                                                       model=self.solver)
-            obj += o.expression
+            obj += o.expression * row.abundance
             self.objectives[idx] = o.expression
-            self.__add_exchanges(model)
+            self.__add_exchanges(model.reactions, row)
 
         self.objective = self.solver.interface.Objective(obj, direction="max")
 
-    def __add_exchanges(self, model):
+    def __add_exchanges(self, reactions, info):
         """Add exchange reactions for a new model."""
-        pass
+        to_add = []
+        for r in reactions:
+            if not r.boundary:
+                continue
+            export = len(r.reactants) == 1
+            lb, ub = r.bounds if export else (-r.upper_bound, -r.lower_bound)
+            met = (r.reactants + r.products)[0]
+            medium_id = re.sub("_{}$".format(met.compartment), "_m", met.id)
+            if medium_id == met.id:
+                medium_id += "_m"
+            if medium_id not in self.metabolites:
+                # If metabolite does not exist in medium add it to the model
+                # and also add an exchange reaction for the medium
+                medium_met = met.copy()
+                medium_met.id = medium_id
+                medium_met.compartment = "m"
+                ex_medium = cobra.Reaction(
+                    id="EX_" + medium_met.id,
+                    name=medium_met.id + " medium exchange",
+                    lower_bound=lb,
+                    upper_bound=ub)
+                ex_medium.add_metabolites({medium_met: -1})
+                ex_medium.global_id = ex_medium.id
+                ex_medium.community_id = None
+                to_add.append(ex_medium)
+            else:
+                medium_met = self.metabolites.get_by_id(medium_id)
+                ex_medium = self.reactions.get_by_id("EX_" + medium_met.id)
+                ex_medium.lower_bound = min(lb, ex_medium.lower_bound)
+                ex_medium.upper_bound = max(ub, ex_medium.upper_bound)
+
+            coef = info.abundance
+            r.add_metabolites({medium_met: coef if export else -coef})
+        self.add_reactions(to_add)
 
     def optimize_single(self, id, fluxes=False):
         """Optimize growth rate for a single model in the community."""

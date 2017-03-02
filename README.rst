@@ -1,6 +1,6 @@
 .. image:: mico.png
 
-|travis status| |appveyor status|
+|travis status| |appveyor status| |coverage|
 
 `mico` is a Python package for metabolic modeling of microbial
 communities.
@@ -11,3 +11,5 @@ communities.
    :target: https://travis-ci.org/cdiener/mico
 .. |appveyor status| image:: https://ci.appveyor.com/api/projects/status/bes3psgnf3k8ovvs/branch/master?svg=true
    :target: https://ci.appveyor.com/project/cdiener/mico/branch/master
+.. |coverage| image:: https://codecov.io/gh/cdiener/mico/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/cdiener/mico

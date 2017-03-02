@@ -42,8 +42,8 @@ def get_config():
     cfg.VCS = "git"
     cfg.style = "pep440"
     cfg.tag_prefix = "v"
-    cfg.parentdir_prefix = "mico-"
-    cfg.versionfile_source = "mico/_version.py"
+    cfg.parentdir_prefix = "micom-"
+    cfg.versionfile_source = "micom/_version.py"
     cfg.verbose = False
     return cfg
 

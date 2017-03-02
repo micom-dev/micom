@@ -1,12 +1,12 @@
 """Test utilities."""
 
 from os.path import basename
-import mico
-import mico.util as util
+import micom
+import micom.util as util
 from fixtures import community
 
 URL = "http://bigg.ucsd.edu/static/models/e_coli_core.xml.gz"
-tax = mico.data.test_taxonomy()
+tax = micom.data.test_taxonomy()
 
 
 def test_download(tmpdir):

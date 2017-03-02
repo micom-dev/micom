@@ -1,10 +1,10 @@
 """Helper fixtures for mico."""
 
 import pytest
-import mico
+import micom
 
 
 @pytest.fixture
 def community():
     """A simple community containing 3 species."""
-    return mico.Community(mico.data.test_taxonomy())
+    return micom.Community(micom.data.test_taxonomy())

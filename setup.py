@@ -12,7 +12,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='mico-model',
+    name='micom',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
@@ -24,7 +24,7 @@ setup(
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/cdiener/mico',
+    url='https://github.com/cdiener/micom',
 
     # Author details
     author='Christian Diener',
@@ -65,8 +65,8 @@ setup(
     # simple. Or you can use find_packages().
     packages=find_packages(exclude=['docs', 'tests']),
 
-    package_data={'mico': [path.join("data", "*.csv"),
-                           path.join("data", "*.pickle")]},
+    package_data={'micom': [path.join("data", "*.csv"),
+                            path.join("data", "*.pickle")]},
 
     # Alternatively, if you want to distribute just a my_module.py, uncomment
     # this:

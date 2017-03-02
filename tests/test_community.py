@@ -1,8 +1,8 @@
 """Tests for basic construction of a community."""
 
 from fixtures import community
-from mico import Community
-from mico.data import test_taxonomy
+from micom import Community
+from micom.data import test_taxonomy
 import numpy as np
 
 

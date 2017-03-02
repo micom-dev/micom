@@ -1,4 +1,4 @@
-.. image:: mico.png
+.. image:: micom.png
 
 |travis status| |appveyor status| |coverage|
 

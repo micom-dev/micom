@@ -61,7 +61,6 @@ def serialize_models(files, dir="."):
 
 def fluxes_from_primals(model, info):
     """Extract a list of fluxes from the model primals."""
-    suffix = "__" + info.id.strip()
     primals = model.solver.primal_values
     rxns = model.reactions.query(lambda r: info.id == r.community_id)
     rids = [r.global_id for r in rxns]

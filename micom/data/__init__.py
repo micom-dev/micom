@@ -1,10 +1,9 @@
 """Submodule including some common data sets."""
 
-from os.path import basename, split, splitext, join
+from os.path import split, join
 import pandas as pd
-import glob
 
-__all__ = ["agora", "test_taxonomy"]
+__all__ = ("agora", "test_taxonomy")
 this_dir, _ = split(__file__)
 
 agora = pd.read_csv(join(this_dir, "agora.csv"))

@@ -7,6 +7,7 @@ import pandas as pd
 from sympy.core.singleton import S
 from micom.util import load_model, fluxes_from_primals
 from micom.logger import logger
+from micom.problems import linear_optcom
 
 
 _taxonomy_cols = ["id", "file"]
@@ -157,9 +158,14 @@ class Community(cobra.Model):
         ab = self.__taxonomy.abundance
         self.__taxonomy.abundance /= ab.sum()
         small = ab < self._rtol
-        self.__taxonomy.abundance[small] = self._rtol
+        self.__taxonomy.loc[small, "abundance"] = self._rtol
 
     @property
     def taxonomy(self):
         """Get a copy of the model taxonomy."""
         return self.__taxonomy.copy()
+
+    def optcom(self, method="linear", fractions=0.0, fluxes=False, pfba=True):
+        """Run optcom for the community."""
+        if method == "linear":
+            return linear_optcom(self, fractions, fluxes, pfba)

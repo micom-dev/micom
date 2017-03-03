@@ -1,4 +1,5 @@
-# Always prefer setuptools over distutils
+"""setup.py for micom."""
+
 from setuptools import setup, find_packages
 # To use a consistent encoding
 from codecs import open

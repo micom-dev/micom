@@ -46,3 +46,9 @@ def test_exchanges(community):
     glc_m = community.metabolites.get_by_id("glc__D_m")
     assert r.metabolites[glc_e] == -1
     assert r.metabolites[glc_m] == 0.2
+
+
+def test_get_taxonomy(community):
+    tax = community.taxonomy
+    tax["id"] = "bla"
+    assert all(tax["id"] != community.taxonomy["id"])

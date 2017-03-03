@@ -41,12 +41,12 @@ class Community(cobra.Model):
                     (taxonomy.abundance <= self._rtol).sum()))
         taxonomy = taxonomy[taxonomy.abundance > self._rtol]
 
-        self.taxonomy = taxonomy.copy()
-        self.taxonomy.index = self.taxonomy.id
+        self.__taxonomy = taxonomy.copy()
+        self.__taxonomy.index = self.__taxonomy.id
 
         obj = S.Zero
         self.objectives = {}
-        for idx, row in self.taxonomy.iterrows():
+        for idx, row in self.__taxonomy.iterrows():
             model = load_model(row.file)
             suffix = "__" + idx.replace(" ", "_").strip()
             logger.info("converting IDs for {}".format(idx))
@@ -109,11 +109,11 @@ class Community(cobra.Model):
     def optimize_single(self, id, fluxes=False):
         """Optimize growth rate for a single model in the community."""
         if isinstance(id, six.string_types):
-            if id not in self.taxonomy.index:
+            if id not in self.__taxonomy.index:
                 raise ValueError(id + " not in taxonomy!")
-            info = self.taxonomy.loc[id]
-        elif isinstance(id, int) and id >= 0 and id < len(self.taxonomy):
-            info = self.taxonomy.iloc[id]
+            info = self.__taxonomy.loc[id]
+        elif isinstance(id, int) and id >= 0 and id < len(self.__taxonomy):
+            info = self.__taxonomy.iloc[id]
         else:
             raise ValueError("`id` must be an id or positive index!")
 
@@ -133,28 +133,33 @@ class Community(cobra.Model):
     def optimize_all(self, fluxes=False):
         """Return solutions for individually optimizing each model."""
         individual = (self.optimize_single(id, fluxes) for id in
-                      self.taxonomy.index)
+                      self.__taxonomy.index)
 
         if fluxes:
             return pd.concat(individual, axis=1).T
         else:
-            return pd.Series(individual, self.taxonomy.index)
+            return pd.Series(individual, self.__taxonomy.index)
 
     @property
     def abundances(self):
         """The relative abundances of species/tissues in the community."""
-        return self.taxonomy.abundance
+        return self.__taxonomy.abundance
 
     @abundances.setter
     def abundances(self, value):
         """Set new abundance levels."""
         try:
-            self.taxonomy.abundance = value
+            self.__taxonomy.abundance = value
         except Exception:
             raise ValueError("value must be an iterable with an entry for "
                              "each species/tissue")
 
-        ab = self.taxonomy.abundance
-        self.taxonomy.abundance /= ab.sum()
+        ab = self.__taxonomy.abundance
+        self.__taxonomy.abundance /= ab.sum()
         small = ab < self._rtol
-        self.taxonomy.abundance[small] = self._rtol
+        self.__taxonomy.abundance[small] = self._rtol
+
+    @property
+    def taxonomy(self):
+        """Get a copy of the model taxonomy."""
+        return self.__taxonomy.copy()

@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>micom package &#8212; micom 0.1.0a1+3.gf107d84 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0a1+3.gf107d84',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="micom.data package" href="micom.data.html" />
+    <link rel="prev" title="Title" href="Test.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="micom-package">
+<h1>micom package<a class="headerlink" href="#micom-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="micom.data.html">micom.data package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="micom.data.html#module-micom.data">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-micom.algorithms">
+<span id="micom-algorithms-module"></span><h2>micom.algorithms module<a class="headerlink" href="#module-micom.algorithms" title="Permalink to this headline">¶</a></h2>
+<p>Implements additional analysis algorithms for communities.</p>
+<dl class="function">
+<dt id="micom.algorithms.euclidean">
+<code class="descclassname">micom.algorithms.</code><code class="descname">euclidean</code><span class="sig-paren">(</span><em>inclusion</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.algorithms.euclidean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate euclidean distances for a community.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.algorithms.jaccard">
+<code class="descclassname">micom.algorithms.</code><code class="descname">jaccard</code><span class="sig-paren">(</span><em>inclusion</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.algorithms.jaccard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate jaccard distances for a community.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.algorithms.metabolic_dist">
+<code class="descclassname">micom.algorithms.</code><code class="descname">metabolic_dist</code><span class="sig-paren">(</span><em>reactions</em>, <em>metric=&lt;function jaccard&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.algorithms.metabolic_dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the metabolic distances between all members.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.algorithms.reaction_matrix">
+<code class="descclassname">micom.algorithms.</code><code class="descname">reaction_matrix</code><span class="sig-paren">(</span><em>files</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.algorithms.reaction_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a matrix of reactions x models.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-micom.community">
+<span id="micom-community-module"></span><h2>micom.community module<a class="headerlink" href="#module-micom.community" title="Permalink to this headline">¶</a></h2>
+<p>A class representing a microbial or tissue community.</p>
+<dl class="class">
+<dt id="micom.community.Community">
+<em class="property">class </em><code class="descclassname">micom.community.</code><code class="descname">Community</code><span class="sig-paren">(</span><em>taxonomy</em>, <em>id=None</em>, <em>name=None</em>, <em>idmap=None</em>, <em>rel_threshold=1e-06</em>, <em>solver=None</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cobra.core.model.Model</span></code></p>
+<p>A community of models.</p>
+<dl class="attribute">
+<dt id="micom.community.Community.abundances">
+<code class="descname">abundances</code><a class="headerlink" href="#micom.community.Community.abundances" title="Permalink to this definition">¶</a></dt>
+<dd><p>The relative abundances of species/tissues in the community.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="micom.community.Community.optimize_all">
+<code class="descname">optimize_all</code><span class="sig-paren">(</span><em>fluxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optimize_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return solutions for individually optimizing each model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="micom.community.Community.optimize_single">
+<code class="descname">optimize_single</code><span class="sig-paren">(</span><em>id</em>, <em>fluxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optimize_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimize growth rate for a single model in the community.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-micom.logger">
+<span id="micom-logger-module"></span><h2>micom.logger module<a class="headerlink" href="#module-micom.logger" title="Permalink to this headline">¶</a></h2>
+<p>configures the logger for mico.</p>
+</div>
+<div class="section" id="module-micom.problems">
+<span id="micom-problems-module"></span><h2>micom.problems module<a class="headerlink" href="#module-micom.problems" title="Permalink to this headline">¶</a></h2>
+<p>Implements optimization and model problems.</p>
+</div>
+<div class="section" id="module-micom.util">
+<span id="micom-util-module"></span><h2>micom.util module<a class="headerlink" href="#module-micom.util" title="Permalink to this headline">¶</a></h2>
+<p>Holds utility functions for other modules.</p>
+<dl class="function">
+<dt id="micom.util.download_model">
+<code class="descclassname">micom.util.</code><code class="descname">download_model</code><span class="sig-paren">(</span><em>url</em>, <em>folder='.'</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.util.download_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a model.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.util.fluxes_from_primals">
+<code class="descclassname">micom.util.</code><code class="descname">fluxes_from_primals</code><span class="sig-paren">(</span><em>model</em>, <em>info</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.util.fluxes_from_primals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract a list of fluxes from the model primals.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.util.load_model">
+<code class="descclassname">micom.util.</code><code class="descname">load_model</code><span class="sig-paren">(</span><em>filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.util.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a cobra model from several file types.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.util.serialize_models">
+<code class="descclassname">micom.util.</code><code class="descname">serialize_models</code><span class="sig-paren">(</span><em>files</em>, <em>dir='.'</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.util.serialize_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert several models to Python pickles.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-micom">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-micom" title="Permalink to this headline">¶</a></h2>
+<p>Simple init file for mico.</p>
+<dl class="class">
+<dt id="micom.Community">
+<em class="property">class </em><code class="descclassname">micom.</code><code class="descname">Community</code><span class="sig-paren">(</span><em>taxonomy</em>, <em>id=None</em>, <em>name=None</em>, <em>idmap=None</em>, <em>rel_threshold=1e-06</em>, <em>solver=None</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cobra.core.model.Model</span></code></p>
+<p>A community of models.</p>
+<dl class="attribute">
+<dt id="micom.Community.abundances">
+<code class="descname">abundances</code><a class="headerlink" href="#micom.Community.abundances" title="Permalink to this definition">¶</a></dt>
+<dd><p>The relative abundances of species/tissues in the community.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="micom.Community.optimize_all">
+<code class="descname">optimize_all</code><span class="sig-paren">(</span><em>fluxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return solutions for individually optimizing each model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="micom.Community.optimize_single">
+<code class="descname">optimize_single</code><span class="sig-paren">(</span><em>id</em>, <em>fluxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimize growth rate for a single model in the community.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/micom.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Test.html">Title</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="Test.html" title="previous chapter">Title</a></li>
+      <li>Next: <a href="micom.data.html" title="next chapter">micom.data package</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christian Diener.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/micom.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/cdiener/micom" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

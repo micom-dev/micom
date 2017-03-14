@@ -13,8 +13,7 @@ before_install:
     - pip install -U pytest pytest-cov pytest-benchmark codecov
 
 install:
-    - pip install -U pandas python-libsbml lxml optlang
-    - pip install -U --pre cobra
+    - pip install -U python-libsbml lxml
     - pip install -e .
 
 script:

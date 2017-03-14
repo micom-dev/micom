@@ -25,8 +25,7 @@ install:
   # We need wheel installed to build wheels
   - "%PYTHON%\\python.exe -m pip install -U pip"
   - "%PYTHON%\\python.exe -m pip install wheel pytest pytest-benchmark"
-  - "%PYTHON%\\python.exe -m pip install pandas python-libsbml optlang"
-  - "%PYTHON%\\python.exe -m pip install -U --pre cobra>=0.6.0a2"
+  - "%PYTHON%\\python.exe -m pip install python-libsbml"
   - "%PYTHON%\\python.exe -m pip install ."
 
 build: off

@@ -2,7 +2,6 @@
 
 from micom.util import fluxes_from_primals
 import pandas as pd
-from cobra.util.solver import add_to_solver
 from cobra.flux_analysis.parsimonious import add_pfba
 
 
@@ -46,7 +45,7 @@ def linear_optcom(community, fractions=0.0, fluxes=False, pfba=True):
     gcs = pd.Series(None, species)
     com_fluxes = None
     with community as com:
-        add_to_solver(com, to_add)
+        com.add_cons_vars(to_add)
         com.solver.optimize()
         if com.solver.status == "optimal":
             for sp in species:

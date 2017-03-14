@@ -1,6 +1,6 @@
 .. image:: micom.png
 
-|travis status| |appveyor status| |coverage|
+|travis status| |appveyor status| |coverage| |pypi status|
 
 `micom` is a Python package for metabolic modeling of microbial
 communities.
@@ -13,3 +13,5 @@ communities.
    :target: https://ci.appveyor.com/project/cdiener/micom/branch/master
 .. |coverage| image:: https://codecov.io/gh/cdiener/micom/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/cdiener/micom
+.. |pypi status| image:: https://img.shields.io/pypi/v/micom.svg
+   :target: https://pypi.org/project/micom/

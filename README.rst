@@ -22,6 +22,7 @@ Installation
 `micom` is available on PyPi and can be installed via
 
 .. code:: bash
+
     pip install micom
 
 Note that `micom` currently requires a development version of

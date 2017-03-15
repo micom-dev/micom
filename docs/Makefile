@@ -16,6 +16,7 @@ help:
 
 html:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	rm -rf _static _sources _images *.html
 	cp -rf build/html/* .
 	rm -rf build/html
 

@@ -6,12 +6,21 @@
 Welcome to micom
 ================
 
-|travis status| |appveyor status| |coverage|
+|travis status| |appveyor status| |coverage| |pypi status|
+
+*Please note that this is still a pre-release and might still lack
+functionalities.*
 
 `micom` is a Python package for metabolic modeling of microbial
 communities.
 
-**This project is currently in alpha stage and not supposed to be used yet. More info and docs coming soon.**
+`micom` allows you to construct a community model from a list on input
+COBRA models and manages exchange fluxes between individuals and individuals
+with the environment. It explicitly accounts for different abundances of
+individuals in the community and can thus incorporate data from 16S rRNA
+sequencing experiments. It allows optimization with a variety of algorithms
+modeling the trade-off between egoistic growth rate maximization and
+cooperative objectives.
 
 Contents
 --------
@@ -36,3 +45,5 @@ Indices and tables
    :target: https://ci.appveyor.com/project/cdiener/micom/branch/master
 .. |coverage| image:: https://codecov.io/gh/cdiener/micom/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/cdiener/micom
+.. |pypi status| image:: https://img.shields.io/pypi/v/micom.svg
+   :target: https://pypi.org/project/micom/

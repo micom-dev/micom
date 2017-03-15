@@ -7,7 +7,7 @@ __all__ = ("agora", "test_taxonomy")
 this_dir, _ = split(__file__)
 
 agora = pd.read_csv(join(this_dir, "agora.csv"))
-
+agora["file"] = agora["id"] + ".xml" 
 
 def test_taxonomy(n=5):
     """Create a simple test taxonomy.

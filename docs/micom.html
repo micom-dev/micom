@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>micom package &#8212; micom 0.1.0a1+3.gf107d84 documentation</title>
+    <title>micom package &#8212; micom 0.1.2+0.ged34bf0.dirty documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.0a1+3.gf107d84',
+        VERSION:     '0.1.2+0.ged34bf0.dirty',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -28,7 +28,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="micom.data package" href="micom.data.html" />
-    <link rel="prev" title="Title" href="Test.html" />
+    <link rel="prev" title="Building communities" href="community.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -103,6 +103,12 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="micom.community.Community.optcom">
+<code class="descname">optcom</code><span class="sig-paren">(</span><em>method='linear'</em>, <em>fractions=0.0</em>, <em>fluxes=False</em>, <em>pfba=True</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optcom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run optcom for the community.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="micom.community.Community.optimize_all">
 <code class="descname">optimize_all</code><span class="sig-paren">(</span><em>fluxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optimize_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return solutions for individually optimizing each model.</p>
@@ -112,6 +118,12 @@
 <dt id="micom.community.Community.optimize_single">
 <code class="descname">optimize_single</code><span class="sig-paren">(</span><em>id</em>, <em>fluxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optimize_single" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize growth rate for a single model in the community.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.community.Community.taxonomy">
+<code class="descname">taxonomy</code><a class="headerlink" href="#micom.community.Community.taxonomy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a copy of the model taxonomy.</p>
 </dd></dl>
 
 </dd></dl>
@@ -124,6 +136,18 @@
 <div class="section" id="module-micom.problems">
 <span id="micom-problems-module"></span><h2>micom.problems module<a class="headerlink" href="#module-micom.problems" title="Permalink to this headline">¶</a></h2>
 <p>Implements optimization and model problems.</p>
+<dl class="function">
+<dt id="micom.problems.all_fluxes">
+<code class="descclassname">micom.problems.</code><code class="descname">all_fluxes</code><span class="sig-paren">(</span><em>community</em>, <em>pfba=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.all_fluxes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all fluxes stratified by species.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.problems.linear_optcom">
+<code class="descclassname">micom.problems.</code><code class="descname">linear_optcom</code><span class="sig-paren">(</span><em>community</em>, <em>fractions=0.0</em>, <em>fluxes=False</em>, <em>pfba=True</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.linear_optcom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a community solution from a linear version of optcom.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-micom.util">
 <span id="micom-util-module"></span><h2>micom.util module<a class="headerlink" href="#module-micom.util" title="Permalink to this headline">¶</a></h2>
@@ -168,6 +192,12 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="micom.Community.optcom">
+<code class="descname">optcom</code><span class="sig-paren">(</span><em>method='linear'</em>, <em>fractions=0.0</em>, <em>fluxes=False</em>, <em>pfba=True</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optcom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run optcom for the community.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="micom.Community.optimize_all">
 <code class="descname">optimize_all</code><span class="sig-paren">(</span><em>fluxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return solutions for individually optimizing each model.</p>
@@ -177,6 +207,12 @@
 <dt id="micom.Community.optimize_single">
 <code class="descname">optimize_single</code><span class="sig-paren">(</span><em>id</em>, <em>fluxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize_single" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize growth rate for a single model in the community.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.Community.taxonomy">
+<code class="descname">taxonomy</code><a class="headerlink" href="#micom.Community.taxonomy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a copy of the model taxonomy.</p>
 </dd></dl>
 
 </dd></dl>
@@ -208,7 +244,8 @@
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="Test.html">Title</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API</a></li>
 </ul>
 
@@ -216,7 +253,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="Test.html" title="previous chapter">Title</a></li>
+      <li>Previous: <a href="community.html" title="previous chapter">Building communities</a></li>
       <li>Next: <a href="micom.data.html" title="next chapter">micom.data package</a></li>
   </ul></li>
 </ul>

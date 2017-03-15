@@ -1,0 +1,694 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Building communities &#8212; micom 0.1.2+0.ged34bf0.dirty documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.2+0.ged34bf0.dirty',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="micom package" href="micom.html" />
+    <link rel="prev" title="Installing micom" href="installing.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+</style>
+<div class="section" id="Building-communities">
+<h1>Building communities<a class="headerlink" href="#Building-communities" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal"><span class="pre">micom</span></code> will construct communities from a specification via a Pandas
+DataFrame. Here, the DataFrame needs at least two columns: &#8220;id&#8221; and
+&#8220;file&#8221; which specify the ID of the organism/tissue and a file containing
+the actual individual model.</p>
+<p>To make more sense of that we can look at a small example. <code class="docutils literal"><span class="pre">micom</span></code>
+comes with a function that generates a simple example community
+specification consisting of several copies of a small <em>E. coli</em> model
+containing only the central carbon metabolism.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">micom.data</span> <span class="k">import</span> <span class="n">test_taxonomy</span>
+
+<span class="n">taxonomy</span> <span class="o">=</span> <span class="n">test_taxonomy</span><span class="p">()</span>
+<span class="n">taxonomy</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[1]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>genus</th>
+      <th>species</th>
+      <th>reactions</th>
+      <th>metabolites</th>
+      <th>file</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Escherichia_coli_1</td>
+      <td>Escherichia</td>
+      <td>Eschericia coli</td>
+      <td>95</td>
+      <td>72</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Escherichia_coli_2</td>
+      <td>Escherichia</td>
+      <td>Eschericia coli</td>
+      <td>95</td>
+      <td>72</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Escherichia_coli_3</td>
+      <td>Escherichia</td>
+      <td>Eschericia coli</td>
+      <td>95</td>
+      <td>72</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Escherichia_coli_4</td>
+      <td>Escherichia</td>
+      <td>Eschericia coli</td>
+      <td>95</td>
+      <td>72</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Escherichia_coli_5</td>
+      <td>Escherichia</td>
+      <td>Eschericia coli</td>
+      <td>95</td>
+      <td>72</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>As we see this specification contains the required fields and some more
+information. In fact the specification may contain any number of
+additional information which will be saved along with the community
+model. One special example is &#8220;abundance&#8221; which we will get to know soon
+:)</p>
+<p>In order to convert the specification in a community model we will use
+the <code class="docutils literal"><span class="pre">Community</span></code> class from <code class="docutils literal"><span class="pre">micom</span></code> which derives from the cobrapy
+<code class="docutils literal"><span class="pre">Model</span></code> class.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">micom</span> <span class="k">import</span> <span class="n">Community</span>
+
+<span class="n">com</span> <span class="o">=</span> <span class="n">Community</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Build a community with a total of </span><span class="si">{}</span><span class="s2"> reactions.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">reactions</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Build a community with a total of 495 reactions.
+</pre></div></div>
+</div>
+<p>This includes the correctly scaled exchange reactions with the internal
+medium and initializes the external imports to the maximum found in all
+models. The original taxonomy is maintained in the <code class="docutils literal"><span class="pre">com.taxonomy</span></code>
+attribute.</p>
+<p>Note that <code class="docutils literal"><span class="pre">micom</span></code> can figure out how to read a variety of different
+file types based on the extension. It curently supports:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">.pickle</span></code> for pickled models</li>
+<li><code class="docutils literal"><span class="pre">.xml</span></code> or <code class="docutils literal"><span class="pre">.gz</span></code> for XML models</li>
+<li><code class="docutils literal"><span class="pre">.json</span></code> for JSON models</li>
+<li><code class="docutils literal"><span class="pre">.mat</span></code> for COBRAtoolbox models</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">com</span><span class="o">.</span><span class="n">taxonomy</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>genus</th>
+      <th>species</th>
+      <th>reactions</th>
+      <th>metabolites</th>
+      <th>file</th>
+      <th>abundance</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Escherichia_coli_1</th>
+      <td>Escherichia_coli_1</td>
+      <td>Escherichia</td>
+      <td>Eschericia coli</td>
+      <td>95</td>
+      <td>72</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_2</th>
+      <td>Escherichia_coli_2</td>
+      <td>Escherichia</td>
+      <td>Eschericia coli</td>
+      <td>95</td>
+      <td>72</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_3</th>
+      <td>Escherichia_coli_3</td>
+      <td>Escherichia</td>
+      <td>Eschericia coli</td>
+      <td>95</td>
+      <td>72</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_4</th>
+      <td>Escherichia_coli_4</td>
+      <td>Escherichia</td>
+      <td>Eschericia coli</td>
+      <td>95</td>
+      <td>72</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_5</th>
+      <td>Escherichia_coli_5</td>
+      <td>Escherichia</td>
+      <td>Eschericia coli</td>
+      <td>95</td>
+      <td>72</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
+      <td>0.2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>As you can notice we have gained a new column called <code class="docutils literal"><span class="pre">abundance</span></code>. This
+column quantifies the relative quantity of each individual in the
+community. Since we did not specify this in the original taxonomy
+<code class="docutils literal"><span class="pre">micom</span></code> assumes that all individuals are present in the same quantity.</p>
+<p>The presented community here is pretty simplistic. For microbial
+communities <code class="docutils literal"><span class="pre">micom</span></code> includes a larger taxonomy for 773 microbial
+species from the <a class="reference external" href="https://doi.org/10.1038/nbt.3703">AGORA paper</a>.
+Here the &#8220;file&#8221; column only contains the base names for the files but
+you can easily prepend any path as demonstrated in the following:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">micom.data</span> <span class="k">import</span> <span class="n">agora</span>
+
+<span class="n">tax</span> <span class="o">=</span> <span class="n">agora</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">tax</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="s2">&quot;models/&quot;</span> <span class="o">+</span> <span class="n">tax</span><span class="o">.</span><span class="n">file</span>  <span class="c1"># assuming you have downloaded the AGORA models to the &quot;models&quot; folder</span>
+<span class="n">tax</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>organism</th>
+      <th>id</th>
+      <th>kingdom</th>
+      <th>phylum</th>
+      <th>class</th>
+      <th>order</th>
+      <th>family</th>
+      <th>genus</th>
+      <th>species</th>
+      <th>oxygen_status</th>
+      <th>...</th>
+      <th>draft_created</th>
+      <th>platform</th>
+      <th>kbase_genome_id</th>
+      <th>pubseed_id</th>
+      <th>ncbi_id</th>
+      <th>genome_size</th>
+      <th>genes</th>
+      <th>reactions</th>
+      <th>metabolites</th>
+      <th>file</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Abiotrophia defectiva ATCC 49176</td>
+      <td>Abiotrophia_defectiva_ATCC_49176</td>
+      <td>Bacteria</td>
+      <td>Firmicutes</td>
+      <td>Bacilli</td>
+      <td>Lactobacillales</td>
+      <td>Aerococcaceae</td>
+      <td>Abiotrophia</td>
+      <td>Abiotrophia defectiva</td>
+      <td>Facultative anaerobe</td>
+      <td>...</td>
+      <td>07/01/14</td>
+      <td>ModelSEED</td>
+      <td>NaN</td>
+      <td>Abiotrophia defectiva ATCC 49176 (592010.4)</td>
+      <td>592010.0</td>
+      <td>2041839</td>
+      <td>598</td>
+      <td>1069</td>
+      <td>840</td>
+      <td>models/Abiotrophia_defectiva_ATCC_49176.xml</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Acidaminococcus fermentans DSM 20731</td>
+      <td>Acidaminococcus_fermentans_DSM_20731</td>
+      <td>Bacteria</td>
+      <td>Firmicutes</td>
+      <td>Negativicutes</td>
+      <td>Acidaminococcales</td>
+      <td>Acidiaminococcaceae</td>
+      <td>Acidaminococcus</td>
+      <td>Acidaminococcus fermentans</td>
+      <td>Obligate anaerobe</td>
+      <td>...</td>
+      <td>04/17/16</td>
+      <td>Kbase</td>
+      <td>kb|g.2555</td>
+      <td>Acidaminococcus fermentans DSM 20731 (591001.3)</td>
+      <td>591001.0</td>
+      <td>2329769</td>
+      <td>646</td>
+      <td>1090</td>
+      <td>903</td>
+      <td>models/Acidaminococcus_fermentans_DSM_20731.xml</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Acidaminococcus intestini RyC-MR95</td>
+      <td>Acidaminococcus_intestini_RyC_MR95</td>
+      <td>Bacteria</td>
+      <td>Firmicutes</td>
+      <td>Negativicutes</td>
+      <td>Selenomonadales</td>
+      <td>Acidaminococcaceae</td>
+      <td>Acidaminococcus</td>
+      <td>Acidaminococcus intestini</td>
+      <td>Obligate anaerobe</td>
+      <td>...</td>
+      <td>08/03/14</td>
+      <td>ModelSEED</td>
+      <td>NaN</td>
+      <td>Acidaminococcus intestini RyC-MR95 (568816.4)</td>
+      <td>568816.0</td>
+      <td>2487765</td>
+      <td>599</td>
+      <td>994</td>
+      <td>827</td>
+      <td>models/Acidaminococcus_intestini_RyC_MR95.xml</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Acidaminococcus sp. D21</td>
+      <td>Acidaminococcus_sp_D21</td>
+      <td>Bacteria</td>
+      <td>Firmicutes</td>
+      <td>Negativicutes</td>
+      <td>Selenomonadales</td>
+      <td>Acidaminococcaceae</td>
+      <td>Acidaminococcus</td>
+      <td>unclassified Acidaminococcus</td>
+      <td>Obligate anaerobe</td>
+      <td>...</td>
+      <td>06/29/12</td>
+      <td>ModelSEED</td>
+      <td>NaN</td>
+      <td>Acidaminococcus sp. D21 (563191.3)</td>
+      <td>563191.0</td>
+      <td>2238973</td>
+      <td>598</td>
+      <td>851</td>
+      <td>768</td>
+      <td>models/Acidaminococcus_sp_D21.xml</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Acinetobacter calcoaceticus PHEA-2</td>
+      <td>Acinetobacter_calcoaceticus_PHEA_2</td>
+      <td>Bacteria</td>
+      <td>Proteobacteria</td>
+      <td>Gammaproteobacteria</td>
+      <td>Pseudomonadales</td>
+      <td>Moraxellaceae</td>
+      <td>Acinetobacter</td>
+      <td>Acinetobacter calcoaceticus</td>
+      <td>Aerobe</td>
+      <td>...</td>
+      <td>04/18/16</td>
+      <td>Kbase</td>
+      <td>kb|g.3519</td>
+      <td>Acinetobacter calcoaceticus PHEA-2 (871585.3)</td>
+      <td>871585.0</td>
+      <td>3862530</td>
+      <td>1026</td>
+      <td>1561</td>
+      <td>1165</td>
+      <td>models/Acinetobacter_calcoaceticus_PHEA_2.xml</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 24 columns</p>
+</div></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/micom.png" alt="Logo"/>
+    
+  </a>
+</p>
+
+
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building communities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="micom.html">API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="installing.html" title="previous chapter">Installing micom</a></li>
+      <li>Next: <a href="micom.html" title="next chapter">micom package</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Christian Diener.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/community.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/cdiener/micom" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

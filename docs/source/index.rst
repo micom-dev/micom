@@ -18,7 +18,8 @@ Contents
 .. toctree::
    :maxdepth: 1
 
-   Test
+   Installing micom <installing>
+   Building communities <community>
    API <micom>
 
 

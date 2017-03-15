@@ -21,9 +21,8 @@ Installation
 
 `micom` is available on PyPi and can be installed via
 
-```bash
-pip install micom
-```
+.. code:: bash
+    pip install micom
 
 Note that `micom` currently requires a development version of
 COBRApy (>=0.6.0a2).

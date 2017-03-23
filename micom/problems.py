@@ -29,11 +29,8 @@ def check_modification(community):
                          "({})!".format(community.modification))
 
 
-def add_linear_optcom(community, min_growth=0.1):
-    """Add a linear version of optcom."""
-    check_modification(community)
-    species = list(community.objectives.keys())
-
+def _format_min_growth(min_growth, species):
+    """Format min_growth into a pandas series."""
     try:
         min_growth = float(min_growth)
     except (TypeError, ValueError):
@@ -41,7 +38,14 @@ def add_linear_optcom(community, min_growth=0.1):
             raise ValueError(
                 "min_growth must be single value or an array-like "
                 "object with an entry for each species in the model.")
-    min_growth = pd.Series(min_growth, species)
+    return pd.Series(min_growth, species)
+
+
+def add_linear_optcom(community, min_growth=0.1):
+    """Add a linear version of optcom."""
+    check_modification(community)
+    species = list(community.objectives.keys())
+    min_growth = _format_min_growth(min_growth, species)
 
     prob = community.solver.interface
     to_add = []
@@ -81,15 +85,7 @@ def add_dualized_optcom(community, min_growth):
     """Add dual Optcom variables and constraints to a community."""
     check_modification(community)
     species = list(community.objectives.keys())
-
-    try:
-        min_growth = float(min_growth)
-    except (TypeError, ValueError):
-        if len(min_growth) != len(species):
-            raise ValueError(
-                "min_growth must be single value or an array-like "
-                "object with an entry for each species in the model.")
-    min_growth = pd.Series(min_growth, species)
+    min_growth = _format_min_growth(min_growth, species)
 
     prob = community.solver.interface
 
@@ -128,15 +124,7 @@ def add_moma_optcom(community, min_growth, linear=False):
     """Add a dualized MOMA version of OptCom."""
     check_modification(community)
     species = list(community.objectives.keys())
-
-    try:
-        min_growth = float(min_growth)
-    except (TypeError, ValueError):
-        if len(min_growth) != len(species):
-            raise ValueError(
-                "min_growth must be single value or an array-like "
-                "object with an entry for each species in the model.")
-    min_growth = pd.Series(min_growth, species)
+    min_growth = _format_min_growth(min_growth, species)
 
     prob = community.solver.interface
     old_obj = community.objective

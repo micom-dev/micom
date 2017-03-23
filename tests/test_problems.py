@@ -3,7 +3,8 @@ import micom.problems as probs
 import numpy as np
 import pytest
 
-strategies = list(probs._methods.keys())
+# Only test linear ones
+strategies = ['original', 'lmoma', 'linear', 'linear lagrangian']
 
 
 class TestLinearOptcom():

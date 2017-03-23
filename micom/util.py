@@ -70,3 +70,12 @@ def fluxes_from_primals(model, info):
     fluxes = pd.Series(fluxes, rids, name=info.id)
 
     return fluxes
+
+
+def add_var_from_expression(model, name, expr, lb=None, ub=None):
+    """Adds a variable to a model equaling an expression."""
+    var = model.problem.Variable(name, lb=lb, ub=ub)
+    const = model.problem.Constraint(var - expr, lb=0, ub=0,
+                                     name=name + "_equality")
+    model.add_cons_vars([var, const])
+    return var

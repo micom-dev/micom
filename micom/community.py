@@ -5,9 +5,9 @@ import six
 import cobra
 import pandas as pd
 from sympy.core.singleton import S
-from micom.util import load_model, fluxes_from_primals
+from micom.util import load_model, fluxes_from_primals, add_var_from_expression
 from micom.logger import logger
-from micom.problems import linear_optcom
+from micom.problems import optcom
 
 
 _taxonomy_cols = ["id", "file"]
@@ -34,6 +34,7 @@ class Community(cobra.Model):
                              "least columns id and file :(")
 
         self._rtol = rel_threshold
+        self._modification = None
 
         if "abundance" not in taxonomy.columns:
             taxonomy["abundance"] = 1
@@ -68,7 +69,9 @@ class Community(cobra.Model):
             self.objectives[idx] = o.expression
             self.__add_exchanges(model.reactions, row)
 
-        self.objective = self.solver.interface.Objective(obj, direction="max")
+        com_obj = add_var_from_expression(self, "community_objective",
+                                          obj, lb=0)
+        self.objective = self.problem.Objective(com_obj, direction="max")
 
     def __add_exchanges(self, reactions, info):
         """Add exchange reactions for a new model."""
@@ -107,6 +110,31 @@ class Community(cobra.Model):
             r.add_metabolites({medium_met: coef if export else -coef})
         self.add_reactions(to_add)
 
+    def __update_exchanges(self):
+        """Update exchanges."""
+        for met in self.metabolites.query(lambda x: x.compartment == "m"):
+            for r in met.reactions:
+                if r.boundary:
+                    continue
+                coef = self.__taxonomy.loc[r.community_id, "abundance"]
+                if met in r.products:
+                    r.add_metabolites({met: coef}, combine=False)
+                else:
+                    r.add_metabolites({met: -coef}, combine=False)
+
+    def __update_community_objective(self):
+        "Update the community objective."
+        v = self.variables.community_objective
+        const = self.constraints.community_objective_equality
+        self.remove_cons_vars([const])
+        com_obj = S.Zero
+        for sp, expr in self.objectives.items():
+            ab = self.__taxonomy.loc[sp, "abundance"]
+            com_obj += ab * expr
+        const = self.problem.Constraint(v - com_obj, lb=0, ub=0,
+                                        name="community_objective_equality")
+        self.add_cons_vars([const])
+
     def optimize_single(self, id, fluxes=False):
         """Optimize growth rate for a single model in the community."""
         if isinstance(id, six.string_types):
@@ -143,12 +171,10 @@ class Community(cobra.Model):
 
     @property
     def abundances(self):
-        """The relative abundances of species/tissues in the community."""
         return self.__taxonomy.abundance
 
     @abundances.setter
     def abundances(self, value):
-        """Set new abundance levels."""
         try:
             self.__taxonomy.abundance = value
         except Exception:
@@ -159,13 +185,23 @@ class Community(cobra.Model):
         self.__taxonomy.abundance /= ab.sum()
         small = ab < self._rtol
         self.__taxonomy.loc[small, "abundance"] = self._rtol
+        self.__update_exchanges()
+        self.__update_community_objective()
 
     @property
     def taxonomy(self):
-        """Get a copy of the model taxonomy."""
         return self.__taxonomy.copy()
 
-    def optcom(self, method="linear", fractions=0.0, fluxes=False, pfba=True):
+    @property
+    def modification(self):
+        return self._modification
+
+    @modification.setter
+    @cobra.util.context.resettable
+    def modification(self, mod):
+        self._modification = mod
+
+    def optcom(self, strategy="lagrangian", min_growth=0.1, tradeoff=0.5,
+               fluxes=False, pfba=True):
         """Run optcom for the community."""
-        if method == "linear":
-            return linear_optcom(self, fractions, fluxes, pfba)
+        return optcom(self, strategy, min_growth, tradeoff, fluxes, pfba)

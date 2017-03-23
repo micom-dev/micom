@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>micom package &mdash; micom 0.1.3+2.g276682b.dirty documentation</title>
+  <title>micom package &mdash; micom 0.1.3+9.gf231ba4.dirty documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="micom 0.1.3+2.g276682b.dirty documentation" href="index.html"/>
+    <link rel="top" title="micom 0.1.3+9.gf231ba4.dirty documentation" href="index.html"/>
         <link rel="next" title="micom.data package" href="micom.data.html"/>
         <link rel="prev" title="Building communities" href="community.html"/> 
 
@@ -104,6 +104,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.algorithms">micom.algorithms module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.community">micom.community module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-micom.duality">micom.duality module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.logger">micom.logger module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.problems">micom.problems module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.util">micom.util module</a></li>
@@ -256,39 +257,206 @@
 <p>A class representing a microbial or tissue community.</p>
 <dl class="class">
 <dt id="micom.community.Community">
-<em class="property">class </em><code class="descclassname">micom.community.</code><code class="descname">Community</code><span class="sig-paren">(</span><em>taxonomy</em>, <em>id=None</em>, <em>name=None</em>, <em>idmap=None</em>, <em>rel_threshold=1e-06</em>, <em>solver=None</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">micom.community.</code><code class="descname">Community</code><span class="sig-paren">(</span><em>taxonomy</em>, <em>id=None</em>, <em>name=None</em>, <em>rel_threshold=1e-06</em>, <em>solver=None</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cobra.core.model.Model</span></code></p>
 <p>A community of models.</p>
+<p>This class represents a community of individual models. It was designed for
+microbial communities but may also be used for multi-tissue or tissue-cell
+mixture models as long as all individuals exist within a single enclosing
+compartment.</p>
 <dl class="attribute">
 <dt id="micom.community.Community.abundances">
 <code class="descname">abundances</code><a class="headerlink" href="#micom.community.Community.abundances" title="Permalink to this definition">¶</a></dt>
-<dd><p>The relative abundances of species/tissues in the community.</p>
+<dd><p><em>pandas.Series</em> &#8211; The normalized abundance for each individual in the
+community.</p>
+<p>Setting this attribute will also trigger the appropriate updates in
+the exchange fluxes and the community objective.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.community.Community.modification">
+<code class="descname">modification</code><a class="headerlink" href="#micom.community.Community.modification" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; Denotes modifications to the model currently applied by
+<cite>micom</cite>. Will be None if the community is unmodified.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="micom.community.Community.optcom">
-<code class="descname">optcom</code><span class="sig-paren">(</span><em>method='linear'</em>, <em>fractions=0.0</em>, <em>fluxes=False</em>, <em>pfba=True</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optcom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run optcom for the community.</p>
+<code class="descname">optcom</code><span class="sig-paren">(</span><em>strategy='lagrangian'</em>, <em>min_growth=0.1</em>, <em>tradeoff=0.5</em>, <em>fluxes=False</em>, <em>pfba=True</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optcom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run OptCom for the community.</p>
+<p>OptCom methods are a group of optimization procedures to find community
+solutions that provide a tradeoff between the cooperative community
+growth and the egoistic growth of each individual <a href="#id10"><span class="problematic" id="id11"><span id="id1"></span>[1]_</span></a>. <cite>micom</cite>
+provides several strategies that can be used to find optimal solutions:</p>
+<ul class="simple">
+<li>&#8220;linear&#8221;: Applies a lower bound for the individual growth rates and
+finds the optimal community growth rate. This is the fastest methods
+but also ignores that individuals might strive to optimize their
+individual growth instead of community growth.</li>
+<li>&#8220;lagrangian&#8221;: Optimizes a joint objective containing the community
+objective (maximized) as well as a cooperativity cost which
+represents the  distance to the individuals &#8220;egoistic&#8221; maximum growth
+rate (minimized). Requires the <cite>tradeoff</cite> parameter. This method is
+still relatively fast and does require only few additional variables.</li>
+<li>&#8220;linear lagrangian&#8221;: The same as &#8220;lagrangian&#8221; only with a linear
+representation of the cooperativity cost (absolute value).</li>
+<li>&#8220;moma&#8221;: Minimization of metabolic adjustment. Simultaneously
+optimizes the community objective (maximize) and the cooperativity
+cost (minimize). This method finds an exact maximum but doubles the
+number of required variables, thus being slow.</li>
+<li>&#8220;lmoma&#8221;: The same as &#8220;moma&#8221; only with a linear
+representation of the cooperativity cost (absolute value).</li>
+<li>&#8220;original&#8221;: Solves the multi-objective problem described in <a href="#id12"><span class="problematic" id="id13"><span id="id2"></span>[1]_</span></a>.
+Here, the community growth rate is maximized simultanously with all
+individual growth rates. Note that there are usually many
+Pareto-optimal solutions to this problem and the method will only
+give one solution. This is also the slowest method.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>strategy</strong> (<em>str</em><em>, </em><em>optional</em>) &#8211; The strategy used to solve the OptCom formulation. Defaults to
+&#8220;lagrangian&#8221; which gives a decent tradeoff between speed and
+correctness.</li>
+<li><strong>min_growth</strong> (<em>float</em><em> or </em><em>array-like</em><em>, </em><em>optional</em>) &#8211; The minimal growth rate required for each individual. May be a
+single value or an array-like object with the same length as there
+are individuals.</li>
+<li><strong>tradeoff</strong> (<em>float in</em><em> [</em><em>0</em><em>, </em><em>1</em><em>]</em><em></em><em>, </em><em>optional</em>) &#8211; Only used for lagrangian strategies. Must be between 0 and 1 and
+describes the strength of the cooperativity cost / egoism. 1 means
+optimization will only minimize the cooperativity cost and zero
+means optimization will only maximize the community objective.</li>
+<li><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) &#8211; Whether to return the fluxes as well.</li>
+<li><strong>pfba</strong> (<em>boolean</em><em>, </em><em>optional</em>) &#8211; Whether to obtain fluxes by parsimonious FBA rather than
+&#8220;classical&#8221; FBA.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">For fluxes=False a tuple of (community_gc, gcs) containing the
+overall community growth rates and a pandas series containing the
+individual growth rates. For fluxes=True a tuple
+(community_gc, fluxes) containing the overall community growth
+rates and a pandas data frame containing the fluxes.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>OptCom: a multi-level optimization framework for the metabolic
+modeling and analysis of microbial communities.
+Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.
+doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</td></tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="micom.community.Community.optimize_all">
 <code class="descname">optimize_all</code><span class="sig-paren">(</span><em>fluxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optimize_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return solutions for individually optimizing each model.</p>
+<p class="rubric">Notes</p>
+<p>This might well mean that growth rates for all other individuals are
+low since the individual may use up all available resources. As a
+consequence the reported growth rates may usually never be obtained
+all at once.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) &#8211; Whether to return all fluxes. Defaults to just returning the
+maximal growth rate.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Either the maximal growth rate (fluxes=False) or all fluxes.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float or pandas.DataFrame</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="micom.community.Community.optimize_single">
 <code class="descname">optimize_single</code><span class="sig-paren">(</span><em>id</em>, <em>fluxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optimize_single" title="Permalink to this definition">¶</a></dt>
-<dd><p>Optimize growth rate for a single model in the community.</p>
+<dd><p>Optimize growth rate for one individual.</p>
+<p><cite>optimize_single</cite> will calculate the maximal growth rate for one
+individual in the community.</p>
+<p class="rubric">Notes</p>
+<p>This might well mean that growth rates for all other individuals are
+low since the individual may use up all available resources.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> (<em>str</em>) &#8211; The ID of the individual to be optimized.</li>
+<li><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) &#8211; Whether to return all fluxes. Defaults to just returning the
+maximal growth rate.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Either the maximal growth rate (fluxes=False) or all fluxes.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float or pandas.DataFrame</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="micom.community.Community.taxonomy">
 <code class="descname">taxonomy</code><a class="headerlink" href="#micom.community.Community.taxonomy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a copy of the model taxonomy.</p>
+<dd><p><em>pandas.DataFrame</em> &#8211; The taxonomy used within the model.</p>
+<p>This attribute only returns a copy.</p>
 </dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="section" id="module-micom.duality">
+<span id="micom-duality-module"></span><h2>micom.duality module<a class="headerlink" href="#module-micom.duality" title="Permalink to this headline">¶</a></h2>
+<p>Implements a fast dual formulation.</p>
+<dl class="function">
+<dt id="micom.duality.fast_dual">
+<code class="descclassname">micom.duality.</code><code class="descname">fast_dual</code><span class="sig-paren">(</span><em>model</em>, <em>prefix='dual_'</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.duality.fast_dual" title="Permalink to this definition">¶</a></dt>
+<dd><p>A faster dual formulation.</p>
+<p>A mathematical optimization problem can be viewed as a primal and a dual
+problem. If the primal problem is a minimization problem the dual is a
+maximization problem, and the optimal value of the dual is a lower bound of
+the optimal value of the primal. For linear problems, strong duality holds,
+which means that the optimal values of the primal and dual are equal
+(duality gap = 0). This functions takes an optlang Model representing a
+primal linear problem
+and returns a new Model representing the dual optimization problem. The
+provided model must have a linear objective, linear constraints and only
+continuous variables. Furthermore, the problem must be in standard form,
+i.e. all variables should be non-negative. Both minimization and
+maximization problems are allowed.</p>
+<dl class="docutils">
+<dt>model <span class="classifier-delimiter">:</span> <span class="classifier">cobra.Model</span></dt>
+<dd>The model to be dualized.</dd>
+<dt>prefix <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
+<dd>The string that will be prepended to all variable and constraint names
+in the returned dual problem.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The coefficients for the new dual objective.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -300,21 +468,129 @@
 <span id="micom-problems-module"></span><h2>micom.problems module<a class="headerlink" href="#module-micom.problems" title="Permalink to this headline">¶</a></h2>
 <p>Implements optimization and model problems.</p>
 <dl class="function">
+<dt id="micom.problems.add_dualized_optcom">
+<code class="descclassname">micom.problems.</code><code class="descname">add_dualized_optcom</code><span class="sig-paren">(</span><em>community</em>, <em>min_growth</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.add_dualized_optcom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add dual Optcom variables and constraints to a community.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.problems.add_lagrangian">
+<code class="descclassname">micom.problems.</code><code class="descname">add_lagrangian</code><span class="sig-paren">(</span><em>community</em>, <em>tradeoff</em>, <em>linear=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.add_lagrangian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a Lagrangian optimization target to a linear OptCom model.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.problems.add_linear_optcom">
+<code class="descclassname">micom.problems.</code><code class="descname">add_linear_optcom</code><span class="sig-paren">(</span><em>community</em>, <em>min_growth=0.1</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.add_linear_optcom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a linear version of optcom.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.problems.add_moma_optcom">
+<code class="descclassname">micom.problems.</code><code class="descname">add_moma_optcom</code><span class="sig-paren">(</span><em>community</em>, <em>min_growth</em>, <em>linear=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.add_moma_optcom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a dualized MOMA version of OptCom.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="micom.problems.all_fluxes">
 <code class="descclassname">micom.problems.</code><code class="descname">all_fluxes</code><span class="sig-paren">(</span><em>community</em>, <em>pfba=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.all_fluxes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all fluxes stratified by species.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="micom.problems.linear_optcom">
-<code class="descclassname">micom.problems.</code><code class="descname">linear_optcom</code><span class="sig-paren">(</span><em>community</em>, <em>fractions=0.0</em>, <em>fluxes=False</em>, <em>pfba=True</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.linear_optcom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a community solution from a linear version of optcom.</p>
+<dt id="micom.problems.check_modification">
+<code class="descclassname">micom.problems.</code><code class="descname">check_modification</code><span class="sig-paren">(</span><em>community</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.check_modification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether a community already carries a modification.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.problems.optcom">
+<code class="descclassname">micom.problems.</code><code class="descname">optcom</code><span class="sig-paren">(</span><em>community</em>, <em>strategy</em>, <em>min_growth</em>, <em>tradeoff</em>, <em>fluxes</em>, <em>pfba</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.optcom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run OptCom for the community.</p>
+<p>OptCom methods are a group of optimization procedures to find community
+solutions that provide a tradeoff between the cooperative community
+growth and the egoistic growth of each individual <a href="#id14"><span class="problematic" id="id15"><span id="id4"></span>[1]_</span></a>. <cite>micom</cite>
+provides several strategies that can be used to find optimal solutions:</p>
+<ul class="simple">
+<li>&#8220;linear&#8221;: Applies a lower bound for the individual growth rates and
+finds the optimal community growth rate. This is the fastest methods
+but also ignores that individuals might strive to optimize their
+individual growth instead of community growth.</li>
+<li>&#8220;lagrangian&#8221;: Optimizes a joint objective containing the community
+objective (maximized) as well as a cooperativity cost which
+represents the  distance to the individuals &#8220;egoistic&#8221; maximum growth
+rate (minimized). Requires the <cite>tradeoff</cite> parameter. This method is
+still relatively fast and does require only few additional variables.</li>
+<li>&#8220;linear lagrangian&#8221;: The same as &#8220;lagrangian&#8221; only with a linear
+representation of the cooperativity cost (absolute value).</li>
+<li>&#8220;moma&#8221;: Minimization of metabolic adjustment. Simultaneously
+optimizes the community objective (maximize) and the cooperativity
+cost (minimize). This method finds an exact maximum but doubles the
+number of required variables, thus being slow.</li>
+<li>&#8220;lmoma&#8221;: The same as &#8220;moma&#8221; only with a linear
+representation of the cooperativity cost (absolute value).</li>
+<li>&#8220;original&#8221;: Solves the multi-objective problem described in <a href="#id16"><span class="problematic" id="id17"><span id="id5"></span>[1]_</span></a>.
+Here, the community growth rate is maximized simultanously with all
+individual growth rates. Note that there are usually many
+Pareto-optimal solutions to this problem and the method will only
+give one solution. This is also the slowest method.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) &#8211; The community to optimize.</li>
+<li><strong>strategy</strong> (<em>str</em>) &#8211; The strategy used to solve the OptCom formulation. Defaults to
+&#8220;lagrangian&#8221; which gives a decent tradeoff between speed and
+correctness.</li>
+<li><strong>min_growth</strong> (<em>float</em><em> or </em><em>array-like</em>) &#8211; The minimal growth rate required for each individual. May be a
+single value or an array-like object with the same length as there
+are individuals.</li>
+<li><strong>tradeoff</strong> (<em>float in</em><em> [</em><em>0</em><em>, </em><em>1</em><em>]</em><em></em>) &#8211; Only used for lagrangian strategies. Must be between 0 and 1 and
+describes the strength of the cooperativity cost / egoism. 1 means
+optimization will only minimize the cooperativity cost and zero
+means optimization will only maximize the community objective.</li>
+<li><strong>fluxes</strong> (<em>boolean</em>) &#8211; Whether to return the fluxes as well.</li>
+<li><strong>pfba</strong> (<em>boolean</em>) &#8211; Whether to obtain fluxes by parsimonious FBA rather than
+&#8220;classical&#8221; FBA.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">For fluxes=False a tuple of (community_gc, gcs) containing the
+overall community growth rates and a pandas series containing the
+individual growth rates. For fluxes=True a tuple
+(community_gc, fluxes) containing the overall community growth
+rates and a pandas data frame containing the fluxes.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>OptCom: a multi-level optimization framework for the metabolic
+modeling and analysis of microbial communities.
+Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.
+doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</td></tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
 <div class="section" id="module-micom.util">
 <span id="micom-util-module"></span><h2>micom.util module<a class="headerlink" href="#module-micom.util" title="Permalink to this headline">¶</a></h2>
 <p>Holds utility functions for other modules.</p>
+<dl class="function">
+<dt id="micom.util.add_var_from_expression">
+<code class="descclassname">micom.util.</code><code class="descname">add_var_from_expression</code><span class="sig-paren">(</span><em>model</em>, <em>name</em>, <em>expr</em>, <em>lb=None</em>, <em>ub=None</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.util.add_var_from_expression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a variable to a model equaling an expression.</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="micom.util.download_model">
 <code class="descclassname">micom.util.</code><code class="descname">download_model</code><span class="sig-paren">(</span><em>url</em>, <em>folder='.'</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.util.download_model" title="Permalink to this definition">¶</a></dt>
@@ -345,37 +621,165 @@
 <p>Simple init file for mico.</p>
 <dl class="class">
 <dt id="micom.Community">
-<em class="property">class </em><code class="descclassname">micom.</code><code class="descname">Community</code><span class="sig-paren">(</span><em>taxonomy</em>, <em>id=None</em>, <em>name=None</em>, <em>idmap=None</em>, <em>rel_threshold=1e-06</em>, <em>solver=None</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">micom.</code><code class="descname">Community</code><span class="sig-paren">(</span><em>taxonomy</em>, <em>id=None</em>, <em>name=None</em>, <em>rel_threshold=1e-06</em>, <em>solver=None</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cobra.core.model.Model</span></code></p>
 <p>A community of models.</p>
+<p>This class represents a community of individual models. It was designed for
+microbial communities but may also be used for multi-tissue or tissue-cell
+mixture models as long as all individuals exist within a single enclosing
+compartment.</p>
 <dl class="attribute">
 <dt id="micom.Community.abundances">
 <code class="descname">abundances</code><a class="headerlink" href="#micom.Community.abundances" title="Permalink to this definition">¶</a></dt>
-<dd><p>The relative abundances of species/tissues in the community.</p>
+<dd><p><em>pandas.Series</em> &#8211; The normalized abundance for each individual in the
+community.</p>
+<p>Setting this attribute will also trigger the appropriate updates in
+the exchange fluxes and the community objective.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.Community.modification">
+<code class="descname">modification</code><a class="headerlink" href="#micom.Community.modification" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; Denotes modifications to the model currently applied by
+<cite>micom</cite>. Will be None if the community is unmodified.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="micom.Community.optcom">
-<code class="descname">optcom</code><span class="sig-paren">(</span><em>method='linear'</em>, <em>fractions=0.0</em>, <em>fluxes=False</em>, <em>pfba=True</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optcom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run optcom for the community.</p>
+<code class="descname">optcom</code><span class="sig-paren">(</span><em>strategy='lagrangian'</em>, <em>min_growth=0.1</em>, <em>tradeoff=0.5</em>, <em>fluxes=False</em>, <em>pfba=True</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optcom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run OptCom for the community.</p>
+<p>OptCom methods are a group of optimization procedures to find community
+solutions that provide a tradeoff between the cooperative community
+growth and the egoistic growth of each individual <a href="#id18"><span class="problematic" id="id19"><span id="id7"></span>[1]_</span></a>. <cite>micom</cite>
+provides several strategies that can be used to find optimal solutions:</p>
+<ul class="simple">
+<li>&#8220;linear&#8221;: Applies a lower bound for the individual growth rates and
+finds the optimal community growth rate. This is the fastest methods
+but also ignores that individuals might strive to optimize their
+individual growth instead of community growth.</li>
+<li>&#8220;lagrangian&#8221;: Optimizes a joint objective containing the community
+objective (maximized) as well as a cooperativity cost which
+represents the  distance to the individuals &#8220;egoistic&#8221; maximum growth
+rate (minimized). Requires the <cite>tradeoff</cite> parameter. This method is
+still relatively fast and does require only few additional variables.</li>
+<li>&#8220;linear lagrangian&#8221;: The same as &#8220;lagrangian&#8221; only with a linear
+representation of the cooperativity cost (absolute value).</li>
+<li>&#8220;moma&#8221;: Minimization of metabolic adjustment. Simultaneously
+optimizes the community objective (maximize) and the cooperativity
+cost (minimize). This method finds an exact maximum but doubles the
+number of required variables, thus being slow.</li>
+<li>&#8220;lmoma&#8221;: The same as &#8220;moma&#8221; only with a linear
+representation of the cooperativity cost (absolute value).</li>
+<li>&#8220;original&#8221;: Solves the multi-objective problem described in <a href="#id20"><span class="problematic" id="id21"><span id="id8"></span>[1]_</span></a>.
+Here, the community growth rate is maximized simultanously with all
+individual growth rates. Note that there are usually many
+Pareto-optimal solutions to this problem and the method will only
+give one solution. This is also the slowest method.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>strategy</strong> (<em>str</em><em>, </em><em>optional</em>) &#8211; The strategy used to solve the OptCom formulation. Defaults to
+&#8220;lagrangian&#8221; which gives a decent tradeoff between speed and
+correctness.</li>
+<li><strong>min_growth</strong> (<em>float</em><em> or </em><em>array-like</em><em>, </em><em>optional</em>) &#8211; The minimal growth rate required for each individual. May be a
+single value or an array-like object with the same length as there
+are individuals.</li>
+<li><strong>tradeoff</strong> (<em>float in</em><em> [</em><em>0</em><em>, </em><em>1</em><em>]</em><em></em><em>, </em><em>optional</em>) &#8211; Only used for lagrangian strategies. Must be between 0 and 1 and
+describes the strength of the cooperativity cost / egoism. 1 means
+optimization will only minimize the cooperativity cost and zero
+means optimization will only maximize the community objective.</li>
+<li><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) &#8211; Whether to return the fluxes as well.</li>
+<li><strong>pfba</strong> (<em>boolean</em><em>, </em><em>optional</em>) &#8211; Whether to obtain fluxes by parsimonious FBA rather than
+&#8220;classical&#8221; FBA.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">For fluxes=False a tuple of (community_gc, gcs) containing the
+overall community growth rates and a pandas series containing the
+individual growth rates. For fluxes=True a tuple
+(community_gc, fluxes) containing the overall community growth
+rates and a pandas data frame containing the fluxes.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td>OptCom: a multi-level optimization framework for the metabolic
+modeling and analysis of microbial communities.
+Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.
+doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</td></tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="micom.Community.optimize_all">
 <code class="descname">optimize_all</code><span class="sig-paren">(</span><em>fluxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return solutions for individually optimizing each model.</p>
+<p class="rubric">Notes</p>
+<p>This might well mean that growth rates for all other individuals are
+low since the individual may use up all available resources. As a
+consequence the reported growth rates may usually never be obtained
+all at once.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) &#8211; Whether to return all fluxes. Defaults to just returning the
+maximal growth rate.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Either the maximal growth rate (fluxes=False) or all fluxes.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float or pandas.DataFrame</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="micom.Community.optimize_single">
 <code class="descname">optimize_single</code><span class="sig-paren">(</span><em>id</em>, <em>fluxes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize_single" title="Permalink to this definition">¶</a></dt>
-<dd><p>Optimize growth rate for a single model in the community.</p>
+<dd><p>Optimize growth rate for one individual.</p>
+<p><cite>optimize_single</cite> will calculate the maximal growth rate for one
+individual in the community.</p>
+<p class="rubric">Notes</p>
+<p>This might well mean that growth rates for all other individuals are
+low since the individual may use up all available resources.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>id</strong> (<em>str</em>) &#8211; The ID of the individual to be optimized.</li>
+<li><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) &#8211; Whether to return all fluxes. Defaults to just returning the
+maximal growth rate.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Either the maximal growth rate (fluxes=False) or all fluxes.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float or pandas.DataFrame</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="micom.Community.taxonomy">
 <code class="descname">taxonomy</code><a class="headerlink" href="#micom.Community.taxonomy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a copy of the model taxonomy.</p>
+<dd><p><em>pandas.DataFrame</em> &#8211; The taxonomy used within the model.</p>
+<p>This attribute only returns a copy.</p>
 </dd></dl>
 
 </dd></dl>
@@ -427,7 +831,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1.3+2.g276682b.dirty',
+            VERSION:'0.1.3+9.gf231ba4.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

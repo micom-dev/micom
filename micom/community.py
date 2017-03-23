@@ -14,11 +14,57 @@ _taxonomy_cols = ["id", "file"]
 
 
 class Community(cobra.Model):
-    """A community of models."""
+    """A community of models.
 
-    def __init__(self, taxonomy, id=None, name=None, idmap=None,
-                 rel_threshold=1e-6, solver=None):
-        """Constructor for the class."""
+    This class represents a community of individual models. It was designed for
+    microbial communities but may also be used for multi-tissue or tissue-cell
+    mixture models as long as all individuals exist within a single enclosing
+    compartment.
+    """
+
+    def __init__(self, taxonomy, id=None, name=None, rel_threshold=1e-6,
+                 solver=None):
+        """Constructor for the class.
+
+        `micom` builds a community from a taxonomy which may simply be a list
+        of model files in its simplest form. Usually, the taxonomy will contain
+        additional information such as annotations for the individuals (for
+        instance phylum, organims or species) and abundances.
+
+        Notes
+        -----
+        `micom` will automatically add exchange fluxes and and a community
+        objective maximizing the overall growth rate of the community.
+
+        Parameters
+        ----------
+        taxonomy : pandas.DataFrame
+            The taxonomy used for building the model. Must have at least the
+            two columns "id" and "file" which specify an ID and the filepath
+            for each model. Valid file extensions are ".pickle", ".xml",
+            ".xml.gz" and ".json". If the taxonomy includes a column named
+            "abundance" it will be used to quantify each individual in the
+            community. If absent `micom` will assume all individuals are
+            present in the same amount.
+        id : str, optional
+            The ID for the community.
+        name : str, optional
+            The name for the community.
+        rel_threshold : float < 1, optional
+            The relative abundance threshold that will be used. Describes the
+            smallest relative amount of an individual that will be considered
+            non-zero. All individuals with a smaller relative amount will be
+            omitted.
+        solver : str, optional
+            Which solver to use. Will default to cplex if available which is
+            better suited for large problems.
+
+        Attributes
+        ----------
+        objectives : dict
+            A dict of {id: sympy_expression} denoting the individual growth
+            objectives for each model in the community.
+        """
         super(Community, self).__init__(id, name)
 
         logger.info("building new mico model {}.".format(id))
@@ -136,7 +182,29 @@ class Community(cobra.Model):
         self.add_cons_vars([const])
 
     def optimize_single(self, id, fluxes=False):
-        """Optimize growth rate for a single model in the community."""
+        """Optimize growth rate for one individual.
+
+        `optimize_single` will calculate the maximal growth rate for one
+        individual in the community.
+
+        Notes
+        -----
+        This might well mean that growth rates for all other individuals are
+        low since the individual may use up all available resources.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the individual to be optimized.
+        fluxes : boolean, optional
+            Whether to return all fluxes. Defaults to just returning the
+            maximal growth rate.
+
+        Returns
+        -------
+        float or pandas.DataFrame
+            Either the maximal growth rate (fluxes=False) or all fluxes.
+        """
         if isinstance(id, six.string_types):
             if id not in self.__taxonomy.index:
                 raise ValueError(id + " not in taxonomy!")
@@ -160,7 +228,26 @@ class Community(cobra.Model):
         return res
 
     def optimize_all(self, fluxes=False):
-        """Return solutions for individually optimizing each model."""
+        """Return solutions for individually optimizing each model.
+
+        Notes
+        -----
+        This might well mean that growth rates for all other individuals are
+        low since the individual may use up all available resources. As a
+        consequence the reported growth rates may usually never be obtained
+        all at once.
+
+        Parameters
+        ----------
+        fluxes : boolean, optional
+            Whether to return all fluxes. Defaults to just returning the
+            maximal growth rate.
+
+        Returns
+        -------
+        float or pandas.DataFrame
+            Either the maximal growth rate (fluxes=False) or all fluxes.
+        """
         individual = (self.optimize_single(id, fluxes) for id in
                       self.__taxonomy.index)
 
@@ -171,6 +258,12 @@ class Community(cobra.Model):
 
     @property
     def abundances(self):
+        """pandas.Series: The normalized abundance for each individual in the
+        community.
+
+        Setting this attribute will also trigger the appropriate updates in
+        the exchange fluxes and the community objective.
+        """
         return self.__taxonomy.abundance
 
     @abundances.setter
@@ -190,10 +283,17 @@ class Community(cobra.Model):
 
     @property
     def taxonomy(self):
+        """pandas.DataFrame: The taxonomy used within the model.
+
+        This attribute only returns a copy.
+        """
         return self.__taxonomy.copy()
 
     @property
     def modification(self):
+        """str: Denotes modifications to the model currently applied by
+        `micom`. Will be None if the community is unmodified.
+        """
         return self._modification
 
     @modification.setter
@@ -203,5 +303,71 @@ class Community(cobra.Model):
 
     def optcom(self, strategy="lagrangian", min_growth=0.1, tradeoff=0.5,
                fluxes=False, pfba=True):
-        """Run optcom for the community."""
+        """Run OptCom for the community.
+
+        OptCom methods are a group of optimization procedures to find community
+        solutions that provide a tradeoff between the cooperative community
+        growth and the egoistic growth of each individual [1]_. `micom`
+        provides several strategies that can be used to find optimal solutions:
+
+        - "linear": Applies a lower bound for the individual growth rates and
+          finds the optimal community growth rate. This is the fastest methods
+          but also ignores that individuals might strive to optimize their
+          individual growth instead of community growth.
+        - "lagrangian": Optimizes a joint objective containing the community
+          objective (maximized) as well as a cooperativity cost which
+          represents the  distance to the individuals "egoistic" maximum growth
+          rate (minimized). Requires the `tradeoff` parameter. This method is
+          still relatively fast and does require only few additional variables.
+        - "linear lagrangian": The same as "lagrangian" only with a linear
+          representation of the cooperativity cost (absolute value).
+        - "moma": Minimization of metabolic adjustment. Simultaneously
+          optimizes the community objective (maximize) and the cooperativity
+          cost (minimize). This method finds an exact maximum but doubles the
+          number of required variables, thus being slow.
+        - "lmoma": The same as "moma" only with a linear
+          representation of the cooperativity cost (absolute value).
+        - "original": Solves the multi-objective problem described in [1]_.
+          Here, the community growth rate is maximized simultanously with all
+          individual growth rates. Note that there are usually many
+          Pareto-optimal solutions to this problem and the method will only
+          give one solution. This is also the slowest method.
+
+        Parameters
+        ----------
+        strategy : str, optional
+            The strategy used to solve the OptCom formulation. Defaults to
+            "lagrangian" which gives a decent tradeoff between speed and
+            correctness.
+        min_growth : float or array-like, optional
+            The minimal growth rate required for each individual. May be a
+            single value or an array-like object with the same length as there
+            are individuals.
+        tradeoff : float in [0, 1], optional
+            Only used for lagrangian strategies. Must be between 0 and 1 and
+            describes the strength of the cooperativity cost / egoism. 1 means
+            optimization will only minimize the cooperativity cost and zero
+            means optimization will only maximize the community objective.
+        fluxes : boolean, optional
+            Whether to return the fluxes as well.
+        pfba : boolean, optional
+            Whether to obtain fluxes by parsimonious FBA rather than
+            "classical" FBA.
+
+        Returns
+        -------
+        tuple
+            For fluxes=False a tuple of (community_gc, gcs) containing the
+            overall community growth rates and a pandas series containing the
+            individual growth rates. For fluxes=True a tuple
+            (community_gc, fluxes) containing the overall community growth
+            rates and a pandas data frame containing the fluxes.
+
+        References
+        ----------
+        .. [1] OptCom: a multi-level optimization framework for the metabolic
+           modeling and analysis of microbial communities.
+           Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.
+           doi: 10.1371/journal.pcbi.1002363, PMID: 22319433
+        """
         return optcom(self, strategy, min_growth, tradeoff, fluxes, pfba)

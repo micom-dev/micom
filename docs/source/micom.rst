@@ -27,6 +27,14 @@ micom.community module
     :undoc-members:
     :show-inheritance:
 
+micom.duality module
+--------------------
+
+.. automodule:: micom.duality
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 micom.logger module
 -------------------
 

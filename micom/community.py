@@ -9,8 +9,12 @@ from micom.util import load_model, fluxes_from_primals, add_var_from_expression
 from micom.logger import logger
 from micom.problems import optcom
 
-
 _taxonomy_cols = ["id", "file"]
+
+default_excludes = ["biosynthesis", "transcription", "replication", "sink",
+                    "demand", "DM_"]
+"""A list of sub-strings in reaction IDs that usually indicate that
+the reaction is *not* an exchange reaction."""
 
 
 class Community(cobra.Model):
@@ -119,18 +123,26 @@ class Community(cobra.Model):
                                           obj, lb=0)
         self.objective = self.problem.Objective(com_obj, direction="max")
 
-    def __add_exchanges(self, reactions, info):
+    def __add_exchanges(self, reactions, info, exclude=default_excludes):
         """Add exchange reactions for a new model."""
-        to_add = []
         for r in reactions:
-            if not r.boundary:
+            # Some sanity checks for whether the reaction is an exchange
+            if not r.boundary or any(ex in r.id for ex in exclude):
                 continue
+            if not r.id.startswith("EX"):
+                logger.warning(
+                    "Reaction {} seems to be an exchange ".format(r.id) +
+                    "reaction but its ID does not start with 'EX_'...")
+
             export = len(r.reactants) == 1
             lb, ub = r.bounds if export else (-r.upper_bound, -r.lower_bound)
             met = (r.reactants + r.products)[0]
-            medium_id = re.sub("_{}$".format(met.compartment), "_m", met.id)
+            medium_id = re.sub("_{}$".format(met.compartment), "", met.id)
+            if medium_id in exclude:
+                continue
+            medium_id += "_m"
             if medium_id == met.id:
-                medium_id += "_m"
+                medium_id += "_medium"
             if medium_id not in self.metabolites:
                 # If metabolite does not exist in medium add it to the model
                 # and also add an exchange reaction for the medium
@@ -145,7 +157,7 @@ class Community(cobra.Model):
                 ex_medium.add_metabolites({medium_met: -1})
                 ex_medium.global_id = ex_medium.id
                 ex_medium.community_id = None
-                to_add.append(ex_medium)
+                self.add_reactions([ex_medium])
             else:
                 medium_met = self.metabolites.get_by_id(medium_id)
                 ex_medium = self.reactions.get_by_id("EX_" + medium_met.id)
@@ -154,7 +166,6 @@ class Community(cobra.Model):
 
             coef = info.abundance
             r.add_metabolites({medium_met: coef if export else -coef})
-        self.add_reactions(to_add)
 
     def __update_exchanges(self):
         """Update exchanges."""
@@ -301,13 +312,24 @@ class Community(cobra.Model):
     def modification(self, mod):
         self._modification = mod
 
+    @property
+    def exchanges(self):
+        """list of cobra.Reaction: Returns all exchange reactions in the model.
+
+        Checks the reaction ID for common indicators of reactions that are
+        *not* exchange reactions and excludes those from the list.
+        """
+        return self.reactions.query(
+            lambda x: x.boundary and not
+            any(ex in x.id for ex in default_excludes))
+
     def optcom(self, strategy="lagrangian", min_growth=0.1, tradeoff=0.5,
                fluxes=False, pfba=True):
         """Run OptCom for the community.
 
         OptCom methods are a group of optimization procedures to find community
         solutions that provide a tradeoff between the cooperative community
-        growth and the egoistic growth of each individual [1]_. `micom`
+        growth and the egoistic growth of each individual [1]. `micom`
         provides several strategies that can be used to find optimal solutions:
 
         - "linear": Applies a lower bound for the individual growth rates and
@@ -327,7 +349,7 @@ class Community(cobra.Model):
           number of required variables, thus being slow.
         - "lmoma": The same as "moma" only with a linear
           representation of the cooperativity cost (absolute value).
-        - "original": Solves the multi-objective problem described in [1]_.
+        - "original": Solves the multi-objective problem described in [1].
           Here, the community growth rate is maximized simultanously with all
           individual growth rates. Note that there are usually many
           Pareto-optimal solutions to this problem and the method will only

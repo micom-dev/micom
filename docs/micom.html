@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>micom package &mdash; micom 0.1.3+9.gf231ba4.dirty documentation</title>
+  <title>micom package &mdash; micom 0.1.3+10.g28fba6b.dirty documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="micom 0.1.3+9.gf231ba4.dirty documentation" href="index.html"/>
+    <link rel="top" title="micom 0.1.3+10.g28fba6b.dirty documentation" href="index.html"/>
         <link rel="next" title="micom.data package" href="micom.data.html"/>
         <link rel="prev" title="Building communities" href="community.html"/> 
 
@@ -106,6 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.community">micom.community module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.duality">micom.duality module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.logger">micom.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-micom.media">micom.media module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.problems">micom.problems module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.util">micom.util module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom">Module contents</a></li>
@@ -274,6 +275,14 @@ the exchange fluxes and the community objective.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="micom.community.Community.exchanges">
+<code class="descname">exchanges</code><a class="headerlink" href="#micom.community.Community.exchanges" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of cobra.Reaction</em> &#8211; Returns all exchange reactions in the model.</p>
+<p>Checks the reaction ID for common indicators of reactions that are
+<em>not</em> exchange reactions and excludes those from the list.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="micom.community.Community.modification">
 <code class="descname">modification</code><a class="headerlink" href="#micom.community.Community.modification" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Denotes modifications to the model currently applied by
@@ -286,7 +295,7 @@ the exchange fluxes and the community objective.</p>
 <dd><p>Run OptCom for the community.</p>
 <p>OptCom methods are a group of optimization procedures to find community
 solutions that provide a tradeoff between the cooperative community
-growth and the egoistic growth of each individual <a href="#id10"><span class="problematic" id="id11"><span id="id1"></span>[1]_</span></a>. <cite>micom</cite>
+growth and the egoistic growth of each individual [1]. <cite>micom</cite>
 provides several strategies that can be used to find optimal solutions:</p>
 <ul class="simple">
 <li>&#8220;linear&#8221;: Applies a lower bound for the individual growth rates and
@@ -306,7 +315,7 @@ cost (minimize). This method finds an exact maximum but doubles the
 number of required variables, thus being slow.</li>
 <li>&#8220;lmoma&#8221;: The same as &#8220;moma&#8221; only with a linear
 representation of the cooperativity cost (absolute value).</li>
-<li>&#8220;original&#8221;: Solves the multi-objective problem described in <a href="#id12"><span class="problematic" id="id13"><span id="id2"></span>[1]_</span></a>.
+<li>&#8220;original&#8221;: Solves the multi-objective problem described in [1].
 Here, the community growth rate is maximized simultanously with all
 individual growth rates. Note that there are usually many
 Pareto-optimal solutions to this problem and the method will only
@@ -346,7 +355,7 @@ rates and a pandas data frame containing the fluxes.</p>
 </tbody>
 </table>
 <p class="rubric">References</p>
-<table class="docutils footnote" frame="void" id="id3" rules="none">
+<table class="docutils footnote" frame="void" id="id1" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[1]</td><td>OptCom: a multi-level optimization framework for the metabolic
@@ -420,6 +429,13 @@ maximal growth rate.</li>
 
 </dd></dl>
 
+<dl class="data">
+<dt id="micom.community.default_excludes">
+<code class="descclassname">micom.community.</code><code class="descname">default_excludes</code><em class="property"> = ['biosynthesis', 'transcription', 'replication', 'sink', 'demand', 'DM_']</em><a class="headerlink" href="#micom.community.default_excludes" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of sub-strings in reaction IDs that usually indicate that
+the reaction is <em>not</em> an exchange reaction.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-micom.duality">
 <span id="micom-duality-module"></span><h2>micom.duality module<a class="headerlink" href="#module-micom.duality" title="Permalink to this headline">¶</a></h2>
@@ -440,13 +456,19 @@ provided model must have a linear objective, linear constraints and only
 continuous variables. Furthermore, the problem must be in standard form,
 i.e. all variables should be non-negative. Both minimization and
 maximization problems are allowed.</p>
-<dl class="docutils">
-<dt>model <span class="classifier-delimiter">:</span> <span class="classifier">cobra.Model</span></dt>
-<dd>The model to be dualized.</dd>
-<dt>prefix <span class="classifier-delimiter">:</span> <span class="classifier">str</span></dt>
-<dd>The string that will be prepended to all variable and constraint names
-in the returned dual problem.</dd>
-</dl>
+<dl class="attribute">
+<dt id="micom.duality.model">
+<code class="descclassname">micom.duality.</code><code class="descname">model</code><a class="headerlink" href="#micom.duality.model" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>cobra.Model</em> &#8211; The model to be dualized.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.duality.prefix">
+<code class="descclassname">micom.duality.</code><code class="descname">prefix</code><a class="headerlink" href="#micom.duality.prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The string that will be prepended to all variable and constraint names
+in the returned dual problem.</p>
+</dd></dl>
+
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -464,6 +486,84 @@ in the returned dual problem.</dd>
 <span id="micom-logger-module"></span><h2>micom.logger module<a class="headerlink" href="#module-micom.logger" title="Permalink to this headline">¶</a></h2>
 <p>configures the logger for mico.</p>
 </div>
+<div class="section" id="module-micom.media">
+<span id="micom-media-module"></span><h2>micom.media module<a class="headerlink" href="#module-micom.media" title="Permalink to this headline">¶</a></h2>
+<p>Manages functions for growth media analysis and manipulation.</p>
+<dl class="function">
+<dt id="micom.media.add_linear_obj">
+<code class="descclassname">micom.media.</code><code class="descname">add_linear_obj</code><span class="sig-paren">(</span><em>community</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.add_linear_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a linear version of a minimal medium to the community.</p>
+<p>Changes the optimization objective to finding the growth medium requiring
+the smallest total import flux:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">minimize</span> <span class="nb">sum</span> <span class="o">|</span><span class="n">r_i</span><span class="o">|</span> <span class="k">for</span> <span class="n">r_i</span> <span class="ow">in</span> <span class="n">import_reactions</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) &#8211; The community to modify.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.media.add_mip_obj">
+<code class="descclassname">micom.media.</code><code class="descname">add_mip_obj</code><span class="sig-paren">(</span><em>community</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.add_mip_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a mixed-integer version of a minimal medium to the community.</p>
+<p>Changes the optimization objective to finding the medium with the least
+components:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">minimize</span> <span class="c1">#(R) where R = import_reactions</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) &#8211; The community to modify.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.media.minimal_medium">
+<code class="descclassname">micom.media.</code><code class="descname">minimal_medium</code><span class="sig-paren">(</span><em>community</em>, <em>community_growth</em>, <em>min_growth=0.1</em>, <em>minimize_components=False</em>, <em>open_exchanges=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.minimal_medium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the minimal growth medium for the community.</p>
+<p>Finds the minimal growth medium for the community which allows for
+community as well as individual growth. Here, a minimal medium can either
+be the medium requiring the smallest total import flux or the medium
+requiring the least components (ergo ingredients).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) &#8211; The community to modify.</li>
+<li><strong>community_growth</strong> (<em>positive float</em>) &#8211; The minimum community-wide growth rate.</li>
+<li><strong>min_growth</strong> (<em>positive float</em><em> or </em><em>array-like object.</em>) &#8211; The minimum growth rate for each individual in the community. Either
+a single value applied to all individuals or one value for each.</li>
+<li><strong>minimize_components</strong> (<em>boolean</em>) &#8211; Whether to minimize the number of components instead of the total
+import flux. Might be more intuitive if set to True but may also be
+slow to calculate for large communities.</li>
+<li><strong>open_exchanges</strong> (<em>boolean</em>) &#8211; Whether to ignore currently set bounds and make all exchange reactions
+in the model possible.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A series {rid: flux} giving the import flux for each required import
+reaction.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pandas.Series</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 <div class="section" id="module-micom.problems">
 <span id="micom-problems-module"></span><h2>micom.problems module<a class="headerlink" href="#module-micom.problems" title="Permalink to this headline">¶</a></h2>
 <p>Implements optimization and model problems.</p>
@@ -471,24 +571,113 @@ in the returned dual problem.</dd>
 <dt id="micom.problems.add_dualized_optcom">
 <code class="descclassname">micom.problems.</code><code class="descname">add_dualized_optcom</code><span class="sig-paren">(</span><em>community</em>, <em>min_growth</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.add_dualized_optcom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add dual Optcom variables and constraints to a community.</p>
+<p>Uses the original formulation of OptCom and solves the following
+multi-objective problem:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">maximize</span> <span class="n">community_growth</span>
+<span class="n">s</span><span class="o">.</span><span class="n">t</span><span class="o">.</span> <span class="n">maximize</span> <span class="n">growth_rate_i</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">i</span>
+     <span class="n">s</span><span class="o">.</span><span class="n">t</span><span class="o">.</span> <span class="n">Sv_i</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">lb_i</span> <span class="o">&gt;=</span> <span class="n">v_i</span> <span class="o">&gt;=</span> <span class="n">ub_i</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>This method will only find one arbitrary solution from the Pareto front.
+There may exist several other optimal solutions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) &#8211; The community to modify.</li>
+<li><strong>min_growth</strong> (<em>positive float</em><em> or </em><em>array-like object.</em>) &#8211; The minimum growth rate for each individual in the community. Either
+a single value applied to all individuals or one value for each.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="micom.problems.add_lagrangian">
 <code class="descclassname">micom.problems.</code><code class="descname">add_lagrangian</code><span class="sig-paren">(</span><em>community</em>, <em>tradeoff</em>, <em>linear=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.add_lagrangian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a Lagrangian optimization target to a linear OptCom model.</p>
+<p>Lagrangian forms in <cite>micom</cite> are usually objectives of the form
+(1 - tradeoff) * community_objective + tradeoff * cooperativity_cost.
+Here, cooperativity cost specifies the &#8220;sacrifice&#8221; in growth rate an
+individual has to make in order to maximize community growth. It is
+calculated as the sum of squared differences between the individuals
+current and maximal growth rate. In the linear case squares are substituted
+by absolute values (Manhattan distance).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) &#8211; The community to modify.</li>
+<li><strong>tradeoff</strong> (<em>float in</em><em> [</em><em>0</em><em>,</em><em>1</em><em>]</em><em></em>) &#8211; The tradeoff between community growth and the individual &#8220;egoistic&#8221;
+growth target. 0 means optimize only community growth and 1 means
+optimize only the individuals own growth target.</li>
+<li><strong>linear</strong> (<em>boolean</em>) &#8211; Whether to use a non-linear (sum of squares) or linear version of the
+cooperativity cost. If set to False requires a QP-capable solver.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="micom.problems.add_linear_optcom">
 <code class="descclassname">micom.problems.</code><code class="descname">add_linear_optcom</code><span class="sig-paren">(</span><em>community</em>, <em>min_growth=0.1</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.add_linear_optcom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a linear version of optcom.</p>
+<p>Adds constraints to the community such that each individual grows with
+at least its minimal growth rate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) &#8211; The community to modify.</li>
+<li><strong>min_growth</strong> (<em>positive float</em><em> or </em><em>array-like object.</em>) &#8211; The minimum growth rate for each individual in the community. Either
+a single value applied to all individuals or one value for each.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="micom.problems.add_moma_optcom">
 <code class="descclassname">micom.problems.</code><code class="descname">add_moma_optcom</code><span class="sig-paren">(</span><em>community</em>, <em>min_growth</em>, <em>linear=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.add_moma_optcom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a dualized MOMA version of OptCom.</p>
+<p>Solves a MOMA (minimization of metabolic adjustment) formulation of OptCom
+given by:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">minimize</span> <span class="n">cooperativity_cost</span>
+<span class="n">s</span><span class="o">.</span><span class="n">t</span><span class="o">.</span> <span class="n">maximize</span> <span class="n">community_objective</span>
+     <span class="n">s</span><span class="o">.</span><span class="n">t</span><span class="o">.</span> <span class="n">Sv</span> <span class="o">=</span> <span class="mi">0</span>
+          <span class="n">lb</span> <span class="o">&gt;=</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="n">ub</span>
+<span class="n">where</span> <span class="n">community_cost</span> <span class="o">=</span> <span class="nb">sum</span> <span class="p">(</span><span class="n">growth_rate</span> <span class="o">-</span> <span class="n">max_growth</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+      <span class="k">if</span> <span class="n">linear</span><span class="o">=</span><span class="kc">False</span> <span class="ow">or</span>
+      <span class="n">community_cost</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">|</span><span class="n">growth_rate</span> <span class="o">-</span> <span class="n">max_growth</span><span class="o">|</span>
+      <span class="k">if</span> <span class="n">linear</span><span class="o">=</span><span class="kc">True</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) &#8211; The community to modify.</li>
+<li><strong>min_growth</strong> (<em>positive float</em><em> or </em><em>array-like object.</em>) &#8211; The minimum growth rate for each individual in the community. Either
+a single value applied to all individuals or one value for each.</li>
+<li><strong>linear</strong> (<em>boolean</em>) &#8211; Whether to use a non-linear (sum of squares) or linear version of the
+cooperativity cost. If set to False requires a QP-capable solver.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -501,6 +690,17 @@ in the returned dual problem.</dd>
 <dt id="micom.problems.check_modification">
 <code class="descclassname">micom.problems.</code><code class="descname">check_modification</code><span class="sig-paren">(</span><em>community</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.check_modification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check whether a community already carries a modification.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) &#8211; The community class to check.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><code class="xref py py-exc docutils literal"><span class="pre">ValueError</span></code> &#8211; If the community already carries a modification and adding another
+would not be safe.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -509,7 +709,7 @@ in the returned dual problem.</dd>
 <dd><p>Run OptCom for the community.</p>
 <p>OptCom methods are a group of optimization procedures to find community
 solutions that provide a tradeoff between the cooperative community
-growth and the egoistic growth of each individual <a href="#id14"><span class="problematic" id="id15"><span id="id4"></span>[1]_</span></a>. <cite>micom</cite>
+growth and the egoistic growth of each individual [1]. <cite>micom</cite>
 provides several strategies that can be used to find optimal solutions:</p>
 <ul class="simple">
 <li>&#8220;linear&#8221;: Applies a lower bound for the individual growth rates and
@@ -529,7 +729,7 @@ cost (minimize). This method finds an exact maximum but doubles the
 number of required variables, thus being slow.</li>
 <li>&#8220;lmoma&#8221;: The same as &#8220;moma&#8221; only with a linear
 representation of the cooperativity cost (absolute value).</li>
-<li>&#8220;original&#8221;: Solves the multi-objective problem described in <a href="#id16"><span class="problematic" id="id17"><span id="id5"></span>[1]_</span></a>.
+<li>&#8220;original&#8221;: Solves the multi-objective problem described in [1].
 Here, the community growth rate is maximized simultanously with all
 individual growth rates. Note that there are usually many
 Pareto-optimal solutions to this problem and the method will only
@@ -570,7 +770,7 @@ rates and a pandas data frame containing the fluxes.</p>
 </tbody>
 </table>
 <p class="rubric">References</p>
-<table class="docutils footnote" frame="void" id="id6" rules="none">
+<table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[1]</td><td>OptCom: a multi-level optimization framework for the metabolic
@@ -638,6 +838,14 @@ the exchange fluxes and the community objective.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="micom.Community.exchanges">
+<code class="descname">exchanges</code><a class="headerlink" href="#micom.Community.exchanges" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>list of cobra.Reaction</em> &#8211; Returns all exchange reactions in the model.</p>
+<p>Checks the reaction ID for common indicators of reactions that are
+<em>not</em> exchange reactions and excludes those from the list.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="micom.Community.modification">
 <code class="descname">modification</code><a class="headerlink" href="#micom.Community.modification" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>str</em> &#8211; Denotes modifications to the model currently applied by
@@ -650,7 +858,7 @@ the exchange fluxes and the community objective.</p>
 <dd><p>Run OptCom for the community.</p>
 <p>OptCom methods are a group of optimization procedures to find community
 solutions that provide a tradeoff between the cooperative community
-growth and the egoistic growth of each individual <a href="#id18"><span class="problematic" id="id19"><span id="id7"></span>[1]_</span></a>. <cite>micom</cite>
+growth and the egoistic growth of each individual [1]. <cite>micom</cite>
 provides several strategies that can be used to find optimal solutions:</p>
 <ul class="simple">
 <li>&#8220;linear&#8221;: Applies a lower bound for the individual growth rates and
@@ -670,7 +878,7 @@ cost (minimize). This method finds an exact maximum but doubles the
 number of required variables, thus being slow.</li>
 <li>&#8220;lmoma&#8221;: The same as &#8220;moma&#8221; only with a linear
 representation of the cooperativity cost (absolute value).</li>
-<li>&#8220;original&#8221;: Solves the multi-objective problem described in <a href="#id20"><span class="problematic" id="id21"><span id="id8"></span>[1]_</span></a>.
+<li>&#8220;original&#8221;: Solves the multi-objective problem described in [1].
 Here, the community growth rate is maximized simultanously with all
 individual growth rates. Note that there are usually many
 Pareto-optimal solutions to this problem and the method will only
@@ -710,7 +918,7 @@ rates and a pandas data frame containing the fluxes.</p>
 </tbody>
 </table>
 <p class="rubric">References</p>
-<table class="docutils footnote" frame="void" id="id9" rules="none">
+<table class="docutils footnote" frame="void" id="id3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label">[1]</td><td>OptCom: a multi-level optimization framework for the metabolic
@@ -831,7 +1039,7 @@ maximal growth rate.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1.3+9.gf231ba4.dirty',
+            VERSION:'0.1.3+10.g28fba6b.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

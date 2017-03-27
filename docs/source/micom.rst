@@ -43,6 +43,14 @@ micom.logger module
     :undoc-members:
     :show-inheritance:
 
+micom.media module
+------------------
+
+.. automodule:: micom.media
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 micom.problems module
 ---------------------
 

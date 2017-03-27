@@ -19,7 +19,7 @@ def fast_dual(model, prefix="dual_"):
     i.e. all variables should be non-negative. Both minimization and
     maximization problems are allowed.
 
-    Attributes:
+    Attributes
     ----------
     model : cobra.Model
         The model to be dualized.

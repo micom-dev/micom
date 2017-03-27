@@ -23,14 +23,40 @@ def all_fluxes(community, pfba=False):
 
 
 def check_modification(community):
-    """Check whether a community already carries a modification."""
+    """Check whether a community already carries a modification.
+
+    Arguments
+    ---------
+    community : micom.Community
+        The community class to check.
+
+    Raises
+    ------
+    ValueError
+        If the community already carries a modification and adding another
+        would not be safe.
+    """
     if community.modification is not None:
         raise ValueError("Community already carries a modification "
                          "({})!".format(community.modification))
 
 
 def _format_min_growth(min_growth, species):
-    """Format min_growth into a pandas series."""
+    """Format min_growth into a pandas series.
+
+    Arguments
+    ---------
+    min_growth : positive float or array-like object.
+        The minimum growth rate for each individual in the community. Either
+        a single value applied to all individuals or one value for each.
+    species : array-like
+        The ID for each individual model in the community.
+
+    Returns
+    -------
+    pandas.Series
+        A pandas Series mapping each individual to its minimum growth rate.
+    """
     try:
         min_growth = float(min_growth)
     except (TypeError, ValueError):
@@ -42,7 +68,19 @@ def _format_min_growth(min_growth, species):
 
 
 def add_linear_optcom(community, min_growth=0.1):
-    """Add a linear version of optcom."""
+    """Add a linear version of optcom.
+
+    Adds constraints to the community such that each individual grows with
+    at least its minimal growth rate.
+
+    Arguments
+    ---------
+    community : micom.Community
+        The community to modify.
+    min_growth : positive float or array-like object.
+        The minimum growth rate for each individual in the community. Either
+        a single value applied to all individuals or one value for each.
+    """
     check_modification(community)
     species = list(community.objectives.keys())
     min_growth = _format_min_growth(min_growth, species)
@@ -60,7 +98,28 @@ def add_linear_optcom(community, min_growth=0.1):
 
 
 def add_lagrangian(community, tradeoff, linear=False):
-    """Adds a Lagrangian optimization target to a linear OptCom model."""
+    """Adds a Lagrangian optimization target to a linear OptCom model.
+
+    Lagrangian forms in `micom` are usually objectives of the form
+    (1 - tradeoff) * community_objective + tradeoff * cooperativity_cost.
+    Here, cooperativity cost specifies the "sacrifice" in growth rate an
+    individual has to make in order to maximize community growth. It is
+    calculated as the sum of squared differences between the individuals
+    current and maximal growth rate. In the linear case squares are substituted
+    by absolute values (Manhattan distance).
+
+    Arguments
+    ---------
+    community : micom.Community
+        The community to modify.
+    tradeoff : float in [0,1]
+        The tradeoff between community growth and the individual "egoistic"
+        growth target. 0 means optimize only community growth and 1 means
+        optimize only the individuals own growth target.
+    linear : boolean
+        Whether to use a non-linear (sum of squares) or linear version of the
+        cooperativity cost. If set to False requires a QP-capable solver.
+    """
     species = list(community.objectives.keys())
     max_gcs = community.optimize_all()
     prob = community.problem
@@ -82,7 +141,29 @@ def add_lagrangian(community, tradeoff, linear=False):
 
 
 def add_dualized_optcom(community, min_growth):
-    """Add dual Optcom variables and constraints to a community."""
+    """Add dual Optcom variables and constraints to a community.
+
+    Uses the original formulation of OptCom and solves the following
+    multi-objective problem::
+
+        maximize community_growth
+        s.t. maximize growth_rate_i for all i
+             s.t. Sv_i = 0
+                  lb_i >= v_i >= ub_i
+
+    Notes
+    -----
+    This method will only find one arbitrary solution from the Pareto front.
+    There may exist several other optimal solutions.
+
+    Arguments
+    ---------
+    community : micom.Community
+        The community to modify.
+    min_growth : positive float or array-like object.
+        The minimum growth rate for each individual in the community. Either
+        a single value applied to all individuals or one value for each.
+    """
     check_modification(community)
     species = list(community.objectives.keys())
     min_growth = _format_min_growth(min_growth, species)
@@ -121,7 +202,31 @@ def add_dualized_optcom(community, min_growth):
 
 
 def add_moma_optcom(community, min_growth, linear=False):
-    """Add a dualized MOMA version of OptCom."""
+    """Add a dualized MOMA version of OptCom.
+
+    Solves a MOMA (minimization of metabolic adjustment) formulation of OptCom
+    given by::
+
+        minimize cooperativity_cost
+        s.t. maximize community_objective
+             s.t. Sv = 0
+                  lb >= v >= ub
+        where community_cost = sum (growth_rate - max_growth)**2
+              if linear=False or
+              community_cost = sum |growth_rate - max_growth|
+              if linear=True
+
+    Arguments
+    ---------
+    community : micom.Community
+        The community to modify.
+    min_growth : positive float or array-like object.
+        The minimum growth rate for each individual in the community. Either
+        a single value applied to all individuals or one value for each.
+    linear : boolean
+        Whether to use a non-linear (sum of squares) or linear version of the
+        cooperativity cost. If set to False requires a QP-capable solver.
+    """
     check_modification(community)
     species = list(community.objectives.keys())
     min_growth = _format_min_growth(min_growth, species)
@@ -176,7 +281,7 @@ def optcom(community, strategy, min_growth, tradeoff, fluxes, pfba):
 
     OptCom methods are a group of optimization procedures to find community
     solutions that provide a tradeoff between the cooperative community
-    growth and the egoistic growth of each individual [1]_. `micom`
+    growth and the egoistic growth of each individual [1]. `micom`
     provides several strategies that can be used to find optimal solutions:
 
     - "linear": Applies a lower bound for the individual growth rates and
@@ -196,7 +301,7 @@ def optcom(community, strategy, min_growth, tradeoff, fluxes, pfba):
       number of required variables, thus being slow.
     - "lmoma": The same as "moma" only with a linear
       representation of the cooperativity cost (absolute value).
-    - "original": Solves the multi-objective problem described in [1]_.
+    - "original": Solves the multi-objective problem described in [1].
       Here, the community growth rate is maximized simultanously with all
       individual growth rates. Note that there are usually many
       Pareto-optimal solutions to this problem and the method will only
@@ -242,7 +347,7 @@ def optcom(community, strategy, min_growth, tradeoff, fluxes, pfba):
        doi: 10.1371/journal.pcbi.1002363, PMID: 22319433
     """
     if strategy not in _methods:
-        raise ValueError("strategy most be one of {}!".format(
+        raise ValueError("strategy must be one of {}!".format(
                          ",".join(_methods)))
     species = list(community.objectives.keys())
     funcs = _methods[strategy]

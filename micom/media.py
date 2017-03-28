@@ -3,7 +3,7 @@
 from sympy.core.singleton import S
 import numpy as np
 import pandas as pd
-from micom.problems import _format_min_growth
+from micom.problems import _format_min_growth, check_modification
 
 
 def add_linear_obj(community):
@@ -19,6 +19,7 @@ def add_linear_obj(community):
     community : micom.Community
         The community to modify.
     """
+    check_modification(community)
     coefs = {}
     for rxn in community.exchanges:
         export = len(rxn.reactants) == 1
@@ -28,7 +29,7 @@ def add_linear_obj(community):
             coefs[rxn.forward_variable] = 1
     community.objective.set_linear_coefficients(coefs)
     community.objective.direction = "min"
-    community.modifcation = "minimal medium linear"
+    community.modification = "minimal medium linear"
 
 
 def add_mip_obj(community):
@@ -44,6 +45,7 @@ def add_mip_obj(community):
     community : micom.Community
         The community to modify.
     """
+    check_modification(community)
     boundary_rxns = community.exchanges
     M = max(np.max(np.abs(r.bounds)) for r in boundary_rxns)
     prob = community.problem
@@ -66,6 +68,7 @@ def add_mip_obj(community):
     community.solver.update()
     community.objective.set_linear_coefficients(coefs)
     community.objective.direction = "min"
+    community.modification = "minimal medium mixed-integer"
 
 
 def minimal_medium(community, community_growth, min_growth=0.1,
@@ -123,6 +126,8 @@ def minimal_medium(community, community_growth, min_growth=0.1,
         else:
             add_linear_obj(com)
         com.solver.optimize()
+        if com.solver.status != "optimal":
+            return None
 
         medium = pd.Series()
         for rxn in boundary_rxns:

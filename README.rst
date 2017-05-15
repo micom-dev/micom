@@ -25,9 +25,6 @@ Installation
 
     pip install micom
 
-Note that `micom` currently requires a development version of
-COBRApy (>=0.6.0a2).
-
 Getting started
 ---------------
 

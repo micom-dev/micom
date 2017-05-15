@@ -4,7 +4,7 @@ from sympy.core.singleton import S
 
 
 def fast_dual(model, prefix="dual_"):
-    """A faster dual formulation.
+    """Add dual formulation to the problem.
 
     A mathematical optimization problem can be viewed as a primal and a dual
     problem. If the primal problem is a minimization problem the dual is a
@@ -31,6 +31,7 @@ def fast_dual(model, prefix="dual_"):
     -------
     dict
         The coefficients for the new dual objective.
+
     """
     prob = model.problem
 

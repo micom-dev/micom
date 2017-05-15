@@ -73,7 +73,7 @@ def fluxes_from_primals(model, info):
 
 
 def add_var_from_expression(model, name, expr, lb=None, ub=None):
-    """Adds a variable to a model equaling an expression."""
+    """Add a variable to a model equaling an expression."""
     var = model.problem.Variable(name, lb=lb, ub=ub)
     const = model.problem.Constraint(var - expr, lb=0, ub=0,
                                      name=name + "_equality")

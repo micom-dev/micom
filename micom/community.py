@@ -28,7 +28,7 @@ class Community(cobra.Model):
 
     def __init__(self, taxonomy, id=None, name=None, rel_threshold=1e-6,
                  solver=None):
-        """Constructor for the class.
+        """Create a new community object.
 
         `micom` builds a community from a taxonomy which may simply be a list
         of model files in its simplest form. Usually, the taxonomy will contain
@@ -68,6 +68,7 @@ class Community(cobra.Model):
         objectives : dict
             A dict of {id: sympy_expression} denoting the individual growth
             objectives for each model in the community.
+
         """
         super(Community, self).__init__(id, name)
 
@@ -180,7 +181,7 @@ class Community(cobra.Model):
                     r.add_metabolites({met: -coef}, combine=False)
 
     def __update_community_objective(self):
-        "Update the community objective."
+        """Update the community objective."""
         v = self.variables.community_objective
         const = self.constraints.community_objective_equality
         self.remove_cons_vars([const])
@@ -215,6 +216,7 @@ class Community(cobra.Model):
         -------
         float or pandas.DataFrame
             Either the maximal growth rate (fluxes=False) or all fluxes.
+
         """
         if isinstance(id, six.string_types):
             if id not in self.__taxonomy.index:
@@ -258,6 +260,7 @@ class Community(cobra.Model):
         -------
         float or pandas.DataFrame
             Either the maximal growth rate (fluxes=False) or all fluxes.
+
         """
         individual = (self.optimize_single(id, fluxes) for id in
                       self.__taxonomy.index)
@@ -269,8 +272,7 @@ class Community(cobra.Model):
 
     @property
     def abundances(self):
-        """pandas.Series: The normalized abundance for each individual in the
-        community.
+        """pandas.Series: The normalized abundances.
 
         Setting this attribute will also trigger the appropriate updates in
         the exchange fluxes and the community objective.
@@ -302,8 +304,9 @@ class Community(cobra.Model):
 
     @property
     def modification(self):
-        """str: Denotes modifications to the model currently applied by
-        `micom`. Will be None if the community is unmodified.
+        """str: Denotes modifications to the model currently applied.
+
+        Will be None if the community is unmodified.
         """
         return self._modification
 
@@ -314,7 +317,7 @@ class Community(cobra.Model):
 
     @property
     def exchanges(self):
-        """list of cobra.Reaction: Returns all exchange reactions in the model.
+        """list: Returns all exchange reactions in the model.
 
         Checks the reaction ID for common indicators of reactions that are
         *not* exchange reactions and excludes those from the list.
@@ -391,5 +394,6 @@ class Community(cobra.Model):
            modeling and analysis of microbial communities.
            Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.
            doi: 10.1371/journal.pcbi.1002363, PMID: 22319433
+
         """
         return optcom(self, strategy, min_growth, tradeoff, fluxes, pfba)

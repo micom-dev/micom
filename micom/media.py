@@ -18,6 +18,7 @@ def add_linear_obj(community):
     ---------
     community : micom.Community
         The community to modify.
+
     """
     check_modification(community)
     coefs = {}
@@ -44,6 +45,7 @@ def add_mip_obj(community):
     ---------
     community : micom.Community
         The community to modify.
+
     """
     check_modification(community)
     boundary_rxns = community.exchanges
@@ -102,6 +104,7 @@ def minimal_medium(community, community_growth, min_growth=0.1,
     pandas.Series
         A series {rid: flux} giving the import flux for each required import
         reaction.
+
     """
     boundary_rxns = community.exchanges
     min_growth = _format_min_growth(

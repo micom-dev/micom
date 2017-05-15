@@ -35,6 +35,7 @@ def check_modification(community):
     ValueError
         If the community already carries a modification and adding another
         would not be safe.
+
     """
     if community.modification is not None:
         raise ValueError("Community already carries a modification "
@@ -56,6 +57,7 @@ def _format_min_growth(min_growth, species):
     -------
     pandas.Series
         A pandas Series mapping each individual to its minimum growth rate.
+
     """
     try:
         min_growth = float(min_growth)
@@ -80,6 +82,7 @@ def add_linear_optcom(community, min_growth=0.1):
     min_growth : positive float or array-like object.
         The minimum growth rate for each individual in the community. Either
         a single value applied to all individuals or one value for each.
+
     """
     check_modification(community)
     species = list(community.objectives.keys())
@@ -98,7 +101,7 @@ def add_linear_optcom(community, min_growth=0.1):
 
 
 def add_lagrangian(community, tradeoff, linear=False):
-    """Adds a Lagrangian optimization target to a linear OptCom model.
+    """Add a Lagrangian optimization target to a linear OptCom model.
 
     Lagrangian forms in `micom` are usually objectives of the form
     (1 - tradeoff) * community_objective + tradeoff * cooperativity_cost.
@@ -119,6 +122,7 @@ def add_lagrangian(community, tradeoff, linear=False):
     linear : boolean
         Whether to use a non-linear (sum of squares) or linear version of the
         cooperativity cost. If set to False requires a QP-capable solver.
+
     """
     species = list(community.objectives.keys())
     max_gcs = community.optimize_all()
@@ -163,6 +167,7 @@ def add_dualized_optcom(community, min_growth):
     min_growth : positive float or array-like object.
         The minimum growth rate for each individual in the community. Either
         a single value applied to all individuals or one value for each.
+
     """
     check_modification(community)
     species = list(community.objectives.keys())
@@ -226,6 +231,7 @@ def add_moma_optcom(community, min_growth, linear=False):
     linear : boolean
         Whether to use a non-linear (sum of squares) or linear version of the
         cooperativity cost. If set to False requires a QP-capable solver.
+
     """
     check_modification(community)
     species = list(community.objectives.keys())
@@ -345,6 +351,7 @@ def optcom(community, strategy, min_growth, tradeoff, fluxes, pfba):
        modeling and analysis of microbial communities.
        Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.
        doi: 10.1371/journal.pcbi.1002363, PMID: 22319433
+
     """
     if strategy not in _methods:
         raise ValueError("strategy must be one of {}!".format(

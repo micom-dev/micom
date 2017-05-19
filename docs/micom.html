@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>micom package &mdash; micom 0.3.0+0.g7898c4d.dirty documentation</title>
+  <title>micom package &mdash; micom 0.3.1+0.g2a4f130.dirty documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="micom 0.3.0+0.g7898c4d.dirty documentation" href="index.html"/>
+    <link rel="top" title="micom 0.3.1+0.g2a4f130.dirty documentation" href="index.html"/>
         <link rel="next" title="micom.data package" href="micom.data.html"/>
         <link rel="prev" title="Building communities" href="community.html"/> 
 
@@ -109,6 +109,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.media">micom.media module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.problems">micom.problems module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom.util">micom.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-micom.solution">micom.solution module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-micom">Module contents</a></li>
 </ul>
 </li>
@@ -831,6 +832,81 @@ would not be safe.</td>
 </dd></dl>
 
 </div>
+<div class="section" id="module-micom.solution">
+<span id="micom-solution-module"></span><h2>micom.solution module<a class="headerlink" href="#module-micom.solution" title="Permalink to this headline">¶</a></h2>
+<p>A community solution object.</p>
+<dl class="class">
+<dt id="micom.solution.CommunitySolution">
+<em class="property">class </em><code class="descclassname">micom.solution.</code><code class="descname">CommunitySolution</code><span class="sig-paren">(</span><em>community</em>, <em>slim=False</em>, <em>reactions=None</em>, <em>metabolites=None</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.solution.CommunitySolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cobra.core.solution.Solution</span></code></p>
+<p>An FBA solution for an entire community.</p>
+<dl class="attribute">
+<dt id="micom.solution.CommunitySolution.objective_value">
+<code class="descname">objective_value</code><a class="headerlink" href="#micom.solution.CommunitySolution.objective_value" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> &#8211; The (optimal) value for the objective function.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.solution.CommunitySolution.growth_rates">
+<code class="descname">growth_rates</code><a class="headerlink" href="#micom.solution.CommunitySolution.growth_rates" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pandas.Series</em> &#8211; The growth rates for each of the species.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.solution.CommunitySolution.community_growth">
+<code class="descname">community_growth</code><a class="headerlink" href="#micom.solution.CommunitySolution.community_growth" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>float</em> &#8211; The overall growth rate for the community normalized to 1 gDW.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.solution.CommunitySolution.status">
+<code class="descname">status</code><a class="headerlink" href="#micom.solution.CommunitySolution.status" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>str</em> &#8211; The solver status related to the solution.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.solution.CommunitySolution.reactions">
+<code class="descname">reactions</code><a class="headerlink" href="#micom.solution.CommunitySolution.reactions" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>numpy.array</em> &#8211; A list of <cite>cobra.Reaction</cite> objects for which the solution is
+retrieved.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.solution.CommunitySolution.fluxes">
+<code class="descname">fluxes</code><a class="headerlink" href="#micom.solution.CommunitySolution.fluxes" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pandas.DataFrame</em> &#8211; Contains the reaction fluxes (primal values of variables) stratified
+by species. Columns denote individual fluxes and rows denote species.
+Fluxes will be NA if the reaction does not exist in the organism.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.solution.CommunitySolution.reduced_costs">
+<code class="descname">reduced_costs</code><a class="headerlink" href="#micom.solution.CommunitySolution.reduced_costs" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pandas.Series</em> &#8211; Contains reaction reduced costs (dual values of variables) stratified
+by species. Columns denote individual fluxes and rows denote species.
+Reduced costs will be NA if the reaction does not exist in the
+organism.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.solution.CommunitySolution.metabolites">
+<code class="descname">metabolites</code><a class="headerlink" href="#micom.solution.CommunitySolution.metabolites" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>numpy.array</em> &#8211; A list of <cite>cobra.Metabolite</cite> objects for which the solution is
+retrieved.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="micom.solution.CommunitySolution.shadow_prices">
+<code class="descname">shadow_prices</code><a class="headerlink" href="#micom.solution.CommunitySolution.shadow_prices" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>pandas.Series</em> &#8211; Contains metabolite shadow prices (dual values of constraints)
+stratified by species. Columns denote individual metabolites and rows
+denote species. Shadow prices will be NA if the metabolite does not
+exist in the organism.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-micom">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-micom" title="Permalink to this headline">¶</a></h2>
 <p>Simple init file for mico.</p>
@@ -1071,7 +1147,7 @@ maximal growth rate.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.0+0.g7898c4d.dirty',
+            VERSION:'0.3.1+0.g2a4f130.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

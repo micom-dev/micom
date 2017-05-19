@@ -67,6 +67,13 @@ micom.util module
     :undoc-members:
     :show-inheritance:
 
+micom.solution module
+---------------------
+
+.. automodule:: micom.solution
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 Module contents
 ---------------

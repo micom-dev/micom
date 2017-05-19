@@ -1,9 +1,18 @@
 """Manages functions for growth media analysis and manipulation."""
 
+from numbers import Number
 from sympy.core.singleton import S
+from optlang.interface import OPTIMAL
 import numpy as np
 import pandas as pd
-from micom.problems import _format_min_growth, check_modification
+from micom.util import (_format_min_growth, _apply_min_growth,
+                        check_modification)
+
+
+default_excludes = ["biosynthesis", "transcription", "replication", "sink",
+                    "demand", "DM_", "SN_", "SK_"]
+"""A list of sub-strings in reaction IDs that usually indicate that
+the reaction is *not* an exchange reaction."""
 
 
 def add_linear_obj(community):
@@ -18,7 +27,6 @@ def add_linear_obj(community):
     ---------
     community : micom.Community
         The community to modify.
-
     """
     check_modification(community)
     coefs = {}
@@ -39,13 +47,12 @@ def add_mip_obj(community):
     Changes the optimization objective to finding the medium with the least
     components::
 
-        minimize #(R) where R = import_reactions
+        minimize size(R) where R part of import_reactions
 
     Arguments
     ---------
     community : micom.Community
         The community to modify.
-
     """
     check_modification(community)
     boundary_rxns = community.exchanges
@@ -95,9 +102,10 @@ def minimal_medium(community, community_growth, min_growth=0.1,
         Whether to minimize the number of components instead of the total
         import flux. Might be more intuitive if set to True but may also be
         slow to calculate for large communities.
-    open_exchanges : boolean
+    open_exchanges : boolean or number
         Whether to ignore currently set bounds and make all exchange reactions
-        in the model possible.
+        in the model possible. If set to a number all exchange reactions will
+        be opened with (-number, number) as bounds.
 
     Returns
     -------
@@ -107,29 +115,29 @@ def minimal_medium(community, community_growth, min_growth=0.1,
 
     """
     boundary_rxns = community.exchanges
+    if isinstance(open_exchanges, Number):
+        open_bound = open_exchanges
+    else:
+        open_bound = 1000
     min_growth = _format_min_growth(
         min_growth, list(community.objectives.keys()))
     with community as com:
         if open_exchanges:
             for rxn in boundary_rxns:
-                rxn.bounds = (-1000, 1000)
-        to_add = []
+                rxn.bounds = (-open_bound, open_bound)
         obj_const = com.problem.Constraint(
             com.objective.expression, lb=community_growth,
             name="medium_obj_constraint")
-        to_add.append(obj_const)
-        for sp, expr in com.objectives.items():
-            const = com.problem.Constraint(expr, lb=min_growth[sp])
-            to_add.append(const)
-        com.add_cons_vars(to_add)
+        com.add_cons_vars([obj_const])
         com.solver.update()
+        _apply_min_growth(community, min_growth)
         com.objective = S.Zero
         if minimize_components:
             add_mip_obj(com)
         else:
             add_linear_obj(com)
         com.solver.optimize()
-        if com.solver.status != "optimal":
+        if com.solver.status != OPTIMAL:
             return None
 
         medium = pd.Series()

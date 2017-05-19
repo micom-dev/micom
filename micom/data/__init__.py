@@ -7,7 +7,8 @@ __all__ = ("agora", "test_taxonomy")
 this_dir, _ = split(__file__)
 
 agora = pd.read_csv(join(this_dir, "agora.csv"))
-agora["file"] = agora["id"] + ".xml" 
+agora["file"] = agora["id"] + ".xml"
+
 
 def test_taxonomy(n=5):
     """Create a simple test taxonomy.
@@ -21,8 +22,9 @@ def test_taxonomy(n=5):
     -------
     pandas.DataFrame
         Taxonomy specification for a.
+
     """
-    ecoli_file = join(this_dir, "e_coli_core.pickle")
+    ecoli_file = join(this_dir, "e_coli_core.xml.gz")
     ids = ["Escherichia_coli_{}".format(i) for i in range(1, n+1)]
     taxa = pd.DataFrame({"id": ids})
     taxa["genus"] = "Escherichia"

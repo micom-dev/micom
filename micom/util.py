@@ -1,7 +1,9 @@
 """Holds utility functions for other modules."""
 
 import cobra.io as io
+from cobra.util.context import get_context
 import os.path as path
+from functools import partial
 import six.moves.cPickle as pickle
 from six.moves.urllib.parse import urlparse
 import six.moves.urllib.request as urlreq
@@ -52,7 +54,7 @@ def load_model(filepath):
 def serialize_models(files, dir="."):
     """Convert several models to Python pickles."""
     for f in files:
-        fname, _ = path.splitext(path.basename(f))
+        fname = path.basename(f).split(".")[0]
         model = load_model(f)
         logger.info("serializing {}".format(f))
         pickle.dump(model, open(path.join(dir, fname + ".pickle"), "wb"),
@@ -79,3 +81,67 @@ def add_var_from_expression(model, name, expr, lb=None, ub=None):
                                      name=name + "_equality")
     model.add_cons_vars([var, const])
     return var
+
+
+def check_modification(community):
+    """Check whether a community already carries a modification.
+
+    Arguments
+    ---------
+    community : micom.Community
+        The community class to check.
+
+    Raises
+    ------
+    ValueError
+        If the community already carries a modification and adding another
+        would not be safe.
+
+    """
+    if community.modification is not None:
+        raise ValueError("Community already carries a modification "
+                         "({})!".format(community.modification))
+
+
+def _format_min_growth(min_growth, species):
+    """Format min_growth into a pandas series.
+
+    Arguments
+    ---------
+    min_growth : positive float or array-like object.
+        The minimum growth rate for each individual in the community. Either
+        a single value applied to all individuals or one value for each.
+    species : array-like
+        The ID for each individual model in the community.
+
+    Returns
+    -------
+    pandas.Series
+        A pandas Series mapping each individual to its minimum growth rate.
+
+    """
+    try:
+        min_growth = float(min_growth)
+    except (TypeError, ValueError):
+        if len(min_growth) != len(species):
+            raise ValueError(
+                "min_growth must be single value or an array-like "
+                "object with an entry for each species in the model.")
+    return pd.Series(min_growth, species)
+
+
+def _apply_min_growth(community, min_growth):
+    """Set minimum growth constraints on a model.
+
+    Will integrate with the context.
+    """
+    context = get_context(community)
+
+    def reset(species, lb):
+        community.constraints["objective_" + sp].lb = lb
+
+    for sp in community.objectives:
+        obj = community.constraints["objective_" + sp]
+        if context:
+            context(partial(reset, sp, obj.lb))
+        obj.lb = min_growth[sp]

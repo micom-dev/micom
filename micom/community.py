@@ -5,16 +5,13 @@ import six
 import cobra
 import pandas as pd
 from sympy.core.singleton import S
-from micom.util import load_model, fluxes_from_primals, add_var_from_expression
+from micom.util import load_model, add_var_from_expression
 from micom.logger import logger
-from micom.problems import optcom
+from micom.media import default_excludes
+from micom.problems import optcom, solve
+from micom.solution import CommunitySolution
 
 _taxonomy_cols = ["id", "file"]
-
-default_excludes = ["biosynthesis", "transcription", "replication", "sink",
-                    "demand", "DM_"]
-"""A list of sub-strings in reaction IDs that usually indicate that
-the reaction is *not* an exchange reaction."""
 
 
 class Community(cobra.Model):
@@ -118,19 +115,25 @@ class Community(cobra.Model):
                                                       model=self.solver)
             obj += o.expression * row.abundance
             self.objectives[idx] = o.expression
+            species_obj = self.problem.Constraint(
+                o.expression, name="objective_" + idx, lb=0.0)
+            self.add_cons_vars([species_obj])
             self.__add_exchanges(model.reactions, row)
 
         com_obj = add_var_from_expression(self, "community_objective",
                                           obj, lb=0)
         self.objective = self.problem.Objective(com_obj, direction="max")
 
-    def __add_exchanges(self, reactions, info, exclude=default_excludes):
+    def __add_exchanges(self, reactions, info, exclude=default_excludes,
+                        external_compartment="e"):
         """Add exchange reactions for a new model."""
         for r in reactions:
             # Some sanity checks for whether the reaction is an exchange
-            if not r.boundary or any(ex in r.id for ex in exclude):
+            ex = external_compartment + "__" + r.community_id
+            if (not r.boundary or any(ex in r.id for ex in exclude) or
+                    ex not in r.compartments):
                 continue
-            if not r.id.startswith("EX"):
+            if not r.id.lower().startswith("ex"):
                 logger.warning(
                     "Reaction {} seems to be an exchange ".format(r.id) +
                     "reaction but its ID does not start with 'EX_'...")
@@ -150,6 +153,8 @@ class Community(cobra.Model):
                 medium_met = met.copy()
                 medium_met.id = medium_id
                 medium_met.compartment = "m"
+                medium_met.global_id = medium_id
+                medium_met.community_id = "medium"
                 ex_medium = cobra.Reaction(
                     id="EX_" + medium_met.id,
                     name=medium_met.id + " medium exchange",
@@ -157,7 +162,7 @@ class Community(cobra.Model):
                     upper_bound=ub)
                 ex_medium.add_metabolites({medium_met: -1})
                 ex_medium.global_id = ex_medium.id
-                ex_medium.community_id = None
+                ex_medium.community_id = "medium"
                 self.add_reactions([ex_medium])
             else:
                 medium_met = self.metabolites.get_by_id(medium_id)
@@ -193,7 +198,7 @@ class Community(cobra.Model):
                                         name="community_objective_equality")
         self.add_cons_vars([const])
 
-    def optimize_single(self, id, fluxes=False):
+    def optimize_single(self, id):
         """Optimize growth rate for one individual.
 
         `optimize_single` will calculate the maximal growth rate for one
@@ -214,8 +219,8 @@ class Community(cobra.Model):
 
         Returns
         -------
-        float or pandas.DataFrame
-            Either the maximal growth rate (fluxes=False) or all fluxes.
+        float
+            The maximal growth rate for the given species.
 
         """
         if isinstance(id, six.string_types):
@@ -233,12 +238,7 @@ class Community(cobra.Model):
         with self as m:
             m.objective = obj
             m.solver.optimize()
-            if fluxes:
-                res = fluxes_from_primals(m, info)
-            else:
-                res = m.objective.value
-
-        return res
+            return m.objective.value
 
     def optimize_all(self, fluxes=False):
         """Return solutions for individually optimizing each model.
@@ -258,17 +258,35 @@ class Community(cobra.Model):
 
         Returns
         -------
-        float or pandas.DataFrame
-            Either the maximal growth rate (fluxes=False) or all fluxes.
+        pandas.Series
+            The maximal growth rate for each species.
 
         """
-        individual = (self.optimize_single(id, fluxes) for id in
+        individual = (self.optimize_single(id) for id in
                       self.__taxonomy.index)
 
-        if fluxes:
-            return pd.concat(individual, axis=1).T
-        else:
-            return pd.Series(individual, self.__taxonomy.index)
+        return pd.Series(individual, self.__taxonomy.index)
+
+    def optimize(self, slim=False):
+        """
+        Optimize the model using flux balance analysis.
+
+        Parameters
+        ----------
+        slim : boolean
+            Whether to return a slim solution which does not contain fluxes,
+            just growth rates.
+
+        Returns
+        -------
+        micom.CommunitySolution
+            The solution after optimization or None if there is no optimum.
+
+        """
+        self.solver.optimize()
+        with self:
+            solution = solve(self, fluxes=not slim)
+        return solution
 
     @property
     def abundances(self):
@@ -319,12 +337,13 @@ class Community(cobra.Model):
     def exchanges(self):
         """list: Returns all exchange reactions in the model.
 
-        Checks the reaction ID for common indicators of reactions that are
-        *not* exchange reactions and excludes those from the list.
+        Uses several heuristics based on the reaction name and compartments
+        to exclude reactions that are *not* exchange reactions.
         """
         return self.reactions.query(
             lambda x: x.boundary and not
-            any(ex in x.id for ex in default_excludes))
+            any(ex in x.id for ex in default_excludes) and
+            "m" in x.compartments)
 
     def optcom(self, strategy="lagrangian", min_growth=0.1, tradeoff=0.5,
                fluxes=False, pfba=True):
@@ -360,33 +379,33 @@ class Community(cobra.Model):
 
         Parameters
         ----------
-        strategy : str, optional
+        community : micom.Community
+            The community to optimize.
+        strategy : str
             The strategy used to solve the OptCom formulation. Defaults to
             "lagrangian" which gives a decent tradeoff between speed and
             correctness.
-        min_growth : float or array-like, optional
+        min_growth : float or array-like
             The minimal growth rate required for each individual. May be a
             single value or an array-like object with the same length as there
             are individuals.
-        tradeoff : float in [0, 1], optional
+        tradeoff : float in [0, 1]
             Only used for lagrangian strategies. Must be between 0 and 1 and
             describes the strength of the cooperativity cost / egoism. 1 means
             optimization will only minimize the cooperativity cost and zero
             means optimization will only maximize the community objective.
-        fluxes : boolean, optional
+        fluxes : boolean
             Whether to return the fluxes as well.
-        pfba : boolean, optional
+        pfba : boolean
             Whether to obtain fluxes by parsimonious FBA rather than
             "classical" FBA.
 
         Returns
         -------
-        tuple
-            For fluxes=False a tuple of (community_gc, gcs) containing the
-            overall community growth rates and a pandas series containing the
-            individual growth rates. For fluxes=True a tuple
-            (community_gc, fluxes) containing the overall community growth
-            rates and a pandas data frame containing the fluxes.
+        micom.CommunitySolution
+            The solution of the optimization. If fluxes==False will only
+            contain the objective value, community growth rate and individual
+            growth rates.
 
         References
         ----------

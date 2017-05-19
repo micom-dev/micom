@@ -1,72 +1,27 @@
 """Implements optimization and model problems."""
 
-from micom.util import fluxes_from_primals
-import pandas as pd
 from cobra.flux_analysis.parsimonious import add_pfba
 from micom.duality import fast_dual
+from micom.solution import CommunitySolution
+from micom.util import (_format_min_growth, _apply_min_growth,
+                        check_modification)
 from sympy.core.singleton import S
 from functools import partial
 
 
-def all_fluxes(community, pfba=False):
+def solve(community, fluxes=True, pfba=True):
     """Get all fluxes stratified by species."""
     community.solver.optimize()
     if community.solver.status == "optimal":
-        if pfba:
+        if fluxes and pfba:
             add_pfba(community)
             community.solver.optimize()
-        fluxes = (fluxes_from_primals(community, row)
-                  for _, row in community.taxonomy.iterrows())
-        fluxes = pd.concat(fluxes, axis=1).T
-        return fluxes
+        if fluxes:
+            sol = CommunitySolution(community)
+        else:
+            sol = CommunitySolution(community, slim=True)
+        return sol
     return None
-
-
-def check_modification(community):
-    """Check whether a community already carries a modification.
-
-    Arguments
-    ---------
-    community : micom.Community
-        The community class to check.
-
-    Raises
-    ------
-    ValueError
-        If the community already carries a modification and adding another
-        would not be safe.
-
-    """
-    if community.modification is not None:
-        raise ValueError("Community already carries a modification "
-                         "({})!".format(community.modification))
-
-
-def _format_min_growth(min_growth, species):
-    """Format min_growth into a pandas series.
-
-    Arguments
-    ---------
-    min_growth : positive float or array-like object.
-        The minimum growth rate for each individual in the community. Either
-        a single value applied to all individuals or one value for each.
-    species : array-like
-        The ID for each individual model in the community.
-
-    Returns
-    -------
-    pandas.Series
-        A pandas Series mapping each individual to its minimum growth rate.
-
-    """
-    try:
-        min_growth = float(min_growth)
-    except (TypeError, ValueError):
-        if len(min_growth) != len(species):
-            raise ValueError(
-                "min_growth must be single value or an array-like "
-                "object with an entry for each species in the model.")
-    return pd.Series(min_growth, species)
 
 
 def add_linear_optcom(community, min_growth=0.1):
@@ -87,16 +42,8 @@ def add_linear_optcom(community, min_growth=0.1):
     check_modification(community)
     species = list(community.objectives.keys())
     min_growth = _format_min_growth(min_growth, species)
+    _apply_min_growth(community, min_growth)
 
-    prob = community.solver.interface
-    to_add = []
-    for sp in species:
-        obj = prob.Constraint(community.objectives[sp],
-                              name="objective_" + sp,
-                              lb=min_growth[sp])
-        to_add.append(obj)
-
-    community.add_cons_vars(to_add)
     community.modification = "linear optcom"
 
 
@@ -182,13 +129,7 @@ def add_dualized_optcom(community, min_growth):
     for expr in community.objectives.values():
         community.objective += expr
 
-    to_add = []
-    for sp in species:
-        obj = prob.Constraint(community.objectives[sp],
-                              name="objective_" + sp,
-                              lb=min_growth[sp])
-        to_add.append(obj)
-    community.add_cons_vars(to_add)
+    _apply_min_growth(community, min_growth)
     dual_coefs = fast_dual(community)
 
     for sp in species:
@@ -244,20 +185,14 @@ def add_moma_optcom(community, min_growth, linear=False):
     # Get maximum individual growth rates
     max_gcs = community.optimize_all()
 
-    to_add = []
-    for sp in species:
-        obj = prob.Constraint(community.objectives[sp],
-                              name="objective_" + sp,
-                              lb=min_growth[sp])
-        to_add.append(obj)
-    community.add_cons_vars(to_add)
+    _apply_min_growth(community, min_growth)
     dual_coefs = fast_dual(community)
     coefs.update({
         v: -coef for v, coef in
         dual_coefs.items()})
     obj_constraint = prob.Constraint(
         S.Zero, lb=0, ub=0,
-        name="optcom_suboptimality_" + sp)
+        name="optcom_suboptimality")
     community.add_cons_vars([obj_constraint])
     community.solver.update()
     obj_constraint.set_linear_coefficients(coefs)
@@ -338,12 +273,9 @@ def optcom(community, strategy, min_growth, tradeoff, fluxes, pfba):
 
     Returns
     -------
-    tuple
-        For fluxes=False a tuple of (community_gc, gcs) containing the
-        overall community growth rates and a pandas series containing the
-        individual growth rates. For fluxes=True a tuple
-        (community_gc, fluxes) containing the overall community growth
-        rates and a pandas data frame containing the fluxes.
+    micom.CommunitySolution
+        The solution of the optimization. If fluxes==False will only contain
+        the objective value, community growth rate and individual growth rates.
 
     References
     ----------
@@ -356,25 +288,11 @@ def optcom(community, strategy, min_growth, tradeoff, fluxes, pfba):
     if strategy not in _methods:
         raise ValueError("strategy must be one of {}!".format(
                          ",".join(_methods)))
-    species = list(community.objectives.keys())
     funcs = _methods[strategy]
 
-    community_obj = None
-    gcs = pd.Series(None, species)
     with community as com:
         # Add needed variables etc.
         funcs[0](com, min_growth)
         if "lagrangian" in strategy:
             funcs[1](com, tradeoff)
-        com.solver.optimize()
-        if com.solver.status == "optimal":
-            community_obj = com.variables.community_objective.primal
-            for sp in species:
-                gcs[sp] = com.constraints["objective_" + sp].primal
-            if fluxes:
-                com_fluxes = all_fluxes(com, pfba=pfba)
-
-    if fluxes:
-        return community_obj, com_fluxes
-    else:
-        return community_obj, gcs
+        return solve(community, fluxes=fluxes, pfba=pfba)

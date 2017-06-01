@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>How does micom model communities &mdash; micom 0.3.1+2.g7c596cd.dirty documentation</title>
+  <title>How does micom model communities &mdash; micom 0.3.1+4.gf09d4bb.dirty documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="micom 0.3.1+2.g7c596cd.dirty documentation" href="index.html"/>
+    <link rel="top" title="micom 0.3.1+4.gf09d4bb.dirty documentation" href="index.html"/>
         <link rel="next" title="Installing micom" href="installing.html"/>
         <link rel="prev" title="Welcome to micom" href="index.html"/> 
 
@@ -234,7 +234,7 @@ we thus need to enforce</p>
 divide the equation by the total bacterial abundance
 <span class="math">\(B = \sum_i b_i\)</span> and obtain</p>
 <div class="math">
-\[\tilde{v}^m_x = \sum_i b_i/B \cdot v^i_x\]</div>
+\[\tilde{v}^m_x = v^m_x/B = \sum_i b_i/B \cdot v^i_x\]</div>
 <p><span class="math">\(\tilde{v}^m_x\)</span> is now a scaled flux in the medium relative to the
 overall bacterial biomass in the community. The relative abundances
 <span class="math">\(\tilde{b}_i = b_i/B\)</span> can be taken from metagenomic studies such
@@ -283,14 +283,14 @@ with a higher concentration in stool samples (which is the major
 dilution contributor). This is the same assumption made in the
 recent
 <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1005539.s016">SteadyCom</a>
-dilution is assumed to be constant. (2) is based on the observation
-that bacteria may have distinct spatial arrangements which make it
-easier or hader to be diluted. (3) is based on the assumption that
-the respective systems may be different (no gut is the same :D),
-however it is one of the assumptions we are currently trying to
-validate. As a consequence we assume that the abundance for bacteria
-<span class="math">\(i\)</span>, <span class="math">\(b_i\)</span> occurs with a growth rate <span class="math">\(\mu_i\)</span> and
-balances with a linear dilution process <span class="math">\(d_i\)</span> as</li>
+publication. (2) is based on the observation that bacteria may have
+distinct spatial arrangements which make it easier or hader to be
+diluted. (3) is based on the assumption that the respective systems
+may be different (no gut is the same :D), however it is one of the
+assumptions we are currently trying to validate. As a consequence we
+assume that the abundance for bacteria <span class="math">\(i\)</span>, <span class="math">\(b_i\)</span> occurs
+with a growth rate <span class="math">\(\mu_i\)</span> and balances with a linear dilution
+process <span class="math">\(d_i\)</span> as</li>
 </ol>
 <div class="math">
 \[\frac{d b_i(t)}{dt} = \mu_i b_i(t) - d_i b_i(t) = (\mu_i - d_i)b_i(t)\]</div>
@@ -426,7 +426,7 @@ cost (thus evaluating the entire Pareto front).</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.1+2.g7c596cd.dirty',
+            VERSION:'0.3.1+4.gf09d4bb.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

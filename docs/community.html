@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Building communities &mdash; micom 0.3.1+1.g8d9092e documentation</title>
+  <title>Building communities &mdash; micom 0.3.1+2.g7c596cd.dirty documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="micom 0.3.1+1.g8d9092e documentation" href="index.html"/>
+    <link rel="top" title="micom 0.3.1+2.g7c596cd.dirty documentation" href="index.html"/>
         <link rel="next" title="micom package" href="micom.html"/>
         <link rel="prev" title="Installing micom" href="installing.html"/> 
 
@@ -94,6 +94,7 @@
             
             
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="logic.html">Methods uses by micom</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Building communities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="micom.html">API</a></li>
@@ -357,8 +358,8 @@ div.nboutput div.output_area.stderr {
 <div class="section" id="Building-communities">
 <h1>Building communities<a class="headerlink" href="#Building-communities" title="Permalink to this headline">¶</a></h1>
 <p><code class="docutils literal"><span class="pre">micom</span></code> will construct communities from a specification via a Pandas
-DataFrame. Here, the DataFrame needs at least two columns: &#8220;id&#8221; and
-&#8220;file&#8221; which specify the ID of the organism/tissue and a file containing
+DataFrame. Here, the DataFrame needs at least two columns: “id” and
+“file” which specify the ID of the organism/tissue and a file containing
 the actual individual model.</p>
 <p>To make more sense of that we can look at a small example. <code class="docutils literal"><span class="pre">micom</span></code>
 comes with a function that generates a simple example community
@@ -449,7 +450,7 @@ containing only the central carbon metabolism.</p>
 <p>As we see this specification contains the required fields and some more
 information. In fact the specification may contain any number of
 additional information which will be saved along with the community
-model. One special example is &#8220;abundance&#8221; which we will get to know soon
+model. One special example is “abundance” which we will get to know soon
 :)</p>
 <p>In order to convert the specification in a community model we will use
 the <code class="docutils literal"><span class="pre">Community</span></code> class from <code class="docutils literal"><span class="pre">micom</span></code> which derives from the cobrapy
@@ -589,7 +590,7 @@ community. Since we did not specify this in the original taxonomy
 <p>The presented community here is pretty simplistic. For microbial
 communities <code class="docutils literal"><span class="pre">micom</span></code> includes a larger taxonomy for 773 microbial
 species from the <a class="reference external" href="https://doi.org/10.1038/nbt.3703">AGORA paper</a>.
-Here the &#8220;file&#8221; column only contains the base names for the files but
+Here the “file” column only contains the base names for the files but
 you can easily prepend any path as demonstrated in the following:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none"><div class="highlight"><pre>
@@ -811,7 +812,7 @@ you can easily prepend any path as demonstrated in the following:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.1+1.g8d9092e',
+            VERSION:'0.3.1+2.g7c596cd.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

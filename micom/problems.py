@@ -222,7 +222,7 @@ def optcom(community, strategy, min_growth, tradeoff, fluxes, pfba):
 
     OptCom methods are a group of optimization procedures to find community
     solutions that provide a tradeoff between the cooperative community
-    growth and the egoistic growth of each individual [1]. `micom`
+    growth and the egoistic growth of each individual [#p1]_. `micom`
     provides several strategies that can be used to find optimal solutions:
 
     - "linear": Applies a lower bound for the individual growth rates and
@@ -242,7 +242,7 @@ def optcom(community, strategy, min_growth, tradeoff, fluxes, pfba):
       number of required variables, thus being slow.
     - "lmoma": The same as "moma" only with a linear
       representation of the cooperativity cost (absolute value).
-    - "original": Solves the multi-objective problem described in [1].
+    - "original": Solves the multi-objective problem described in [#p1]_.
       Here, the community growth rate is maximized simultanously with all
       individual growth rates. Note that there are usually many
       Pareto-optimal solutions to this problem and the method will only
@@ -279,7 +279,7 @@ def optcom(community, strategy, min_growth, tradeoff, fluxes, pfba):
 
     References
     ----------
-    .. [1] OptCom: a multi-level optimization framework for the metabolic
+    .. [#p1] OptCom: a multi-level optimization framework for the metabolic
        modeling and analysis of microbial communities.
        Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.
        doi: 10.1371/journal.pcbi.1002363, PMID: 22319433

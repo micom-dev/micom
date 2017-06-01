@@ -22,11 +22,15 @@ sequencing experiments. It allows optimization with a variety of algorithms
 modeling the trade-off between egoistic growth rate maximization and
 cooperative objectives.
 
+To get an idea which assumptions and strategies `micom` uses we recommend
+to start with some background on the :doc:`methods <logic>`. 
+
 Contents
 --------
 .. toctree::
    :maxdepth: 1
 
+   Methods uses by micom <logic>
    Installing micom <installing>
    Building communities <community>
    API <micom>

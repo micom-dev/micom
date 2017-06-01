@@ -1,0 +1,458 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How does micom model communities &mdash; micom 0.3.1+2.g7c596cd.dirty documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="micom 0.3.1+2.g7c596cd.dirty documentation" href="index.html"/>
+        <link rel="next" title="Installing micom" href="installing.html"/>
+        <link rel="prev" title="Welcome to micom" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html">
+          
+
+          
+            
+            <img src="_static/micom.png" class="logo" />
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Methods uses by micom</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Exchanges-and-community-growth-rate">Exchanges and community growth rate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Steady-states-in-the-community">Steady states in the community</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#Optimization">Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="micom.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">micom</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>How does <code class="docutils literal"><span class="pre">micom</span></code> model communities</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/logic.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+/* nice headers on first paragraph of info/warning boxes */
+.admonition .first {
+    margin: -12px;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1;
+    display: block;
+}
+.admonition.warning .first {
+    background: #f0b37e;
+}
+.admonition.note .first {
+    background: #6ab0de;
+}
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="How-does-micom-model-communities">
+<h1>How does <code class="docutils literal"><span class="pre">micom</span></code> model communities<a class="headerlink" href="#How-does-micom-model-communities" title="Permalink to this headline">¶</a></h1>
+<p>There are many frameworks for microbial modeling and all make their own
+specific assumptions in order to fit microbial communities into a
+mathematical representation. This is an overview about the assumptions
+<code class="docutils literal"><span class="pre">micom</span></code> makes and how it translates the community into mathematical
+terms. As it happens all formulations here agree with the formulation
+used in the <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1002363">OptCom</a>
+and <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1005539">SteadyCom</a> papers.</p>
+<div class="section" id="Exchanges-and-community-growth-rate">
+<h2>Exchanges and community growth rate<a class="headerlink" href="#Exchanges-and-community-growth-rate" title="Permalink to this headline">¶</a></h2>
+<p>One of the things that can easily overlooked when using FBA for
+communities is that growth rates and fluxes are usually given in unit
+mass/(abundance * time), for instance mmmol/(gDW * h). Thus, all
+fluxes are realtive to the abundance of the single bacteria they
+describe. However, in a community all bacteria might have different
+abundances so we have to take care to balance fluxes. For instance let
+us take a system contianing only one bacteria <span class="math">\(i\)</span> which imports
+metabolite X from the external medium. In the medium metabolite X enters
+the system with an unscaled flux <span class="math">\(v^m_x\)</span> which has units mmmol/h.
+Within the bacteria the metabolite is consumed with the sclaed flux
+<span class="math">\(v^i_x\)</span> which has units mmol/(gDW * h). <span class="math">\(v^i_x\)</span> described
+the flux that can be realized by 1 gDW of the respective bacteria.
+However, the abundance for bacteria <span class="math">\(i\)</span>, <span class="math">\(b_i\)</span> (in gDW),
+might be different than that. In order to have balanced fluxes we have
+to enforce that <span class="math">\(v^m_x = b_i \cdot v^i_x\)</span> (overall influx equals
+overall consumption). If many bacteria import the respective metabolite
+we thus need to enforce</p>
+<div class="math">
+\[v^m_x = \sum_i b_i \cdot v^i_x\]</div>
+<p>The actual abundances <span class="math">\(b_i\)</span> are usually not known, but we can
+divide the equation by the total bacterial abundance
+<span class="math">\(B = \sum_i b_i\)</span> and obtain</p>
+<div class="math">
+\[\tilde{v}^m_x = \sum_i b_i/B \cdot v^i_x\]</div>
+<p><span class="math">\(\tilde{v}^m_x\)</span> is now a scaled flux in the medium relative to the
+overall bacterial biomass in the community. The relative abundances
+<span class="math">\(\tilde{b}_i = b_i/B\)</span> can be taken from metagenomic studies such
+as 16S rRNA quantities. This is how <code class="docutils literal"><span class="pre">micom</span></code> uses abundance data.</p>
+<p>In a similar manner the unscaled community growth rate (total biomass
+production) is given by</p>
+<div class="math">
+\[v_{biomass} = \sum_i b_i\cdot v^i_{biomass}\]</div>
+<p>and dividing by the total biomass <span class="math">\(B\)</span> yields</p>
+<div class="math">
+\[\tilde{v}_{biomass} = \sum_i b_i/B v^i_{biomass}\]</div>
+<p>where <span class="math">\(\tilde{v}_{biomass}\)</span> now again is a scaled biomass flux
+relative to the total community biomass.</p>
+</div>
+<div class="section" id="Steady-states-in-the-community">
+<h2>Steady states in the community<a class="headerlink" href="#Steady-states-in-the-community" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">micom</span></code> has be designed with the gut microbiota in mind. One of the
+major problems when trying to apply flux balance analysis (FBA) to
+microbial community data especially metagenomic data are paradoxical
+assumptions about community growth. Flux balance analysis usually
+assumes a maximization of the growth rate, or at least the realization
+of one particular growth rate <span class="math">\(\mu\)</span>, however metagenomic
+experiments usually only quantify the microbial compositions at one
+particular time point, assuming that the microbial abundance does not
+change. Those two assumptions are not compatible per sé. If members of
+the community grow with a constant rate they will accumulate
+exponentially over time, however we know that this is not the case in
+systems as the intestine (otherwise we would probably explode due to an
+overpopulation of bacteria and fungi). This disagreement can be
+aleviated by accounting for dilution of the microbiota. For instance in
+the gut bacteria are constantly removed in small amounts by death (when
+arriving at their specific life span) and in larger amounts by
+defecation. The sum of all processes removing bacteria from the system
+is what we call dilution here. In <code class="docutils literal"><span class="pre">micom</span></code> we assume the follwing about
+the dilution process:</p>
+<ol class="arabic simple">
+<li>It is relative to the bacterial abundance (the more you have in your
+system the more is removed by dilution)</li>
+<li>It may be specific to the bacterial strain</li>
+<li>It may specific to the sample</li>
+</ol>
+<ol class="arabic simple">
+<li>is known to be true for the gut microbiome since we know that a
+higher concentration of a bacteria in the gut is usually associated
+with a higher concentration in stool samples (which is the major
+dilution contributor). This is the same assumption made in the
+recent
+<a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1005539.s016">SteadyCom</a>
+dilution is assumed to be constant. (2) is based on the observation
+that bacteria may have distinct spatial arrangements which make it
+easier or hader to be diluted. (3) is based on the assumption that
+the respective systems may be different (no gut is the same :D),
+however it is one of the assumptions we are currently trying to
+validate. As a consequence we assume that the abundance for bacteria
+<span class="math">\(i\)</span>, <span class="math">\(b_i\)</span> occurs with a growth rate <span class="math">\(\mu_i\)</span> and
+balances with a linear dilution process <span class="math">\(d_i\)</span> as</li>
+</ol>
+<div class="math">
+\[\frac{d b_i(t)}{dt} = \mu_i b_i(t) - d_i b_i(t) = (\mu_i - d_i)b_i(t)\]</div>
+<p>As we can see absolute bacterial abundance can only be in steady state
+if <span class="math">\(\mu_i = d_i\)</span> for all <span class="math">\(i\)</span>. Additionally one could also
+formulate the problem in terms of relative concentrations to the total
+community abundance <span class="math">\(B = \sum_i b_i\)</span> using the quotient rule,
+which yields:</p>
+<div class="math">
+\[\frac{d \tilde{b}_i}{dt} = \frac{d b_i/B}{dt} = \tilde{b}_i\cdot\left(\mu_i - d_i - \sum_k (\mu_k - d_k)\tilde{b}_k \right)\]</div>
+<p>As one can see, this equation has a steady state if all differences are
+the same <span class="math">\(\mu_i - d_i = C\)</span> for any constant C:</p>
+<p>However, in this the total abundance <span class="math">\(B\)</span> would increase
+indefinitely in time. In particular it holds that
+<span class="math">\(\frac{dB}{dt} = C\)</span>.</p>
+<p>Okay, what can we conclude from that? Most importantly that any
+abundance <span class="math">\(b_i\)</span> or relative abundance <span class="math">\(\tilde{b}_i\)</span> can be a
+valid steady state abundance as long as the respective growth and
+dilution rates are balanced. This means on can not directly derive the
+growth rate of a bacteria just from its abundance (e.g. large abundance
+does not mean large growth rate or <em>vicer versa</em>).</p>
+</div>
+<div class="section" id="Optimization">
+<h2>Optimization<a class="headerlink" href="#Optimization" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">micom</span></code> follows the idea from the original
+<a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1002363">OptCom</a> publication in
+that there are two major sources of pressure to dictate the community
+growth:</p>
+<ol class="arabic simple">
+<li>the community growth rate <span class="math">\(\tilde{v}_{biomass}\)</span></li>
+<li>individual (egoistic) growth rates <span class="math">\(v^i_{biomass}\)</span></li>
+</ol>
+<p>The major challenge is to find the tradeoff between the two. One could
+optimize only the community growth, however that might yield many
+bacterial species that do not grow (competition) which might stand in
+contrast to metagenomic studies where the bacteria was actually found in
+the sample. Also, bacteria are seldom evolved to sacrifice their own
+growth in favour of community growth.</p>
+<p>The original OptCom algorithm solves the multi-objective problem:</p>
+<div class="math">
+\[\begin{split}\begin{align}
+\text{maximize } &amp; \tilde{v}_{biomass} = \sum_i b_i/B v^i_{biomass}\\
+&amp; s.t. \forall i: \text{ maximize } v^i_{biomass}
+\end{align}\end{split}\]</div>
+<p><code class="docutils literal"><span class="pre">micom</span></code> can solve this problem using a dualization approach where the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Linear_programming#Duality">dual
+formulation</a>
+is appended to the linear problem and <a class="reference external" href="https://en.wikipedia.org/wiki/Strong_duality">strong
+duality</a> is enforced to
+transform objectives into additional constraints. However, that is slow
+and there may be <a class="reference external" href="https://en.wikipedia.org/wiki/Pareto_efficiency">weak pareto
+optimality</a>.</p>
+<p>As quick alternative one could define lower bounds for the the
+individual biomass objectives and enforce those, yielding a single
+objective</p>
+<div class="math">
+\[\begin{split}\begin{align}
+\text{maximize } &amp; \tilde{v}_{biomass} = \sum_i b_i/B v^i_{biomass}\\
+&amp; s.t. \forall i: v^i_{biomass} \geq lb^i_{biomass}
+\end{align}\end{split}\]</div>
+<p>In order to simplify the problem a bit, <code class="docutils literal"><span class="pre">micom</span></code> defines an additional
+partial objective called “cooperativity cost” which quantifies how much
+of their own growth the entire population has to sacrifice in order to
+optimize the growth of the community. Given the individual maximal
+growth <span class="math">\(v^i_{max}\)</span> for each member of the community
+<code class="docutils literal"><span class="pre">cooperativity</span> <span class="pre">cost</span></code> is defined as:</p>
+<div class="math">
+\[\sum_i (v^i_{max} - v^i_{biomass})^2.\]</div>
+<p>The quadratic term favours small deviations over larger ones.
+Alternatively, the cooperativity cost can also be formulated as a linear
+term</p>
+<div class="math">
+\[\sum_i \left|v^i_{max} - v^i_{biomass}\right| = \sum_i (v^i_{max} - v^i_{biomass}).\]</div>
+<p><code class="docutils literal"><span class="pre">micom</span></code> can again solve the multi-objective case where community
+growth is maximized at the same time where the cooperativity cost is
+minimized. However, this again uses dualization and is slow. A faster
+approach can be obtained by using <a class="reference external" href="https://en.wikipedia.org/wiki/Multi-objective_optimization#Scalarizing">scalarization
+approach</a>.
+Here, we combine both objectives into a single one:</p>
+<div class="math">
+\[\text{maximize } (1 - \alpha)\cdot\tilde{v}_{biomass} - \alpha\cdot\sum_i (v^i_{max} - v^i_{biomass})^2\]</div>
+<p>Here, <span class="math">\(0 \geq \alpha \leq 1\)</span> defines the tradeoff between
+individual and community growth. Again one could also use the linear
+term for the cooperativity cost. This does not require dualization and
+is fast. In fact, even trying out several possible values for
+<span class="math">\(\alpha\)</span> will usually be faster than the dualized version allowing
+to plot the tradeoff against the community growth and the cooperativity
+cost (thus evaluating the entire Pareto front).</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="installing.html" class="btn btn-neutral float-right" title="Installing micom" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to micom" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Christian Diener.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.3.1+2.g7c596cd.dirty',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

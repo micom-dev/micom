@@ -9,7 +9,6 @@ from micom.util import load_model, add_var_from_expression
 from micom.logger import logger
 from micom.media import default_excludes
 from micom.problems import optcom, solve
-from micom.solution import CommunitySolution
 
 _taxonomy_cols = ["id", "file"]
 

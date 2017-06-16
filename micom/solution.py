@@ -47,7 +47,7 @@ class CommunitySolution(Solution):
         stratified by species. Columns denote individual metabolites and rows
         denote species. Shadow prices will be NA if the metabolite does not
         exist in the organism.
-        
+
     """
 
     def __init__(self, community, slim=False,

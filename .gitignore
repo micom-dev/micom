@@ -94,3 +94,6 @@ ENV/
 # models
 models
 agora*/
+
+# Editor config
+.vscode

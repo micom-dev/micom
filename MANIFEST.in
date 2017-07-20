@@ -1,5 +1,4 @@
 include README.rst
 
 include versioneer.py
-include mico/_version.py
 include micom/_version.py

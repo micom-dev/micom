@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>How does micom model communities &mdash; micom 0.3.1+4.gf09d4bb.dirty documentation</title>
+  <title>How does micom model communities &mdash; micom 0.4.0+0.g2e9bc32.dirty documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="micom 0.3.1+4.gf09d4bb.dirty documentation" href="index.html"/>
+    <link rel="top" title="micom 0.4.0+0.g2e9bc32.dirty documentation" href="index.html"/>
         <link rel="next" title="Installing micom" href="installing.html"/>
         <link rel="prev" title="Welcome to micom" href="index.html"/> 
 
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.3
+                0.4
               </div>
             
           
@@ -303,7 +303,11 @@ which yields:</p>
 \[\frac{d \tilde{b}_i}{dt} = \frac{d b_i/B}{dt} = \tilde{b}_i\cdot\left(\mu_i - d_i - \sum_k (\mu_k - d_k)\tilde{b}_k \right)\]</div>
 <p>As one can see, this equation has a steady state if all differences are
 the same <span class="math">\(\mu_i - d_i = C\)</span> for any constant C:</p>
-<p>However, in this the total abundance <span class="math">\(B\)</span> would increase
+<div class="math">
+\begin{align}
+\frac{d \tilde{b}_i}{dt} &amp;= \tilde{b}_i\cdot\left(C - \sum_k C \tilde{b}_k \right)\\
+&amp; = \tilde{b}_i\left(C - C\cdot 1) \right) = 0
+\end{align}</div><p>However, in this the total abundance <span class="math">\(B\)</span> would increase
 indefinitely in time. In particular it holds that
 <span class="math">\(\frac{dB}{dt} = C\)</span>.</p>
 <p>Okay, what can we conclude from that? Most importantly that any
@@ -426,7 +430,7 @@ cost (thus evaluating the entire Pareto front).</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.1+4.gf09d4bb.dirty',
+            VERSION:'0.4.0+0.g2e9bc32.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -436,7 +440,7 @@ cost (thus evaluating the entire Pareto front).</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

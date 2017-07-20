@@ -5,6 +5,7 @@ from micom.duality import fast_dual
 from micom.solution import CommunitySolution
 from micom.util import (_format_min_growth, _apply_min_growth,
                         check_modification)
+from micom.logger import logger
 from sympy.core.singleton import S
 from functools import partial
 
@@ -71,12 +72,14 @@ def add_lagrangian(community, tradeoff, linear=False):
         cooperativity cost. If set to False requires a QP-capable solver.
 
     """
+    logger.info("adding lagrangian objective to %s" % community.id)
     species = list(community.objectives.keys())
     max_gcs = community.optimize_all()
     prob = community.problem
     com_expr = S.Zero
     cost_expr = S.Zero
     abundances = community.abundances
+    logger.info("adding expressions for %d species" % len(species))
     for sp in species:
         com_expr += abundances[sp] * community.objectives[sp]
         v_max_gc = prob.Variable("gc_constant_" + sp, lb=max_gcs[sp],
@@ -89,6 +92,7 @@ def add_lagrangian(community, tradeoff, linear=False):
     community.objective = (S.One - tradeoff) * com_expr - tradeoff * cost_expr
     if "with lagrangian" not in community.modification:
         community.modification += " with lagrangian"
+    logger.info("finished adding lagrangian objective to %s" % community.id)
 
 
 def add_dualized_optcom(community, min_growth):
@@ -116,6 +120,7 @@ def add_dualized_optcom(community, min_growth):
         a single value applied to all individuals or one value for each.
 
     """
+    logger.info("adding dual optcom to %s" % community.id)
     check_modification(community)
     species = list(community.objectives.keys())
     min_growth = _format_min_growth(min_growth, species)
@@ -132,6 +137,7 @@ def add_dualized_optcom(community, min_growth):
     _apply_min_growth(community, min_growth)
     dual_coefs = fast_dual(community)
 
+    logger.info("adding expressions for %d species" % len(species))
     for sp in species:
         primal_const = community.constraints["objective_" + sp]
         coefs = primal_const.get_linear_coefficients(primal_const.variables)
@@ -145,6 +151,7 @@ def add_dualized_optcom(community, min_growth):
 
     community.objective = old_obj
     community.modification = "dual optcom"
+    logger.info("finished adding dual optcom to %s" % community.id)
 
 
 def add_moma_optcom(community, min_growth, linear=False):
@@ -174,6 +181,8 @@ def add_moma_optcom(community, min_growth, linear=False):
         cooperativity cost. If set to False requires a QP-capable solver.
 
     """
+    logger.info("adding dual %s moma to %s" % (
+        "linear" if linear else "quadratic", community.id))
     check_modification(community)
     species = list(community.objectives.keys())
     min_growth = _format_min_growth(min_growth, species)
@@ -197,6 +206,7 @@ def add_moma_optcom(community, min_growth, linear=False):
     community.solver.update()
     obj_constraint.set_linear_coefficients(coefs)
     obj_expr = S.Zero
+    logger.info("adding expressions for %d species" % len(species))
     for sp in species:
         v = prob.Variable("gc_constant_" + sp, lb=max_gcs[sp], ub=max_gcs[sp])
         community.add_cons_vars([v])
@@ -206,6 +216,7 @@ def add_moma_optcom(community, min_growth, linear=False):
         obj_expr += ex.expand()
     community.objective = prob.Objective(obj_expr, direction="min")
     community.modification = "moma optcom"
+    logger.info("finished dual moma to %s" % community.id)
 
 
 _methods = {"linear": [add_linear_optcom],

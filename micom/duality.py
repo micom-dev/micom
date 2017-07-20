@@ -1,6 +1,7 @@
 """Implements a fast dual formulation."""
 
 from sympy.core.singleton import S
+from micom.logger import logger
 
 
 def fast_dual(model, prefix="dual_"):
@@ -33,6 +34,10 @@ def fast_dual(model, prefix="dual_"):
         The coefficients for the new dual objective.
 
     """
+    logger.info("adding dual variables")
+    if len(model.variables) > 1e5:
+        logger.warning("the model has a lot of variables,"
+                       "dual optimization will be extremely slow :O")
     prob = model.problem
 
     maximization = model.objective.direction == "max"
@@ -54,6 +59,7 @@ def fast_dual(model, prefix="dual_"):
             raise ValueError("Non-linear problems are not supported: " +
                              str(constraint))
         if constraint.lb is None and constraint.ub is None:
+            logger.warning("skipped free constraint %s" % constraint.name)
             continue  # Skip free constraint
         if constraint.lb == constraint.ub:
             const_var = prob.Variable(
@@ -82,9 +88,10 @@ def fast_dual(model, prefix="dual_"):
                 if constraint.ub != 0:
                     dual_objective[ub_var.name] = sign * constraint.ub
 
-            assert (constraint.expression.is_Add or
-                    constraint.expression.is_Mul), \
-                "Invalid expression type: " + str(type(constraint.expression))
+            if not (constraint.expression.is_Add or
+                    constraint.expression.is_Mul):
+                raise ValueError("Invalid expression type: " +
+                                 str(type(constraint.expression)))
             if constraint.expression.is_Add:
                 coefficients_dict = constraint.get_linear_coefficients(
                     constraint.variables)
@@ -146,5 +153,6 @@ def fast_dual(model, prefix="dual_"):
     # Make dual objective
     coefs = {model.variables[vid]: coef for vid, coef in
              dual_objective.items() if coef != 0}
+    logger.info("dual model has {} terms in objective".format(len(coefs)))
 
     return coefs

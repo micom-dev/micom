@@ -5,7 +5,7 @@ import six
 import cobra
 import pandas as pd
 from sympy.core.singleton import S
-from micom.util import load_model, add_var_from_expression
+from micom.util import load_model, join_models, add_var_from_expression
 from micom.logger import logger
 from micom.media import default_excludes
 from micom.problems import optcom, solve
@@ -68,7 +68,7 @@ class Community(cobra.Model):
         """
         super(Community, self).__init__(id, name)
 
-        logger.info("building new mico model {}.".format(id))
+        logger.info("building new micom model {}.".format(id))
         if not solver:
             self.solver = ("cplex" if "cplex" in cobra.util.solver.solvers
                            else "glpk")
@@ -83,10 +83,11 @@ class Community(cobra.Model):
         self._rtol = rel_threshold
         self._modification = None
 
+        taxonomy = taxonomy.copy()
         if "abundance" not in taxonomy.columns:
             taxonomy["abundance"] = 1
         taxonomy.abundance /= taxonomy.abundance.sum()
-        logger.info("{} models with abundances below threshold".format(
+        logger.info("{} individuals with abundances below threshold".format(
                     (taxonomy.abundance <= self._rtol).sum()))
         taxonomy = taxonomy[taxonomy.abundance > self._rtol]
 
@@ -96,7 +97,12 @@ class Community(cobra.Model):
         obj = S.Zero
         self.objectives = {}
         for idx, row in self.__taxonomy.iterrows():
-            model = load_model(row.file)
+            if isinstance(row.file, list):
+                model = join_models(row.file)
+                if len(row.file) > 1:
+                    logger.info("joined {} models".format(len(row.file)))
+            else:
+                model = load_model(row.file)
             suffix = "__" + idx.replace(" ", "_").strip()
             logger.info("converting IDs for {}".format(idx))
             for r in model.reactions:
@@ -134,7 +140,7 @@ class Community(cobra.Model):
                 continue
             if not r.id.lower().startswith("ex"):
                 logger.warning(
-                    "Reaction {} seems to be an exchange ".format(r.id) +
+                    "Reaction %s seems to be an exchange " % r.id +
                     "reaction but its ID does not start with 'EX_'...")
 
             export = len(r.reactants) == 1
@@ -174,6 +180,7 @@ class Community(cobra.Model):
 
     def __update_exchanges(self):
         """Update exchanges."""
+        logger.info("updating exchange reactions for %s" % self.id)
         for met in self.metabolites.query(lambda x: x.compartment == "m"):
             for r in met.reactions:
                 if r.boundary:
@@ -186,6 +193,7 @@ class Community(cobra.Model):
 
     def __update_community_objective(self):
         """Update the community objective."""
+        logger.info("updating the community objective for %s" % self.id)
         v = self.variables.community_objective
         const = self.constraints.community_objective_equality
         self.remove_cons_vars([const])
@@ -201,7 +209,7 @@ class Community(cobra.Model):
         """Optimize growth rate for one individual.
 
         `optimize_single` will calculate the maximal growth rate for one
-        individual in the community.
+        individual member of the community.
 
         Notes
         -----
@@ -266,9 +274,8 @@ class Community(cobra.Model):
 
         return pd.Series(individual, self.__taxonomy.index)
 
-    def optimize(self, slim=False):
-        """
-        Optimize the model using flux balance analysis.
+    def optimize(self, slim=True):
+        """Optimize the model using flux balance analysis.
 
         Parameters
         ----------
@@ -304,9 +311,12 @@ class Community(cobra.Model):
             raise ValueError("value must be an iterable with an entry for "
                              "each species/tissue")
 
+        logger.info("setting new abundances for %s" % self.id)
         ab = self.__taxonomy.abundance
         self.__taxonomy.abundance /= ab.sum()
         small = ab < self._rtol
+        logger.info("adjusting abundances for %s to %g" %
+                    (str(self.__taxonomy.index[small]), self._rtol))
         self.__taxonomy.loc[small, "abundance"] = self._rtol
         self.__update_exchanges()
         self.__update_community_objective()

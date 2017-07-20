@@ -21,15 +21,13 @@ class CommunitySolution(Solution):
     ----------
     objective_value : float
         The (optimal) value for the objective function.
-    growth_rates : pandas.Series
-        The growth rates for each of the species.
-    community_growth : float
+    members : pandas.Series
+        Contains basic info about the individual members of the community such
+        as id, abundance and growth rates.
+    growth_rate : float
         The overall growth rate for the community normalized to 1 gDW.
     status : str
         The solver status related to the solution.
-    reactions : numpy.array
-        A list of `cobra.Reaction` objects for which the solution is
-        retrieved.
     fluxes : pandas.DataFrame
         Contains the reaction fluxes (primal values of variables) stratified
         by species. Columns denote individual fluxes and rows denote species.
@@ -39,9 +37,6 @@ class CommunitySolution(Solution):
         by species. Columns denote individual fluxes and rows denote species.
         Reduced costs will be NA if the reaction does not exist in the
         organism.
-    metabolites : numpy.array
-        A list of `cobra.Metabolite` objects for which the solution is
-        retrieved.
     shadow_prices : pandas.Series
         Contains metabolite shadow prices (dual values of constraints)
         stratified by species. Columns denote individual metabolites and rows
@@ -77,8 +72,12 @@ class CommunitySolution(Solution):
         gcs = pd.Series()
         for sp in community.objectives:
             gcs[sp] = community.constraints["objective_" + sp].primal
-        self.growth_rates = gcs
-        self.community_growth = sum(community.abundances * gcs)
+        self.members = pd.DataFrame({"id": gcs.index,
+                                     "abundance": community.abundances,
+                                     "growth_rate": gcs})
+        self.growth_rate = sum(community.abundances * gcs)
+        del self.reactions
+        del self.metabolites
 
     def __repr__(self):
         """Convert CommunitySolution instance to string representation."""

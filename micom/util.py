@@ -61,6 +61,38 @@ def serialize_models(files, dir="."):
                     protocol=2)  # required for Python 2 compat
 
 
+def join_models(model_files, id=None):
+    """Join several models into one.
+
+    This requires all the models to use the same ID system.
+
+    Arguments
+    ----------
+    model_files : list of strings
+        The files to be joined.
+    id : str
+        The new ID for the model. Will be the ID of the first model if None.
+
+    Returns
+    -------
+    cobra.Model
+        The joined cobra Model.
+
+    """
+    model = load_model(model_files[0])
+    if id:
+        model.id = id
+    rids = set(r.id for r in model.reactions)
+    for filepath in model_files[1:]:
+        other = load_model(filepath)
+        new = [r.id for r in other.reactions if r.id not in rids]
+        model.add_reactions(other.reactions.get_by_any(new))
+        model.objective += other.objective.expression
+        rids.update(new)
+
+    return model
+
+
 def fluxes_from_primals(model, info):
     """Extract a list of fluxes from the model primals."""
     primals = model.solver.primal_values
@@ -138,9 +170,11 @@ def _apply_min_growth(community, min_growth):
     context = get_context(community)
 
     def reset(species, lb):
+        logger.info("resetting growth rate constraint for %s" % species)
         community.constraints["objective_" + sp].lb = lb
 
     for sp in community.objectives:
+        logger.info("setting growth rate constraint for %s" % sp)
         obj = community.constraints["objective_" + sp]
         if context:
             context(partial(reset, sp, obj.lb))

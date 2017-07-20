@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 from micom.util import (_format_min_growth, _apply_min_growth,
                         check_modification)
+from micom.logger import logger
 
 
 default_excludes = ["biosynthesis", "transcription", "replication", "sink",
@@ -55,6 +56,9 @@ def add_mip_obj(community):
         The community to modify.
     """
     check_modification(community)
+    if len(community.variables) > 1e4:
+        logger.warning("the MIP version of minimal media is extremely slow for"
+                       " models that large :(")
     boundary_rxns = community.exchanges
     M = max(np.max(np.abs(r.bounds)) for r in boundary_rxns)
     prob = community.problem
@@ -114,6 +118,7 @@ def minimal_medium(community, community_growth, min_growth=0.1,
         reaction.
 
     """
+    logger.info("calculating minimal medium for %s" % community.id)
     boundary_rxns = community.exchanges
     if isinstance(open_exchanges, Number):
         open_bound = open_exchanges
@@ -123,8 +128,11 @@ def minimal_medium(community, community_growth, min_growth=0.1,
         min_growth, list(community.objectives.keys()))
     with community as com:
         if open_exchanges:
+            logger.info("opening exchanges for %d imports" %
+                        len(boundary_rxns))
             for rxn in boundary_rxns:
                 rxn.bounds = (-open_bound, open_bound)
+        logger.info("applying growth rate constraints")
         obj_const = com.problem.Constraint(
             com.objective.expression, lb=community_growth,
             name="medium_obj_constraint")
@@ -132,14 +140,17 @@ def minimal_medium(community, community_growth, min_growth=0.1,
         com.solver.update()
         _apply_min_growth(community, min_growth)
         com.objective = S.Zero
+        logger.info("adding new media objective")
         if minimize_components:
             add_mip_obj(com)
         else:
             add_linear_obj(com)
         com.solver.optimize()
         if com.solver.status != OPTIMAL:
+            logger.warning("minimization of medium was infeasible")
             return None
 
+        logger.info("formatting medium")
         medium = pd.Series()
         for rxn in boundary_rxns:
             export = len(rxn.reactants) == 1

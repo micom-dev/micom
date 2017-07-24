@@ -77,7 +77,7 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['cobra>=0.6.0', 'optlang>=1.1.1', 'pandas>=0.20.0'
+    install_requires=['cobra>=0.6.0', 'optlang>=1.1.1', 'pandas>=0.20.0',
                       'tqdm>=0.4'],
 
     # List additional groups of dependencies here (e.g. development

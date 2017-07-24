@@ -2,6 +2,7 @@
 
 import re
 import six
+import six.moves.cPickle as pickle
 import cobra
 import pandas as pd
 from sympy.core.singleton import S
@@ -434,3 +435,38 @@ class Community(cobra.Model):
 
         """
         return optcom(self, strategy, min_growth, tradeoff, fluxes, pfba)
+
+    def to_pickle(self, filename):
+        """Save a community in serialized form.
+
+        Parameters
+        ----------
+
+        filename : str
+            Where to save the pickled community.
+
+        Returns
+        -------
+        Nothing
+
+        """
+        with open(filename, mode="wb") as out:
+            pickle.dump(self, out)
+
+
+def load_pickle(filename):
+    """Load a community model from a pickled version.
+
+    Parameters
+    ----------
+    filename : str
+        The file the community is stored in.
+
+    Returns
+    -------
+    micom.Community
+        The loaded community model.
+
+    """
+    with open(filename, mode="rb") as infile:
+        return pickle.load(infile)

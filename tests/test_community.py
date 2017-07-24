@@ -1,7 +1,7 @@
 """Tests for basic construction of a community."""
 
 from fixtures import community
-from micom import Community
+from micom import Community, load_pickle
 from micom.data import test_taxonomy
 import numpy as np
 
@@ -52,3 +52,10 @@ def test_get_taxonomy(community):
     tax = community.taxonomy
     tax["id"] = "bla"
     assert all(tax["id"] != community.taxonomy["id"])
+
+
+def test_community_pickling(community, tmpdir):
+    filename = str(tmpdir.join("com.pickle"))
+    community.to_pickle(filename)
+    loaded = load_pickle(filename)
+    assert len(community.reactions) == len(loaded.reactions)

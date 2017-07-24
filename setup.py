@@ -78,7 +78,7 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=['cobra>=0.6.0', 'optlang>=1.1.1', 'pandas>=0.20.0',
-                      'tqdm>=0.4'],
+                      'tqdm>=4.14'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,

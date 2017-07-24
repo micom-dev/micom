@@ -1,6 +1,7 @@
 """Test utilities."""
 
 from os.path import basename
+import numpy as np
 import micom
 import micom.util as util
 from fixtures import community
@@ -37,3 +38,21 @@ def test_fluxes_from_primals(community):
     fluxes = util.fluxes_from_primals(community, tax.loc[0])
     assert len(fluxes) < len(community.reactions)
     assert len(fluxes) == 95
+
+
+def test_join_models():
+    single = util.load_model(tax.file[0])
+    single_coefs = {
+        v.name: coef for v, coef in
+        single.objective.get_linear_coefficients(single.variables).items()
+    }
+    mod = util.join_models(tax.file, id="test_model")
+    coefs = {
+        v.name: coef for v, coef in
+        mod.objective.get_linear_coefficients(single.variables).items()
+    }
+    assert len(mod.reactions) == len(single.reactions)
+    assert len(mod.metabolites) == len(single.metabolites)
+    assert all(np.allclose(single_coefs[v.name], coefs[v.name])
+               for v in mod.variables)
+    assert np.allclose(single.slim_optimize(), mod.slim_optimize())

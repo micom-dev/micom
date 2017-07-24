@@ -85,4 +85,4 @@ class CommunitySolution(Solution):
             return "<CommunitySolution {0:s} at 0x{1:x}>".format(
                 self.status, id(self))
         return "<CommunitySolution {0:.3f} at 0x{1:x}>".format(
-            self.community_growth, id(self))
+            self.growth_rate, id(self))

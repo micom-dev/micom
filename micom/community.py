@@ -5,6 +5,7 @@ import six
 import cobra
 import pandas as pd
 from sympy.core.singleton import S
+from tqdm import tqdm
 from micom.util import load_model, join_models, add_var_from_expression
 from micom.logger import logger
 from micom.media import default_excludes
@@ -23,7 +24,7 @@ class Community(cobra.Model):
     """
 
     def __init__(self, taxonomy, id=None, name=None, rel_threshold=1e-6,
-                 solver=None):
+                 solver=None, progress=True):
         """Create a new community object.
 
         `micom` builds a community from a taxonomy which may simply be a list
@@ -58,6 +59,8 @@ class Community(cobra.Model):
         solver : str, optional
             Which solver to use. Will default to cplex if available which is
             better suited for large problems.
+        progress : bool, optional
+            Show a progress bar.
 
         Attributes
         ----------
@@ -96,7 +99,10 @@ class Community(cobra.Model):
 
         obj = S.Zero
         self.objectives = {}
-        for idx, row in self.__taxonomy.iterrows():
+        index = self.__taxonomy.index
+        index = tqdm(index, unit="models") if progress else index
+        for idx in index:
+            row = self.__taxonomy.loc[idx]
             if isinstance(row.file, list):
                 model = join_models(row.file)
                 if len(row.file) > 1:
@@ -247,7 +253,7 @@ class Community(cobra.Model):
             m.solver.optimize()
             return m.objective.value
 
-    def optimize_all(self, fluxes=False):
+    def optimize_all(self, fluxes=False, progress=False):
         """Return solutions for individually optimizing each model.
 
         Notes
@@ -262,6 +268,8 @@ class Community(cobra.Model):
         fluxes : boolean, optional
             Whether to return all fluxes. Defaults to just returning the
             maximal growth rate.
+        progress : boolean, optional
+            Whether to show a progress bar.
 
         Returns
         -------
@@ -269,9 +277,10 @@ class Community(cobra.Model):
             The maximal growth rate for each species.
 
         """
-        individual = (self.optimize_single(id) for id in
-                      self.__taxonomy.index)
+        index = self.__taxonomy.index
+        index = tqdm(self.__taxonomy.index, unit="optimizations")
 
+        individual = (self.optimize_single(id) for id in index)
         return pd.Series(individual, self.__taxonomy.index)
 
     def optimize(self, slim=True):

@@ -74,7 +74,7 @@ def add_lagrangian(community, tradeoff, linear=False):
     """
     logger.info("adding lagrangian objective to %s" % community.id)
     species = list(community.objectives.keys())
-    max_gcs = community.optimize_all()
+    max_gcs = community.optimize_all(progress=False)
     prob = community.problem
     com_expr = S.Zero
     cost_expr = S.Zero
@@ -192,7 +192,7 @@ def add_moma_optcom(community, min_growth, linear=False):
     coefs = old_obj.get_linear_coefficients(old_obj.variables)
 
     # Get maximum individual growth rates
-    max_gcs = community.optimize_all()
+    max_gcs = community.optimize_all(progress=False)
 
     _apply_min_growth(community, min_growth)
     dual_coefs = fast_dual(community)

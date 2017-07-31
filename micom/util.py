@@ -84,14 +84,12 @@ def join_models(model_files, id=None):
     if id:
         model.id = id
     model.objective = model.objective.expression / n
-    print(model.objective.expression)
     rids = set(r.id for r in model.reactions)
     for filepath in model_files[1:]:
         other = load_model(filepath)
         new = [r.id for r in other.reactions if r.id not in rids]
         model.add_reactions(other.reactions.get_by_any(new))
         model.objective += other.objective.expression / n
-        print(model.objective.expression)
         rids.update(new)
 
     return model

@@ -49,7 +49,8 @@ class Community(cobra.Model):
             community. If absent `micom` will assume all individuals are
             present in the same amount.
         id : str, optional
-            The ID for the community.
+            The ID for the community. Should only contain letters and numbers,
+            otherwise it will be formatted as such.
         name : str, optional
             The name for the community.
         rel_threshold : float < 1, optional
@@ -94,8 +95,13 @@ class Community(cobra.Model):
         logger.info("{} individuals with abundances below threshold".format(
                     (taxonomy.abundance <= self._rtol).sum()))
         taxonomy = taxonomy[taxonomy.abundance > self._rtol]
+        if taxonomy.id.str.contains(r"[^A-Za-z0-9_]", regex=True).any():
+            logger.warning("taxonomy IDs contain prohibited characters and"
+                           " will be reformatted")
+            taxonomy.id = taxonomy.id.replace(
+                [r"[^A-Za-z0-9_\s]", r"\s+"], ["", "_"], regex=True)
 
-        self.__taxonomy = taxonomy.copy()
+        self.__taxonomy = taxonomy
         self.__taxonomy.index = self.__taxonomy.id
 
         obj = S.Zero
@@ -131,6 +137,7 @@ class Community(cobra.Model):
                 o.expression, name="objective_" + idx, lb=0.0)
             self.add_cons_vars([species_obj])
             self.__add_exchanges(model.reactions, row)
+            self.solver.update()  # to avoid dangling refs due to lazy add
 
         com_obj = add_var_from_expression(self, "community_objective",
                                           obj, lb=0)
@@ -142,7 +149,7 @@ class Community(cobra.Model):
         for r in reactions:
             # Some sanity checks for whether the reaction is an exchange
             ex = external_compartment + "__" + r.community_id
-            if (not r.boundary or any(ex in r.id for ex in exclude) or
+            if (not r.boundary or any(bad in r.id for bad in exclude) or
                     ex not in r.compartments):
                 continue
             if not r.id.lower().startswith("ex"):
@@ -162,6 +169,8 @@ class Community(cobra.Model):
             if medium_id not in self.metabolites:
                 # If metabolite does not exist in medium add it to the model
                 # and also add an exchange reaction for the medium
+                logger.info("adding metabolite %s to external medium" %
+                            medium_id)
                 medium_met = met.copy()
                 medium_met.id = medium_id
                 medium_met.compartment = "m"
@@ -177,6 +186,8 @@ class Community(cobra.Model):
                 ex_medium.community_id = "medium"
                 self.add_reactions([ex_medium])
             else:
+                logger.info("updating import rate for external metabolite %s" %
+                            medium_id)
                 medium_met = self.metabolites.get_by_id(medium_id)
                 ex_medium = self.reactions.get_by_id("EX_" + medium_met.id)
                 ex_medium.lower_bound = min(lb, ex_medium.lower_bound)
@@ -279,7 +290,8 @@ class Community(cobra.Model):
 
         """
         index = self.__taxonomy.index
-        index = tqdm(self.__taxonomy.index, unit="optimizations")
+        if progress:
+            index = tqdm(self.__taxonomy.index, unit="optimizations")
 
         individual = (self.optimize_single(id) for id in index)
         return pd.Series(individual, self.__taxonomy.index)

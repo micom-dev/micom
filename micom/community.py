@@ -3,6 +3,7 @@
 import re
 import six
 import six.moves.cPickle as pickle
+import swiglpk
 import cobra
 import pandas as pd
 from sympy.core.singleton import S

@@ -68,7 +68,7 @@ class CommunitySolution(Solution):
         else:
             super(CommunitySolution, self).__init__(
                 community.solver.objective.value, community.solver.status,
-                None, None, None, None, None)
+                None, None, None)
         gcs = pd.Series()
         for sp in community.objectives:
             gcs[sp] = community.constraints["objective_" + sp].primal
@@ -76,8 +76,6 @@ class CommunitySolution(Solution):
                                      "abundance": community.abundances,
                                      "growth_rate": gcs})
         self.growth_rate = sum(community.abundances * gcs)
-        del self.reactions
-        del self.metabolites
 
     def __repr__(self):
         """Convert CommunitySolution instance to string representation."""

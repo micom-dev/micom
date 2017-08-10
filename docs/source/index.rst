@@ -22,6 +22,16 @@ sequencing experiments. It allows optimization with a variety of algorithms
 modeling the trade-off between egoistic growth rate maximization and
 cooperative objectives.
 
+
+Attribution
+-----------
+
+If you want to use micom in a scientific publication the attribution clause in 
+the license is covered by citing our relevant publication. However, we are still
+in the process in pairing micom with validations so that publication still 
+**does not exist**. If you want to use micom before that article is published please
+contact us at `oresendis (at) inmegen.gob.mx`. Thanks :smile:
+
 To get an idea which assumptions and strategies `micom` uses we recommend
 to start with some background on the :doc:`methods <logic>`. 
 

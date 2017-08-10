@@ -3,7 +3,7 @@
 |travis status| |appveyor status| |coverage| |pypi status|
 
 *Please note that this is still a pre-release and might still lack
-functionalities.*
+functionalities. It comes with no guarantees.*
 
 `micom` is a Python package for metabolic modeling of microbial
 communities.
@@ -15,6 +15,15 @@ individuals in the community and can thus incorporate data from 16S rRNA
 sequencing experiments. It allows optimization with a variety of algorithms
 modeling the trade-off between egoistic growth rate maximization and
 cooperative objectives.
+
+Attribution
+-----------
+
+If you want to use micom in a scientific publication the attribution clause in 
+the license is covered by citing our relevant publication. However, we are still
+in the process in pairing micom with validations so that publication still 
+**does not exist**. If you want to use micom before that article is published please
+contact us at `oresendis (at) inmegen.gob.mx`. Thanks :smile:
 
 Installation
 ------------

@@ -13,14 +13,14 @@ class TestOptcom():
     def test_is_consistent(self, community, strategy):
         sol = community.optcom(strategy=strategy)
         assert np.allclose(sol.growth_rate, 0.873922)
-        assert np.allclose(sol.members.growth_rate, 0.873922)
+        assert np.allclose(sol.members.growth_rate.dropna(), 0.873922)
 
     @pytest.mark.parametrize("f", [0, 0.25, "0.5", [0, 0.2, 0.4, 0, 0],
                                    np.ones(5) * 0.7])
     def test_good_mingrowth(self, community, f):
         sol = community.optcom(strategy="linear", min_growth=f)
         assert np.allclose(sol.growth_rate, 0.873922)
-        assert np.allclose(sol.members.growth_rate, 0.873922)
+        assert np.allclose(sol.members.growth_rate.dropna(), 0.873922)
 
     @pytest.mark.parametrize("f", ["a", [1, 2], np.ones(6)])
     def test_bad_mingrowth(self, community, f):
@@ -34,7 +34,7 @@ class TestOptcom():
         assert sol is None
         sol = community.optcom(strategy=strategy, min_growth=0.0)
         assert sol.growth_rate > 0.4
-        assert (sol.members.growth_rate > 0.4).any()
+        assert (sol.members.growth_rate.dropna() > 0.4).any()
 
     def test_conservation(self, community):
         community.reactions.EX_glc__D_m.lower_bound = -5

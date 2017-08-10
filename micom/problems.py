@@ -1,6 +1,5 @@
 """Implements optimization and model problems."""
 
-from cobra.flux_analysis.parsimonious import add_pfba
 from micom.duality import fast_dual
 from micom.solution import CommunitySolution
 from micom.util import (_format_min_growth, _apply_min_growth,
@@ -8,6 +7,48 @@ from micom.util import (_format_min_growth, _apply_min_growth,
 from micom.logger import logger
 from sympy.core.singleton import S
 from functools import partial
+from itertools import chain
+
+
+def add_pfba_objective(community):
+    """Add pFBA objective.
+
+    Add objective to minimize the summed flux of all reactions to the
+    current objective. This one will work with any objective (even non-linear
+    ones).
+
+    See Also
+    --------
+    pfba
+
+    Parameters
+    ----------
+    community : micom.Community
+        The community to add the objective to.
+    """
+    # Fix all growth rates
+    species = list(community.objectives.keys())
+    rates = {sp: community.constraints["objective_" + sp].primal
+             for sp in species}
+    rates["community"] = community.variables["community_objective"].primal
+    for sp in species:
+        const = community.constraints["objective_" + sp]
+        const.lb = const.ub = rates[sp]
+    community_obj = community.variables["community_objective"]
+    community_obj.ub = community_obj.lb = rates["community"]
+
+    if community.solver.objective.name == '_pfba_objective':
+        raise ValueError('model already has pfba objective')
+    reaction_variables = ((rxn.forward_variable, rxn.reverse_variable)
+                          for rxn in community.reactions)
+    variables = chain(*reaction_variables)
+    community.objective = S.Zero
+    community.objective.direction = "min"
+    community.objective.set_linear_coefficients(dict.fromkeys(variables, 1.0))
+    if community.modification is None:
+        community.modification = "pFBA"
+    else:
+        community.modification += " and pFBA"
 
 
 def solve(community, fluxes=True, pfba=True):
@@ -15,7 +56,7 @@ def solve(community, fluxes=True, pfba=True):
     community.solver.optimize()
     if community.solver.status == "optimal":
         if fluxes and pfba:
-            add_pfba(community)
+            add_pfba_objective(community)
             community.solver.optimize()
         if fluxes:
             sol = CommunitySolution(community)
@@ -75,17 +116,13 @@ def add_lagrangian(community, tradeoff, linear=False):
     logger.info("adding lagrangian objective to %s" % community.id)
     species = list(community.objectives.keys())
     max_gcs = community.optimize_all(progress=False)
-    prob = community.problem
     com_expr = S.Zero
     cost_expr = S.Zero
     abundances = community.abundances
     logger.info("adding expressions for %d species" % len(species))
     for sp in species:
         com_expr += abundances[sp] * community.objectives[sp]
-        v_max_gc = prob.Variable("gc_constant_" + sp, lb=max_gcs[sp],
-                                 ub=max_gcs[sp])
-        community.add_cons_vars([v_max_gc])
-        ex = v_max_gc - community.objectives[sp]
+        ex = max_gcs[sp] - community.objectives[sp]
         if not linear:
             ex = ex**2
         cost_expr += ex.expand()

@@ -7,9 +7,9 @@ functionalities. It comes with no guarantees.*
 
 `micom` is a Python package for metabolic modeling of microbial
 communities developed in the
-[Human Systems Biology Group](https://resendislba.github.io) of
-Prof. Osbaldo Resendis Antonio at the [National Institute of Genomic
-Medicine Mexico](https://inmegen.gob.mx).
+`Human Systems Biology Group <https://resendislba.github.io>`_ of
+Prof. Osbaldo Resendis Antonio at the `National Institute of Genomic
+Medicine Mexico <https://inmegen.gob.mx>`_.
 
 `micom` allows you to construct a community model from a list on input
 COBRA models and manages exchange fluxes between individuals and individuals
@@ -42,11 +42,11 @@ Getting started
 
 Documentation can be found at https://cdiener.github.io/micom .
 
-.. |travis status| image:: https://travis-ci.org/cdiener/micom.svg?branch=master
-   :target: https://travis-ci.org/cdiener/micom
-.. |appveyor status| image:: https://ci.appveyor.com/api/projects/status/m2vu008h7n35ji2g/branch/master?svg=true
-   :target: https://ci.appveyor.com/project/cdiener/micom/branch/master
-.. |coverage| image:: https://codecov.io/gh/cdiener/micom/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/cdiener/micom
+.. |travis status| image:: https://travis-ci.org/resendislab/micom.svg?branch=master
+   :target: https://travis-ci.org/resendislab/micom
+.. |appveyor status| image:: https://ci.appveyor.com/api/projects/status/m9d8v4qj2o8oj3jn/branch/master?svg=true
+   :target: https://ci.appveyor.com/project/resendislab/micom/branch/master
+.. |coverage| image:: https://codecov.io/gh/resendislab/micom/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/resendislab/micom
 .. |pypi status| image:: https://img.shields.io/pypi/v/micom.svg
    :target: https://pypi.org/project/micom/

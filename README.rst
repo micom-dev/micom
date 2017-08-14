@@ -6,7 +6,10 @@
 functionalities. It comes with no guarantees.*
 
 `micom` is a Python package for metabolic modeling of microbial
-communities.
+communities developed in the
+[Human Systems Biology Group](https://resendislba.github.io) of
+Prof. Osbaldo Resendis Antonio at the [National Institute of Genomic
+Medicine Mexico](https://inmegen.gob.mx).
 
 `micom` allows you to construct a community model from a list on input
 COBRA models and manages exchange fluxes between individuals and individuals
@@ -19,9 +22,9 @@ cooperative objectives.
 Attribution
 -----------
 
-If you want to use micom in a scientific publication the attribution clause in 
+If you want to use micom in a scientific publication the attribution clause in
 the license is covered by citing our relevant publication. However, we are still
-in the process in pairing micom with validations so that publication still 
+in the process in pairing micom with validations so that publication still
 **does not exist**. If you want to use micom before that article is published please
 contact us at `oresendis (at) inmegen.gob.mx`. Thanks :smile:
 

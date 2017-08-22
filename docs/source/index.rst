@@ -13,7 +13,7 @@ functionalities.*
 
 `micom` is a Python package for metabolic modeling of microbial
 communities developed in the
-`Human Systems Biology Group <https://resendislba.github.io>`_ of
+`Human Systems Biology Group <https://resendislab.github.io>`_ of
 Prof. Osbaldo Resendis Antonio at the `National Institute of Genomic
 Medicine Mexico <https://inmegen.gob.mx>`_.
 

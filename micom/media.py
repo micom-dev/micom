@@ -84,7 +84,7 @@ def add_mip_obj(community):
     community.modification = "minimal medium mixed-integer"
 
 
-def minimal_medium(community, community_growth, min_growth=0.1,
+def minimal_medium(community, community_growth, min_growth=0.1, exports=False,
                    minimize_components=False, open_exchanges=False):
     """Find the minimal growth medium for the community.
 
@@ -102,6 +102,9 @@ def minimal_medium(community, community_growth, min_growth=0.1,
     min_growth : positive float or array-like object.
         The minimum growth rate for each individual in the community. Either
         a single value applied to all individuals or one value for each.
+    exports : boolean
+        Whether to include export fluxes in the returned medium. Defaults to
+        False which will only return import fluxes.
     minimize_components : boolean
         Whether to minimize the number of components instead of the total
         import flux. Might be more intuitive if set to True but may also be
@@ -152,12 +155,17 @@ def minimal_medium(community, community_growth, min_growth=0.1,
 
         logger.info("formatting medium")
         medium = pd.Series()
+        tol = community.solver.configuration.tolerances.feasibility
         for rxn in boundary_rxns:
             export = len(rxn.reactants) == 1
             flux = rxn.flux
-            if export and flux < 0:
+            if abs(flux) < tol:
+                continue
+            if export:
                 medium[rxn.id] = -flux
-            elif not export and flux > 0:
+            elif not export:
                 medium[rxn.id] = flux
+        if not exports:
+            medium = medium[medium > 0]
 
     return medium

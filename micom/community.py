@@ -5,7 +5,7 @@ import six
 import six.moves.cPickle as pickle
 import cobra
 import pandas as pd
-from sympy.core.singleton import S
+from optlang.symbolics import Zero
 from tqdm import tqdm
 from micom.util import load_model, join_models, add_var_from_expression
 from micom.logger import logger
@@ -66,9 +66,8 @@ class Community(cobra.Model):
 
         Attributes
         ----------
-        objectives : dict
-            A dict of {id: sympy_expression} denoting the individual growth
-            objectives for each model in the community.
+        species : list
+            A list of species IDs in the community.
 
         """
         super(Community, self).__init__(id, name)
@@ -104,8 +103,8 @@ class Community(cobra.Model):
         self.__taxonomy = taxonomy
         self.__taxonomy.index = self.__taxonomy.id
 
-        obj = S.Zero
-        self.objectives = {}
+        obj = Zero
+        self.species = []
         index = self.__taxonomy.index
         index = tqdm(index, unit="models") if progress else index
         for idx in index:
@@ -132,7 +131,7 @@ class Community(cobra.Model):
             o = self.solver.interface.Objective.clone(model.objective,
                                                       model=self.solver)
             obj += o.expression * row.abundance
-            self.objectives[idx] = o.expression
+            self.species.append(idx)
             species_obj = self.problem.Constraint(
                 o.expression, name="objective_" + idx, lb=0.0)
             self.add_cons_vars([species_obj])
@@ -141,7 +140,8 @@ class Community(cobra.Model):
 
         com_obj = add_var_from_expression(self, "community_objective",
                                           obj, lb=0)
-        self.objective = self.problem.Objective(com_obj, direction="max")
+        self.objective = self.problem.Objective(com_obj,
+                                                direction="max")
 
     def __add_exchanges(self, reactions, info, exclude=default_excludes,
                         external_compartment="e"):
@@ -215,11 +215,12 @@ class Community(cobra.Model):
         v = self.variables.community_objective
         const = self.constraints.community_objective_equality
         self.remove_cons_vars([const])
-        com_obj = S.Zero
-        for sp, expr in self.objectives.items():
+        com_obj = Zero
+        for sp in self.species:
             ab = self.__taxonomy.loc[sp, "abundance"]
-            com_obj += ab * expr
-        const = self.problem.Constraint(v - com_obj, lb=0, ub=0,
+            species_obj = self.constraints["objective_" + sp]
+            com_obj += ab * species_obj.expression
+        const = self.problem.Constraint(v - com_obj.expand(), lb=0, ub=0,
                                         name="community_objective_equality")
         self.add_cons_vars([const])
 
@@ -259,9 +260,9 @@ class Community(cobra.Model):
 
         logger.info("optimizing for {}".format(info.name))
 
-        obj = self.objectives[info.name]
+        obj = self.constraints["objective_" + info.name]
         with self as m:
-            m.objective = obj
+            m.objective = obj.expression
             m.solver.optimize()
             return m.objective.value
 

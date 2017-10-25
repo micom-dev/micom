@@ -1,7 +1,6 @@
 """Manages functions for growth media analysis and manipulation."""
 
-from numbers import Number
-from sympy.core.singleton import S
+from optlang.symbolics import Zero
 from optlang.interface import OPTIMAL
 import numpy as np
 import pandas as pd
@@ -123,12 +122,12 @@ def minimal_medium(community, community_growth, min_growth=0.1, exports=False,
     """
     logger.info("calculating minimal medium for %s" % community.id)
     boundary_rxns = community.exchanges
-    if isinstance(open_exchanges, Number):
-        open_bound = open_exchanges
-    else:
+    if isinstance(open_exchanges, bool):
         open_bound = 1000
+    else:
+        open_bound = open_exchanges
     min_growth = _format_min_growth(
-        min_growth, list(community.objectives.keys()))
+        min_growth, community.species)
     with community as com:
         if open_exchanges:
             logger.info("opening exchanges for %d imports" %
@@ -142,7 +141,7 @@ def minimal_medium(community, community_growth, min_growth=0.1, exports=False,
         com.add_cons_vars([obj_const])
         com.solver.update()
         _apply_min_growth(community, min_growth)
-        com.objective = S.Zero
+        com.objective = Zero
         logger.info("adding new media objective")
         if minimize_components:
             add_mip_obj(com)

@@ -89,7 +89,7 @@ def join_models(model_files, id=None):
         other = load_model(filepath)
         new = [r.id for r in other.reactions if r.id not in rids]
         model.add_reactions(other.reactions.get_by_any(new))
-        model.objective += other.objective.expression / n
+        model.objective += (other.objective.expression * (1.0/n)).expand()
         rids.update(new)
 
     return model
@@ -111,7 +111,7 @@ def fluxes_from_primals(model, info):
 def add_var_from_expression(model, name, expr, lb=None, ub=None):
     """Add a variable to a model equaling an expression."""
     var = model.problem.Variable(name, lb=lb, ub=ub)
-    const = model.problem.Constraint(var - expr, lb=0, ub=0,
+    const = model.problem.Constraint((var - expr).expand(), lb=0, ub=0,
                                      name=name + "_equality")
     model.add_cons_vars([var, const])
     return var
@@ -175,7 +175,7 @@ def _apply_min_growth(community, min_growth):
         logger.info("resetting growth rate constraint for %s" % species)
         community.constraints["objective_" + sp].lb = lb
 
-    for sp in community.objectives:
+    for sp in community.species:
         logger.info("setting growth rate constraint for %s" % sp)
         obj = community.constraints["objective_" + sp]
         if context:

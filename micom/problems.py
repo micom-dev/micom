@@ -5,7 +5,7 @@ from micom.solution import CommunitySolution
 from micom.util import (_format_min_growth, _apply_min_growth,
                         check_modification)
 from micom.logger import logger
-from sympy.core.singleton import S
+from optlang.symbolics import Zero, One
 from functools import partial
 from itertools import chain
 
@@ -27,11 +27,10 @@ def add_pfba_objective(community):
         The community to add the objective to.
     """
     # Fix all growth rates
-    species = list(community.objectives.keys())
     rates = {sp: community.constraints["objective_" + sp].primal
-             for sp in species}
+             for sp in community.species}
     rates["community"] = community.variables["community_objective"].primal
-    for sp in species:
+    for sp in community.species:
         const = community.constraints["objective_" + sp]
         const.lb = const.ub = rates[sp]
     community_obj = community.variables["community_objective"]
@@ -42,7 +41,7 @@ def add_pfba_objective(community):
     reaction_variables = ((rxn.forward_variable, rxn.reverse_variable)
                           for rxn in community.reactions)
     variables = chain(*reaction_variables)
-    community.objective = S.Zero
+    community.objective = Zero
     community.objective.direction = "min"
     community.objective.set_linear_coefficients(dict.fromkeys(variables, 1.0))
     if community.modification is None:
@@ -82,8 +81,7 @@ def add_linear_optcom(community, min_growth=0.1):
 
     """
     check_modification(community)
-    species = list(community.objectives.keys())
-    min_growth = _format_min_growth(min_growth, species)
+    min_growth = _format_min_growth(min_growth, community.species)
     _apply_min_growth(community, min_growth)
 
     community.modification = "linear optcom"
@@ -114,19 +112,19 @@ def add_lagrangian(community, tradeoff, linear=False):
 
     """
     logger.info("adding lagrangian objective to %s" % community.id)
-    species = list(community.objectives.keys())
     max_gcs = community.optimize_all(progress=False)
-    com_expr = S.Zero
-    cost_expr = S.Zero
+    com_expr = Zero
+    cost_expr = Zero
     abundances = community.abundances
-    logger.info("adding expressions for %d species" % len(species))
-    for sp in species:
-        com_expr += abundances[sp] * community.objectives[sp]
-        ex = max_gcs[sp] - community.objectives[sp]
+    logger.info("adding expressions for %d species" % len(community.species))
+    for sp in community.species:
+        species_obj = community.constraints["objective_" + sp]
+        com_expr += abundances[sp] * species_obj.expression
+        ex = max_gcs[sp] - species_obj.expression
         if not linear:
             ex = ex**2
         cost_expr += ex.expand()
-    community.objective = (S.One - tradeoff) * com_expr - tradeoff * cost_expr
+    community.objective = (One - tradeoff) * com_expr - tradeoff * cost_expr
     if "with lagrangian" not in community.modification:
         community.modification += " with lagrangian"
     logger.info("finished adding lagrangian objective to %s" % community.id)
@@ -159,29 +157,29 @@ def add_dualized_optcom(community, min_growth):
     """
     logger.info("adding dual optcom to %s" % community.id)
     check_modification(community)
-    species = list(community.objectives.keys())
-    min_growth = _format_min_growth(min_growth, species)
+    min_growth = _format_min_growth(min_growth, community.species)
 
     prob = community.solver.interface
 
     # Temporarily subtitute objective with sum of individual objectives
     # for correct dual variables
     old_obj = community.objective
-    community.objective = S.Zero
-    for expr in community.objectives.values():
-        community.objective += expr
+    community.objective = Zero
+    for sp in community.species:
+        species_obj = community.constraints["objective_" + sp]
+        community.objective += species_obj.expression
 
     _apply_min_growth(community, min_growth)
     dual_coefs = fast_dual(community)
 
-    logger.info("adding expressions for %d species" % len(species))
-    for sp in species:
+    logger.info("adding expressions for %d species" % len(community.species))
+    for sp in community.species:
         primal_const = community.constraints["objective_" + sp]
         coefs = primal_const.get_linear_coefficients(primal_const.variables)
         coefs.update({dual_var: -coef for dual_var, coef in
                       dual_coefs.items() if sp in dual_var.name})
         obj_constraint = prob.Constraint(
-            S.Zero, lb=0, ub=0, name="optcom_suboptimality_" + sp)
+            Zero, lb=0, ub=0, name="optcom_suboptimality_" + sp)
         community.add_cons_vars([obj_constraint])
         community.solver.update()
         obj_constraint.set_linear_coefficients(coefs)
@@ -221,8 +219,7 @@ def add_moma_optcom(community, min_growth, linear=False):
     logger.info("adding dual %s moma to %s" % (
         "linear" if linear else "quadratic", community.id))
     check_modification(community)
-    species = list(community.objectives.keys())
-    min_growth = _format_min_growth(min_growth, species)
+    min_growth = _format_min_growth(min_growth, community.species)
 
     prob = community.solver.interface
     old_obj = community.objective
@@ -237,17 +234,18 @@ def add_moma_optcom(community, min_growth, linear=False):
         v: -coef for v, coef in
         dual_coefs.items()})
     obj_constraint = prob.Constraint(
-        S.Zero, lb=0, ub=0,
+        Zero, lb=0, ub=0,
         name="optcom_suboptimality")
     community.add_cons_vars([obj_constraint])
     community.solver.update()
     obj_constraint.set_linear_coefficients(coefs)
-    obj_expr = S.Zero
-    logger.info("adding expressions for %d species" % len(species))
-    for sp in species:
+    obj_expr = Zero
+    logger.info("adding expressions for %d species" % len(community.species))
+    for sp in community.species:
         v = prob.Variable("gc_constant_" + sp, lb=max_gcs[sp], ub=max_gcs[sp])
         community.add_cons_vars([v])
-        ex = v - community.objectives[sp]
+        species_obj = community.constraints["objective_" + sp]
+        ex = v - species_obj.expression
         if not linear:
             ex = ex**2
         obj_expr += ex.expand()

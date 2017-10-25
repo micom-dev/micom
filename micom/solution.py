@@ -73,7 +73,7 @@ class CommunitySolution(Solution):
                 community.solver.objective.value, community.solver.status,
                 None, None, None)
         gcs = pd.Series()
-        for sp in community.objectives:
+        for sp in community.species:
             gcs[sp] = community.constraints["objective_" + sp].primal
         self.strategy = community.modification
         self.members = pd.DataFrame({

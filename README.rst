@@ -2,9 +2,6 @@
 
 |travis status| |appveyor status| |coverage| |pypi status|
 
-*Please note that this is still a pre-release and might still lack
-functionalities. It comes with no guarantees.*
-
 `micom` is a Python package for metabolic modeling of microbial
 communities developed in the
 `Human Systems Biology Group <https://resendislab.github.io>`_ of
@@ -40,7 +37,7 @@ Installation
 Getting started
 ---------------
 
-Documentation can be found at https://cdiener.github.io/micom .
+Documentation can be found at https://resendislab.github.io/micom .
 
 .. |travis status| image:: https://travis-ci.org/resendislab/micom.svg?branch=master
    :target: https://travis-ci.org/resendislab/micom

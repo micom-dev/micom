@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>micom package &mdash; micom 0.6.0+1.ga8f92bd.dirty documentation</title>
+  <title>micom package &mdash; micom 0.7.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="micom 0.6.0+1.ga8f92bd.dirty documentation" href="index.html"/>
+    <link rel="top" title="micom 0.7.0 documentation" href="index.html"/>
         <link rel="next" title="micom.data package" href="micom.data.html"/>
         <link rel="prev" title="Building communities" href="community.html"/> 
 
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.6
+                0.7
               </div>
             
           
@@ -359,7 +359,7 @@ the reaction is <em>not</em> an exchange reaction.</p>
 
 <dl class="function">
 <dt id="micom.media.minimal_medium">
-<code class="descclassname">micom.media.</code><code class="descname">minimal_medium</code><span class="sig-paren">(</span><em>community</em>, <em>community_growth</em>, <em>min_growth=0.1</em>, <em>minimize_components=False</em>, <em>open_exchanges=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.minimal_medium" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">micom.media.</code><code class="descname">minimal_medium</code><span class="sig-paren">(</span><em>community</em>, <em>community_growth</em>, <em>min_growth=0.1</em>, <em>exports=False</em>, <em>minimize_components=False</em>, <em>open_exchanges=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.minimal_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the minimal growth medium for the community.</p>
 <p>Finds the minimal growth medium for the community which allows for
 community as well as individual growth. Here, a minimal medium can either
@@ -374,6 +374,8 @@ requiring the least components (ergo ingredients).</p>
 <li><strong>community_growth</strong> (<em>positive float</em>) – The minimum community-wide growth rate.</li>
 <li><strong>min_growth</strong> (<em>positive float</em><em> or </em><em>array-like object.</em>) – The minimum growth rate for each individual in the community. Either
 a single value applied to all individuals or one value for each.</li>
+<li><strong>exports</strong> (<em>boolean</em>) – Whether to include export fluxes in the returned medium. Defaults to
+False which will only return import fluxes.</li>
 <li><strong>minimize_components</strong> (<em>boolean</em>) – Whether to minimize the number of components instead of the total
 import flux. Might be more intuitive if set to True but may also be
 slow to calculate for large communities.</li>
@@ -1042,7 +1044,7 @@ maximal growth rate.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.6.0+1.ga8f92bd.dirty',
+            VERSION:'0.7.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

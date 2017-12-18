@@ -377,7 +377,7 @@ class Community(cobra.Model):
             any(ex in x.id for ex in default_excludes) and
             "m" in x.compartments)
 
-    def optcom(self, strategy="lagrangian", min_growth=0.1, tradeoff=0.5,
+    def optcom(self, strategy="lagrangian", min_growth=0.0, tradeoff=0.5,
                fluxes=False, pfba=True):
         """Run OptCom for the community.
 
@@ -448,6 +448,51 @@ class Community(cobra.Model):
 
         """
         return optcom(self, strategy, min_growth, tradeoff, fluxes, pfba)
+
+    def knockout_species(self, species=None, changes=False,
+                         **optcom_args):
+        """Sequentially knowckout a list of species in the model.
+
+        Parameters for the actual optimization are set using the additional
+        kwargs. See `Community.optcom` for accepted parameters.
+
+        Parameters
+        ----------
+        species : str or list of strs
+            Names of species to be knocked out.
+        changes : boolean
+            Whether to return the resulting growth rates or rather the change
+            in growth rate (new - old).
+        **optcom_args
+            Additional arguments passed to `Community.optcom`.
+
+        Returns
+        -------
+        pandas.DataFrame
+            A data frame with one row for each knockout and growth rates in the
+            columns.
+        """
+        if species is None:
+            species = self.species
+        if isinstance(species, six.string_types):
+            species = [species]
+        if any(sp not in self.species for sp in species):
+            raise ValueError("At least one of the arguments is not a species "
+                             "in the community.")
+        old = self.optcom(**optcom_args).members["growth_rate"]
+        results = []
+
+        for sp in species:
+            with self as com:
+                [r.knock_out() for r in
+                 com.reactions.query(lambda ri: ri.community_id == sp)]
+                sol = com.optcom(**optcom_args)
+                new = sol.members["growth_rate"]
+                if changes:
+                    new -= old
+                results.append(new)
+
+        return pd.DataFrame(results, index=species).drop("medium", 1)
 
     def to_pickle(self, filename):
         """Save a community in serialized form.

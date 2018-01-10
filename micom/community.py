@@ -10,7 +10,8 @@ from tqdm import tqdm
 from micom.util import load_model, join_models, add_var_from_expression
 from micom.logger import logger
 from micom.media import default_excludes
-from micom.problems import optcom, solve
+from micom.optcom import optcom, solve
+from micom.problems import cooperative_tradeoff, knockout_species
 
 _taxonomy_cols = ["id", "file"]
 
@@ -377,8 +378,8 @@ class Community(cobra.Model):
             any(ex in x.id for ex in default_excludes) and
             "m" in x.compartments)
 
-    def optcom(self, strategy="lagrangian", min_growth=0.0, tradeoff=0.5,
-               fluxes=False, pfba=True):
+    def optcom(self, strategy="lagrangian", min_growth=0.0, fluxes=False,
+               pfba=True):
         """Run OptCom for the community.
 
         OptCom methods are a group of optimization procedures to find community
@@ -386,17 +387,6 @@ class Community(cobra.Model):
         growth and the egoistic growth of each individual [#c1]_. `micom`
         provides several strategies that can be used to find optimal solutions:
 
-        - "linear": Applies a lower bound for the individual growth rates and
-          finds the optimal community growth rate. This is the fastest methods
-          but also ignores that individuals might strive to optimize their
-          individual growth instead of community growth.
-        - "lagrangian": Optimizes a joint objective containing the community
-          objective (maximized) as well as a cooperativity cost which
-          represents the  distance to the individuals "egoistic" maximum growth
-          rate (minimized). Requires the `tradeoff` parameter. This method is
-          still relatively fast and does require only few additional variables.
-        - "linear lagrangian": The same as "lagrangian" only with a linear
-          representation of the cooperativity cost (absolute value).
         - "moma": Minimization of metabolic adjustment. Simultaneously
           optimizes the community objective (maximize) and the cooperativity
           cost (minimize). This method finds an exact maximum but doubles the
@@ -421,11 +411,6 @@ class Community(cobra.Model):
             The minimal growth rate required for each individual. May be a
             single value or an array-like object with the same length as there
             are individuals.
-        tradeoff : float in [0, 1]
-            Only used for lagrangian strategies. Must be between 0 and 1 and
-            describes the strength of the cooperativity cost / egoism. 1 means
-            optimization will only minimize the cooperativity cost and zero
-            means optimization will only maximize the community objective.
         fluxes : boolean
             Whether to return the fluxes as well.
         pfba : boolean
@@ -447,30 +432,74 @@ class Community(cobra.Model):
            doi: 10.1371/journal.pcbi.1002363, PMID: 22319433
 
         """
-        return optcom(self, strategy, min_growth, tradeoff, fluxes, pfba)
+        return optcom(self, strategy, min_growth, fluxes, pfba)
 
-    def knockout_species(self, species=None, changes=False,
-                         **optcom_args):
+    def cooperative_tradeoff(self, linear=True, min_growth=0.0, fraction=0.9,
+                             fluxes=False, pfba=True):
+        """Find the best tradeoff between community and individual growth.
+
+        Finds the set of growth rates which is closest to the community members
+        individual maximal growth rates and still yields a (sub-)optimal
+        community objective.
+
+        Parameters
+        ----------
+        community : micom.Community
+            The community to optimize.
+        linear : boolean
+            Whether to use a non-linear (sum of squares) or linear version of
+            the cooperativity cost. If set to False requires a QP-capable
+            solver.
+        min_growth : float or array-like
+            The minimal growth rate required for each individual. May be a
+            single value or an array-like object with the same length as there
+            are individuals.
+        fraction : float in [0, 1]
+            Percentage of the maximum community growth rate that has to be
+            mantained. 0 would mean only optimize individual growth rates and
+            1 only optimize the community growth rate.
+        fluxes : boolean
+            Whether to return the fluxes as well.
+        pfba : boolean
+            Whether to obtain fluxes by parsimonious FBA rather than
+            "classical" FBA. This is highly recommended.
+
+        Returns
+        -------
+        micom.CommunitySolution
+            The solution of the optimization. If fluxes==False will only
+            contain the objective value, community growth rate and individual
+            growth rates.
+        """
+        return cooperative_tradeoff(self, linear, min_growth, fraction, fluxes,
+                                    pfba)
+
+    def knockout_species(self, species=None, linear=False, fraction=0.9,
+                         changes=False):
         """Sequentially knowckout a list of species in the model.
-
-        Parameters for the actual optimization are set using the additional
-        kwargs. See `Community.optcom` for accepted parameters.
 
         Parameters
         ----------
         species : str or list of strs
             Names of species to be knocked out.
+        linear : boolean
+            Whether to use a non-linear (sum of squares) or linear version of
+            the cooperativity cost. If set to False requires a QP-capable
+            solver.
+        fraction : float in [0, 1]
+            Percentage of the maximum community growth rate that has to be
+            mantained. 0 would mean only optimize individual growth rates and
+            1 only optimize the community growth rate.
         changes : boolean
             Whether to return the resulting growth rates or rather the change
             in growth rate (new - old).
-        **optcom_args
-            Additional arguments passed to `Community.optcom`.
 
         Returns
         -------
         pandas.DataFrame
             A data frame with one row for each knockout and growth rates in the
             columns.
+
         """
         if species is None:
             species = self.species
@@ -479,20 +508,7 @@ class Community(cobra.Model):
         if any(sp not in self.species for sp in species):
             raise ValueError("At least one of the arguments is not a species "
                              "in the community.")
-        old = self.optcom(**optcom_args).members["growth_rate"]
-        results = []
-
-        for sp in species:
-            with self as com:
-                [r.knock_out() for r in
-                 com.reactions.query(lambda ri: ri.community_id == sp)]
-                sol = com.optcom(**optcom_args)
-                new = sol.members["growth_rate"]
-                if changes:
-                    new -= old
-                results.append(new)
-
-        return pd.DataFrame(results, index=species).drop("medium", 1)
+        return knockout_species(self, species, linear, fraction, changes)
 
     def to_pickle(self, filename):
         """Save a community in serialized form.

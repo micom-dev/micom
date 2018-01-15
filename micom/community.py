@@ -145,7 +145,7 @@ class Community(cobra.Model):
                                                 direction="max")
 
     def __add_exchanges(self, reactions, info, exclude=default_excludes,
-                        external_compartment="e"):
+                        external_compartment="e", internal_exchange=1000):
         """Add exchange reactions for a new model."""
         for r in reactions:
             # Some sanity checks for whether the reaction is an exchange
@@ -196,6 +196,10 @@ class Community(cobra.Model):
 
             coef = info.abundance
             r.add_metabolites({medium_met: coef if export else -coef})
+            if export:
+                r.lower_bounds = -internal_exchange
+            else:
+                r.upper_bound = internal_exchange
 
     def __update_exchanges(self):
         """Update exchanges."""
@@ -454,10 +458,11 @@ class Community(cobra.Model):
             The minimal growth rate required for each individual. May be a
             single value or an array-like object with the same length as there
             are individuals.
-        fraction : float in [0, 1]
+        fraction : float or list of loats in [0, 1]
             Percentage of the maximum community growth rate that has to be
             mantained. 0 would mean only optimize individual growth rates and
-            1 only optimize the community growth rate.
+            1 only optimize the community growth rate. If more than one
+            fraction is given all of them are run.
         fluxes : boolean
             Whether to return the fluxes as well.
         pfba : boolean
@@ -466,16 +471,17 @@ class Community(cobra.Model):
 
         Returns
         -------
-        micom.CommunitySolution
+        micom.CommunitySolution or pd.Series of solutions
             The solution of the optimization. If fluxes==False will only
             contain the objective value, community growth rate and individual
-            growth rates.
+            growth rates. If more than one fraction value is given will return
+            a pandas Series of solutions with the fractions as indices.
         """
         return cooperative_tradeoff(self, linear, min_growth, fraction, fluxes,
                                     pfba)
 
-    def knockout_species(self, species=None, linear=False, fraction=0.9,
-                         changes=False):
+    def knockout_species(self, species=None, linear=True, fraction=0.9,
+                         method="relative change"):
         """Sequentially knowckout a list of species in the model.
 
         Parameters
@@ -490,9 +496,10 @@ class Community(cobra.Model):
             Percentage of the maximum community growth rate that has to be
             mantained. 0 would mean only optimize individual growth rates and
             1 only optimize the community growth rate.
-        changes : boolean
-            Whether to return the resulting growth rates or rather the change
-            in growth rate (new - old).
+        method : str
+            One of "raw", "change" or "relative change" that dictates whether
+            to return the new growth rate (raw), the change in growth rate
+            new - old or the relative change ([new - old] / old).
 
         Returns
         -------
@@ -508,7 +515,10 @@ class Community(cobra.Model):
         if any(sp not in self.species for sp in species):
             raise ValueError("At least one of the arguments is not a species "
                              "in the community.")
-        return knockout_species(self, species, linear, fraction, changes)
+        if method not in ["raw", "change", "relative change"]:
+            raise ValueError("`method` must be one of 'raw', 'change', "
+                             "or 'relative change'.")
+        return knockout_species(self, species, linear, fraction, method)
 
     def to_pickle(self, filename):
         """Save a community in serialized form.

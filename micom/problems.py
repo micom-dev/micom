@@ -6,6 +6,7 @@ from micom.logger import logger
 from micom.solution import solve
 from optlang.symbolics import Zero
 from functools import partial
+from collections import Sized
 from cobra.util import get_context
 import pandas as pd
 
@@ -45,7 +46,6 @@ def add_egoistic_objective(community, min_community_growth, linear=False,
     if not max_gcs:
         max_gcs = community.optimize_all(progress=False)
     egoistic_expr = Zero
-    community.objective = 1.0 * community.variables.community_objective
     community.variables.community_objective.lb = min_community_growth
     context = get_context(community)
     if context:
@@ -108,48 +108,89 @@ def cooperative_tradeoff(community, linear, min_growth, fraction, fluxes,
         _apply_min_growth(community, min_growth)
 
         com.objective = 1.0 * com.variables.community_objective
+        if not isinstance(fraction, Sized):
+            fraction = [fraction]
 
-        if fraction < (1.0 - 1e-6):
-            community_growth = com.slim_optimize()
-            # Add needed variables etc.
-            add_egoistic_objective(community, fraction * community_growth,
-                                   linear)
-
-        return solve(community, fluxes=fluxes, pfba=pfba)
+        community_growth = com.slim_optimize()
+        # Add needed variables etc.
+        add_egoistic_objective(community, 0, linear)
+        results = []
+        for fr in fraction:
+            com.variables.community_objective.lb = fr * community_growth
+            results.append((fr, solve(community, fluxes=fluxes, pfba=pfba)))
+        if len(results) == 1:
+            return results[0][1]
+        return pd.DataFrame.from_records(results,
+                                         columns=["fraction", "solution"])
 
 
 def __is_needed(r, s):
+    """Find the smallest numbers of reactions that knock-out the individual."""
     return (r.community_id == s) & \
-           ((r.bounds[0] * r.bounds[1] > 0) |
-            ("m" in{m.compartment for m in r.metabolites}))
+           ((r.bounds[0] * r.bounds[1] > 0.0) |
+            ("m" in {m.compartment for m in r.metabolites}))
 
 
-def knockout_species(community, species, linear, fraction, changes=False):
+def zero_growth(com, s):
+    """Force zero_growth for a given species."""
+    const = com.constraints["objective_" + s]
+    bounds = (const.lb, const.ub)
+
+    def reset():
+        const.lb = bounds[0]
+        const.ub = bounds[1]
+
+    const.lb = const.ub = 0.0
+    context = get_context(com)
+    if context:
+        context(reset)
+
+
+def knockout_species(community, species, linear, fraction, method):
     """Knockout a species from the community."""
     with community as com:
-        check_modification(community)
+        check_modification(com)
+        min_growth = _format_min_growth(0.0, com.species)
+        _apply_min_growth(com, min_growth)
         com.objective = 1.0 * com.variables.community_objective
+        com.variables.community_objective.lb = 0.0
         com.objective_direction = "max"
-        growth = com.slim_optimize()
+        max_community_growth = com.slim_optimize()
 
-        add_egoistic_objective(community, fraction * growth, linear)
-        old = community.optimize().members["growth_rate"]
-        results = []
-
+        # Phase 1: get the maximal community growth rates for all knock-outs
+        growth = pd.Series()
         for sp in species:
             with com:
+                logger.info("getting community growth rate for "
+                            "%s knockout" % sp)
+                [r.knock_out() for r in
+                    com.reactions.query(lambda ri: __is_needed(ri, sp))]
+                # this should not be necessary but leaving the fixed zero
+                # variables in the objective sometimes leads to problems
+                # for some solver (cplex for instance)
+                zero_growth(com, sp)
+                growth[sp] = com.slim_optimize()
+
+        # Phase 2: Get solutions closest to egoistic growth
+        add_egoistic_objective(com, fraction * max_community_growth,
+                               linear)
+        old = com.optimize().members["growth_rate"]
+        results = []
+
+        for sp, gr in growth.items():
+            with com:
+                logger.info("getting egoistic trdeoff growth rates for "
+                            "%s knockout" % sp)
                 [r.knock_out() for r in
                  com.reactions.query(lambda ri: __is_needed(ri, sp))]
-                com.variables.community_objective.lb = 0
-                with com:
-                    com.objective = 1.0 * com.variables.community_objective
-                    com.objective_direction = "max"
-                    growth = com.slim_optimize()
-                com.variables.community_objective.lb = fraction * growth
+                zero_growth(com, sp)
+                com.variables.community_objective.lb = fraction * gr
                 sol = com.optimize()
                 new = sol.members["growth_rate"]
-                if changes:
+                if "change" in method:
                     new -= old
+                if "relative" in method:
+                    new /= old
                 results.append(new)
 
         return pd.DataFrame(results, index=species).drop("medium", 1)

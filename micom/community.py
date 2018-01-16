@@ -26,7 +26,7 @@ class Community(cobra.Model):
     """
 
     def __init__(self, taxonomy, id=None, name=None, rel_threshold=1e-6,
-                 solver=None, progress=True):
+                 solver=None, progress=True, max_exchange=1000):
         """Create a new community object.
 
         `micom` builds a community from a taxonomy which may simply be a list
@@ -64,6 +64,12 @@ class Community(cobra.Model):
             better suited for large problems.
         progress : bool, optional
             Show a progress bar.
+        max_exchange : positive float, optional
+            During model constructions exchange reactions are duplicated into
+            internal and external exchange reactions. This specifies the new
+            import flux bound for the *internal* exchange reaction. Import
+            rates for the exchanges between the medium and outside are still
+            mantained.
 
         Attributes
         ----------
@@ -136,7 +142,7 @@ class Community(cobra.Model):
             species_obj = self.problem.Constraint(
                 o.expression, name="objective_" + idx, lb=0.0)
             self.add_cons_vars([species_obj])
-            self.__add_exchanges(model.reactions, row)
+            self.__add_exchanges(model.reactions, row, max_exchange)
             self.solver.update()  # to avoid dangling refs due to lazy add
 
         com_obj = add_var_from_expression(self, "community_objective",

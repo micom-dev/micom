@@ -42,7 +42,7 @@ Documentation can be found at https://resendislab.github.io/micom .
 .. |travis status| image:: https://travis-ci.org/resendislab/micom.svg?branch=master
    :target: https://travis-ci.org/resendislab/micom
 .. |appveyor status| image:: https://ci.appveyor.com/api/projects/status/m9d8v4qj2o8oj3jn/branch/master?svg=true
-   :target: https://ci.appveyor.com/project/resendislab/micom/branch/master
+   :target: https://ci.appveyor.com/project/cdiener/micom-wfywj/branch/master
 .. |coverage| image:: https://codecov.io/gh/resendislab/micom/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/resendislab/micom
 .. |pypi status| image:: https://img.shields.io/pypi/v/micom.svg

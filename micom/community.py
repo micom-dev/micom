@@ -142,7 +142,8 @@ class Community(cobra.Model):
             species_obj = self.problem.Constraint(
                 o.expression, name="objective_" + idx, lb=0.0)
             self.add_cons_vars([species_obj])
-            self.__add_exchanges(model.reactions, row, max_exchange)
+            self.__add_exchanges(model.reactions, row,
+                                 internal_exchange=max_exchange)
             self.solver.update()  # to avoid dangling refs due to lazy add
 
         com_obj = add_var_from_expression(self, "community_objective",

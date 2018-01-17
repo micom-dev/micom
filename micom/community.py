@@ -204,7 +204,7 @@ class Community(cobra.Model):
             coef = info.abundance
             r.add_metabolites({medium_met: coef if export else -coef})
             if export:
-                r.lower_bounds = -internal_exchange
+                r.lower_bound = -internal_exchange
             else:
                 r.upper_bound = internal_exchange
 
@@ -232,7 +232,7 @@ class Community(cobra.Model):
             ab = self.__taxonomy.loc[sp, "abundance"]
             species_obj = self.constraints["objective_" + sp]
             com_obj += ab * species_obj.expression
-        const = self.problem.Constraint(v - com_obj.expand(), lb=0, ub=0,
+        const = self.problem.Constraint((v - com_obj).expand(), lb=0, ub=0,
                                         name="community_objective_equality")
         self.add_cons_vars([const])
 

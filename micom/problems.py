@@ -179,11 +179,20 @@ def knockout_species(community, species, linear, fraction, method):
 
         for sp, gr in growth.items():
             with com:
-                logger.info("getting egoistic trdeoff growth rates for "
+                logger.info("getting egoistic tradeoff growth rates for "
                             "%s knockout" % sp)
                 [r.knock_out() for r in
                  com.reactions.query(lambda ri: __is_needed(ri, sp))]
+                # this should not be necessary but leaving the fixed zero
+                # variables in the objective sometimes leads to problems
+                # for some solver (cplex for instance)
                 zero_growth(com, sp)
+                with com:
+                    logger.info("getting community growth rate for "
+                                "%s knockout" % sp)
+                    com.objective = 1.0 * com.variables.community_objective
+                    com.objective_direction = "max"
+                    gr = com.slim_optimize()
                 com.variables.community_objective.lb = fraction * gr
                 sol = com.optimize()
                 new = sol.members["growth_rate"]

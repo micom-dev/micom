@@ -16,7 +16,7 @@ def test_community_objective(community):
     y = community.optimize(slim=False)
     assert isinstance(x, CommunitySolution)
     assert np.allclose(x.growth_rate, 0.873922)
-    assert np.allclose(x.members.growth_rate.dropna(), 0.873922)
+    assert np.allclose(x.members.growth_rate.dropna().sum(), 5*0.873922)
     assert isinstance(y, CommunitySolution)
     assert y.fluxes.shape[0] == 6
 
@@ -29,7 +29,7 @@ def test_benchmark_community_objective(community, benchmark, solver):
 
 def test_individual_objective(community):
     growth_rates = community.optimize_all()
-    assert np.allclose(growth_rates, 0.873922)
+    assert np.allclose(growth_rates, 5*0.873922)
 
 
 @pytest.mark.parametrize("solver", solvers)

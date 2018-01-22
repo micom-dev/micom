@@ -2,6 +2,7 @@
 
 import cobra.io as io
 from cobra.util.context import get_context
+from cobra.util.solver import interface_to_str
 import os.path as path
 from functools import partial
 import six.moves.cPickle as pickle
@@ -181,3 +182,12 @@ def _apply_min_growth(community, min_growth):
         if context:
             context(partial(reset, sp, obj.lb))
         obj.lb = min_growth[sp]
+
+
+def adjust_solver_config(solver):
+    """Adjust the optlang solver configuration for larger problems."""
+    interface = interface_to_str(solver.interface)
+    if interface == "cplex":
+        solver.configuration.lp_method = "primal"
+        solver.configuration.qp_method = "primal"
+        solver.problem.parameters.threads.set(1)

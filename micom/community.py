@@ -7,7 +7,8 @@ import cobra
 import pandas as pd
 from optlang.symbolics import Zero
 from tqdm import tqdm
-from micom.util import load_model, join_models, add_var_from_expression
+from micom.util import (load_model, join_models, add_var_from_expression,
+                        adjust_solver_config)
 from micom.logger import logger
 from micom.media import default_excludes
 from micom.optcom import optcom, solve
@@ -85,6 +86,7 @@ class Community(cobra.Model):
                            else "glpk")
         else:
             self.solver = solver
+        adjust_solver_config(self.solver)
 
         if not (isinstance(taxonomy, pd.DataFrame) and
                 all(col in taxonomy.columns for col in _taxonomy_cols)):
@@ -445,7 +447,7 @@ class Community(cobra.Model):
         """
         return optcom(self, strategy, min_growth, fluxes, pfba)
 
-    def cooperative_tradeoff(self, linear=True, min_growth=0.0, fraction=0.9,
+    def cooperative_tradeoff(self, linear=False, min_growth=0.0, tradeoff=0.9,
                              fluxes=False, pfba=True):
         """Find the best tradeoff between community and individual growth.
 
@@ -465,11 +467,10 @@ class Community(cobra.Model):
             The minimal growth rate required for each individual. May be a
             single value or an array-like object with the same length as there
             are individuals.
-        fraction : float or list of loats in [0, 1]
-            Percentage of the maximum community growth rate that has to be
-            mantained. 0 would mean only optimize individual growth rates and
-            1 only optimize the community growth rate. If more than one
-            fraction is given all of them are run.
+        tradeoff : float or list of floats in [0, 1]
+            How much the optimization should concentrate on community growth.
+            0 would mean only optimize individual growth rates and 1 only optimize
+            the community growth rate.
         fluxes : boolean
             Whether to return the fluxes as well.
         pfba : boolean
@@ -484,10 +485,10 @@ class Community(cobra.Model):
             growth rates. If more than one fraction value is given will return
             a pandas Series of solutions with the fractions as indices.
         """
-        return cooperative_tradeoff(self, linear, min_growth, fraction, fluxes,
+        return cooperative_tradeoff(self, linear, min_growth, tradeoff, fluxes,
                                     pfba)
 
-    def knockout_species(self, species=None, linear=True, fraction=0.9,
+    def knockout_species(self, species=None, linear=False, fraction=0.9,
                          method="relative change"):
         """Sequentially knowckout a list of species in the model.
 
@@ -559,4 +560,6 @@ def load_pickle(filename):
 
     """
     with open(filename, mode="rb") as infile:
-        return pickle.load(infile)
+        mod = pickle.load(infile)
+        adjust_solver_config(mod.solver)
+        return mod

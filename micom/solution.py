@@ -3,10 +3,14 @@
 import numpy as np
 import pandas as pd
 from collections import Counter
-from optlang.interface import OPTIMAL
+from optlang.interface import OPTIMAL, NUMERIC, FEASIBLE
 from optlang.symbolics import Zero
 from itertools import chain
 from cobra.core import Solution, get_solution
+from micom.logger import logger
+
+
+good = [OPTIMAL, NUMERIC, FEASIBLE]
 
 
 def _group_species(values, ids, species, what="reaction"):
@@ -88,7 +92,7 @@ class CommunitySolution(Solution):
 
     def __repr__(self):
         """Convert CommunitySolution instance to string representation."""
-        if self.status != OPTIMAL:
+        if self.status not in good:
             return "<CommunitySolution {0:s} at 0x{1:x}>".format(
                 self.status, id(self))
         return "<CommunitySolution {0:.3f} at 0x{1:x}>".format(
@@ -138,7 +142,10 @@ def add_pfba_objective(community):
 def solve(community, fluxes=True, pfba=True):
     """Get all fluxes stratified by species."""
     community.solver.optimize()
-    if community.solver.status == "optimal":
+    status = community.solver.status
+    if status in good:
+        if status != OPTIMAL:
+            logger.info("solver returned the status %s" % status)
         if fluxes and pfba:
             add_pfba_objective(community)
             community.solver.optimize()
@@ -147,4 +154,5 @@ def solve(community, fluxes=True, pfba=True):
         else:
             sol = CommunitySolution(community, slim=True)
         return sol
+    logger.warning("solver encountered an error %s" % status)
     return None

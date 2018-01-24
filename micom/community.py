@@ -447,33 +447,28 @@ class Community(cobra.Model):
         """
         return optcom(self, strategy, min_growth, fluxes, pfba)
 
-    def cooperative_tradeoff(self, linear=False, min_growth=0.0, tradeoff=0.9,
+    def cooperative_tradeoff(self, min_growth=0.0, fraction=1.0,
                              fluxes=False, pfba=True):
         """Find the best tradeoff between community and individual growth.
 
-        Finds the set of growth rates which is closest to the community members
-        individual maximal growth rates and still yields a (sub-)optimal
-        community objective.
+        Finds the set of growth rates which maintian a particular community
+        growth and spread up growth across all species as much as possible.
+        This is done by minimizing the L2 norm of the growth rates with a
+        minimal community growth.
 
         Parameters
         ----------
-        community : micom.Community
-            The community to optimize.
-        linear : boolean
-            Whether to use a non-linear (sum of squares) or linear version of
-            the cooperativity cost. If set to False requires a QP-capable
-            solver.
-        min_growth : float or array-like
+        min_growth : float or array-like, optional
             The minimal growth rate required for each individual. May be a
             single value or an array-like object with the same length as there
             are individuals.
-        tradeoff : float or list of floats in [0, 1]
-            How much the optimization should concentrate on community growth.
-            0 would mean only optimize individual growth rates and 1 only optimize
-            the community growth rate.
-        fluxes : boolean
+        fraction : float or list of floats in [0, 1]
+            The minum percentage of the community growth rate that has to be
+            maintained. For instance 0.9 means maintain 90% of the maximal
+            community growth rate. Defaults to 100%.
+        fluxes : boolean, optional
             Whether to return the fluxes as well.
-        pfba : boolean
+        pfba : boolean, optional
             Whether to obtain fluxes by parsimonious FBA rather than
             "classical" FBA. This is highly recommended.
 
@@ -485,35 +480,38 @@ class Community(cobra.Model):
             growth rates. If more than one fraction value is given will return
             a pandas Series of solutions with the fractions as indices.
         """
-        return cooperative_tradeoff(self, linear, min_growth, tradeoff, fluxes,
+        return cooperative_tradeoff(self, min_growth, fraction, fluxes,
                                     pfba)
 
-    def knockout_species(self, species=None, linear=False, fraction=0.9,
-                         method="relative change"):
+    def knockout_species(self, species=None, fraction=1.0,
+                         method="change", progress=True):
         """Sequentially knowckout a list of species in the model.
+
+        This uses cooperative tradeoff as optimization criterion in order to
+        get unqiue solutions for individual growth rates. Requires a QP
+        solver to work.
 
         Parameters
         ----------
         species : str or list of strs
             Names of species to be knocked out.
-        linear : boolean
-            Whether to use a non-linear (sum of squares) or linear version of
-            the cooperativity cost. If set to False requires a QP-capable
-            solver.
-        fraction : float in [0, 1]
+        fraction : float in [0, 1], optional
             Percentage of the maximum community growth rate that has to be
-            mantained. 0 would mean only optimize individual growth rates and
-            1 only optimize the community growth rate.
-        method : str
+            maintained. Defaults to 100%.
+        method : str, optional
             One of "raw", "change" or "relative change" that dictates whether
             to return the new growth rate (raw), the change in growth rate
             new - old or the relative change ([new - old] / old).
+        progress : bool, optional
+            Whether to show a progress bar. On by default.
 
         Returns
         -------
         pandas.DataFrame
             A data frame with one row for each knockout and growth rates in the
-            columns.
+            columns. Here the row name indicates which species has been knocked
+            out and the columns contain the growth changes for all species in
+            that knockout.
 
         """
         if species is None:
@@ -526,7 +524,7 @@ class Community(cobra.Model):
         if method not in ["raw", "change", "relative change"]:
             raise ValueError("`method` must be one of 'raw', 'change', "
                              "or 'relative change'.")
-        return knockout_species(self, species, linear, fraction, method)
+        return knockout_species(self, species, fraction, method, progress)
 
     def to_pickle(self, filename):
         """Save a community in serialized form.

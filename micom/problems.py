@@ -1,13 +1,14 @@
 """Implements tradeoff optimization between community and egoistic growth."""
 
 from micom.util import (_format_min_growth, _apply_min_growth,
-                        check_modification)
+                        check_modification, get_context)
 from micom.logger import logger
 from micom.solution import solve
 from optlang.symbolics import Zero
 from collections import Sized
-from cobra.util import get_context
+from functools import partial
 import pandas as pd
+from tqdm import tqdm
 
 
 def reset_min_community_growth(com):
@@ -15,8 +16,7 @@ def reset_min_community_growth(com):
     com.variables.community_objective.lb = 0.0
 
 
-def add_tradeoff(community, tradeoff, linear=False,
-                 max_gcs=None):
+def regularize_l2_norm(community, min_growth):
     """Add an objective to find the most "egoistic" solution.
 
     This adds an optimization objective finding a solution that maintains a
@@ -41,77 +41,41 @@ def add_tradeoff(community, tradeoff, linear=False,
         The precomputed maximum individual growth rates.
 
     """
-    logger.info("adding egoistic objective to %s" % community.id)
-    if max_gcs is None:
-        max_gcs = community.optimize_all(progress=False)
-    egoistic_expr = Zero
+    logger.info("adding L2 norm to %s" % community.id)
+    l2 = Zero
+    community.variables.community_objective.lb = min_growth
+    context = get_context(community)
+    if context is not None:
+        context(partial(reset_min_community_growth, community))
+
     for sp in community.species:
         species_obj = community.constraints["objective_" + sp]
-        ex = max_gcs[sp] - species_obj.expression
-        if not linear:
-            ex = (ex**2).expand()
-        egoistic_expr += ex
-    community.objective = (tradeoff * community.variables.community_objective -
-                           (1.0 - tradeoff) * egoistic_expr)
-    if linear:
-        community.modification = "linear cooperative tradeoff"
-    else:
-        community.modification = "quadratic cooperative tradeoff"
+        ex = sum(v for v in species_obj.variables if (v.ub - v.lb) > 1e-6)
+        l2 += (ex**2).expand()
+    community.objective = -l2
+    community.modification = "l2 norm"
     logger.info("finished adding tradeoff objective to %s" % community.id)
 
 
-def cooperative_tradeoff(community, linear, min_growth, tradeoff, fluxes,
-                         pfba):
-    """Find the best tradeoff between community and individual growth.
-
-    Finds the set of growth rates which is closest to the community members
-    individual maximal growth rates and still yields a (sub-)optimal community
-    objective.
-
-    Parameters
-    ----------
-    community : micom.Community
-        The community to optimize.
-    linear : boolean
-        Whether to use a non-linear (sum of squares) or linear version of the
-        cooperativity cost. If set to False requires a QP-capable solver.
-    min_growth : float or array-like
-        The minimal growth rate required for each individual. May be a
-        single value or an array-like object with the same length as there
-        are individuals.
-    tradeoff : float or list of floats in [0, 1]
-        How much the optimization should concentrate on community growth.
-        0 would mean only optimize individual growth rates and 1 only optimize
-        the community growth rate.
-    fluxes : boolean
-        Whether to return the fluxes as well.
-    pfba : boolean
-        Whether to obtain fluxes by parsimonious FBA rather than
-        "classical" FBA. This is highly recommended.
-
-    Returns
-    -------
-    micom.CommunitySolution
-        The solution of the optimization. If fluxes==False will only contain
-        the objective value, community growth rate and individual growth rates.
-
-    """
+def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
+    """Find the best tradeoff between community and individual growth."""
     with community as com:
         check_modification(community)
         min_growth = _format_min_growth(min_growth, community.species)
         _apply_min_growth(community, min_growth)
 
+        com.objetive = 1.0 * com.variables.community_objective
+        min_growth = com.slim_optimize()
+
         if not isinstance(tradeoff, Sized):
             tradeoff = [tradeoff]
 
-        max_gcs = community.optimize_all(progress=False)
         # Add needed variables etc.
+        regularize_l2_norm(com, 0.0)
         results = []
         for to in tradeoff:
-            with com:
-                add_tradeoff(community, to, linear, max_gcs=max_gcs)
-                results.append((to, solve(community, fluxes=fluxes,
-                                          pfba=pfba)))
+            com.variables.community_objective.lb = to * min_growth
+            results.append((to, solve(community, fluxes=fluxes, pfba=pfba)))
         if len(results) == 1:
             return results[0][1]
         return pd.DataFrame.from_records(results,
@@ -140,28 +104,35 @@ def zero_growth(com, s):
         context(reset)
 
 
-def knockout_species(community, species, linear, tradeoff, method):
+def knockout_species(community, species, fraction, method, progress):
     """Knockout a species from the community."""
     with community as com:
         check_modification(com)
         min_growth = _format_min_growth(0.0, com.species)
         _apply_min_growth(com, min_growth)
 
-        max_gcs = community.optimize_all(progress=False)
-        add_tradeoff(com, tradeoff, linear, max_gcs)
+        min_growth = com.slim_optimize()
+        regularize_l2_norm(com, fraction * min_growth)
         old = com.optimize().members["growth_rate"]
         results = []
 
-        for sp in com.species:
+        if progress:
+            species = tqdm(species, unit="knockout(s)")
+        for sp in species:
             with com:
                 logger.info("getting egoistic tradeoff growth rates for "
                             "%s knockout" % sp)
+                com.variables.community_objective.lb = 0.0
                 [r.knock_out() for r in
                  com.reactions.query(lambda ri: __is_needed(ri, sp))]
                 # this should not be necessary but leaving the fixed zero
                 # variables in the objective sometimes leads to problems
                 # for some solver (cplex for instance)
                 zero_growth(com, sp)
+                with com:
+                    com.objective = 1.0 * com.variables.community_objective
+                    min_growth = com.slim_optimize()
+                com.variables.community_objective.lb = fraction * min_growth
                 sol = com.optimize()
                 new = sol.members["growth_rate"]
                 if "change" in method:

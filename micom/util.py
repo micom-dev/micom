@@ -188,6 +188,9 @@ def adjust_solver_config(solver):
     """Adjust the optlang solver configuration for larger problems."""
     interface = interface_to_str(solver.interface)
     if interface == "cplex":
+        solver.configuration.presolve = True
         solver.configuration.lp_method = "primal"
-        solver.configuration.qp_method = "primal"
+        solver.configuration.qp_method = "auto"
         solver.problem.parameters.threads.set(1)
+    if interface == "glpk":
+        solver.configuration.presolve = True

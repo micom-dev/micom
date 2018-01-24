@@ -8,6 +8,7 @@ from optlang.symbolics import Zero
 from collections import Sized
 from functools import partial
 import pandas as pd
+import numpy as np
 from tqdm import tqdm
 
 
@@ -67,15 +68,15 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         com.objetive = 1.0 * com.variables.community_objective
         min_growth = com.slim_optimize()
 
-        if not isinstance(tradeoff, Sized):
-            tradeoff = [tradeoff]
+        if not isinstance(fraction, Sized):
+            fraction = [fraction]
 
         # Add needed variables etc.
         regularize_l2_norm(com, 0.0)
         results = []
-        for to in tradeoff:
-            com.variables.community_objective.lb = to * min_growth
-            results.append((to, solve(community, fluxes=fluxes, pfba=pfba)))
+        for fr in fraction:
+            com.variables.community_objective.lb = fr * min_growth
+            results.append((fr, solve(community, fluxes=fluxes, pfba=pfba)))
         if len(results) == 1:
             return results[0][1]
         return pd.DataFrame.from_records(results,
@@ -132,6 +133,9 @@ def knockout_species(community, species, fraction, method, progress):
                 with com:
                     com.objective = 1.0 * com.variables.community_objective
                     min_growth = com.slim_optimize()
+                    if np.isnan(min_growth):
+                        raise ValueError("Could not get community growth rate "
+                                         "for knockout %s." % sp)
                 com.variables.community_objective.lb = fraction * min_growth
                 sol = com.optimize()
                 new = sol.members["growth_rate"]

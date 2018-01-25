@@ -4,6 +4,7 @@ from micom.util import (_format_min_growth, _apply_min_growth,
                         check_modification, get_context)
 from micom.logger import logger
 from micom.solution import solve
+from cobra.util import interface_to_str
 from optlang.symbolics import Zero
 from collections import Sized
 from functools import partial
@@ -82,6 +83,7 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         return pd.DataFrame.from_records(results,
                                          columns=["tradeoff", "solution"])
 
+
 def knockout_species(community, species, fraction, method, progress):
     """Knockout a species from the community."""
     with community as com:
@@ -106,12 +108,15 @@ def knockout_species(community, species, fraction, method, progress):
 
                 with com:
                     com.objective = 1.0 * com.variables.community_objective
-                    for i in range(10):
-                        if i > 0:
-                            logger.warning("retrying optimization")
-                        min_growth = com.slim_optimize()
-                        if not np.isnan(min_growth):
-                            break
+                    min_growth = com.slim_optimize()
+                    if np.isnan(min_growth):
+                        logger.warning("retrying optimization")
+                        if interface_to_str(com.solver) == "cplex":
+                            com.solver.configuration.lp_method = "auto"
+                            min_growth = com.slim_optimize()
+                            com.solver.configuration.lp_method = "primal"
+                        else:
+                            min_growth = com.slim_optimize()
                     if np.isnan(min_growth):
                         raise ValueError("Could not get community growth rate "
                                          "for knockout %s." % sp)

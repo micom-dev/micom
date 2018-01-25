@@ -189,7 +189,7 @@ def adjust_solver_config(solver):
     interface = interface_to_str(solver.interface)
     if interface == "cplex":
         solver.configuration.presolve = True
-        solver.configuration.lp_method = "primal"
+        solver.configuration.lp_method = "auto"
         solver.configuration.qp_method = "auto"
         solver.problem.parameters.threads.set(1)
     if interface == "glpk":

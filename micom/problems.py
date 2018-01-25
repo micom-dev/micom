@@ -125,7 +125,7 @@ def knockout_species(community, species, fraction, method, progress):
                             "%s knockout" % sp)
                 com.variables.community_objective.lb = 0.0
                 [r.knock_out() for r in
-                 com.reactions.query(lambda ri: __is_needed(ri, sp))]
+                 com.reactions.query(lambda ri: ri.community_id == sp)]
                 # this should not be necessary but leaving the fixed zero
                 # variables in the objective sometimes leads to problems
                 # for some solver (cplex for instance)

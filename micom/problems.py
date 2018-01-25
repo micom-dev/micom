@@ -111,7 +111,7 @@ def knockout_species(community, species, fraction, method, progress):
                     min_growth = com.slim_optimize()
                     if np.isnan(min_growth):
                         logger.warning("retrying optimization")
-                        if interface_to_str(com.solver) == "cplex":
+                        if interface_to_str(com.solver.interface) == "cplex":
                             com.solver.configuration.lp_method = "auto"
                             min_growth = com.slim_optimize()
                             com.solver.configuration.lp_method = "primal"

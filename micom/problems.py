@@ -82,29 +82,6 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         return pd.DataFrame.from_records(results,
                                          columns=["tradeoff", "solution"])
 
-
-def __is_needed(r, s):
-    """Find the smallest numbers of reactions that knock-out the individual."""
-    return (r.community_id == s) & \
-           ((r.bounds[0] * r.bounds[1] > 0.0) |
-            ("m" in {m.compartment for m in r.metabolites}))
-
-
-def zero_growth(com, s):
-    """Force zero_growth for a given species."""
-    const = com.constraints["objective_" + s]
-    bounds = (const.lb, const.ub)
-
-    def reset():
-        const.lb = bounds[0]
-        const.ub = bounds[1]
-
-    const.lb = const.ub = 0.0
-    context = get_context(com)
-    if context:
-        context(reset)
-
-
 def knockout_species(community, species, fraction, method, progress):
     """Knockout a species from the community."""
     with community as com:
@@ -125,11 +102,8 @@ def knockout_species(community, species, fraction, method, progress):
                             "%s knockout" % sp)
                 com.variables.community_objective.lb = 0.0
                 [r.knock_out() for r in
-                 com.reactions.query(lambda ri: __is_needed(ri, sp))]
-                # this should not be necessary but leaving the fixed zero
-                # variables in the objective sometimes leads to problems
-                # for some solver (cplex for instance)
-                zero_growth(com, sp)
+                 com.reactions.query(lambda ri: ri.community_id == sp)]
+
                 with com:
                     com.objective = 1.0 * com.variables.community_objective
                     for i in range(10):

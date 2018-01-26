@@ -94,6 +94,8 @@ def knockout_species(community, species, fraction, method, progress):
         min_growth = com.slim_optimize()
         regularize_l2_norm(com, fraction * min_growth)
         old = com.optimize().members["growth_rate"]
+        if interface_to_str(com.solver.interface) == "cplex":
+            basis = com.solver.problem.solution.get_basis()
         results = []
 
         if progress:
@@ -112,11 +114,8 @@ def knockout_species(community, species, fraction, method, progress):
                     if np.isnan(min_growth):
                         logger.warning("retrying optimization")
                         if interface_to_str(com.solver.interface) == "cplex":
-                            com.solver.configuration.lp_method = "auto"
-                            min_growth = com.slim_optimize()
-                            com.solver.configuration.lp_method = "primal"
-                        else:
-                            min_growth = com.slim_optimize()
+                            com.solver.problem.start.set_basis(*basis)
+                        min_growth = com.slim_optimize()
                     if np.isnan(min_growth):
                         raise ValueError("Could not get community growth rate "
                                          "for knockout %s." % sp)

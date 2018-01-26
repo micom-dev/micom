@@ -95,7 +95,7 @@ def knockout_species(community, species, fraction, method, progress):
         regularize_l2_norm(com, fraction * min_growth)
         old = com.optimize().members["growth_rate"]
         if interface_to_str(com.solver.interface) == "cplex":
-            basis = com.solver.problem.solution.get_basis()
+            basis = com.solver.problem.solution.basis.get_basis()
         results = []
 
         if progress:

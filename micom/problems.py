@@ -114,9 +114,8 @@ def knockout_species(community, species, fraction, method, progress):
                         if interface_to_str(com.solver.interface) == "cplex":
                             com.solver.problem.start.set_start(
                                 [], [], len(com.variables) * [0.0], [], [], [])
-                            com.solver.configuration.lp_method = "auto"
+                            com.solver.configuration.lp_method = "barrier"
                             min_growth = com.slim_optimize()
-                            com.solver.configuration.lp_method = "primal"
                         else:
                             min_growth = com.slim_optimize()
                     if np.isnan(min_growth):

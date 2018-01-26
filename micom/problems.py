@@ -11,6 +11,7 @@ from functools import partial
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
+import pickle
 
 
 def reset_min_community_growth(com):
@@ -91,6 +92,7 @@ def knockout_species(community, species, fraction, method, progress):
         min_growth = _format_min_growth(0.0, com.species)
         _apply_min_growth(com, min_growth)
 
+        state = pickle.dumps(com.solver)
         min_growth = com.slim_optimize()
         regularize_l2_norm(com, fraction * min_growth)
         old = com.optimize().members["growth_rate"]
@@ -111,12 +113,8 @@ def knockout_species(community, species, fraction, method, progress):
                     min_growth = com.slim_optimize()
                     if np.isnan(min_growth):
                         logger.warning("retrying optimization")
-                        if interface_to_str(com.solver.interface) == "cplex":
-                            com.solver.configuration.lp_method = "auto"
-                            min_growth = com.slim_optimize()
-                            com.solver.configuration.lp_method = "primal"
-                        else:
-                            min_growth = com.slim_optimize()
+                        com.solver = pickle.loads(state)
+                        min_growth = com.slim_optimize()
                     if np.isnan(min_growth):
                         raise ValueError("Could not get community growth rate "
                                          "for knockout %s." % sp)

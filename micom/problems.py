@@ -92,10 +92,10 @@ def knockout_species(community, species, fraction, method, progress):
         _apply_min_growth(com, min_growth)
 
         min_growth = com.slim_optimize()
-        regularize_l2_norm(com, fraction * min_growth)
-        old = com.optimize().members["growth_rate"]
         if interface_to_str(com.solver.interface) == "cplex":
             basis = com.solver.problem.solution.basis.get_basis()
+        regularize_l2_norm(com, fraction * min_growth)
+        old = com.optimize().members["growth_rate"]
         results = []
 
         if progress:

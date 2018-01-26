@@ -112,9 +112,11 @@ def knockout_species(community, species, fraction, method, progress):
                     if np.isnan(min_growth):
                         logger.warning("retrying optimization")
                         if interface_to_str(com.solver.interface) == "cplex":
-                            com.solver.problem.start.set_start(
-                                [], [], len(com.variables) * [0.0], [], [], [])
-                        min_growth = com.slim_optimize()
+                            com.solver.configuration.lp_method = "auto"
+                            min_growth = com.slim_optimize()
+                            com.solver.configuration.lp_method = "primal"
+                        else:
+                            min_growth = com.slim_optimize()
                     if np.isnan(min_growth):
                         raise ValueError("Could not get community growth rate "
                                          "for knockout %s." % sp)

@@ -112,8 +112,8 @@ def knockout_species(community, species, fraction, method, progress):
                     if np.isnan(min_growth):
                         logger.warning("retrying optimization")
                         if interface_to_str(com.solver.interface) == "cplex":
-                            com.solver.problem.start.set_start(
-                                [], [], len(com.variables) * [0.0], [], [], [])
+                            #com.solver.problem.start.set_start(
+                            #    [], [], len(com.variables) * [0.0], [], [], [])
                             com.solver.configuration.lp_method = "barrier"
                             min_growth = com.slim_optimize()
                         else:

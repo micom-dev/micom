@@ -540,7 +540,7 @@ class Community(cobra.Model):
 
         """
         with open(filename, mode="wb") as out:
-            pickle.dump(self, out)
+            pickle.dump(self, out, protocol=2)
 
 
 def load_pickle(filename):

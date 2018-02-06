@@ -34,3 +34,4 @@ def workflow(func, args, n_jobs=4, unit="sample(s)"):
         if len(processes) >= n_jobs:
             results, processes = _consume(processes, q, results, n_jobs)
     results, processes = _consume(processes, q, results, n_jobs)
+    return results

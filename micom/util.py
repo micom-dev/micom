@@ -208,6 +208,7 @@ def adjust_solver_config(solver):
     if interface == "gurobi":
         solver.configuration.qp_method = "dual"
         solver.problem.Params.BarConvTol = 1e-6
+        solver.problem.Params.BarIterLimit = 1500
         solver.problem.Params.Presolve = 2
     if interface == "glpk":
         solver.configuration.presolve = True

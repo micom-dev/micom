@@ -3,7 +3,8 @@
 import numpy as np
 import pandas as pd
 from collections import Counter
-from optlang.interface import OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL
+from optlang.interface import (OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL,
+                               ITERATION_LIMIT)
 from optlang.symbolics import Zero
 from itertools import chain
 from cobra.core import Solution, get_solution
@@ -11,7 +12,7 @@ from cobra.util import interface_to_str
 from micom.logger import logger
 
 
-good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL]
+good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL, ITERATION_LIMIT]
 """Solver states that permit returning the solution."""
 
 

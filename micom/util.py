@@ -2,7 +2,8 @@
 
 import cobra.io as io
 from cobra.util.context import get_context
-from cobra.util.solver import interface_to_str
+from cobra.util.solver import interface_to_str, linear_reaction_coefficients
+from cobra import Reaction
 import os.path as path
 from functools import partial
 import six.moves.cPickle as pickle
@@ -86,14 +87,26 @@ def join_models(model_files, id=None):
     n = len(model_files)
     if id:
         model.id = id
-    model.objective = model.objective.expression / n
+    biomass = Reaction(
+        id="micom_combined_biomass",
+        name="combined biomass reaction from model joining",
+        subsystem="biomass production",
+        lower_bound=0,
+        upper_bound=1000)
+    coefs = linear_reaction_coefficients(model, model.reactions)
+    for r, coef in coefs.items():
+        biomass += r * (coef / n)
     rids = set(r.id for r in model.reactions)
     for filepath in model_files[1:]:
         other = load_model(filepath)
         new = [r.id for r in other.reactions if r.id not in rids]
         model.add_reactions(other.reactions.get_by_any(new))
-        model.objective += (other.objective.expression * (1.0/n)).expand()
+        coefs = linear_reaction_coefficients(other, other.reactions)
+        for r, coef in coefs.items():
+            biomass += model.reactions.get_by_id(r.id) * (coef / n)
         rids.update(new)
+    model.add_reactions([biomass])
+    model.objective = biomass
 
     return model
 
@@ -194,6 +207,11 @@ def adjust_solver_config(solver):
         solver.configuration.lp_method = "barrier"
         solver.configuration.qp_method = "barrier"
         solver.problem.parameters.threads.set(1)
+        solver.problem.parameters.barrier.convergetol.set(1e-9)
+    if interface == "gurobi":
+        solver.configuration.qp_method = "barrier"
+        solver.problem.Params.BarConvTol = 1e-9
+        solver.problem.Params.BarIterLimit = 1001
     if interface == "glpk":
         solver.configuration.presolve = True
 

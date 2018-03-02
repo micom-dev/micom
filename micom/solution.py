@@ -3,14 +3,17 @@
 import numpy as np
 import pandas as pd
 from collections import Counter
-from optlang.interface import OPTIMAL, NUMERIC, FEASIBLE
+from optlang.interface import (OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL,
+                               ITERATION_LIMIT)
 from optlang.symbolics import Zero
 from itertools import chain
 from cobra.core import Solution, get_solution
+from cobra.util import interface_to_str
 from micom.logger import logger
 
 
-good = [OPTIMAL, NUMERIC, FEASIBLE]
+good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL, ITERATION_LIMIT]
+"""Solver states that permit returning the solution."""
 
 
 def _group_species(values, ids, species, what="reaction"):
@@ -81,6 +84,9 @@ class CommunitySolution(Solution):
         gcs = pd.Series()
         for sp in community.species:
             gcs[sp] = community.constraints["objective_" + sp].primal
+        # Workaround for an optlang bug (PR #120)
+        if interface_to_str(community.problem) == "gurobi":
+            gcs = gcs.abs()
         self.strategy = community.modification
         self.members = pd.DataFrame({
             "abundance": community.abundances,
@@ -145,7 +151,8 @@ def solve(community, fluxes=True, pfba=True):
     status = community.solver.status
     if status in good:
         if status != OPTIMAL:
-            logger.info("solver returned the status %s" % status)
+            logger.info("solver returned the status %s," % status +
+                        " returning the solution anyway.")
         if fluxes and pfba:
             add_pfba_objective(community)
             community.solver.optimize()

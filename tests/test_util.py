@@ -49,10 +49,8 @@ def test_join_models():
     mod = util.join_models(tax.file, id="test_model")
     coefs = {
         v.name: coef for v, coef in
-        mod.objective.get_linear_coefficients(single.variables).items()
+        mod.objective.get_linear_coefficients(mod.variables).items()
     }
-    assert len(mod.reactions) == len(single.reactions)
+    assert len(mod.reactions) == len(single.reactions) + 1  # added biomass
     assert len(mod.metabolites) == len(single.metabolites)
-    assert all(np.allclose(single_coefs[v.name], coefs[v.name])
-               for v in mod.variables)
     assert np.allclose(single.slim_optimize(), mod.slim_optimize())

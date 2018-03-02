@@ -169,6 +169,12 @@ class Community(cobra.Model):
 
             export = len(r.reactants) == 1
             lb, ub = r.bounds if export else (-r.upper_bound, -r.lower_bound)
+            if lb < 0.0 and lb > -1e-6:
+                logger.info("lower bound for %r below numerical accuracy "
+                            "-> adjusting to stabilize model.")
+            if ub > 0.0 and ub < 1e-6:
+                logger.info("upper bound for %r below numerical accuracy "
+                            "-> adjusting to stabilize model.")
             met = (r.reactants + r.products)[0]
             medium_id = re.sub("_{}$".format(met.compartment), "", met.id)
             if medium_id in exclude:

@@ -169,6 +169,12 @@ class Community(cobra.Model):
 
             export = len(r.reactants) == 1
             lb, ub = r.bounds if export else (-r.upper_bound, -r.lower_bound)
+            if lb < 0.0 and lb > -1e-6:
+                logger.info("lower bound for %r below numerical accuracy "
+                            "-> adjusting to stabilize model.")
+            if ub > 0.0 and ub < 1e-6:
+                logger.info("upper bound for %r below numerical accuracy "
+                            "-> adjusting to stabilize model.")
             met = (r.reactants + r.products)[0]
             medium_id = re.sub("_{}$".format(met.compartment), "", met.id)
             if medium_id in exclude:
@@ -484,7 +490,7 @@ class Community(cobra.Model):
                                     pfba)
 
     def knockout_species(self, species=None, fraction=1.0,
-                         method="change", progress=True):
+                         method="change", progress=True, diag=True):
         """Sequentially knowckout a list of species in the model.
 
         This uses cooperative tradeoff as optimization criterion in order to
@@ -504,6 +510,9 @@ class Community(cobra.Model):
             new - old or the relative change ([new - old] / old).
         progress : bool, optional
             Whether to show a progress bar. On by default.
+        diag : bool, optional
+            Whether the diagonal should contain values as well. If False will
+            be filled with NaNs.
 
         Returns
         -------
@@ -524,7 +533,8 @@ class Community(cobra.Model):
         if method not in ["raw", "change", "relative change"]:
             raise ValueError("`method` must be one of 'raw', 'change', "
                              "or 'relative change'.")
-        return knockout_species(self, species, fraction, method, progress)
+        return knockout_species(self, species, fraction, method, progress,
+                                diag)
 
     def to_pickle(self, filename):
         """Save a community in serialized form.

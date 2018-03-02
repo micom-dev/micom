@@ -1,10 +1,9 @@
 """Implements tradeoff optimization between community and egoistic growth."""
 
 from micom.util import (_format_min_growth, _apply_min_growth,
-                        check_modification, get_context)
+                        check_modification, get_context, optimize_with_retry)
 from micom.logger import logger
 from micom.solution import solve
-from cobra.util import interface_to_str
 from optlang.symbolics import Zero
 from collections import Sized
 from functools import partial
@@ -35,7 +34,7 @@ def regularize_l2_norm(community, min_growth):
     ---------
     community : micom.Community
         The community to modify.
-    min_community_growth : positive float
+    min_growth : positive float
         The minimal community growth rate that has to be mantained.
     linear : boolean
         Whether to use a non-linear (sum of squares) or linear version of the
@@ -51,10 +50,11 @@ def regularize_l2_norm(community, min_growth):
     if context is not None:
         context(partial(reset_min_community_growth, community))
 
+    scale = len(community.species)
     for sp in community.species:
         species_obj = community.constraints["objective_" + sp]
         ex = sum(v for v in species_obj.variables if (v.ub - v.lb) > 1e-6)
-        l2 += (ex**2).expand()
+        l2 += ((scale * ex)**2).expand()
     community.objective = -l2
     community.modification = "l2 norm"
     logger.info("finished adding tradeoff objective to %s" % community.id)
@@ -67,11 +67,14 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         min_growth = _format_min_growth(min_growth, community.species)
         _apply_min_growth(community, min_growth)
 
-        com.objetive = 1.0 * com.variables.community_objective
-        min_growth = com.slim_optimize()
+        com.objective = 1.0 * com.variables.community_objective
+        min_growth = optimize_with_retry(
+            com, message="could not get community growth rate.")
 
         if not isinstance(fraction, Sized):
             fraction = [fraction]
+        else:
+            fraction = np.sort(fraction)[::-1]
 
         # Add needed variables etc.
         regularize_l2_norm(com, 0.0)
@@ -94,7 +97,8 @@ def knockout_species(community, species, fraction, method, progress,
         min_growth = _format_min_growth(0.0, com.species)
         _apply_min_growth(com, min_growth)
 
-        community_min_growth = com.slim_optimize()
+        community_min_growth = optimize_with_retry(
+            com, "could not get community growth rate.")
         regularize_l2_norm(com, fraction * community_min_growth)
         old = com.optimize().members["growth_rate"]
         results = []
@@ -112,19 +116,12 @@ def knockout_species(community, species, fraction, method, progress,
 
                 with com:
                     com.objective = 1.0 * com.variables.community_objective
-                    min_growth = com.slim_optimize()
-                    growth_diff = community_min_growth - min_growth
-                    if np.isnan(min_growth) or growth_diff < -1e-6:
-                        logger.warning("retrying optimization")
-                        if interface_to_str(com.solver.interface) == "cplex":
-                            com.solver.configuration.lp_method = "barrier"
-                            min_growth = com.slim_optimize()
-                        else:
-                            min_growth = com.slim_optimize()
-                    if np.isnan(min_growth):
-                        raise ValueError("Could not get community growth rate "
-                                         "for knockout %s." % sp)
+                    min_growth = optimize_with_retry(
+                        com,
+                        "could not get community growth rate for "
+                        "knockout %s." % sp)
                 com.variables.community_objective.lb = fraction * min_growth
+                com.variables.community_objective.ub = min_growth
                 sol = com.optimize()
                 new = sol.members["growth_rate"]
                 if "change" in method:

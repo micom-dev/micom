@@ -16,6 +16,7 @@ from tqdm import tqdm
 def reset_min_community_growth(com):
     """Reset the lower bound for the community growth."""
     com.variables.community_objective.lb = 0.0
+    com.variables.community_objective.ub = None
 
 
 def regularize_l2_norm(community, min_growth):
@@ -77,6 +78,7 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         results = []
         for fr in fraction:
             com.variables.community_objective.lb = fr * min_growth
+            com.variables.community_objective.ub = min_growth
             results.append((fr, solve(community, fluxes=fluxes, pfba=pfba)))
         if len(results) == 1:
             return results[0][1]
@@ -84,15 +86,16 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
                                          columns=["tradeoff", "solution"])
 
 
-def knockout_species(community, species, fraction, method, progress):
+def knockout_species(community, species, fraction, method, progress,
+                     diag=True):
     """Knockout a species from the community."""
     with community as com:
         check_modification(com)
         min_growth = _format_min_growth(0.0, com.species)
         _apply_min_growth(com, min_growth)
 
-        min_growth = com.slim_optimize()
-        regularize_l2_norm(com, fraction * min_growth)
+        community_min_growth = com.slim_optimize()
+        regularize_l2_norm(com, fraction * community_min_growth)
         old = com.optimize().members["growth_rate"]
         results = []
 
@@ -103,17 +106,17 @@ def knockout_species(community, species, fraction, method, progress):
                 logger.info("getting egoistic tradeoff growth rates for "
                             "%s knockout" % sp)
                 com.variables.community_objective.lb = 0.0
+                com.variables.community_objective.ub = community_min_growth
                 [r.knock_out() for r in
                  com.reactions.query(lambda ri: ri.community_id == sp)]
 
                 with com:
                     com.objective = 1.0 * com.variables.community_objective
                     min_growth = com.slim_optimize()
-                    if np.isnan(min_growth):
+                    growth_diff = community_min_growth - min_growth
+                    if np.isnan(min_growth) or growth_diff < -1e-6:
                         logger.warning("retrying optimization")
                         if interface_to_str(com.solver.interface) == "cplex":
-                            #com.solver.problem.start.set_start(
-                            #    [], [], len(com.variables) * [0.0], [], [], [])
                             com.solver.configuration.lp_method = "barrier"
                             min_growth = com.slim_optimize()
                         else:
@@ -129,5 +132,9 @@ def knockout_species(community, species, fraction, method, progress):
                 if "relative" in method:
                     new /= old
                 results.append(new)
+
+        ko = pd.DataFrame(results, index=species).drop("medium", 1)
+        if not diag:
+            np.fill_diagonal(ko.values, np.NaN)
 
         return pd.DataFrame(results, index=species).drop("medium", 1)

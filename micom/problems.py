@@ -3,8 +3,9 @@
 from micom.util import (_format_min_growth, _apply_min_growth,
                         check_modification, get_context, optimize_with_retry)
 from micom.logger import logger
-from micom.solution import solve
+from micom.solution import solve, crossover
 from optlang.symbolics import Zero
+from optlang.interface import OPTIMAL
 from collections import Sized
 from functools import partial
 import pandas as pd
@@ -82,7 +83,12 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         for fr in fraction:
             com.variables.community_objective.lb = fr * min_growth
             com.variables.community_objective.ub = min_growth
-            results.append((fr, solve(community, fluxes=fluxes, pfba=pfba)))
+            sol = solve(community, fluxes=fluxes, pfba=pfba)
+            if sol.status != OPTIMAL:
+                com.variables.community_objective.lb = 0.0
+                com.variables.community_objective.ub = fr * min_growth
+                sol = crossover(com, sol, lower=fr)
+            results.append((fr, sol))
         if len(results) == 1:
             return results[0][1]
         return pd.DataFrame.from_records(results,

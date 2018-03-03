@@ -203,7 +203,6 @@ def adjust_solver_config(solver):
     """Adjust the optlang solver configuration for larger problems."""
     interface = interface_to_str(solver.interface)
     if interface == "cplex":
-        solver.configuration.presolve = True
         solver.configuration.lp_method = "barrier"
         solver.configuration.qp_method = "barrier"
         solver.problem.parameters.threads.set(1)

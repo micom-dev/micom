@@ -10,7 +10,6 @@ from itertools import chain
 from cobra.core import Solution, get_solution
 from cobra.util import interface_to_str
 from micom.logger import logger
-from micom.util import _apply_min_growth
 
 
 good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL, ITERATION_LIMIT]
@@ -166,24 +165,19 @@ def solve(community, fluxes=True, pfba=True):
     return None
 
 
-def crossover(community, sol, tol=0.01, max_step=10, lower=0.9, upper=0.99):
+def crossover(community, sol):
     """Get the crossover solution."""
     gcs = sol.members.growth_rate.drop("medium")
     logger.info("Starting crossover...")
     with community as com:
+        logger.info("adding scaled absolute values to problem.")
+        for sp in com.species:
+            com.constraints["objective_" + sp].ub = gcs[sp]
         com.objective = 1.0 * com.variables.community_objective
-        for i in range(1, max_step + 1):
-            alpha = 0.5 * (lower + upper)
-            logger.info("Trying crossover with alpha = %f" % alpha)
-            _apply_min_growth(com, alpha * gcs)
-            s = com.optimize()
-            if com.solver.status == OPTIMAL:
-                lower = alpha
-            else:
-                upper = alpha
-            if (upper - lower) < tol and com.solver.status == OPTIMAL:
-                break
-
-    if com.solver.status != OPTIMAL:
-        return None
+        logger.info("finding closest feasible solution")
+        s = com.optimize()
+        for sp in com.species:
+            com.constraints["objective_" + sp].ub = None
+    if s is None or s.status != OPTIMAL:
+        raise RuntimeError("crossover could not converge.")
     return s

@@ -189,7 +189,7 @@ def _apply_min_growth(community, min_growth):
 
     def reset(species, lb):
         logger.info("resetting growth rate constraint for %s" % species)
-        community.constraints["objective_" + sp].lb = lb
+        community.constraints["objective_" + species].lb = lb
 
     for sp in community.species:
         logger.info("setting growth rate constraint for %s" % sp)

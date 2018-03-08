@@ -112,8 +112,8 @@ def knockout_species(community, species, fraction, method, progress,
             species = tqdm(species, unit="knockout(s)")
         for sp in species:
             with com:
-                logger.info("getting egoistic tradeoff growth rates for "
-                            "%s knockout" % sp)
+                logger.info("getting growth rates for "
+                            "%s knockout." % sp)
                 com.variables.community_objective.lb = 0.0
                 com.variables.community_objective.ub = community_min_growth
                 [r.knock_out() for r in

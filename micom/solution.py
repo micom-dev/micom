@@ -7,6 +7,7 @@ from optlang.interface import (OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL,
                                ITERATION_LIMIT)
 from optlang.symbolics import Zero
 from itertools import chain
+from cobra.exceptions import OptimizationError
 from cobra.core import Solution, get_solution
 from cobra.util import interface_to_str
 from micom.logger import logger
@@ -145,14 +146,19 @@ def add_pfba_objective(community):
         community.modification += " and pFBA"
 
 
-def solve(community, fluxes=True, pfba=True):
+def solve(community, fluxes=True, pfba=True, raise_error=False):
     """Get all fluxes stratified by species."""
     community.solver.optimize()
     status = community.solver.status
     if status in good:
         if status != OPTIMAL:
-            logger.info("solver returned the status %s," % status +
-                        " returning the solution anyway.")
+            if raise_error:
+                raise OptimizationError(
+                    "solver returned the status %s." % status
+                )
+            else:
+                logger.info("solver returned the status %s," % status +
+                            " returning the solution anyway.")
         if fluxes and pfba:
             add_pfba_objective(community)
             community.solver.optimize()
@@ -170,7 +176,7 @@ def crossover(community, sol):
     gcs = sol.members.growth_rate.drop("medium")
     logger.info("Starting crossover...")
     with community as com:
-        logger.info("adding scaled absolute values to problem.")
+        logger.info("constraining growth rates.")
         for sp in com.species:
             com.constraints["objective_" + sp].ub = gcs[sp]
         com.objective = 1.0 * com.variables.community_objective
@@ -179,5 +185,5 @@ def crossover(community, sol):
         for sp in com.species:
             com.constraints["objective_" + sp].ub = None
     if s is None or s.status != OPTIMAL:
-        raise RuntimeError("crossover could not converge.")
+        raise OptimizationError("crossover could not converge.")
     return s

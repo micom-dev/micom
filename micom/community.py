@@ -27,7 +27,7 @@ class Community(cobra.Model):
     """
 
     def __init__(self, taxonomy, id=None, name=None, rel_threshold=1e-6,
-                 solver=None, progress=True, max_exchange=1000):
+                 solver=None, progress=True, max_exchange=100, mass=1):
         """Create a new community object.
 
         `micom` builds a community from a taxonomy which may simply be a list
@@ -71,6 +71,11 @@ class Community(cobra.Model):
             import flux bound for the *internal* exchange reaction. Import
             rates for the exchanges between the medium and outside are still
             mantained.
+        mass : positive float, optional
+            The total mass of the community in gDW. Used to adjust import
+            fluxes which are assumed to be given as mmol/gDW*h for the
+            entire community. As a consequence all import fluxes will be
+            divided by that number.
 
         Attributes
         ----------
@@ -95,6 +100,7 @@ class Community(cobra.Model):
 
         self._rtol = rel_threshold
         self._modification = None
+        self.mass = mass
 
         taxonomy = taxonomy.copy()
         if "abundance" not in taxonomy.columns:
@@ -168,13 +174,20 @@ class Community(cobra.Model):
                     "reaction but its ID does not start with 'EX_'...")
 
             export = len(r.reactants) == 1
-            lb, ub = r.bounds if export else (-r.upper_bound, -r.lower_bound)
+            if export:
+                lb = r.lower_bound / self.mass
+                ub = r.upper_bound
+            else:
+                lb = -r.upper_bound / self.mass
+                ub = -r.lower_bound
             if lb < 0.0 and lb > -1e-6:
                 logger.info("lower bound for %r below numerical accuracy "
                             "-> adjusting to stabilize model.")
+                lb = -1e-6
             if ub > 0.0 and ub < 1e-6:
                 logger.info("upper bound for %r below numerical accuracy "
                             "-> adjusting to stabilize model.")
+                ub = 1e-6
             met = (r.reactants + r.products)[0]
             medium_id = re.sub("_{}$".format(met.compartment), "", met.id)
             if medium_id in exclude:
@@ -317,14 +330,18 @@ class Community(cobra.Model):
         individual = (self.optimize_single(id) for id in index)
         return pd.Series(individual, self.__taxonomy.index)
 
-    def optimize(self, slim=True):
+    def optimize(self, slim=True, raise_error=False):
         """Optimize the model using flux balance analysis.
 
         Parameters
         ----------
-        slim : boolean
+        slim : boolean, optional
             Whether to return a slim solution which does not contain fluxes,
             just growth rates.
+        raise_error : boolean, optional
+            Should an error be raised if the solution is not optimal. Defaults
+            to False which will either return a solution with a non-optimal
+            status or None if optimization fails.
 
         Returns
         -------

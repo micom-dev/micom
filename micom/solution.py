@@ -177,6 +177,7 @@ def crossover(community, sol):
     """Get the crossover solution."""
     gcs = sol.members.growth_rate.drop("medium")
     com_growth = sol.growth_rate
+    n = len(gcs)
     logger.info("Starting crossover...")
     with community as com:
         logger.info("constraining growth rates.")
@@ -187,7 +188,7 @@ def crossover(community, sol):
         com.variables.community_objective.ub = com_growth + 1e-6
         for sp in com.species:
             com.constraints["objective_" + sp].ub = gcs[sp]
-        com.objective = 1000.0 * com.variables.community_objective
+        com.objective = n * com.variables.community_objective
         logger.info("finding closest feasible solution")
         s = com.optimize()
         for sp in com.species:
@@ -196,5 +197,5 @@ def crossover(community, sol):
         raise OptimizationError(
             "crossover could not converge (status = %s)." %
             community.solver.status)
-    s.objective_value /= 1000.0
+    s.objective_value /= n
     return s

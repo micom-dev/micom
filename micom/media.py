@@ -83,7 +83,7 @@ def add_mip_obj(community):
     community.modification = "minimal medium mixed-integer"
 
 
-def minimal_medium(community, community_growth, min_growth=0.1, exports=False,
+def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
                    minimize_components=False, open_exchanges=False):
     """Find the minimal growth medium for the community.
 

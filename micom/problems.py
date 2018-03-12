@@ -82,11 +82,11 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         results = []
         for fr in fraction:
             com.variables.community_objective.lb = fr * min_growth
-            com.variables.community_objective.ub = 1.01 * fr * min_growth
+            com.variables.community_objective.ub = min_growth
             sol = solve(community, fluxes=fluxes, pfba=pfba)
             if sol.status != OPTIMAL:
                 com.variables.community_objective.lb = 0
-                com.variables.community_objective.ub = 1.01 * fr * min_growth
+                com.variables.community_objective.ub = fr * min_growth
                 sol = crossover(com, sol)
             results.append((fr, sol))
         if len(results) == 1:

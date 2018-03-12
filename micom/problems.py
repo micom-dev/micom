@@ -1,7 +1,8 @@
 """Implements tradeoff optimization between community and egoistic growth."""
 
 from micom.util import (_format_min_growth, _apply_min_growth,
-                        check_modification, get_context, optimize_with_retry)
+                        check_modification, get_context, optimize_with_retry,
+                        reset_min_community_growth)
 from micom.logger import logger
 from micom.solution import solve, crossover
 from optlang.symbolics import Zero
@@ -11,12 +12,6 @@ from functools import partial
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
-
-
-def reset_min_community_growth(com):
-    """Reset the lower bound for the community growth."""
-    com.variables.community_objective.lb = 0.0
-    com.variables.community_objective.ub = None
 
 
 def regularize_l2_norm(community, min_growth):
@@ -85,8 +80,6 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
             com.variables.community_objective.ub = min_growth
             sol = solve(community, fluxes=fluxes, pfba=pfba)
             if sol.status != OPTIMAL:
-                com.variables.community_objective.lb = 0.5 * fr * min_growth
-                com.variables.community_objective.ub = fr * min_growth
                 sol = crossover(com, sol)
             results.append((fr, sol))
         if len(results) == 1:

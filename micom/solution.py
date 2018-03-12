@@ -12,7 +12,7 @@ from cobra.exceptions import OptimizationError
 from cobra.core import Solution, get_solution
 from cobra.util import interface_to_str, get_context
 from micom.logger import logger
-from micom.problems import reset_min_community_growth
+from micom.util import reset_min_community_growth
 
 
 good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL, ITERATION_LIMIT]

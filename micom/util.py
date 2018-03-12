@@ -233,3 +233,9 @@ def optimize_with_retry(com, message="could not get optimum."):
         raise ValueError(message)
     else:
         return sol
+
+
+def reset_min_community_growth(com):
+    """Reset the lower bound for the community growth."""
+    com.variables.community_objective.lb = 0.0
+    com.variables.community_objective.ub = None

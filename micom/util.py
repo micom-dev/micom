@@ -209,7 +209,7 @@ def adjust_solver_config(solver):
         solver.problem.parameters.threads.set(1)
         solver.problem.parameters.barrier.convergetol.set(1e-9)
     if interface == "gurobi":
-        solver.configuration.qp_method = "barrier"
+        solver.configuration.lp_method = "barrier"
         solver.problem.Params.BarConvTol = 1e-9
         solver.problem.Params.BarIterLimit = 1001
     if interface == "glpk":

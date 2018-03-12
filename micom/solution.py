@@ -7,10 +7,12 @@ from optlang.interface import (OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL,
                                ITERATION_LIMIT)
 from optlang.symbolics import Zero
 from itertools import chain
+from functools import partial
 from cobra.exceptions import OptimizationError
 from cobra.core import Solution, get_solution
-from cobra.util import interface_to_str
+from cobra.util import interface_to_str, get_context
 from micom.logger import logger
+from micom.problems import reset_min_community_growth
 
 
 good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL, ITERATION_LIMIT]
@@ -174,9 +176,15 @@ def solve(community, fluxes=True, pfba=True, raise_error=False):
 def crossover(community, sol):
     """Get the crossover solution."""
     gcs = sol.members.growth_rate.drop("medium")
+    com_growth = sol.growth_rate
     logger.info("Starting crossover...")
     with community as com:
         logger.info("constraining growth rates.")
+        context = get_context(community)
+        if context is not None:
+            context(partial(reset_min_community_growth, com))
+        com.variables.community_objective.lb = 0.5 * com_growth
+        com.variables.community_objective.ub = com_growth + 1e-6
         for sp in com.species:
             com.constraints["objective_" + sp].ub = gcs[sp]
         com.objective = 1000.0 * com.variables.community_objective
@@ -188,4 +196,5 @@ def crossover(community, sol):
         raise OptimizationError(
             "crossover could not converge (status = %s)." %
             community.solver.status)
+    s.objective_value /= 1000.0
     return s

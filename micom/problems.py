@@ -46,11 +46,10 @@ def regularize_l2_norm(community, min_growth):
     if context is not None:
         context(partial(reset_min_community_growth, community))
 
-    scale = len(community.species)
     for sp in community.species:
         species_obj = community.constraints["objective_" + sp]
         ex = sum(v for v in species_obj.variables if (v.ub - v.lb) > 1e-6)
-        l2 += ((scale * ex)**2).expand()
+        l2 += (1000.0 * (ex**2)).expand()
     community.objective = -l2
     community.modification = "l2 norm"
     logger.info("finished adding tradeoff objective to %s" % community.id)

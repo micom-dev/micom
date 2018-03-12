@@ -179,7 +179,7 @@ def crossover(community, sol):
         logger.info("constraining growth rates.")
         for sp in com.species:
             com.constraints["objective_" + sp].ub = gcs[sp]
-        com.objective = 1.0 * com.variables.community_objective
+        com.objective = 1000.0 * com.variables.community_objective
         logger.info("finding closest feasible solution")
         s = com.optimize()
         for sp in com.species:

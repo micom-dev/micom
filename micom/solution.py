@@ -184,6 +184,8 @@ def crossover(community, sol):
         s = com.optimize()
         for sp in com.species:
             com.constraints["objective_" + sp].ub = None
-    if s is None or s.status != OPTIMAL:
-        raise OptimizationError("crossover could not converge.")
+    if (s is None) or (s.status != OPTIMAL):
+        raise OptimizationError(
+            "crossover could not converge (status = %s)." %
+            community.solver.status)
     return s

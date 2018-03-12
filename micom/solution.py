@@ -183,7 +183,7 @@ def crossover(community, sol):
         context = get_context(community)
         if context is not None:
             context(partial(reset_min_community_growth, com))
-        com.variables.community_objective.lb = 0.5 * com_growth
+        com.variables.community_objective.lb = 0
         com.variables.community_objective.ub = com_growth + 1e-6
         for sp in com.species:
             com.constraints["objective_" + sp].ub = gcs[sp]

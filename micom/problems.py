@@ -82,10 +82,11 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         results = []
         for fr in fraction:
             com.variables.community_objective.lb = fr * min_growth
+            com.variables.community_objective.ub = 1.01 * min_growth
             sol = solve(community, fluxes=fluxes, pfba=pfba)
             if sol.status != OPTIMAL:
                 com.variables.community_objective.lb = 0
-                com.variables.community_objective.ub = fr * min_growth
+                com.variables.community_objective.ub = 1.01 * fr * min_growth
                 sol = crossover(com, sol)
             results.append((fr, sol))
         if len(results) == 1:
@@ -120,18 +121,15 @@ def knockout_species(community, species, fraction, method, progress,
                  com.reactions.query(lambda ri: ri.community_id == sp)]
 
                 with com:
-                    com.objective = 1.0 * com.variables.community_objective
+                    com.objective = 1000.0 * com.variables.community_objective
                     min_growth = optimize_with_retry(
                         com,
                         "could not get community growth rate for "
-                        "knockout %s." % sp)
+                        "knockout %s." % sp) / 1000.0
                 com.variables.community_objective.lb = fraction * min_growth
                 com.variables.community_objective.ub = min_growth
                 sol = com.optimize()
                 if sol.status != OPTIMAL:
-                    com.variables.community_objective.lb = 0
-                    com.variables.community_objective.ub = (
-                        fraction * min_growth)
                     sol = crossover(com, sol)
                 new = sol.members["growth_rate"]
                 if "change" in method:

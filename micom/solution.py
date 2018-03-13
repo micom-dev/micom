@@ -7,9 +7,12 @@ from optlang.interface import (OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL,
                                ITERATION_LIMIT)
 from optlang.symbolics import Zero
 from itertools import chain
+from functools import partial
+from cobra.exceptions import OptimizationError
 from cobra.core import Solution, get_solution
-from cobra.util import interface_to_str
+from cobra.util import interface_to_str, get_context
 from micom.logger import logger
+from micom.util import reset_min_community_growth
 
 
 good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL, ITERATION_LIMIT]
@@ -145,14 +148,19 @@ def add_pfba_objective(community):
         community.modification += " and pFBA"
 
 
-def solve(community, fluxes=True, pfba=True):
+def solve(community, fluxes=True, pfba=True, raise_error=False):
     """Get all fluxes stratified by species."""
     community.solver.optimize()
     status = community.solver.status
     if status in good:
         if status != OPTIMAL:
-            logger.info("solver returned the status %s," % status +
-                        " returning the solution anyway.")
+            if raise_error:
+                raise OptimizationError(
+                    "solver returned the status %s." % status
+                )
+            else:
+                logger.info("solver returned the status %s," % status +
+                            " returning the solution anyway.")
         if fluxes and pfba:
             add_pfba_objective(community)
             community.solver.optimize()
@@ -168,16 +176,25 @@ def solve(community, fluxes=True, pfba=True):
 def crossover(community, sol):
     """Get the crossover solution."""
     gcs = sol.members.growth_rate.drop("medium")
+    com_growth = sol.growth_rate
     logger.info("Starting crossover...")
     with community as com:
-        logger.info("adding scaled absolute values to problem.")
+        logger.info("constraining growth rates.")
+        context = get_context(community)
+        if context is not None:
+            context(partial(reset_min_community_growth, com))
+        com.variables.community_objective.lb = 0
+        com.variables.community_objective.ub = com_growth + 1e-6
         for sp in com.species:
             com.constraints["objective_" + sp].ub = gcs[sp]
-        com.objective = 1.0 * com.variables.community_objective
+        com.objective = 1000.0 * com.variables.community_objective
         logger.info("finding closest feasible solution")
         s = com.optimize()
         for sp in com.species:
             com.constraints["objective_" + sp].ub = None
-    if s is None or s.status != OPTIMAL:
-        raise RuntimeError("crossover could not converge.")
+    if s is None:
+        raise OptimizationError(
+            "crossover could not converge (status = %s)." %
+            community.solver.status)
+    s.objective_value /= 1000.0
     return s

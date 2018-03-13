@@ -189,6 +189,7 @@ def _apply_min_growth(community, min_growth):
 
     def reset(species, lb):
         logger.info("resetting growth rate constraint for %s" % species)
+        community.constraints["objective_" + species].ub = None
         community.constraints["objective_" + species].lb = lb
 
     for sp in community.species:
@@ -208,7 +209,7 @@ def adjust_solver_config(solver):
         solver.problem.parameters.threads.set(1)
         solver.problem.parameters.barrier.convergetol.set(1e-9)
     if interface == "gurobi":
-        solver.configuration.qp_method = "barrier"
+        solver.configuration.lp_method = "barrier"
         solver.problem.Params.BarConvTol = 1e-9
         solver.problem.Params.BarIterLimit = 1001
     if interface == "glpk":
@@ -232,3 +233,9 @@ def optimize_with_retry(com, message="could not get optimum."):
         raise ValueError(message)
     else:
         return sol
+
+
+def reset_min_community_growth(com):
+    """Reset the lower bound for the community growth."""
+    com.variables.community_objective.lb = 0.0
+    com.variables.community_objective.ub = None

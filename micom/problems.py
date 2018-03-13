@@ -1,7 +1,8 @@
 """Implements tradeoff optimization between community and egoistic growth."""
 
 from micom.util import (_format_min_growth, _apply_min_growth,
-                        check_modification, get_context, optimize_with_retry)
+                        check_modification, get_context, optimize_with_retry,
+                        reset_min_community_growth)
 from micom.logger import logger
 from micom.solution import solve, crossover
 from optlang.symbolics import Zero
@@ -11,12 +12,6 @@ from functools import partial
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
-
-
-def reset_min_community_growth(com):
-    """Reset the lower bound for the community growth."""
-    com.variables.community_objective.lb = 0.0
-    com.variables.community_objective.ub = None
 
 
 def regularize_l2_norm(community, min_growth):
@@ -51,11 +46,10 @@ def regularize_l2_norm(community, min_growth):
     if context is not None:
         context(partial(reset_min_community_growth, community))
 
-    scale = len(community.species)
     for sp in community.species:
         species_obj = community.constraints["objective_" + sp]
         ex = sum(v for v in species_obj.variables if (v.ub - v.lb) > 1e-6)
-        l2 += ((scale * ex)**2).expand()
+        l2 += (1000.0 * (ex**2)).expand()
     community.objective = -l2
     community.modification = "l2 norm"
     logger.info("finished adding tradeoff objective to %s" % community.id)
@@ -82,11 +76,9 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         results = []
         for fr in fraction:
             com.variables.community_objective.lb = fr * min_growth
-            com.variables.community_objective.ub = 1.01 * min_growth
+            com.variables.community_objective.ub = min_growth
             sol = solve(community, fluxes=fluxes, pfba=pfba)
             if sol.status != OPTIMAL:
-                com.variables.community_objective.lb = 0
-                com.variables.community_objective.ub = 1.01 * fr * min_growth
                 sol = crossover(com, sol)
             results.append((fr, sol))
         if len(results) == 1:
@@ -113,8 +105,8 @@ def knockout_species(community, species, fraction, method, progress,
             species = tqdm(species, unit="knockout(s)")
         for sp in species:
             with com:
-                logger.info("getting egoistic tradeoff growth rates for "
-                            "%s knockout" % sp)
+                logger.info("getting growth rates for "
+                            "%s knockout." % sp)
                 com.variables.community_objective.lb = 0.0
                 com.variables.community_objective.ub = community_min_growth
                 [r.knock_out() for r in

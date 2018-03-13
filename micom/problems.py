@@ -110,7 +110,7 @@ def knockout_species(community, species, fraction, method, progress,
                 [r.knock_out() for r in
                  com.reactions.query(lambda ri: ri.community_id == sp)]
 
-                abundances = com.abundances
+                abundances = com.abundances.copy()
                 abundances[sp] = 0.0
                 min_growth = sum(abundances * old.drop("medium"))
                 com.variables.community_objective.lb = fraction * min_growth

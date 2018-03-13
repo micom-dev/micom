@@ -219,9 +219,9 @@ def adjust_solver_config(solver):
 def optimize_with_retry(com, message="could not get optimum."):
     """Try to reset the solver."""
     sol = com.optimize()
-    interface = interface_to_str(com.solver.interface)
     if sol is None:
         logger.warning("retrying optimization")
+        interface = interface_to_str(com.solver.interface)
         if interface == "cplex":
             com.solver.configuration.lp_method = "network"
         elif interface == "gurobi":
@@ -232,8 +232,6 @@ def optimize_with_retry(com, message="could not get optimum."):
     if sol is None:
         raise ValueError(message)
     else:
-        if interface == "cplex":
-            com.solver.configuration.lp_method = "network"
         return sol.objective_value
 
 

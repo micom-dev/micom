@@ -223,7 +223,7 @@ def optimize_with_retry(com, message="could not get optimum."):
         logger.warning("retrying optimization")
         interface = interface_to_str(com.solver.interface)
         if interface == "cplex":
-            com.solver.configuration.lp_method = "barrier"
+            com.solver.configuration.lp_method = "network"
         elif interface == "gurobi":
             com.solver.problem.reset()
         elif interface == "glpk":

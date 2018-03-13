@@ -107,8 +107,6 @@ def knockout_species(community, species, fraction, method, progress,
             with com:
                 logger.info("getting growth rates for "
                             "%s knockout." % sp)
-                com.variables.community_objective.lb = 0.0
-                com.variables.community_objective.ub = community_min_growth
                 [r.knock_out() for r in
                  com.reactions.query(lambda ri: ri.community_id == sp)]
 

@@ -229,10 +229,10 @@ def optimize_with_retry(com, message="could not get optimum."):
         elif interface == "glpk":
             glp_adv_basis(com.solver.problem, 0)
         sol = com.optimize()
-    if np.isnan(sol):
+    if sol is None:
         raise ValueError(message)
     else:
-        return sol
+        return sol.objective_value
 
 
 def reset_min_community_growth(com):

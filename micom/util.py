@@ -218,8 +218,8 @@ def adjust_solver_config(solver):
 
 def optimize_with_retry(com, message="could not get optimum."):
     """Try to reset the solver."""
-    sol = com.slim_optimize()
-    if np.isnan(sol):
+    sol = com.optimize()
+    if sol is None:
         logger.warning("retrying optimization")
         interface = interface_to_str(com.solver.interface)
         if interface == "cplex":
@@ -228,7 +228,7 @@ def optimize_with_retry(com, message="could not get optimum."):
             com.solver.problem.reset()
         elif interface == "glpk":
             glp_adv_basis(com.solver.problem, 0)
-        sol = com.slim_optimize()
+        sol = com.optimize()
     if np.isnan(sol):
         raise ValueError(message)
     else:

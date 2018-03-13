@@ -1,10 +1,10 @@
 """Implements tradeoff optimization between community and egoistic growth."""
 
 from micom.util import (_format_min_growth, _apply_min_growth,
-                        check_modification, get_context, optimize_with_retry,
+                        check_modification, get_context,
                         reset_min_community_growth)
 from micom.logger import logger
-from micom.solution import solve, crossover
+from micom.solution import solve, crossover, optimize_with_retry
 from optlang.symbolics import Zero
 from optlang.interface import OPTIMAL
 from collections import Sized

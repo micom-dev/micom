@@ -13,6 +13,7 @@ from cobra.core import Solution, get_solution
 from cobra.util import interface_to_str, get_context
 from micom.logger import logger
 from micom.util import reset_min_community_growth
+from swiglpk import glp_adv_basis
 
 
 good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL, ITERATION_LIMIT]
@@ -173,6 +174,31 @@ def solve(community, fluxes=True, pfba=True, raise_error=False):
     return None
 
 
+def reset_solver(community):
+    """Reset the solver."""
+    interface = interface_to_str(community.solver.interface)
+    logger.info("resetting solver, hoping for the best.")
+    if interface == "cplex":
+        logger.warning("switching cplex LP algorithm to `network`.")
+        community.solver.configuration.lp_method = "network"
+    elif interface == "gurobi":
+        community.solver.problem.reset()
+    elif interface == "glpk":
+        glp_adv_basis(community.solver.problem, 0)
+
+
+def optimize_with_retry(com, message="could not get optimum."):
+    """Try to reset the solver."""
+    sol = com.optimize()
+    if sol is None:
+        reset_solver(com)
+        sol = com.optimize()
+    if sol is None:
+        raise OptimizationError(message)
+    else:
+        return sol.objective_value
+
+
 def crossover(community, sol):
     """Get the crossover solution."""
     gcs = sol.members.growth_rate.drop("medium")
@@ -190,6 +216,9 @@ def crossover(community, sol):
         com.objective = 1000.0 * com.variables.community_objective
         logger.info("finding closest feasible solution")
         s = com.optimize()
+        if s is None:
+            reset_solver(community)
+            s = com.optimize()
         for sp in com.species:
             com.constraints["objective_" + sp].ub = None
     if s is None:

@@ -13,8 +13,6 @@ import tempfile
 from shutil import rmtree
 import pandas as pd
 from micom.logger import logger
-from swiglpk import glp_adv_basis
-import numpy as np
 
 
 _read_funcs = {".xml": io.read_sbml_model,
@@ -214,25 +212,6 @@ def adjust_solver_config(solver):
         solver.problem.Params.BarIterLimit = 1001
     if interface == "glpk":
         solver.configuration.presolve = True
-
-
-def optimize_with_retry(com, message="could not get optimum."):
-    """Try to reset the solver."""
-    sol = com.optimize()
-    if sol is None:
-        logger.warning("retrying optimization")
-        interface = interface_to_str(com.solver.interface)
-        if interface == "cplex":
-            com.solver.configuration.lp_method = "network"
-        elif interface == "gurobi":
-            com.solver.problem.reset()
-        elif interface == "glpk":
-            glp_adv_basis(com.solver.problem, 0)
-        sol = com.optimize()
-    if sol is None:
-        raise ValueError(message)
-    else:
-        return sol.objective_value
 
 
 def reset_min_community_growth(com):

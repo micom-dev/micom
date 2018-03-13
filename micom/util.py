@@ -232,6 +232,8 @@ def optimize_with_retry(com, message="could not get optimum."):
     if sol is None:
         raise ValueError(message)
     else:
+        if interface == "cplex":
+            com.solver.configuration.lp_method = "network"
         return sol.objective_value
 
 

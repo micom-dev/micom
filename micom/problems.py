@@ -113,6 +113,7 @@ def knockout_species(community, species, fraction, method, progress,
                 abundances = com.abundances.copy()
                 abundances[sp] = 0.0
                 min_growth = sum(abundances * old.drop("medium"))
+                com.variables.community_objective.ub = None
                 com.variables.community_objective.lb = fraction * min_growth
                 com.variables.community_objective.ub = min_growth
                 sol = com.optimize()

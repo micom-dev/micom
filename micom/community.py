@@ -125,9 +125,11 @@ class Community(cobra.Model):
         for idx in index:
             row = self.__taxonomy.loc[idx]
             if isinstance(row.file, list):
-                model = join_models(row.file)
                 if len(row.file) > 1:
+                    model = join_models(row.file)
                     logger.info("joined {} models".format(len(row.file)))
+                else:
+                    model = load_model(row.file[0])
             else:
                 model = load_model(row.file)
             suffix = "__" + idx.replace(" ", "_").strip()

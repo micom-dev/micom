@@ -62,9 +62,9 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         min_growth = _format_min_growth(min_growth, community.species)
         _apply_min_growth(community, min_growth)
 
-        com.objective = 1.0 * com.variables.community_objective
+        com.objective = 1000.0 * com.variables.community_objective
         min_growth = optimize_with_retry(
-            com, message="could not get community growth rate.")
+            com, message="could not get community growth rate.") / 1000.0
 
         if not isinstance(fraction, Sized):
             fraction = [fraction]
@@ -110,9 +110,11 @@ def knockout_species(community, species, fraction, method, progress,
                 [r.knock_out() for r in
                  com.reactions.query(lambda ri: ri.community_id == sp)]
 
-                abundances = com.abundances.copy()
-                abundances[sp] = 0.0
-                min_growth = sum(abundances * old.drop("medium"))
+                with com:
+                    com.objective = 1000.0 * com.variables.community_objective
+                    min_growth = optimize_with_retry(
+                        com, message="could not get community growth rate.")
+                    min_growth /= 1000.0
                 com.variables.community_objective.ub = None
                 com.variables.community_objective.lb = fraction * min_growth
                 com.variables.community_objective.ub = min_growth

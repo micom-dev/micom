@@ -117,7 +117,6 @@ def knockout_species(community, species, fraction, method, progress,
                     min_growth = optimize_with_retry(
                         com, message="could not get community growth rate.")
                     min_growth /= 1000.0
-                com.variables.community_objective.ub = None
                 com.variables.community_objective.lb = fraction * min_growth
                 com.variables.community_objective.ub = min_growth
                 sol = com.optimize()

@@ -119,7 +119,8 @@ def knockout_species(community, species, fraction, method, progress,
                     min_growth /= 1000.0
                 com.variables.community_objective.lb = fraction * min_growth
                 com.variables.community_objective.ub = min_growth
-                sol = com.optimize()
+                sol = optimize_with_retry(
+                        com, message="could not get regularized solution")
                 if sol.status != OPTIMAL:
                     sol = crossover(com, sol)
                 new = sol.members["growth_rate"]

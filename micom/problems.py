@@ -111,7 +111,7 @@ def knockout_species(community, species, fraction, method, progress,
                  com.reactions.query(lambda ri: ri.community_id == sp)]
 
                 com.variables.community_objective.lb = 0
-                com.variables.community_objective.ub = None
+                com.variables.community_objective.ub = community_min_growth
                 with com:
                     com.objective = 1000.0 * com.variables.community_objective
                     min_growth = optimize_with_retry(

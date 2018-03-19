@@ -118,12 +118,11 @@ def knockout_species(community, species, fraction, method, progress,
                     min_growth = optimize_with_retry(
                         com, message="could not get community growth rate.")
                     min_growth /= 1000.0
+                    if min_growth > community_min_growth - 1e-6:
+                        min_growth = community_min_growth
                 com.variables.community_objective.lb = fraction * min_growth
                 com.variables.community_objective.ub = community_min_growth
                 sol = com.optimize()
-                if sol is None:
-                    logger.info("retrying optimization")
-                    sol = com.optimize()
                 if sol.status != OPTIMAL:
                     sol = crossover(com, sol)
                 new = sol.members["growth_rate"]

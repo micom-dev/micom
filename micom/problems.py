@@ -95,8 +95,9 @@ def knockout_species(community, species, fraction, method, progress,
         min_growth = _format_min_growth(0.0, com.species)
         _apply_min_growth(com, min_growth)
 
+        com.objective = 1000.0 * com.variables.community_objective
         community_min_growth = optimize_with_retry(
-            com, "could not get community growth rate.")
+            com, "could not get community growth rate.") / 1000.0
         regularize_l2_norm(com, fraction * community_min_growth)
         old = com.optimize().members["growth_rate"]
         results = []
@@ -111,15 +112,14 @@ def knockout_species(community, species, fraction, method, progress,
                  com.reactions.query(lambda ri: ri.community_id == sp)]
 
                 com.variables.community_objective.lb = 0
-                com.variables.community_objective.ub = community_min_growth
+                com.variables.community_objective.ub = None
                 with com:
                     com.objective = 1000.0 * com.variables.community_objective
                     min_growth = optimize_with_retry(
                         com, message="could not get community growth rate.")
                     min_growth /= 1000.0
-                com.variables.community_objective.ub = None
                 com.variables.community_objective.lb = fraction * min_growth
-                com.variables.community_objective.ub = min_growth
+                com.variables.community_objective.ub = community_min_growth
                 sol = com.optimize()
                 if sol is None:
                     logger.info("retrying optimization")

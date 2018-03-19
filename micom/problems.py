@@ -111,7 +111,7 @@ def knockout_species(community, species, fraction, method, progress,
                  com.reactions.query(lambda ri: ri.community_id == sp)]
 
                 com.variables.community_objective.lb = 0
-                com.variables.community_objective.ub = community_min_growth
+                com.variables.community_objective.ub = community
                 with com:
                     com.objective = 1000.0 * com.variables.community_objective
                     min_growth = optimize_with_retry(
@@ -119,8 +119,10 @@ def knockout_species(community, species, fraction, method, progress,
                     min_growth /= 1000.0
                 com.variables.community_objective.lb = fraction * min_growth
                 com.variables.community_objective.ub = min_growth
-                sol = optimize_with_retry(
-                        com, message="could not get regularized solution")
+                sol = com.optimize()
+                if sol is None:
+                    logger.info("retrying optimization")
+                    sol = com.optimize()
                 if sol.status != OPTIMAL:
                     sol = crossover(com, sol)
                 new = sol.members["growth_rate"]

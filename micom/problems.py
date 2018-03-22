@@ -4,7 +4,8 @@ from micom.util import (_format_min_growth, _apply_min_growth,
                         check_modification, get_context,
                         reset_min_community_growth)
 from micom.logger import logger
-from micom.solution import solve, crossover, optimize_with_retry
+from micom.solution import (solve, crossover, optimize_with_retry,
+                            optimize_with_fraction)
 from optlang.symbolics import Zero
 from optlang.interface import OPTIMAL
 from collections import Sized
@@ -79,7 +80,7 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
             com.variables.community_objective.ub = min_growth
             sol = solve(community, fluxes=fluxes, pfba=pfba)
             if sol.status != OPTIMAL:
-                sol = crossover(com, sol)
+                sol = crossover(com, sol, fluxes=fluxes, pfba=pfba)
             results.append((fr, sol))
         if len(results) == 1:
             return results[0][1]
@@ -110,18 +111,7 @@ def knockout_species(community, species, fraction, method, progress,
                 [r.knock_out() for r in
                  com.reactions.query(lambda ri: ri.community_id == sp)]
 
-                com.variables.community_objective.lb = 0
-                com.variables.community_objective.ub = None
-                with com:
-                    com.objective = 1000.0 * com.variables.community_objective
-                    min_growth = optimize_with_retry(
-                        com, message="could not get community growth rate.")
-                    min_growth /= 1000.0
-                com.variables.community_objective.lb = fraction * min_growth
-                com.variables.community_objective.ub = min_growth
-                sol = com.optimize()
-                if sol.status != OPTIMAL:
-                    sol = crossover(com, sol)
+                sol = optimize_with_fraction(com, fraction)
                 new = sol.members["growth_rate"]
                 if "change" in method:
                     new = new - old

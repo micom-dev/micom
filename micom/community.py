@@ -332,7 +332,7 @@ class Community(cobra.Model):
         individual = (self.optimize_single(id) for id in index)
         return pd.Series(individual, self.__taxonomy.index)
 
-    def optimize(self, slim=True, raise_error=False):
+    def optimize(self, fluxes=False, pfba=True, raise_error=False):
         """Optimize the model using flux balance analysis.
 
         Parameters
@@ -353,7 +353,7 @@ class Community(cobra.Model):
         """
         self.solver.optimize()
         with self:
-            solution = solve(self, fluxes=not slim)
+            solution = solve(self, fluxes=fluxes, pfba=pfba)
         return solution
 
     @property
@@ -367,6 +367,9 @@ class Community(cobra.Model):
 
     @abundances.setter
     def abundances(self, value):
+        self.set_abundance(value, normalize=True)
+
+    def set_abundance(self, value, normalize=True):
         try:
             self.__taxonomy.abundance = value
         except Exception:
@@ -375,11 +378,12 @@ class Community(cobra.Model):
 
         logger.info("setting new abundances for %s" % self.id)
         ab = self.__taxonomy.abundance
-        self.__taxonomy.abundance /= ab.sum()
-        small = ab < self._rtol
-        logger.info("adjusting abundances for %s to %g" %
-                    (str(self.__taxonomy.index[small]), self._rtol))
-        self.__taxonomy.loc[small, "abundance"] = self._rtol
+        if normalize:
+            self.__taxonomy.abundance /= ab.sum()
+            small = ab < self._rtol
+            logger.info("adjusting abundances for %s to %g" %
+                        (str(self.__taxonomy.index[small]), self._rtol))
+            self.__taxonomy.loc[small, "abundance"] = self._rtol
         self.__update_exchanges()
         self.__update_community_objective()
 

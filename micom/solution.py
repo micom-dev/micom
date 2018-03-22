@@ -9,7 +9,7 @@ from optlang.symbolics import Zero
 from itertools import chain
 from functools import partial
 from cobra.exceptions import OptimizationError
-from cobra.core import Solution, get_solution
+from cobra.core import Solution
 from cobra.util import interface_to_str, get_context
 from micom.logger import logger
 from micom.util import reset_min_community_growth
@@ -74,13 +74,14 @@ class CommunitySolution(Solution):
         mids = np.array([(m.global_id, m.community_id)
                          for m in metabolites])
         if not slim:
-            sol = get_solution(community, reactions, metabolites)
+            var_primals = community.solver.primal_values
+            fluxes = pd.Series(
+                [var_primals[r.id] - var_primals[r.reverse_id]
+                 for r in reactions], name="fluxes")
             super(CommunitySolution, self).__init__(
                 community.solver.objective.value, community.solver.status,
-                _group_species(sol.fluxes, rids[:, 0], rids[:, 1]),
-                _group_species(sol.reduced_costs, rids[:, 0], rids[:, 1]),
-                _group_species(sol.shadow_prices, mids[:, 0], mids[:, 1],
-                               what="metabolites"))
+                _group_species(fluxes, rids[:, 0], rids[:, 1]),
+                None, None)
         else:
             super(CommunitySolution, self).__init__(
                 community.solver.objective.value, community.solver.status,
@@ -141,7 +142,7 @@ def add_pfba_objective(community):
                           for rxn in community.reactions)
     variables = chain(*reaction_variables)
     community.objective = Zero
-    community.objective.direction = "min"
+    community.objective_direction = "min"
     community.objective.set_linear_coefficients(dict.fromkeys(variables, 1.0))
     if community.modification is None:
         community.modification = "pFBA"
@@ -199,7 +200,7 @@ def optimize_with_retry(com, message="could not get optimum."):
         return sol.objective_value
 
 
-def crossover(community, sol):
+def crossover(community, sol, fluxes=False, pfba=False):
     """Get the crossover solution."""
     gcs = sol.members.growth_rate.drop("medium")
     com_growth = sol.growth_rate
@@ -211,14 +212,18 @@ def crossover(community, sol):
             context(partial(reset_min_community_growth, com))
         com.variables.community_objective.lb = 0
         com.variables.community_objective.ub = com_growth + 1e-6
+        obj_expr = Zero
         for sp in com.species:
-            com.constraints["objective_" + sp].ub = gcs[sp]
-        com.objective = 1000.0 * com.variables.community_objective
+            const = com.constraints["objective_" + sp]
+            const.ub = gcs[sp]
+            obj_expr += const.expression
         logger.info("finding closest feasible solution")
         s = com.optimize()
         if s is None:
-            reset_solver(community)
+            reset_solver(com)
             s = com.optimize()
+        if s is not None:
+            s = CommunitySolution(com, slim=not fluxes)
         for sp in com.species:
             com.constraints["objective_" + sp].ub = None
     if s is None:
@@ -227,3 +232,22 @@ def crossover(community, sol):
             community.solver.status)
     s.objective_value /= 1000.0
     return s
+
+
+def optimize_with_fraction(com, fraction, fluxes=False, pfba=False):
+    """Optimize with a constrained community growth rate."""
+    com.variables.community_objective.lb = 0
+    com.variables.community_objective.ub = None
+    with com:
+        com.objective = 1000.0 * com.variables.community_objective
+        min_growth = optimize_with_retry(
+            com, message="could not get community growth rate.")
+        min_growth /= 1000.0
+    com.variables.community_objective.lb = fraction * min_growth
+    com.variables.community_objective.ub = min_growth
+    sol = com.optimize()
+    if sol.status != OPTIMAL:
+        sol = crossover(com, sol, fluxes=fluxes, pfba=pfba)
+    else:
+        sol = CommunitySolution(com, slim=not fluxes)
+    return sol

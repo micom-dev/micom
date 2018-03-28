@@ -144,7 +144,7 @@ def exchange_elasticities(com, fraction=0.5, min_medium=True,
     if min_medium:
         sol = com.cooperative_tradeoff(fraction)
         gcs = sol.members.growth_rate.drop("medium")
-        med = minimal_medium(com, 0.95 * sol.growth_rate,
+        med = minimal_medium(com, sol.growth_rate,
                              min_growth=0.95 * gcs)
     with com:
         context = get_context(com)
@@ -152,10 +152,10 @@ def exchange_elasticities(com, fraction=0.5, min_medium=True,
         if min_medium:
             com.medium = med
         rxns = com.exchanges
-        by_medium = elasticities_by_medium(com, rxns, fraction, progress)
+        by_medium = elasticities_by_medium(com, rxns, 0.99, progress)
         by_medium["type"] = "exchanges"
 
-        by_abundance = elasticities_by_abundance(com, rxns, fraction, progress)
+        by_abundance = elasticities_by_abundance(com, rxns, 0.99, progress)
         by_abundance["type"] = "abundance"
 
     return pd.concat([by_medium, by_abundance])

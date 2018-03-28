@@ -38,7 +38,7 @@ def _derivatives(before, after):
     return derivs, direction
 
 
-def elasticities_by_medium(com, reactions, fraction, progress):
+def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
     """Get the elasticity coefficients for a set of variables.
 
     Arguments
@@ -93,7 +93,7 @@ def elasticities_by_medium(com, reactions, fraction, progress):
     return pd.concat(dfs)
 
 
-def elasticities_by_abundance(com, reactions, fraction, progress):
+def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     """Get the elasticity coefficients for a set of variables.
 
     Arguments
@@ -141,8 +141,8 @@ def elasticities_by_abundance(com, reactions, fraction, progress):
 def exchange_elasticities(com, fraction=0.5, min_medium=True,
                           progress=True):
     """Calculate elasticities for exchange reactions."""
+    sol = com.cooperative_tradeoff(fraction)
     if min_medium:
-        sol = com.cooperative_tradeoff(fraction)
         gcs = sol.members.growth_rate.drop("medium")
         med = minimal_medium(com, sol.growth_rate,
                              min_growth=0.95 * gcs)
@@ -152,10 +152,12 @@ def exchange_elasticities(com, fraction=0.5, min_medium=True,
         if min_medium:
             com.medium = med
         rxns = com.exchanges
-        by_medium = elasticities_by_medium(com, rxns, 0.99, progress)
+        by_medium = elasticities_by_medium(com, rxns, 0.99, sol.growth_rate,
+                                           progress)
         by_medium["type"] = "exchanges"
 
-        by_abundance = elasticities_by_abundance(com, rxns, 0.99, progress)
+        by_abundance = elasticities_by_abundance(com, rxns, 0.99,
+                                                 sol.growth_rate, progress)
         by_abundance["type"] = "abundance"
 
     return pd.concat([by_medium, by_abundance])

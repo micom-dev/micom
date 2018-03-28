@@ -152,11 +152,11 @@ def exchange_elasticities(com, fraction=0.5, min_medium=True,
         if min_medium:
             com.medium = med
         rxns = com.exchanges
-        by_medium = elasticities_by_medium(com, rxns, 1.0, sol.growth_rate,
+        by_medium = elasticities_by_medium(com, rxns, 0.95, sol.growth_rate,
                                            progress)
         by_medium["type"] = "exchanges"
 
-        by_abundance = elasticities_by_abundance(com, rxns, 1.0,
+        by_abundance = elasticities_by_abundance(com, rxns, 0.95,
                                                  sol.growth_rate, progress)
         by_abundance["type"] = "abundance"
 

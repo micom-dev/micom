@@ -144,7 +144,7 @@ def exchange_elasticities(com, fraction=0.5, min_medium=True,
     sol = com.cooperative_tradeoff(fraction)
     if min_medium:
         gcs = sol.members.growth_rate.drop("medium")
-        med = minimal_medium(com, sol.growth_rate,
+        med = minimal_medium(com, 0.95 * sol.growth_rate,
                              min_growth=0.95 * gcs)
     with com:
         context = get_context(com)

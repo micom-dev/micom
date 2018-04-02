@@ -38,7 +38,7 @@ def _derivatives(before, after):
     return derivs, direction
 
 
-def elasticities_by_medium(com, reactions, fraction, progress):
+def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
     """Get the elasticity coefficients for a set of variables.
 
     Arguments
@@ -56,7 +56,7 @@ def elasticities_by_medium(com, reactions, fraction, progress):
         effector, and elasticity.
     """
     regularize_l2_norm(com, 0.0)
-    sol = optimize_with_fraction(com, fraction, fluxes=True)
+    sol = optimize_with_fraction(com, fraction, growth_rate, True)
     before = _get_fluxes(sol, reactions)
     import_fluxes = pd.Series()
     dfs = []
@@ -81,7 +81,7 @@ def elasticities_by_medium(com, reactions, fraction, progress):
                 r.lower_bound *= np.exp(STEP)
             else:
                 r.upper_bound *= np.exp(STEP)
-            sol = optimize_with_fraction(com, fraction, fluxes=True)
+            sol = optimize_with_fraction(com, fraction, growth_rate, True)
             after = _get_fluxes(sol, reactions)
         deriv, dirs = _derivatives(before, after)
         res = pd.DataFrame({"reaction": [rx.id for rx in reactions],
@@ -93,7 +93,7 @@ def elasticities_by_medium(com, reactions, fraction, progress):
     return pd.concat(dfs)
 
 
-def elasticities_by_abundance(com, reactions, fraction, progress):
+def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     """Get the elasticity coefficients for a set of variables.
 
     Arguments
@@ -111,7 +111,7 @@ def elasticities_by_abundance(com, reactions, fraction, progress):
         effector, and elasticity.
     """
     regularize_l2_norm(com, 0.0)
-    sol = optimize_with_fraction(com, fraction, fluxes=True)
+    sol = optimize_with_fraction(com, fraction, growth_rate, True)
     before = _get_fluxes(sol, reactions)
     dfs = []
 
@@ -124,7 +124,7 @@ def elasticities_by_abundance(com, reactions, fraction, progress):
         old = abundance[sp]
         abundance.loc[sp] *= np.exp(STEP)
         com.set_abundance(abundance, normalize=False)
-        sol = optimize_with_fraction(com, fraction, fluxes=True)
+        sol = optimize_with_fraction(com, fraction, growth_rate, True)
         after = _get_fluxes(sol, reactions)
         abundance.loc[sp] = old
         com.set_abundance(abundance, normalize=False)
@@ -141,8 +141,8 @@ def elasticities_by_abundance(com, reactions, fraction, progress):
 def exchange_elasticities(com, fraction=0.5, min_medium=True,
                           progress=True):
     """Calculate elasticities for exchange reactions."""
+    sol = com.cooperative_tradeoff(fraction)
     if min_medium:
-        sol = com.cooperative_tradeoff(fraction)
         gcs = sol.members.growth_rate.drop("medium")
         med = minimal_medium(com, 0.95 * sol.growth_rate,
                              min_growth=0.95 * gcs)
@@ -152,10 +152,12 @@ def exchange_elasticities(com, fraction=0.5, min_medium=True,
         if min_medium:
             com.medium = med
         rxns = com.exchanges
-        by_medium = elasticities_by_medium(com, rxns, fraction, progress)
+        by_medium = elasticities_by_medium(com, rxns, 0.95, sol.growth_rate,
+                                           progress)
         by_medium["type"] = "exchanges"
 
-        by_abundance = elasticities_by_abundance(com, rxns, fraction, progress)
+        by_abundance = elasticities_by_abundance(com, rxns, 0.95,
+                                                 sol.growth_rate, progress)
         by_abundance["type"] = "abundance"
 
     return pd.concat([by_medium, by_abundance])

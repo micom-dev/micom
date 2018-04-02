@@ -234,17 +234,19 @@ def crossover(community, sol, fluxes=False, pfba=False):
     return s
 
 
-def optimize_with_fraction(com, fraction, fluxes=False, pfba=False):
+def optimize_with_fraction(com, fraction, growth_rate=None,
+                           fluxes=False, pfba=False):
     """Optimize with a constrained community growth rate."""
     com.variables.community_objective.lb = 0
     com.variables.community_objective.ub = None
-    with com:
-        com.objective = 1000.0 * com.variables.community_objective
-        min_growth = optimize_with_retry(
-            com, message="could not get community growth rate.")
-        min_growth /= 1000.0
-    com.variables.community_objective.lb = fraction * min_growth
-    com.variables.community_objective.ub = min_growth
+    if growth_rate is None:
+        with com:
+            com.objective = 1000.0 * com.variables.community_objective
+            growth_rate = optimize_with_retry(
+                com, message="could not get community growth rate.")
+            growth_rate /= 1000.0
+    com.variables.community_objective.lb = fraction * growth_rate
+    com.variables.community_objective.ub = growth_rate
     sol = com.optimize()
     if sol.status != OPTIMAL:
         sol = crossover(com, sol, fluxes=fluxes, pfba=pfba)

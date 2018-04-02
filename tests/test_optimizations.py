@@ -13,7 +13,7 @@ solvers = [s for s in solvers.keys() if s in stable]
 
 def test_community_objective(community):
     x = community.optimize()
-    y = community.optimize(slim=False)
+    y = community.optimize(fluxes=True)
     assert isinstance(x, CommunitySolution)
     assert np.allclose(x.growth_rate, 0.873922)
     assert np.allclose(x.members.growth_rate.dropna().sum(), 5*0.873922)

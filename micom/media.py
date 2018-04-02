@@ -147,7 +147,7 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
             add_mip_obj(com)
         else:
             add_linear_obj(com)
-        sol = com.optimize()
+        sol = com.optimize(fluxes=True, pfba=False)
         if sol is None:
             logger.warning("minimization of medium was unsuccessful")
             return None
@@ -157,7 +157,7 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
         tol = community.solver.configuration.tolerances.feasibility
         for rxn in boundary_rxns:
             export = len(rxn.reactants) == 1
-            flux = rxn.flux
+            flux = sol.fluxes.loc["medium", rxn.id]
             if abs(flux) < tol:
                 continue
             if export:

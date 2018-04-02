@@ -1,11 +1,13 @@
 """Manages functions for growth media analysis and manipulation."""
 
+from functools import partial
 from optlang.symbolics import Zero
 from optlang.interface import OPTIMAL
 import numpy as np
 import pandas as pd
+from cobra.util import get_context
 from micom.util import (_format_min_growth, _apply_min_growth,
-                        check_modification)
+                        check_modification, reset_min_community_growth)
 from micom.logger import logger
 
 
@@ -33,9 +35,9 @@ def add_linear_obj(community):
     for rxn in community.exchanges:
         export = len(rxn.reactants) == 1
         if export:
-            coefs[rxn.reverse_variable] = 1
+            coefs[rxn.reverse_variable] = 1000.0
         else:
-            coefs[rxn.forward_variable] = 1
+            coefs[rxn.forward_variable] = 1000.0
     community.objective.set_linear_coefficients(coefs)
     community.objective.direction = "min"
     community.modification = "minimal medium linear"
@@ -126,8 +128,7 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
         open_bound = 1000
     else:
         open_bound = open_exchanges
-    min_growth = _format_min_growth(
-        min_growth, community.species)
+    min_growth = _format_min_growth(min_growth, community.species)
     with community as com:
         if open_exchanges:
             logger.info("opening exchanges for %d imports" %
@@ -135,11 +136,10 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
             for rxn in boundary_rxns:
                 rxn.bounds = (-open_bound, open_bound)
         logger.info("applying growth rate constraints")
-        obj_const = com.problem.Constraint(
-            com.objective.expression, lb=community_growth,
-            name="medium_obj_constraint")
-        com.add_cons_vars([obj_const])
-        com.solver.update()
+        context = get_context(community)
+        if context is not None:
+            context(partial(reset_min_community_growth, com))
+            com.variables.community_objective.lb = community_growth
         _apply_min_growth(community, min_growth)
         com.objective = Zero
         logger.info("adding new media objective")
@@ -147,9 +147,9 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
             add_mip_obj(com)
         else:
             add_linear_obj(com)
-        com.solver.optimize()
-        if com.solver.status != OPTIMAL:
-            logger.warning("minimization of medium was infeasible")
+        sol = com.optimize()
+        if sol is None:
+            logger.warning("minimization of medium was unsuccessful")
             return None
 
         logger.info("formatting medium")

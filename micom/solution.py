@@ -210,6 +210,7 @@ def crossover(community, sol, fluxes=False, pfba=False):
         context = get_context(community)
         if context is not None:
             context(partial(reset_min_community_growth, com))
+        reset_min_community_growth(com)
         com.variables.community_objective.lb = 0.5 * sol.growth_rate
         com.variables.community_objective.ub = com_growth + 1e-6
         com.objective = 1000.0 * com.variables.community_objective

@@ -2,7 +2,6 @@
 
 from functools import partial
 from optlang.symbolics import Zero
-from optlang.interface import OPTIMAL
 import numpy as np
 import pandas as pd
 from cobra.util import get_context

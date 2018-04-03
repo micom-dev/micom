@@ -1,4 +1,5 @@
-"""
+"""Calculate elasticity coefficients.
+
 Functions to calculate elasticity coefficients for various community
 quantities.
 """

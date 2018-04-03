@@ -195,7 +195,12 @@ def _apply_min_growth(community, min_growth):
         obj = community.constraints["objective_" + sp]
         if context:
             context(partial(reset, sp, obj.lb))
-        obj.lb = min_growth[sp]
+        if min_growth[sp] > 1e-6:
+            obj.lb = min_growth[sp]
+        else:
+            logger.info("minimal growth rate smaller than tolerance,"
+                        " setting to zero.")
+            obj.lb = 0
 
 
 def adjust_solver_config(solver):

@@ -70,11 +70,11 @@ def add_mip_obj(community):
         if export:
             vrv = rxn.reverse_variable
             indicator_const = prob.Constraint(
-                vrv - indicator * M, ub=0, name="ind_constraint_" + rxn.name)
+                vrv - indicator * M, ub=0, name="ind_constraint_" + rxn.id)
         else:
             vfw = rxn.forward_variable
             indicator_const = prob.Constraint(
-                vfw - indicator * M, ub=0, name="ind_constraint_" + rxn.name)
+                vfw - indicator * M, ub=0, name="ind_constraint_" + rxn.id)
         to_add.extend([indicator, indicator_const])
         coefs[indicator] = 1
     community.add_cons_vars(to_add)

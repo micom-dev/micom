@@ -85,7 +85,8 @@ def add_mip_obj(community):
 
 
 def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
-                   minimize_components=False, open_exchanges=False):
+                   minimize_components=False, open_exchanges=False,
+                   solution=False):
     """Find the minimal growth medium for the community.
 
     Finds the minimal growth medium for the community which allows for
@@ -113,12 +114,17 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
         Whether to ignore currently set bounds and make all exchange reactions
         in the model possible. If set to a number all exchange reactions will
         be opened with (-number, number) as bounds.
+    solution : boolean
+        Whether to also return the entire solution and all fluxes for the
+        minimal medium.
+
 
     Returns
     -------
-    pandas.Series
+    pandas.Series or dict
         A series {rid: flux} giving the import flux for each required import
-        reaction.
+        reaction. If `solution` is True retuns a dictionary
+        {"medium": panas.Series, "solution": micom.CommunitySolution}.
 
     """
     logger.info("calculating minimal medium for %s" % community.id)
@@ -166,4 +172,7 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
         if not exports:
             medium = medium[medium > 0]
 
-    return medium
+    if solution:
+        return {"medium": medium, "solution": sol}
+    else:
+        return medium

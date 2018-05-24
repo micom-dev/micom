@@ -210,13 +210,13 @@ def crossover(community, sol, fluxes=False, pfba=False):
         context = get_context(community)
         if context is not None:
             context(partial(reset_min_community_growth, com))
-        com.variables.community_objective.lb = 0
+        reset_min_community_growth(com)
+        com.variables.community_objective.lb = 0.0
         com.variables.community_objective.ub = com_growth + 1e-6
-        obj_expr = Zero
+        com.objective = 1000.0 * com.variables.community_objective
         for sp in com.species:
             const = com.constraints["objective_" + sp]
             const.ub = gcs[sp]
-            obj_expr += const.expression
         logger.info("finding closest feasible solution")
         s = com.optimize()
         if s is None:

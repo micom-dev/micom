@@ -1,4 +1,5 @@
-"""
+"""Calculate elasticity coefficients.
+
 Functions to calculate elasticity coefficients for various community
 quantities.
 """
@@ -141,12 +142,18 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
 def exchange_elasticities(com, fraction=0.5, min_medium=True,
                           progress=True):
     """Calculate elasticities for exchange reactions."""
-    sol = com.cooperative_tradeoff(fraction)
+    growth_rate = None
     if min_medium:
+        sol = com.cooperative_tradeoff(fraction)
         gcs = sol.members.growth_rate.drop("medium")
         med = minimal_medium(com, 0.95 * sol.growth_rate,
                              min_growth=0.95 * gcs)
+<<<<<<< HEAD
         fraction = 0.95
+=======
+        fraction = 1.0
+        growth_rate = sol.growth_rate
+>>>>>>> cd84fa27b0c28b0c12bc017f07b9b8033559c9a5
     with com:
         context = get_context(com)
         context(partial(reset_min_community_growth, com))
@@ -154,11 +161,19 @@ def exchange_elasticities(com, fraction=0.5, min_medium=True,
             com.medium = med
         rxns = com.exchanges
         by_medium = elasticities_by_medium(com, rxns, fraction,
+<<<<<<< HEAD
                                            sol.growth_rate, progress)
         by_medium["type"] = "exchanges"
 
         by_abundance = elasticities_by_abundance(com, rxns, fraction,
                                                  sol.growth_rate, progress)
+=======
+                                           growth_rate, progress)
+        by_medium["type"] = "exchanges"
+
+        by_abundance = elasticities_by_abundance(com, rxns, fraction,
+                                                 growth_rate, progress)
+>>>>>>> cd84fa27b0c28b0c12bc017f07b9b8033559c9a5
         by_abundance["type"] = "abundance"
 
     return pd.concat([by_medium, by_abundance])

@@ -1,11 +1,12 @@
 """Manages functions for growth media analysis and manipulation."""
 
+from functools import partial
 from optlang.symbolics import Zero
-from optlang.interface import OPTIMAL
 import numpy as np
 import pandas as pd
+from cobra.util import get_context
 from micom.util import (_format_min_growth, _apply_min_growth,
-                        check_modification)
+                        check_modification, reset_min_community_growth)
 from micom.logger import logger
 
 
@@ -33,9 +34,9 @@ def add_linear_obj(community):
     for rxn in community.exchanges:
         export = len(rxn.reactants) == 1
         if export:
-            coefs[rxn.reverse_variable] = 1
+            coefs[rxn.reverse_variable] = 1.0
         else:
-            coefs[rxn.forward_variable] = 1
+            coefs[rxn.forward_variable] = 1.0
     community.objective.set_linear_coefficients(coefs)
     community.objective.direction = "min"
     community.modification = "minimal medium linear"
@@ -69,11 +70,11 @@ def add_mip_obj(community):
         if export:
             vrv = rxn.reverse_variable
             indicator_const = prob.Constraint(
-                vrv - indicator * M, ub=0, name="ind_constraint_" + rxn.name)
+                vrv - indicator * M, ub=0, name="ind_constraint_" + rxn.id)
         else:
             vfw = rxn.forward_variable
             indicator_const = prob.Constraint(
-                vfw - indicator * M, ub=0, name="ind_constraint_" + rxn.name)
+                vfw - indicator * M, ub=0, name="ind_constraint_" + rxn.id)
         to_add.extend([indicator, indicator_const])
         coefs[indicator] = 1
     community.add_cons_vars(to_add)
@@ -84,7 +85,8 @@ def add_mip_obj(community):
 
 
 def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
-                   minimize_components=False, open_exchanges=False):
+                   minimize_components=False, open_exchanges=False,
+                   solution=False):
     """Find the minimal growth medium for the community.
 
     Finds the minimal growth medium for the community which allows for
@@ -112,12 +114,17 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
         Whether to ignore currently set bounds and make all exchange reactions
         in the model possible. If set to a number all exchange reactions will
         be opened with (-number, number) as bounds.
+    solution : boolean
+        Whether to also return the entire solution and all fluxes for the
+        minimal medium.
+
 
     Returns
     -------
-    pandas.Series
+    pandas.Series or dict
         A series {rid: flux} giving the import flux for each required import
-        reaction.
+        reaction. If `solution` is True retuns a dictionary
+        {"medium": panas.Series, "solution": micom.CommunitySolution}.
 
     """
     logger.info("calculating minimal medium for %s" % community.id)
@@ -126,8 +133,7 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
         open_bound = 1000
     else:
         open_bound = open_exchanges
-    min_growth = _format_min_growth(
-        min_growth, community.species)
+    min_growth = _format_min_growth(min_growth, community.species)
     with community as com:
         if open_exchanges:
             logger.info("opening exchanges for %d imports" %
@@ -135,11 +141,10 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
             for rxn in boundary_rxns:
                 rxn.bounds = (-open_bound, open_bound)
         logger.info("applying growth rate constraints")
-        obj_const = com.problem.Constraint(
-            com.objective.expression, lb=community_growth,
-            name="medium_obj_constraint")
-        com.add_cons_vars([obj_const])
-        com.solver.update()
+        context = get_context(community)
+        if context is not None:
+            context(partial(reset_min_community_growth, com))
+            com.variables.community_objective.lb = community_growth
         _apply_min_growth(community, min_growth)
         com.objective = Zero
         logger.info("adding new media objective")
@@ -147,9 +152,9 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
             add_mip_obj(com)
         else:
             add_linear_obj(com)
-        com.solver.optimize()
-        if com.solver.status != OPTIMAL:
-            logger.warning("minimization of medium was infeasible")
+        sol = com.optimize(fluxes=True, pfba=False)
+        if sol is None:
+            logger.warning("minimization of medium was unsuccessful")
             return None
 
         logger.info("formatting medium")
@@ -157,7 +162,7 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
         tol = community.solver.configuration.tolerances.feasibility
         for rxn in boundary_rxns:
             export = len(rxn.reactants) == 1
-            flux = rxn.flux
+            flux = sol.fluxes.loc["medium", rxn.id]
             if abs(flux) < tol:
                 continue
             if export:
@@ -167,4 +172,7 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
         if not exports:
             medium = medium[medium > 0]
 
-    return medium
+    if solution:
+        return {"medium": medium, "solution": sol}
+    else:
+        return medium

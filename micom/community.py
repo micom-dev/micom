@@ -370,6 +370,18 @@ class Community(cobra.Model):
         self.set_abundance(value, normalize=True)
 
     def set_abundance(self, value, normalize=True):
+        """Change abundances for one or more taxa.
+
+        Parameters
+        ----------
+        value : array-like object
+            The new abundances. Must contain one value for each taxon. Can
+            be a named object like a pandas Series.
+        normalize : boolean, optional
+            Whether to normalize the abundances to a total of 1.0. Many things
+            in micom asssume that this is always the case. Only change this
+            if you know what you are doing :O
+        """
         try:
             self.__taxonomy.abundance = value
         except Exception:

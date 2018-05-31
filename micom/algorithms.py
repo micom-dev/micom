@@ -47,7 +47,7 @@ def metabolic_dist(reactions, metric=jaccard):
     rlist = pd.DataFrame(rids, columns=["reaction", "id"])
     rlist["value"] = 1
     rlist = rlist.pivot_table(values="value", index="id", columns="reaction")
-    inclusion = rlist.fillna(0).astype(int).as_matrix()
+    inclusion = rlist.fillna(0).astype(int).values
 
     dists = metric(inclusion)
 

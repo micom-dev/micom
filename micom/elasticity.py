@@ -139,22 +139,39 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     return pd.concat(dfs)
 
 
-def exchange_elasticities(com, fraction=0.5, min_medium=True,
-                          progress=True):
-    """Calculate elasticities for exchange reactions."""
+def exchange_elasticities(com, fraction=1.0, progress=True):
+    """Calculate elasticities for exchange reactions.
+
+    Calculates elasticity coefficients using the exchange reactions as
+    response and exchange bounds (diet) and taxa abundances as
+    effectors/parameters. Will use an arbitrary flux distribution as base.
+
+    Arguments
+    ---------
+    com : micom.Community
+        The community for wrhich to calculate elasticities.
+    fraction : double
+        The tradeoff to use for the cooperative tradeoff method. Fraction of
+        maximal community growth to enforce.
+    progress : boolean
+        Whether to shwo progress bars. Will show two, one for the diet
+        optimizations and another one for the taxa abundances.
+
+    Returns
+    -------
+    pandas.DataFrame
+        A data frame with the following columns:
+        "reaction" - the exchange reaction (response),
+        "effector" - the parameter that was changed,
+        "direction" - whether the flux runs in the forward od reverse direction,
+        "elasticity" - the elasticity coefficient,
+        "type" - the type of effector either "exchange" for diet or "abundance"
+        for taxa abundances.
+    """
     growth_rate = None
-    if min_medium:
-        sol = com.cooperative_tradeoff(fraction)
-        gcs = sol.members.growth_rate.drop("medium")
-        med = minimal_medium(com, 0.95 * sol.growth_rate,
-                             min_growth=0.95 * gcs)
-        fraction = 1.0
-        growth_rate = sol.growth_rate
     with com:
         context = get_context(com)
         context(partial(reset_min_community_growth, com))
-        if min_medium:
-            com.medium = med
         rxns = com.exchanges
         by_medium = elasticities_by_medium(com, rxns, fraction,
                                            growth_rate, progress)

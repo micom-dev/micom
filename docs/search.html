@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search &mdash; micom 0.7.0 documentation</title>
+  <title>Search &mdash; micom 0.9.0+2.gf897403.dirty documentation</title>
   
 
   
@@ -25,24 +25,17 @@
   
 
   
-  
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="#"/>
-    <link rel="top" title="micom 0.7.0 documentation" href="index.html"/> 
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="#" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -59,7 +52,7 @@
 
           
             
-            <img src="_static/micom.png" class="logo" />
+            <img src="_static/micom.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -67,7 +60,7 @@
             
             
               <div class="version">
-                0.7
+                0.9
               </div>
             
           
@@ -92,9 +85,15 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="logic.html">Methods uses by micom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by micom</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html#Solvers">Solvers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxa_knockouts.html">Knockouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticities.html">Intervention studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Analyzing many samples in parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="micom.html">API</a></li>
 </ul>
 
@@ -107,7 +106,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">micom</a>
@@ -115,9 +114,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -145,6 +145,8 @@
     
       <li class="wy-breadcrumbs-aside">
         
+            
+        
       </li>
     
   </ul>
@@ -170,9 +172,7 @@
   </div>
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -185,7 +185,7 @@
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -203,7 +203,8 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.7.0',
+            VERSION:'0.9.0+2.gf897403.dirty',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -223,14 +224,11 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-  
   <script type="text/javascript">
     jQuery(function() { Search.loadIndex("searchindex.js"); });
   </script>

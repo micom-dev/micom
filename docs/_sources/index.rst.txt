@@ -43,9 +43,14 @@ Contents
 .. toctree::
    :maxdepth: 1
 
-   Methods uses by micom <logic>
+   Methods used by micom <logic>
    Installing micom <installing>
    Building communities <community>
+   Growth rates and fluxes <growth_fluxes>
+   Growth media <media>
+   Knockouts <taxa_knockouts>
+   Intervention studies <elasticities>
+   Analyzing many samples in parallel <workflows>
    API <micom>
 
 

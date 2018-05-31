@@ -24,8 +24,20 @@
    "source": [
     "For a system-wide installation you can omit `--user`.\n",
     "\n",
-    "The same installation strategy also works with Anaconda installations or any other Python distribution. Supported Python versions are 2.7, 3.4, 3.5 and 3.6."
+    "The same installation strategy also works with Anaconda installations or any other Python distribution. Supported Python versions are 2.7, 3.4, 3.5 and 3.6.\n",
+    "\n",
+    "## Solvers\n",
+    "\n",
+    "Many of the methods in `micom` unfortunately require high performance and QP-capable solvers. Thus, for full functionality you will require a commercial solver such as [Cplex](https://www.ibm.com/products/ilog-cplex-optimization-studio)\n",
+    "or [Gurobi](http://www.gurobi.com/index). Both have academic licenses and can be obtained for free for academic users."
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
   }
  ],
  "metadata": {
@@ -44,7 +56,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.5.2"
+   "version": "3.6.5"
   }
  },
  "nbformat": 4,

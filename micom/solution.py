@@ -101,6 +101,18 @@ class CommunitySolution(Solution):
         self.members.index.name = "compartments"
         self.growth_rate = sum(community.abundances * gcs)
 
+    def _repr_html_(self):
+        if self.status in good:
+            with pd.option_context('display.max_rows', 10):
+                html = ("<strong>community growth:</strong> {:.3f}"
+                        "<br><strong>status:</strong> {}"
+                        "<br><strong>taxa:</strong>{}"
+                        .format(self.objective_value, self.status,
+                                self.members._repr_html_()))
+        else:
+            html = "<strong>{}</strong> solution :(".format(self.status)
+        return html
+
     def __repr__(self):
         """Convert CommunitySolution instance to string representation."""
         if self.status not in good:

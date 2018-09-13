@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Building communities &mdash; micom 0.7.0 documentation</title>
+  <title>Building communities &mdash; micom 0.9.0+2.gf897403.dirty documentation</title>
   
 
   
@@ -25,26 +25,19 @@
   
 
   
-  
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="micom 0.7.0 documentation" href="index.html"/>
-        <link rel="next" title="micom package" href="micom.html"/>
-        <link rel="prev" title="Installing micom" href="installing.html"/> 
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Growth rates and fluxes" href="growth_fluxes.html" />
+    <link rel="prev" title="Installing micom" href="installing.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -61,7 +54,7 @@
 
           
             
-            <img src="_static/micom.png" class="logo" />
+            <img src="_static/micom.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -69,7 +62,7 @@
             
             
               <div class="version">
-                0.7
+                0.9
               </div>
             
           
@@ -94,9 +87,18 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="logic.html">Methods uses by micom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by micom</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Building communities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html#Solvers">Solvers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Building communities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#Saving-and-loading-communities">Saving and loading communities</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxa_knockouts.html">Knockouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticities.html">Intervention studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Analyzing many samples in parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="micom.html">API</a></li>
 </ul>
 
@@ -109,7 +111,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">micom</a>
@@ -117,9 +119,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -340,41 +343,26 @@ div.nboutput div.output_area.stderr {
     margin-top: -19px;
 }
 
-/* nice headers on first paragraph of info/warning boxes */
-.admonition .first {
-    margin: -12px;
-    padding: 6px 12px;
-    margin-bottom: 12px;
-    color: #fff;
-    line-height: 1;
-    display: block;
-}
-.admonition.warning .first {
-    background: #f0b37e;
-}
-.admonition.note .first {
-    background: #6ab0de;
-}
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
 </style>
 <div class="section" id="Building-communities">
 <h1>Building communities<a class="headerlink" href="#Building-communities" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal"><span class="pre">micom</span></code> will construct communities from a specification via a Pandas
+<p><code class="docutils literal notranslate"><span class="pre">micom</span></code> will construct communities from a specification via a Pandas
 DataFrame. Here, the DataFrame needs at least two columns: “id” and
 “file” which specify the ID of the organism/tissue and a file containing
 the actual individual model.</p>
-<p>To make more sense of that we can look at a small example. <code class="docutils literal"><span class="pre">micom</span></code>
+<p>To make more sense of that we can look at a small example. <code class="docutils literal notranslate"><span class="pre">micom</span></code>
 comes with a function that generates a simple example community
 specification consisting of several copies of a small <em>E. coli</em> model
 containing only the central carbon metabolism.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">micom.data</span> <span class="k">import</span> <span class="n">test_taxonomy</span>
 
 <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">test_taxonomy</span><span class="p">()</span>
@@ -383,12 +371,25 @@ containing only the central carbon metabolism.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[10]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -455,16 +456,19 @@ containing only the central carbon metabolism.</p>
 information. In fact the specification may contain any number of
 additional information which will be saved along with the community
 model. One special example is “abundance” which we will get to know soon
-:)</p>
+:) The logic behind requiring the community information in this table
+format is that this table can be appended as supplement to your project
+or publication as is and describes your community composition without
+any doubt.</p>
 <p>In order to convert the specification in a community model we will use
-the <code class="docutils literal"><span class="pre">Community</span></code> class from <code class="docutils literal"><span class="pre">micom</span></code> which derives from the cobrapy
-<code class="docutils literal"><span class="pre">Model</span></code> class.</p>
+the <code class="docutils literal notranslate"><span class="pre">Community</span></code> class from <code class="docutils literal notranslate"><span class="pre">micom</span></code> which derives from the cobrapy
+<code class="docutils literal notranslate"><span class="pre">Model</span></code> class.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">micom</span> <span class="k">import</span> <span class="n">Community</span>
 
 <span class="n">com</span> <span class="o">=</span> <span class="n">Community</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">)</span>
@@ -472,7 +476,15 @@ the <code class="docutils literal"><span class="pre">Community</span></code> cla
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="stderr output_area docutils container">
+<div class="highlight"><pre>
+100%|██████████| 5/5 [00:00&lt;00:00,  5.96models/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
@@ -480,35 +492,56 @@ the <code class="docutils literal"><span class="pre">Community</span></code> cla
 Build a community with a total of 495 reactions.
 </pre></div></div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="stderr output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
 <p>This includes the correctly scaled exchange reactions with the internal
 medium and initializes the external imports to the maximum found in all
-models. The original taxonomy is maintained in the <code class="docutils literal"><span class="pre">com.taxonomy</span></code>
+models. The original taxonomy is maintained in the <code class="docutils literal notranslate"><span class="pre">com.taxonomy</span></code>
 attribute.</p>
-<p>Note that <code class="docutils literal"><span class="pre">micom</span></code> can figure out how to read a variety of different
+<p>Note that <code class="docutils literal notranslate"><span class="pre">micom</span></code> can figure out how to read a variety of different
 file types based on the extension. It curently supports:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">.pickle</span></code> for pickled models</li>
-<li><code class="docutils literal"><span class="pre">.xml</span></code> or <code class="docutils literal"><span class="pre">.gz</span></code> for XML models</li>
-<li><code class="docutils literal"><span class="pre">.json</span></code> for JSON models</li>
-<li><code class="docutils literal"><span class="pre">.mat</span></code> for COBRAtoolbox models</li>
+<li><code class="docutils literal notranslate"><span class="pre">.pickle</span></code> for pickled models</li>
+<li><code class="docutils literal notranslate"><span class="pre">.xml</span></code> or <code class="docutils literal notranslate"><span class="pre">.gz</span></code> for XML models</li>
+<li><code class="docutils literal notranslate"><span class="pre">.json</span></code> for JSON models</li>
+<li><code class="docutils literal notranslate"><span class="pre">.mat</span></code> for COBRAtoolbox models</li>
 </ul>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">com</span><span class="o">.</span><span class="n">taxonomy</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -587,21 +620,21 @@ file types based on the extension. It curently supports:</p>
 </table>
 </div></div>
 </div>
-<p>As you can notice we have gained a new column called <code class="docutils literal"><span class="pre">abundance</span></code>. This
+<p>As you can notice we have gained a new column called <code class="docutils literal notranslate"><span class="pre">abundance</span></code>. This
 column quantifies the relative quantity of each individual in the
 community. Since we did not specify this in the original taxonomy
-<code class="docutils literal"><span class="pre">micom</span></code> assumes that all individuals are present in the same quantity.</p>
+<code class="docutils literal notranslate"><span class="pre">micom</span></code> assumes that all individuals are present in the same quantity.</p>
 <p>The presented community here is pretty simplistic. For microbial
-communities <code class="docutils literal"><span class="pre">micom</span></code> includes a larger taxonomy for 773 microbial
+communities <code class="docutils literal notranslate"><span class="pre">micom</span></code> includes a larger taxonomy for 773 microbial
 species from the <a class="reference external" href="https://doi.org/10.1038/nbt.3703">AGORA paper</a>.
 Here the “file” column only contains the base names for the files but
 you can easily prepend any path as demonstrated in the following:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>In [4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">micom.data</span> <span class="k">import</span> <span class="n">agora</span>
 
 <span class="n">tax</span> <span class="o">=</span> <span class="n">agora</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -611,12 +644,25 @@ you can easily prepend any path as demonstrated in the following:</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none"><div class="highlight"><pre>
-<span></span>Out[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>Out[13]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -770,19 +816,102 @@ you can easily prepend any path as demonstrated in the following:</p>
 <p>5 rows × 24 columns</p>
 </div></div>
 </div>
+<div class="section" id="Saving-and-loading-communities">
+<h2>Saving and loading communities<a class="headerlink" href="#Saving-and-loading-communities" title="Permalink to this headline">¶</a></h2>
+<p>Contructing large community models can be slow which is due to
+performance limitations of the solvers. In essence, adding a single
+variable/constraint to a model qih 10 variables is much faster than
+adding it to a model with 10 million variables. Thus, we recommend you
+save the constructed community in a serialized format afterwards which
+will be much faster in loading repetitively.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">time</span> com = Community(taxonomy)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="stderr output_area docutils container">
+<div class="highlight"><pre>
+100%|██████████| 5/5 [00:00&lt;00:00,  6.46models/s]
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CPU times: user 784 ms, sys: 4.18 ms, total: 788 ms
+Wall time: 785 ms
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="stderr output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">time</span> com.to_pickle(&quot;community.pickle&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CPU times: user 15.7 ms, sys: 4.13 ms, total: 19.8 ms
+Wall time: 19.4 ms
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre>
+<span></span>In [16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">micom</span> <span class="k">import</span> <span class="n">load_pickle</span>
+<span class="o">%</span><span class="k">time</span> com = load_pickle(&quot;community.pickle&quot;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CPU times: user 152 ms, sys: 3.92 ms, total: 156 ms
+Wall time: 154 ms
+</pre></div></div>
+</div>
+<p>As we can see loading the model from the pickle format is much faster
+than creating it <em>de novo</em>.</p>
+</div>
 </div>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="micom.html" class="btn btn-neutral float-right" title="micom package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="growth_fluxes.html" class="btn btn-neutral float-right" title="Growth rates and fluxes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="installing.html" class="btn btn-neutral" title="Installing micom" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -798,7 +927,7 @@ you can easily prepend any path as demonstrated in the following:</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -816,7 +945,8 @@ you can easily prepend any path as demonstrated in the following:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.7.0',
+            VERSION:'0.9.0+2.gf897403.dirty',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -835,14 +965,11 @@ you can easily prepend any path as demonstrated in the following:</p>
     <script type="text/javascript" src="_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

@@ -1,5 +1,5 @@
-micom\.data package
-===================
+micom.data package
+==================
 
 Module contents
 ---------------

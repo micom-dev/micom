@@ -20,6 +20,24 @@ def _consume(processes, queue, results, max_procs):
 
 
 def workflow(func, args, n_jobs=4, unit="sample(s)"):
+    """Run analyses for several samples in parallel.
+
+    This will analyze several samples in parallel. Includes a workaround for
+    optlang memory leak.
+
+    Arguments
+    ---------
+    func : function
+        A function that takes a single argument (can be any object) and
+        that performs your analysis for a single sample.
+    args : array-like object
+        An array-like object (list, tuple, numpy array, pandas Series, etc.)
+        that contains the arguments for each sample.
+    n_jobs : positive int
+        How many samples to analyze in parallel at once.
+    unit : str
+        The unit used for the progress bar.
+    """
     if not isinstance(args, Sized):
         ValueError("`args` must have a length.")
 

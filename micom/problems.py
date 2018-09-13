@@ -52,7 +52,7 @@ def regularize_l2_norm(community, min_growth):
         ex = sum(v for v in species_obj.variables if (v.ub - v.lb) > 1e-6)
         l2 += (1000.0 * (ex**2)).expand()
     community.objective = -l2
-    community.modification = "l2 norm"
+    community.modification = "l2 regularization"
     logger.info("finished adding tradeoff objective to %s" % community.id)
 
 
@@ -124,4 +124,4 @@ def knockout_species(community, species, fraction, method, progress,
         if not diag:
             np.fill_diagonal(ko.values, np.NaN)
 
-        return pd.DataFrame(results, index=species).drop("medium", 1)
+        return ko

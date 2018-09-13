@@ -19,11 +19,8 @@ cooperative objectives.
 Attribution
 -----------
 
-If you want to use micom in a scientific publication the attribution clause in
-the license is covered by citing our relevant publication. However, we are still
-in the process in pairing micom with validations so that publication still
-**does not exist**. If you want to use micom before that article is published please
-contact us at `oresendis (at) inmegen.gob.mx`. Thanks :smile:
+Micom is described in a [recent preprint](https://doi.org/10.1101/361907) that you can cite.
+If you have any questions contact us at `oresendis (at) inmegen.gob.mx`. Thanks :smile:
 
 Installation
 ------------

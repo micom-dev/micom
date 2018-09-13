@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; micom 0.7.0 documentation</title>
+  <title>Index &mdash; micom 0.9.0+2.gf897403.dirty documentation</title>
   
 
   
@@ -26,24 +26,17 @@
   
 
   
-  
     <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="#"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="micom 0.7.0 documentation" href="index.html"/> 
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
@@ -60,7 +53,7 @@
 
           
             
-            <img src="_static/micom.png" class="logo" />
+            <img src="_static/micom.png" class="logo" alt="Logo"/>
           
           </a>
 
@@ -68,7 +61,7 @@
             
             
               <div class="version">
-                0.7
+                0.9
               </div>
             
           
@@ -93,9 +86,15 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="logic.html">Methods uses by micom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by micom</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html#Solvers">Solvers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxa_knockouts.html">Knockouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticities.html">Intervention studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Analyzing many samples in parallel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="micom.html">API</a></li>
 </ul>
 
@@ -108,7 +107,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">micom</a>
@@ -116,9 +115,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -169,6 +169,7 @@
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#J"><strong>J</strong></a>
+ | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#O"><strong>O</strong></a>
@@ -176,30 +177,33 @@
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#micom.Community.abundances">abundances (micom.Community attribute)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.Community.abundances">(micom.community.Community attribute)</a>
 </li>
-      <li><a href="micom.html#micom.problems.add_dualized_optcom">add_dualized_optcom() (in module micom.problems)</a>
-</li>
-      <li><a href="micom.html#micom.problems.add_lagrangian">add_lagrangian() (in module micom.problems)</a>
+      </ul></li>
+      <li><a href="micom.html#micom.optcom.add_dualized_optcom">add_dualized_optcom() (in module micom.optcom)</a>
 </li>
       <li><a href="micom.html#micom.media.add_linear_obj">add_linear_obj() (in module micom.media)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="micom.html#micom.problems.add_linear_optcom">add_linear_optcom() (in module micom.problems)</a>
-</li>
       <li><a href="micom.html#micom.media.add_mip_obj">add_mip_obj() (in module micom.media)</a>
 </li>
-      <li><a href="micom.html#micom.problems.add_moma_optcom">add_moma_optcom() (in module micom.problems)</a>
+      <li><a href="micom.html#micom.optcom.add_moma_optcom">add_moma_optcom() (in module micom.optcom)</a>
 </li>
-      <li><a href="micom.html#micom.problems.add_pfba_objective">add_pfba_objective() (in module micom.problems)</a>
+      <li><a href="micom.html#micom.solution.add_pfba_objective">add_pfba_objective() (in module micom.solution)</a>
 </li>
       <li><a href="micom.html#micom.util.add_var_from_expression">add_var_from_expression() (in module micom.util)</a>
+</li>
+      <li><a href="micom.html#micom.util.adjust_solver_config">adjust_solver_config() (in module micom.util)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -209,11 +213,25 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#micom.util.check_modification">check_modification() (in module micom.util)</a>
 </li>
+      <li><a href="micom.html#micom.Community">Community (class in micom)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.Community">(class in micom.community)</a>
+</li>
+      </ul></li>
+      <li><a href="micom.html#micom.solution.CommunitySolution">CommunitySolution (class in micom.solution)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="micom.html#micom.Community">Community (class in micom)</a>
+      <li><a href="micom.html#micom.problems.cooperative_tradeoff">cooperative_tradeoff() (in module micom.problems)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.Community.cooperative_tradeoff">(micom.Community method)</a>
 </li>
-      <li><a href="micom.html#micom.solution.CommunitySolution">CommunitySolution (class in micom.solution)</a>
+        <li><a href="micom.html#micom.community.Community.cooperative_tradeoff">(micom.community.Community method)</a>
+</li>
+      </ul></li>
+      <li><a href="micom.html#micom.solution.crossover">crossover() (in module micom.solution)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -233,12 +251,22 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="micom.html#micom.elasticity.elasticities_by_abundance">elasticities_by_abundance() (in module micom.elasticity)</a>
+</li>
+      <li><a href="micom.html#micom.elasticity.elasticities_by_medium">elasticities_by_medium() (in module micom.elasticity)</a>
+</li>
       <li><a href="micom.html#micom.algorithms.euclidean">euclidean() (in module micom.algorithms)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="micom.html#micom.Community.exchanges">exchanges (micom.Community attribute)</a>
+      <li><a href="micom.html#micom.elasticity.exchange_elasticities">exchange_elasticities() (in module micom.elasticity)</a>
 </li>
+      <li><a href="micom.html#micom.Community.exchanges">exchanges (micom.Community attribute)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.Community.exchanges">(micom.community.Community attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -261,6 +289,10 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="micom.html#micom.solution.good">good (in module micom.solution)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#micom.solution.CommunitySolution.growth_rate">growth_rate (micom.solution.CommunitySolution attribute)</a>
 </li>
   </ul></td>
@@ -278,6 +310,20 @@
   </ul></td>
 </tr></table>
 
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="micom.html#micom.problems.knockout_species">knockout_species() (in module micom.problems)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.Community.knockout_species">(micom.Community method)</a>
+</li>
+        <li><a href="micom.html#micom.community.Community.knockout_species">(micom.community.Community method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -286,7 +332,11 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#micom.load_pickle">load_pickle() (in module micom)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.load_pickle">(in module micom.community)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -301,9 +351,13 @@
 </li>
       <li><a href="micom.html#module-micom.algorithms">micom.algorithms (module)</a>
 </li>
+      <li><a href="micom.html#module-micom.community">micom.community (module)</a>
+</li>
       <li><a href="micom.data.html#module-micom.data">micom.data (module)</a>
 </li>
       <li><a href="micom.html#module-micom.duality">micom.duality (module)</a>
+</li>
+      <li><a href="micom.html#module-micom.elasticity">micom.elasticity (module)</a>
 </li>
       <li><a href="micom.html#module-micom.logger">micom.logger (module)</a>
 </li>
@@ -311,18 +365,26 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#module-micom.media">micom.media (module)</a>
 </li>
+      <li><a href="micom.html#module-micom.optcom">micom.optcom (module)</a>
+</li>
       <li><a href="micom.html#module-micom.problems">micom.problems (module)</a>
 </li>
       <li><a href="micom.html#module-micom.solution">micom.solution (module)</a>
 </li>
       <li><a href="micom.html#module-micom.util">micom.util (module)</a>
 </li>
+      <li><a href="micom.html#module-micom.workflows">micom.workflows (module)</a>
+</li>
       <li><a href="micom.html#micom.media.minimal_medium">minimal_medium() (in module micom.media)</a>
 </li>
       <li><a href="micom.html#micom.duality.model">model (in module micom.duality)</a>
 </li>
       <li><a href="micom.html#micom.Community.modification">modification (micom.Community attribute)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.Community.modification">(micom.community.Community attribute)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -331,19 +393,37 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#micom.solution.CommunitySolution.objective_value">objective_value (micom.solution.CommunitySolution attribute)</a>
 </li>
-      <li><a href="micom.html#micom.problems.optcom">optcom() (in module micom.problems)</a>
+      <li><a href="micom.html#micom.optcom.optcom">optcom() (in module micom.optcom)</a>
 
       <ul>
         <li><a href="micom.html#micom.Community.optcom">(micom.Community method)</a>
 </li>
+        <li><a href="micom.html#micom.community.Community.optcom">(micom.community.Community method)</a>
+</li>
+      </ul></li>
+      <li><a href="micom.html#micom.Community.optimize">optimize() (micom.Community method)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.Community.optimize">(micom.community.Community method)</a>
+</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="micom.html#micom.Community.optimize">optimize() (micom.Community method)</a>
-</li>
       <li><a href="micom.html#micom.Community.optimize_all">optimize_all() (micom.Community method)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.Community.optimize_all">(micom.community.Community method)</a>
 </li>
+      </ul></li>
       <li><a href="micom.html#micom.Community.optimize_single">optimize_single() (micom.Community method)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.Community.optimize_single">(micom.community.Community method)</a>
+</li>
+      </ul></li>
+      <li><a href="micom.html#micom.solution.optimize_with_fraction">optimize_with_fraction() (in module micom.solution)</a>
+</li>
+      <li><a href="micom.html#micom.solution.optimize_with_retry">optimize_with_retry() (in module micom.solution)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -361,9 +441,15 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#micom.algorithms.reaction_matrix">reaction_matrix() (in module micom.algorithms)</a>
 </li>
+      <li><a href="micom.html#micom.solution.CommunitySolution.reduced_costs">reduced_costs (micom.solution.CommunitySolution attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="micom.html#micom.solution.CommunitySolution.reduced_costs">reduced_costs (micom.solution.CommunitySolution attribute)</a>
+      <li><a href="micom.html#micom.problems.regularize_l2_norm">regularize_l2_norm() (in module micom.problems)</a>
+</li>
+      <li><a href="micom.html#micom.util.reset_min_community_growth">reset_min_community_growth() (in module micom.util)</a>
+</li>
+      <li><a href="micom.html#micom.solution.reset_solver">reset_solver() (in module micom.solution)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -373,11 +459,17 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#micom.util.serialize_models">serialize_models() (in module micom.util)</a>
 </li>
-      <li><a href="micom.html#micom.solution.CommunitySolution.shadow_prices">shadow_prices (micom.solution.CommunitySolution attribute)</a>
+      <li><a href="micom.html#micom.Community.set_abundance">set_abundance() (micom.Community method)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.Community.set_abundance">(micom.community.Community method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="micom.html#micom.problems.solve">solve() (in module micom.problems)</a>
+      <li><a href="micom.html#micom.solution.CommunitySolution.shadow_prices">shadow_prices (micom.solution.CommunitySolution attribute)</a>
+</li>
+      <li><a href="micom.html#micom.solution.solve">solve() (in module micom.solution)</a>
 </li>
       <li><a href="micom.html#micom.solution.CommunitySolution.status">status (micom.solution.CommunitySolution attribute)</a>
 </li>
@@ -390,12 +482,28 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#micom.Community.taxonomy">taxonomy (micom.Community attribute)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.Community.taxonomy">(micom.community.Community attribute)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.data.html#micom.data.test_taxonomy">test_taxonomy() (in module micom.data)</a>
 </li>
       <li><a href="micom.html#micom.Community.to_pickle">to_pickle() (micom.Community method)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.Community.to_pickle">(micom.community.Community method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="micom.html#micom.workflows.workflow">workflow() (in module micom.workflows)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -403,9 +511,7 @@
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -418,7 +524,7 @@
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -436,7 +542,8 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.7.0',
+            VERSION:'0.9.0+2.gf897403.dirty',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -455,14 +562,11 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
   
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

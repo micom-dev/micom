@@ -16,6 +16,8 @@ from micom.problems import cooperative_tradeoff, knockout_species
 
 _taxonomy_cols = ["id", "file"]
 
+cobra.io.sbml.LOGGER.setLevel("ERROR")
+
 
 class Community(cobra.Model):
     """A community of models.
@@ -135,12 +137,12 @@ class Community(cobra.Model):
             suffix = "__" + idx.replace(" ", "_").strip()
             logger.info("converting IDs for {}".format(idx))
             for r in model.reactions:
-                r.global_id = r.id
-                r.id += suffix
+                r.global_id = re.sub("__\\d__", "_", r.id).strip(" _-")
+                r.id = r.global_id + suffix
                 r.community_id = idx
             for m in model.metabolites:
-                m.global_id = m.id
-                m.id += suffix
+                m.global_id = re.sub("__\\d+__", "_", m.id).strip(" _-")
+                m.id = m.global_id + suffix
                 m.compartment += suffix
                 m.community_id = idx
             logger.info("adding reactions for {} to community".format(idx))

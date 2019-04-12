@@ -19,7 +19,7 @@ cooperative objectives.
 Attribution
 -----------
 
-Micom is described in a [recent preprint](https://doi.org/10.1101/361907) that you can cite.
+Micom is described in a `recent preprint <https://doi.org/10.1101/361907>`_ that you can cite.
 If you have any questions contact us at `oresendis (at) inmegen.gob.mx`. Thanks :smile:
 
 Installation

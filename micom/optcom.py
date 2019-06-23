@@ -1,8 +1,11 @@
 """Implements optimization and model problems."""
 
 from micom.duality import fast_dual
-from micom.util import (_format_min_growth, _apply_min_growth,
-                        check_modification)
+from micom.util import (
+    _format_min_growth,
+    _apply_min_growth,
+    check_modification,
+)
 from micom.logger import logger
 from micom.solution import solve
 from optlang.symbolics import Zero
@@ -55,10 +58,16 @@ def add_dualized_optcom(community, min_growth):
     for sp in community.species:
         primal_const = community.constraints["objective_" + sp]
         coefs = primal_const.get_linear_coefficients(primal_const.variables)
-        coefs.update({dual_var: -coef for dual_var, coef in
-                      dual_coefs.items() if sp in dual_var.name})
+        coefs.update(
+            {
+                dual_var: -coef
+                for dual_var, coef in dual_coefs.items()
+                if sp in dual_var.name
+            }
+        )
         obj_constraint = prob.Constraint(
-            Zero, lb=0, ub=0, name="optcom_suboptimality_" + sp)
+            Zero, lb=0, ub=0, name="optcom_suboptimality_" + sp
+        )
         community.add_cons_vars([obj_constraint])
         community.solver.update()
         obj_constraint.set_linear_coefficients(coefs)
@@ -95,8 +104,10 @@ def add_moma_optcom(community, min_growth, linear=False):
         cooperativity cost. If set to False requires a QP-capable solver.
 
     """
-    logger.info("adding dual %s moma to %s" % (
-        "linear" if linear else "quadratic", community.id))
+    logger.info(
+        "adding dual %s moma to %s"
+        % ("linear" if linear else "quadratic", community.id)
+    )
     check_modification(community)
     min_growth = _format_min_growth(min_growth, community.species)
 
@@ -109,12 +120,10 @@ def add_moma_optcom(community, min_growth, linear=False):
 
     _apply_min_growth(community, min_growth)
     dual_coefs = fast_dual(community)
-    coefs.update({
-        v: -coef for v, coef in
-        dual_coefs.items()})
+    coefs.update({v: -coef for v, coef in dual_coefs.items()})
     obj_constraint = prob.Constraint(
-        Zero, lb=0, ub=0,
-        name="optcom_suboptimality")
+        Zero, lb=0, ub=0, name="optcom_suboptimality"
+    )
     community.add_cons_vars([obj_constraint])
     community.solver.update()
     obj_constraint.set_linear_coefficients(coefs)
@@ -126,16 +135,18 @@ def add_moma_optcom(community, min_growth, linear=False):
         species_obj = community.constraints["objective_" + sp]
         ex = v - species_obj.expression
         if not linear:
-            ex = ex**2
+            ex = ex ** 2
         obj_expr += ex.expand()
     community.objective = prob.Objective(obj_expr, direction="min")
     community.modification = "moma optcom"
     logger.info("finished dual moma to %s" % community.id)
 
 
-_methods = {"original": [add_dualized_optcom],
-            "moma": [add_moma_optcom],
-            "lmoma": [partial(add_moma_optcom, linear=True)]}
+_methods = {
+    "original": [add_dualized_optcom],
+    "moma": [add_moma_optcom],
+    "lmoma": [partial(add_moma_optcom, linear=True)],
+}
 
 
 def optcom(community, strategy, min_growth, fluxes, pfba):
@@ -191,8 +202,9 @@ def optcom(community, strategy, min_growth, fluxes, pfba):
 
     """
     if strategy not in _methods:
-        raise ValueError("strategy must be one of {}!".format(
-                         ",".join(_methods)))
+        raise ValueError(
+            "strategy must be one of {}!".format(",".join(_methods))
+        )
     funcs = _methods[strategy]
 
     with community as com:

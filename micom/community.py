@@ -7,8 +7,12 @@ import cobra
 import pandas as pd
 from optlang.symbolics import Zero
 from tqdm import tqdm
-from micom.util import (load_model, join_models, add_var_from_expression,
-                        adjust_solver_config)
+from micom.util import (
+    load_model,
+    join_models,
+    add_var_from_expression,
+    adjust_solver_config,
+)
 from micom.logger import logger
 from micom.media import default_excludes
 from micom.optcom import optcom, solve
@@ -28,8 +32,17 @@ class Community(cobra.Model):
     compartment.
     """
 
-    def __init__(self, taxonomy, id=None, name=None, rel_threshold=1e-6,
-                 solver=None, progress=True, max_exchange=100, mass=1):
+    def __init__(
+        self,
+        taxonomy,
+        id=None,
+        name=None,
+        rel_threshold=1e-6,
+        solver=None,
+        progress=True,
+        max_exchange=100,
+        mass=1,
+    ):
         """Create a new community object.
 
         `micom` builds a community from a taxonomy which may simply be a list
@@ -89,16 +102,21 @@ class Community(cobra.Model):
 
         logger.info("building new micom model {}.".format(id))
         if not solver:
-            self.solver = ("cplex" if "cplex" in cobra.util.solver.solvers
-                           else "glpk")
+            self.solver = (
+                "cplex" if "cplex" in cobra.util.solver.solvers else "glpk"
+            )
         else:
             self.solver = solver
         adjust_solver_config(self.solver)
 
-        if not (isinstance(taxonomy, pd.DataFrame) and
-                all(col in taxonomy.columns for col in _taxonomy_cols)):
-            raise ValueError("`taxonomy` must be a pandas DataFrame with at"
-                             "least columns id and file :(")
+        if not (
+            isinstance(taxonomy, pd.DataFrame)
+            and all(col in taxonomy.columns for col in _taxonomy_cols)
+        ):
+            raise ValueError(
+                "`taxonomy` must be a pandas DataFrame with at"
+                "least columns id and file :("
+            )
 
         self._rtol = rel_threshold
         self._modification = None
@@ -108,14 +126,20 @@ class Community(cobra.Model):
         if "abundance" not in taxonomy.columns:
             taxonomy["abundance"] = 1
         taxonomy.abundance /= taxonomy.abundance.sum()
-        logger.info("{} individuals with abundances below threshold".format(
-                    (taxonomy.abundance <= self._rtol).sum()))
+        logger.info(
+            "{} individuals with abundances below threshold".format(
+                (taxonomy.abundance <= self._rtol).sum()
+            )
+        )
         taxonomy = taxonomy[taxonomy.abundance > self._rtol]
         if taxonomy.id.str.contains(r"[^A-Za-z0-9_]", regex=True).any():
-            logger.warning("taxonomy IDs contain prohibited characters and"
-                           " will be reformatted")
+            logger.warning(
+                "taxonomy IDs contain prohibited characters and"
+                " will be reformatted"
+            )
             taxonomy.id = taxonomy.id.replace(
-                [r"[^A-Za-z0-9_\s]", r"\s+"], ["", "_"], regex=True)
+                [r"[^A-Za-z0-9_\s]", r"\s+"], ["", "_"], regex=True
+            )
 
         self.__taxonomy = taxonomy
         self.__taxonomy.index = self.__taxonomy.id
@@ -147,35 +171,48 @@ class Community(cobra.Model):
                 m.community_id = idx
             logger.info("adding reactions for {} to community".format(idx))
             self.add_reactions(model.reactions)
-            o = self.solver.interface.Objective.clone(model.objective,
-                                                      model=self.solver)
+            o = self.solver.interface.Objective.clone(
+                model.objective, model=self.solver
+            )
             obj += o.expression * row.abundance
             self.species.append(idx)
             species_obj = self.problem.Constraint(
-                o.expression, name="objective_" + idx, lb=0.0)
+                o.expression, name="objective_" + idx, lb=0.0
+            )
             self.add_cons_vars([species_obj])
-            self.__add_exchanges(model.reactions, row,
-                                 internal_exchange=max_exchange)
+            self.__add_exchanges(
+                model.reactions, row, internal_exchange=max_exchange
+            )
             self.solver.update()  # to avoid dangling refs due to lazy add
 
-        com_obj = add_var_from_expression(self, "community_objective",
-                                          obj, lb=0)
-        self.objective = self.problem.Objective(com_obj,
-                                                direction="max")
+        com_obj = add_var_from_expression(
+            self, "community_objective", obj, lb=0
+        )
+        self.objective = self.problem.Objective(com_obj, direction="max")
 
-    def __add_exchanges(self, reactions, info, exclude=default_excludes,
-                        external_compartment="e", internal_exchange=1000):
+    def __add_exchanges(
+        self,
+        reactions,
+        info,
+        exclude=default_excludes,
+        external_compartment="e",
+        internal_exchange=1000,
+    ):
         """Add exchange reactions for a new model."""
         for r in reactions:
             # Some sanity checks for whether the reaction is an exchange
             ex = external_compartment + "__" + r.community_id
-            if (not r.boundary or any(bad in r.id for bad in exclude) or
-                    ex not in r.compartments):
+            if (
+                not r.boundary
+                or any(bad in r.id for bad in exclude)
+                or ex not in r.compartments
+            ):
                 continue
             if not r.id.lower().startswith("ex"):
                 logger.warning(
-                    "Reaction %s seems to be an exchange " % r.id +
-                    "reaction but its ID does not start with 'EX_'...")
+                    "Reaction %s seems to be an exchange " % r.id
+                    + "reaction but its ID does not start with 'EX_'..."
+                )
 
             export = len(r.reactants) == 1
             if export:
@@ -185,12 +222,16 @@ class Community(cobra.Model):
                 lb = -r.upper_bound / self.mass
                 ub = -r.lower_bound
             if lb < 0.0 and lb > -1e-6:
-                logger.info("lower bound for %r below numerical accuracy "
-                            "-> adjusting to stabilize model.")
+                logger.info(
+                    "lower bound for %r below numerical accuracy "
+                    "-> adjusting to stabilize model."
+                )
                 lb = -1e-6
             if ub > 0.0 and ub < 1e-6:
-                logger.info("upper bound for %r below numerical accuracy "
-                            "-> adjusting to stabilize model.")
+                logger.info(
+                    "upper bound for %r below numerical accuracy "
+                    "-> adjusting to stabilize model."
+                )
                 ub = 1e-6
             met = (r.reactants + r.products)[0]
             medium_id = re.sub("_{}$".format(met.compartment), "", met.id)
@@ -202,8 +243,9 @@ class Community(cobra.Model):
             if medium_id not in self.metabolites:
                 # If metabolite does not exist in medium add it to the model
                 # and also add an exchange reaction for the medium
-                logger.info("adding metabolite %s to external medium" %
-                            medium_id)
+                logger.info(
+                    "adding metabolite %s to external medium" % medium_id
+                )
                 medium_met = met.copy()
                 medium_met.id = medium_id
                 medium_met.compartment = "m"
@@ -213,14 +255,17 @@ class Community(cobra.Model):
                     id="EX_" + medium_met.id,
                     name=medium_met.id + " medium exchange",
                     lower_bound=lb,
-                    upper_bound=ub)
+                    upper_bound=ub,
+                )
                 ex_medium.add_metabolites({medium_met: -1})
                 ex_medium.global_id = ex_medium.id
                 ex_medium.community_id = "medium"
                 self.add_reactions([ex_medium])
             else:
-                logger.info("updating import rate for external metabolite %s" %
-                            medium_id)
+                logger.info(
+                    "updating import rate for external metabolite %s"
+                    % medium_id
+                )
                 medium_met = self.metabolites.get_by_id(medium_id)
                 ex_medium = self.reactions.get_by_id("EX_" + medium_met.id)
                 ex_medium.lower_bound = min(lb, ex_medium.lower_bound)
@@ -257,8 +302,12 @@ class Community(cobra.Model):
             ab = self.__taxonomy.loc[sp, "abundance"]
             species_obj = self.constraints["objective_" + sp]
             com_obj += ab * species_obj.expression
-        const = self.problem.Constraint((v - com_obj).expand(), lb=0, ub=0,
-                                        name="community_objective_equality")
+        const = self.problem.Constraint(
+            (v - com_obj).expand(),
+            lb=0,
+            ub=0,
+            name="community_objective_equality",
+        )
         self.add_cons_vars([const])
 
     def optimize_single(self, id):
@@ -387,16 +436,20 @@ class Community(cobra.Model):
         try:
             self.__taxonomy.abundance = value
         except Exception:
-            raise ValueError("value must be an iterable with an entry for "
-                             "each species/tissue")
+            raise ValueError(
+                "value must be an iterable with an entry for "
+                "each species/tissue"
+            )
 
         logger.info("setting new abundances for %s" % self.id)
         ab = self.__taxonomy.abundance
         if normalize:
             self.__taxonomy.abundance /= ab.sum()
             small = ab < self._rtol
-            logger.info("adjusting abundances for %s to %g" %
-                        (str(self.__taxonomy.index[small]), self._rtol))
+            logger.info(
+                "adjusting abundances for %s to %g"
+                % (str(self.__taxonomy.index[small]), self._rtol)
+            )
             self.__taxonomy.loc[small, "abundance"] = self._rtol
         self.__update_exchanges()
         self.__update_community_objective()
@@ -430,12 +483,14 @@ class Community(cobra.Model):
         to exclude reactions that are *not* exchange reactions.
         """
         return self.reactions.query(
-            lambda x: x.boundary and not
-            any(ex in x.id for ex in default_excludes) and
-            "m" in x.compartments)
+            lambda x: x.boundary
+            and not any(ex in x.id for ex in default_excludes)
+            and "m" in x.compartments
+        )
 
-    def optcom(self, strategy="lagrangian", min_growth=0.0, fluxes=False,
-               pfba=True):
+    def optcom(
+        self, strategy="lagrangian", min_growth=0.0, fluxes=False, pfba=True
+    ):
         """Run OptCom for the community.
 
         OptCom methods are a group of optimization procedures to find community
@@ -490,8 +545,9 @@ class Community(cobra.Model):
         """
         return optcom(self, strategy, min_growth, fluxes, pfba)
 
-    def cooperative_tradeoff(self, min_growth=0.0, fraction=1.0,
-                             fluxes=False, pfba=True):
+    def cooperative_tradeoff(
+        self, min_growth=0.0, fraction=1.0, fluxes=False, pfba=True
+    ):
         """Find the best tradeoff between community and individual growth.
 
         Finds the set of growth rates which maintian a particular community
@@ -523,11 +579,16 @@ class Community(cobra.Model):
             growth rates. If more than one fraction value is given will return
             a pandas Series of solutions with the fractions as indices.
         """
-        return cooperative_tradeoff(self, min_growth, fraction, fluxes,
-                                    pfba)
+        return cooperative_tradeoff(self, min_growth, fraction, fluxes, pfba)
 
-    def knockout_species(self, species=None, fraction=1.0,
-                         method="change", progress=True, diag=True):
+    def knockout_species(
+        self,
+        species=None,
+        fraction=1.0,
+        method="change",
+        progress=True,
+        diag=True,
+    ):
         """Sequentially knowckout a list of species in the model.
 
         This uses cooperative tradeoff as optimization criterion in order to
@@ -565,13 +626,18 @@ class Community(cobra.Model):
         if isinstance(species, six.string_types):
             species = [species]
         if any(sp not in self.species for sp in species):
-            raise ValueError("At least one of the arguments is not a species "
-                             "in the community.")
+            raise ValueError(
+                "At least one of the arguments is not a species "
+                "in the community."
+            )
         if method not in ["raw", "change", "relative change"]:
-            raise ValueError("`method` must be one of 'raw', 'change', "
-                             "or 'relative change'.")
-        return knockout_species(self, species, fraction, method, progress,
-                                diag)
+            raise ValueError(
+                "`method` must be one of 'raw', 'change', "
+                "or 'relative change'."
+            )
+        return knockout_species(
+            self, species, fraction, method, progress, diag
+        )
 
     def to_pickle(self, filename):
         """Save a community in serialized form.

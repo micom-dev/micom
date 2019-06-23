@@ -5,13 +5,25 @@ from optlang.symbolics import Zero
 import numpy as np
 import pandas as pd
 from cobra.util import get_context
-from micom.util import (_format_min_growth, _apply_min_growth,
-                        check_modification, reset_min_community_growth)
+from micom.util import (
+    _format_min_growth,
+    _apply_min_growth,
+    check_modification,
+    reset_min_community_growth,
+)
 from micom.logger import logger
 
 
-default_excludes = ["biosynthesis", "transcription", "replication", "sink",
-                    "demand", "DM_", "SN_", "SK_"]
+default_excludes = [
+    "biosynthesis",
+    "transcription",
+    "replication",
+    "sink",
+    "demand",
+    "DM_",
+    "SN_",
+    "SK_",
+]
 """A list of sub-strings in reaction IDs that usually indicate that
 the reaction is *not* an exchange reaction."""
 
@@ -57,8 +69,10 @@ def add_mip_obj(community):
     """
     check_modification(community)
     if len(community.variables) > 1e4:
-        logger.warning("the MIP version of minimal media is extremely slow for"
-                       " models that large :(")
+        logger.warning(
+            "the MIP version of minimal media is extremely slow for"
+            " models that large :("
+        )
     boundary_rxns = community.exchanges
     M = max(np.max(np.abs(r.bounds)) for r in boundary_rxns)
     prob = community.problem
@@ -70,11 +84,13 @@ def add_mip_obj(community):
         if export:
             vrv = rxn.reverse_variable
             indicator_const = prob.Constraint(
-                vrv - indicator * M, ub=0, name="ind_constraint_" + rxn.id)
+                vrv - indicator * M, ub=0, name="ind_constraint_" + rxn.id
+            )
         else:
             vfw = rxn.forward_variable
             indicator_const = prob.Constraint(
-                vfw - indicator * M, ub=0, name="ind_constraint_" + rxn.id)
+                vfw - indicator * M, ub=0, name="ind_constraint_" + rxn.id
+            )
         to_add.extend([indicator, indicator_const])
         coefs[indicator] = 1
     community.add_cons_vars(to_add)
@@ -84,9 +100,15 @@ def add_mip_obj(community):
     community.modification = "minimal medium mixed-integer"
 
 
-def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
-                   minimize_components=False, open_exchanges=False,
-                   solution=False):
+def minimal_medium(
+    community,
+    community_growth,
+    min_growth=0.0,
+    exports=False,
+    minimize_components=False,
+    open_exchanges=False,
+    solution=False,
+):
     """Find the minimal growth medium for the community.
 
     Finds the minimal growth medium for the community which allows for
@@ -136,8 +158,9 @@ def minimal_medium(community, community_growth, min_growth=0.0, exports=False,
     min_growth = _format_min_growth(min_growth, community.species)
     with community as com:
         if open_exchanges:
-            logger.info("opening exchanges for %d imports" %
-                        len(boundary_rxns))
+            logger.info(
+                "opening exchanges for %d imports" % len(boundary_rxns)
+            )
             for rxn in boundary_rxns:
                 rxn.bounds = (-open_bound, open_bound)
         logger.info("applying growth rate constraints")

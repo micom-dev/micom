@@ -3,8 +3,13 @@
 import numpy as np
 import pandas as pd
 from collections import Counter
-from optlang.interface import (OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL,
-                               ITERATION_LIMIT)
+from optlang.interface import (
+    OPTIMAL,
+    NUMERIC,
+    FEASIBLE,
+    SUBOPTIMAL,
+    ITERATION_LIMIT,
+)
 from optlang.symbolics import Zero
 from itertools import chain
 from functools import partial
@@ -63,29 +68,40 @@ class CommunitySolution(Solution):
 
     """
 
-    def __init__(self, community, slim=False,
-                 reactions=None, metabolites=None):
+    def __init__(
+        self, community, slim=False, reactions=None, metabolites=None
+    ):
         """Get the solution from a community model."""
         if reactions is None:
             reactions = community.reactions
         if metabolites is None:
             metabolites = community.metabolites
         rids = np.array([(r.global_id, r.community_id) for r in reactions])
-        mids = np.array([(m.global_id, m.community_id)
-                         for m in metabolites])
+        mids = np.array([(m.global_id, m.community_id) for m in metabolites])
         if not slim:
             var_primals = community.solver.primal_values
             fluxes = pd.Series(
-                [var_primals[r.id] - var_primals[r.reverse_id]
-                 for r in reactions], name="fluxes")
+                [
+                    var_primals[r.id] - var_primals[r.reverse_id]
+                    for r in reactions
+                ],
+                name="fluxes",
+            )
             super(CommunitySolution, self).__init__(
-                community.solver.objective.value, community.solver.status,
+                community.solver.objective.value,
+                community.solver.status,
                 _group_species(fluxes, rids[:, 0], rids[:, 1]),
-                None, None)
+                None,
+                None,
+            )
         else:
             super(CommunitySolution, self).__init__(
-                community.solver.objective.value, community.solver.status,
-                None, None, None)
+                community.solver.objective.value,
+                community.solver.status,
+                None,
+                None,
+                None,
+            )
         gcs = pd.Series()
         for sp in community.species:
             gcs[sp] = community.constraints["objective_" + sp].primal
@@ -93,22 +109,29 @@ class CommunitySolution(Solution):
         if interface_to_str(community.problem) == "gurobi":
             gcs = gcs.abs()
         self.strategy = community.modification
-        self.members = pd.DataFrame({
-            "abundance": community.abundances,
-            "growth_rate": gcs,
-            "reactions": pd.Series(Counter(rids[:, 1])),
-            "metabolites": pd.Series(Counter(mids[:, 1]))})
+        self.members = pd.DataFrame(
+            {
+                "abundance": community.abundances,
+                "growth_rate": gcs,
+                "reactions": pd.Series(Counter(rids[:, 1])),
+                "metabolites": pd.Series(Counter(mids[:, 1])),
+            }
+        )
         self.members.index.name = "compartments"
         self.growth_rate = sum(community.abundances * gcs)
 
     def _repr_html_(self):
         if self.status in good:
-            with pd.option_context('display.max_rows', 10):
-                html = ("<strong>community growth:</strong> {:.3f}"
-                        "<br><strong>status:</strong> {}"
-                        "<br><strong>taxa:</strong>{}"
-                        .format(self.objective_value, self.status,
-                                self.members._repr_html_()))
+            with pd.option_context("display.max_rows", 10):
+                html = (
+                    "<strong>community growth:</strong> {:.3f}"
+                    "<br><strong>status:</strong> {}"
+                    "<br><strong>taxa:</strong>{}".format(
+                        self.objective_value,
+                        self.status,
+                        self.members._repr_html_(),
+                    )
+                )
         else:
             html = "<strong>{}</strong> solution :(".format(self.status)
         return html
@@ -117,9 +140,11 @@ class CommunitySolution(Solution):
         """Convert CommunitySolution instance to string representation."""
         if self.status not in good:
             return "<CommunitySolution {0:s} at 0x{1:x}>".format(
-                self.status, id(self))
+                self.status, id(self)
+            )
         return "<CommunitySolution {0:.3f} at 0x{1:x}>".format(
-            self.growth_rate, id(self))
+            self.growth_rate, id(self)
+        )
 
 
 def add_pfba_objective(community):
@@ -139,8 +164,10 @@ def add_pfba_objective(community):
         The community to add the objective to.
     """
     # Fix all growth rates
-    rates = {sp: community.constraints["objective_" + sp].primal
-             for sp in community.species}
+    rates = {
+        sp: community.constraints["objective_" + sp].primal
+        for sp in community.species
+    }
     rates["community"] = community.variables["community_objective"].primal
     for sp in community.species:
         const = community.constraints["objective_" + sp]
@@ -148,10 +175,12 @@ def add_pfba_objective(community):
     community_obj = community.variables["community_objective"]
     community_obj.ub = community_obj.lb = rates["community"]
 
-    if community.solver.objective.name == '_pfba_objective':
-        raise ValueError('model already has pfba objective')
-    reaction_variables = ((rxn.forward_variable, rxn.reverse_variable)
-                          for rxn in community.reactions)
+    if community.solver.objective.name == "_pfba_objective":
+        raise ValueError("model already has pfba objective")
+    reaction_variables = (
+        (rxn.forward_variable, rxn.reverse_variable)
+        for rxn in community.reactions
+    )
     variables = chain(*reaction_variables)
     community.objective = Zero
     community.objective_direction = "min"
@@ -173,8 +202,10 @@ def solve(community, fluxes=True, pfba=True, raise_error=False):
                     "solver returned the status %s." % status
                 )
             else:
-                logger.info("solver returned the status %s," % status +
-                            " returning the solution anyway.")
+                logger.info(
+                    "solver returned the status %s," % status
+                    + " returning the solution anyway."
+                )
         if fluxes and pfba:
             add_pfba_objective(community)
             community.solver.optimize()
@@ -240,14 +271,16 @@ def crossover(community, sol, fluxes=False, pfba=False):
             com.constraints["objective_" + sp].ub = None
     if s is None:
         raise OptimizationError(
-            "crossover could not converge (status = %s)." %
-            community.solver.status)
+            "crossover could not converge (status = %s)."
+            % community.solver.status
+        )
     s.objective_value /= 1000.0
     return s
 
 
-def optimize_with_fraction(com, fraction, growth_rate=None,
-                           fluxes=False, pfba=False):
+def optimize_with_fraction(
+    com, fraction, growth_rate=None, fluxes=False, pfba=False
+):
     """Optimize with a constrained community growth rate."""
     com.variables.community_objective.lb = 0
     com.variables.community_objective.ub = None
@@ -255,7 +288,8 @@ def optimize_with_fraction(com, fraction, growth_rate=None,
         with com:
             com.objective = 1000.0 * com.variables.community_objective
             growth_rate = optimize_with_retry(
-                com, message="could not get community growth rate.")
+                com, message="could not get community growth rate."
+            )
             growth_rate /= 1000.0
     com.variables.community_objective.lb = fraction * growth_rate
     com.variables.community_objective.ub = growth_rate

@@ -1,11 +1,19 @@
 """Implements tradeoff optimization between community and egoistic growth."""
 
-from micom.util import (_format_min_growth, _apply_min_growth,
-                        check_modification, get_context,
-                        reset_min_community_growth)
+from micom.util import (
+    _format_min_growth,
+    _apply_min_growth,
+    check_modification,
+    get_context,
+    reset_min_community_growth,
+)
 from micom.logger import logger
-from micom.solution import (solve, crossover, optimize_with_retry,
-                            optimize_with_fraction)
+from micom.solution import (
+    solve,
+    crossover,
+    optimize_with_retry,
+    optimize_with_fraction,
+)
 from optlang.symbolics import Zero
 from optlang.interface import OPTIMAL
 from collections import Sized
@@ -50,7 +58,7 @@ def regularize_l2_norm(community, min_growth):
     for sp in community.species:
         species_obj = community.constraints["objective_" + sp]
         ex = sum(v for v in species_obj.variables if (v.ub - v.lb) > 1e-6)
-        l2 += (1000.0 * (ex**2)).expand()
+        l2 += (1000.0 * (ex ** 2)).expand()
     community.objective = -l2
     community.modification = "l2 regularization"
     logger.info("finished adding tradeoff objective to %s" % community.id)
@@ -64,8 +72,12 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         _apply_min_growth(community, min_growth)
 
         com.objective = 1000.0 * com.variables.community_objective
-        min_growth = optimize_with_retry(
-            com, message="could not get community growth rate.") / 1000.0
+        min_growth = (
+            optimize_with_retry(
+                com, message="could not get community growth rate."
+            )
+            / 1000.0
+        )
 
         if not isinstance(fraction, Sized):
             fraction = [fraction]
@@ -84,12 +96,14 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
             results.append((fr, sol))
         if len(results) == 1:
             return results[0][1]
-        return pd.DataFrame.from_records(results,
-                                         columns=["tradeoff", "solution"])
+        return pd.DataFrame.from_records(
+            results, columns=["tradeoff", "solution"]
+        )
 
 
-def knockout_species(community, species, fraction, method, progress,
-                     diag=True):
+def knockout_species(
+    community, species, fraction, method, progress, diag=True
+):
     """Knockout a species from the community."""
     with community as com:
         check_modification(com)
@@ -97,8 +111,10 @@ def knockout_species(community, species, fraction, method, progress,
         _apply_min_growth(com, min_growth)
 
         com.objective = 1000.0 * com.variables.community_objective
-        community_min_growth = optimize_with_retry(
-            com, "could not get community growth rate.") / 1000.0
+        community_min_growth = (
+            optimize_with_retry(com, "could not get community growth rate.")
+            / 1000.0
+        )
         regularize_l2_norm(com, fraction * community_min_growth)
         old = com.optimize().members["growth_rate"]
         results = []
@@ -107,10 +123,13 @@ def knockout_species(community, species, fraction, method, progress,
             species = tqdm(species, unit="knockout(s)")
         for sp in species:
             with com:
-                logger.info("getting growth rates for "
-                            "%s knockout." % sp)
-                [r.knock_out() for r in
-                 com.reactions.query(lambda ri: ri.community_id == sp)]
+                logger.info("getting growth rates for " "%s knockout." % sp)
+                [
+                    r.knock_out()
+                    for r in com.reactions.query(
+                        lambda ri: ri.community_id == sp
+                    )
+                ]
 
                 sol = optimize_with_fraction(com, fraction)
                 new = sol.members["growth_rate"]

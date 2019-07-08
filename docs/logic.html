@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>How does micom model communities &mdash; micom 0.9.0+2.gf897403.dirty documentation</title>
+  <title>How does micom model communities &mdash; micom 0.9.3+1.g2869280 documentation</title>
   
 
   
@@ -17,35 +17,38 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installing micom" href="installing.html" />
     <link rel="prev" title="Welcome to micom" href="index.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -170,6 +173,204 @@
             
   
 <style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
@@ -186,234 +387,121 @@
 .admonition > p:before {
     margin-right: 4px;  /* make room for the exclamation icon */
 }
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
 </style>
 <div class="section" id="How-does-micom-model-communities">
 <h1>How does micom model communities<a class="headerlink" href="#How-does-micom-model-communities" title="Permalink to this headline">¶</a></h1>
-<p>There are many frameworks for microbial modeling and all make their own
-specific assumptions in order to fit microbial communities into a
-mathematical representation. This is an overview about the assumptions
-<code class="docutils literal notranslate"><span class="pre">micom</span></code> makes and how it translates the community into mathematical
-terms. As it happens all formulations here agree with the formulation
-used in the <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1002363">OptCom</a>
-and <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1005539">SteadyCom</a> papers.</p>
-<p>In general <code class="docutils literal notranslate"><span class="pre">micom</span></code> makes several assumptions to infer growth rates and
-fluxes in a microbial community. The most important ones being:</p>
+<p>There are many frameworks for microbial modeling and all make their own specific assumptions in order to fit microbial communities into a mathematical representation. This is an overview about the assumptions <code class="docutils literal notranslate"><span class="pre">micom</span></code> makes and how it translates the community into mathematical terms. As it happens all formulations here agree with the formulation used in the <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1002363">OptCom</a> and <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1005539">SteadyCom</a> papers.</p>
+<p>In general <code class="docutils literal notranslate"><span class="pre">micom</span></code> makes several assumptions to infer growth rates and fluxes in a microbial community. The most important ones being:</p>
 <ol class="arabic simple">
-<li>Growth rates and relative abundances in the community are in steady
-state.</li>
-<li>Most taxa that are present in a biological sample should be able to
-grow (have a growth rate &gt;0).</li>
-<li>Relative DNA abundances can be used as a proxy for dry weight taxa
-abundances.</li>
+<li><p>Growth rates and relative abundances in the community are in steady state.</p></li>
+<li><p>Most taxa that are present in a biological sample should be able to grow (have a growth rate &gt;0).</p></li>
+<li><p>Relative DNA abundances can be used as a proxy for dry weight taxa abundances.</p></li>
 </ol>
 <div class="section" id="Exchanges-and-community-growth-rate">
 <h2>Exchanges and community growth rate<a class="headerlink" href="#Exchanges-and-community-growth-rate" title="Permalink to this headline">¶</a></h2>
-<p>One of the things that can easily overlooked when using FBA for
-communities is that growth rates and fluxes are usually given in unit
-mass/(abundance * time), for instance mmmol/(gDW * h). Thus, all
-fluxes are realtive to the abundance of the single bacteria they
-describe. However, in a community all bacteria might have different
-abundances so we have to take care to balance fluxes. For instance let
-us take a system containing only one bacteria <span class="math notranslate nohighlight">\(i\)</span> which imports
-metabolite X from the external medium. In the medium metabolite X enters
-the system with an unscaled flux <span class="math notranslate nohighlight">\(v^m_x\)</span> which has units mmmol/h.
-Within the bacteria the metabolite is consumed with the sclaed flux
-<span class="math notranslate nohighlight">\(v^i_x\)</span> which has units mmol/(gDW * h). <span class="math notranslate nohighlight">\(v^i_x\)</span> described
-the flux that can be realized by 1 gDW of the respective bacteria.
-However, the abundance for bacteria <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(b_i\)</span> (in gDW),
-might be different than that. In order to have balanced fluxes we have
-to enforce that <span class="math notranslate nohighlight">\(v^m_x = b_i \cdot v^i_x\)</span> (overall influx equals
-overall consumption). If many bacteria import the respective metabolite
-we thus need to enforce</p>
+<p>One of the things that can easily overlooked when using FBA for communities is that growth rates and fluxes are usually given in unit mass/(abundance * time), for instance mmmol/(gDW * h). Thus, all fluxes are realtive to the abundance of the single bacteria they describe. However, in a community all bacteria might have different abundances so we have to take care to balance fluxes. For instance let us take a system containing only one bacteria <span class="math notranslate nohighlight">\(i\)</span> which imports metabolite X from the
+external medium. In the medium metabolite X enters the system with an unscaled flux <span class="math notranslate nohighlight">\(v^m_x\)</span> which has units mmmol/h. Within the bacteria the metabolite is consumed with the sclaed flux <span class="math notranslate nohighlight">\(v^i_x\)</span> which has units mmol/(gDW * h). <span class="math notranslate nohighlight">\(v^i_x\)</span> described the flux that can be realized by 1 gDW of the respective bacteria. However, the abundance for bacteria <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(b_i\)</span> (in gDW), might be different than that. In order to have balanced fluxes we have to enforce that
+<span class="math notranslate nohighlight">\(v^m_x = b_i \cdot v^i_x\)</span> (overall influx equals overall consumption). If many bacteria import the respective metabolite we thus need to enforce</p>
 <div class="math notranslate nohighlight">
 \[v^m_x = \sum_i b_i \cdot v^i_x\]</div>
-<p>The actual abundances <span class="math notranslate nohighlight">\(b_i\)</span> are usually not known, but we can
-divide the equation by the total bacterial abundance
-<span class="math notranslate nohighlight">\(B = \sum_i b_i\)</span> and obtain</p>
+<p>The actual abundances <span class="math notranslate nohighlight">\(b_i\)</span> are usually not known, but we can divide the equation by the total bacterial abundance <span class="math notranslate nohighlight">\(B = \sum_i b_i\)</span> and obtain</p>
 <div class="math notranslate nohighlight">
 \[\tilde{v}^m_x = v^m_x/B = \sum_i b_i/B \cdot v^i_x\]</div>
-<p><span class="math notranslate nohighlight">\(\tilde{v}^m_x\)</span> is now a scaled flux in the medium relative to the
-overall bacterial biomass in the community. The relative abundances
-<span class="math notranslate nohighlight">\(\tilde{b}_i = b_i/B\)</span> can be taken from metagenomic studies such
-as 16S rRNA quantities. This is how <code class="docutils literal notranslate"><span class="pre">micom</span></code> uses abundance data.</p>
-<p>In a similar manner the unscaled community growth rate (total biomass
-production) is given by</p>
+<p><span class="math notranslate nohighlight">\(\tilde{v}^m_x\)</span> is now a scaled flux in the medium relative to the overall bacterial biomass in the community. The relative abundances <span class="math notranslate nohighlight">\(\tilde{b}_i = b_i/B\)</span> can be taken from metagenomic studies such as 16S rRNA quantities. This is how <code class="docutils literal notranslate"><span class="pre">micom</span></code> uses abundance data.</p>
+<p>In a similar manner the unscaled community growth rate (total biomass production) is given by</p>
 <div class="math notranslate nohighlight">
 \[v_{biomass} = \sum_i b_i\cdot v^i_{biomass}\]</div>
 <p>and dividing by the total biomass <span class="math notranslate nohighlight">\(B\)</span> yields</p>
 <div class="math notranslate nohighlight">
 \[\tilde{v}_{biomass} = \sum_i b_i/B v^i_{biomass}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\tilde{v}_{biomass}\)</span> now again is a scaled biomass flux
-relative to a total community biomass of 1 gDW. In order to adjust
-growth rate predictions from <code class="docutils literal notranslate"><span class="pre">micom</span></code> to your sample you would have to
-divide those growth rates by the overall weight of microbiota in your
-sample. For instance <a class="reference external" href="https://dx.doi.org/10.1371%2Fjournal.pbio.1002533">a recent
-publication</a>
-estimates that an average human has 200g of bacteria in the gut.</p>
+<p>where <span class="math notranslate nohighlight">\(\tilde{v}_{biomass}\)</span> now again is a scaled biomass flux relative to a total community biomass of 1 gDW. In order to adjust growth rate predictions from <code class="docutils literal notranslate"><span class="pre">micom</span></code> to your sample you would have to divide those growth rates by the overall weight of microbiota in your sample. For instance <a class="reference external" href="https://dx.doi.org/10.1371%2Fjournal.pbio.1002533">a recent publication</a> estimates that an average human has 200g of bacteria in the gut.</p>
 </div>
 <div class="section" id="Steady-states-in-the-community">
 <h2>Steady states in the community<a class="headerlink" href="#Steady-states-in-the-community" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">micom</span></code> has be designed with the gut microbiota in mind. One of the
-major problems when trying to apply flux balance analysis (FBA) to
-microbial community data especially metagenomic data are paradoxical
-assumptions about community growth. Flux balance analysis usually
-assumes a maximization of the growth rate, or at least the realization
-of one particular growth rate <span class="math notranslate nohighlight">\(\mu\)</span>, however metagenomic
-experiments usually only quantify the microbial compositions at one
-particular time point, assuming that the microbial abundance does not
-change. Those two assumptions are not compatible per sé. If members of
-the community grow with a constant rate they will accumulate
-exponentially over time, however we know that this is not the case in
-systems as the intestine (otherwise we would probably explode due to an
-overpopulation of bacteria and fungi). This disagreement can be
-aleviated by accounting for dilution of the microbiota. For instance in
-the gut bacteria are constantly removed in small amounts by death (when
-arriving at their specific life span) and in larger amounts by
-defecation. The sum of all processes removing bacteria from the system
-is what we call dilution here. In <code class="docutils literal notranslate"><span class="pre">micom</span></code> we assume the follwing about
-the dilution process:</p>
+<p><code class="docutils literal notranslate"><span class="pre">micom</span></code> has be designed with the gut microbiota in mind. One of the major problems when trying to apply flux balance analysis (FBA) to microbial community data especially metagenomic data are paradoxical assumptions about community growth. Flux balance analysis usually assumes a maximization of the growth rate, or at least the realization of one particular growth rate <span class="math notranslate nohighlight">\(\mu\)</span>, however metagenomic experiments usually only quantify the microbial compositions at one particular time point,
+assuming that the microbial abundance does not change. Those two assumptions are not compatible per sé. If members of the community grow with a constant rate they will accumulate exponentially over time, however we know that this is not the case in systems as the intestine (otherwise we would probably explode due to an overpopulation of bacteria and fungi). This disagreement can be aleviated by accounting for dilution of the microbiota. For instance in the gut bacteria are constantly removed in
+small amounts by death (when arriving at their specific life span) and in larger amounts by defecation. The sum of all processes removing bacteria from the system is what we call dilution here. In <code class="docutils literal notranslate"><span class="pre">micom</span></code> we assume the follwing about the dilution process:</p>
 <ol class="arabic simple">
-<li>It is relative to the bacterial abundance (the more you have in your
-system the more is removed by dilution)</li>
-<li>It may be specific to the bacterial strain</li>
-<li>It may specific to the sample</li>
+<li><p>It is relative to the bacterial abundance (the more you have in your system the more is removed by dilution)</p></li>
+<li><p>It may be specific to the bacterial strain</p></li>
+<li><p>It may specific to the sample</p></li>
 </ol>
 <ol class="arabic simple">
-<li>is known to be true for the gut microbiome since we know that a
-higher concentration of a bacteria in the gut is usually associated
-with a higher concentration in stool samples (which is the major
-dilution contributor). This is the same assumption made in the
-recent
-<a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1005539.s016">SteadyCom</a>
-publication. (2) is based on the observation that bacteria may have
-distinct spatial arrangements which make it easier or hader to be
-diluted. (3) is based on the assumption that the respective systems
-may be different (no gut is the same :D), however it is one of the
-assumptions we are currently trying to validate. As a consequence we
-assume that the abundance for bacteria <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(b_i\)</span> occurs
-with a growth rate <span class="math notranslate nohighlight">\(\mu_i\)</span> and balances with an arbitrary
-dilution process <span class="math notranslate nohighlight">\(d_i(t) = d_i(b_i)\)</span> as</li>
+<li><p>is known to be true for the gut microbiome since we know that a higher concentration of a bacteria in the gut is usually associated with a higher concentration in stool samples (which is the major dilution contributor). This is the same assumption made in the recent <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1005539.s016">SteadyCom</a> publication. (2) is based on the observation that bacteria may have distinct spatial arrangements which make it easier or hader to be diluted. (3) is based on the
+assumption that the respective systems may be different (no gut is the same :D), however it is one of the assumptions we are currently trying to validate. As a consequence we assume that the abundance for bacteria <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(b_i\)</span> occurs with a growth rate <span class="math notranslate nohighlight">\(\mu_i\)</span> and balances with an arbitrary dilution process <span class="math notranslate nohighlight">\(d_i(t) = d_i(b_i)\)</span> as</p></li>
 </ol>
 <div class="math notranslate nohighlight">
 \[\frac{d b_i(t)}{dt} = \mu_i b_i(t) - d_i(t)\]</div>
-<p>As we can see absolute bacterial abundance can only be in steady state
-if growth and dilution are balanced. Additionally one could also
-formulate the problem in terms of relative concentrations to the total
-community abundance <span class="math notranslate nohighlight">\(B = \sum_i b_i\)</span> using the quotient rule,
-which yields:</p>
+<p>As we can see absolute bacterial abundance can only be in steady state if growth and dilution are balanced. Additionally one could also formulate the problem in terms of relative concentrations to the total community abundance <span class="math notranslate nohighlight">\(B = \sum_i b_i\)</span> using the quotient rule, which yields:</p>
 <div class="math notranslate nohighlight">
 \[\frac{d \tilde{b}_i}{dt} = \frac{d b_i/B}{dt} = \mu_i\tilde{b}_i - \frac{d_i(t)}{B} - \cdot \tilde{b}_i\sum_k \left[\mu_k\tilde{b}_k - \frac{d_k(t)}{B}\right]\]</div>
-<p>As one can see, this equation has a steady state if for all i
-<span class="math notranslate nohighlight">\(\mu_i - \frac{d_i(t)}{B\cdot \tilde{b}_i} = C\)</span> for any constant
-C:</p>
-<div class="math notranslate nohighlight">
-\begin{align}
-\frac{d \tilde{b}_i}{dt} &amp;= C\tilde{b}_i - \tilde{b}_i\sum_k C \tilde{b}_k\\
-&amp; = \tilde{b}_i\left(C - C\cdot 1) \right) = 0
-\end{align}</div><p>However, in this the total abundance <span class="math notranslate nohighlight">\(B\)</span> would increase
-indefinitely in time. In particular it holds that
-<span class="math notranslate nohighlight">\(\frac{dB}{dt} = C\)</span>.</p>
-<p>Okay, what can we conclude from that? Most importantly that any
-abundance <span class="math notranslate nohighlight">\(b_i\)</span> or relative abundance <span class="math notranslate nohighlight">\(\tilde{b}_i\)</span> can be a
-valid steady state abundance as long as the respective growth and
-dilution rates are balanced. This means on can not directly derive the
-growth rate of a bacteria just from its abundance (e.g. large abundance
-does not mean large growth rate or <em>vice versa</em>).</p>
+<p>As one can see, this equation has a steady state if for all i <span class="math notranslate nohighlight">\(\mu_i - \frac{d_i(t)}{B\cdot \tilde{b}_i} = C\)</span> for any constant C:</p>
+<p><span class="math">\begin{align}
+\frac{d \tilde{b}_i}{dt} &= C\tilde{b}_i - \tilde{b}_i\sum_k C \tilde{b}_k\\
+& = \tilde{b}_i\left(C - C\cdot 1) \right) = 0
+\end{align}</span></p>
+<p>However, in this the total abundance <span class="math notranslate nohighlight">\(B\)</span> would increase indefinitely in time. In particular it holds that <span class="math notranslate nohighlight">\(\frac{dB}{dt} = C\)</span>.</p>
+<p>Okay, what can we conclude from that? Most importantly that any abundance <span class="math notranslate nohighlight">\(b_i\)</span> or relative abundance <span class="math notranslate nohighlight">\(\tilde{b}_i\)</span> can be a valid steady state abundance as long as the respective growth and dilution rates are balanced. This means on can not directly derive the growth rate of a bacteria just from its abundance (e.g. large abundance does not mean large growth rate or <em>vice versa</em>).</p>
 </div>
 <div class="section" id="OptCom">
 <h2>OptCom<a class="headerlink" href="#OptCom" title="Permalink to this headline">¶</a></h2>
-<p>As a reference <code class="docutils literal notranslate"><span class="pre">micom</span></code> implements the algorithm from
-<a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1002363">OptCom</a>. OptCom states
-that there are two major sources of pressure to dictate the community
-growth:</p>
+<p>As a reference <code class="docutils literal notranslate"><span class="pre">micom</span></code> implements the algorithm from <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1002363">OptCom</a>. OptCom states that there are two major sources of pressure to dictate the community growth:</p>
 <ol class="arabic simple">
-<li>the community growth rate <span class="math notranslate nohighlight">\(\mu_c\)</span></li>
-<li>individual (egoistic) growth rates <span class="math notranslate nohighlight">\(\mu^i\)</span></li>
+<li><p>the community growth rate <span class="math notranslate nohighlight">\(\mu_c\)</span></p></li>
+<li><p>individual (egoistic) growth rates <span class="math notranslate nohighlight">\(\mu^i\)</span></p></li>
 </ol>
-<p>The major challenge is to find the tradeoff between the two. One could
-optimize only the community growth, however that might yield many
-bacterial species that do not grow (competition) which might stand in
-contrast to metagenomic studies where the bacteria was actually found in
-the sample. Also, bacteria are seldom evolved to sacrifice their own
-growth in favour of community growth.</p>
+<p>The major challenge is to find the tradeoff between the two. One could optimize only the community growth, however that might yield many bacterial species that do not grow (competition) which might stand in contrast to metagenomic studies where the bacteria was actually found in the sample. Also, bacteria are seldom evolved to sacrifice their own growth in favour of community growth.</p>
 <p>The original OptCom algorithm solves the multi-objective problem:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{align}
 \text{maximize } &amp; \mu_c = \sum_i b_i/B \mu^i\\
 &amp; s.t. \forall i: \text{ maximize } \mu^i
 \end{align}\end{split}\]</div>
-<p><code class="docutils literal notranslate"><span class="pre">micom</span></code> can solve this problem using a dualization approach where the
-<a class="reference external" href="https://en.wikipedia.org/wiki/Linear_programming#Duality">dual
-formulation</a>
-is appended to the linear problem and <a class="reference external" href="https://en.wikipedia.org/wiki/Strong_duality">strong
-duality</a> is enforced to
-transform objectives into additional constraints. However, that is slow
-and there may be <a class="reference external" href="https://en.wikipedia.org/wiki/Pareto_efficiency">weak pareto
-optimality</a>. So it
-may not find a unique solution as the original OptCom which uses
-non-convex (but also much slower) optimization.</p>
-<p>We can alleviate this problem a bit by using a formulation similar to
-MOMA:</p>
+<p><code class="docutils literal notranslate"><span class="pre">micom</span></code> can solve this problem using a dualization approach where the <a class="reference external" href="https://en.wikipedia.org/wiki/Linear_programming#Duality">dual formulation</a> is appended to the linear problem and <a class="reference external" href="https://en.wikipedia.org/wiki/Strong_duality">strong duality</a> is enforced to transform objectives into additional constraints. However, that is slow and there may be <a class="reference external" href="https://en.wikipedia.org/wiki/Pareto_efficiency">weak pareto optimality</a>. So it may not find a unique solution as the original OptCom
+which uses non-convex (but also much slower) optimization.</p>
+<p>We can alleviate this problem a bit by using a formulation similar to MOMA:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{align}
 \text{maximize } &amp; \mu_c = \sum_i b_i/B \mu^i\\
 &amp; s.t. \text{ maximize } \sum_i (\mu_i^* - \mu^i)^2
 \end{align}\end{split}\]</div>
-<p>This transforms the the OptCom formulation into a two objective
-optimization and gives a unique solution to the second one. Here,
-<span class="math notranslate nohighlight">\(\mu_i^*\)</span> denote the maximal individual growth rates when
-maximizing only the growth for the taxa i. This still requires a dual
-formulation (albeit a simpler one) and an additional optimization for
-each taxa in the model to obtain <span class="math notranslate nohighlight">\(\mu_i^*\)</span>. This is still
-unfeasibly slow for larger communities (more than 10 taxa with
-genome-scale models).</p>
+<p>This transforms the the OptCom formulation into a two objective optimization and gives a unique solution to the second one. Here, <span class="math notranslate nohighlight">\(\mu_i^*\)</span> denote the maximal individual growth rates when maximizing only the growth for the taxa i. This still requires a dual formulation (albeit a simpler one) and an additional optimization for each taxa in the model to obtain <span class="math notranslate nohighlight">\(\mu_i^*\)</span>. This is still unfeasibly slow for larger communities (more than 10 taxa with genome-scale models).</p>
 </div>
 <div class="section" id="Cooperative-tradeoff">
 <h2>Cooperative tradeoff<a class="headerlink" href="#Cooperative-tradeoff" title="Permalink to this headline">¶</a></h2>
-<p>Instead of solving a multi-objective problem <code class="docutils literal notranslate"><span class="pre">micom</span></code> achieves a global
-optimum by a two step approach called <code class="docutils literal notranslate"><span class="pre">cooperative</span> <span class="pre">tradeoff</span></code>. In
-simple terms:</p>
+<p>Instead of solving a multi-objective problem <code class="docutils literal notranslate"><span class="pre">micom</span></code> achieves a global optimum by a two step approach called <code class="docutils literal notranslate"><span class="pre">cooperative</span> <span class="pre">tradeoff</span></code>. In simple terms:</p>
 <ol class="arabic simple">
-<li>obtain the maximum community growth rate <span class="math notranslate nohighlight">\(\mu_c^*\)</span> by classic
-FBA</li>
-<li>choose a tradeoff term <span class="math notranslate nohighlight">\(\alpha\)</span> in <span class="math notranslate nohighlight">\([0, 1]\)</span> and constrain
-the community growth rate such that
-<span class="math notranslate nohighlight">\(\mu_c \geq \alpha\cdot\mu_c^*\)</span></li>
-<li>minimize the regularization term <span class="math notranslate nohighlight">\(\sum_i \mu_i^2\)</span> which
-distributes growth across all individuals in the community</li>
+<li><p>obtain the maximum community growth rate <span class="math notranslate nohighlight">\(\mu_c^*\)</span> by classic FBA</p></li>
+<li><p>choose a tradeoff term <span class="math notranslate nohighlight">\(\alpha\)</span> in <span class="math notranslate nohighlight">\([0, 1]\)</span> and constrain the community growth rate such that <span class="math notranslate nohighlight">\(\mu_c \geq \alpha\cdot\mu_c^*\)</span></p></li>
+<li><p>minimize the regularization term <span class="math notranslate nohighlight">\(\sum_i \mu_i^2\)</span> which distributes growth across all individuals in the community</p></li>
 </ol>
-<p>This method is much faster than alternative methods. Also it results in
-solution where each individual growth is simultaneously at its maximum
-rate without diminishing the growth rate of other individuals (thus the
-term “cooperative”). In consequence, cooperative tradeoff results in an
-optimum which is conceptually very similar to what OptCom does but with
-a simpler method.</p>
+<p>This method is much faster than alternative methods. Also it results in solution where each individual growth is simultaneously at its maximum rate without diminishing the growth rate of other individuals (thus the term “cooperative”). In consequence, cooperative tradeoff results in an optimum which is conceptually very similar to what OptCom does but with a simpler method.</p>
 </div>
 <div class="section" id="Numerical-stability-and-solvers">
 <h2>Numerical stability and solvers<a class="headerlink" href="#Numerical-stability-and-solvers" title="Permalink to this headline">¶</a></h2>
-<p>Micom support all solver implemented in optlang (GLPK, CPLEX and
-Gurobi). However, since micom models can become quite large (50k - 500k
-variables) many solvers have numerical issues when solving the
-corresponding LP and QP problems. For realistic communities modeled on
-the genus, species or strain level we thus recommend using a solver that
-implements numerically stable interior point methods, currently only
-Cplex and Gurobi. Both have academic licenses available. In our
-experience the simpex methods in GLPK still work well up to 10,000
-variables, but get gradually slower towards 50,000 variables and being
-too slow to be usable beyond that.</p>
-<p>Nevertheless, even the commercial solvers can usaully not control
-numerical issues in the quadratic interior point methods well. In fact
-for larger models they always never return an optimal solution. To avoid
-those numerical issues micom employs a crossover strategy where it will
-perform as many iterations in the quadratic interior point method as
-possible to get a candidate solution for the individual growth rates
-<span class="math notranslate nohighlight">\(\mu_i^{ca}\)</span>, followed by solving a linear programming problem to
-find a feasible solution close to the candidates:</p>
+<p>Micom support all solver implemented in optlang (GLPK, CPLEX and Gurobi). However, since micom models can become quite large (50k - 500k variables) many solvers have numerical issues when solving the corresponding LP and QP problems. For realistic communities modeled on the genus, species or strain level we thus recommend using a solver that implements numerically stable interior point methods, currently only Cplex and Gurobi. Both have academic licenses available. In our experience the simpex
+methods in GLPK still work well up to 10,000 variables, but get gradually slower towards 50,000 variables and being too slow to be usable beyond that.</p>
+<p>Nevertheless, even the commercial solvers can usaully not control numerical issues in the quadratic interior point methods well. In fact for larger models they always never return an optimal solution. To avoid those numerical issues micom employs a crossover strategy where it will perform as many iterations in the quadratic interior point method as possible to get a candidate solution for the individual growth rates <span class="math notranslate nohighlight">\(\mu_i^{ca}\)</span>, followed by solving a linear programming problem to find a
+feasible solution close to the candidates:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{align}
 \text{maximize } &amp; \mu_c = \sum_i b_i/B \mu^i\\
 &amp; s.t. \mu_i \leq \mu_i^{ca}
 \end{align}\end{split}\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -428,7 +516,7 @@ find a feasible solution close to the candidates:</p>
         <a href="installing.html" class="btn btn-neutral float-right" title="Installing micom" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Welcome to micom" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to micom" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -437,7 +525,7 @@ find a feasible solution close to the candidates:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Christian Diener.
+        &copy; Copyright 2017, Christian Diener
 
     </p>
   </div>
@@ -454,36 +542,16 @@ find a feasible solution close to the candidates:</p>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'0.9.0+2.gf897403.dirty',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

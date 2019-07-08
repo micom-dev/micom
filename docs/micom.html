@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>micom package &mdash; micom 0.9.3+1.g2869280 documentation</title>
+  <title>micom package &mdash; micom 0.9.3+7.g302cc54.dirty documentation</title>
   
 
   
@@ -685,13 +685,17 @@ optimizations and another one for the taxa abundances.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A data frame with the following columns:
+<dd class="field-even"><p><p>A data frame with the following columns:
 “reaction” - the exchange reaction (response),
 “effector” - the parameter that was changed,
-“direction” - whether the flux runs in the forward od reverse direction,
-“elasticity” - the elasticity coefficient,
+“direction” - whether the flux runs in the forward or reverse</p>
+<blockquote>
+<div><p>direction,</p>
+</div></blockquote>
+<p>”elasticity” - the elasticity coefficient,
 “type” - the type of effector either “exchange” for diet or “abundance”
 for taxa abundances.</p>
+</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>pandas.DataFrame</p>

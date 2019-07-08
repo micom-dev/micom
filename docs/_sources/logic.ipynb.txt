@@ -6,6 +6,8 @@
    "source": [
     "# How does micom model communities\n",
     "\n",
+    "<img src=\"_static/summary.png\" width=\"80%\">\n",
+    "\n",
     "There are many frameworks for microbial modeling and all make their own specific assumptions in order to fit microbial communities into a mathematical representation. This is an overview about the assumptions `micom` makes and how it translates the community into mathematical terms. As it happens all formulations here agree with the formulation used in the [OptCom](https://doi.org/10.1371/journal.pcbi.1002363) and [SteadyCom](https://doi.org/10.1371/journal.pcbi.1005539) papers.\n",
     "\n",
     "In general `micom` makes several assumptions to infer growth rates and fluxes in a microbial community. The most important ones being:\n",
@@ -160,9 +162,9 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.5"
+   "version": "3.6.7"
   }
  },
  "nbformat": 4,
- "nbformat_minor": 2
+ "nbformat_minor": 4
 }

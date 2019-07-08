@@ -6,7 +6,9 @@
 communities developed in the
 `Human Systems Biology Group <https://resendislab.github.io>`_ of
 Prof. Osbaldo Resendis Antonio at the `National Institute of Genomic
-Medicine Mexico <https://inmegen.gob.mx>`_.
+Medicine Mexico <https://inmegen.gob.mx>`_ and the
+`Gibbons Lab <https://gibbons.systemsbiology.org>`_ at the `Institute for Systems
+Biology <https://systemsbiology.org>`_.
 
 `micom` allows you to construct a community model from a list on input
 COBRA models and manages exchange fluxes between individuals and individuals

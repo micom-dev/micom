@@ -36,7 +36,7 @@ Installation
 Getting started
 ---------------
 
-Documentation can be found at https://resendislab.github.io/micom .
+Documentation can be found at https://micom-dev.github.io/micom .
 
 .. |travis status| image:: https://travis-ci.org/resendislab/micom.svg?branch=master
    :target: https://travis-ci.org/resendislab/micom

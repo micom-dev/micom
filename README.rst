@@ -1,4 +1,4 @@
-.. image:: https://github.com/cdiener/micom/raw/master/micom.png
+.. image:: https://github.com/micom-dev/micom/raw/master/docs/source/_static/micom.png
 
 |travis status| |appveyor status| |coverage| |pypi status|
 

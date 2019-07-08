@@ -12,7 +12,6 @@ from cobra.util import get_context
 from micom.util import reset_min_community_growth
 from micom.problems import regularize_l2_norm
 from micom.solution import optimize_with_fraction
-from micom.media import minimal_medium
 
 
 STEP = 0.1
@@ -20,8 +19,9 @@ STEP = 0.1
 
 def _get_fluxes(sol, reactions):
     """Get the primal values for a set of variables."""
-    fluxes = {r.id: sol.fluxes.loc[r.community_id, r.global_id]
-              for r in reactions}
+    fluxes = {
+        r.id: sol.fluxes.loc[r.community_id, r.global_id] for r in reactions
+    }
     return pd.Series(fluxes)
 
 
@@ -30,8 +30,9 @@ def _derivatives(before, after):
     before_signs = np.sign(before)
     after_signs = np.sign(after)
     if any(np.abs(before_signs - after_signs) > 2):
-        ValueError("Some of the fluxes changed sign. "
-                   "Can't compute elasticities :(")
+        ValueError(
+            "Some of the fluxes changed sign. " "Can't compute elasticities :("
+        )
     direction = np.repeat("zero", len(before)).astype("<U8")
     direction[(before > 1e-6) | (after > 1e-6)] = "forward"
     direction[(before < -1e-6) | (after < -1e-6)] = "reverse"
@@ -74,7 +75,7 @@ def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
 
     fluxes = import_fluxes.index
     if progress:
-            fluxes = tqdm(fluxes, unit="optimizations")
+        fluxes = tqdm(fluxes, unit="optimizations")
     for r in fluxes:
         flux = import_fluxes[r]
         with com:
@@ -85,10 +86,14 @@ def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
             sol = optimize_with_fraction(com, fraction, growth_rate, True)
             after = _get_fluxes(sol, reactions)
         deriv, dirs = _derivatives(before, after)
-        res = pd.DataFrame({"reaction": [rx.id for rx in reactions],
-                            "effector": r.id,
-                            "direction": dirs,
-                            "elasticity": deriv})
+        res = pd.DataFrame(
+            {
+                "reaction": [rx.id for rx in reactions],
+                "effector": r.id,
+                "direction": dirs,
+                "elasticity": deriv,
+            }
+        )
         dfs.append(res)
 
     return pd.concat(dfs)
@@ -120,7 +125,7 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     species = abundance.index
 
     if progress:
-            species = tqdm(species, unit="optimizations")
+        species = tqdm(species, unit="optimizations")
     for sp in species:
         old = abundance[sp]
         abundance.loc[sp] *= np.exp(STEP)
@@ -130,10 +135,14 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
         abundance.loc[sp] = old
         com.set_abundance(abundance, normalize=False)
         deriv, dirs = _derivatives(before, after)
-        res = pd.DataFrame({"reaction": [r.id for r in reactions],
-                            "effector": sp,
-                            "direction": dirs,
-                            "elasticity": deriv})
+        res = pd.DataFrame(
+            {
+                "reaction": [r.id for r in reactions],
+                "effector": sp,
+                "direction": dirs,
+                "elasticity": deriv,
+            }
+        )
         dfs.append(res)
 
     return pd.concat(dfs)
@@ -163,7 +172,8 @@ def exchange_elasticities(com, fraction=1.0, progress=True):
         A data frame with the following columns:
         "reaction" - the exchange reaction (response),
         "effector" - the parameter that was changed,
-        "direction" - whether the flux runs in the forward od reverse direction,
+        "direction" - whether the flux runs in the forward or reverse
+            direction,
         "elasticity" - the elasticity coefficient,
         "type" - the type of effector either "exchange" for diet or "abundance"
         for taxa abundances.
@@ -173,12 +183,14 @@ def exchange_elasticities(com, fraction=1.0, progress=True):
         context = get_context(com)
         context(partial(reset_min_community_growth, com))
         rxns = com.exchanges
-        by_medium = elasticities_by_medium(com, rxns, fraction,
-                                           growth_rate, progress)
+        by_medium = elasticities_by_medium(
+            com, rxns, fraction, growth_rate, progress
+        )
         by_medium["type"] = "exchanges"
 
-        by_abundance = elasticities_by_abundance(com, rxns, fraction,
-                                                 growth_rate, progress)
+        by_abundance = elasticities_by_abundance(
+            com, rxns, fraction, growth_rate, progress
+        )
         by_abundance["type"] = "abundance"
 
     return pd.concat([by_medium, by_abundance])

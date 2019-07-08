@@ -25,7 +25,7 @@ def test_taxonomy(n=5):
 
     """
     ecoli_file = join(this_dir, "e_coli_core.xml.gz")
-    ids = ["Escherichia_coli_{}".format(i) for i in range(1, n+1)]
+    ids = ["Escherichia_coli_{}".format(i) for i in range(1, n + 1)]
     taxa = pd.DataFrame({"id": ids})
     taxa["genus"] = "Escherichia"
     taxa["species"] = "Eschericia coli"

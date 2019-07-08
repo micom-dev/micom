@@ -15,11 +15,13 @@ import pandas as pd
 from micom.logger import logger
 
 
-_read_funcs = {".xml": io.read_sbml_model,
-               ".gz": io.read_sbml_model,
-               ".mat": io.load_matlab_model,
-               ".json": io.load_json_model,
-               ".pickle": lambda fn: pickle.load(open(fn, "rb"))}
+_read_funcs = {
+    ".xml": io.read_sbml_model,
+    ".gz": io.read_sbml_model,
+    ".mat": io.load_matlab_model,
+    ".json": io.load_json_model,
+    ".pickle": lambda fn: pickle.load(open(fn, "rb")),
+}
 
 
 def download_model(url, folder="."):
@@ -59,8 +61,9 @@ def serialize_models(files, dir="."):
         fname = path.basename(f).split(".")[0]
         model = load_model(f)
         logger.info("serializing {}".format(f))
-        pickle.dump(model, open(path.join(dir, fname + ".pickle"), "wb"),
-                    protocol=2)  # required for Python 2 compat
+        pickle.dump(
+            model, open(path.join(dir, fname + ".pickle"), "wb"), protocol=2
+        )  # required for Python 2 compat
 
 
 def join_models(model_files, id=None):
@@ -90,7 +93,8 @@ def join_models(model_files, id=None):
         name="combined biomass reaction from model joining",
         subsystem="biomass production",
         lower_bound=0,
-        upper_bound=1000)
+        upper_bound=1000,
+    )
     coefs = linear_reaction_coefficients(model, model.reactions)
     for r, coef in coefs.items():
         biomass += r * (coef / n)
@@ -115,8 +119,10 @@ def fluxes_from_primals(model, info):
     rxns = model.reactions.query(lambda r: info.id == r.community_id)
     rids = [r.global_id for r in rxns]
 
-    fluxes = (primals[rxn.forward_variable.name] -
-              primals[rxn.reverse_variable.name] for rxn in rxns)
+    fluxes = (
+        primals[rxn.forward_variable.name] - primals[rxn.reverse_variable.name]
+        for rxn in rxns
+    )
     fluxes = pd.Series(fluxes, rids, name=info.id)
 
     return fluxes
@@ -125,8 +131,9 @@ def fluxes_from_primals(model, info):
 def add_var_from_expression(model, name, expr, lb=None, ub=None):
     """Add a variable to a model equaling an expression."""
     var = model.problem.Variable(name, lb=lb, ub=ub)
-    const = model.problem.Constraint((var - expr).expand(), lb=0, ub=0,
-                                     name=name + "_equality")
+    const = model.problem.Constraint(
+        (var - expr).expand(), lb=0, ub=0, name=name + "_equality"
+    )
     model.add_cons_vars([var, const])
     return var
 
@@ -147,8 +154,10 @@ def check_modification(community):
 
     """
     if community.modification is not None:
-        raise ValueError("Community already carries a modification "
-                         "({})!".format(community.modification))
+        raise ValueError(
+            "Community already carries a modification "
+            "({})!".format(community.modification)
+        )
 
 
 def _format_min_growth(min_growth, species):
@@ -174,7 +183,8 @@ def _format_min_growth(min_growth, species):
         if len(min_growth) != len(species):
             raise ValueError(
                 "min_growth must be single value or an array-like "
-                "object with an entry for each species in the model.")
+                "object with an entry for each species in the model."
+            )
     return pd.Series(min_growth, species)
 
 
@@ -198,8 +208,10 @@ def _apply_min_growth(community, min_growth):
         if min_growth[sp] > 1e-6:
             obj.lb = min_growth[sp]
         else:
-            logger.info("minimal growth rate smaller than tolerance,"
-                        " setting to zero.")
+            logger.info(
+                "minimal growth rate smaller than tolerance,"
+                " setting to zero."
+            )
             obj.lb = 0
 
 

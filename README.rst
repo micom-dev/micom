@@ -38,11 +38,11 @@ Getting started
 
 Documentation can be found at https://micom-dev.github.io/micom .
 
-.. |travis status| image:: https://travis-ci.org/resendislab/micom.svg?branch=master
-   :target: https://travis-ci.org/resendislab/micom
-.. |appveyor status| image:: https://ci.appveyor.com/api/projects/status/m9d8v4qj2o8oj3jn/branch/master?svg=true
-   :target: https://ci.appveyor.com/project/cdiener/micom-wfywj/branch/master
-.. |coverage| image:: https://codecov.io/gh/resendislab/micom/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/resendislab/micom
+.. |travis status| image:: https://travis-ci.org/micom-dev/micom.svg?branch=master
+   :target: https://travis-ci.org/micom-dev/micom
+.. |appveyor status| image:: https://ci.appveyor.com/api/projects/status/uqcmw82uq9jtui0t?svg=true
+   :target: https://ci.appveyor.com/project/cdiener/micom-uicdk
+.. |coverage| image:: https://codecov.io/gh/micom-dev/micom/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/micom-dev/micom
 .. |pypi status| image:: https://img.shields.io/pypi/v/micom.svg
    :target: https://pypi.org/project/micom/

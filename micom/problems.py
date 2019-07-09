@@ -16,7 +16,7 @@ from micom.solution import (
 )
 from optlang.symbolics import Zero
 from optlang.interface import OPTIMAL
-from collections import Sized
+from collections.abc import Sized
 from functools import partial
 import pandas as pd
 import numpy as np

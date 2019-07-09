@@ -1,5 +1,5 @@
 .. image:: https://github.com/micom-dev/micom/raw/master/docs/source/_static/micom.png
-    :width: 70%
+    :width: 640 px
 
 |travis status| |appveyor status| |coverage| |pypi status|
 

@@ -161,11 +161,11 @@ class Community(cobra.Model):
             suffix = "__" + idx.replace(" ", "_").strip()
             logger.info("converting IDs for {}".format(idx))
             for r in model.reactions:
-                r.global_id = re.sub("__\\d__", "_", r.id).strip(" _-")
+                r.global_id = clean_ids(r.id)
                 r.id = r.global_id + suffix
                 r.community_id = idx
             for m in model.metabolites:
-                m.global_id = re.sub("__\\d+__", "_", m.id).strip(" _-")
+                m.global_id = clean_ids(m.id)
                 m.id = m.global_id + suffix
                 m.compartment += suffix
                 m.community_id = idx

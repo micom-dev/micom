@@ -10,6 +10,7 @@ from micom import (
     media,
     solution,
     workflows,
+    workflow_examples,
 )
 from micom._version import get_versions
 

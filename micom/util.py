@@ -10,6 +10,7 @@ import six.moves.cPickle as pickle
 from six.moves.urllib.parse import urlparse
 import six.moves.urllib.request as urlreq
 import tempfile
+import re
 from shutil import rmtree
 import pandas as pd
 from micom.logger import logger
@@ -64,6 +65,11 @@ def serialize_models(files, dir="."):
         pickle.dump(
             model, open(path.join(dir, fname + ".pickle"), "wb"), protocol=2
         )  # required for Python 2 compat
+
+
+def clean_ids(id):
+    """Clean ids up a bit."""
+    return re.sub("__\\d+__", "_", id).strip(" _-")
 
 
 def join_models(model_files, id=None):

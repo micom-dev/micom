@@ -12,6 +12,7 @@ from micom.util import (
     join_models,
     add_var_from_expression,
     adjust_solver_config,
+    clean_ids,
 )
 from micom.logger import logger
 from micom.media import default_excludes

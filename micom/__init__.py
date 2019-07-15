@@ -12,7 +12,6 @@ from micom import (
     workflows,
     workflow_examples,
 )
-from micom._version import get_versions
 
 
 __all__ = (
@@ -27,6 +26,7 @@ __all__ = (
     "solution",
     "load_pickle",
     "workflows",
+    "workflow_examples",
 )
 
 __version__ = "0.9.6"

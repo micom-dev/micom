@@ -10,11 +10,8 @@ from micom import (
     media,
     solution,
     workflows,
-<<<<<<< HEAD
     representation,
-=======
     workflow_examples,
->>>>>>> 4821cdad888314f13791e0bfe2ebd8ee716f4c30
 )
 
 

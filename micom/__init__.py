@@ -10,7 +10,11 @@ from micom import (
     media,
     solution,
     workflows,
+<<<<<<< HEAD
     representation,
+=======
+    workflow_examples,
+>>>>>>> 4821cdad888314f13791e0bfe2ebd8ee716f4c30
 )
 
 
@@ -26,7 +30,7 @@ __all__ = (
     "solution",
     "load_pickle",
     "workflows",
-    "representation",
+    "workflow_examples",
 )
 
-__version__ = "0.9.4"
+__version__ = "0.9.7"

@@ -28,7 +28,7 @@ default_excludes = [
 the reaction is *not* an exchange reaction."""
 
 
-def add_linear_obj(community):
+def add_linear_obj(community, exchanges):
     """Add a linear version of a minimal medium to the community.
 
     Changes the optimization objective to finding the growth medium requiring
@@ -40,10 +40,12 @@ def add_linear_obj(community):
     ---------
     community : micom.Community
         The community to modify.
+    exchanges : list of cobra.Reaction
+        The reactions to constrain.
     """
     check_modification(community)
     coefs = {}
-    for rxn in community.exchanges:
+    for rxn in exchanges:
         export = len(rxn.reactants) == 1
         if export:
             coefs[rxn.reverse_variable] = 1.0
@@ -54,7 +56,7 @@ def add_linear_obj(community):
     community.modification = "minimal medium linear"
 
 
-def add_mip_obj(community):
+def add_mip_obj(community, exchanges):
     """Add a mixed-integer version of a minimal medium to the community.
 
     Changes the optimization objective to finding the medium with the least
@@ -66,6 +68,8 @@ def add_mip_obj(community):
     ---------
     community : micom.Community
         The community to modify.
+    exchanges : list of cobra.Reaction
+        The reactions to constrain.
     """
     check_modification(community)
     if len(community.variables) > 1e4:
@@ -73,7 +77,7 @@ def add_mip_obj(community):
             "the MIP version of minimal media is extremely slow for"
             " models that large :("
         )
-    boundary_rxns = community.exchanges
+    boundary_rxns = exchanges
     M = max(np.max(np.abs(r.bounds)) for r in boundary_rxns)
     prob = community.problem
     coefs = {}
@@ -103,6 +107,7 @@ def add_mip_obj(community):
 def minimal_medium(
     community,
     community_growth,
+    exchanges=None,
     min_growth=0.0,
     exports=False,
     minimize_components=False,
@@ -122,6 +127,8 @@ def minimal_medium(
         The community to modify.
     community_growth : positive float
         The minimum community-wide growth rate.
+    exchanges : list of cobra.Reactions
+        The list of exchange reactions that are penalized.
     min_growth : positive float or array-like object.
         The minimum growth rate for each individual in the community. Either
         a single value applied to all individuals or one value for each.
@@ -172,9 +179,9 @@ def minimal_medium(
         com.objective = Zero
         logger.info("adding new media objective")
         if minimize_components:
-            add_mip_obj(com)
+            add_mip_obj(com, boundary_rxns)
         else:
-            add_linear_obj(com)
+            add_linear_obj(com, boundary_rxns)
         sol = com.optimize(fluxes=True, pfba=False)
         if sol is None:
             logger.warning("minimization of medium was unsuccessful")
@@ -199,3 +206,80 @@ def minimal_medium(
         return {"medium": medium, "solution": sol}
     else:
         return medium
+
+
+def complete_medium(
+    model, medium, min_growth=0.1, max_import=1, minimize_components=False
+):
+    """Fill in missing components in a growth medium.
+
+    Finds the minimal number of additions to make a model form biomass. In
+    order to avoid bias all added reactions will have a maximum import
+    rate of `max_import`.
+
+    Arguments
+    ---------
+    model : cobra.Model
+        The model to use.
+    medium : pandas.Series
+        A growth medium. Must contain positive floats as elements and
+        exchange reaction ids as index. Note that reactions not present in the
+        model will be removed from the growth medium.
+    min_growth : positive float or array-like object.
+        The minimum growth rate for each individual in the community. Either
+        a single value applied to all individuals or one value for each.
+    minimize_components : boolean
+        Whether to minimize the number of components instead of the total
+        import flux. Might be more intuitive if set to True but may also be
+        slow to calculate for large communities.
+    max_import: positive float
+        The import rate applied for the added exchanges.
+
+
+    Returns
+    -------
+    pandas.Series or dict
+        A series {rid: flux} giving the import flux for each required import
+        reaction. This will include the initial `medium` as passed to the
+        function as well as a minimal set of additional changes such that the
+        model produces biomass with a rate >= `min_growth`.
+
+    """
+    exids = [r.id for r in model.exchanges]
+    candidates = [r for r in model.exchanges if r.id not in medium.index]
+    medium = medium[[i for i in medium.index if i in exids]]
+    tol = model.solver.configuration.tolerances.feasibility
+    with model:
+        model.modification = None
+        const = model.problem.Constraint(
+            model.objective.expression,
+            lb=min_growth,
+            name="micom_growth_const",
+        )
+        model.add_cons_vars([const])
+        model.objective = Zero
+        model.medium = medium.to_dict()
+        for ex in candidates:
+            export = len(ex.reactants) == 1
+            if export:
+                ex.lower_bound = -max_import
+            else:
+                ex.upper_bound = max_import
+        if minimize_components:
+            add_mip_obj(model, candidates)
+        else:
+            add_linear_obj(model, candidates)
+        sol = model.optimize()
+    completed = pd.Series()
+    for rxn in model.exchanges:
+        export = len(rxn.reactants) == 1
+        if rxn.id in medium.index:
+            completed[rxn.id] = medium[rxn.id]
+            continue
+        else:
+            flux = sol.fluxes.loc[rxn.id]
+        if abs(flux) < tol:
+            continue
+        completed[rxn.id] = max_import
+
+    return completed[completed > 0]

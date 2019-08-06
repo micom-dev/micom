@@ -10,9 +10,9 @@ import six.moves.cPickle as pickle
 from six.moves.urllib.parse import urlparse
 import six.moves.urllib.request as urlreq
 import tempfile
-import re
 from shutil import rmtree
 import pandas as pd
+import re
 from micom.logger import logger
 
 
@@ -67,9 +67,18 @@ def serialize_models(files, dir="."):
         )  # required for Python 2 compat
 
 
+def chr_or_input(m):
+    """Return ascii character for the ordinal or the original string."""
+    i = int(m.groups()[0])
+    if i > 31 and i < 128:
+        return chr(i)
+    else:
+        return "__%d__" % i
+
+
 def clean_ids(id):
     """Clean ids up a bit."""
-    return re.sub("__\\d+__", "_", id).strip(" _-")
+    return re.sub("__(\\d+)__", chr_or_input, id)
 
 
 def join_models(model_files, id=None):

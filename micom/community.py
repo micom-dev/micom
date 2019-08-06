@@ -235,7 +235,16 @@ class Community(cobra.Model):
                 )
                 ub = 1e-6
             met = (r.reactants + r.products)[0]
-            medium_id = re.sub("_{}$".format(met.compartment), "", met.id)
+            old_compartment = met.compartment.replace(
+                "__" + r.community_id, ""
+            )
+            medium_id = re.sub(
+                "(_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)".format(
+                    old_compartment, old_compartment
+                ),
+                "",
+                met.global_id,
+            )
             if medium_id in exclude:
                 continue
             medium_id += "_m"

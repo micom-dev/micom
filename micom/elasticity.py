@@ -88,7 +88,8 @@ def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
         deriv, dirs = _derivatives(before, after)
         res = pd.DataFrame(
             {
-                "reaction": [rx.id for rx in reactions],
+                "reaction": [rx.global_id for rx in reactions],
+                "taxon": [r.id.split("__")[-1] for r in reactions],
                 "effector": r.id,
                 "direction": dirs,
                 "elasticity": deriv,
@@ -105,7 +106,7 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     Arguments
     ---------
     com : micom.Community
-        The community for wrhich to calculate elasticities.
+        The community for which to calculate elasticities.
     variables : list of optlang.Variable
         The variables for which to calculate the elasticities. All of these
         must have non-zero primal vaues in the previous solution.
@@ -137,7 +138,8 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
         deriv, dirs = _derivatives(before, after)
         res = pd.DataFrame(
             {
-                "reaction": [r.id for r in reactions],
+                "reaction": [r.global_id for r in reactions],
+                "taxon": [r.id.split("__")[-1] for r in reactions],
                 "effector": sp,
                 "direction": dirs,
                 "elasticity": deriv,
@@ -148,10 +150,10 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     return pd.concat(dfs)
 
 
-def exchange_elasticities(com, fraction=1.0, progress=True):
-    """Calculate elasticities for exchange reactions.
+def elasticities(com, fraction=0.5, reactions=None, progress=True):
+    """Calculate elasticities for reactions.
 
-    Calculates elasticity coefficients using the exchange reactions as
+    Calculates elasticity coefficients using the specified reactions as
     response and exchange bounds (diet) and taxa abundances as
     effectors/parameters. Will use an arbitrary flux distribution as base.
 
@@ -162,6 +164,11 @@ def exchange_elasticities(com, fraction=1.0, progress=True):
     fraction : double
         The tradeoff to use for the cooperative tradeoff method. Fraction of
         maximal community growth to enforce.
+    reactions : iterable
+        A list of reactions to get elasticities for. Elements can either be
+        reactions from the model, strings specifying the ids of reactions
+        or ints specifying the indices of reactions. Defaults to using all
+        reactions.
     progress : boolean
         Whether to shwo progress bars. Will show two, one for the diet
         optimizations and another one for the taxa abundances.
@@ -171,6 +178,7 @@ def exchange_elasticities(com, fraction=1.0, progress=True):
     pandas.DataFrame
         A data frame with the following columns:
         "reaction" - the exchange reaction (response),
+        "taxon" - the taxon the reaction is from,
         "effector" - the parameter that was changed,
         "direction" - whether the flux runs in the forward or reverse
             direction,
@@ -179,18 +187,20 @@ def exchange_elasticities(com, fraction=1.0, progress=True):
         for taxa abundances.
     """
     growth_rate = None
+    if reactions is None:
+        reactions = com.reactions
+    reactions = com.reactions.get_by_any(reactions)
     with com:
         context = get_context(com)
         context(partial(reset_min_community_growth, com))
-        rxns = com.exchanges
         by_medium = elasticities_by_medium(
-            com, rxns, fraction, growth_rate, progress
+            com, reactions, fraction, growth_rate, progress
         )
         by_medium["type"] = "exchanges"
 
         by_abundance = elasticities_by_abundance(
-            com, rxns, fraction, growth_rate, progress
+            com, reactions, fraction, growth_rate, progress
         )
         by_abundance["type"] = "abundance"
 
-    return pd.concat([by_medium, by_abundance])
+    return pd.concat([by_medium, by_abundance]).reset_index(drop=True)

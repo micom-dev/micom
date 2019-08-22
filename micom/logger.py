@@ -1,4 +1,4 @@
-"""configures the logger for mico."""
+"""configures the logger for micom."""
 
 import logging
 

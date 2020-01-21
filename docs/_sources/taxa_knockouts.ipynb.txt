@@ -17,15 +17,15 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [
     {
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "100%|██████████| 5/5 [00:00<00:00,  5.91models/s]\n",
-      "100%|██████████| 5/5 [00:00<00:00, 23.65knockout(s)/s]\n"
+      "100%|██████████| 5/5 [00:02<00:00,  2.42models/s]\n",
+      "100%|██████████| 5/5 [00:00<00:00, 12.25knockout(s)/s]\n"
      ]
     },
     {
@@ -117,7 +117,7 @@
        "Escherichia_coli_5            0.229162            0.229162           -0.873922  "
       ]
      },
-     "execution_count": 1,
+     "execution_count": 2,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -126,7 +126,7 @@
     "from micom import Community, data\n",
     "\n",
     "tax = data.test_taxonomy()\n",
-    "com = Community(tax, solver=\"gurobi\")\n",
+    "com = Community(tax)\n",
     "\n",
     "ko = com.knockout_species(fraction=1.0)\n",
     "ko"
@@ -141,14 +141,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "100%|██████████| 5/5 [00:00<00:00, 23.00knockout(s)/s]\n"
+      "100%|██████████| 5/5 [00:00<00:00, 12.18knockout(s)/s]\n"
      ]
     },
     {
@@ -240,7 +240,7 @@
        "Escherichia_coli_5            1.103083            1.103083            0.000000  "
       ]
      },
-     "execution_count": 2,
+     "execution_count": 3,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -258,14 +258,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "100%|██████████| 5/5 [00:00<00:00, 23.95knockout(s)/s]\n"
+      "100%|██████████| 5/5 [00:00<00:00, 11.76knockout(s)/s]\n"
      ]
     },
     {
@@ -357,7 +357,7 @@
        "Escherichia_coli_5            0.262222            0.262222           -1.000000  "
       ]
      },
-     "execution_count": 3,
+     "execution_count": 4,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -375,14 +375,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "100%|██████████| 5/5 [00:00<00:00, 21.50knockout(s)/s]\n"
+      "100%|██████████| 5/5 [00:00<00:00, 11.83knockout(s)/s]\n"
      ]
     },
     {
@@ -474,7 +474,7 @@
        "Escherichia_coli_5            0.229162            0.229162                 NaN  "
       ]
      },
-     "execution_count": 4,
+     "execution_count": 5,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -507,9 +507,9 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.5"
+   "version": "3.6.7"
   }
  },
  "nbformat": 4,
- "nbformat_minor": 2
+ "nbformat_minor": 4
 }

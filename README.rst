@@ -3,7 +3,7 @@
 
 |travis status| |appveyor status| |coverage| |pypi status|
 
-`micom` is a Python package for metabolic modeling of microbial
+`MICOM` is a Python package for metabolic modeling of microbial
 communities developed in the
 `Human Systems Biology Group <https://resendislab.github.io>`_ of
 Prof. Osbaldo Resendis Antonio at the `National Institute of Genomic
@@ -11,7 +11,7 @@ Medicine Mexico <https://inmegen.gob.mx>`_ and the
 `Gibbons Lab <https://gibbons.systemsbiology.org>`_ at the `Institute for Systems
 Biology <https://systemsbiology.org>`_.
 
-`micom` allows you to construct a community model from a list on input
+`MICOM` allows you to construct a community model from a list on input
 COBRA models and manages exchange fluxes between individuals and individuals
 with the environment. It explicitly accounts for different abundances of
 individuals in the community and can thus incorporate data from 16S rRNA
@@ -22,13 +22,19 @@ cooperative objectives.
 Attribution
 -----------
 
-Micom is described in a `recent preprint <https://doi.org/10.1101/361907>`_ that you can cite.
-If you have any questions contact us at `oresendis (at) inmegen.gob.mx`. Thanks :smile:
+MICOM is published in
+
+*MICOM: Metagenome-Scale Modeling To Infer Metabolic Interactions in the Gut Microbiota*<br>
+Christian Diener, Sean M. Gibbons, Osbaldo Resendis-Antonio<br>
+mSystems 5:e00606-19<br>
+https://doi.org/10.1128/mSystems.00606-19
+
+Please cite this publication when referencing MICOM. Thanks :smile:
 
 Installation
 ------------
 
-`micom` is available on PyPi and can be installed via
+`MICOM` is available on PyPi and can be installed via
 
 .. code:: bash
 

@@ -20,7 +20,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-import micom._version as ver
+import micom
 import sphinx_rtd_theme
 
 # -- General configuration ------------------------------------------------
@@ -59,7 +59,7 @@ author = 'Christian Diener'
 # built documents.
 #
 # The full version, including alpha/beta/rc tags.
-release = ver.get_versions()["version"]
+release = micom.__version__
 # The short X.Y version.
 version = ".".join(release.split(".")[:2])
 

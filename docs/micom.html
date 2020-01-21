@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>micom package &mdash; micom 0.9.3+12.gd6de438.dirty documentation</title>
+  <title>micom package &mdash; micom 0.10.1 documentation</title>
   
 
   
@@ -25,6 +25,7 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     
@@ -65,7 +66,7 @@
             
             
               <div class="version">
-                0.9
+                0.10
               </div>
             
           
@@ -90,7 +91,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by micom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing.html#Solvers">Solvers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
@@ -188,13 +189,13 @@
 /* CSS overrides for sphinx_rtd_theme */
 
 /* 24px margin */
-.nbinput.nblast,
-.nboutput.nblast {
+.nbinput.nblast.container,
+.nboutput.nblast.container {
     margin-bottom: 19px;  /* padding has already 5px */
 }
 
 /* ... except between code cells! */
-.nblast + .nbinput {
+.nblast.container + .nbinput.container {
     margin-top: -19px;
 }
 
@@ -624,13 +625,54 @@ in the returned dual problem.</p>
 <p>Functions to calculate elasticity coefficients for various community
 quantities.</p>
 <dl class="function">
+<dt id="micom.elasticity.elasticities">
+<code class="sig-prename descclassname">micom.elasticity.</code><code class="sig-name descname">elasticities</code><span class="sig-paren">(</span><em class="sig-param">com</em>, <em class="sig-param">fraction=0.5</em>, <em class="sig-param">reactions=None</em>, <em class="sig-param">progress=True</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.elasticity.elasticities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate elasticities for reactions.</p>
+<p>Calculates elasticity coefficients using the specified reactions as
+response and exchange bounds (diet) and taxa abundances as
+effectors/parameters. Will use an arbitrary flux distribution as base.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>com</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community for wrhich to calculate elasticities.</p></li>
+<li><p><strong>fraction</strong> (<em>double</em>) – The tradeoff to use for the cooperative tradeoff method. Fraction of
+maximal community growth to enforce.</p></li>
+<li><p><strong>reactions</strong> (<em>iterable</em>) – A list of reactions to get elasticities for. Elements can either be
+reactions from the model, strings specifying the ids of reactions
+or ints specifying the indices of reactions. Defaults to using all
+reactions.</p></li>
+<li><p><strong>progress</strong> (<em>boolean</em>) – Whether to shwo progress bars. Will show two, one for the diet
+optimizations and another one for the taxa abundances.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>A data frame with the following columns:
+“reaction” - the exchange reaction (response),
+“taxon” - the taxon the reaction is from,
+“effector” - the parameter that was changed,
+“direction” - whether the flux runs in the forward or reverse</p>
+<blockquote>
+<div><p>direction,</p>
+</div></blockquote>
+<p>”elasticity” - the elasticity coefficient,
+“type” - the type of effector either “exchange” for diet or “abundance”
+for taxa abundances.</p>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="micom.elasticity.elasticities_by_abundance">
 <code class="sig-prename descclassname">micom.elasticity.</code><code class="sig-name descname">elasticities_by_abundance</code><span class="sig-paren">(</span><em class="sig-param">com</em>, <em class="sig-param">reactions</em>, <em class="sig-param">fraction</em>, <em class="sig-param">growth_rate</em>, <em class="sig-param">progress</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.elasticity.elasticities_by_abundance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the elasticity coefficients for a set of variables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>com</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community for wrhich to calculate elasticities.</p></li>
+<li><p><strong>com</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community for which to calculate elasticities.</p></li>
 <li><p><strong>variables</strong> (<em>list of optlang.Variable</em>) – The variables for which to calculate the elasticities. All of these
 must have non-zero primal vaues in the previous solution.</p></li>
 </ul>
@@ -667,59 +709,17 @@ effector, and elasticity.</p>
 </dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="micom.elasticity.exchange_elasticities">
-<code class="sig-prename descclassname">micom.elasticity.</code><code class="sig-name descname">exchange_elasticities</code><span class="sig-paren">(</span><em class="sig-param">com</em>, <em class="sig-param">fraction=1.0</em>, <em class="sig-param">progress=True</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.elasticity.exchange_elasticities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate elasticities for exchange reactions.</p>
-<p>Calculates elasticity coefficients using the exchange reactions as
-response and exchange bounds (diet) and taxa abundances as
-effectors/parameters. Will use an arbitrary flux distribution as base.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>com</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community for wrhich to calculate elasticities.</p></li>
-<li><p><strong>fraction</strong> (<em>double</em>) – The tradeoff to use for the cooperative tradeoff method. Fraction of
-maximal community growth to enforce.</p></li>
-<li><p><strong>progress</strong> (<em>boolean</em>) – Whether to shwo progress bars. Will show two, one for the diet
-optimizations and another one for the taxa abundances.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><p>A data frame with the following columns:
-“reaction” - the exchange reaction (response),
-“effector” - the parameter that was changed,
-“direction” - whether the flux runs in the forward or reverse</p>
-<blockquote>
-<div><p>direction,</p>
-</div></blockquote>
-<p>”elasticity” - the elasticity coefficient,
-“type” - the type of effector either “exchange” for diet or “abundance”
-for taxa abundances.</p>
-</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pandas.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 <div class="section" id="module-micom.logger">
 <span id="micom-logger-module"></span><h2>micom.logger module<a class="headerlink" href="#module-micom.logger" title="Permalink to this headline">¶</a></h2>
-<p>configures the logger for mico.</p>
-<dl class="function">
-<dt id="micom.logger.file_logger">
-<code class="sig-prename descclassname">micom.logger.</code><code class="sig-name descname">file_logger</code><span class="sig-paren">(</span><em class="sig-param">filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.logger.file_logger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Log micom messages to file.</p>
-</dd></dl>
-
+<p>configures the logger for micom.</p>
 </div>
 <div class="section" id="module-micom.media">
 <span id="micom-media-module"></span><h2>micom.media module<a class="headerlink" href="#module-micom.media" title="Permalink to this headline">¶</a></h2>
 <p>Manages functions for growth media analysis and manipulation.</p>
 <dl class="function">
 <dt id="micom.media.add_linear_obj">
-<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">add_linear_obj</code><span class="sig-paren">(</span><em class="sig-param">community</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.add_linear_obj" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">add_linear_obj</code><span class="sig-paren">(</span><em class="sig-param">community</em>, <em class="sig-param">exchanges</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.add_linear_obj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a linear version of a minimal medium to the community.</p>
 <p>Changes the optimization objective to finding the growth medium requiring
 the smallest total import flux:</p>
@@ -728,14 +728,17 @@ the smallest total import flux:</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community to modify.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community to modify.</p></li>
+<li><p><strong>exchanges</strong> (<em>list of cobra.Reaction</em>) – The reactions to constrain.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="micom.media.add_mip_obj">
-<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">add_mip_obj</code><span class="sig-paren">(</span><em class="sig-param">community</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.add_mip_obj" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">add_mip_obj</code><span class="sig-paren">(</span><em class="sig-param">community</em>, <em class="sig-param">exchanges</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.add_mip_obj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a mixed-integer version of a minimal medium to the community.</p>
 <p>Changes the optimization objective to finding the medium with the least
 components:</p>
@@ -744,21 +747,51 @@ components:</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community to modify.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community to modify.</p></li>
+<li><p><strong>exchanges</strong> (<em>list of cobra.Reaction</em>) – The reactions to constrain.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="data">
-<dt id="micom.media.default_excludes">
-<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">default_excludes</code><em class="property"> = ['biosynthesis', 'transcription', 'replication', 'sink', 'demand', 'DM_', 'SN_', 'SK_']</em><a class="headerlink" href="#micom.media.default_excludes" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list of sub-strings in reaction IDs that usually indicate that
-the reaction is <em>not</em> an exchange reaction.</p>
+<dl class="function">
+<dt id="micom.media.complete_medium">
+<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">complete_medium</code><span class="sig-paren">(</span><em class="sig-param">model</em>, <em class="sig-param">medium</em>, <em class="sig-param">min_growth=0.1</em>, <em class="sig-param">max_import=1</em>, <em class="sig-param">minimize_components=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.complete_medium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill in missing components in a growth medium.</p>
+<p>Finds the minimal number of additions to make a model form biomass. In
+order to avoid bias all added reactions will have a maximum import
+rate of <cite>max_import</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>cobra.Model</em>) – The model to use.</p></li>
+<li><p><strong>medium</strong> (<em>pandas.Series</em>) – A growth medium. Must contain positive floats as elements and
+exchange reaction ids as index. Note that reactions not present in the
+model will be removed from the growth medium.</p></li>
+<li><p><strong>min_growth</strong> (<em>positive float</em><em> or </em><em>array-like object.</em>) – The minimum growth rate for each individual in the community. Either
+a single value applied to all individuals or one value for each.</p></li>
+<li><p><strong>minimize_components</strong> (<em>boolean</em>) – Whether to minimize the number of components instead of the total
+import flux. Might be more intuitive if set to True but may also be
+slow to calculate for large communities.</p></li>
+<li><p><strong>max_import</strong> (<em>positive float</em>) – The import rate applied for the added exchanges.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A series {rid: flux} giving the import flux for each required import
+reaction. This will include the initial <cite>medium</cite> as passed to the
+function as well as a minimal set of additional changes such that the
+model produces biomass with a rate &gt;= <cite>min_growth</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.Series or dict</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="micom.media.minimal_medium">
-<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">minimal_medium</code><span class="sig-paren">(</span><em class="sig-param">community</em>, <em class="sig-param">community_growth</em>, <em class="sig-param">min_growth=0.0</em>, <em class="sig-param">exports=False</em>, <em class="sig-param">minimize_components=False</em>, <em class="sig-param">open_exchanges=False</em>, <em class="sig-param">solution=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.minimal_medium" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">minimal_medium</code><span class="sig-paren">(</span><em class="sig-param">community</em>, <em class="sig-param">community_growth</em>, <em class="sig-param">exchanges=None</em>, <em class="sig-param">min_growth=0.0</em>, <em class="sig-param">exports=False</em>, <em class="sig-param">minimize_components=False</em>, <em class="sig-param">open_exchanges=False</em>, <em class="sig-param">solution=False</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.minimal_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the minimal growth medium for the community.</p>
 <p>Finds the minimal growth medium for the community which allows for
 community as well as individual growth. Here, a minimal medium can either
@@ -769,6 +802,7 @@ requiring the least components (ergo ingredients).</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community to modify.</p></li>
 <li><p><strong>community_growth</strong> (<em>positive float</em>) – The minimum community-wide growth rate.</p></li>
+<li><p><strong>exchanges</strong> (<em>list of cobra.Reactions</em>) – The list of exchange reactions that are penalized.</p></li>
 <li><p><strong>min_growth</strong> (<em>positive float</em><em> or </em><em>array-like object.</em>) – The minimum growth rate for each individual in the community. Either
 a single value applied to all individuals or one value for each.</p></li>
 <li><p><strong>exports</strong> (<em>boolean</em>) – Whether to include export fluxes in the returned medium. Defaults to
@@ -1142,6 +1176,18 @@ ones).</p>
     would not be safe.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.util.chr_or_input">
+<code class="sig-prename descclassname">micom.util.</code><code class="sig-name descname">chr_or_input</code><span class="sig-paren">(</span><em class="sig-param">m</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.util.chr_or_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return ascii character for the ordinal or the original string.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="micom.util.clean_ids">
+<code class="sig-prename descclassname">micom.util.</code><code class="sig-name descname">clean_ids</code><span class="sig-paren">(</span><em class="sig-param">id</em><span class="sig-paren">)</span><a class="headerlink" href="#micom.util.clean_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean ids up a bit.</p>
 </dd></dl>
 
 <dl class="function">

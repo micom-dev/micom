@@ -127,7 +127,8 @@ class CommunitySolution(Solution):
                     "<strong>community growth:</strong> {:.3f}"
                     "<br><strong>status:</strong> {}"
                     "<br><strong>taxa:</strong>{}".format(
-                        self.objective_value,
+                        sum(self.members.abundance.dropna() *
+                            self.members.growth_rate.dropna()),
                         self.status,
                         self.members._repr_html_(),
                     )

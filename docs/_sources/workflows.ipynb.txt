@@ -58,7 +58,7 @@
        "      <td>Eschericia coli</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
-       "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
+       "      <td>/Users/cdiener/code/micom/micom/data/e_coli_co...</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>1</th>\n",
@@ -67,7 +67,7 @@
        "      <td>Eschericia coli</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
-       "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
+       "      <td>/Users/cdiener/code/micom/micom/data/e_coli_co...</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>2</th>\n",
@@ -76,7 +76,7 @@
        "      <td>Eschericia coli</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
-       "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
+       "      <td>/Users/cdiener/code/micom/micom/data/e_coli_co...</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>3</th>\n",
@@ -85,7 +85,7 @@
        "      <td>Eschericia coli</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
-       "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
+       "      <td>/Users/cdiener/code/micom/micom/data/e_coli_co...</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -99,10 +99,10 @@
        "3  Escherichia_coli_4  Escherichia  Eschericia coli         95           72   \n",
        "\n",
        "                                                file  \n",
-       "0  /home/cdiener/code/micom/micom/data/e_coli_cor...  \n",
-       "1  /home/cdiener/code/micom/micom/data/e_coli_cor...  \n",
-       "2  /home/cdiener/code/micom/micom/data/e_coli_cor...  \n",
-       "3  /home/cdiener/code/micom/micom/data/e_coli_cor...  "
+       "0  /Users/cdiener/code/micom/micom/data/e_coli_co...  \n",
+       "1  /Users/cdiener/code/micom/micom/data/e_coli_co...  \n",
+       "2  /Users/cdiener/code/micom/micom/data/e_coli_co...  \n",
+       "3  /Users/cdiener/code/micom/micom/data/e_coli_co...  "
       ]
      },
      "execution_count": 1,
@@ -133,7 +133,7 @@
     "from micom import Community\n",
     "\n",
     "def run_tradeoff(tax):\n",
-    "    com = Community(tax, progress=False, solver=\"gurobi\")\n",
+    "    com = Community(tax, progress=False)\n",
     "    sol = com.cooperative_tradeoff()\n",
     "    return sol.members"
    ]
@@ -154,7 +154,7 @@
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "100%|██████████| 10/10 [00:06<00:00,  1.57sample(s)/s]\n"
+      "100%|██████████| 10/10 [00:16<00:00,  1.67s/sample(s)]\n"
      ]
     }
    ],
@@ -293,9 +293,9 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.5"
+   "version": "3.6.7"
   }
  },
  "nbformat": 4,
- "nbformat_minor": 2
+ "nbformat_minor": 4
 }

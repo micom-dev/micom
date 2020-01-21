@@ -11,14 +11,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [
     {
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "100%|██████████| 5/5 [00:00<00:00,  5.69models/s]\n"
+      "100%|██████████| 5/5 [00:02<00:00,  2.45models/s]\n"
      ]
     }
    ],
@@ -26,7 +26,7 @@
     "from micom import Community, data\n",
     "\n",
     "tax = data.test_taxonomy()\n",
-    "com = Community(tax, solver=\"gurobi\")"
+    "com = Community(tax)"
    ]
   },
   {
@@ -38,7 +38,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
@@ -51,7 +51,7 @@
        "dtype: float64"
       ]
      },
-     "execution_count": 2,
+     "execution_count": 3,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -72,20 +72,20 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "EX_glc__D_m     9.193567\n",
+       "EX_glc__D_m    10.000000\n",
        "EX_nh4_m        4.362240\n",
-       "EX_o2_m        20.192120\n",
+       "EX_o2_m        18.579253\n",
        "EX_pi_m         2.942960\n",
        "dtype: float64"
       ]
      },
-     "execution_count": 3,
+     "execution_count": 4,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -110,7 +110,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -123,7 +123,7 @@
        "dtype: float64"
       ]
      },
-     "execution_count": 4,
+     "execution_count": 5,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -144,7 +144,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [
     {
@@ -157,7 +157,7 @@
        "dtype: float64"
       ]
      },
-     "execution_count": 5,
+     "execution_count": 6,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -178,7 +178,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 7,
    "metadata": {},
    "outputs": [
     {
@@ -194,7 +194,7 @@
        "dtype: float64"
       ]
      },
-     "execution_count": 6,
+     "execution_count": 7,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -222,7 +222,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [
     {
@@ -263,35 +263,35 @@
        "    <tr>\n",
        "      <th>Escherichia_coli_1</th>\n",
        "      <td>0.2</td>\n",
-       "      <td>0.000000</td>\n",
+       "      <td>0.8</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>Escherichia_coli_2</th>\n",
        "      <td>0.2</td>\n",
-       "      <td>0.242410</td>\n",
+       "      <td>0.8</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>Escherichia_coli_3</th>\n",
        "      <td>0.2</td>\n",
-       "      <td>1.234669</td>\n",
+       "      <td>0.8</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>Escherichia_coli_4</th>\n",
        "      <td>0.2</td>\n",
-       "      <td>1.505863</td>\n",
+       "      <td>0.8</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>Escherichia_coli_5</th>\n",
        "      <td>0.2</td>\n",
-       "      <td>1.017058</td>\n",
+       "      <td>0.8</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "    </tr>\n",
@@ -307,10 +307,10 @@
        "</div>"
       ],
       "text/plain": [
-       "<CommunitySolution 0.800 at 0x7fb298aac400>"
+       "<CommunitySolution 0.800 at 0x7ffcc15f4b00>"
       ]
      },
-     "execution_count": 7,
+     "execution_count": 9,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -318,7 +318,7 @@
    "source": [
     "med = minimal_medium(com, 0.8, min_growth=0.8)\n",
     "com.medium = med\n",
-    "com.optimize()"
+    "com.cooperative_tradeoff()"
    ]
   },
   {
@@ -352,9 +352,9 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.5"
+   "version": "3.6.7"
   }
  },
  "nbformat": 4,
- "nbformat_minor": 2
+ "nbformat_minor": 4
 }

@@ -3,13 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to micom
+Welcome to MICOM
 ================
 
 
 |travis status| |appveyor status| |coverage| |pypi status|
 
-`micom` is a Python package for metabolic modeling of microbial
+`MICOM` is a Python package for metabolic modeling of microbial
 communities developed in the
 `Human Systems Biology Group <https://resendislab.github.io>`_ of
 Prof. Osbaldo Resendis Antonio at the `National Institute of Genomic
@@ -17,21 +17,23 @@ Medicine Mexico <https://inmegen.gob.mx>`_ and the
 `Gibbons Lab <https://gibbons.systemsbiology.org>`_ at the `Institute for Systems
 Biology <https://systemsbiology.org>`_.
 
-`micom` allows you to construct a community model from a list on input
+`MICOM` allows you to construct a community model from a list on input
 COBRA models and manages exchange fluxes between individuals and individuals
 with the environment. It explicitly accounts for different abundances of
-individuals in the community and can thus incorporate data from 16S rRNA
-sequencing experiments. It allows optimization with a variety of algorithms
+individuals in the community and can thus incorporate data from 16S amplicon
+sequencing or metagenomic experiments. It allows optimization with a variety of algorithms
 modeling the trade-off between egoistic growth rate maximization and
 cooperative objectives.
 
 Attribution
 -----------
 
-Micom is described in a `recent preprint <https://doi.org/10.1101/361907>`_ that you can cite.
-If you have any questions contact us at `oresendis (at) inmegen.gob.mx`. Thanks :smile:
+MICOM is published at https://msystems.asm.org/content/5/1/e00606-19.
+Please cite this article when referencing MICOM.
 
-To get an idea which assumptions and strategies `micom` uses we recommend
+
+
+To get an idea which assumptions and strategies MICOM uses we recommend
 to start with some background on the :doc:`methods <logic>`.
 
 Contents
@@ -39,8 +41,8 @@ Contents
 .. toctree::
    :maxdepth: 1
 
-   Methods used by micom <logic>
-   Installing micom <installing>
+   Methods used by MICOM <logic>
+   Installing MICOM <installing>
    Building communities <community>
    Growth rates and fluxes <growth_fluxes>
    Growth media <media>

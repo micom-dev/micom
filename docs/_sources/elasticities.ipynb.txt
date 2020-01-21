@@ -24,16 +24,16 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [
     {
      "name": "stderr",
      "output_type": "stream",
      "text": [
-      "100%|██████████| 5/5 [00:00<00:00,  5.78models/s]\n",
-      "100%|██████████| 4/4 [00:00<00:00, 26.02optimizations/s]\n",
-      "100%|██████████| 5/5 [00:00<00:00, 12.57optimizations/s]\n"
+      "100%|██████████| 5/5 [00:02<00:00,  2.39models/s]\n",
+      "100%|██████████| 4/4 [00:00<00:00, 16.06optimizations/s]\n",
+      "100%|██████████| 5/5 [00:00<00:00,  7.38optimizations/s]\n"
      ]
     },
     {
@@ -58,6 +58,7 @@
        "    <tr style=\"text-align: right;\">\n",
        "      <th></th>\n",
        "      <th>reaction</th>\n",
+       "      <th>taxon</th>\n",
        "      <th>effector</th>\n",
        "      <th>direction</th>\n",
        "      <th>elasticity</th>\n",
@@ -66,43 +67,48 @@
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>EX_ac_m</th>\n",
+       "      <th>0</th>\n",
        "      <td>EX_ac_m</td>\n",
+       "      <td>medium</td>\n",
        "      <td>EX_glc__D_m</td>\n",
        "      <td>zero</td>\n",
-       "      <td>-3.339689e-07</td>\n",
+       "      <td>0.000014</td>\n",
        "      <td>exchanges</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>EX_acald_m</th>\n",
+       "      <th>1</th>\n",
        "      <td>EX_acald_m</td>\n",
+       "      <td>medium</td>\n",
        "      <td>EX_glc__D_m</td>\n",
        "      <td>zero</td>\n",
-       "      <td>-2.948751e-06</td>\n",
+       "      <td>0.000012</td>\n",
        "      <td>exchanges</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>EX_akg_m</th>\n",
+       "      <th>2</th>\n",
        "      <td>EX_akg_m</td>\n",
+       "      <td>medium</td>\n",
        "      <td>EX_glc__D_m</td>\n",
        "      <td>zero</td>\n",
-       "      <td>-3.915087e-06</td>\n",
+       "      <td>0.000017</td>\n",
        "      <td>exchanges</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>EX_co2_m</th>\n",
+       "      <th>3</th>\n",
        "      <td>EX_co2_m</td>\n",
+       "      <td>medium</td>\n",
        "      <td>EX_glc__D_m</td>\n",
        "      <td>forward</td>\n",
-       "      <td>9.238545e-01</td>\n",
+       "      <td>0.923854</td>\n",
        "      <td>exchanges</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>EX_etoh_m</th>\n",
+       "      <th>4</th>\n",
        "      <td>EX_etoh_m</td>\n",
+       "      <td>medium</td>\n",
        "      <td>EX_glc__D_m</td>\n",
        "      <td>zero</td>\n",
-       "      <td>7.460696e-07</td>\n",
+       "      <td>0.000009</td>\n",
        "      <td>exchanges</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
@@ -110,27 +116,27 @@
        "</div>"
       ],
       "text/plain": [
-       "              reaction     effector direction    elasticity       type\n",
-       "EX_ac_m        EX_ac_m  EX_glc__D_m      zero -3.339689e-07  exchanges\n",
-       "EX_acald_m  EX_acald_m  EX_glc__D_m      zero -2.948751e-06  exchanges\n",
-       "EX_akg_m      EX_akg_m  EX_glc__D_m      zero -3.915087e-06  exchanges\n",
-       "EX_co2_m      EX_co2_m  EX_glc__D_m   forward  9.238545e-01  exchanges\n",
-       "EX_etoh_m    EX_etoh_m  EX_glc__D_m      zero  7.460696e-07  exchanges"
+       "     reaction   taxon     effector direction  elasticity       type\n",
+       "0     EX_ac_m  medium  EX_glc__D_m      zero    0.000014  exchanges\n",
+       "1  EX_acald_m  medium  EX_glc__D_m      zero    0.000012  exchanges\n",
+       "2    EX_akg_m  medium  EX_glc__D_m      zero    0.000017  exchanges\n",
+       "3    EX_co2_m  medium  EX_glc__D_m   forward    0.923854  exchanges\n",
+       "4   EX_etoh_m  medium  EX_glc__D_m      zero    0.000009  exchanges"
       ]
      },
-     "execution_count": 1,
+     "execution_count": 2,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
     "from micom import Community, data\n",
-    "from micom.elasticity import exchange_elasticities\n",
+    "from micom.elasticity import elasticities\n",
     "\n",
     "tax = data.test_taxonomy()\n",
-    "com = Community(tax, solver=\"gurobi\")\n",
+    "com = Community(tax)\n",
     "\n",
-    "eps = exchange_elasticities(com, fraction=1.0)\n",
+    "eps = elasticities(com, fraction=1.0, reactions=com.exchanges)\n",
     "eps.head()"
    ]
   },
@@ -165,9 +171,9 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.5"
+   "version": "3.6.7"
   }
  },
  "nbformat": 4,
- "nbformat_minor": 2
+ "nbformat_minor": 4
 }

@@ -24,7 +24,7 @@
    "source": [
     "For a system-wide installation you can omit `--user`.\n",
     "\n",
-    "The same installation strategy also works with Anaconda installations or any other Python distribution. Supported Python versions are 2.7, 3.4, 3.5 and 3.6.\n",
+    "The same installation strategy also works with Anaconda installations or any other Python distribution. Supported Python versions are 3.6 and 3.7.\n",
     "\n",
     "## Solvers\n",
     "\n",
@@ -56,9 +56,9 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.5"
+   "version": "3.6.7"
   }
  },
  "nbformat": 4,
- "nbformat_minor": 2
+ "nbformat_minor": 4
 }

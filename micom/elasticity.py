@@ -89,7 +89,7 @@ def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
         res = pd.DataFrame(
             {
                 "reaction": [rx.global_id for rx in reactions],
-                "taxon": [r.id.split("__")[-1] for r in reactions],
+                "taxon": [list(r.compartments)[0] for r in reactions],
                 "effector": r.id,
                 "direction": dirs,
                 "elasticity": deriv,
@@ -139,7 +139,7 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
         res = pd.DataFrame(
             {
                 "reaction": [r.global_id for r in reactions],
-                "taxon": [r.id.split("__")[-1] for r in reactions],
+                "taxon": [list(r.compartments)[0] for r in reactions],
                 "effector": sp,
                 "direction": dirs,
                 "elasticity": deriv,
@@ -203,4 +203,6 @@ def elasticities(com, fraction=0.5, reactions=None, progress=True):
         )
         by_abundance["type"] = "abundance"
 
-    return pd.concat([by_medium, by_abundance]).reset_index(drop=True)
+    both = pd.concat([by_medium, by_abundance]).reset_index(drop=True)
+    both.loc[both.taxon == "m", "taxon"] = "medium"
+    return both

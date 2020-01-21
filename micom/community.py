@@ -15,7 +15,6 @@ from micom.util import (
     clean_ids,
 )
 from micom.logger import logger
-from micom.media import default_excludes
 from micom.optcom import optcom, solve
 from micom.problems import cooperative_tradeoff, knockout_species
 
@@ -161,10 +160,21 @@ class Community(cobra.Model):
                 model = load_model(row.file)
             suffix = "__" + idx.replace(" ", "_").strip()
             logger.info("converting IDs for {}".format(idx))
+            external = cobra.medium.find_external_compartment(model)
+            logger.info(
+                "Identified %s as the external compartment for %s. "
+                "If that is wrong you may be in trouble..." %
+                (external, idx)
+            )
             for r in model.reactions:
                 r.global_id = clean_ids(r.id)
                 r.id = r.global_id + suffix
                 r.community_id = idx
+                # avoids https://github.com/opencobra/cobrapy/issues/926
+                r._compartments = None
+                # SBO terms may not be maintained
+                if "sbo" in r.annotation:
+                    del r.annotation["sbo"]
             for m in model.metabolites:
                 m.global_id = clean_ids(m.id)
                 m.id = m.global_id + suffix
@@ -182,7 +192,10 @@ class Community(cobra.Model):
             )
             self.add_cons_vars([species_obj])
             self.__add_exchanges(
-                model.reactions, row, internal_exchange=max_exchange
+                model.reactions,
+                row,
+                external_compartment=external,
+                internal_exchange=max_exchange,
             )
             self.solver.update()  # to avoid dangling refs due to lazy add
 
@@ -195,7 +208,6 @@ class Community(cobra.Model):
         self,
         reactions,
         info,
-        exclude=default_excludes,
         external_compartment="e",
         internal_exchange=1000,
     ):
@@ -203,11 +215,7 @@ class Community(cobra.Model):
         for r in reactions:
             # Some sanity checks for whether the reaction is an exchange
             ex = external_compartment + "__" + r.community_id
-            if (
-                not r.boundary
-                or any(bad in r.id for bad in exclude)
-                or ex not in r.compartments
-            ):
+            if not cobra.medium.is_boundary_type(r, "exchange", ex):
                 continue
             if not r.id.lower().startswith("ex"):
                 logger.warning(
@@ -245,8 +253,6 @@ class Community(cobra.Model):
                 "",
                 met.global_id,
             )
-            if medium_id in exclude:
-                continue
             medium_id += "_m"
             if medium_id == met.id:
                 medium_id += "_medium"
@@ -492,11 +498,7 @@ class Community(cobra.Model):
         Uses several heuristics based on the reaction name and compartments
         to exclude reactions that are *not* exchange reactions.
         """
-        return self.reactions.query(
-            lambda x: x.boundary
-            and not any(ex in x.id for ex in default_excludes)
-            and "m" in x.compartments
-        )
+        return cobra.medium.find_boundary_types(self, "exchange", "m")
 
     def optcom(
         self, strategy="lagrangian", min_growth=0.0, fluxes=False, pfba=True

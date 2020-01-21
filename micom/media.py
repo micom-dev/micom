@@ -14,20 +14,6 @@ from micom.util import (
 from micom.logger import logger
 
 
-default_excludes = [
-    "biosynthesis",
-    "transcription",
-    "replication",
-    "sink",
-    "demand",
-    "DM_",
-    "SN_",
-    "SK_",
-]
-"""A list of sub-strings in reaction IDs that usually indicate that
-the reaction is *not* an exchange reaction."""
-
-
 def add_linear_obj(community, exchanges):
     """Add a linear version of a minimal medium to the community.
 

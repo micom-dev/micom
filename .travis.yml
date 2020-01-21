@@ -12,7 +12,7 @@ before_install:
     - pip install -U pytest pytest-cov pytest-benchmark codecov
 
 install:
-    - pip install -U python-libsbml lxml
+    - pip install -U python-libsbml-experimental lxml
     - pip install -e .
 
 script:

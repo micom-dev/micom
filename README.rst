@@ -24,9 +24,11 @@ Attribution
 
 MICOM is published in
 
-*MICOM: Metagenome-Scale Modeling To Infer Metabolic Interactions in the Gut Microbiota*<br>
-Christian Diener, Sean M. Gibbons, Osbaldo Resendis-Antonio<br>
-mSystems 5:e00606-19<br>
+::
+
+    MICOM: Metagenome-Scale Modeling To Infer Metabolic Interactions in the Gut Microbiota
+    Christian Diener, Sean M. Gibbons, Osbaldo Resendis-Antonio
+    mSystems 5:e00606-19
 https://doi.org/10.1128/mSystems.00606-19
 
 Please cite this publication when referencing MICOM. Thanks :smile:

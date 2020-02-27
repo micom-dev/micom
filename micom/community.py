@@ -102,11 +102,17 @@ class Community(cobra.Model):
 
         logger.info("building new micom model {}.".format(id))
         if not solver:
-            self.solver = (
-                "cplex" if "cplex" in cobra.util.solver.solvers else "glpk"
+            solver = (
+                "cplex" if "cplex" in cobra.util.solver.solvers else
+                "gurobi" if "gurobi" in cobra.util.solver.solvers else "glpk"
             )
-        else:
-            self.solver = solver
+        logger.info("using the %s solver." % solver)
+        if solver == "glpk":
+            logger.warning(
+                "No QP solver found, will use GLPK. A lot of functionality "
+                "in MICOM will require a QP solver :/"
+            )
+        self.solver = solver
         adjust_solver_config(self.solver)
 
         if not (

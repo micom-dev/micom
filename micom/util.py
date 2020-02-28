@@ -243,6 +243,7 @@ def adjust_solver_config(solver):
         solver.problem.Params.BarConvTol = 1e-9
         solver.problem.Params.BarIterLimit = 1001
         solver.problem.Params.Threads = 1
+        solver.problem.Params.LogToConsole = 0
     if interface == "glpk":
         solver.configuration.presolve = True
 

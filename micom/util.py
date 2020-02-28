@@ -242,6 +242,7 @@ def adjust_solver_config(solver):
         solver.configuration.lp_method = "barrier"
         solver.problem.Params.BarConvTol = 1e-9
         solver.problem.Params.BarIterLimit = 1001
+        solver.problem.Params.Threads = 1
     if interface == "glpk":
         solver.configuration.presolve = True
 

@@ -10,13 +10,13 @@ agora = pd.read_csv(join(this_dir, "agora.csv"))
 agora["file"] = agora["id"] + ".xml"
 
 
-def test_taxonomy(n=5):
+def test_taxonomy(n=4):
     """Create a simple test taxonomy.
 
     Parameters
     ----------
     n : positive int
-        How many species to include, maximum 3.
+        How many species to include.
 
     Returns
     -------

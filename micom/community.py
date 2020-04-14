@@ -269,7 +269,8 @@ class Community(cobra.Model):
             )
             self.solver.update()  # to avoid dangling refs due to lazy add
 
-        tdir.cleanup()
+        if model_db is not None:
+            tdir.cleanup()
         com_obj = add_var_from_expression(
             self, "community_objective", obj, lb=0
         )

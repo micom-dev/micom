@@ -17,8 +17,11 @@ from micom.util import (
 from micom.logger import logger
 from micom.optcom import optcom, solve
 from micom.problems import cooperative_tradeoff, knockout_species
+from micom.qiime_formats import load_model_db
+from tempfile import TemporaryDirectory
 
-_taxonomy_cols = ["id", "file"]
+_ranks = ["kingdom", "phylum", "class", "order", "family",
+          "genus", "species", "strain"]
 
 cobra.io.sbml.LOGGER.setLevel("ERROR")
 
@@ -35,6 +38,7 @@ class Community(cobra.Model):
     def __init__(
         self,
         taxonomy,
+        model_db=None,
         id=None,
         name=None,
         rel_threshold=1e-6,
@@ -50,6 +54,21 @@ class Community(cobra.Model):
         additional information such as annotations for the individuals (for
         instance phylum, organims or species) and abundances.
 
+        The recommended way to build a micom model is to supply a
+        quantification of taxa (called "taxonomy" here) which specifies the
+        taxonomic ranks for a taxon and its abundance, and a model database
+        fro a specific rank (for instance "genus"). MICOM will match the
+        ranks from your taxonomy to the model database and assemble the
+        community models from that. You will also get information about the
+        construction process by calling `Community.build_metrics`.
+
+        The most customizable way only takes a single table where summarization
+        and matching to the reference database has already occured. In this
+        case you will also provide paths to model files for each taxon. This is
+        the "old" way but may still be applicable if you want to use a custom
+        database or want full control of matching your data to reference
+        models.
+
         Notes
         -----
         `micom` will automatically add exchange fluxes and and a community
@@ -59,12 +78,20 @@ class Community(cobra.Model):
         ----------
         taxonomy : pandas.DataFrame
             The taxonomy used for building the model. Must have at least the
-            two columns "id" and "file" which specify an ID and the filepath
+            column "id". If no model database is specified in the next argument
+            it furthermore requires a column "file" which specifies a filepath
             for each model. Valid file extensions are ".pickle", ".xml",
-            ".xml.gz" and ".json". If the taxonomy includes a column named
-            "abundance" it will be used to quantify each individual in the
-            community. If absent `micom` will assume all individuals are
-            present in the same amount.
+            ".xml.gz" and ".json". If a model database is specified this must
+            contain at least a column with the same name as the rank used in
+            the model database. Thus, for a genus-level database you will need
+            a column `genus`. Additional taxa ranks can also be specified and
+            will be used to be more stringent in taxa matching.
+            Finally, the taxonomy should contain a column `abundance`. It will
+            be used to quantify each individual in the community. If absent,
+            MICOM will assume all individuals are present in the same amount.
+        model_db : str
+            A pre-built model database. Must be a Qiime 2 artifact of type
+            `MetabolicModels[JSON]`.
         id : str, optional
             The ID for the community. Should only contain letters and numbers,
             otherwise it will be formatted as such.
@@ -102,10 +129,10 @@ class Community(cobra.Model):
 
         logger.info("building new micom model {}.".format(id))
         if not solver:
-            solver = (
-                "cplex" if "cplex" in cobra.util.solver.solvers else
-                "gurobi" if "gurobi" in cobra.util.solver.solvers else "glpk"
-            )
+            solver = [
+                s for s in ["cplex", "osqp", "gurobi", "glpk"]
+                if s in cobra.util.solver.solvers
+                ][0]
         logger.info("using the %s solver." % solver)
         if solver == "glpk":
             logger.warning(
@@ -113,21 +140,11 @@ class Community(cobra.Model):
                 "in MICOM will require a QP solver :/"
             )
         self.solver = solver
-        adjust_solver_config(self.solver)
-
-        if not (
-            isinstance(taxonomy, pd.DataFrame)
-            and all(col in taxonomy.columns for col in _taxonomy_cols)
-        ):
-            raise ValueError(
-                "`taxonomy` must be a pandas DataFrame with at"
-                "least columns id and file :("
-            )
-
         self._rtol = rel_threshold
         self._modification = None
         self.mass = mass
-
+        self.__db_metrics = None
+        adjust_solver_config(self.solver)
         taxonomy = taxonomy.copy()
         if "abundance" not in taxonomy.columns:
             taxonomy["abundance"] = 1
@@ -138,10 +155,57 @@ class Community(cobra.Model):
             )
         )
         taxonomy = taxonomy[taxonomy.abundance > self._rtol]
+
+        if not (
+            isinstance(taxonomy, pd.DataFrame)
+            and "id" in taxonomy.columns
+        ):
+            raise ValueError(
+                "`taxonomy` must be a pandas DataFrame with at"
+                "least a column `id` :("
+            )
+        if model_db is None and "file" not in taxonomy.columns:
+            raise ValueError(
+                "If no model database is specified you need to pass "
+                "file names for models in a `file` column as well."
+            )
+        if model_db is not None:
+            tdir = TemporaryDirectory(prefix="micom_")
+            if "file" in taxonomy.columns:
+                del taxonomy["file"]
+            manifest = load_model_db(model_db, tdir.name)
+            rank = manifest["summary_rank"][0]
+            if rank not in taxonomy.columns:
+                raise ValueError(
+                    "Missing the column `%s` from the taxonomy." % rank
+                )
+            keep_cols = [
+                r for r in _ranks[0:(_ranks.index(rank) + 1)]
+                if r in taxonomy.columns and r in manifest.columns
+            ]
+            manifest = manifest[keep_cols + ["file"]]
+            merged = pd.merge(taxonomy, manifest, on=keep_cols)
+            self.__db_metrics = pd.Series({
+                "found_taxa": merged.shape[0],
+                "total_taxa": taxonomy.shape[0],
+                "found_fraction": merged.shape[0] / taxonomy.shape[0],
+                "found_abundance_fraction": merged.abundance.sum()
+            })
+            logger.info("Matched %g%% of total abundance in model DB." %
+                        self.__db_metrics[3] * 100.0)
+            if self.__db_metrics["found_abundance_fraction"] < 0.5:
+                logger.warning(
+                    "Less than 50%% of the abundance could be matched to the "
+                    "model database. Model `%s` may not be representative "
+                    "of the sample" % self.name
+                )
+            taxonomy = merged
+            taxonomy["abundance"] /= taxonomy["abundance"].sum()
+
         if taxonomy.id.str.contains(r"[^A-Za-z0-9_]", regex=True).any():
             logger.warning(
-                "taxonomy IDs contain prohibited characters and"
-                " will be reformatted"
+                "Taxa IDs contain prohibited characters and"
+                " will be reformatted."
             )
             taxonomy.id = taxonomy.id.replace(
                 [r"[^A-Za-z0-9_\s]", r"\s+"], ["", "_"], regex=True
@@ -205,6 +269,7 @@ class Community(cobra.Model):
             )
             self.solver.update()  # to avoid dangling refs due to lazy add
 
+        tdir.cleanup()
         com_obj = add_var_from_expression(
             self, "community_objective", obj, lb=0
         )
@@ -506,6 +571,20 @@ class Community(cobra.Model):
         """
         return cobra.medium.find_boundary_types(self, "exchange", "m")
 
+    @property
+    def build_metrics(self):
+        """pd.Series: Returns general metrics for database matching.
+
+        Only available when built using a model database.
+        """
+        if self.__db_metrics is not None:
+            return self.__db_metrics
+        else:
+            raise ValueError(
+                "Metrics are only available for models build using a model "
+                "database :("
+            )
+
     def optcom(
         self, strategy="lagrangian", min_growth=0.0, fluxes=False, pfba=True
     ):
@@ -672,23 +751,3 @@ class Community(cobra.Model):
         """
         with open(filename, mode="wb") as out:
             pickle.dump(self, out, protocol=2)
-
-
-def load_pickle(filename):
-    """Load a community model from a pickled version.
-
-    Parameters
-    ----------
-    filename : str
-        The file the community is stored in.
-
-    Returns
-    -------
-    micom.Community
-        The loaded community model.
-
-    """
-    with open(filename, mode="rb") as infile:
-        mod = pickle.load(infile)
-        adjust_solver_config(mod.solver)
-        return mod

@@ -56,6 +56,26 @@ def load_model(filepath):
     return model
 
 
+def load_pickle(filename):
+    """Load a community model from a pickled version.
+
+    Parameters
+    ----------
+    filename : str
+        The file the community is stored in.
+
+    Returns
+    -------
+    micom.Community
+        The loaded community model.
+
+    """
+    with open(filename, mode="rb") as infile:
+        mod = pickle.load(infile)
+        adjust_solver_config(mod.solver)
+        return mod
+
+
 def serialize_models(files, dir="."):
     """Convert several models to Python pickles."""
     for f in files:

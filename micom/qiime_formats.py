@@ -25,7 +25,7 @@ def metadata(artifact):
         return meta
 
 
-def load_model_db(artifact, extract_path):
+def load_qiime_model_db(artifact, extract_path):
     """Prepare a model database for use."""
     if not path.exists(extract_path):
         os.mkdir(extract_path)
@@ -38,12 +38,12 @@ def load_model_db(artifact, extract_path):
     manifest = pd.read_csv(
         path.join(extract_path, uuid, "data", "manifest.csv"))
     manifest["file"] = [
-        path.join(extract_path, uuid, "data", id) + ".json"
-        for id in manifest.id]
+        path.join(extract_path, uuid, "data", f)
+        for f in manifest.file]
     return manifest
 
 
-def load_manifest(artifact):
+def load_qiime_manifest(artifact):
     """Prepare community models for use."""
     meta = metadata(artifact)
     if meta["type"] != "CommunityModels[Pickle]":
@@ -87,4 +87,3 @@ def load_medium(artifact):
         medium = pd.read_csv(
             path.join(str(td), uuid, "data", "medium.csv"))
     return medium
-

@@ -4,6 +4,7 @@ from micom.community import Community
 from micom.util import load_pickle
 from micom import (
     algorithms,
+    db,
     problems,
     util,
     data,
@@ -20,6 +21,7 @@ from micom import (
 __all__ = (
     "Community",
     "algorithms",
+    "db",
     "problems",
     "optcom",
     "util",

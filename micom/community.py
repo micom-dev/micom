@@ -7,6 +7,7 @@ import cobra
 import pandas as pd
 from optlang.symbolics import Zero
 from tqdm import tqdm
+from micom.db import load_zip_model_db, load_manifest
 from micom.util import (
     load_model,
     join_models,
@@ -17,7 +18,7 @@ from micom.util import (
 from micom.logger import logger
 from micom.optcom import optcom, solve
 from micom.problems import cooperative_tradeoff, knockout_species
-from micom.qiime_formats import load_model_db
+from micom.qiime_formats import load_qiime_model_db
 from tempfile import TemporaryDirectory
 
 _ranks = ["kingdom", "phylum", "class", "order", "family",
@@ -57,7 +58,7 @@ class Community(cobra.Model):
         The recommended way to build a micom model is to supply a
         quantification of taxa (called "taxonomy" here) which specifies the
         taxonomic ranks for a taxon and its abundance, and a model database
-        fro a specific rank (for instance "genus"). MICOM will match the
+        for a specific rank (for instance "genus"). MICOM will match the
         ranks from your taxonomy to the model database and assemble the
         community models from that. You will also get information about the
         construction process by calling `Community.build_metrics`.
@@ -169,11 +170,19 @@ class Community(cobra.Model):
                 "If no model database is specified you need to pass "
                 "file names for models in a `file` column as well."
             )
+        compressed = False
         if model_db is not None:
-            tdir = TemporaryDirectory(prefix="micom_")
+            compressed = model_db.endswith(".qza") or model_db.endswith(".zip")
+            if compressed:
+                tdir = TemporaryDirectory(prefix="micom_")
             if "file" in taxonomy.columns:
                 del taxonomy["file"]
-            manifest = load_model_db(model_db, tdir.name)
+            if model_db.endswith(".qza"):
+                manifest = load_qiime_model_db(model_db, tdir.name)
+            elif model_db.endswith(".zip"):
+                manifest = load_zip_model_db(model_db, tdir.name)
+            else:
+                manifest = load_manifest(model_db)
             rank = manifest["summary_rank"][0]
             if rank not in taxonomy.columns:
                 raise ValueError(
@@ -192,7 +201,7 @@ class Community(cobra.Model):
                 "found_abundance_fraction": merged.abundance.sum()
             })
             logger.info("Matched %g%% of total abundance in model DB." %
-                        self.__db_metrics[3] * 100.0)
+                        (100.0 * self.__db_metrics[3]))
             if self.__db_metrics["found_abundance_fraction"] < 0.5:
                 logger.warning(
                     "Less than 50%% of the abundance could be matched to the "
@@ -269,7 +278,7 @@ class Community(cobra.Model):
             )
             self.solver.update()  # to avoid dangling refs due to lazy add
 
-        if model_db is not None:
+        if compressed:
             tdir.cleanup()
         com_obj = add_var_from_expression(
             self, "community_objective", obj, lb=0

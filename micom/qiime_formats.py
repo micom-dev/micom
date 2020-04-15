@@ -67,7 +67,7 @@ def load_qiime_model(artifact, id):
     uuid = meta["uuid"]
     with ZipFile(artifact) as zf, TemporaryDirectory(prefix="micom_") as td:
         try:
-            zf.extract(path.join(uuid, "data", "%s.pickle" % id), str(td))
+            zf.extract("%s/data/%s.pickle" % (uuid, id), str(td))
         except Exception:
             raise ValueError(
                 "Could not extract model with ID `%s` :(. "

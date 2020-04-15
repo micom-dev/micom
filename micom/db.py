@@ -40,7 +40,9 @@ def _summarize_models(args):
     save_json_model(mod, new_path)
 
 
-def build_database(manifest, out_path, rank="genus", threads=1, compress=None):
+def build_database(
+    manifest, out_path, rank="genus", threads=1, compress=None, progress=True
+):
     """Create a model database from a set of SBML files.
 
     Note
@@ -61,6 +63,8 @@ def build_database(manifest, out_path, rank="genus", threads=1, compress=None):
     compress : bool
         Whether to compress the output. Default is True if out_path ends with
         ".zip" otherwise no.
+    progress : bool
+        Whether to show a progress bar.
 
     Returns
     -------
@@ -120,12 +124,12 @@ def load_manifest(folder):
     if not path.exists(mpath):
         raise ValueError(
             "No manifest found. `%s` does not look like a valid "
-            "model database." % folder)
+            "model database." % folder
+        )
     manifest = pd.read_csv(path.join(folder, "manifest.csv"))
     if "file" not in manifest.columns:
         raise ValueError("Invalid manifest for model database :(")
-    manifest.file = [
-        path.join(folder, f) for f in manifest.file]
+    manifest.file = [path.join(folder, f) for f in manifest.file]
     return manifest
 
 
@@ -136,6 +140,5 @@ def load_zip_model_db(artifact, extract_path):
     with ZipFile(artifact) as zf:
         zf.extractall(extract_path)
     manifest = load_manifest(extract_path)
-    manifest["file"] = [
-        path.join(extract_path, f) for f in manifest.file]
+    manifest["file"] = [path.join(extract_path, f) for f in manifest.file]
     return manifest

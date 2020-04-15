@@ -9,7 +9,8 @@ from ruamel.yaml import YAML
 from tempfile import TemporaryDirectory
 
 yaml = YAML()
-
+_has_manifest = ["CommunityModels[Pickle]", "MetabolicModels[JSON]",
+                 "MetabolicModels[SBML]"]
 
 def metadata(artifact):
     """Read metadata from a Qiime 2 artifact."""
@@ -46,9 +47,9 @@ def load_qiime_model_db(artifact, extract_path):
 def load_qiime_manifest(artifact):
     """Prepare community models for use."""
     meta = metadata(artifact)
-    if meta["type"] != "CommunityModels[Pickle]":
+    if meta["type"] not in _has_manifest:
         raise ValueError(
-            "%s is not a q2-micom community model collection :(" % artifact)
+            "%s is not a supported q2-micom artifact :(" % artifact)
     uuid = meta["uuid"]
     with ZipFile(artifact) as zf,  TemporaryDirectory(prefix="micom_") as td:
         zf.extract(path.join(uuid, "data", "manifest.csv"), str(td))
@@ -57,7 +58,7 @@ def load_qiime_manifest(artifact):
     return manifest
 
 
-def load_model(artifact, id):
+def load_qiime_model(artifact, id):
     """Load a model from a Qiime 2 artifact."""
     meta = metadata(artifact)
     if meta["type"] != "CommunityModels[Pickle]":
@@ -75,7 +76,7 @@ def load_model(artifact, id):
     return model
 
 
-def load_medium(artifact):
+def load_qiime_medium(artifact):
     """Load a growth medium/diet from a Qiime 2 artifact."""
     meta = metadata(artifact)
     if not meta["type"].startswith("MicomMedium["):

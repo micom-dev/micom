@@ -5,6 +5,7 @@ from optlang.symbolics import Zero
 import numpy as np
 import pandas as pd
 from cobra.util import get_context
+from micom import Community
 from micom.util import (
     _format_min_growth,
     _apply_min_growth,
@@ -255,7 +256,12 @@ def complete_medium(
             add_mip_obj(model, candidates)
         else:
             add_linear_obj(model, candidates)
-        sol = model.optimize()
+        if isinstance(model, Community):
+            sol = model.optimize(fluxes=True, pfba=False)
+            fluxes = sol.fluxes.loc["medium", :]
+        else:
+            sol = model.optimize()
+            fluxes = sol.fluxes
     completed = pd.Series()
     for rxn in model.exchanges:
         export = len(rxn.reactants) == 1
@@ -263,7 +269,7 @@ def complete_medium(
             completed[rxn.id] = medium[rxn.id]
             continue
         else:
-            flux = sol.fluxes.loc[rxn.id]
+            flux = fluxes[rxn.id]
         if abs(flux) < tol:
             continue
         completed[rxn.id] = max_import

@@ -19,7 +19,7 @@ def _consume(processes, queue, results, max_procs):
     return results, processes
 
 
-def workflow(func, args, n_jobs=4, unit="sample(s)"):
+def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):
     """Run analyses for several samples in parallel.
 
     This will analyze several samples in parallel. Includes a workaround for
@@ -37,6 +37,8 @@ def workflow(func, args, n_jobs=4, unit="sample(s)"):
         How many samples to analyze in parallel at once.
     unit : str
         The unit used for the progress bar.
+    progress : bool
+        Whether to show a progress bar.
     """
     if not isinstance(args, Sized):
         ValueError("`args` must have a length.")
@@ -45,7 +47,10 @@ def workflow(func, args, n_jobs=4, unit="sample(s)"):
     processes = []
     q = Queue()
 
-    for arg in tqdm(args, unit=unit):
+    if progress:
+        args = tqdm(args, unit=unit)
+
+    for arg in args:
         p = Process(target=_process, args=(func, arg, q))
         p.start()
         processes.append(p)

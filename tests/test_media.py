@@ -5,27 +5,44 @@ import numpy as np
 import micom.media as media
 
 
-class TestMinimalMedia:
+def test_medium_linear(community):
+    medium = media.minimal_medium(community, 0.8, 0.1)
+    assert len(medium) <= 4
+    assert all(medium > 1e-9)
 
-    def test_medium_linear(self, community):
-        medium = media.minimal_medium(community, 0.8, 0.1)
-        assert len(medium) <= 4
-        assert all(medium > 1e-9)
 
-    def test_medium_mip(self, community):
-        medium = media.minimal_medium(community, 0.8, 0.1,
-                                      minimize_components=True)
-        assert len(medium) <= 4
-        assert all(medium > 1e-9)
+def test_medium_mip(community):
+    medium = media.minimal_medium(community, 0.8, 0.1,
+                                    minimize_components=True)
+    assert len(medium) <= 4
+    assert all(medium > 1e-9)
 
-        # Anaerobic growth
-        medium = media.minimal_medium(community, 0.1, 0.1,
-                                      minimize_components=True)
-        assert len(medium) <= 3
-        assert all(medium > 1e-9)
+    # Anaerobic growth
+    medium = media.minimal_medium(community, 0.1, 0.1,
+                                    minimize_components=True)
+    assert len(medium) <= 3
+    assert all(medium > 1e-9)
 
-    def test_benchmark_medium_linear(self, community, benchmark):
-        benchmark(media.minimal_medium, community, 0.8, 0.1)
 
-    def test_benchmark_medium_mip(self, community, benchmark):
-        benchmark(media.minimal_medium, community, 0.8, 0.1, True)
+def test_complete(community):
+    m = media.minimal_medium(community, 0.8, 0.1,
+                             minimize_components=True)
+    medium = media.complete_medium(community, m[0:2], 0.8, max_import=20)
+    assert len(medium) > 2
+
+
+def test_complete_mip(community):
+    m = media.minimal_medium(community, 0.8, 0.1,
+                             minimize_components=True)
+    print(m)
+    medium = media.complete_medium(community, m[0:2], 0.8, max_import=20,
+                                   minimize_components=True)
+    assert len(medium) > 2
+
+
+def test_benchmark_medium_linear(community, benchmark):
+    benchmark(media.minimal_medium, community, 0.8, 0.1)
+
+
+def test_benchmark_medium_mip(community, benchmark):
+    benchmark(media.minimal_medium, community, 0.8, 0.1, True)

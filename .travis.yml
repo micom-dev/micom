@@ -5,11 +5,13 @@ python:
     - 3.6
     - 3.7
 
+cache: pip
+
 before_install:
     - pip install pytest pytest-cov pytest-benchmark codecov
 
 install:
-    - pip install cplex python-libsbml-experimental
+    - pip install cplex symengine python-libsbml-experimental
     - pip install -e .
 
 script:

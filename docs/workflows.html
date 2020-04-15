@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Workflows &#8212; micom 0.10.5 documentation</title>
+    <title>Workflows &#8212; micom 0.11.0 documentation</title>
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -42,7 +42,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.10.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.11.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -337,7 +337,7 @@ memory leaks in optlang which improves memory usage. As a rule of thumb for each
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">micom.data</span> <span class="k">import</span> <span class="n">test_taxonomy</span>
+<span></span><span class="kn">from</span> <span class="nn">micom.data</span> <span class="kn">import</span> <span class="n">test_taxonomy</span>
 
 <span class="n">taxonomies</span> <span class="o">=</span> <span class="p">[</span><span class="n">test_taxonomy</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">)]</span>
 <span class="n">taxonomies</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
@@ -422,7 +422,7 @@ memory leaks in optlang which improves memory usage. As a rule of thumb for each
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">micom</span> <span class="k">import</span> <span class="n">Community</span>
+<span></span><span class="kn">from</span> <span class="nn">micom</span> <span class="kn">import</span> <span class="n">Community</span>
 
 <span class="k">def</span> <span class="nf">run_tradeoff</span><span class="p">(</span><span class="n">tax</span><span class="p">):</span>
     <span class="n">com</span> <span class="o">=</span> <span class="n">Community</span><span class="p">(</span><span class="n">tax</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -437,7 +437,7 @@ memory leaks in optlang which improves memory usage. As a rule of thumb for each
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">micom.workflows</span> <span class="k">import</span> <span class="n">workflow</span>
+<span></span><span class="kn">from</span> <span class="nn">micom.workflows</span> <span class="kn">import</span> <span class="n">workflow</span>
 
 <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">run_tradeoff</span><span class="p">,</span> <span class="n">taxonomies</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>

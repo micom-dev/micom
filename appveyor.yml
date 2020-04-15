@@ -4,8 +4,13 @@ environment:
     PIP_CACHE_DIR: "pip_cache"
 
   matrix:
-    - PYTHON: "C:\\Miniconda36-x64"
-    - PYTHON: "C:\\Miniconda37-x64"
+    # For Python versions available on Appveyor, see
+    # http://www.appveyor.com/docs/installed-software#python
+    # The list here is complete (excluding Python 2.6, which
+    # isn't covered by this document) at the time of writing.
+
+    - PYTHON: "C:\\Python35"
+    - PYTHON: "C:\\Python37"
 
 matrix:
   fast_finish: true
@@ -20,13 +25,19 @@ build: off
 install:
   # We need wheel installed to build wheels
   - set PATH=%PYTHON%;%PYTHON%\Scripts;%PYTHON%\Library\bin;%PATH%
-  - set CONDA_ALWAYS_YES=true
-  - "ECHO %PYTHON%"
+  - echo %PYTHON%
   - python --version
   - python -m pip install -U pip
   - python -m pip install wheel pytest pytest-benchmark
-  - conda install -c ibmdecisionoptimization cplex
+  - python -m pip install cplex
   - python -m pip install .
 
 test_script:
+  # Put your test command here.
+  # If you don't need to build C extensions on 64-bit Python 3.3 or 3.4,
+  # you can remove "build.cmd" from the front of the command, as it's
+  # only needed to support those cases.
+  # Note that you must use the environment variable %PYTHON% to refer to
+  # the interpreter you're using - Appveyor does not do anything special
+  # to put the Python evrsion you want to use on PATH.
   - py.test --benchmark-skip

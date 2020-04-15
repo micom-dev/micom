@@ -3,9 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to MICOM
-================
-
+.. image:: https://github.com/micom-dev/micom/raw/master/docs/source/_static/micom.png
+    :width: 640 px
 
 |travis status| |appveyor status| |coverage| |pypi status|
 

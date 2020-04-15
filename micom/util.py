@@ -195,7 +195,7 @@ def check_modification(community):
         )
 
 
-def _format_min_growth(min_growth, species):
+def _format_min_growth(min_growth, taxa):
     """Format min_growth into a pandas series.
 
     Arguments
@@ -203,7 +203,7 @@ def _format_min_growth(min_growth, species):
     min_growth : positive float or array-like object.
         The minimum growth rate for each individual in the community. Either
         a single value applied to all individuals or one value for each.
-    species : array-like
+    taxa : array-like
         The ID for each individual model in the community.
 
     Returns
@@ -215,12 +215,12 @@ def _format_min_growth(min_growth, species):
     try:
         min_growth = float(min_growth)
     except (TypeError, ValueError):
-        if len(min_growth) != len(species):
+        if len(min_growth) != len(taxa):
             raise ValueError(
                 "min_growth must be single value or an array-like "
-                "object with an entry for each species in the model."
+                "object with an entry for each taxon in the model."
             )
-    return pd.Series(min_growth, species)
+    return pd.Series(min_growth, taxa)
 
 
 def _apply_min_growth(community, min_growth):
@@ -230,12 +230,12 @@ def _apply_min_growth(community, min_growth):
     """
     context = get_context(community)
 
-    def reset(species, lb):
-        logger.info("resetting growth rate constraint for %s" % species)
-        community.constraints["objective_" + species].ub = None
-        community.constraints["objective_" + species].lb = lb
+    def reset(taxon, lb):
+        logger.info("resetting growth rate constraint for %s" % taxon)
+        community.constraints["objective_" + taxon].ub = None
+        community.constraints["objective_" + taxon].lb = lb
 
-    for sp in community.species:
+    for sp in community.taxa:
         logger.info("setting growth rate constraint for %s" % sp)
         obj = community.constraints["objective_" + sp]
         if context:

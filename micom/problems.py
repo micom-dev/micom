@@ -55,9 +55,9 @@ def regularize_l2_norm(community, min_growth):
     if context is not None:
         context(partial(reset_min_community_growth, community))
 
-    for sp in community.species:
-        species_obj = community.constraints["objective_" + sp]
-        ex = sum(v for v in species_obj.variables if (v.ub - v.lb) > 1e-6)
+    for sp in community.taxa:
+        taxa_obj = community.constraints["objective_" + sp]
+        ex = sum(v for v in taxa_obj.variables if (v.ub - v.lb) > 1e-6)
         l2 += (1000.0 * (ex ** 2)).expand()
     community.objective = -l2
     community.modification = "l2 regularization"
@@ -68,7 +68,7 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
     """Find the best tradeoff between community and individual growth."""
     with community as com:
         check_modification(community)
-        min_growth = _format_min_growth(min_growth, community.species)
+        min_growth = _format_min_growth(min_growth, community.taxa)
         _apply_min_growth(community, min_growth)
 
         com.objective = 1000.0 * com.variables.community_objective
@@ -101,13 +101,13 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         )
 
 
-def knockout_species(
-    community, species, fraction, method, progress, diag=True
+def knockout_taxa(
+    community, taxa, fraction, method, progress, diag=True
 ):
-    """Knockout a species from the community."""
+    """Knockout a taxon from the community."""
     with community as com:
         check_modification(com)
-        min_growth = _format_min_growth(0.0, com.species)
+        min_growth = _format_min_growth(0.0, com.taxa)
         _apply_min_growth(com, min_growth)
 
         com.objective = 1000.0 * com.variables.community_objective
@@ -120,8 +120,8 @@ def knockout_species(
         results = []
 
         if progress:
-            species = tqdm(species, unit="knockout(s)")
-        for sp in species:
+            taxa = tqdm(taxa, unit="knockout(s)")
+        for sp in taxa:
             with com:
                 logger.info("getting growth rates for " "%s knockout." % sp)
                 [
@@ -139,7 +139,7 @@ def knockout_species(
                     new /= old
                 results.append(new)
 
-        ko = pd.DataFrame(results, index=species).drop("medium", 1)
+        ko = pd.DataFrame(results, index=taxa).drop("medium", 1)
         if not diag:
             np.fill_diagonal(ko.values, np.NaN)
 

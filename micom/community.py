@@ -17,7 +17,7 @@ from micom.util import (
 )
 from micom.logger import logger
 from micom.optcom import optcom, solve
-from micom.problems import cooperative_tradeoff, knockout_species
+from micom.problems import cooperative_tradeoff, knockout_taxa
 from micom.qiime_formats import load_qiime_model_db
 from tempfile import TemporaryDirectory
 
@@ -122,8 +122,8 @@ class Community(cobra.Model):
 
         Attributes
         ----------
-        species : list
-            A list of species IDs in the community.
+        taxa : list
+            A list of taxa IDs in the community.
 
         """
         super(Community, self).__init__(id, name)
@@ -224,7 +224,7 @@ class Community(cobra.Model):
         self.__taxonomy.index = self.__taxonomy.id
 
         obj = Zero
-        self.species = []
+        self.taxa = []
         index = self.__taxonomy.index
         index = tqdm(index, unit="models") if progress else index
         for idx in index:
@@ -265,11 +265,11 @@ class Community(cobra.Model):
                 model.objective, model=self.solver
             )
             obj += o.expression * row.abundance
-            self.species.append(idx)
-            species_obj = self.problem.Constraint(
+            self.taxa.append(idx)
+            taxa_obj = self.problem.Constraint(
                 o.expression, name="objective_" + idx, lb=0.0
             )
-            self.add_cons_vars([species_obj])
+            self.add_cons_vars([taxa_obj])
             self.__add_exchanges(
                 model.reactions,
                 row,
@@ -395,10 +395,10 @@ class Community(cobra.Model):
         const = self.constraints.community_objective_equality
         self.remove_cons_vars([const])
         com_obj = Zero
-        for sp in self.species:
+        for sp in self.taxa:
             ab = self.__taxonomy.loc[sp, "abundance"]
-            species_obj = self.constraints["objective_" + sp]
-            com_obj += ab * species_obj.expression
+            taxa_obj = self.constraints["objective_" + sp]
+            com_obj += ab * taxa_obj.expression
         const = self.problem.Constraint(
             (v - com_obj).expand(),
             lb=0,
@@ -429,7 +429,7 @@ class Community(cobra.Model):
         Returns
         -------
         float
-            The maximal growth rate for the given species.
+            The maximal growth rate for the given taxa.
 
         """
         if isinstance(id, six.string_types):
@@ -470,7 +470,7 @@ class Community(cobra.Model):
         Returns
         -------
         pandas.Series
-            The maximal growth rate for each species.
+            The maximal growth rate for each taxa.
 
         """
         index = self.__taxonomy.index
@@ -535,7 +535,7 @@ class Community(cobra.Model):
         except Exception:
             raise ValueError(
                 "value must be an iterable with an entry for "
-                "each species/tissue"
+                "each taxa/tissue"
             )
 
         logger.info("setting new abundances for %s" % self.id)
@@ -658,7 +658,7 @@ class Community(cobra.Model):
         """Find the best tradeoff between community and individual growth.
 
         Finds the set of growth rates which maintian a particular community
-        growth and spread up growth across all species as much as possible.
+        growth and spread up growth across all taxa as much as possible.
         This is done by minimizing the L2 norm of the growth rates with a
         minimal community growth.
 
@@ -688,15 +688,15 @@ class Community(cobra.Model):
         """
         return cooperative_tradeoff(self, min_growth, fraction, fluxes, pfba)
 
-    def knockout_species(
+    def knockout_taxa(
         self,
-        species=None,
+        taxa=None,
         fraction=1.0,
         method="change",
         progress=True,
         diag=True,
     ):
-        """Sequentially knowckout a list of species in the model.
+        """Sequentially knowckout a list of taxa in the model.
 
         This uses cooperative tradeoff as optimization criterion in order to
         get unqiue solutions for individual growth rates. Requires a QP
@@ -704,8 +704,8 @@ class Community(cobra.Model):
 
         Parameters
         ----------
-        species : str or list of strs
-            Names of species to be knocked out.
+        taxa : str or list of strs
+            Names of taxa to be knocked out.
         fraction : float in [0, 1], optional
             Percentage of the maximum community growth rate that has to be
             maintained. Defaults to 100%.
@@ -723,18 +723,18 @@ class Community(cobra.Model):
         -------
         pandas.DataFrame
             A data frame with one row for each knockout and growth rates in the
-            columns. Here the row name indicates which species has been knocked
-            out and the columns contain the growth changes for all species in
+            columns. Here the row name indicates which taxon has been knocked
+            out and the columns contain the growth changes for all taxa in
             that knockout.
 
         """
-        if species is None:
-            species = self.species
-        if isinstance(species, six.string_types):
-            species = [species]
-        if any(sp not in self.species for sp in species):
+        if taxa is None:
+            taxa = self.taxa
+        if isinstance(taxa, six.string_types):
+            taxa = [taxa]
+        if any(sp not in self.taxa for sp in taxa):
             raise ValueError(
-                "At least one of the arguments is not a species "
+                "At least one of the arguments is not a taxon "
                 "in the community."
             )
         if method not in ["raw", "change", "relative change"]:
@@ -742,8 +742,8 @@ class Community(cobra.Model):
                 "`method` must be one of 'raw', 'change', "
                 "or 'relative change'."
             )
-        return knockout_species(
-            self, species, fraction, method, progress, diag
+        return knockout_taxa(
+            self, taxa, fraction, method, progress, diag
         )
 
     def to_pickle(self, filename):

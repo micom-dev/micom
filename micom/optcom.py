@@ -39,7 +39,7 @@ def add_dualized_optcom(community, min_growth):
     """
     logger.info("adding dual optcom to %s" % community.id)
     check_modification(community)
-    min_growth = _format_min_growth(min_growth, community.species)
+    min_growth = _format_min_growth(min_growth, community.taxa)
 
     prob = community.solver.interface
 
@@ -47,15 +47,15 @@ def add_dualized_optcom(community, min_growth):
     # for correct dual variables
     old_obj = community.objective
     community.objective = Zero
-    for sp in community.species:
-        species_obj = community.constraints["objective_" + sp]
-        community.objective += species_obj.expression
+    for sp in community.taxa:
+        taxa_obj = community.constraints["objective_" + sp]
+        community.objective += taxa_obj.expression
 
     _apply_min_growth(community, min_growth)
     dual_coefs = fast_dual(community)
 
-    logger.info("adding expressions for %d species" % len(community.species))
-    for sp in community.species:
+    logger.info("adding expressions for %d taxa" % len(community.taxa))
+    for sp in community.taxa:
         primal_const = community.constraints["objective_" + sp]
         coefs = primal_const.get_linear_coefficients(primal_const.variables)
         coefs.update(
@@ -109,7 +109,7 @@ def add_moma_optcom(community, min_growth, linear=False):
         % ("linear" if linear else "quadratic", community.id)
     )
     check_modification(community)
-    min_growth = _format_min_growth(min_growth, community.species)
+    min_growth = _format_min_growth(min_growth, community.taxa)
 
     prob = community.solver.interface
     old_obj = community.objective
@@ -128,12 +128,12 @@ def add_moma_optcom(community, min_growth, linear=False):
     community.solver.update()
     obj_constraint.set_linear_coefficients(coefs)
     obj_expr = Zero
-    logger.info("adding expressions for %d species" % len(community.species))
-    for sp in community.species:
+    logger.info("adding expressions for %d taxa" % len(community.taxa))
+    for sp in community.taxa:
         v = prob.Variable("gc_constant_" + sp, lb=max_gcs[sp], ub=max_gcs[sp])
         community.add_cons_vars([v])
-        species_obj = community.constraints["objective_" + sp]
-        ex = v - species_obj.expression
+        taxa_obj = community.constraints["objective_" + sp]
+        ex = v - taxa_obj.expression
         if not linear:
             ex = ex ** 2
         obj_expr += ex.expand()

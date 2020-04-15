@@ -149,7 +149,7 @@ def minimal_medium(
         open_bound = 1000
     else:
         open_bound = open_exchanges
-    min_growth = _format_min_growth(min_growth, community.species)
+    min_growth = _format_min_growth(min_growth, community.taxa)
     with community as com:
         if open_exchanges:
             logger.info(

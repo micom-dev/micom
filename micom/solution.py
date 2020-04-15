@@ -25,9 +25,9 @@ good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL, ITERATION_LIMIT]
 """Solver states that permit returning the solution."""
 
 
-def _group_species(values, ids, species, what="reaction"):
-    """Format a list of values by id and species."""
-    df = pd.DataFrame({values.name: values, what: ids, "compartment": species})
+def _group_taxa(values, ids, taxa, what="reaction"):
+    """Format a list of values by id and taxa."""
+    df = pd.DataFrame({values.name: values, what: ids, "compartment": taxa})
     df = df.pivot(index="compartment", columns=what, values=values.name)
     df.name = values.name
     return df
@@ -53,17 +53,17 @@ class CommunitySolution(Solution):
     fluxes : pandas.DataFrame
         Contains the reaction fluxes (primal values of variables) stratified
         by compartment. Columns denote individual fluxes and rows denote
-        compartments: one for every species plus one for the external medium.
+        compartments: one for every taxon plus one for the external medium.
         Fluxes will be NA if the reaction does not exist in the organism.
     reduced_costs : pandas.Series
         Contains reaction reduced costs (dual values of variables) stratified
-        by species. Columns denote individual fluxes and rows denote species.
+        by taxa. Columns denote individual fluxes and rows denote taxa.
         Reduced costs will be NA if the reaction does not exist in the
         organism.
     shadow_prices : pandas.Series
         Contains metabolite shadow prices (dual values of constraints)
-        stratified by species. Columns denote individual metabolites and rows
-        denote species. Shadow prices will be NA if the metabolite does not
+        stratified by taxa. Columns denote individual metabolites and rows
+        denote taxa. Shadow prices will be NA if the metabolite does not
         exist in the organism.
 
     """
@@ -90,7 +90,7 @@ class CommunitySolution(Solution):
             super(CommunitySolution, self).__init__(
                 community.solver.objective.value,
                 community.solver.status,
-                _group_species(fluxes, rids[:, 0], rids[:, 1]),
+                _group_taxa(fluxes, rids[:, 0], rids[:, 1]),
                 None,
                 None,
             )
@@ -103,7 +103,7 @@ class CommunitySolution(Solution):
                 None,
             )
         gcs = pd.Series()
-        for sp in community.species:
+        for sp in community.taxa:
             gcs[sp] = community.constraints["objective_" + sp].primal
         # Workaround for an optlang bug (PR #120)
         if interface_to_str(community.problem) == "gurobi":
@@ -167,10 +167,10 @@ def add_pfba_objective(community):
     # Fix all growth rates
     rates = {
         sp: community.constraints["objective_" + sp].primal
-        for sp in community.species
+        for sp in community.taxa
     }
     rates["community"] = community.variables["community_objective"].primal
-    for sp in community.species:
+    for sp in community.taxa:
         const = community.constraints["objective_" + sp]
         const.lb = const.ub = rates[sp]
     community_obj = community.variables["community_objective"]
@@ -193,7 +193,7 @@ def add_pfba_objective(community):
 
 
 def solve(community, fluxes=True, pfba=True, raise_error=False):
-    """Get all fluxes stratified by species."""
+    """Get all fluxes stratified by taxa."""
     community.solver.optimize()
     status = community.solver.status
     if status in good:
@@ -224,8 +224,8 @@ def reset_solver(community):
     interface = interface_to_str(community.solver.interface)
     logger.info("resetting solver, hoping for the best.")
     if interface == "cplex":
-        logger.warning("switching cplex LP algorithm to `network`.")
         community.solver.configuration.lp_method = "network"
+        community.solver.configuration.lp_method = "barrier"
     elif interface == "gurobi":
         community.solver.problem.reset()
     elif interface == "glpk":
@@ -258,7 +258,7 @@ def crossover(community, sol, fluxes=False, pfba=False):
         com.variables.community_objective.lb = 0.0
         com.variables.community_objective.ub = com_growth + 1e-6
         com.objective = 1000.0 * com.variables.community_objective
-        for sp in com.species:
+        for sp in com.taxa:
             const = com.constraints["objective_" + sp]
             const.ub = gcs[sp]
         logger.info("finding closest feasible solution")
@@ -268,7 +268,7 @@ def crossover(community, sol, fluxes=False, pfba=False):
             s = com.optimize()
         if s is not None:
             s = CommunitySolution(com, slim=not fluxes)
-        for sp in com.species:
+        for sp in com.taxa:
             com.constraints["objective_" + sp].ub = None
     if s is None:
         raise OptimizationError(

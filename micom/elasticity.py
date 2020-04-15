@@ -123,11 +123,11 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     dfs = []
 
     abundance = com.abundances.copy()
-    species = abundance.index
+    taxa = abundance.index
 
     if progress:
-        species = tqdm(species, unit="optimizations")
-    for sp in species:
+        taxa = tqdm(taxa, unit="optimizations")
+    for sp in taxa:
         old = abundance[sp]
         abundance.loc[sp] *= np.exp(STEP)
         com.set_abundance(abundance, normalize=False)

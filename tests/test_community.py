@@ -10,7 +10,7 @@ def test_construction():
     tax = test_taxonomy()
     nr, mr = tax.reactions, tax.metabolites
     com = Community(tax)
-    assert len(com.species) == 4
+    assert len(com.taxa) == 4
     assert len(com.taxonomy) == 4
     assert len(com.reactions) > tax.reactions.sum()
     assert len(com.metabolites) > tax.metabolites.sum()
@@ -25,7 +25,7 @@ def test_abundance_cutoff():
     tax = test_taxonomy(n=3)
     tax["abundance"] = [1.0, 2.0, 1e-6]
     com = Community(tax)
-    assert len(com.species) == 2
+    assert len(com.taxa) == 2
     assert len(com.taxonomy) == 2
 
 

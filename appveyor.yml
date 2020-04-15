@@ -29,7 +29,7 @@ install:
   - python --version
   - python -m pip install -U pip
   - python -m pip install wheel pytest pytest-benchmark
-  - python -m pip install cplex
+  - python -m pip install cplex symengine
   - python -m pip install .
 
 test_script:

@@ -4,15 +4,8 @@ environment:
     PIP_CACHE_DIR: "pip_cache"
 
   matrix:
-    # For Python versions available on Appveyor, see
-    # http://www.appveyor.com/docs/installed-software#python
-    # The list here is complete (excluding Python 2.6, which
-    # isn't covered by this document) at the time of writing.
-
     - PYTHON: "C:\\Miniconda36-x64"
-      TOXENV: py36
     - PYTHON: "C:\\Miniconda37-x64"
-      TOXENV: py37
 
 matrix:
   fast_finish: true
@@ -26,7 +19,8 @@ build: off
 
 install:
   # We need wheel installed to build wheels
-  - set PATH=%PYTHON%;%PYTHON%\Scripts;%PYTHON%\Library\bin;%PATH%"
+  - set PATH=%PYTHON%;%PYTHON%\Scripts;%PYTHON%\Library\bin;%PATH%
+  - set CONDA_ALWAYS_YES=true
   - "ECHO %PYTHON%"
   - python --version
   - python -m pip install -U pip

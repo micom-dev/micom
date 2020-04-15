@@ -84,7 +84,7 @@ def load_qiime_medium(artifact):
             "%s is not a q2-micom medium :(" % artifact)
     uuid = meta["uuid"]
     with ZipFile(artifact) as zf, TemporaryDirectory(prefix="micom_") as td:
-        zf.extract(uuid + "data/medium.csv", str(td))
+        zf.extract(uuid + "/data/medium.csv", str(td))
         medium = pd.read_csv(
             path.join(str(td), uuid, "data", "medium.csv"))
     return medium

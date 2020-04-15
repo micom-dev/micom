@@ -21,7 +21,7 @@ setup(
     description="Microbial community modeling based on cobrapy.",
     long_description=long_description,
     # The project's main homepage.
-    url="https://github.com/cdiener/micom",
+    url="https://github.com/micom-dev/micom",
     # Author details
     author="Christian Diener",
     author_email="mail@cdiener.com",
@@ -33,7 +33,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 5 - Production/Stable",
         # Indicate who your project is intended for
         "Intended Audience :: Science/Research",
         "Topic :: Scientific/Engineering :: Bio-Informatics",
@@ -41,8 +41,6 @@ setup(
         "License :: OSI Approved :: Apache Software License",
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
@@ -63,8 +61,8 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-        "cobra>=0.8.2",
-        "optlang>=1.2.0",
+        "cobra>=0.17.1",
+        "optlang>=1.4.4",
         "pandas>=0.20.0",
         "tqdm>=4.14",
         "loguru>=0.3.2"

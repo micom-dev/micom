@@ -1,6 +1,7 @@
 """Build a database of organism metabolic models."""
 
 from cobra.io import read_sbml_model, save_json_model
+from micom.logger import logger
 from micom.util import join_models
 from micom.workflows import workflow
 import pandas as pd
@@ -27,7 +28,7 @@ def _reduce_group(df):
     keep = df.columns[df.nunique() == 1]
     new = df.iloc[0, :][keep]
     new["file"] = "|".join(df.file.astype(str))
-    return new
+    return pd.DataFrame.from_records([new])
 
 
 def _summarize_models(args):
@@ -89,6 +90,7 @@ def build_database(
         )
 
     meta = meta.groupby(rank).apply(_reduce_group).reset_index(drop=True)
+    logger.info("Building %d models on rank `%s`." % (meta.shape[0], rank))
     meta.index = meta[rank]
     meta["id"] = meta.index
     meta["summary_rank"] = rank
@@ -110,7 +112,6 @@ def build_database(
             (tid, row, path.join(out_path, "%s.json" % tid))
             for tid, row in meta.iterrows()
         ]
-        print(args)
         workflow(_summarize_models, args, threads)
         meta.file = meta.index + ".json"
         meta.to_csv(path.join(out_path, "manifest.csv"), index=False)

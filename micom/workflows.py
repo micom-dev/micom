@@ -1,22 +1,8 @@
 """Makes it easier to run analyses on several samples in parallel."""
 
 from collections import Sized
+from loky import get_reusable_executor
 from tqdm import tqdm
-from multiprocessing import Process, Queue
-
-
-def _process(f, args, queue):
-    res = f(args)
-    queue.put(res)
-
-
-def _consume(processes, queue, results, max_procs):
-    for p in processes:
-        results.append(queue.get())
-    for p in processes:
-        p.join()
-    processes = []
-    return results, processes
 
 
 def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):
@@ -43,18 +29,8 @@ def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):
     if not isinstance(args, Sized):
         ValueError("`args` must have a length.")
 
-    results = []
-    processes = []
-    q = Queue()
-
+    executor = get_reusable_executor(max_workers=n_jobs, reuse=False)
+    results = executor.map(func, args)
     if progress:
-        args = tqdm(args, unit=unit)
-
-    for arg in args:
-        p = Process(target=_process, args=(func, arg, q))
-        p.start()
-        processes.append(p)
-        if len(processes) >= n_jobs:
-            results, processes = _consume(processes, q, results, n_jobs)
-    results, processes = _consume(processes, q, results, n_jobs)
-    return results
+        results = tqdm(results, total=len(args), unit=unit)
+    return list(results)

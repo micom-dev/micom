@@ -65,7 +65,8 @@ setup(
         "optlang>=1.4.4",
         "pandas>=0.20.0",
         "tqdm>=4.14",
-        "loguru>=0.3.2"
+        "loguru>=0.3.2",
+        "loky>=2.6.0"
     ],
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,

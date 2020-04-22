@@ -41,5 +41,5 @@ jobs:
         pip install pytest pytest-benchmark pytest-cov
         pytest --benchmark-skip --cov=micom --cov-report=xml
     - name: Upload to codecov
-      if: matrix.os == "ubuntu-latest" && matrix.python-version == 3.7
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == 3.7
       uses: codecov/codecov-action@v1

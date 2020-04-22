@@ -48,6 +48,7 @@ Getting started
 Documentation can be found at https://micom-dev.github.io/micom .
 
 .. |actions status| image:: https://github.com/micom-dev/micom/workflows/Python%20package/badge.svg
+   :target: https://github.com/micom-dev/micom/actions
 .. |coverage| image:: https://codecov.io/gh/micom-dev/micom/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/micom-dev/micom
 .. |pypi status| image:: https://img.shields.io/pypi/v/micom.svg

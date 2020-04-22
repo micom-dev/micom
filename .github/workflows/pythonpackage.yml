@@ -11,13 +11,13 @@ on:
 
 jobs:
   build:
-    
+
     strategy:
       matrix:
         os: ["ubuntu-latest", "windows-latest", "macos-latest"]
         python-version: [3.6, 3.7]
     runs-on: "${{matrix.os}}"
-    
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -39,5 +39,7 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest pytest-benchmark pytest-cov
-        pytest --benchmark-skip --cov=micom
-    - uses: codecov/codecov-action@v1
+        pytest --benchmark-skip --cov=micom --cov-report=xml
+    - name: Upload to codecov
+      if: matrix.os == "ubuntu-latest" && matrix.python-version == "3.7"
+      uses: codecov/codecov-action@v1

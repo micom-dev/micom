@@ -1,11 +1,64 @@
 """Example workflows for micom."""
 
+from cobra.util.solver import OptimizationError
 from optlang.interface import OPTIMAL
+from os import path
 import pandas as pd
+from micom import load_pickle
+import micom.media as mm
 from micom.util import load_model, clean_ids
-from micom.workflows import workflow
+from micom.workflows.core import workflow
 from micom.media import complete_medium
 from micom.logger import logger
+
+
+def process_medium(medium, samples):
+    """Prepare a medium for simulation."""
+    medium.index = medium.reaction
+    if "sample_id" not in medium.columns:
+        meds = []
+        for s in samples:
+            m = medium.copy()
+            m["sample_id"] = s
+            meds.append(m)
+        medium = pd.concat(meds, axis=0)
+    return medium
+
+
+def _medium(args):
+    """Get minimal medium for a single model."""
+    p, min_growth = args
+    com = load_pickle(p)
+    # open the bounds
+    for ex in com.exchanges:
+        ex.bounds = (-1000.0, 1000.0)
+    try:
+        medium = mm.minimal_medium(com, 0.0, min_growth=min_growth).to_frame()
+    except Exception:
+        return None
+    medium.columns = ["flux"]
+    medium.index.name = "reaction"
+    return medium.reset_index()
+
+
+def minimal_media(
+    manifest, model_folder, min_growth=0.1, threads=1
+):
+    """Calculate the minimal medium for a set of community models."""
+    samples = manifest.sample_id.unique()
+    paths = [path.join(model_folder, manifest[manifest.sample_id == s].file[0])
+             for s in samples]
+    args = [[p, min_growth] for p in paths]
+    results = workflow(_medium, args, threads)
+    if any(r is None for r in results):
+        raise OptimizationError(
+            "Could not find a growth medium that allows the specified "
+            "growth rate for all taxa in all samples :("
+        )
+    results = pd.concat(results, axis=0)
+    medium = results.groupby("reaction").flux.max().reset_index()
+    medium["metabolite"] = medium.reaction.str.replace("EX_", "")
+    return medium
 
 
 def _fix_medium(args):

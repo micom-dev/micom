@@ -3,7 +3,7 @@
 from cobra.io import read_sbml_model, save_json_model
 from micom.logger import logger
 from micom.util import join_models
-from micom.workflows import workflow
+from micom.workflows.core import workflow
 import pandas as pd
 import os
 from os import path

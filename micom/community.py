@@ -91,8 +91,10 @@ class Community(cobra.Model):
             be used to quantify each individual in the community. If absent,
             MICOM will assume all individuals are present in the same amount.
         model_db : str
-            A pre-built model database. Must be a Qiime 2 artifact of type
-            `MetabolicModels[JSON]`.
+            A pre-built model database. If ending in `.qza` must be a Qiime 2
+            artifact of type `MetabolicModels[JSON]`. Can also be a folder,
+            zip (must end in `.zip`) file or None if the taxonomy contains a
+            column `file`.
         id : str, optional
             The ID for the community. Should only contain letters and numbers,
             otherwise it will be formatted as such.

@@ -51,7 +51,11 @@ setup(
     # simple. Or you can use find_packages().
     packages=find_packages(exclude=["docs", "tests"]),
     package_data={
-        "micom": [path.join("data", "*.csv"), path.join("data", "*.gz")]
+        "micom": [
+            path.join("data", "*.csv"),
+            path.join("data", "*.gz"),
+            path.join("data", "templates", "*.html")
+        ]
     },
     # Alternatively, if you want to distribute just a my_module.py, uncomment
     # this:

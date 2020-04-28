@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tradeoff analysis</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@5.15.0/dist/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
+
+    <style>
+    #vis {
+        width: 100%;
+        margin: 1em;
+    }
+    </style>
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+        Tradeoff analysis
+      </h1>
+      <p class="subtitle">
+        The left plot shows a 2D histogram of growth rates on the log-scale
+        across samples for each tradeoff value. Zero growth rates have been
+        set to 1e-6 in this plot to make them visible.<br>
+        The right plot denotes the fraction of taxa that grow (growth rate larger
+        1e-6) in each sample. Each point denotes a single sample under a given
+        tradeoff value. The red line denotes the median across all samples. You
+        can click on a point to show only points from that particular sample.
+        <br>
+        Use the "..." menu in the
+        upper right hand side to export the plot into various formats.
+      </p>
+    </div>
+    <!-- Container for the visualization -->
+    <div class="container">
+    <div id="vis"></div>
+    <a href="growth_rates.csv" class="button is-primary">Download as CSV...</a>
+
+    </div>
+    <script>
+      // Assign the specification to a local variable vlSpec.
+      var vlSpec = {
+        $schema: "https://vega.github.io/schema/vega-lite/v4.json",
+        hconcat: [
+        {
+            width: {{width}},
+            height: {{height}},
+            data: {
+                values: {{growth | safe}}
+            },
+            mark: {
+                type: "rect",
+                tooltip: true
+            },
+            encoding: {
+                y: {
+                    field: "tradeoff",
+                    type: "nominal"
+                },
+                x: {
+                    bin: {maxbins: 10},
+                    field: "log_growth_rate",
+                    type: "quantitative",
+                    axis: {title: "log10(growth rate [1/h])", grid: false}
+                },
+                color: {
+                    aggregate: "count",
+                    type: "quantitative",
+                    scale: {scheme: "viridis"},
+                    axis: {title: "no. taxa"}
+                }
+            }
+        },
+        {
+            width: {{width}},
+            height: {{height}},
+            data: {
+                values: {{tradeoff | safe}}
+            },
+            layer: [{
+            selection: {
+                pts: {type: "single", fields: ["sample_id"]}
+            },
+            mark: {
+                type: "point",
+                filled: true,
+                size: 20,
+                tooltip: {content: "data"}
+            },
+            encoding: {
+                y: {
+                    field: "fraction_growing",
+                    type: "quantitative",
+                    axis: {title: "fraction of taxa growing"}
+                },
+                x: {
+                    field: "tradeoff",
+                    type: "nominal",
+                    axis: {title: "tradeoff"}
+                },
+                color: {
+                    condition: {
+                        selection: "pts",
+                        value: "blue"
+                    },
+                    value: "lightgrey"
+                },
+                opacity: {
+                    condition: {
+                        selection: "pts",
+                        value: 0.8
+                    },
+                    value: 0.2
+                }
+            }
+            }, {
+            mark: "line",
+            encoding: {
+                y: {
+                    field: "fraction_growing",
+                    type: "quantitative",
+                    aggregate: "mean",
+                    axis: {title: "fraction of taxa growing"}
+                },
+                x: {
+                    field: "tradeoff",
+                    type: "nominal",
+                    axis: {title: "tradeoff"}
+                },
+                color: {value: "orange"}
+            }
+            }]
+            }]
+      };
+
+      // Embed the visualization in the container with id `vis`
+      vegaEmbed("#vis", vlSpec, {renderer: "svg"}).then(function(r) {
+        svg = d3.select("#vis svg");
+        svg.attr("width", "100%").attr("height", "auto");
+      });
+    </script>
+  </section>
+  </body>
+</html>

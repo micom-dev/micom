@@ -13,8 +13,6 @@ from micom import (
     media,
     qiime_formats,
     solution,
-    workflows,
-    workflow_examples,
 )
 
 
@@ -32,8 +30,6 @@ __all__ = (
     "qiime_formats",
     "solution",
     "load_pickle",
-    "workflows",
-    "workflow_examples",
 )
 
 __version__ = "0.11.2"

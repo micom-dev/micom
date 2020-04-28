@@ -4,7 +4,6 @@ from micom.community import Community
 from micom.util import load_pickle
 from micom import (
     algorithms,
-    db,
     problems,
     util,
     data,

@@ -13,25 +13,70 @@ from zipfile import ZipFile
 
 def build_and_save(args):
     """Build a single community model."""
-    s, tax, out = args
-    com = Community(tax, id=s, progress=False)
+    s, tax, db, out, cutoff = args
+    com = Community(tax, model_db=db, id=s, progress=False,
+                    rel_threshold=cutoff)
     com.to_pickle(out)
+    metrics = com.build_metrics.to_frame().T
+    metrics["sample_id"] = s
+    return metrics
 
 
 def build(
-    taxonomy, model_db, threads, out_folder, cutoff=0.0001,
+    taxonomy, model_db, out_folder, cutoff=0.0001, threads=1
 ):
-    """Build the community models."""
+    """Builds a series of community models.
+
+    This is a best-practice implementation of building community models
+    for several samples in parallel.
+
+    Parameters
+    ----------
+    taxonomy : pandas.DataFrame
+        The taxonomy used for building the model. Must have at least the
+        columns "id" and "sample_id". This must also
+        contain at least a column with the same name as the rank used in
+        the model database. Thus, for a genus-level database you will need
+        a column `genus`. Additional taxa ranks can also be specified and
+        will be used to be more stringent in taxa matching.
+        Finally, the taxonomy should contain a column `abundance`. It will
+        be used to quantify each individual in the community. If absent,
+        MICOM will assume all individuals are present in the same amount.
+    model_db : str
+        A pre-built model database. If ending in `.qza` must be a Qiime 2
+        artifact of type `MetabolicModels[JSON]`. Can also be a folder,
+        zip (must end in `.zip`) file or None if the taxonomy contains a
+        column `file`.
+    out_folder : str
+        The built models and a manifest file will be written to this
+        folder.
+    cutoff : float in [0.0, 1.0]
+        Abundance cutoff. Taxa with a relative abundance smaller than this
+        will not be included in the model.
+    threads : int >=1
+        The number of parallel workers to use when building models. As a
+        rule of thumb you will need around 1GB of RAM for each thread.
+
+    Returns
+    -------
+    pandas.DataFrame
+        The manifest for the built models. Contains taxa abundances,
+        build metrics and file basenames.
+
+    """
     samples = taxonomy.sample_id.unique()
     out_path = pd.Series(
         {s: os.path.join(out_folder, s + ".pickle") for s in samples}
     )
     args = [
-        [s, taxonomy[taxonomy.sample_id == s], out_path[s]] for s in samples
+        [s, taxonomy[taxonomy.sample_id == s], model_db, out_path[s], cutoff]
+        for s in samples
     ]
 
-    workflow(build_and_save, args, threads)
+    res = workflow(build_and_save, args, threads)
+    metrics = pd.concat(res)
     taxonomy["file"] = taxonomy.sample_id + ".pickle"
+    taxonomy = pd.merge(taxonomy, metrics, on="sample_id")
     taxonomy.to_csv(os.path.join(out_folder, "manifest.csv"), index=False)
     return taxonomy
 
@@ -87,6 +132,9 @@ def build_database(
         columns.
     out_path : str
         The directory where the joined models will be written.
+    threads : int >=1
+        The number of parallel workers to use when building models. As a
+        rule of thumb you will need around 1GB of RAM for each thread.
     compress : bool
         Whether to compress the output. Default is True if out_path ends with
         ".zip" otherwise no.

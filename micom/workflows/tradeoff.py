@@ -60,7 +60,30 @@ def tradeoff(
     tradeoffs=np.arange(0.1, 1.0 + 1e-6, 0.1),
     threads=1,
 ):
-    """Run tradeoff analysis."""
+    """Run growth rate predictions for varying tradeoff values.
+
+    Parameters
+    ----------
+    manifest : pandas.DataFrame
+        The manifest as returned by the `build` workflow.
+    model_folder : str
+        The folder in which to find the files mentioned in the manifest.
+    medium : pandas.DataFrame
+        A growth medium. Must have columns "reaction" and "flux" denoting
+        exchnage reactions and their respective maximum flux.
+    tradeoffs : array of floats in (0.0, 1.0]
+        An array of tradeoff vaues to be tested. One simulation without
+        a tradeoff (no cooperative tradeoff) will always be run additionally
+        and will have a tradeoff of "NaN".
+    threads : int >=1
+        The number of parallel workers to use when building models. As a
+        rule of thumb you will need around 1GB of RAM for each thread.
+
+    Returns
+    -------
+    pandas.DataFrame
+        The predicted growth rates.
+    """
     samples = manifest.sample_id.unique()
     paths = {
         s: path.join(model_folder, manifest[manifest.sample_id == s].file[0])

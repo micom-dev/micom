@@ -31,12 +31,27 @@ def fit_phenotype(
 ):
     """Test for differential metabolite production.
 
+    This will fit the `phenotype` response using L1-regularized linear models
+    with log-fluxes as features. Will use LASSO regression for a continuous
+    response and L1-regularized Logistic regression for a binary response.
+
     Parameters
     ----------
     exchanges : pandas.DataFrame
         The exchanges returned by the `grow` workflow.
+    phenotype : pandas.Series
+        The data to be fitted. Its index must correspond to `sample_id` in
+        `exchanges`.
+    variable_type : str of ["binary", "continuous"]
+        The type of the variable.
+    variable_name : str
+        A short description of the phenotype for instance "disease_status".
     out_folder : str
         The folder where the visualization will be saved.
+    flux_type : str of ["import", "production"]
+        Whether to fit using import or production fluxes.
+    min_coef : float in [0.0, Inf]
+        Only report coefficient that are at least that large.
 
     Returns
     -------

@@ -8,7 +8,7 @@ import pandas as pd
 from umap import UMAP
 
 
-def exchanges_per_sample(
+def plot_exchanges_per_sample(
     exchanges,
     out_folder="sample_exchanges_%s" % datetime.now().strftime("%Y%m%d"),
     direction="import",
@@ -61,13 +61,29 @@ def exchanges_per_sample(
     return viz
 
 
-def exchanges_per_taxon(
+def plot_exchanges_per_taxon(
     exchanges,
     out_folder="taxon_exchanges_%s" % datetime.now().strftime("%Y%m%d"),
     direction="import",
     **umap_args
 ) -> None:
-    """Plot the exchange fluxes."""
+    """Plot the exchange fluxes per taxon.
+
+    Parameters
+    ----------
+    exchanges : pandas.DataFrame
+        The exchanges returned by the `grow` workflow.
+    out_folder : str
+        The folder where the visualization will be saved.
+    direction : str either "import" or "export"
+        The direction of fluxes to plot.
+
+    Returns
+    -------
+    Visualization
+        A MICOM visualization. Can be served with `viz.serve`.
+
+    """
     exchanges = exchanges[
         (exchanges.taxon != "medium") & (exchanges.direction == direction)
     ]
@@ -78,16 +94,12 @@ def exchanges_per_taxon(
         columns="reaction",
         fill_value=0,
     )
-    umapped = UMAP(**umap_args).fit_transform(
-        mat.values
-    )
+    umapped = UMAP(**umap_args).fit_transform(mat.values)
     umapped = pd.DataFrame(
         umapped, index=mat.index, columns=["UMAP 1", "UMAP 2"]
     ).reset_index()
     data = {"umap": umapped}
     viz = Visualization(out_folder, data, "umap.html")
-    viz.save(
-        data=umapped.to_json(orient="records"), width=600, height=500
-    )
+    viz.save(data=umapped.to_json(orient="records"), width=600, height=500)
 
     return viz

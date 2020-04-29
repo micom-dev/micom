@@ -12,8 +12,8 @@ def plot_growth(
 
     Parameters
     ----------
-    exchanges : pandas.DataFrame
-        The exchanges returned by the `grow` workflow.
+    growth_rates : pandas.DataFrame
+        The growth rates returned by the `grow` workflow.
     out_folder : str
         The folder where the visualization will be saved.
 

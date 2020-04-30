@@ -7,6 +7,7 @@ from micom.logger import logger
 from micom.media import minimal_medium
 from micom.workflows.core import workflow
 from micom.workflows.media import process_medium
+from os import path
 import pandas as pd
 
 DIRECTION = pd.Series(["import", "export"], index=[0, 1])
@@ -89,7 +90,11 @@ def grow(
         samples/models.
     """
     samples = manifest.sample_id.unique()
-    paths = {s: manifest[manifest.sample_id == s].file[0] for s in samples}
+    paths = {
+        s: path.join(
+            model_folder, manifest[manifest.sample_id == s].file.iloc[0])
+        for s in samples
+    }
     medium = process_medium(medium, samples)
     args = [
         [p, tradeoff, medium.flux[medium.sample_id == s]]

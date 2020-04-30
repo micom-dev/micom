@@ -53,5 +53,5 @@ class Visualization(object):
         """Render and and save the visualization."""
         out = path.join(self.folder, "index.html")
         self.template.stream(**kwargs).dump(out)
-        for base, d in self.data:
+        for base, d in self.data.items():
             d.to_csv(path.join(self.folder, base + ".csv"), index=False)

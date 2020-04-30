@@ -46,8 +46,10 @@ def minimal_media(
 ):
     """Calculate the minimal medium for a set of community models."""
     samples = manifest.sample_id.unique()
-    paths = [path.join(model_folder, manifest[manifest.sample_id == s].file[0])
-             for s in samples]
+    paths = [
+        path.join(model_folder, manifest[manifest.sample_id == s].file.iloc[0])
+        for s in samples
+    ]
     args = [[p, min_growth] for p in paths]
     results = workflow(_medium, args, threads)
     if any(r is None for r in results):

@@ -86,7 +86,8 @@ def tradeoff(
     """
     samples = manifest.sample_id.unique()
     paths = {
-        s: path.join(model_folder, manifest[manifest.sample_id == s].file[0])
+        s: path.join(
+            model_folder, manifest[manifest.sample_id == s].file.iloc[0])
         for s in samples
     }
     if any(t < 0.0 or t > 1.0 for t in tradeoffs):

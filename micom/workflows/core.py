@@ -3,6 +3,7 @@
 from collections import Sized
 from loky import get_reusable_executor
 from tqdm import tqdm
+import warnings
 
 
 def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):
@@ -29,8 +30,14 @@ def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):
     if not isinstance(args, Sized):
         ValueError("`args` must have a length.")
 
-    executor = get_reusable_executor(max_workers=n_jobs, reuse=False)
-    results = executor.map(func, args)
+    executor = get_reusable_executor(max_workers=n_jobs, reuse=False,
+                                     timeout=3600)
+    it = executor.map(func, args)
     if progress:
-        results = tqdm(results, total=len(args), unit=unit)
-    return list(results)
+        it = tqdm(it, total=len(args), unit=unit)
+    # loky will raise a warning because processes are not reused
+    # which is something we do on purpose to work around memory leaks
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        results = list(it)
+    return results

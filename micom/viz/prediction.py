@@ -20,7 +20,7 @@ from sklearn.linear_model import (
 from sklearn.preprocessing import StandardScaler
 
 
-def fit_phenotype(
+def plot_fit(
     exchanges,
     phenotype,
     variable_type="binary",
@@ -87,6 +87,11 @@ def fit_phenotype(
         raise ValueError(
             "Continuous variables must have a numeric type, but yours is"
             " of type `%s`." % phenotype.dtype
+        )
+    elif variable_type not in ["binary", "continuous"]:
+        raise ValueError(
+            "Unsupported variable type. Must be either `binary` or "
+            "`continuous`."
         )
 
     fluxes = exchanges.pivot_table(

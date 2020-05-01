@@ -2,6 +2,7 @@
 
 from micom.community import Community
 from micom.util import load_pickle
+import micom.workflows as workflows
 from micom import (
     algorithms,
     problems,
@@ -12,6 +13,7 @@ from micom import (
     media,
     qiime_formats,
     solution,
+    workflows
 )
 
 

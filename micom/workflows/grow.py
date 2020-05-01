@@ -114,7 +114,7 @@ def grow(
     exchanges["taxon"] = exchanges.index
     exchanges = exchanges.melt(
         id_vars=["taxon", "sample_id"], var_name="reaction", value_name="flux"
-    )
+    ).dropna(subset=["flux"])
     abundance = growth[["taxon", "sample_id", "abundance"]]
     exchanges = pd.merge(exchanges, abundance,
                          on=["taxon", "sample_id"], how="outer")

@@ -2,7 +2,7 @@
 
 import functools
 from micom.logger import logger
-from os import path
+from os import path, makedirs
 from http.server import SimpleHTTPRequestHandler
 from socketserver import TCPServer
 from jinja2 import Environment, PackageLoader, select_autoescape
@@ -11,6 +11,11 @@ env = Environment(
     loader=PackageLoader("micom", "data/templates"),
     autoescape=select_autoescape(["html"]),
 )
+
+
+class VizServer(TCPServer):
+    """Simple server that allows port reuse."""
+    allow_reuse_address = True
 
 
 class Visualization(object):
@@ -45,12 +50,19 @@ class Visualization(object):
         """
         Handler = functools.partial(
             SimpleHTTPRequestHandler, directory=self.folder)
-        with TCPServer(("", port), Handler) as httpd:
-            logger.info("serving at port %d...", port)
-            httpd.serve_forever()
+        with VizServer(("", port), Handler) as httpd:
+            logger.info("serving at port %d..." % port)
+            print("Serving visualization at http://localhost:%d..." % port)
+            try:
+                httpd.serve_forever()
+            except KeyboardInterrupt:
+                print("\nStopping server.")
+                httpd.shutdown()
+                httpd.server_close()
 
     def save(self, **kwargs):
         """Render and and save the visualization."""
+        makedirs(self.folder, exist_ok=True)
         out = path.join(self.folder, "index.html")
         self.template.stream(**kwargs).dump(out)
         for base, d in self.data.items():

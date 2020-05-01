@@ -11,6 +11,13 @@ from tempfile import TemporaryDirectory
 from zipfile import ZipFile
 
 
+def _reduce_group(df):
+    keep = df.columns[df.nunique() == 1]
+    new = df.iloc[0, :][keep]
+    new["file"] = "|".join(df.file.astype(str))
+    return pd.DataFrame.from_records([new])
+
+
 def build_and_save(args):
     """Build a single community model."""
     s, tax, db, out, cutoff = args
@@ -64,6 +71,7 @@ def build(
         build metrics and file basenames.
 
     """
+    os.makedirs(out_folder, exist_ok=True)
     samples = taxonomy.sample_id.unique()
     out_path = pd.Series(
         {s: os.path.join(out_folder, s + ".pickle") for s in samples}
@@ -72,9 +80,12 @@ def build(
         [s, taxonomy[taxonomy.sample_id == s], model_db, out_path[s], cutoff]
         for s in samples
     ]
-
     res = workflow(build_and_save, args, threads)
     metrics = pd.concat(res)
+    taxonomy = (
+        taxonomy.groupby("sample_id").apply(_reduce_group)
+        .dropna(axis=1).reset_index(drop=True)
+    )
     taxonomy["file"] = taxonomy.sample_id + ".pickle"
     taxonomy = pd.merge(taxonomy, metrics, on="sample_id")
     taxonomy.to_csv(os.path.join(out_folder, "manifest.csv"), index=False)
@@ -93,13 +104,6 @@ REQ_FIELDS = pd.Series(
         "species",
     ]
 )
-
-
-def _reduce_group(df):
-    keep = df.columns[df.nunique() == 1]
-    new = df.iloc[0, :][keep]
-    new["file"] = "|".join(df.file.astype(str))
-    return pd.DataFrame.from_records([new])
 
 
 def _summarize_models(args):
@@ -182,6 +186,7 @@ def build_database(
                 [zf.write(a[2], os.path.basename(a[2])) for a in args]
                 zf.write(os.path.join(tdir, "manifest.csv"), "manifest.csv")
     else:
+        os.makedirs(out_path, exist_ok=True)
         args = [
             (tid, row, os.path.join(out_path, "%s.json" % tid))
             for tid, row in meta.iterrows()

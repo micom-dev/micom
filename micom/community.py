@@ -196,6 +196,7 @@ class Community(cobra.Model):
             ]
             manifest = manifest[keep_cols + ["file"]]
             merged = pd.merge(taxonomy, manifest, on=keep_cols)
+
             self.__db_metrics = pd.Series({
                 "found_taxa": merged.shape[0],
                 "total_taxa": taxonomy.shape[0],

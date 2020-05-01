@@ -33,11 +33,13 @@ def plot_exchanges_per_sample(
     Visualization
         A MICOM visualization. Can be served with `viz.serve`.
     """
+    if direction not in ["import", "export"]:
+        ValueError("Not a valid flux direction. Must be `import` or `export`.")
     exchanges = exchanges[
         (exchanges.taxon == "medium")
         & (exchanges.direction == direction)
         & (exchanges.flux.abs() > 1e-6)
-    ]
+    ].copy()
     exchanges.flux = exchanges.flux.abs()
     mat = exchanges.pivot_table(
         values="flux", index="reaction", columns="sample_id", fill_value=1e-6
@@ -84,9 +86,11 @@ def plot_exchanges_per_taxon(
         A MICOM visualization. Can be served with `viz.serve`.
 
     """
+    if direction not in ["import", "export"]:
+        ValueError("Not a valid flux direction. Must be `import` or `export`.")
     exchanges = exchanges[
         (exchanges.taxon != "medium") & (exchanges.direction == direction)
-    ]
+    ].copy()
     exchanges["flux"] = exchanges.flux.abs() * exchanges.abundance
     mat = exchanges.pivot_table(
         values="flux",

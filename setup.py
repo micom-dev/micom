@@ -44,6 +44,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     # What does your project relate to?
     keywords="microbiota modeling metabolism community",
@@ -54,7 +55,8 @@ setup(
         "micom": [
             path.join("data", "*.csv"),
             path.join("data", "*.gz"),
-            path.join("data", "templates", "*.html")
+            path.join("data", "templates", "*.html"),
+            path.join("data", "artifacts", "*.qza")
         ]
     },
     # Alternatively, if you want to distribute just a my_module.py, uncomment

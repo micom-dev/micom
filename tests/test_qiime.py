@@ -2,11 +2,11 @@
 
 from fixtures import this_dir
 import micom.qiime_formats as qf
+from micom.data import test_db, test_medium
 from os import path
 from pytest import mark, raises, approx
 
-db = path.join(this_dir, "data", "species_models.qza")
-medium = path.join(this_dir, "data", "medium.qza")
+db, medium = test_db, test_medium
 models = path.join(this_dir, "data", "build.qza")
 
 def test_qiime_db(tmp_path):

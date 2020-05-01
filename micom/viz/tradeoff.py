@@ -30,7 +30,7 @@ def plot_tradeoff(
     viz = Visualization(out_folder, data, "tradeoff.html")
     growth = rates[
         ["taxon", "sample_id", "abundance", "tradeoff", "growth_rate"]
-    ]
+    ].copy()
     growth.tradeoff = growth.tradeoff.round(6).astype(str)
     growth.loc[growth.tradeoff == "nan", "tradeoff"] = "none"
     growth.loc[growth.growth_rate < 1e-6, "growth_rate"] = 1e-6

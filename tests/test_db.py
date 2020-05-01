@@ -7,7 +7,7 @@ import micom.db as mdb
 from os import path
 from pytest import approx, mark, raises
 
-db = path.join(this_dir, "data", "species_models.qza")
+db = mm.data.test_db
 
 
 def test_qiime_community():

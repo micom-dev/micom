@@ -33,4 +33,4 @@ __all__ = (
     "load_pickle",
 )
 
-__version__ = "0.12.1"
+__version__ = "0.13.0"

@@ -72,7 +72,6 @@ setup(
         "pandas>=0.20.0",
         "tqdm>=4.14",
         "loguru>=0.3.2",
-        "loky>=2.6.0",
         "jinja2>=2.10.0",
         "scikit-learn>=0.22.0",
         "scipy>=1.0.0",

@@ -2,7 +2,6 @@
 
 from micom.community import Community
 from micom.util import load_pickle
-import micom.workflows as workflows
 from micom import (
     algorithms,
     problems,
@@ -31,6 +30,7 @@ __all__ = (
     "qiime_formats",
     "solution",
     "load_pickle",
+    "workflows",
 )
 
 __version__ = "0.13.0"

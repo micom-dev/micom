@@ -5,7 +5,6 @@ from fastcluster import linkage
 from scipy.cluster.hierarchy import leaves_list
 from micom.viz.core import Visualization
 import pandas as pd
-from umap import UMAP
 
 
 def plot_exchanges_per_sample(
@@ -86,6 +85,8 @@ def plot_exchanges_per_taxon(
         A MICOM visualization. Can be served with `viz.serve`.
 
     """
+    from umap import UMAP  # allows skipping tests
+
     if direction not in ["import", "export"]:
         ValueError("Not a valid flux direction. Must be `import` or `export`.")
     exchanges = exchanges[

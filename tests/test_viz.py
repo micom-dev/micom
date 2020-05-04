@@ -5,6 +5,7 @@ import micom.viz as viz
 from os import path
 import pandas as pd
 import pytest
+import sys
 
 
 def test_plot_growth(growth_data, tmp_path):
@@ -31,6 +32,7 @@ def test_plot_sample_exchanges(growth_data, tmp_path):
             growth_data.exchanges, str(tmp_path), direction="dog")
 
 
+@pytest.mark.skipif(sys.platform == "darwin", "llvmlite problems on MacOS")
 def test_plot_taxon_exchanges(growth_data, tmp_path):
     v = viz.plot_exchanges_per_taxon(growth_data.exchanges, str(tmp_path))
     check_viz(v)

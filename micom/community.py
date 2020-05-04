@@ -142,6 +142,9 @@ class Community(cobra.Model):
                 "No QP solver found, will use GLPK. A lot of functionality "
                 "in MICOM will require a QP solver :/"
             )
+        self.solver.configuration.lp_method = "auto"
+        if hasattr(self.solver.configuration, "qp_solver"):
+            self.solver.configuration.qp_method = "auto"
         self.solver = solver
         self._rtol = rel_threshold
         self._modification = None

@@ -266,6 +266,9 @@ def adjust_solver_config(solver):
         solver.problem.Params.LogToConsole = 0
     if interface == "glpk":
         solver.configuration.presolve = True
+    if interface == "osqp":
+        solver.configuration.tolerance.optimality = 1e-6
+        solver.configuration.tolerance.feasibility = 1e-6
 
 
 def reset_min_community_growth(com):

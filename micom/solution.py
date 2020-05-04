@@ -119,6 +119,10 @@ class CommunitySolution(Solution):
         )
         self.members.index.name = "compartments"
         self.growth_rate = sum(community.abundances * gcs)
+        # Save estimated accuracy for osqp
+        if interface_to_str(community.problem) == "osqp":
+            self.primal_residual = community.solver.problem.info.pri_res
+            self.dual_residual = community.solver.problem.info.dua_res
 
     def _repr_html_(self):
         if self.status in good:

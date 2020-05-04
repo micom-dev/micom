@@ -29,7 +29,7 @@ jobs:
         python -m pip install --upgrade pip cryptography
         pip install wheel cplex symengine
         pip install -e .
-        pip install "llvmlite<0.32.0"
+        pip install "numba<0.49.0"
     - name: Lint with flake8
       run: |
         pip install flake8

@@ -234,6 +234,8 @@ def reset_solver(community):
         community.solver.problem.reset()
     elif interface == "glpk":
         glp_adv_basis(community.solver.problem, 0)
+    elif interface == "osqp":
+        community.solver.problem.reset()
 
 
 def optimize_with_retry(com, message="could not get optimum."):

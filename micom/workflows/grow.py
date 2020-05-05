@@ -47,11 +47,10 @@ def _growth(args):
         return None
 
     # Get the minimal medium
-    med = minimal_medium(com, 0.95 * sol.growth_rate,
-                         0.95 * rates.growth_rate.drop("medium"))
-    # Apply medium and reoptimize
-    com.medium = med[med > 0]
-    sol = com.cooperative_tradeoff(fraction=tradeoff, fluxes=True, pfba=False)
+    res = minimal_medium(com, 0.95 * sol.growth_rate,
+                         0.95 * rates.growth_rate.drop("medium"),
+                         solution=True)
+    sol = res["solution"]
     fluxes = sol.fluxes.loc[:, sol.fluxes.columns.str.startswith("EX_")].copy()
     fluxes["sample_id"] = com.id
     return {"growth": rates, "exchanges": fluxes}

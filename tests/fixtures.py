@@ -16,6 +16,14 @@ def community():
     return micom.Community(micom.data.test_taxonomy(), progress=False)
 
 
+@pytest.fixture
+def linear_community():
+    """A simple community containing 4 species."""
+    return micom.Community(micom.data.test_taxonomy(), progress=False,
+                           solver="glpk")
+
+
+
 def check_viz(v):
     """Check a visualization."""
     for d in v.data:

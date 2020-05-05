@@ -143,8 +143,7 @@ class Community(cobra.Model):
                 "in MICOM will require a QP solver :/"
             )
         self.solver.configuration.lp_method = "auto"
-        if hasattr(self.solver.configuration, "qp_solver"):
-            self.solver.configuration.qp_method = "auto"
+        self.solver.configuration.qp_method = "auto"
         self.solver = solver
         self._rtol = rel_threshold
         self._modification = None
@@ -505,7 +504,6 @@ class Community(cobra.Model):
             The solution after optimization or None if there is no optimum.
 
         """
-        self.solver.optimize()
         with self:
             solution = solve(self, fluxes=fluxes, pfba=pfba)
         return solution

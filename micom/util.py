@@ -261,14 +261,16 @@ def adjust_solver_config(solver):
     if interface == "gurobi":
         solver.configuration.lp_method = "barrier"
         solver.problem.Params.BarConvTol = 1e-9
-        solver.problem.Params.BarIterLimit = 1001
+        solver.problem.Params.BarIterLimit = 10000
         solver.problem.Params.Threads = 1
         solver.problem.Params.LogToConsole = 0
     if interface == "glpk":
         solver.configuration.presolve = True
     if interface == "osqp":
-        solver.configuration.optimality = 1e-5
-        solver.configuration.feasibiliy = 1e-6
+        solver.configuration.tolerances.optimality = 1e-3
+        solver.configuration.tolerances.feasibility = 1e-4
+        solver.configuration.presolve = True
+        solver.problem.settings["max_iter"] = 30000
 
 
 def reset_min_community_growth(com):

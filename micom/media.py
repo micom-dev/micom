@@ -35,9 +35,9 @@ def add_linear_obj(community, exchanges):
     for rxn in exchanges:
         export = len(rxn.reactants) == 1
         if export:
-            coefs[rxn.reverse_variable] = 1000.0
+            coefs[rxn.reverse_variable] = 1.0
         else:
-            coefs[rxn.forward_variable] = 1000.0
+            coefs[rxn.forward_variable] = 1.0
     community.objective.set_linear_coefficients(coefs)
     community.objective.direction = "min"
     community.modification = "minimal medium linear"

@@ -59,7 +59,7 @@ def regularize_l2_norm(community, min_growth):
     for sp in community.taxa:
         taxa_obj = community.constraints["objective_" + sp]
         ex = sum(v for v in taxa_obj.variables if (v.ub - v.lb) > 1e-6)
-        l2 += (1000.0 * (ex ** 2)).expand()
+        l2 += (community.scale * (ex ** 2)).expand()
     community.objective = -l2
     community.modification = "l2 regularization"
     logger.info("finished adding tradeoff objective to %s" % community.id)
@@ -72,12 +72,13 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         check_modification(community)
         min_growth = _format_min_growth(min_growth, community.taxa)
         _apply_min_growth(community, min_growth)
-        com.objective = 1000.0 * com.variables.community_objective
+
+        com.objective = com.scale * com.variables.community_objective
         min_growth = (
             optimize_with_retry(
                 com, message="could not get community growth rate."
             )
-            / 1000.0
+            / com.scale
         )
         if not isinstance(fraction, Sized):
             fraction = [fraction]
@@ -112,10 +113,10 @@ def knockout_taxa(
         min_growth = _format_min_growth(0.0, com.taxa)
         _apply_min_growth(com, min_growth)
 
-        com.objective = 1000.0 * com.variables.community_objective
+        com.objective = com.scale * com.variables.community_objective
         community_min_growth = (
             optimize_with_retry(com, "could not get community growth rate.")
-            / 1000.0
+            / com.scale
         )
         regularize_l2_norm(com, fraction * community_min_growth)
         old = com.optimize().members["growth_rate"]

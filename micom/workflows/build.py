@@ -14,15 +14,16 @@ from zipfile import ZipFile
 def _reduce_group(df):
     keep = df.columns[df.nunique() == 1]
     new = df.iloc[0, :][keep]
-    new["file"] = "|".join(df.file.astype(str))
+    if "file" in df.columns:
+        new["file"] = "|".join(df.file.astype(str))
     return pd.DataFrame.from_records([new])
 
 
 def build_and_save(args):
     """Build a single community model."""
-    s, tax, db, out, cutoff = args
+    s, tax, db, out, cutoff, solver = args
     com = Community(tax, model_db=db, id=s, progress=False,
-                    rel_threshold=cutoff)
+                    rel_threshold=cutoff, solver=solver)
     com.to_pickle(out)
     metrics = com.build_metrics.to_frame().T
     metrics["sample_id"] = s
@@ -30,7 +31,7 @@ def build_and_save(args):
 
 
 def build(
-    taxonomy, model_db, out_folder, cutoff=0.0001, threads=1
+    taxonomy, model_db, out_folder, cutoff=0.0001, threads=1, solver=None,
 ):
     """Builds a series of community models.
 
@@ -63,6 +64,8 @@ def build(
     threads : int >=1
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
+    solver : str
+        Name of the solver used for the linear and quadratic problems.
 
     Returns
     -------
@@ -77,7 +80,8 @@ def build(
         {s: os.path.join(out_folder, s + ".pickle") for s in samples}
     )
     args = [
-        [s, taxonomy[taxonomy.sample_id == s], model_db, out_path[s], cutoff]
+        [s, taxonomy[taxonomy.sample_id == s], model_db,
+         out_path[s], cutoff, solver]
         for s in samples
     ]
     res = workflow(build_and_save, args, threads)

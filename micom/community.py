@@ -750,6 +750,14 @@ class Community(cobra.Model):
             self, taxa, fraction, method, progress, diag
         )
 
+    @property
+    def scale(self):
+        """Get a scale to improve numerical properties."""
+        scale = 1000.0
+        if cobra.util.interface_to_str(self.problem) == "osqp":
+            scale = 1.0
+        return scale
+
     def to_pickle(self, filename):
         """Save a community in serialized form.
 

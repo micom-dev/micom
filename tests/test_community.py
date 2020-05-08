@@ -16,11 +16,6 @@ def test_construction():
     assert len(com.metabolites) > tax.metabolites.sum()
 
 
-def test_benchmark_construction(benchmark):
-    tax = test_taxonomy(3)
-    benchmark(Community, tax)
-
-
 def test_abundance_cutoff():
     tax = test_taxonomy(n=3)
     tax["abundance"] = [1.0, 2.0, 1e-6]

@@ -3,7 +3,7 @@
 from fixtures import community
 import micom.data as md
 from micom.workflows import (
-    build_database, build, grow, tradeoff, minimal_media, fix_community_medium)
+    build_database, build, grow, tradeoff, minimal_media, fix_medium)
 from micom.qiime_formats import load_qiime_medium, load_qiime_manifest
 from micom.solution import OptimizationError
 import pytest
@@ -67,6 +67,6 @@ def test_media(tmp_path):
 def test_fix_medium():
     tax = md.test_taxonomy()
     bad_medium = medium.flux.iloc[0:2]
-    fixed = fix_community_medium(tax, bad_medium, 0.5, 10)
-    assert len(fixed) > 3
+    fixed = fix_medium(db, bad_medium, 0.5, 10)
+    assert fixed.shape[0] > 3
 

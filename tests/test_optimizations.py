@@ -21,18 +21,6 @@ def test_community_objective(community):
     assert y.fluxes.shape[0] == 5
 
 
-@pytest.mark.parametrize("solver", solvers)
-def test_benchmark_community_objective(community, benchmark, solver):
-    community.solver = solver
-    benchmark(community.optimize)
-
-
 def test_individual_objective(community):
     growth_rates = community.optimize_all()
     assert np.allclose(growth_rates, 4 * 0.873922)
-
-
-@pytest.mark.parametrize("solver", solvers)
-def test_benchmark_individual(community, benchmark, solver):
-    community.solver = solver
-    benchmark(community.optimize_single, 0)

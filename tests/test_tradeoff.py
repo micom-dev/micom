@@ -18,7 +18,3 @@ def test_multiple_tradeoffs(community):
     assert sol.shape == (4, 2)
     for i, f in sol.iterrows():
         assert f.solution.growth_rate == approx(fs[i] * 0.874, 0.001)
-
-
-def test_benchmark_ct(community, benchmark):
-    benchmark(community.cooperative_tradeoff, fraction=1.0)

@@ -84,6 +84,6 @@ setup(
     # $ pip install -e .[dev,test]
     extras_require={
         "dev": [""],
-        "test": ["coverage", "pytest", "pytest-benchmark"],
+        "test": ["coverage", "pytest", "pytest-cov"],
     },
 )

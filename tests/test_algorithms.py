@@ -31,7 +31,3 @@ def test_metabolic_dist(community):
     real[:, 4] = 1
     real[4, 4] = 0
     assert np.allclose(md, real)
-
-
-def test_benchmark_metabolic_dist(community, benchmark):
-    benchmark(algo.metabolic_dist, community.reactions)

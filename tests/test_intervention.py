@@ -12,7 +12,3 @@ def test_elasticities(community):
     s = el[(el.reaction == "EX_glc__D_m") & (el.effector == "EX_glc__D_m")]
     print(s)
     assert s.elasticity.iloc[0] == approx(1.0)
-
-
-def test_benchmark_elasticities(community, benchmark):
-    benchmark(elasticities, community, fraction=1.0)

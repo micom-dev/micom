@@ -13,6 +13,7 @@ from micom.util import (
     reset_min_community_growth,
 )
 from micom.logger import logger
+from micom.solution import OptimizationError
 
 
 def add_linear_obj(community, exchanges):
@@ -204,6 +205,12 @@ def complete_medium(
     order to avoid bias all added reactions will have a maximum import
     rate of `max_import`.
 
+    Note
+    ----
+    This function fixes the growth medium for a single cobra Model. We also
+    provide a function `fix_medium` in `micom.workflows` that fixes a growth
+    medium for an entire model database.
+
     Arguments
     ---------
     model : cobra.Model
@@ -262,6 +269,9 @@ def complete_medium(
         else:
             sol = model.optimize()
             fluxes = sol.fluxes
+    if sol is None:
+        raise OptimizationError(
+            "Could not find a solution that completes the medium :(")
     completed = pd.Series()
     for rxn in model.exchanges:
         export = len(rxn.reactants) == 1

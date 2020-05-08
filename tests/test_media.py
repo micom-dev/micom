@@ -38,11 +38,3 @@ def test_complete_mip(community):
     medium = media.complete_medium(community, m[0:2], 0.8, max_import=20,
                                    minimize_components=True)
     assert len(medium) > 2
-
-
-def test_benchmark_medium_linear(community, benchmark):
-    benchmark(media.minimal_medium, community, 0.8, 0.1)
-
-
-def test_benchmark_medium_mip(community, benchmark):
-    benchmark(media.minimal_medium, community, 0.8, 0.1, True)

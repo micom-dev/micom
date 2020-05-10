@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from micom.viz import Visualization
+from micom.logger import logger
 import json
 import numpy as np
 import pandas as pd
@@ -99,6 +100,11 @@ def plot_fit(
     )
     fluxes = fluxes.applymap(np.log)
     meta = phenotype[fluxes.index]
+    stds = fluxes.std(axis=1)
+    bad = stds < 1e-6
+    if bad.any():
+        logger.warning("Removing %d fluxes due to zero variance." % bad.sum())
+        fluxes = fluxes.loc[:, ~bad]
     scaled = StandardScaler().fit_transform(fluxes)
     if variable_type == "binary":
         model = LogisticRegressionCV(

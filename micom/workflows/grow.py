@@ -2,7 +2,7 @@
 
 from cobra.util.solver import interface_to_str, OptimizationError
 from micom import load_pickle
-from micom.annotation import annotate
+from micom.annotation import annotate_metabolites_from_exchanges
 from micom.logger import logger
 from micom.media import minimal_medium
 from micom.workflows.core import workflow, GrowthResults
@@ -51,12 +51,8 @@ def _growth(args):
                          solution=True)
     sol = res["solution"]
     fluxes = sol.fluxes.loc[:, sol.fluxes.columns.str.startswith("EX_")].copy()
-    mets = [
-        r.reactants[0]
-        for r in com.reactions if r.id.startswith("EX_")
-    ]
-    anns = annotate(mets, com, "metabolite")
     fluxes["sample_id"] = com.id
+    anns = annotate_metabolites_from_exchanges(com)
     return {"growth": rates, "exchanges": fluxes, "annotations": anns}
 
 
@@ -121,10 +117,11 @@ def grow(
     abundance = growth[["taxon", "sample_id", "abundance"]]
     exchanges = pd.merge(exchanges, abundance,
                          on=["taxon", "sample_id"], how="outer")
-    exchanges["metabolite"] = exchanges.reaction.str.replace("EX_", "")
+    anns = pd.concat(r["annotations"] for r in results).drop_duplicates()
+    anns.index = anns.reaction
+    exchanges["metabolite"] = anns.loc[exchanges.reaction, "metabolite"].values
     exchanges["direction"] = DIRECTION[
         (exchanges.flux > 0.0).astype(int)
     ].values
-    anns = pd.concat(r["annotations"] for r in results).drop_duplicates()
 
     return GrowthResults(growth, exchanges, anns)

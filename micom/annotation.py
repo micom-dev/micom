@@ -27,3 +27,17 @@ def annotate(ids, community, what="reaction"):
         for o in objs
     ]
     return pd.DataFrame.from_records(anns).drop_duplicates()
+
+
+def annotate_metabolites_from_exchanges(com):
+    """Annotate exchange reactions by their metabolite."""
+    mets = pd.DataFrame.from_records([
+        {"metabolite": r.reactants[0], "mid":r.reactants[0].global_id,
+         "rid": r.global_id}
+        for r in com.reactions if r.id.startswith("EX_")
+    ])
+    anns = annotate(mets.metabolite.tolist(), com, "metabolite")
+    idmap = mets[["mid", "rid"]].drop_duplicates()
+    idmap.index = idmap.mid
+    anns["reaction"] = idmap.loc[anns.metabolite, "rid"].values
+    return anns

@@ -1,6 +1,7 @@
 """Visualization for phenotype prediction."""
 
 from datetime import datetime
+from micom.workflows.core import GrowthResults
 from micom.viz import Visualization
 from micom.logger import logger
 import json
@@ -22,7 +23,7 @@ from sklearn.preprocessing import StandardScaler
 
 
 def plot_fit(
-    exchanges,
+    results,
     phenotype,
     variable_type="binary",
     variable_name="phenotype",
@@ -38,8 +39,8 @@ def plot_fit(
 
     Parameters
     ----------
-    exchanges : pandas.DataFrame
-        The exchanges returned by the `grow` workflow.
+    results : micom.workflows.GrowthResults
+        The results returned by the `grow` workflow.
     phenotype : pandas.Series
         The data to be fitted. Its index must correspond to `sample_id` in
         `exchanges`.
@@ -60,6 +61,9 @@ def plot_fit(
         A MICOM visualization. Can be served with `viz.serve`.
 
     """
+    exchanges = results.exchanges
+    anns = results.annotations
+    anns.index = anns.metabolite
     if flux_type == "import":
         exchanges = exchanges[
             (exchanges.taxon == "medium") & (exchanges.direction == "import")
@@ -132,6 +136,7 @@ def plot_fit(
         fit = model.fit(scaled, meta)
         score = cross_val_score(model, X=scaled, y=meta, cv=3)
         coefs = pd.DataFrame({"coef": fit.coef_, "metabolite": fluxes.columns})
+    coefs["description"] = anns.loc[coefs.metabolite, "name"].values
     score = [np.mean(score), np.std(score)]
     score.append(model.score(scaled, meta))
 
@@ -152,6 +157,7 @@ def plot_fit(
         exchanges.metabolite.isin(coefs.metabolite.values)
     ]
     exchanges["meta"] = meta[exchanges.sample_id].values
+    exchanges["description"] = anns.loc[exchanges.metabolite, "name"].values
     var_type = "nominal" if variable_type == "binary" else "quantitative"
     viz = Visualization(out_folder, data, "tests.html")
 

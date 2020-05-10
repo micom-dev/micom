@@ -8,7 +8,7 @@ import pandas as pd
 
 
 def plot_exchanges_per_sample(
-    exchanges,
+    results,
     out_folder="sample_exchanges_%s" % datetime.now().strftime("%Y%m%d"),
     direction="import",
     cluster=True,
@@ -17,8 +17,8 @@ def plot_exchanges_per_sample(
 
     Parameters
     ----------
-    exchanges : pandas.DataFrame
-        The exchanges returned by the `grow` workflow.
+    results : micom.workflows.GrowthResults
+        The results returned by the `grow` workflow.
     out_folder : str
         The folder where the visualization will be saved.
     direction : str either "import" or "export"
@@ -32,6 +32,9 @@ def plot_exchanges_per_sample(
     Visualization
         A MICOM visualization. Can be served with `viz.serve`.
     """
+    exchanges = results.exchanges
+    anns = results.annotations
+    anns.index = anns.metabolite
     if direction not in ["import", "export"]:
         ValueError("Not a valid flux direction. Must be `import` or `export`.")
     exchanges = exchanges[
@@ -41,16 +44,17 @@ def plot_exchanges_per_sample(
     ].copy()
     exchanges.flux = exchanges.flux.abs()
     mat = exchanges.pivot_table(
-        values="flux", index="reaction", columns="sample_id", fill_value=1e-6
+        values="flux", index="metabolite", columns="sample_id", fill_value=1e-6
     )
     sample_order = leaves_list(linkage(mat.values.T, method="average"))
     reaction_order = leaves_list(linkage(mat.values, method="average"))
     mat = mat.iloc[reaction_order, sample_order]
 
-    mat["reaction"] = mat.index
+    mat["metabolite"] = mat.index
     data = mat.melt(
-        id_vars="reaction", var_name="sample_id", value_name="flux"
+        id_vars="metabolite", var_name="sample_id", value_name="flux"
     )
+    data["description"] = anns.loc[data.metabolite, "name"].values
     data = {"exchange_fluxes": data}
     viz = Visualization(out_folder, data, "sample_heatmap.html")
     w = mat.shape[1] * 10
@@ -63,7 +67,7 @@ def plot_exchanges_per_sample(
 
 
 def plot_exchanges_per_taxon(
-    exchanges,
+    results,
     out_folder="taxon_exchanges_%s" % datetime.now().strftime("%Y%m%d"),
     direction="import",
     **umap_args
@@ -72,7 +76,7 @@ def plot_exchanges_per_taxon(
 
     Parameters
     ----------
-    exchanges : pandas.DataFrame
+    results : micom.workflows.GrowthResults
         The exchanges returned by the `grow` workflow.
     out_folder : str
         The folder where the visualization will be saved.
@@ -87,6 +91,7 @@ def plot_exchanges_per_taxon(
     """
     from umap import UMAP  # allows skipping tests
 
+    exchanges = results.exchanges
     if direction not in ["import", "export"]:
         ValueError("Not a valid flux direction. Must be `import` or `export`.")
     exchanges = exchanges[

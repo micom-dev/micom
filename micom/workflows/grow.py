@@ -1,18 +1,16 @@
 """Performs growth and exchange analysis for several models."""
 
 from cobra.util.solver import interface_to_str, OptimizationError
-from collections import namedtuple
 from micom import load_pickle
 from micom.annotation import annotate
 from micom.logger import logger
 from micom.media import minimal_medium
-from micom.workflows.core import workflow
+from micom.workflows.core import workflow, GrowthResults
 from micom.workflows.media import process_medium
 from os import path
 import pandas as pd
 
 DIRECTION = pd.Series(["import", "export"], index=[0, 1])
-GrowthResults = namedtuple("GrowthResults", ["growth_rates", "exchanges"])
 
 
 def _growth(args):
@@ -54,11 +52,10 @@ def _growth(args):
     sol = res["solution"]
     fluxes = sol.fluxes.loc[:, sol.fluxes.columns.str.startswith("EX_")].copy()
     mets = [
-        com.reactions.get_by_id(rid).reactants[0]
-        for rid in fluxes.columns
+        r.reactants[0]
+        for r in com.reactions if r.id.startswith("EX_")
     ]
-    anns = annotate(mets, com, "metabolites")
-    anns["reaction"] = fluxes.columns
+    anns = annotate(mets, com, "metabolite")
     fluxes["sample_id"] = com.id
     return {"growth": rates, "exchanges": fluxes, "annotations": anns}
 
@@ -129,6 +126,5 @@ def grow(
         (exchanges.flux > 0.0).astype(int)
     ].values
     anns = pd.concat(r["annotations"] for r in results).drop_duplicates()
-    exchanges = pd.merge(exchanges, anns, on="reaction")
 
-    return GrowthResults(growth, exchanges)
+    return GrowthResults(growth, exchanges, anns)

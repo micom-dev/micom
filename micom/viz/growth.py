@@ -5,15 +5,15 @@ from micom.viz import Visualization
 
 
 def plot_growth(
-    growth_rates,
+    results,
     out_folder="growth_rates_%s" % datetime.now().strftime("%Y%m%d")
 ):
     """Plot the taxa growth rates.
 
     Parameters
     ----------
-    growth_rates : pandas.DataFrame
-        The growth rates returned by the `grow` workflow.
+    results : micom.workflows.GrowthResults
+        The results returned by the `grow` workflow.
     out_folder : str
         The folder where the visualization will be saved.
 
@@ -22,7 +22,7 @@ def plot_growth(
     Visualization
         A MICOM visualization. Can be served with `viz.serve`.
     """
-    rates = growth_rates
+    rates = results.growth_rates
     rates = rates[rates.growth_rate > 1e-6][
         ["taxon", "sample_id", "abundance", "growth_rate"]
     ]

@@ -39,7 +39,7 @@ def test_grow(tmp_path):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0)
     grown = grow(built, str(tmp_path), medium, 0.5)
-    assert len(grown) == 2
+    assert len(grown) == 3
     assert "growth_rate" in grown.growth_rates.columns
     assert "flux" in grown.exchanges.columns
     with pytest.raises(OptimizationError):

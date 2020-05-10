@@ -1,8 +1,13 @@
 """Makes it easier to run analyses on several samples in parallel."""
 
-from collections import Sized
+from collections import Sized, namedtuple
 from multiprocessing import Pool
 from tqdm import tqdm
+
+GrowthResults = namedtuple(
+    "GrowthResults",
+    ["growth_rates", "exchanges", "annotations"]
+)
 
 
 def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):

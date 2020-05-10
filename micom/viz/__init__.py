@@ -13,5 +13,5 @@ __all__ = (
     "plot_growth",
     "plot_fit",
     "plot_tradeoff",
-    "Visualization"
+    "Visualization",
 )

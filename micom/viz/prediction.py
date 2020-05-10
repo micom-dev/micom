@@ -94,7 +94,8 @@ def plot_fit(
             "Unsupported variable type. Must be either `binary` or "
             "`continuous`."
         )
-
+    print(exchanges[exchanges.flux.isna()])
+    print(exchanges[exchanges.flux < 1e-6])
     fluxes = exchanges.pivot_table(
         index="sample_id", columns="metabolite", values="flux", fill_value=1e-6
     )

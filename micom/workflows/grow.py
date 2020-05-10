@@ -3,6 +3,7 @@
 from cobra.util.solver import interface_to_str, OptimizationError
 from collections import namedtuple
 from micom import load_pickle
+from micom.annotation import annotate
 from micom.logger import logger
 from micom.media import minimal_medium
 from micom.workflows.core import workflow
@@ -52,8 +53,14 @@ def _growth(args):
                          solution=True)
     sol = res["solution"]
     fluxes = sol.fluxes.loc[:, sol.fluxes.columns.str.startswith("EX_")].copy()
+    mets = [
+        com.reactions.get_by_id(rid).reactants[0]
+        for rid in fluxes.columns
+    ]
+    anns = annotate(mets, com, "metabolites")
+    anns["reaction"] = fluxes.columns
     fluxes["sample_id"] = com.id
-    return {"growth": rates, "exchanges": fluxes}
+    return {"growth": rates, "exchanges": fluxes, "annotations": anns}
 
 
 def grow(
@@ -121,5 +128,7 @@ def grow(
     exchanges["direction"] = DIRECTION[
         (exchanges.flux > 0.0).astype(int)
     ].values
+    anns = pd.concat(r["annotations"] for r in results).drop_duplicates()
+    exchanges = pd.merge(exchanges, anns, on="reaction")
 
     return GrowthResults(growth, exchanges)

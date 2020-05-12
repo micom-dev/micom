@@ -81,7 +81,7 @@ def _fix_medium(args):
         )
     except Exception:
         logger.warning(
-            "Can't reach the specified growth rate for model %s." % mid
+            "Can't reach the specified growth rates for model %s." % sid
         )
         return None
     fixed = pd.DataFrame({"reaction": fixed.index, "flux": fixed.values})

@@ -113,6 +113,26 @@
 <li class="toctree-l2"><a class="reference internal" href="micom.data.html#module-micom.data">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="micom.viz.html">micom.viz package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="micom.viz.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micom.viz.html#module-micom.viz.core">micom.viz.core module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micom.viz.html#module-micom.viz.exchanges">micom.viz.exchanges module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micom.viz.html#module-micom.viz.growth">micom.viz.growth module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micom.viz.html#module-micom.viz.prediction">micom.viz.prediction module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micom.viz.html#module-micom.viz.tradeoff">micom.viz.tradeoff module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micom.viz.html#module-micom.viz">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="micom.workflows.html">micom.workflows package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="micom.workflows.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micom.workflows.html#module-micom.workflows.build">micom.workflows.build module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micom.workflows.html#module-micom.workflows.core">micom.workflows.core module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micom.workflows.html#module-micom.workflows.grow">micom.workflows.grow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micom.workflows.html#module-micom.workflows.media">micom.workflows.media module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micom.workflows.html#module-micom.workflows.tradeoff">micom.workflows.tradeoff module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micom.workflows.html#module-micom.workflows">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -144,6 +164,28 @@
 <dt id="micom.algorithms.reaction_matrix">
 <code class="sig-prename descclassname">micom.algorithms.</code><code class="sig-name descname">reaction_matrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.algorithms.reaction_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a matrix of reactions x models.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-micom.annotation">
+<span id="micom-annotation-module"></span><h2>micom.annotation module<a class="headerlink" href="#module-micom.annotation" title="Permalink to this headline">¶</a></h2>
+<p>Helper to annotate metabolites and species.</p>
+<dl class="py function">
+<dt id="micom.annotation.annotate">
+<code class="sig-prename descclassname">micom.annotation.</code><code class="sig-name descname">annotate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ids</span></em>, <em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">what</span><span class="o">=</span><span class="default_value">'reaction'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.annotation.annotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Annotate a list of entities.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.annotation.annotate_metabolites_from_exchanges">
+<code class="sig-prename descclassname">micom.annotation.</code><code class="sig-name descname">annotate_metabolites_from_exchanges</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">com</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.annotation.annotate_metabolites_from_exchanges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Annotate exchange reactions by their metabolite.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.annotation.flatten">
+<code class="sig-prename descclassname">micom.annotation.</code><code class="sig-name descname">flatten</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.annotation.flatten" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flatten a dictionary into strings.</p>
 </dd></dl>
 
 </div>
@@ -459,6 +501,22 @@ if you know what you are doing :O</p></li>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+</div>
+<div class="section" id="module-micom.db">
+<span id="micom-db-module"></span><h2>micom.db module<a class="headerlink" href="#module-micom.db" title="Permalink to this headline">¶</a></h2>
+<p>Build a database of organism metabolic models.</p>
+<dl class="py function">
+<dt id="micom.db.load_manifest">
+<code class="sig-prename descclassname">micom.db.</code><code class="sig-name descname">load_manifest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.db.load_manifest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the manifest from a model DB.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.db.load_zip_model_db">
+<code class="sig-prename descclassname">micom.db.</code><code class="sig-name descname">load_zip_model_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artifact</span></em>, <em class="sig-param"><span class="n">extract_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.db.load_zip_model_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a model database for use.</p>
 </dd></dl>
 
 </div>
@@ -886,6 +944,49 @@ cooperativity cost. If set to False requires a QP-capable solver.</p></li>
 </dd></dl>
 
 </div>
+<div class="section" id="module-micom.qiime_formats">
+<span id="micom-qiime-formats-module"></span><h2>micom.qiime_formats module<a class="headerlink" href="#module-micom.qiime_formats" title="Permalink to this headline">¶</a></h2>
+<p>Provides support for Qiime formats.</p>
+<dl class="py function">
+<dt id="micom.qiime_formats.load_qiime_manifest">
+<code class="sig-prename descclassname">micom.qiime_formats.</code><code class="sig-name descname">load_qiime_manifest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artifact</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.qiime_formats.load_qiime_manifest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare community models for use.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.qiime_formats.load_qiime_medium">
+<code class="sig-prename descclassname">micom.qiime_formats.</code><code class="sig-name descname">load_qiime_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artifact</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.qiime_formats.load_qiime_medium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a growth medium/diet from a Qiime 2 artifact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.qiime_formats.load_qiime_model">
+<code class="sig-prename descclassname">micom.qiime_formats.</code><code class="sig-name descname">load_qiime_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artifact</span></em>, <em class="sig-param"><span class="n">id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.qiime_formats.load_qiime_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a model from a Qiime 2 artifact.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.qiime_formats.load_qiime_model_db">
+<code class="sig-prename descclassname">micom.qiime_formats.</code><code class="sig-name descname">load_qiime_model_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artifact</span></em>, <em class="sig-param"><span class="n">extract_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.qiime_formats.load_qiime_model_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare a model database for use.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.qiime_formats.metadata">
+<code class="sig-prename descclassname">micom.qiime_formats.</code><code class="sig-name descname">metadata</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artifact</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.qiime_formats.metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read metadata from a Qiime 2 artifact.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-micom.representation">
+<span id="micom-representation-module"></span><h2>micom.representation module<a class="headerlink" href="#module-micom.representation" title="Permalink to this headline">¶</a></h2>
+<p>Converts between QP representations.</p>
+<dl class="py function">
+<dt id="micom.representation.sparse_problem">
+<code class="sig-prename descclassname">micom.representation.</code><code class="sig-name descname">sparse_problem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">com</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.representation.sparse_problem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
 <div class="section" id="module-micom.solution">
 <span id="micom-solution-module"></span><h2>micom.solution module<a class="headerlink" href="#module-micom.solution" title="Permalink to this headline">¶</a></h2>
 <p>A community solution object.</p>
@@ -1158,223 +1259,6 @@ ones).</p>
 <dt id="micom.util.serialize_models">
 <code class="sig-prename descclassname">micom.util.</code><code class="sig-name descname">serialize_models</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">files</span></em>, <em class="sig-param"><span class="n">dir</span><span class="o">=</span><span class="default_value">'.'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.util.serialize_models" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert several models to Python pickles.</p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-micom.workflows">
-<span id="micom-workflows-module"></span><h2>micom.workflows module<a class="headerlink" href="#module-micom.workflows" title="Permalink to this headline">¶</a></h2>
-<p>Init file for MICOM workflows.</p>
-<dl class="py function">
-<dt id="micom.workflows.workflow">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">workflow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">args</span></em>, <em class="sig-param"><span class="n">n_jobs</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">unit</span><span class="o">=</span><span class="default_value">'sample(s)'</span></em>, <em class="sig-param"><span class="n">progress</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.workflow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run analyses for several samples in parallel.</p>
-<p>This will analyze several samples in parallel. Includes a workaround for
-optlang memory leak.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> (<em>function</em>) – A function that takes a single argument (can be any object) and
-that performs your analysis for a single sample.</p></li>
-<li><p><strong>args</strong> (<em>array-like object</em>) – An array-like object (list, tuple, numpy array, pandas Series, etc.)
-that contains the arguments for each sample.</p></li>
-<li><p><strong>n_jobs</strong> (<em>positive int</em>) – How many samples to analyze in parallel at once.</p></li>
-<li><p><strong>unit</strong> (<em>str</em>) – The unit used for the progress bar.</p></li>
-<li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="micom.workflows.build">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">taxonomy</span></em>, <em class="sig-param"><span class="n">model_db</span></em>, <em class="sig-param"><span class="n">out_folder</span></em>, <em class="sig-param"><span class="n">cutoff</span><span class="o">=</span><span class="default_value">0.0001</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">solver</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.build" title="Permalink to this definition">¶</a></dt>
-<dd><p>Builds a series of community models.</p>
-<p>This is a best-practice implementation of building community models
-for several samples in parallel.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>taxonomy</strong> (<em>pandas.DataFrame</em>) – The taxonomy used for building the model. Must have at least the
-columns “id” and “sample_id”. This must also
-contain at least a column with the same name as the rank used in
-the model database. Thus, for a genus-level database you will need
-a column <cite>genus</cite>. Additional taxa ranks can also be specified and
-will be used to be more stringent in taxa matching.
-Finally, the taxonomy should contain a column <cite>abundance</cite>. It will
-be used to quantify each individual in the community. If absent,
-MICOM will assume all individuals are present in the same amount.</p></li>
-<li><p><strong>model_db</strong> (<em>str</em>) – A pre-built model database. If ending in <cite>.qza</cite> must be a Qiime 2
-artifact of type <cite>MetabolicModels[JSON]</cite>. Can also be a folder,
-zip (must end in <cite>.zip</cite>) file or None if the taxonomy contains a
-column <cite>file</cite>.</p></li>
-<li><p><strong>out_folder</strong> (<em>str</em>) – The built models and a manifest file will be written to this
-folder.</p></li>
-<li><p><strong>cutoff</strong> (<em>float in</em><em> [</em><em>0.0</em><em>, </em><em>1.0</em><em>]</em>) – Abundance cutoff. Taxa with a relative abundance smaller than this
-will not be included in the model.</p></li>
-<li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
-rule of thumb you will need around 1GB of RAM for each thread.</p></li>
-<li><p><strong>solver</strong> (<em>str</em>) – Name of the solver used for the linear and quadratic problems.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The manifest for the built models. Contains taxa abundances,
-build metrics and file basenames.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pandas.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="micom.workflows.build_database">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">build_database</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">out_path</span></em>, <em class="sig-param"><span class="n">rank</span><span class="o">=</span><span class="default_value">'genus'</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">compress</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">progress</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.build_database" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a model database from a set of SBML files.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>A manifest for the joined models will also be written to the output folder
-as “manifest.csv”. This may contain NA entries for additional columns
-that had different values within the summarized models.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – A manifest of SBML files containing their filepath as well as taxonomy.
-Must contain the columns “file”, “kingdom”, “phylum”, “class”,
-“order”, “family”, “genus”, and “species”. May contain additional
-columns.</p></li>
-<li><p><strong>out_path</strong> (<em>str</em>) – The directory where the joined models will be written.</p></li>
-<li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
-rule of thumb you will need around 1GB of RAM for each thread.</p></li>
-<li><p><strong>compress</strong> (<em>bool</em>) – Whether to compress the output. Default is True if out_path ends with
-“.zip” otherwise no.</p></li>
-<li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The manifest of the joined models. Will still contain information
-from the original metadata.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="micom.workflows.grow">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">grow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoff</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.grow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simulate growth for a set of community models.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – The manifest as returned by the <cite>build</cite> workflow.</p></li>
-<li><p><strong>model_folder</strong> (<em>str</em>) – The folder in which to find the files mentioned in the manifest.</p></li>
-<li><p><strong>medium</strong> (<em>pandas.DataFrame</em>) – A growth medium. Must have columns “reaction” and “flux” denoting
-exchnage reactions and their respective maximum flux.</p></li>
-<li><p><strong>tradeoff</strong> (<em>float in</em><em> (</em><em>0.0</em><em>, </em><em>1.0</em><em>]</em>) – A tradeoff value. Can be chosen by running the <cite>tradeoff</cite> workflow or
-by experince. Tradeoff values of 0.5 for metagenomcis data and 0.3 for
-16S data seem to work well.</p></li>
-<li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
-rule of thumb you will need around 1GB of RAM for each thread.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A named tuple containing the growth rates and exchange fluxes for all
-samples/models.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#micom.workflows.GrowthResults" title="micom.workflows.GrowthResults">GrowthResults</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="micom.workflows.tradeoff">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoffs</span><span class="o">=</span><span class="default_value">array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.tradeoff" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run growth rate predictions for varying tradeoff values.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – The manifest as returned by the <cite>build</cite> workflow.</p></li>
-<li><p><strong>model_folder</strong> (<em>str</em>) – The folder in which to find the files mentioned in the manifest.</p></li>
-<li><p><strong>medium</strong> (<em>pandas.DataFrame</em>) – A growth medium. Must have columns “reaction” and “flux” denoting
-exchnage reactions and their respective maximum flux.</p></li>
-<li><p><strong>tradeoffs</strong> (<em>array of floats in</em><em> (</em><em>0.0</em><em>, </em><em>1.0</em><em>]</em>) – An array of tradeoff vaues to be tested. One simulation without
-a tradeoff (no cooperative tradeoff) will always be run additionally
-and will have a tradeoff of “NaN”.</p></li>
-<li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
-rule of thumb you will need around 1GB of RAM for each thread.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The predicted growth rates.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pandas.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="micom.workflows.fix_medium">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">fix_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summarize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.fix_medium" title="Permalink to this definition">¶</a></dt>
-<dd><p>Augment a growth medium so all community members can grow in it.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – The manifest as returned by the <cite>build</cite> workflow.</p></li>
-<li><p><strong>model_folder</strong> (<em>str</em>) – The folder in which to find the files mentioned in the manifest.</p></li>
-<li><p><strong>medium</strong> (<em>pandas.Series</em><em> or </em><em>pandas.DataFrame</em>) – A growth medium with exchange reaction IDs as index and positive
-import fluxes as values. If a DataFrame needs columns <cite>flux</cite> and
-<cite>reaction</cite>.</p></li>
-<li><p><strong>min_growth</strong> (<em>positive float</em>) – The minimum biomass production required for growth.</p></li>
-<li><p><strong>max_import</strong> (<em>positive float</em>) – The maximum import rate for added imports.</p></li>
-<li><p><strong>minimize_components</strong> (<em>boolean</em>) – Whether to minimize the number of media components rather than the
-total flux.</p></li>
-<li><p><strong>summarize</strong> (<em>boolean</em>) – Whether to summarize the medium across all samples. If False will
-return a medium for each sample.</p></li>
-<li><p><strong>threads</strong> (<em>int</em>) – The number of processes to use.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A new growth medium with the smallest amount of augmentations such
-that all members of the community can grow in it.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pandas.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="micom.workflows.minimal_media">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">minimal_media</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">summarize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.minimal_media" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the minimal medium for a set of community models.</p>
-</dd></dl>
-
-<dl class="py class">
-<dt id="micom.workflows.GrowthResults">
-<em class="property">class </em><code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">GrowthResults</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">growth_rates</span></em>, <em class="sig-param"><span class="n">exchanges</span></em>, <em class="sig-param"><span class="n">annotations</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.GrowthResults" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
-<dl class="py attribute">
-<dt id="micom.workflows.GrowthResults.annotations">
-<code class="sig-name descname">annotations</code><a class="headerlink" href="#micom.workflows.GrowthResults.annotations" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 2</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="micom.workflows.GrowthResults.exchanges">
-<code class="sig-name descname">exchanges</code><a class="headerlink" href="#micom.workflows.GrowthResults.exchanges" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="micom.workflows.GrowthResults.growth_rates">
-<code class="sig-name descname">growth_rates</code><a class="headerlink" href="#micom.workflows.GrowthResults.growth_rates" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>

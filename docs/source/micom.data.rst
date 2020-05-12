@@ -5,6 +5,6 @@ Module contents
 ---------------
 
 .. automodule:: micom.data
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -64,9 +64,11 @@ def test_media(tmp_path):
     assert "reaction" in media.columns
 
 
-def test_fix_medium():
-    tax = md.test_taxonomy()
-    bad_medium = medium.flux.iloc[0:2]
-    fixed = fix_medium(db, bad_medium, 0.5, 10)
+def test_fix_medium(tmp_path):
+    data = md.test_data()
+    built = build(data, db, str(tmp_path), cutoff=0)
+    bad_medium = medium.iloc[0:2, :]
+    fixed = fix_medium(built, str(tmp_path), bad_medium, 0.5, 10)
     assert fixed.shape[0] > 3
+    assert "description" in fixed.columns
 

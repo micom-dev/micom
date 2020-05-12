@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>micom.viz package &#8212; micom 0.16.0 documentation</title>
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script src="_static/js/jquery-1.11.0.min.js"></script>
+    <script src="_static/js/jquery-fix.js"></script>
+    <script src="_static/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <script src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="micom.workflows package" href="micom.workflows.html" />
+    <link rel="prev" title="micom.data package" href="micom.data.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+<div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">
+        micom</a>
+      <span class="navbar-text navbar-version pull-left"><b>0.16.x</b></span>
+    </div>
+
+      <div class="collapse navbar-collapse nav-collapse">
+        <ul class="nav navbar-nav">
+          
+          
+          
+          
+        </ul>
+
+        
+          
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        
+        
+          
+            <ul class='nav navbar-nav navbar-right'>
+                
+  <li>
+    <a href="micom.data.html" title="Previous Chapter: micom.data package"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; micom.data package</span>
+    </a>
+  </li>
+  <li>
+    <a href="micom.workflows.html" title="Next Chapter: micom.workflows package"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">micom.workflows package &raquo;</span>
+    </a>
+  </li>
+            </ul>
+          
+        
+      </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by MICOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html#Solvers">Solvers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="high_level.html">The High Level API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxa_knockouts.html">Knockouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticities.html">Intervention studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Analyzing many samples in parallel</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="micom.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="micom-viz-package">
+<h1>micom.viz package<a class="headerlink" href="#micom-viz-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-micom.viz.core">
+<span id="micom-viz-core-module"></span><h2>micom.viz.core module<a class="headerlink" href="#module-micom.viz.core" title="Permalink to this headline">¶</a></h2>
+<p>Core objects for visualization.</p>
+<dl class="py class">
+<dt id="micom.viz.core.Visualization">
+<em class="property">class </em><code class="sig-prename descclassname">micom.viz.core.</code><code class="sig-name descname">Visualization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">template</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.core.Visualization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A visualization object.</p>
+<dl class="py attribute">
+<dt id="micom.viz.core.Visualization.folder">
+<code class="sig-name descname">folder</code><a class="headerlink" href="#micom.viz.core.Visualization.folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>The folder where the visualization was saved.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="micom.viz.core.Visualization.data">
+<code class="sig-name descname">data</code><a class="headerlink" href="#micom.viz.core.Visualization.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>The data used to create the Visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="micom.viz.core.Visualization.template">
+<code class="sig-name descname">template</code><a class="headerlink" href="#micom.viz.core.Visualization.template" title="Permalink to this definition">¶</a></dt>
+<dd><p>The jinja template used to render the visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>jinja2.Template</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.viz.core.Visualization.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.core.Visualization.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render and and save the visualization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.viz.core.Visualization.serve">
+<code class="sig-name descname">serve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">8000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.core.Visualization.serve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serve the visualization to view in a browser.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> (<em>int</em>) – The port on which to serve the webpage.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>nothing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="micom.viz.core.VizServer">
+<em class="property">class </em><code class="sig-prename descclassname">micom.viz.core.</code><code class="sig-name descname">VizServer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">server_address</span></em>, <em class="sig-param"><span class="n">RequestHandlerClass</span></em>, <em class="sig-param"><span class="n">bind_and_activate</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.core.VizServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">socketserver.TCPServer</span></code></p>
+<p>Simple server that allows port reuse.</p>
+<dl class="py attribute">
+<dt id="micom.viz.core.VizServer.allow_reuse_address">
+<code class="sig-name descname">allow_reuse_address</code><em class="property"> = True</em><a class="headerlink" href="#micom.viz.core.VizServer.allow_reuse_address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-micom.viz.exchanges">
+<span id="micom-viz-exchanges-module"></span><h2>micom.viz.exchanges module<a class="headerlink" href="#module-micom.viz.exchanges" title="Permalink to this headline">¶</a></h2>
+<p>Visualization for exchanges.</p>
+<dl class="py function">
+<dt id="micom.viz.exchanges.plot_exchanges_per_sample">
+<code class="sig-prename descclassname">micom.viz.exchanges.</code><code class="sig-name descname">plot_exchanges_per_sample</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results</span></em>, <em class="sig-param"><span class="n">out_folder</span><span class="o">=</span><span class="default_value">'sample_exchanges_20200511'</span></em>, <em class="sig-param"><span class="n">direction</span><span class="o">=</span><span class="default_value">'import'</span></em>, <em class="sig-param"><span class="n">cluster</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#micom.viz.exchanges.plot_exchanges_per_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the per sample exchange fluxes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<a class="reference internal" href="micom.workflows.html#micom.workflows.GrowthResults" title="micom.workflows.GrowthResults"><em>micom.workflows.GrowthResults</em></a>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>out_folder</strong> (<em>str</em>) – The folder where the visualization will be saved.</p></li>
+<li><p><strong>direction</strong> (<em>str either &quot;import&quot;</em><em> or </em><em>&quot;export&quot;</em>) – The direction of fluxes to plot.</p></li>
+<li><p><strong>cluster</strong> (<em>bool</em>) – Whether to reorder samples so that samples with similar exchange
+fluxes are close to another.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.core.Visualization" title="micom.viz.core.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.viz.exchanges.plot_exchanges_per_taxon">
+<code class="sig-prename descclassname">micom.viz.exchanges.</code><code class="sig-name descname">plot_exchanges_per_taxon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results</span></em>, <em class="sig-param"><span class="n">out_folder</span><span class="o">=</span><span class="default_value">'taxon_exchanges_20200511'</span></em>, <em class="sig-param"><span class="n">direction</span><span class="o">=</span><span class="default_value">'import'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">umap_args</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#micom.viz.exchanges.plot_exchanges_per_taxon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the exchange fluxes per taxon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<a class="reference internal" href="micom.workflows.html#micom.workflows.GrowthResults" title="micom.workflows.GrowthResults"><em>micom.workflows.GrowthResults</em></a>) – The exchanges returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>out_folder</strong> (<em>str</em>) – The folder where the visualization will be saved.</p></li>
+<li><p><strong>direction</strong> (<em>str either &quot;import&quot;</em><em> or </em><em>&quot;export&quot;</em>) – The direction of fluxes to plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.core.Visualization" title="micom.viz.core.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-micom.viz.growth">
+<span id="micom-viz-growth-module"></span><h2>micom.viz.growth module<a class="headerlink" href="#module-micom.viz.growth" title="Permalink to this headline">¶</a></h2>
+<p>Visualization for growth rates.</p>
+<dl class="py function">
+<dt id="micom.viz.growth.plot_growth">
+<code class="sig-prename descclassname">micom.viz.growth.</code><code class="sig-name descname">plot_growth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results</span></em>, <em class="sig-param"><span class="n">out_folder</span><span class="o">=</span><span class="default_value">'growth_rates_20200511'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.growth.plot_growth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the taxa growth rates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<a class="reference internal" href="micom.workflows.html#micom.workflows.GrowthResults" title="micom.workflows.GrowthResults"><em>micom.workflows.GrowthResults</em></a>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>out_folder</strong> (<em>str</em>) – The folder where the visualization will be saved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.core.Visualization" title="micom.viz.core.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-micom.viz.prediction">
+<span id="micom-viz-prediction-module"></span><h2>micom.viz.prediction module<a class="headerlink" href="#module-micom.viz.prediction" title="Permalink to this headline">¶</a></h2>
+<p>Visualization for phenotype prediction.</p>
+<dl class="py function">
+<dt id="micom.viz.prediction.plot_fit">
+<code class="sig-prename descclassname">micom.viz.prediction.</code><code class="sig-name descname">plot_fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results</span></em>, <em class="sig-param"><span class="n">phenotype</span></em>, <em class="sig-param"><span class="n">variable_type</span><span class="o">=</span><span class="default_value">'binary'</span></em>, <em class="sig-param"><span class="n">variable_name</span><span class="o">=</span><span class="default_value">'phenotype'</span></em>, <em class="sig-param"><span class="n">out_folder</span><span class="o">=</span><span class="default_value">'fit_20200511'</span></em>, <em class="sig-param"><span class="n">flux_type</span><span class="o">=</span><span class="default_value">'production'</span></em>, <em class="sig-param"><span class="n">min_coef</span><span class="o">=</span><span class="default_value">0.01</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.prediction.plot_fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for differential metabolite production.</p>
+<p>This will fit the <cite>phenotype</cite> response using L1-regularized linear models
+with log-fluxes as features. Will use LASSO regression for a continuous
+response and L1-regularized Logistic regression for a binary response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<a class="reference internal" href="micom.workflows.html#micom.workflows.GrowthResults" title="micom.workflows.GrowthResults"><em>micom.workflows.GrowthResults</em></a>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>phenotype</strong> (<em>pandas.Series</em>) – The data to be fitted. Its index must correspond to <cite>sample_id</cite> in
+<cite>exchanges</cite>.</p></li>
+<li><p><strong>variable_type</strong> (<em>str of</em><em> [</em><em>&quot;binary&quot;</em><em>, </em><em>&quot;continuous&quot;</em><em>]</em>) – The type of the variable.</p></li>
+<li><p><strong>variable_name</strong> (<em>str</em>) – A short description of the phenotype for instance “disease_status”.</p></li>
+<li><p><strong>out_folder</strong> (<em>str</em>) – The folder where the visualization will be saved.</p></li>
+<li><p><strong>flux_type</strong> (<em>str of</em><em> [</em><em>&quot;import&quot;</em><em>, </em><em>&quot;production&quot;</em><em>]</em>) – Whether to fit using import or production fluxes.</p></li>
+<li><p><strong>min_coef</strong> (<em>float in</em><em> [</em><em>0.0</em><em>, </em><em>Inf</em><em>]</em>) – Only report coefficient that are at least that large.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.core.Visualization" title="micom.viz.core.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-micom.viz.tradeoff">
+<span id="micom-viz-tradeoff-module"></span><h2>micom.viz.tradeoff module<a class="headerlink" href="#module-micom.viz.tradeoff" title="Permalink to this headline">¶</a></h2>
+<p>Visualizations for tradeoff analysis.</p>
+<dl class="py function">
+<dt id="micom.viz.tradeoff.plot_tradeoff">
+<code class="sig-prename descclassname">micom.viz.tradeoff.</code><code class="sig-name descname">plot_tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tradeoff_rates</span></em>, <em class="sig-param"><span class="n">out_folder</span><span class="o">=</span><span class="default_value">'tradeoff_20200511'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.tradeoff.plot_tradeoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot diagnostics for varying tradeoff values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tradeoff_rates</strong> (<em>pandas.DataFrame</em>) – The growth rates returned by the <cite>tradeoff</cite> workflow.</p></li>
+<li><p><strong>out_folder</strong> (<em>str</em>) – The folder where the visualization will be saved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.core.Visualization" title="micom.viz.core.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-micom.viz">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-micom.viz" title="Permalink to this headline">¶</a></h2>
+<p>Init file for MICOM Visualization.</p>
+<dl class="py function">
+<dt id="micom.viz.plot_exchanges_per_sample">
+<code class="sig-prename descclassname">micom.viz.</code><code class="sig-name descname">plot_exchanges_per_sample</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results</span></em>, <em class="sig-param"><span class="n">out_folder</span><span class="o">=</span><span class="default_value">'sample_exchanges_20200511'</span></em>, <em class="sig-param"><span class="n">direction</span><span class="o">=</span><span class="default_value">'import'</span></em>, <em class="sig-param"><span class="n">cluster</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#micom.viz.plot_exchanges_per_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the per sample exchange fluxes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<a class="reference internal" href="micom.workflows.html#micom.workflows.GrowthResults" title="micom.workflows.GrowthResults"><em>micom.workflows.GrowthResults</em></a>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>out_folder</strong> (<em>str</em>) – The folder where the visualization will be saved.</p></li>
+<li><p><strong>direction</strong> (<em>str either &quot;import&quot;</em><em> or </em><em>&quot;export&quot;</em>) – The direction of fluxes to plot.</p></li>
+<li><p><strong>cluster</strong> (<em>bool</em>) – Whether to reorder samples so that samples with similar exchange
+fluxes are close to another.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.core.Visualization" title="micom.viz.core.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.viz.plot_exchanges_per_taxon">
+<code class="sig-prename descclassname">micom.viz.</code><code class="sig-name descname">plot_exchanges_per_taxon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results</span></em>, <em class="sig-param"><span class="n">out_folder</span><span class="o">=</span><span class="default_value">'taxon_exchanges_20200511'</span></em>, <em class="sig-param"><span class="n">direction</span><span class="o">=</span><span class="default_value">'import'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">umap_args</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#micom.viz.plot_exchanges_per_taxon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the exchange fluxes per taxon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<a class="reference internal" href="micom.workflows.html#micom.workflows.GrowthResults" title="micom.workflows.GrowthResults"><em>micom.workflows.GrowthResults</em></a>) – The exchanges returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>out_folder</strong> (<em>str</em>) – The folder where the visualization will be saved.</p></li>
+<li><p><strong>direction</strong> (<em>str either &quot;import&quot;</em><em> or </em><em>&quot;export&quot;</em>) – The direction of fluxes to plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.core.Visualization" title="micom.viz.core.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.viz.plot_growth">
+<code class="sig-prename descclassname">micom.viz.</code><code class="sig-name descname">plot_growth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results</span></em>, <em class="sig-param"><span class="n">out_folder</span><span class="o">=</span><span class="default_value">'growth_rates_20200511'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.plot_growth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the taxa growth rates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<a class="reference internal" href="micom.workflows.html#micom.workflows.GrowthResults" title="micom.workflows.GrowthResults"><em>micom.workflows.GrowthResults</em></a>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>out_folder</strong> (<em>str</em>) – The folder where the visualization will be saved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.core.Visualization" title="micom.viz.core.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.viz.plot_fit">
+<code class="sig-prename descclassname">micom.viz.</code><code class="sig-name descname">plot_fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results</span></em>, <em class="sig-param"><span class="n">phenotype</span></em>, <em class="sig-param"><span class="n">variable_type</span><span class="o">=</span><span class="default_value">'binary'</span></em>, <em class="sig-param"><span class="n">variable_name</span><span class="o">=</span><span class="default_value">'phenotype'</span></em>, <em class="sig-param"><span class="n">out_folder</span><span class="o">=</span><span class="default_value">'fit_20200511'</span></em>, <em class="sig-param"><span class="n">flux_type</span><span class="o">=</span><span class="default_value">'production'</span></em>, <em class="sig-param"><span class="n">min_coef</span><span class="o">=</span><span class="default_value">0.01</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.plot_fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for differential metabolite production.</p>
+<p>This will fit the <cite>phenotype</cite> response using L1-regularized linear models
+with log-fluxes as features. Will use LASSO regression for a continuous
+response and L1-regularized Logistic regression for a binary response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<a class="reference internal" href="micom.workflows.html#micom.workflows.GrowthResults" title="micom.workflows.GrowthResults"><em>micom.workflows.GrowthResults</em></a>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>phenotype</strong> (<em>pandas.Series</em>) – The data to be fitted. Its index must correspond to <cite>sample_id</cite> in
+<cite>exchanges</cite>.</p></li>
+<li><p><strong>variable_type</strong> (<em>str of</em><em> [</em><em>&quot;binary&quot;</em><em>, </em><em>&quot;continuous&quot;</em><em>]</em>) – The type of the variable.</p></li>
+<li><p><strong>variable_name</strong> (<em>str</em>) – A short description of the phenotype for instance “disease_status”.</p></li>
+<li><p><strong>out_folder</strong> (<em>str</em>) – The folder where the visualization will be saved.</p></li>
+<li><p><strong>flux_type</strong> (<em>str of</em><em> [</em><em>&quot;import&quot;</em><em>, </em><em>&quot;production&quot;</em><em>]</em>) – Whether to fit using import or production fluxes.</p></li>
+<li><p><strong>min_coef</strong> (<em>float in</em><em> [</em><em>0.0</em><em>, </em><em>Inf</em><em>]</em>) – Only report coefficient that are at least that large.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.core.Visualization" title="micom.viz.core.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.viz.plot_tradeoff">
+<code class="sig-prename descclassname">micom.viz.</code><code class="sig-name descname">plot_tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tradeoff_rates</span></em>, <em class="sig-param"><span class="n">out_folder</span><span class="o">=</span><span class="default_value">'tradeoff_20200511'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.plot_tradeoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot diagnostics for varying tradeoff values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tradeoff_rates</strong> (<em>pandas.DataFrame</em>) – The growth rates returned by the <cite>tradeoff</cite> workflow.</p></li>
+<li><p><strong>out_folder</strong> (<em>str</em>) – The folder where the visualization will be saved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.core.Visualization" title="micom.viz.core.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="micom.viz.Visualization">
+<em class="property">class </em><code class="sig-prename descclassname">micom.viz.</code><code class="sig-name descname">Visualization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">template</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.Visualization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A visualization object.</p>
+<dl class="py attribute">
+<dt id="micom.viz.Visualization.folder">
+<code class="sig-name descname">folder</code><a class="headerlink" href="#micom.viz.Visualization.folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>The folder where the visualization was saved.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="micom.viz.Visualization.data">
+<code class="sig-name descname">data</code><a class="headerlink" href="#micom.viz.Visualization.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>The data used to create the Visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="micom.viz.Visualization.template">
+<code class="sig-name descname">template</code><a class="headerlink" href="#micom.viz.Visualization.template" title="Permalink to this definition">¶</a></dt>
+<dd><p>The jinja template used to render the visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>jinja2.Template</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.viz.Visualization.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.Visualization.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render and and save the visualization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.viz.Visualization.serve">
+<code class="sig-name descname">serve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">8000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.Visualization.serve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serve the visualization to view in a browser.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>port</strong> (<em>int</em>) – The port on which to serve the webpage.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>nothing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2017-2020, Christian Diener.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

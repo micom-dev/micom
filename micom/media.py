@@ -279,9 +279,9 @@ def complete_medium(
             completed[rxn.id] = medium[rxn.id]
             continue
         else:
-            flux = fluxes[rxn.id]
+            flux = -fluxes[rxn.id] if export else fluxes[rxn.id]
         if abs(flux) < tol:
             continue
-        completed[rxn.id] = max_import
+        completed[rxn.id] = flux
 
     return completed[completed > 0]

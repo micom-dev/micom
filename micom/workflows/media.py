@@ -3,15 +3,10 @@
 from os import path
 import pandas as pd
 from micom import load_pickle
-from micom.db import load_manifest, load_zip_model_db
-import micom.media as mm
-from micom.util import load_model, clean_ids
 from micom.workflows.core import workflow
-from micom.media import complete_medium
+import micom.media as mm
 from micom.logger import logger
-from micom.qiime_formats import load_qiime_model_db
 from micom.solution import OptimizationError
-from tempfile import TemporaryDirectory
 
 
 def process_medium(medium, samples):
@@ -74,13 +69,11 @@ def minimal_media(
 
 def _fix_medium(args):
     """Get the fixed medium for a model."""
-    mid, file, medium, min_growth, max_import, min_c = args
-    model = load_model(file)
-    for r in model.reactions:
-        r.id = clean_ids(r.id)
+    sid, p, min_growth, max_import, min_c, medium = args
+    com = load_pickle(p)
     try:
-        fixed = complete_medium(
-            model,
+        fixed = mm.complete_medium(
+            com,
             medium,
             min_growth=min_growth,
             max_import=max_import,
@@ -93,28 +86,35 @@ def _fix_medium(args):
         return None
     fixed = pd.DataFrame({"reaction": fixed.index, "flux": fixed.values})
     fixed["metabolite"] = [
-        model.reactions.get_by_id(r).reactants[0].id for r in fixed.reaction
+        list(com.reactions.get_by_id(r).metabolites.keys())[0].id
+        for r in fixed.reaction
     ]
     fixed["description"] = [
-        model.reactions.get_by_id(r).reactants[0].name for r in fixed.reaction
+        list(com.reactions.get_by_id(r).metabolites.keys())[0].name
+        for r in fixed.reaction
     ]
+    fixed["sample_id"] = sid
     return fixed
 
 
 def fix_medium(
-    model_db,
+    manifest,
+    model_folder,
     medium,
     min_growth=0.1,
     max_import=1,
-    minimize_components=True,
-    n_jobs=4,
+    minimize_components=False,
+    summarize=True,
+    threads=1,
 ):
     """Augment a growth medium so all community members can grow in it.
 
     Arguments
     ---------
-    tax : pandas.Dataframe
-        A taxonomy specification as passed to `micom.Community`.
+    manifest : pandas.DataFrame
+        The manifest as returned by the `build` workflow.
+    model_folder : str
+        The folder in which to find the files mentioned in the manifest.
     medium : pandas.Series or pandas.DataFrame
         A growth medium with exchange reaction IDs as index and positive
         import fluxes as values. If a DataFrame needs columns `flux` and
@@ -126,53 +126,50 @@ def fix_medium(
     minimize_components : boolean
         Whether to minimize the number of media components rather than the
         total flux.
-    n_jobs: int
+    summarize: boolean
+        Whether to summarize the medium across all samples. If False will
+        return a medium for each sample.
+    threads: int
         The number of processes to use.
 
     Returns
     -------
-    pandas.Series
+    pandas.DataFrame
         A new growth medium with the smallest amount of augmentations such
         that all members of the community can grow in it.
 
     """
-    if isinstance(medium, pd.DataFrame):
-        medium = medium.copy()
-        medium.index = medium.reaction
-        medium = medium.flux
-    elif not isinstance(medium, pd.Series):
-        raise ValueError("`medium` must be a DataFrame or Series.")
+    if not isinstance(medium, pd.DataFrame):
+        raise ValueError("`medium` must be a DataFrame.")
 
-    compressed = model_db.endswith(".qza") or model_db.endswith(".zip")
-    if compressed:
-        tdir = TemporaryDirectory(prefix="micom_")
-    if model_db.endswith(".qza"):
-        manifest = load_qiime_model_db(model_db, tdir.name)
-    elif model_db.endswith(".zip"):
-        manifest = load_zip_model_db(model_db, tdir.name)
-    else:
-        manifest = load_manifest(model_db)
-    manifest["file"] = [path.join(tdir.name, f) for f in manifest.file]
-
-    if medium[medium < 1e-6].any():
-        medium[medium < 1e-6] = 1e-6
+    samples = manifest.sample_id.unique()
+    paths = {
+        s: path.join(
+            model_folder, manifest[manifest.sample_id == s].file.iloc[0])
+        for s in samples
+    }
+    medium = process_medium(medium, samples)
+    if medium.flux[medium.flux < 1e-6].any():
+        medium.loc[medium < 1e-6, "flux"] = 1e-6
         logger.info(
             "Some import rates were to small and were adjusted to 1e-6."
         )
     args = [
-        (row.id, row.file, medium, min_growth, max_import, minimize_components)
-        for _, row in manifest.iterrows()
+        [s, p, min_growth, max_import, minimize_components,
+         medium.flux[medium.sample_id == s]]
+        for s, p in paths.items()
     ]
-    res = workflow(_fix_medium, args, n_jobs=n_jobs, unit="model(s)")
+    res = workflow(_fix_medium, args, n_jobs=threads, unit="model(s)")
     if all(r is None for r in res):
         raise OptimizationError(
             "All optimizations failed. You may need to increase `max_import` "
             "or lower the target growth rate."
         )
-    res = pd.concat(res)
-    final = (
-        res.groupby(["reaction", "metabolite", "description"])
-        .flux.max()
-        .reset_index()
-    )
+    final = pd.concat(res)
+    if summarize:
+        final = (
+            final.groupby(["reaction", "metabolite", "description"])
+            .flux.max()
+            .reset_index()
+        )
     return final

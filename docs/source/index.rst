@@ -6,15 +6,15 @@
 .. image:: https://github.com/micom-dev/micom/raw/master/docs/source/_static/micom.png
     :width: 640 px
 
-|travis status| |appveyor status| |coverage| |pypi status|
+|actions status| |coverage| |pypi status|
 
 `MICOM` is a Python package for metabolic modeling of microbial
 communities developed in the
+`Gibbons Lab <https://gibbons.systemsbiology.org>`_ at the `Institute for Systems
+Biology <https://systemsbiology.org>`_ and the
 `Human Systems Biology Group <https://resendislab.github.io>`_ of
 Prof. Osbaldo Resendis Antonio at the `National Institute of Genomic
-Medicine Mexico <https://inmegen.gob.mx>`_ and the
-`Gibbons Lab <https://gibbons.systemsbiology.org>`_ at the `Institute for Systems
-Biology <https://systemsbiology.org>`_.
+Medicine Mexico <https://inmegen.gob.mx>`_.
 
 `MICOM` allows you to construct a community model from a list on input
 COBRA models and manages exchange fluxes between individuals and individuals
@@ -42,6 +42,7 @@ Contents
 
    Methods used by MICOM <logic>
    Installing MICOM <installing>
+   The High Level API <high_level>
    Building communities <community>
    Growth rates and fluxes <growth_fluxes>
    Growth media <media>
@@ -58,10 +59,8 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-.. |travis status| image:: https://travis-ci.org/micom-dev/micom.svg?branch=master
-   :target: https://travis-ci.org/micom-dev/micom
-.. |appveyor status| image:: https://ci.appveyor.com/api/projects/status/uqcmw82uq9jtui0t?svg=true
-   :target: https://ci.appveyor.com/project/cdiener/micom-uicdk
+.. |actions status| image:: https://github.com/micom-dev/micom/workflows/Python%20package/badge.svg
+   :target: https://github.com/micom-dev/micom/actions
 .. |coverage| image:: https://codecov.io/gh/micom-dev/micom/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/micom-dev/micom
 .. |pypi status| image:: https://img.shields.io/pypi/v/micom.svg

@@ -22,7 +22,7 @@ def build_from_qiime(
     """Build the specification for the community models."""
     taxa = taxonomy.str.replace("[\\w_]+__", "")
     taxa = taxa.str.split(";\\s*", expand=True)
-    taxa.columns = _ranks[0:taxa.shape[1]]
+    taxa.columns = _ranks[0 : taxa.shape[1]]
     taxa["taxid"] = taxonomy.index
     taxa.index == taxa.taxid
 
@@ -30,7 +30,7 @@ def build_from_qiime(
     if strict:
         ranks = [
             r
-            for r in _ranks[0:(_ranks.index(rank) + 1)]
+            for r in _ranks[0 : (_ranks.index(rank) + 1)]
             if r in taxa.columns and r in manifest.columns
         ]
     else:
@@ -52,16 +52,14 @@ def build_from_qiime(
         id_vars="sample_id", var_name="mapping_ranks", value_name="abundance"
     )
     abundance = pd.merge(
-        abundance, taxa[ranks + ["mapping_ranks"]].drop_duplicates(),
-        on="mapping_ranks"
+        abundance, taxa[ranks + ["mapping_ranks"]].drop_duplicates(), on="mapping_ranks"
     )
     del abundance["mapping_ranks"]
     depth = abundance.groupby("sample_id").abundance.sum()
-    abundance["relative"] = (
-        abundance.abundance / depth[abundance.sample_id].values)
+    abundance["relative"] = abundance.abundance / depth[abundance.sample_id].values
+    abundance.dropna(subset=ranks, inplace=True)
 
-    micom_taxonomy = (
-        pd.merge(manifest, abundance, on=ranks).dropna(subset=ranks))
+    micom_taxonomy = pd.merge(manifest, abundance, on=ranks).dropna(subset=ranks)
     micom_taxonomy = micom_taxonomy[micom_taxonomy.relative > cutoff]
     print("Taxa per sample:")
     print(micom_taxonomy.sample_id.value_counts().describe(), "\n")

@@ -16,7 +16,7 @@ def build_from_qiime(
     abundance: biom.Table,
     taxonomy: pd.Series,
     manifest: pd.DataFrame,
-    cutoff: float,
+    cutoff: float = 1e-4,
     strict: bool = True,
 ) -> pd.DataFrame:
     """Build the specification for the community models."""

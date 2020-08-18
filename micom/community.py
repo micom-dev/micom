@@ -144,6 +144,7 @@ class Community(cobra.Model):
             )
         self.solver.configuration.lp_method = "auto"
         self.solver.configuration.qp_method = "auto"
+        self.solver.presolve = False
         self.solver = solver
         self._rtol = rel_threshold
         self._modification = None

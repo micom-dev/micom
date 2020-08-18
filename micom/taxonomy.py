@@ -20,8 +20,8 @@ def build_from_qiime(
     strict: bool = True,
 ) -> pd.DataFrame:
     """Build the specification for the community models."""
-    taxa = taxonomy.str.replace("[\\w_]+__", "")
-    taxa = taxa.str.split(";\\s*", expand=True)
+    taxa = taxonomy.str.replace("[\\w_]+__|\\[|\\]", "")
+    taxa = taxa.str.split(";\\s*", expand=True).replace("", None)
     taxa.columns = _ranks[0 : taxa.shape[1]]
     taxa["taxid"] = taxonomy.index
     taxa.index == taxa.taxid
@@ -41,7 +41,8 @@ def build_from_qiime(
 
     abundance = (
         abundance.collapse(
-            lambda id_, x: taxa.loc[id_, "mapping_ranks"], axis="observation"
+            lambda id_, x: taxa.loc[id_, "mapping_ranks"],
+            axis="observation", norm=False
         )
         .to_dataframe(dense=True)
         .T

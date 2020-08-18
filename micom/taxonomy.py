@@ -1,6 +1,5 @@
 """Helper to convert external data to a micom taxonomy."""
 
-import biom
 from micom.db import load_manifest, load_zip_model_db
 from micom.community import _ranks
 from micom.qiime_formats import (
@@ -13,7 +12,7 @@ from tempfile import TemporaryDirectory
 
 
 def build_from_qiime(
-    abundance: biom.Table,
+    abundance,
     taxonomy: pd.Series,
     manifest: pd.DataFrame,
     cutoff: float = 1e-4,

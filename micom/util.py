@@ -223,7 +223,7 @@ def _format_min_growth(min_growth, taxa):
     return pd.Series(min_growth, taxa)
 
 
-def _apply_min_growth(community, min_growth):
+def _apply_min_growth(community, min_growth, atol=1e-6, rtol=1e-6):
     """Set minimum growth constraints on a model.
 
     Will integrate with the context.
@@ -241,7 +241,7 @@ def _apply_min_growth(community, min_growth):
         if context:
             context(partial(reset, sp, obj.lb))
         if min_growth[sp] > 1e-6:
-            obj.lb = min_growth[sp]
+            obj.lb = (1.0 - rtol) * min_growth[sp] - atol
         else:
             logger.info(
                 "minimal growth rate smaller than tolerance,"

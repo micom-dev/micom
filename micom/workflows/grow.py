@@ -22,7 +22,7 @@ def _growth(args):
             "Community models were not built with a QP-capable solver. "
             "This means that you did not install CPLEX or Gurobi. "
             "If you did install one of the two please file a bug report "
-            "at https://github.com/micom-dev/q2-micom/issues."
+            "at https://github.com/micom-dev/micom/issues."
         )
         return None
 
@@ -48,8 +48,9 @@ def _growth(args):
     # Get the minimal medium
     res = minimal_medium(com, 0.95 * sol.growth_rate,
                          0.95 * rates.growth_rate.drop("medium"),
-                         solution=True)
-    sol = res["solution"]
+                         solution=False)
+    com.medium = res
+    sol = com.optimize(fluxes=True, pfba=True, atol=1e-4, rtol=1e-4)
     fluxes = sol.fluxes.loc[:, sol.fluxes.columns.str.startswith("EX_")].copy()
     fluxes["sample_id"] = com.id
     anns = annotate_metabolites_from_exchanges(com)
@@ -73,7 +74,7 @@ def grow(
         The folder in which to find the files mentioned in the manifest.
     medium : pandas.DataFrame
         A growth medium. Must have columns "reaction" and "flux" denoting
-        exchnage reactions and their respective maximum flux.
+        exchange reactions and their respective maximum flux.
     tradeoff : float in (0.0, 1.0]
         A tradeoff value. Can be chosen by running the `tradeoff` workflow or
         by experince. Tradeoff values of 0.5 for metagenomcis data and 0.3 for

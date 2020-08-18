@@ -17,7 +17,7 @@ from cobra.exceptions import OptimizationError
 from cobra.core import Solution
 from cobra.util import interface_to_str, get_context
 from micom.logger import logger
-from micom.util import reset_min_community_growth
+from micom.util import reset_min_community_growth, _apply_min_growth
 from swiglpk import glp_adv_basis
 
 
@@ -152,7 +152,7 @@ class CommunitySolution(Solution):
         )
 
 
-def add_pfba_objective(community):
+def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
     """Add pFBA objective.
 
     Add objective to minimize the summed flux of all reactions to the
@@ -173,12 +173,7 @@ def add_pfba_objective(community):
         sp: community.constraints["objective_" + sp].primal
         for sp in community.taxa
     }
-    rates["community"] = community.variables["community_objective"].primal
-    for sp in community.taxa:
-        const = community.constraints["objective_" + sp]
-        const.lb = const.ub = rates[sp]
-    community_obj = community.variables["community_objective"]
-    community_obj.ub = community_obj.lb = rates["community"]
+    _apply_min_growth(community, rates, atol, rtol)
 
     if community.solver.objective.name == "_pfba_objective":
         raise ValueError("model already has pfba objective")

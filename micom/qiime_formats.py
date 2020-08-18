@@ -1,5 +1,6 @@
 """Provides support for Qiime formats."""
 
+import biom
 from micom.util import load_pickle
 import os
 from os import path
@@ -11,6 +12,7 @@ from tempfile import TemporaryDirectory
 yaml = YAML()
 _has_manifest = ["CommunityModels[Pickle]", "MetabolicModels[JSON]",
                  "MetabolicModels[SBML]"]
+
 
 def metadata(artifact):
     """Read metadata from a Qiime 2 artifact."""
@@ -88,3 +90,34 @@ def load_qiime_medium(artifact):
         medium = pd.read_csv(
             path.join(str(td), uuid, "data", "medium.csv"))
     return medium
+
+
+def load_qiime_feature_table(artifact):
+    """Load a feature table from a Qiime 2 artifact."""
+    meta = metadata(artifact)
+    if not meta["type"].startswith("FeatureTable["):
+        raise ValueError(
+            "%s is not a Qiime 2 FeatureTable :(" % artifact)
+    uuid = meta["uuid"]
+    with ZipFile(artifact) as zf, TemporaryDirectory(prefix="micom_") as td:
+        zf.extract(uuid + "/data/feature-table.biom", str(td))
+        table = biom.load_table(
+            path.join(str(td), uuid, "data", "feature-table.biom"))
+    return table
+
+
+def load_qiime_taxonomy(artifact):
+    """Load taxonomy feature data from a Qiime 2 artifact."""
+    meta = metadata(artifact)
+    if not meta["type"].startswith("FeatureData[Taxonomy]"):
+        raise ValueError(
+            "%s is not a Qiime 2 FeatureData object :(" % artifact)
+    uuid = meta["uuid"]
+    with ZipFile(artifact) as zf, TemporaryDirectory(prefix="micom_") as td:
+        zf.extract(uuid + "/data/taxonomy.tsv", str(td))
+        taxa = pd.read_csv(
+            path.join(str(td), uuid, "data", "taxonomy.tsv"),
+            sep="\t",
+            index_col=0
+        )["Taxon"]
+    return taxa

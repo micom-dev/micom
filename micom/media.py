@@ -101,6 +101,8 @@ def minimal_medium(
     minimize_components=False,
     open_exchanges=False,
     solution=False,
+    atol=1e-6,
+    rtol=1e-6
 ):
     """Find the minimal growth medium for the community.
 
@@ -134,6 +136,10 @@ def minimal_medium(
     solution : boolean
         Whether to also return the entire solution and all fluxes for the
         minimal medium.
+    atol : float
+        Absolute tolerance for the growth rates.
+    rtol : float
+        Relative tolerqance for the growth rates.
 
 
     Returns
@@ -159,11 +165,7 @@ def minimal_medium(
             for rxn in boundary_rxns:
                 rxn.bounds = (-open_bound, open_bound)
         logger.info("applying growth rate constraints")
-        context = get_context(community)
-        if context is not None:
-            context(partial(reset_min_community_growth, com))
-            com.variables.community_objective.lb = community_growth
-        _apply_min_growth(community, min_growth)
+        _apply_min_growth(community, min_growth, atol, rtol)
         com.objective = Zero
         logger.info("adding new media objective")
         if minimize_components:

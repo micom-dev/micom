@@ -3,7 +3,7 @@
 from cobra.io import read_sbml_model, save_json_model
 from micom.logger import logger
 from micom.util import join_models
-from micom import Community
+from micom.community import Community, _ranks
 from micom.workflows.core import workflow
 import os
 import pandas as pd
@@ -90,6 +90,7 @@ def build(
         taxonomy.groupby("sample_id").apply(_reduce_group)
         .dropna(axis=1).reset_index(drop=True)
     )
+    taxonomy = taxonomy.loc[:, ~taxonomy.columns.isin(_ranks)]
     taxonomy["file"] = taxonomy.sample_id + ".pickle"
     taxonomy = pd.merge(taxonomy, metrics, on="sample_id")
     taxonomy.to_csv(os.path.join(out_folder, "manifest.csv"), index=False)

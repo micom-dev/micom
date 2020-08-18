@@ -21,8 +21,7 @@ from micom.problems import cooperative_tradeoff, knockout_taxa
 from micom.qiime_formats import load_qiime_model_db
 from tempfile import TemporaryDirectory
 
-_ranks = ["kingdom", "phylum", "class", "order", "family",
-          "genus", "species", "strain"]
+_ranks = ["kingdom", "phylum", "class", "order", "family", "genus", "species", "strain"]
 
 cobra.io.sbml.LOGGER.setLevel("ERROR")
 
@@ -133,9 +132,10 @@ class Community(cobra.Model):
         logger.info("building new micom model {}.".format(id))
         if not solver:
             solver = [
-                s for s in ["cplex", "osqp", "gurobi", "glpk"]
+                s
+                for s in ["cplex", "osqp", "gurobi", "glpk"]
                 if s in cobra.util.solver.solvers
-                ][0]
+            ][0]
         logger.info("using the %s solver." % solver)
         if solver == "glpk":
             logger.warning(
@@ -162,13 +162,9 @@ class Community(cobra.Model):
         )
         taxonomy = taxonomy[taxonomy.abundance > self._rtol]
 
-        if not (
-            isinstance(taxonomy, pd.DataFrame)
-            and "id" in taxonomy.columns
-        ):
+        if not (isinstance(taxonomy, pd.DataFrame) and "id" in taxonomy.columns):
             raise ValueError(
-                "`taxonomy` must be a pandas DataFrame with at"
-                "least a column `id` :("
+                "`taxonomy` must be a pandas DataFrame with at" "least a column `id` :("
             )
         if model_db is None and "file" not in taxonomy.columns:
             raise ValueError(
@@ -190,37 +186,39 @@ class Community(cobra.Model):
                 manifest = load_manifest(model_db)
             rank = manifest["summary_rank"][0]
             if rank not in taxonomy.columns:
-                raise ValueError(
-                    "Missing the column `%s` from the taxonomy." % rank
-                )
+                raise ValueError("Missing the column `%s` from the taxonomy." % rank)
             keep_cols = [
-                r for r in _ranks[0:(_ranks.index(rank) + 1)]
+                r
+                for r in _ranks[0 : (_ranks.index(rank) + 1)]
                 if r in taxonomy.columns and r in manifest.columns
             ]
             manifest = manifest[keep_cols + ["file"]]
             merged = pd.merge(taxonomy, manifest, on=keep_cols)
 
-            self.__db_metrics = pd.Series({
-                "found_taxa": merged.shape[0],
-                "total_taxa": taxonomy.shape[0],
-                "found_fraction": merged.shape[0] / taxonomy.shape[0],
-                "found_abundance_fraction": merged.abundance.sum()
-            })
-            logger.info("Matched %g%% of total abundance in model DB." %
-                        (100.0 * self.__db_metrics[3]))
+            self.__db_metrics = pd.Series(
+                {
+                    "found_taxa": merged.shape[0],
+                    "total_taxa": taxonomy.shape[0],
+                    "found_fraction": merged.shape[0] / taxonomy.shape[0],
+                    "found_abundance_fraction": merged.abundance.sum(),
+                }
+            )
+            logger.info(
+                "Matched %g%% of total abundance in model DB."
+                % (100.0 * self.__db_metrics[3])
+            )
             if self.__db_metrics["found_abundance_fraction"] < 0.5:
                 logger.warning(
                     "Less than 50%% of the abundance could be matched to the "
                     "model database. Model `%s` may not be representative "
-                    "of the sample" % self.name
+                    "of the sample" % self.id
                 )
             taxonomy = merged
             taxonomy["abundance"] /= taxonomy["abundance"].sum()
 
         if taxonomy.id.str.contains(r"[^A-Za-z0-9_]", regex=True).any():
             logger.warning(
-                "Taxa IDs contain prohibited characters and"
-                " will be reformatted."
+                "Taxa IDs contain prohibited characters and" " will be reformatted."
             )
             taxonomy.id = taxonomy.id.replace(
                 [r"[^A-Za-z0-9_\s]", r"\s+"], ["", "_"], regex=True
@@ -248,8 +246,7 @@ class Community(cobra.Model):
             external = cobra.medium.find_external_compartment(model)
             logger.info(
                 "Identified %s as the external compartment for %s. "
-                "If that is wrong you may be in trouble..." %
-                (external, idx)
+                "If that is wrong you may be in trouble..." % (external, idx)
             )
             for r in model.reactions:
                 r.global_id = clean_ids(r.id)
@@ -286,17 +283,11 @@ class Community(cobra.Model):
 
         if compressed:
             tdir.cleanup()
-        com_obj = add_var_from_expression(
-            self, "community_objective", obj, lb=0
-        )
+        com_obj = add_var_from_expression(self, "community_objective", obj, lb=0)
         self.objective = self.problem.Objective(com_obj, direction="max")
 
     def __add_exchanges(
-        self,
-        reactions,
-        info,
-        external_compartment="e",
-        internal_exchange=1000,
+        self, reactions, info, external_compartment="e", internal_exchange=1000,
     ):
         """Add exchange reactions for a new model."""
         for r in reactions:
@@ -330,9 +321,7 @@ class Community(cobra.Model):
                 )
                 ub = 1e-6
             met = (r.reactants + r.products)[0]
-            old_compartment = met.compartment.replace(
-                "__" + r.community_id, ""
-            )
+            old_compartment = met.compartment.replace("__" + r.community_id, "")
             medium_id = re.sub(
                 "(_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)".format(
                     old_compartment, old_compartment
@@ -346,9 +335,7 @@ class Community(cobra.Model):
             if medium_id not in self.metabolites:
                 # If metabolite does not exist in medium add it to the model
                 # and also add an exchange reaction for the medium
-                logger.info(
-                    "adding metabolite %s to external medium" % medium_id
-                )
+                logger.info("adding metabolite %s to external medium" % medium_id)
                 medium_met = met.copy()
                 medium_met.id = medium_id
                 medium_met.compartment = "m"
@@ -366,8 +353,7 @@ class Community(cobra.Model):
                 self.add_reactions([ex_medium])
             else:
                 logger.info(
-                    "updating import rate for external metabolite %s"
-                    % medium_id
+                    "updating import rate for external metabolite %s" % medium_id
                 )
                 medium_met = self.metabolites.get_by_id(medium_id)
                 ex_medium = self.reactions.get_by_id("EX_" + medium_met.id)
@@ -406,10 +392,7 @@ class Community(cobra.Model):
             taxa_obj = self.constraints["objective_" + sp]
             com_obj += ab * taxa_obj.expression
         const = self.problem.Constraint(
-            (v - com_obj).expand(),
-            lb=0,
-            ub=0,
-            name="community_objective_equality",
+            (v - com_obj).expand(), lb=0, ub=0, name="community_objective_equality",
         )
         self.add_cons_vars([const])
 
@@ -486,7 +469,9 @@ class Community(cobra.Model):
         individual = (self.optimize_single(id) for id in index)
         return pd.Series(individual, self.__taxonomy.index)
 
-    def optimize(self, fluxes=False, pfba=True, raise_error=False):
+    def optimize(
+        self, fluxes=False, pfba=True, raise_error=False, atol=1e-6, rtol=1e-6
+    ):
         """Optimize the model using flux balance analysis.
 
         Parameters
@@ -506,7 +491,7 @@ class Community(cobra.Model):
 
         """
         with self:
-            solution = solve(self, fluxes=fluxes, pfba=pfba)
+            solution = solve(self, fluxes=fluxes, pfba=pfba, atol=atol, rtol=rtol)
         return solution
 
     @property
@@ -539,8 +524,7 @@ class Community(cobra.Model):
             self.__taxonomy.abundance = value
         except Exception:
             raise ValueError(
-                "value must be an iterable with an entry for "
-                "each taxa/tissue"
+                "value must be an iterable with an entry for " "each taxa/tissue"
             )
 
         logger.info("setting new abundances for %s" % self.id)
@@ -600,9 +584,7 @@ class Community(cobra.Model):
                 "database :("
             )
 
-    def optcom(
-        self, strategy="lagrangian", min_growth=0.0, fluxes=False, pfba=True
-    ):
+    def optcom(self, strategy="lagrangian", min_growth=0.0, fluxes=False, pfba=True):
         """Run OptCom for the community.
 
         OptCom methods are a group of optimization procedures to find community
@@ -694,12 +676,7 @@ class Community(cobra.Model):
         return cooperative_tradeoff(self, min_growth, fraction, fluxes, pfba)
 
     def knockout_taxa(
-        self,
-        taxa=None,
-        fraction=1.0,
-        method="change",
-        progress=True,
-        diag=True,
+        self, taxa=None, fraction=1.0, method="change", progress=True, diag=True,
     ):
         """Sequentially knowckout a list of taxa in the model.
 
@@ -739,17 +716,13 @@ class Community(cobra.Model):
             taxa = [taxa]
         if any(sp not in self.taxa for sp in taxa):
             raise ValueError(
-                "At least one of the arguments is not a taxon "
-                "in the community."
+                "At least one of the arguments is not a taxon " "in the community."
             )
         if method not in ["raw", "change", "relative change"]:
             raise ValueError(
-                "`method` must be one of 'raw', 'change', "
-                "or 'relative change'."
+                "`method` must be one of 'raw', 'change', " "or 'relative change'."
             )
-        return knockout_taxa(
-            self, taxa, fraction, method, progress, diag
-        )
+        return knockout_taxa(self, taxa, fraction, method, progress, diag)
 
     @property
     def scale(self):

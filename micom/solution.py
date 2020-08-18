@@ -191,7 +191,7 @@ def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
         community.modification += " and pFBA"
 
 
-def solve(community, fluxes=True, pfba=True, raise_error=False):
+def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=1e-6):
     """Get all fluxes stratified by taxa."""
     community.solver.optimize()
     status = community.solver.status
@@ -207,7 +207,7 @@ def solve(community, fluxes=True, pfba=True, raise_error=False):
                     + " returning the solution anyway."
                 )
         if fluxes and pfba:
-            add_pfba_objective(community)
+            add_pfba_objective(community, atol, rtol)
             community.solver.optimize()
         if fluxes:
             sol = CommunitySolution(community)

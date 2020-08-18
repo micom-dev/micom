@@ -31,6 +31,7 @@ def build_from_qiime(
         ]
     else:
         ranks = [rank]
+    taxa = taxa.dropna(subset=ranks)
     taxa["mapping_ranks"] = taxa[ranks].apply(
         lambda s: "|".join(s.astype("str")), axis=1)
 

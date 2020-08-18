@@ -28,6 +28,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip cryptography
         pip install wheel cplex numpy Cython
+        pip install biom-format
         pip install -e .
     - name: Lint with flake8
       run: |

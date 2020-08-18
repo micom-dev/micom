@@ -38,7 +38,7 @@
     <!-- Container for the visualization -->
     <div class="container">
     <div id="vis"></div>
-    <a href="growth_rates.csv" class="button is-primary">Download as CSV...</a>
+    <a href="#" class="button is-primary" onclick="download_data('growth_rates')">Download as CSV...</a>
 
     </div>
     <script>
@@ -96,6 +96,8 @@
         svg = d3.select("#vis svg");
         svg.attr("width", "100%").attr("height", "auto");
       });
+
+      {% include "blobify.js" %}
     </script>
   </section>
   </body>

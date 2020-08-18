@@ -1,7 +1,6 @@
 """Visualization for phenotype prediction."""
 
 from datetime import datetime
-from micom.workflows.core import GrowthResults
 from micom.viz import Visualization
 from micom.logger import logger
 import json
@@ -27,7 +26,7 @@ def plot_fit(
     phenotype,
     variable_type="binary",
     variable_name="phenotype",
-    out_folder="fit_%s" % datetime.now().strftime("%Y%m%d"),
+    filename="fit_%s.html" % datetime.now().strftime("%Y%m%d"),
     flux_type="production",
     min_coef=0.01,
 ):
@@ -48,8 +47,8 @@ def plot_fit(
         The type of the variable.
     variable_name : str
         A short description of the phenotype for instance "disease_status".
-    out_folder : str
-        The folder where the visualization will be saved.
+    filename : str
+        The HTML file where the visualization will be saved.
     flux_type : str of ["import", "production"]
         Whether to fit using import or production fluxes.
     min_coef : float in [0.0, Inf]
@@ -158,7 +157,7 @@ def plot_fit(
     exchanges["meta"] = meta[exchanges.sample_id].values
     exchanges["description"] = anns.loc[exchanges.metabolite, "name"].values
     var_type = "nominal" if variable_type == "binary" else "quantitative"
-    viz = Visualization(out_folder, data, "tests.html")
+    viz = Visualization(filename, data, "tests.html")
 
     viz.save(
         fitted=fitted.to_json(orient="records"),

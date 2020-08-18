@@ -10,7 +10,7 @@ from sklearn.manifold import TSNE
 
 def plot_exchanges_per_sample(
     results,
-    out_folder="sample_exchanges_%s" % datetime.now().strftime("%Y%m%d"),
+    filename="sample_exchanges_%s.html" % datetime.now().strftime("%Y%m%d"),
     direction="import",
     cluster=True,
 ) -> None:
@@ -20,8 +20,8 @@ def plot_exchanges_per_sample(
     ----------
     results : micom.workflows.GrowthResults
         The results returned by the `grow` workflow.
-    out_folder : str
-        The folder where the visualization will be saved.
+    filename : str
+        The HTML file where the visualization will be saved.
     direction : str either "import" or "export"
         The direction of fluxes to plot.
     cluster : bool
@@ -57,7 +57,7 @@ def plot_exchanges_per_sample(
     )
     data["description"] = anns.loc[data.metabolite, "name"].values
     data = {"exchange_fluxes": data}
-    viz = Visualization(out_folder, data, "sample_heatmap.html")
+    viz = Visualization(filename, data, "sample_heatmap.html")
     w = mat.shape[1] * 10
     viz.save(
         data=data["exchange_fluxes"].to_json(orient="records"),
@@ -69,7 +69,7 @@ def plot_exchanges_per_sample(
 
 def plot_exchanges_per_taxon(
     results,
-    out_folder="taxon_exchanges_%s" % datetime.now().strftime("%Y%m%d"),
+    filename="taxon_exchanges_%s.html" % datetime.now().strftime("%Y%m%d"),
     direction="import",
     **tsne_args
 ) -> None:
@@ -79,8 +79,8 @@ def plot_exchanges_per_taxon(
     ----------
     results : micom.workflows.GrowthResults
         The exchanges returned by the `grow` workflow.
-    out_folder : str
-        The folder where the visualization will be saved.
+    filename : str
+        The HTML file where the visualization will be saved.
     direction : str either "import" or "export"
         The direction of fluxes to plot.
     tsne_args : dict
@@ -110,7 +110,7 @@ def plot_exchanges_per_taxon(
         reduced, index=mat.index, columns=["TSNE 1", "TSNE 2"]
     ).reset_index()
     data = {"reduced": reduced}
-    viz = Visualization(out_folder, data, "reduced.html")
+    viz = Visualization(filename, data, "reduced.html")
     viz.save(data=reduced.to_json(orient="records"), width=600, height=500)
 
     return viz

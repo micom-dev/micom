@@ -8,7 +8,7 @@ import pandas as pd
 
 def plot_tradeoff(
     tradeoff_rates,
-    out_folder="tradeoff_%s" % datetime.now().strftime("%Y%m%d"),
+    filename="tradeoff_%s.html" % datetime.now().strftime("%Y%m%d"),
 ):
     """Plot diagnostics for varying tradeoff values.
 
@@ -16,8 +16,8 @@ def plot_tradeoff(
     ----------
     tradeoff_rates : pandas.DataFrame
         The growth rates returned by the `tradeoff` workflow.
-    out_folder : str
-        The folder where the visualization will be saved.
+    filename : str
+        The HTML file where the visualization will be saved.
 
     Returns
     -------
@@ -27,7 +27,7 @@ def plot_tradeoff(
     """
     rates = tradeoff_rates
     data = {"tradeoff": rates}
-    viz = Visualization(out_folder, data, "tradeoff.html")
+    viz = Visualization(filename, data, "tradeoff.html")
     growth = rates[
         ["taxon", "sample_id", "abundance", "tradeoff", "growth_rate"]
     ].copy()

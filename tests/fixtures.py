@@ -28,8 +28,7 @@ def check_viz(v):
     """Check a visualization."""
     for d in v.data:
         assert isinstance(v.data[d], pd.DataFrame)
-        assert path.exists(path.join(v.folder, "%s.csv" % d))
-    assert path.exists(path.join(v.folder, "index.html"))
+    assert path.exists(v.filename)
 
 
 @pytest.fixture

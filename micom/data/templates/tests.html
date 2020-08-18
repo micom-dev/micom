@@ -34,7 +34,7 @@
         coefficients are roughly comparable.
       </p>
     <div id="coefs"></div>
-    <a href="coefs.csv" class="button is-primary">Download coefficients as CSV...</a>
+    <a href="#" class="button is-primary" onclick="download_data('coefs')">Download coefficients as CSV...</a>
     </div>
     <br>
     <div class="container">
@@ -44,7 +44,7 @@
         the model in explaining the phenotype.
       </p>
     <div id="vis"></div>
-    <a href="exchanges.csv" class="button is-primary">Download fluxes as CSV...</a>
+    <a href="#" class="button is-primary" onclick="download_data('exchanges')">Download fluxes as CSV...</a>
     </div>
     <br>
     <div class="container">
@@ -187,6 +187,8 @@
         svg = d3.select("#vis svg");
         svg.attr("width", "100%").attr("height", "auto");
       });
+
+      {% include "blobify.js" %}
     </script>
   </section>
   </body>

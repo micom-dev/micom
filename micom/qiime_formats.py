@@ -1,6 +1,5 @@
 """Provides support for Qiime formats."""
 
-import biom
 from micom.util import load_pickle
 import os
 from os import path
@@ -94,6 +93,13 @@ def load_qiime_medium(artifact):
 
 def load_qiime_feature_table(artifact):
     """Load a feature table from a Qiime 2 artifact."""
+    try:
+        import biom
+    except ImportError:
+        raise ImportError(
+            "Reading Qiime 2 FeatureTables requires the `biom-format` package."
+            "You can install it with:\n pip install numpy Cython\n"
+            "pip install biom-format")
     meta = metadata(artifact)
     if not meta["type"].startswith("FeatureTable["):
         raise ValueError(

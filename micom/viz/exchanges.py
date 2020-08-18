@@ -5,6 +5,7 @@ from fastcluster import linkage
 from scipy.cluster.hierarchy import leaves_list
 from micom.viz.core import Visualization
 import pandas as pd
+from sklearn.manifold import TSNE
 
 
 def plot_exchanges_per_sample(
@@ -70,7 +71,7 @@ def plot_exchanges_per_taxon(
     results,
     out_folder="taxon_exchanges_%s" % datetime.now().strftime("%Y%m%d"),
     direction="import",
-    **umap_args
+    **tsne_args
 ) -> None:
     """Plot the exchange fluxes per taxon.
 
@@ -82,6 +83,8 @@ def plot_exchanges_per_taxon(
         The folder where the visualization will be saved.
     direction : str either "import" or "export"
         The direction of fluxes to plot.
+    tsne_args : dict
+        Additional arguments passed to TSNE.
 
     Returns
     -------
@@ -89,8 +92,6 @@ def plot_exchanges_per_taxon(
         A MICOM visualization. Can be served with `viz.serve`.
 
     """
-    from umap import UMAP  # allows skipping tests
-
     exchanges = results.exchanges
     if direction not in ["import", "export"]:
         ValueError("Not a valid flux direction. Must be `import` or `export`.")
@@ -104,12 +105,12 @@ def plot_exchanges_per_taxon(
         columns="reaction",
         fill_value=0,
     )
-    umapped = UMAP(**umap_args).fit_transform(mat.values)
-    umapped = pd.DataFrame(
-        umapped, index=mat.index, columns=["UMAP 1", "UMAP 2"]
+    reduced = TSNE(**tsne_args).fit_transform(mat.values)
+    reduced = pd.DataFrame(
+        reduced, index=mat.index, columns=["TSNE 1", "TSNE 2"]
     ).reset_index()
-    data = {"umap": umapped}
-    viz = Visualization(out_folder, data, "umap.html")
-    viz.save(data=umapped.to_json(orient="records"), width=600, height=500)
+    data = {"reduced": reduced}
+    viz = Visualization(out_folder, data, "reduced.html")
+    viz.save(data=reduced.to_json(orient="records"), width=600, height=500)
 
     return viz

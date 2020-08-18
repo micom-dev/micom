@@ -75,9 +75,7 @@ setup(
         "jinja2>=2.10.0",
         "scikit-learn>=0.22.0",
         "scipy>=1.0.0",
-        "fastcluster>=1.1.0",
-        "umap-learn>=0.4.1",
-        "biom-format>=2.1.8"
+        "fastcluster>=1.1.0"
     ],
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,

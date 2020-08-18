@@ -59,7 +59,7 @@ def build_from_qiime(
     abundance["relative"] = abundance.abundance / depth[abundance.sample_id].values
     abundance.dropna(subset=ranks, inplace=True)
 
-    micom_taxonomy = pd.merge(manifest, abundance, on=ranks).dropna(subset=ranks)
+    micom_taxonomy = pd.merge(manifest, abundance, on=ranks)
     micom_taxonomy = micom_taxonomy[micom_taxonomy.relative > cutoff]
     print("Taxa per sample:")
     print(micom_taxonomy.sample_id.value_counts().describe(), "\n")

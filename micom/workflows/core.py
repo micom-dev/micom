@@ -2,7 +2,7 @@
 
 from collections import Sized, namedtuple
 from multiprocessing import Pool
-from tqdm import tqdm
+from tqdm.auto import tqdm
 
 GrowthResults = namedtuple(
     "GrowthResults",

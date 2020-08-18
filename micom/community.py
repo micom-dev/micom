@@ -6,7 +6,7 @@ import six.moves.cPickle as pickle
 import cobra
 import pandas as pd
 from optlang.symbolics import Zero
-from tqdm import tqdm
+from tqdm.auto import tqdm
 from micom.db import load_zip_model_db, load_manifest
 from micom.util import (
     load_model,

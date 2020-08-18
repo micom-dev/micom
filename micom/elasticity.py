@@ -7,7 +7,7 @@ quantities.
 from functools import partial
 import pandas as pd
 import numpy as np
-from tqdm import tqdm
+from tqdm.auto import tqdm
 from cobra.util import get_context
 from micom.util import reset_min_community_growth
 from micom.problems import regularize_l2_norm

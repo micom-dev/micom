@@ -27,7 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip cryptography
-        pip install wheel cplex symengine
+        pip install wheel cplex symengine numpy
         pip install -e .
     - name: Lint with flake8
       run: |

@@ -21,7 +21,7 @@ from collections.abc import Sized
 from functools import partial
 import pandas as pd
 import numpy as np
-from tqdm import tqdm
+from tqdm.auto import tqdm
 
 
 def regularize_l2_norm(community, min_growth):

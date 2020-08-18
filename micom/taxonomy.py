@@ -4,7 +4,10 @@ import biom
 from micom.db import load_manifest, load_zip_model_db
 from micom.community import _ranks
 from micom.qiime_formats import (
-    load_qiime_model_db, load_qiime_feature_table, load_qiime_taxonomy)
+    load_qiime_model_db,
+    load_qiime_feature_table,
+    load_qiime_taxonomy,
+)
 import pandas as pd
 from tempfile import TemporaryDirectory
 
@@ -14,7 +17,7 @@ def build_from_qiime(
     taxonomy: pd.Series,
     manifest: pd.DataFrame,
     cutoff: float,
-    strict: bool = True
+    strict: bool = True,
 ) -> pd.DataFrame:
     """Build the specification for the community models."""
     taxa = taxonomy.str.replace("[\\w_]+__", "")
@@ -26,14 +29,15 @@ def build_from_qiime(
     rank = manifest.summary_rank[0]
     if strict:
         ranks = [
-            r for r in _ranks[0:(_ranks.index(rank) + 1)]
+            r
+            for r in _ranks[0:(_ranks.index(rank) + 1)]
             if r in taxa.columns and r in manifest.columns
         ]
     else:
         ranks = [rank]
-    taxa = taxa.dropna(subset=ranks)
     taxa["mapping_ranks"] = taxa[ranks].apply(
-        lambda s: "|".join(s.astype("str")), axis=1)
+        lambda s: "|".join(s.astype("str")), axis=1
+    )
 
     abundance = (
         abundance.collapse(
@@ -49,27 +53,22 @@ def build_from_qiime(
     )
     abundance = pd.merge(
         abundance, taxa[ranks + ["mapping_ranks"]].drop_duplicates(),
-        on="mapping_ranks")
+        on="mapping_ranks"
+    )
     del abundance["mapping_ranks"]
     depth = abundance.groupby("sample_id").abundance.sum()
     abundance["relative"] = (
-        abundance.abundance / depth[abundance.sample_id].values
-    )
+        abundance.abundance / depth[abundance.sample_id].values)
 
-    micom_taxonomy = pd.merge(manifest, abundance, on=ranks)
+    micom_taxonomy = (
+        pd.merge(manifest, abundance, on=ranks).dropna(subset=ranks))
     micom_taxonomy = micom_taxonomy[micom_taxonomy.relative > cutoff]
     print("Taxa per sample:")
     print(micom_taxonomy.sample_id.value_counts().describe(), "\n")
     return abundance
 
 
-def qiime_to_micom(
-    feature_table,
-    taxonomy,
-    model_db,
-    cutoff,
-    strict=False
-):
+def qiime_to_micom(feature_table, taxonomy, model_db, cutoff, strict=False):
     """Load a micom taxonomy from Qiime 2 data.
 
     Parameters

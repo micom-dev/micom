@@ -39,7 +39,7 @@ def _tradeoff(args):
         sol = com.cooperative_tradeoff(fraction=tradeoffs)
     except Exception:
         logger.warning(
-            "Sample %s could not be optimized (%s)." %
+            "Sample %s could not be optimized with cooperative tradeoff (%s)." %
             (com.id, com.solver.status),
         )
         return None

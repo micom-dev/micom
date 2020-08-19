@@ -36,16 +36,16 @@ def plot_exchanges_per_sample(
     exchanges = results.exchanges
     anns = results.annotations
     anns.index = anns.metabolite
+    tol = exchanges.tolerance.iloc[0]
     if direction not in ["import", "export"]:
         ValueError("Not a valid flux direction. Must be `import` or `export`.")
     exchanges = exchanges[
         (exchanges.taxon == "medium")
         & (exchanges.direction == direction)
-        & (exchanges.flux.abs() > 1e-6)
     ].copy()
     exchanges.flux = exchanges.flux.abs()
     mat = exchanges.pivot_table(
-        values="flux", index="metabolite", columns="sample_id", fill_value=1e-6
+        values="flux", index="metabolite", columns="sample_id", fill_value=tol
     )
     sample_order = leaves_list(linkage(mat.values.T, method="average"))
     reaction_order = leaves_list(linkage(mat.values, method="average"))
@@ -93,6 +93,8 @@ def plot_exchanges_per_taxon(
 
     """
     exchanges = results.exchanges
+    tol = exchanges.tolerance.iloc[0]
+
     if direction not in ["import", "export"]:
         ValueError("Not a valid flux direction. Must be `import` or `export`.")
     exchanges = exchanges[
@@ -103,7 +105,7 @@ def plot_exchanges_per_taxon(
         values="flux",
         index=["sample_id", "taxon"],
         columns="reaction",
-        fill_value=0,
+        fill_value=tol,
     )
     reduced = TSNE(**tsne_args).fit_transform(mat.values)
     reduced = pd.DataFrame(

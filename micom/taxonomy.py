@@ -55,9 +55,9 @@ def build_from_qiime(
         abundance, taxa[ranks + ["mapping_ranks"]].drop_duplicates(), on="mapping_ranks"
     )
     del abundance["mapping_ranks"]
+    abundance.dropna(subset=ranks, inplace=True)
     depth = abundance.groupby("sample_id").abundance.sum()
     abundance["relative"] = abundance.abundance / depth[abundance.sample_id].values
-    abundance.dropna(subset=ranks, inplace=True)
 
     micom_taxonomy = pd.merge(manifest, abundance, on=ranks)
     micom_taxonomy = micom_taxonomy[micom_taxonomy.relative > cutoff]

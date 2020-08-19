@@ -55,7 +55,7 @@ setup(
         "micom": [
             path.join("data", "*.csv"),
             path.join("data", "*.gz"),
-            path.join("data", "templates", "*.html"),
+            path.join("data", "templates", "*.*"),
             path.join("data", "artifacts", "*.qza")
         ]
     },

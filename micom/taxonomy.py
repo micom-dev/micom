@@ -52,7 +52,9 @@ def build_from_qiime(
         id_vars="sample_id", var_name="mapping_ranks", value_name="abundance"
     )
     abundance = pd.merge(
-        abundance, taxa[ranks + ["mapping_ranks"]].drop_duplicates(), on="mapping_ranks"
+        abundance[abundance.abundance > 0.0],
+        taxa[ranks + ["mapping_ranks"]].drop_duplicates(),
+        on="mapping_ranks"
     )
     del abundance["mapping_ranks"]
     abundance.dropna(subset=ranks, inplace=True)

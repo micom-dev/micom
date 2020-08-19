@@ -46,10 +46,15 @@ def _growth(args):
         return None
 
     # Get the minimal medium
-    tol = com.solvert.configuration.tolerances.feasibility
-    min_medium = minimal_medium(com, (1.0 - tol) * sol.growth_rate,
-                                (1.0 - tol) * rates.growth_rate.drop("medium"),
-                                solution=False)
+    tol = com.solver.configuration.tolerances.feasibility
+    min_medium = minimal_medium(
+        com,
+        community_growth=sol.growth_rate,
+        min_growth=rates.growth_rate.drop("medium"),
+        solution=False,
+        atol=tol,
+        rtol=tol
+    )
     com.medium = min_medium
     sol = com.optimize(fluxes=True, pfba=True, atol=tol, rtol=tol)
     fluxes = sol.fluxes.loc[:, sol.fluxes.columns.str.startswith("EX_")].copy()

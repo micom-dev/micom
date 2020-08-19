@@ -182,7 +182,7 @@ def minimal_medium(
         for rxn in boundary_rxns:
             export = len(rxn.reactants) == 1
             flux = sol.fluxes.loc["medium", rxn.id]
-            if (1.0 - rtol) * abs(flux) < atol:
+            if abs(flux) < min(atol, 1e-6):
                 continue
             if export:
                 medium[rxn.id] = -flux

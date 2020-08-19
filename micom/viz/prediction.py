@@ -85,7 +85,9 @@ def plot_fit(
             )
             .reset_index()
         )
-    exchanges.loc[exchanges.flux < atol, "flux"] = atol
+    exchanges = exchanges.loc[exchanges.flux > atol]
+    if exchanges.shape[1] < 1:
+        raise ValueError("None of the fluxes passed the tolerance threshold :(")
     if variable_type == "binary" and phenotype.nunique() != 2:
         raise ValueError(
             "Binary variables must have exactly two unique values, yours "
@@ -103,7 +105,7 @@ def plot_fit(
         )
 
     fluxes = exchanges.pivot_table(
-        index="sample_id", columns="metabolite", values="flux", fill_value=1e-6
+        index="sample_id", columns="metabolite", values="flux", fill_value=atol
     )
     fluxes = fluxes.applymap(np.log)
     meta = phenotype[fluxes.index]

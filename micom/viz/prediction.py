@@ -29,6 +29,7 @@ def plot_fit(
     filename="fit_%s.html" % datetime.now().strftime("%Y%m%d"),
     flux_type="production",
     min_coef=0.01,
+    atol=1e-6
 ):
     """Test for differential metabolite production.
 
@@ -53,6 +54,9 @@ def plot_fit(
         Whether to fit using import or production fluxes.
     min_coef : float in [0.0, Inf]
         Only report coefficient that are at least that large.
+    atol : float
+        Tolerance to consider a flux different from zero. Should be roughly equivalent
+        to the solver tolerance.
 
     Returns
     -------
@@ -81,7 +85,7 @@ def plot_fit(
             )
             .reset_index()
         )
-    exchanges.loc[exchanges.flux < 1e-6, "flux"] = 1e-6
+    exchanges.loc[exchanges.flux < atol, "flux"] = atol
     if variable_type == "binary" and phenotype.nunique() != 2:
         raise ValueError(
             "Binary variables must have exactly two unique values, yours "

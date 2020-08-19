@@ -33,7 +33,7 @@ def _growth(args):
         len(medium),
     )
     com.medium = medium[medium.index.isin(ex_ids)]
-    tol = com.solver.configuration.tolerances.feasibility
+
     # Get growth rates
     try:
         sol = com.cooperative_tradeoff(fraction=tradeoff)
@@ -41,12 +41,12 @@ def _growth(args):
         rates["taxon"] = rates.index
         rates["tradeoff"] = tradeoff
         rates["sample_id"] = com.id
-        rates["tolerance"] = tol
     except Exception:
         logger.warning("Could not solve cooperative tradeoff for %s." % com.id)
         return None
 
     # Get the minimal medium
+    tol = com.solvert.configuration.tolerances.feasibility
     min_medium = minimal_medium(com, (1.0 - tol) * sol.growth_rate,
                                 (1.0 - tol) * rates.growth_rate.drop("medium"),
                                 solution=False)

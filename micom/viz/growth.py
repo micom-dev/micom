@@ -6,7 +6,8 @@ from micom.viz import Visualization
 
 def plot_growth(
     results,
-    filename="growth_rates_%s.html" % datetime.now().strftime("%Y%m%d")
+    filename="growth_rates_%s.html" % datetime.now().strftime("%Y%m%d"),
+    tolerance=1e-6
 ):
     """Plot the taxa growth rates.
 
@@ -16,6 +17,9 @@ def plot_growth(
         The results returned by the `grow` workflow.
     filename : str
         The HTML file where the visualization will be saved.
+    tolerance : float
+        Smallest growth rate that will be considered. Everything lower will be
+        considered not growing.
 
     Returns
     -------
@@ -23,7 +27,7 @@ def plot_growth(
         A MICOM visualization. Can be served with `viz.serve`.
     """
     rates = results.growth_rates
-    rates = rates[rates.growth_rate > rates.tolerance][
+    rates = rates[rates.growth_rate > tolerance][
         ["taxon", "sample_id", "abundance", "growth_rate"]
     ]
     data = {"growth_rates": rates}

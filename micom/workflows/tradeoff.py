@@ -32,7 +32,6 @@ def _tradeoff(args):
     rates["taxon"] = rates.index
     rates["tradeoff"] = np.nan
     rates["sample_id"] = com.id
-    rates["tolerance"] = com.solver.configuration.tolerances.feasibility
     df = [rates]
 
     # Get growth rates
@@ -49,7 +48,6 @@ def _tradeoff(args):
         rates["taxon"] = rates.index
         rates["tradeoff"] = sol.tradeoff[i]
         rates["sample_id"] = com.id
-        rates["tolerance"] = com.solver.configuration.tolerances.feasibility
         df.append(rates)
     df = pd.concat(df)
     return df[df.taxon != "medium"]

@@ -29,11 +29,12 @@ def plot_tradeoff(
     data = {"tradeoff": rates}
     viz = Visualization(filename, data, "tradeoff.html")
     growth = rates[
-        ["taxon", "sample_id", "abundance", "tradeoff", "growth_rate"]
+        ["taxon", "sample_id", "abundance", "tradeoff", "growth_rate", "tolerance"]
     ].copy()
     growth.tradeoff = growth.tradeoff.round(6).astype(str)
     growth.loc[growth.tradeoff == "nan", "tradeoff"] = "none"
-    growth.loc[growth.growth_rate < 1e-6, "growth_rate"] = 1e-6
+    growth.loc[growth.growth_rate < growth.tolerance, "growth_rate"] = (
+        growth.loc[growth.growth_rate < growth.tolerance, "tolerance"])
     growth.loc[:, "log_growth_rate"] = np.log10(growth.growth_rate)
     tradeoff = (
         growth.groupby(["tradeoff", "sample_id"])
@@ -41,9 +42,9 @@ def plot_tradeoff(
             lambda df: pd.Series(
                 {
                     "n_taxa": df.shape[0],
-                    "n_growing": df[df.growth_rate > 1e-6].shape[0],
+                    "n_growing": df[df.growth_rate > df.tolerance].shape[0],
                     "fraction_growing": (
-                        df[df.growth_rate > 1e-6].shape[0] / df.shape[0]
+                        df[df.growth_rate > df.tolerance].shape[0] / df.shape[0]
                     ),
                 }
             )

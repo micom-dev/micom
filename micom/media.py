@@ -1,16 +1,13 @@
 """Manages functions for growth media analysis and manipulation."""
 
-from functools import partial
 from optlang.symbolics import Zero
 import numpy as np
 import pandas as pd
-from cobra.util import get_context
 from micom import Community
 from micom.util import (
     _format_min_growth,
     _apply_min_growth,
     check_modification,
-    reset_min_community_growth,
 )
 from micom.logger import logger
 from micom.solution import OptimizationError
@@ -101,8 +98,8 @@ def minimal_medium(
     minimize_components=False,
     open_exchanges=False,
     solution=False,
-    atol=1e-6,
-    rtol=1e-6
+    atol=None,
+    rtol=None
 ):
     """Find the minimal growth medium for the community.
 
@@ -137,9 +134,9 @@ def minimal_medium(
         Whether to also return the entire solution and all fluxes for the
         minimal medium.
     atol : float
-        Absolute tolerance for the growth rates.
+        Absolute tolerance for the growth rates. If None will use the solver tolerance.
     rtol : float
-        Relative tolerqance for the growth rates.
+        Relative tolerqance for the growth rates. If None will use the solver tolerance.
 
 
     Returns
@@ -151,6 +148,12 @@ def minimal_medium(
 
     """
     logger.info("calculating minimal medium for %s" % community.id)
+
+    if atol is None:
+        atol = community.solver.configuration.tolerances.optimality
+    if rtol is None:
+        rtol = community.solver.configuration.tolerances.optimality
+
     boundary_rxns = community.exchanges
     if isinstance(open_exchanges, bool):
         open_bound = 1000
@@ -182,14 +185,14 @@ def minimal_medium(
         for rxn in boundary_rxns:
             export = len(rxn.reactants) == 1
             flux = sol.fluxes.loc["medium", rxn.id]
-            if abs(flux) < min(atol, 1e-6):
+            if abs(flux) < atol + rtol * abs(flux):
                 continue
             if export:
                 medium[rxn.id] = -flux
             elif not export:
                 medium[rxn.id] = flux
         if not exports:
-            medium = medium[medium > 0]
+            medium = medium[medium > 0.0]
 
     if solution:
         return {"medium": medium, "solution": sol}

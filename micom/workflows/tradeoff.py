@@ -105,7 +105,8 @@ def tradeoff(
             "All numerical optimizations failed. This indicates a problem "
             "with the solver or numerical instabilities. Check that you have "
             "CPLEX or Gurobi installed. You may also increase the abundance "
-            "cutoff in `qiime micom build` to create simpler models."
+            "cutoff in `qiime micom build` to create simpler models or choose "
+            "a more permissive solver tolerance."
         )
     results = pd.concat(results)
     return results

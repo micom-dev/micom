@@ -253,6 +253,8 @@ def _apply_min_growth(community, min_growth, atol=1e-6, rtol=1e-6):
 def adjust_solver_config(solver):
     """Adjust the optlang solver configuration for larger problems."""
     interface = interface_to_str(solver.interface)
+    solver.configuration.tolerances.optimality = 1e-6
+    solver.configuration.tolerances.feasibility = 1e-6
     if interface == "cplex":
         solver.configuration.lp_method = "barrier"
         solver.configuration.qp_method = "barrier"
@@ -269,7 +271,7 @@ def adjust_solver_config(solver):
     if interface == "osqp":
         solver.configuration.tolerances.optimality = 1e-3
         solver.configuration.tolerances.feasibility = 1e-4
-        solver.configuration.presolve = True
+        solver.configuration.presolve = False  # leads to convergence issues if on
         solver.problem.settings["max_iter"] = 30000
 
 

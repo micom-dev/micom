@@ -5,6 +5,7 @@ from micom import load_pickle
 from micom.annotation import annotate_metabolites_from_exchanges
 from micom.logger import logger
 from micom.media import minimal_medium
+from micom.util import _apply_min_growth
 from micom.workflows.core import workflow, GrowthResults
 from micom.workflows.media import process_medium
 from os import path
@@ -14,7 +15,14 @@ DIRECTION = pd.Series(["import", "export"], index=[0, 1])
 
 
 def _growth(args):
-    p, tradeoff, medium = args
+    p, tradeoff, medium, atol, rtol = args
+    com = load_pickle(p)
+
+    if atol is None:
+        atol = com.solver.configuration.tolerances.optimality
+    if rtol is None:
+        rtol = com.solver.configuration.tolerances.optimality
+
     com = load_pickle(p)
 
     if "glpk" in interface_to_str(com.solver.interface):
@@ -42,21 +50,25 @@ def _growth(args):
         rates["tradeoff"] = tradeoff
         rates["sample_id"] = com.id
     except Exception:
-        logger.warning("Could not solve cooperative tradeoff for %s." % com.id)
+        logger.warning(
+            "Could not solve cooperative tradeoff for %s. "
+            "This can often be fixed by chosing ore permissive atol and rtol "
+            "arguments." % com.id)
         return None
 
     # Get the minimal medium
-    tol = com.solver.configuration.tolerances.feasibility
     min_medium = minimal_medium(
         com,
         community_growth=sol.growth_rate,
         min_growth=rates.growth_rate.drop("medium"),
         solution=False,
-        atol=tol,
-        rtol=tol
+        atol=atol,
+        rtol=rtol
     )
     com.medium = min_medium
-    sol = com.optimize(fluxes=True, pfba=True, atol=tol, rtol=tol)
+    _apply_min_growth(com, rates.growth_rate.drop("medium"),
+                      atol=atol, rtol=rtol)
+    sol = com.optimize(fluxes=True, pfba=True, atol=atol, rtol=rtol)
     fluxes = sol.fluxes.loc[:, sol.fluxes.columns.str.startswith("EX_")].copy()
     fluxes["sample_id"] = com.id
     anns = annotate_metabolites_from_exchanges(com)
@@ -69,6 +81,8 @@ def grow(
     medium,
     tradeoff,
     threads=1,
+    atol=None,
+    rtol=None
 ):
     """Simulate growth for a set of community models.
 
@@ -88,6 +102,10 @@ def grow(
     threads : int >=1
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
+    atol : float
+        Absolute tolerance for the growth rates. If None will use the solver tolerance.
+    rtol : float
+        Relative tolerqance for the growth rates. If None will use the solver tolerance.
 
     Returns
     -------
@@ -103,7 +121,7 @@ def grow(
     }
     medium = process_medium(medium, samples)
     args = [
-        [p, tradeoff, medium.flux[medium.sample_id == s]]
+        [p, tradeoff, medium.flux[medium.sample_id == s], atol, rtol]
         for s, p in paths.items()
     ]
     results = workflow(_growth, args, threads)

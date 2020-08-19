@@ -71,6 +71,7 @@ def _growth(args):
     sol = com.optimize(fluxes=True, pfba=True, atol=atol, rtol=rtol)
     fluxes = sol.fluxes.loc[:, sol.fluxes.columns.str.startswith("EX_")].copy()
     fluxes["sample_id"] = com.id
+    fluxes["tolerance"] = atol
     anns = annotate_metabolites_from_exchanges(com)
     return {"growth": rates, "exchanges": fluxes, "annotations": anns}
 
@@ -137,7 +138,8 @@ def grow(
     exchanges = pd.concat(r["exchanges"] for r in results)
     exchanges["taxon"] = exchanges.index
     exchanges = exchanges.melt(
-        id_vars=["taxon", "sample_id"], var_name="reaction", value_name="flux"
+        id_vars=["taxon", "sample_id", "tolerance"],
+        var_name="reaction", value_name="flux"
     ).dropna(subset=["flux"])
     abundance = growth[["taxon", "sample_id", "abundance"]]
     exchanges = pd.merge(exchanges, abundance,
@@ -148,5 +150,6 @@ def grow(
     exchanges["direction"] = DIRECTION[
         (exchanges.flux > 0.0).astype(int)
     ].values
+    exchanges = exchanges[exchanges.flux.abs() > exchanges.tolerance]
 
     return GrowthResults(growth, exchanges, anns)

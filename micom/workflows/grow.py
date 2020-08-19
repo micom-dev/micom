@@ -33,7 +33,7 @@ def _growth(args):
         len(medium),
     )
     com.medium = medium[medium.index.isin(ex_ids)]
-
+    tol = com.solver.configuration.tolerances.feasibility
     # Get growth rates
     try:
         sol = com.cooperative_tradeoff(fraction=tradeoff)
@@ -41,16 +41,17 @@ def _growth(args):
         rates["taxon"] = rates.index
         rates["tradeoff"] = tradeoff
         rates["sample_id"] = com.id
+        rates["tolerance"] = tol
     except Exception:
         logger.warning("Could not solve cooperative tradeoff for %s." % com.id)
         return None
 
     # Get the minimal medium
-    res = minimal_medium(com, 0.95 * sol.growth_rate,
-                         0.95 * rates.growth_rate.drop("medium"),
-                         solution=False)
-    com.medium = res
-    sol = com.optimize(fluxes=True, pfba=True, atol=1e-4, rtol=1e-4)
+    min_medium = minimal_medium(com, (1.0 - tol) * sol.growth_rate,
+                                (1.0 - tol) * rates.growth_rate.drop("medium"),
+                                solution=False)
+    com.medium = min_medium
+    sol = com.optimize(fluxes=True, pfba=True, atol=tol, rtol=tol)
     fluxes = sol.fluxes.loc[:, sol.fluxes.columns.str.startswith("EX_")].copy()
     fluxes["sample_id"] = com.id
     anns = annotate_metabolites_from_exchanges(com)

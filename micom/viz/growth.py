@@ -23,7 +23,7 @@ def plot_growth(
         A MICOM visualization. Can be served with `viz.serve`.
     """
     rates = results.growth_rates
-    rates = rates[rates.growth_rate > 1e-6][
+    rates = rates[rates.growth_rate > rates.tolerance][
         ["taxon", "sample_id", "abundance", "growth_rate"]
     ]
     data = {"growth_rates": rates}

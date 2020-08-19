@@ -179,11 +179,10 @@ def minimal_medium(
 
         logger.info("formatting medium")
         medium = pd.Series()
-        tol = community.solver.configuration.tolerances.feasibility
         for rxn in boundary_rxns:
             export = len(rxn.reactants) == 1
             flux = sol.fluxes.loc["medium", rxn.id]
-            if abs(flux) < tol:
+            if (1.0 - rtol) * abs(flux) < atol:
                 continue
             if export:
                 medium[rxn.id] = -flux

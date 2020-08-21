@@ -762,8 +762,10 @@ class Community(cobra.Model):
     @property
     def scale(self):
         """Get a scale to improve numerical properties."""
-        # may ahve tro be adjustyed by solver in the future
-        return 1000.0
+        # may have to be adjusted based on the solver in the future
+        if "osqp" in str(self.problem):
+            return 1.0
+        return 100.0
 
     def to_pickle(self, filename):
         """Save a community in serialized form.

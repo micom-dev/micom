@@ -75,7 +75,7 @@ def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
 
     fluxes = import_fluxes.index
     if progress:
-        fluxes = tqdm(fluxes, unit="optimizations")
+        fluxes = tqdm(fluxes, unit="optimizations", desc="medium")
     for r in fluxes:
         flux = import_fluxes[r]
         with com:
@@ -126,7 +126,7 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     taxa = abundance.index
 
     if progress:
-        taxa = tqdm(taxa, unit="optimizations")
+        taxa = tqdm(taxa, unit="optimizations", desc="taxa abundances")
     for sp in taxa:
         old = abundance[sp]
         abundance.loc[sp] *= np.exp(STEP)

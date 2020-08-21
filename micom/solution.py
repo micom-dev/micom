@@ -258,7 +258,7 @@ def crossover(community, sol, fluxes=False, pfba=False):
         reset_min_community_growth(com)
         com.variables.community_objective.lb = 0.0
         com.variables.community_objective.ub = com_growth + 1e-6
-        com.objective = 1000.0 * com.variables.community_objective
+        com.objective = com.scale * com.variables.community_objective
         for sp in com.taxa:
             const = com.constraints["objective_" + sp]
             const.ub = gcs[sp]
@@ -276,7 +276,7 @@ def crossover(community, sol, fluxes=False, pfba=False):
             "crossover could not converge (status = %s)."
             % community.solver.status
         )
-    s.objective_value /= 1000.0
+    s.objective_value /= com.scale
     return s
 
 
@@ -288,11 +288,11 @@ def optimize_with_fraction(
     com.variables.community_objective.ub = None
     if growth_rate is None:
         with com:
-            com.objective = 1000.0 * com.variables.community_objective
+            com.objective = com.scale * com.variables.community_objective
             growth_rate = optimize_with_retry(
                 com, message="could not get community growth rate."
             )
-            growth_rate /= 1000.0
+            growth_rate /= com.scale
     com.variables.community_objective.lb = fraction * growth_rate
     com.variables.community_objective.ub = growth_rate
     sol = com.optimize()

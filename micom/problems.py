@@ -143,6 +143,7 @@ def knockout_taxa(
                 results.append(new)
 
         ko = pd.DataFrame(results, index=taxa).drop("medium", 1)
+        ko = ko.loc[ko.index.sort_values(), ko.columns.sort_values()]
         if not diag:
             np.fill_diagonal(ko.values, np.NaN)
 

@@ -269,10 +269,10 @@ def adjust_solver_config(solver):
     if interface == "glpk":
         solver.configuration.presolve = True
     if interface == "osqp":
+        # as a direct solver OSQP has trouble getting to good accuracies for LPs
         solver.configuration.tolerances.optimality = 1e-3
         solver.configuration.tolerances.feasibility = 1e-4
-        solver.configuration.presolve = False  # leads to convergence issues if on
-        solver.problem.settings["max_iter"] = 30000
+        solver.configuration.presolve = False
 
 
 def reset_min_community_growth(com):

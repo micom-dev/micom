@@ -571,6 +571,41 @@ class Community(cobra.Model):
         return cobra.medium.find_boundary_types(self, "exchange", "m")
 
     @property
+    def medium(self):
+        """Returns the medium."""
+        return super().medium
+
+    @medium.setter
+    def medium(self, fluxes):
+        """Sets the medium for the community.
+
+        Parameters
+        ----------
+        fluxes : dict or pandas.Series
+            The largest allowed import flux for the component. Index or key must be a
+            reaction ID and the flux should be positive.
+        """
+        if isinstance(fluxes, pd.Series):
+            fluxes = fluxes.to_dict()
+
+        exids = set(r.id for r in self.exchanges)
+        rids = set(k for k in fluxes)
+        found = rids & exids
+        not_found = rids - exids
+        if len(found) == 0:
+            raise ValueError(
+                "No ID from the medium could be found in the exchange reactions. "
+                "This means you probably have mismatched IDs..."
+            )
+        if len(not_found) > 0:
+            logger.warning(
+                "I could not find the following exchanges "
+                "in your model: %s" % ", ".join(not_found)
+            )
+        super(Community, type(self)).medium.fset(
+            self, {rid: fluxes[rid] for rid in found})
+
+    @property
     def build_metrics(self):
         """pd.Series: Returns general metrics for database matching.
 
@@ -727,10 +762,8 @@ class Community(cobra.Model):
     @property
     def scale(self):
         """Get a scale to improve numerical properties."""
-        scale = 1000.0
-        if cobra.util.interface_to_str(self.problem) == "osqp":
-            scale = 1.0
-        return scale
+        # may ahve tro be adjustyed by solver in the future
+        return 1000.0
 
     def to_pickle(self, filename):
         """Save a community in serialized form.

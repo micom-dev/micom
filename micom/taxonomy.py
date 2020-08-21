@@ -56,6 +56,9 @@ def build_from_qiime(
         taxa[ranks + ["mapping_ranks"]].drop_duplicates(),
         on="mapping_ranks"
     )
+    abundance["id"] = abundance["mapping_ranks"].replace(
+        r"[^A-Za-z0-9_]+", "_", regex=True
+    )
     del abundance["mapping_ranks"]
     abundance.dropna(subset=ranks, inplace=True)
     depth = abundance.groupby("sample_id").abundance.sum()

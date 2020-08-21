@@ -220,9 +220,7 @@ class Community(cobra.Model):
             logger.warning(
                 "Taxa IDs contain prohibited characters and" " will be reformatted."
             )
-            taxonomy.id = taxonomy.id.replace(
-                [r"[^A-Za-z0-9_\s]", r"\s+"], ["", "_"], regex=True
-            )
+            taxonomy.id = taxonomy.id.replace(r"[^A-Za-z0-9_\s]+", "_", regex=True)
 
         self.__taxonomy = taxonomy
         self.__taxonomy.index = self.__taxonomy.id
@@ -563,7 +561,7 @@ class Community(cobra.Model):
 
     @property
     def exchanges(self):
-        """list: Returns all exchange reactions in the model.
+        """list: Return all exchange reactions in the model.
 
         Uses several heuristics based on the reaction name and compartments
         to exclude reactions that are *not* exchange reactions.
@@ -572,12 +570,12 @@ class Community(cobra.Model):
 
     @property
     def medium(self):
-        """Returns the medium."""
+        """Return the medium."""
         return super().medium
 
     @medium.setter
     def medium(self, fluxes):
-        """Sets the medium for the community.
+        """Set the medium for the community.
 
         Parameters
         ----------

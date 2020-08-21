@@ -52,7 +52,7 @@ def load_qiime_manifest(artifact):
         raise ValueError(
             "%s is not a supported q2-micom artifact :(" % artifact)
     uuid = meta["uuid"]
-    with ZipFile(artifact) as zf,  TemporaryDirectory(prefix="micom_") as td:
+    with ZipFile(artifact) as zf, TemporaryDirectory(prefix="micom_") as td:
         zf.extract(uuid + "/data/manifest.csv", str(td))
         manifest = pd.read_csv(
             path.join(str(td), uuid, "data", "manifest.csv"))
@@ -88,6 +88,7 @@ def load_qiime_medium(artifact):
         zf.extract(uuid + "/data/medium.csv", str(td))
         medium = pd.read_csv(
             path.join(str(td), uuid, "data", "medium.csv"))
+    medium.index = medium.reaction
     return medium
 
 

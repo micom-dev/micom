@@ -31,7 +31,9 @@ def add_linear_obj(community, exchanges):
     check_modification(community)
     coefs = {}
     for rxn in exchanges:
-        export = len(rxn.reactants) == 1
+        export = len(rxn.reactants) == 1 or (
+            len(rxn.metabolites) == 2 and rxn.products[0].compartment == "m"
+        )
         if export:
             coefs[rxn.reverse_variable] = 1.0
         else:
@@ -68,7 +70,9 @@ def add_mip_obj(community, exchanges):
     coefs = {}
     to_add = []
     for rxn in boundary_rxns:
-        export = len(rxn.reactants) == 1
+        export = len(rxn.reactants) == 1 or (
+            len(rxn.reactants) == 2 and rxn.products[0].compartment == "m"
+        )
         indicator = prob.Variable("ind_" + rxn.id, lb=0, ub=1, type="binary")
         if export:
             vrv = rxn.reverse_variable
@@ -99,7 +103,7 @@ def minimal_medium(
     open_exchanges=False,
     solution=False,
     atol=None,
-    rtol=None
+    rtol=None,
 ):
     """Find the minimal growth medium for the community.
 
@@ -154,7 +158,10 @@ def minimal_medium(
     if rtol is None:
         rtol = community.solver.configuration.tolerances.optimality
 
-    boundary_rxns = community.exchanges
+    if exchanges is None:
+        boundary_rxns = community.exchanges
+    else:
+        boundary_rxns = community.reactions.get_by_any(exchanges)
     if isinstance(open_exchanges, bool):
         open_bound = 1000
     else:
@@ -162,9 +169,7 @@ def minimal_medium(
     min_growth = _format_min_growth(min_growth, community.taxa)
     with community as com:
         if open_exchanges:
-            logger.info(
-                "opening exchanges for %d imports" % len(boundary_rxns)
-            )
+            logger.info("opening exchanges for %d imports" % len(boundary_rxns))
             for rxn in boundary_rxns:
                 rxn.bounds = (-open_bound, open_bound)
         logger.info("applying growth rate constraints")
@@ -182,10 +187,11 @@ def minimal_medium(
 
         logger.info("formatting medium")
         medium = pd.Series()
-        for rxn in boundary_rxns:
+        ex = set(com.exchanges) & set(boundary_rxns)
+        for rxn in ex:
             export = len(rxn.reactants) == 1
             flux = sol.fluxes.loc["medium", rxn.id]
-            if abs(flux) < atol + rtol * abs(flux):
+            if abs(flux) < atol:
                 continue
             if export:
                 medium[rxn.id] = -flux
@@ -250,9 +256,7 @@ def complete_medium(
     with model:
         model.modification = None
         const = model.problem.Constraint(
-            model.objective.expression,
-            lb=min_growth,
-            name="micom_growth_const",
+            model.objective.expression, lb=min_growth, name="micom_growth_const",
         )
         model.add_cons_vars([const])
         model.objective = Zero
@@ -275,7 +279,8 @@ def complete_medium(
             fluxes = sol.fluxes
     if sol is None:
         raise OptimizationError(
-            "Could not find a solution that completes the medium :(")
+            "Could not find a solution that completes the medium :("
+        )
     completed = pd.Series()
     for rxn in model.exchanges:
         export = len(rxn.reactants) == 1

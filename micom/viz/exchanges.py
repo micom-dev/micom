@@ -42,6 +42,7 @@ def plot_exchanges_per_sample(
     exchanges = exchanges[
         (exchanges.taxon == "medium")
         & (exchanges.direction == direction)
+        & (exchanges.flux.abs() > tol)
     ].copy()
     exchanges.flux = exchanges.flux.abs()
     mat = exchanges.pivot_table(

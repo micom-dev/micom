@@ -569,6 +569,18 @@ class Community(cobra.Model):
         return cobra.medium.find_boundary_types(self, "exchange", "m")
 
     @property
+    def internal_exchanges(self):
+        """list: Return all internal exchanges.
+
+        Internal exchanges are exchanges between individual taxa and the medium.
+        """
+        return [
+            r
+            for r in self.reactions
+            if len(r.metabolites) == 2 and "m" in [m.compartment for m in r.metabolites]
+        ]
+
+    @property
     def medium(self):
         """Return the medium."""
         return super().medium
@@ -601,7 +613,8 @@ class Community(cobra.Model):
                 "in your model: %s" % ", ".join(not_found)
             )
         super(Community, type(self)).medium.fset(
-            self, {rid: fluxes[rid] for rid in found})
+            self, {rid: fluxes[rid] for rid in found}
+        )
 
     @property
     def build_metrics(self):
@@ -763,7 +776,7 @@ class Community(cobra.Model):
         # may have to be adjusted based on the solver in the future
         if "osqp" in str(self.problem):
             return 1.0
-        return 100.0
+        return 1000.0
 
     def to_pickle(self, filename):
         """Save a community in serialized form.

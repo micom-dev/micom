@@ -42,7 +42,8 @@ Contents
 
    Methods used by MICOM <logic>
    Installing MICOM <installing>
-   The High Level API <high_level>
+   MICOM workflows <high_level>
+   Visualizations <viz>
    Building communities <community>
    Growth rates and fluxes <growth_fluxes>
    Growth media <media>

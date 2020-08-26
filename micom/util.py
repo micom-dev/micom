@@ -240,7 +240,7 @@ def _apply_min_growth(community, min_growth, atol=1e-6, rtol=1e-6):
         obj = community.constraints["objective_" + sp]
         if context:
             context(partial(reset, sp, obj.lb))
-        if min_growth[sp] > 1e-6:
+        if min_growth[sp] > atol:
             obj.lb = (1.0 - rtol) * min_growth[sp] - atol
         else:
             logger.info(
@@ -253,8 +253,7 @@ def _apply_min_growth(community, min_growth, atol=1e-6, rtol=1e-6):
 def adjust_solver_config(solver):
     """Adjust the optlang solver configuration for larger problems."""
     interface = interface_to_str(solver.interface)
-    solver.configuration.tolerances.optimality = 1e-6
-    solver.configuration.tolerances.feasibility = 1e-6
+
     if interface == "cplex":
         solver.configuration.lp_method = "barrier"
         solver.configuration.qp_method = "barrier"

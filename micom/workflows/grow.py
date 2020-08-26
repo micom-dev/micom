@@ -5,7 +5,6 @@ from micom import load_pickle
 from micom.annotation import annotate_metabolites_from_exchanges
 from micom.logger import logger
 from micom.media import minimal_medium
-from micom.util import _apply_min_growth
 from micom.workflows.core import workflow, GrowthResults
 from micom.workflows.media import process_medium
 from os import path
@@ -56,19 +55,16 @@ def _growth(args):
             "arguments." % com.id)
         return None
 
-    # Get the minimal medium
-    min_medium = minimal_medium(
+    # Get the minimal medium and the solution at the same time
+    sol = minimal_medium(
         com,
+        exchanges=None,
         community_growth=sol.growth_rate,
         min_growth=rates.growth_rate.drop("medium"),
-        solution=False,
+        solution=True,
         atol=atol,
         rtol=rtol
-    )
-    com.medium = min_medium
-    _apply_min_growth(com, rates.growth_rate.drop("medium"),
-                      atol=atol, rtol=rtol)
-    sol = com.optimize(fluxes=True, pfba=True, atol=atol, rtol=rtol)
+    )["solution"]
     fluxes = sol.fluxes.loc[:, sol.fluxes.columns.str.startswith("EX_")].copy()
     fluxes["sample_id"] = com.id
     fluxes["tolerance"] = atol

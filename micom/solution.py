@@ -68,9 +68,7 @@ class CommunitySolution(Solution):
 
     """
 
-    def __init__(
-        self, community, slim=False, reactions=None, metabolites=None
-    ):
+    def __init__(self, community, slim=False, reactions=None, metabolites=None):
         """Get the solution from a community model."""
         if reactions is None:
             reactions = community.reactions
@@ -81,10 +79,7 @@ class CommunitySolution(Solution):
         if not slim:
             var_primals = community.solver.primal_values
             fluxes = pd.Series(
-                [
-                    var_primals[r.id] - var_primals[r.reverse_id]
-                    for r in reactions
-                ],
+                [var_primals[r.id] - var_primals[r.reverse_id] for r in reactions],
                 name="fluxes",
             )
             super(CommunitySolution, self).__init__(
@@ -131,8 +126,10 @@ class CommunitySolution(Solution):
                     "<strong>community growth:</strong> {:.3f}"
                     "<br><strong>status:</strong> {}"
                     "<br><strong>taxa:</strong>{}".format(
-                        sum(self.members.abundance.dropna() *
-                            self.members.growth_rate.dropna()),
+                        sum(
+                            self.members.abundance.dropna()
+                            * self.members.growth_rate.dropna()
+                        ),
                         self.status,
                         self.members._repr_html_(),
                     )
@@ -144,9 +141,7 @@ class CommunitySolution(Solution):
     def __repr__(self):
         """Convert CommunitySolution instance to string representation."""
         if self.status not in good:
-            return "<CommunitySolution {0:s} at 0x{1:x}>".format(
-                self.status, id(self)
-            )
+            return "<CommunitySolution {0:s} at 0x{1:x}>".format(self.status, id(self))
         return "<CommunitySolution {0:.3f} at 0x{1:x}>".format(
             self.growth_rate, id(self)
         )
@@ -170,16 +165,14 @@ def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
     """
     # Fix all growth rates
     rates = {
-        sp: community.constraints["objective_" + sp].primal
-        for sp in community.taxa
+        sp: community.constraints["objective_" + sp].primal for sp in community.taxa
     }
     _apply_min_growth(community, rates, atol, rtol)
 
     if community.solver.objective.name == "_pfba_objective":
         raise ValueError("model already has pfba objective")
     reaction_variables = (
-        (rxn.forward_variable, rxn.reverse_variable)
-        for rxn in community.reactions
+        (rxn.forward_variable, rxn.reverse_variable) for rxn in community.reactions
     )
     variables = chain(*reaction_variables)
     community.objective = Zero
@@ -198,9 +191,7 @@ def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=
     if status in good:
         if status != OPTIMAL:
             if raise_error:
-                raise OptimizationError(
-                    "solver returned the status %s." % status
-                )
+                raise OptimizationError("solver returned the status %s." % status)
             else:
                 logger.info(
                     "solver returned the status %s," % status
@@ -273,16 +264,13 @@ def crossover(community, sol, fluxes=False, pfba=False):
             com.constraints["objective_" + sp].ub = None
     if s is None:
         raise OptimizationError(
-            "crossover could not converge (status = %s)."
-            % community.solver.status
+            "crossover could not converge (status = %s)." % community.solver.status
         )
     s.objective_value /= com.scale
     return s
 
 
-def optimize_with_fraction(
-    com, fraction, growth_rate=None, fluxes=False, pfba=False
-):
+def optimize_with_fraction(com, fraction, growth_rate=None, fluxes=False, pfba=False):
     """Optimize with a constrained community growth rate."""
     com.variables.community_objective.lb = 0
     com.variables.community_objective.ub = None

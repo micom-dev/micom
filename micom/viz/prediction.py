@@ -175,8 +175,8 @@ def plot_fit(
         score=score,
         width=400,
         height=300,
-        cheight=2 * coefs.shape[0],
-        cwidth=8 * coefs.shape[0],
+        cheight=max(2 * coefs.shape[0], 40),
+        cwidth=max(8 * coefs.shape[0], 160),
     )
 
     return viz

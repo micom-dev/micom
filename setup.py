@@ -56,7 +56,7 @@ setup(
             path.join("data", "*.csv"),
             path.join("data", "*.gz"),
             path.join("data", "templates", "*.*"),
-            path.join("data", "artifacts", "*.qza")
+            path.join("data", "artifacts", "*.*")
         ]
     },
     # Alternatively, if you want to distribute just a my_module.py, uncomment

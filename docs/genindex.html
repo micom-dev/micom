@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Index &#8212; micom 0.16.0 documentation</title>
+    <title>Index &#8212; micom 0.18.4 documentation</title>
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -41,7 +41,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.16.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.18.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -78,9 +78,9 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by MICOM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html#Solvers">Solvers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="high_level.html">The High Level API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
@@ -105,6 +105,7 @@
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#I"><strong>I</strong></a>
  | <a href="#J"><strong>J</strong></a>
  | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
@@ -135,15 +136,13 @@
 </li>
       <li><a href="micom.html#micom.optcom.add_moma_optcom">add_moma_optcom() (in module micom.optcom)</a>
 </li>
-      <li><a href="micom.html#micom.solution.add_pfba_objective">add_pfba_objective() (in module micom.solution)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="micom.html#micom.solution.add_pfba_objective">add_pfba_objective() (in module micom.solution)</a>
+</li>
       <li><a href="micom.html#micom.util.add_var_from_expression">add_var_from_expression() (in module micom.util)</a>
 </li>
       <li><a href="micom.html#micom.util.adjust_solver_config">adjust_solver_config() (in module micom.util)</a>
-</li>
-      <li><a href="micom.viz.html#micom.viz.core.VizServer.allow_reuse_address">allow_reuse_address (micom.viz.core.VizServer attribute)</a>
 </li>
       <li><a href="micom.html#micom.annotation.annotate">annotate() (in module micom.annotation)</a>
 </li>
@@ -269,26 +268,26 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#micom.duality.fast_dual">fast_dual() (in module micom.duality)</a>
 </li>
+      <li><a href="micom.viz.html#micom.viz.core.Visualization.filename">filename (micom.viz.core.Visualization attribute)</a>
+
+      <ul>
+        <li><a href="micom.viz.html#micom.viz.Visualization.filename">(micom.viz.Visualization attribute)</a>
+</li>
+      </ul></li>
       <li><a href="micom.workflows.html#micom.workflows.fix_medium">fix_medium() (in module micom.workflows)</a>
 
       <ul>
         <li><a href="micom.workflows.html#micom.workflows.media.fix_medium">(in module micom.workflows.media)</a>
 </li>
       </ul></li>
-      <li><a href="micom.html#micom.annotation.flatten">flatten() (in module micom.annotation)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="micom.html#micom.annotation.flatten">flatten() (in module micom.annotation)</a>
+</li>
       <li><a href="micom.html#micom.solution.CommunitySolution.fluxes">fluxes (micom.solution.CommunitySolution attribute)</a>
 </li>
       <li><a href="micom.html#micom.util.fluxes_from_primals">fluxes_from_primals() (in module micom.util)</a>
 </li>
-      <li><a href="micom.viz.html#micom.viz.core.Visualization.folder">folder (micom.viz.core.Visualization attribute)</a>
-
-      <ul>
-        <li><a href="micom.viz.html#micom.viz.Visualization.folder">(micom.viz.Visualization attribute)</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -317,6 +316,18 @@
 
       <ul>
         <li><a href="micom.workflows.html#micom.workflows.core.GrowthResults">(class in micom.workflows.core)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="micom.html#micom.Community.internal_exchanges">internal_exchanges() (micom.Community property)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.Community.internal_exchanges">(micom.community.Community property)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -361,6 +372,8 @@
         <li><a href="micom.html#micom.util.load_pickle">(in module micom.util)</a>
 </li>
       </ul></li>
+      <li><a href="micom.html#micom.qiime_formats.load_qiime_feature_table">load_qiime_feature_table() (in module micom.qiime_formats)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#micom.qiime_formats.load_qiime_manifest">load_qiime_manifest() (in module micom.qiime_formats)</a>
@@ -371,6 +384,8 @@
 </li>
       <li><a href="micom.html#micom.qiime_formats.load_qiime_model_db">load_qiime_model_db() (in module micom.qiime_formats)</a>
 </li>
+      <li><a href="micom.html#micom.qiime_formats.load_qiime_taxonomy">load_qiime_taxonomy() (in module micom.qiime_formats)</a>
+</li>
       <li><a href="micom.html#micom.db.load_zip_model_db">load_zip_model_db() (in module micom.db)</a>
 </li>
   </ul></td>
@@ -379,6 +394,12 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="micom.html#micom.Community.medium">medium() (micom.Community property)</a>
+
+      <ul>
+        <li><a href="micom.html#micom.community.Community.medium">(micom.community.Community property)</a>
+</li>
+      </ul></li>
       <li><a href="micom.html#micom.solution.CommunitySolution.members">members (micom.solution.CommunitySolution attribute)</a>
 </li>
       <li><a href="micom.html#micom.algorithms.metabolic_dist">metabolic_dist() (in module micom.algorithms)</a>
@@ -780,20 +801,14 @@
       </ul></li>
       <li><a href="micom.html#micom.util.serialize_models">serialize_models() (in module micom.util)</a>
 </li>
-      <li><a href="micom.viz.html#micom.viz.core.Visualization.serve">serve() (micom.viz.core.Visualization method)</a>
-
-      <ul>
-        <li><a href="micom.viz.html#micom.viz.Visualization.serve">(micom.viz.Visualization method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#micom.Community.set_abundance">set_abundance() (micom.Community method)</a>
 
       <ul>
         <li><a href="micom.html#micom.community.Community.set_abundance">(micom.community.Community method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.html#micom.solution.CommunitySolution.shadow_prices">shadow_prices (micom.solution.CommunitySolution attribute)</a>
 </li>
       <li><a href="micom.html#micom.solution.solve">solve() (in module micom.solution)</a>
@@ -844,16 +859,20 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="micom.viz.html#micom.viz.core.Visualization.view">view() (micom.viz.core.Visualization method)</a>
+
+      <ul>
+        <li><a href="micom.viz.html#micom.viz.Visualization.view">(micom.viz.Visualization method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="micom.viz.html#micom.viz.Visualization">Visualization (class in micom.viz)</a>
 
       <ul>
         <li><a href="micom.viz.html#micom.viz.core.Visualization">(class in micom.viz.core)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="micom.viz.html#micom.viz.core.VizServer">VizServer (class in micom.viz.core)</a>
-</li>
   </ul></td>
 </tr></table>
 

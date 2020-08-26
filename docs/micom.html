@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>micom package &#8212; micom 0.16.0 documentation</title>
+    <title>micom package &#8212; micom 0.18.4 documentation</title>
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -23,7 +23,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="micom.data package" href="micom.data.html" />
-    <link rel="prev" title="Workflows" href="workflows.html" />
+    <link rel="prev" title="Writing your own workflows" href="workflows.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -42,7 +42,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.16.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.18.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -68,7 +68,7 @@
             <ul class='nav navbar-nav navbar-right'>
                 
   <li>
-    <a href="workflows.html" title="Previous Chapter: Workflows"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Workflows</span>
+    <a href="workflows.html" title="Previous Chapter: Writing your own workflows"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Writing your own workflows</span>
     </a>
   </li>
   <li>
@@ -87,9 +87,9 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by MICOM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html#Solvers">Solvers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="high_level.html">The High Level API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
@@ -263,9 +263,21 @@ a pandas Series of solutions with the fractions as indices.</p>
 <dl class="py method">
 <dt id="micom.community.Community.exchanges">
 <em class="property">property </em><code class="sig-name descname">exchanges</code><a class="headerlink" href="#micom.community.Community.exchanges" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns all exchange reactions in the model.</p>
+<dd><p>Return all exchange reactions in the model.</p>
 <p>Uses several heuristics based on the reaction name and compartments
 to exclude reactions that are <em>not</em> exchange reactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.internal_exchanges">
+<em class="property">property </em><code class="sig-name descname">internal_exchanges</code><a class="headerlink" href="#micom.community.Community.internal_exchanges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all internal exchanges.</p>
+<p>Internal exchanges are exchanges between individual taxa and the medium.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>list</p>
@@ -304,6 +316,12 @@ that knockout.</p>
 <dd class="field-odd"><p>pandas.DataFrame</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.medium">
+<em class="property">property </em><code class="sig-name descname">medium</code><a class="headerlink" href="#micom.community.Community.medium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the medium.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -376,7 +394,7 @@ doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</p>
 
 <dl class="py method">
 <dt id="micom.community.Community.optimize">
-<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">raise_error</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optimize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">raise_error</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">1e-06</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">1e-06</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optimize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize the model using flux balance analysis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -751,7 +769,7 @@ model produces biomass with a rate &gt;= <cite>min_growth</cite>.</p>
 
 <dl class="py function">
 <dt id="micom.media.minimal_medium">
-<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">minimal_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">community_growth</span></em>, <em class="sig-param"><span class="n">exchanges</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">exports</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">open_exchanges</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">solution</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.minimal_medium" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">minimal_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">community_growth</span></em>, <em class="sig-param"><span class="n">exchanges</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">exports</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">open_exchanges</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">solution</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.minimal_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the minimal growth medium for the community.</p>
 <p>Finds the minimal growth medium for the community which allows for
 community as well as individual growth. Here, a minimal medium can either
@@ -775,6 +793,8 @@ in the model possible. If set to a number all exchange reactions will
 be opened with (-number, number) as bounds.</p></li>
 <li><p><strong>solution</strong> (<em>boolean</em>) – Whether to also return the entire solution and all fluxes for the
 minimal medium.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver tolerance.</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the solver tolerance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -948,6 +968,12 @@ cooperativity cost. If set to False requires a QP-capable solver.</p></li>
 <span id="micom-qiime-formats-module"></span><h2>micom.qiime_formats module<a class="headerlink" href="#module-micom.qiime_formats" title="Permalink to this headline">¶</a></h2>
 <p>Provides support for Qiime formats.</p>
 <dl class="py function">
+<dt id="micom.qiime_formats.load_qiime_feature_table">
+<code class="sig-prename descclassname">micom.qiime_formats.</code><code class="sig-name descname">load_qiime_feature_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artifact</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.qiime_formats.load_qiime_feature_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a feature table from a Qiime 2 artifact.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="micom.qiime_formats.load_qiime_manifest">
 <code class="sig-prename descclassname">micom.qiime_formats.</code><code class="sig-name descname">load_qiime_manifest</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artifact</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.qiime_formats.load_qiime_manifest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prepare community models for use.</p>
@@ -969,6 +995,12 @@ cooperativity cost. If set to False requires a QP-capable solver.</p></li>
 <dt id="micom.qiime_formats.load_qiime_model_db">
 <code class="sig-prename descclassname">micom.qiime_formats.</code><code class="sig-name descname">load_qiime_model_db</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artifact</span></em>, <em class="sig-param"><span class="n">extract_path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.qiime_formats.load_qiime_model_db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prepare a model database for use.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.qiime_formats.load_qiime_taxonomy">
+<code class="sig-prename descclassname">micom.qiime_formats.</code><code class="sig-name descname">load_qiime_taxonomy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artifact</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.qiime_formats.load_qiime_taxonomy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load taxonomy feature data from a Qiime 2 artifact.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -1098,7 +1130,7 @@ exist in the organism.</p>
 
 <dl class="py function">
 <dt id="micom.solution.add_pfba_objective">
-<code class="sig-prename descclassname">micom.solution.</code><code class="sig-name descname">add_pfba_objective</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.solution.add_pfba_objective" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.solution.</code><code class="sig-name descname">add_pfba_objective</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">1e-06</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">1e-06</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.solution.add_pfba_objective" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add pFBA objective.</p>
 <p>Add objective to minimize the summed flux of all reactions to the
 current objective. This one will work with any objective (even non-linear
@@ -1146,7 +1178,7 @@ ones).</p>
 
 <dl class="py function">
 <dt id="micom.solution.solve">
-<code class="sig-prename descclassname">micom.solution.</code><code class="sig-name descname">solve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">raise_error</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.solution.solve" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.solution.</code><code class="sig-name descname">solve</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">raise_error</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">1e-06</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">1e-06</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.solution.solve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all fluxes stratified by taxa.</p>
 </dd></dl>
 
@@ -1336,9 +1368,21 @@ a pandas Series of solutions with the fractions as indices.</p>
 <dl class="py method">
 <dt id="micom.Community.exchanges">
 <em class="property">property </em><code class="sig-name descname">exchanges</code><a class="headerlink" href="#micom.Community.exchanges" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns all exchange reactions in the model.</p>
+<dd><p>Return all exchange reactions in the model.</p>
 <p>Uses several heuristics based on the reaction name and compartments
 to exclude reactions that are <em>not</em> exchange reactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.Community.internal_exchanges">
+<em class="property">property </em><code class="sig-name descname">internal_exchanges</code><a class="headerlink" href="#micom.Community.internal_exchanges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all internal exchanges.</p>
+<p>Internal exchanges are exchanges between individual taxa and the medium.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>list</p>
@@ -1377,6 +1421,12 @@ that knockout.</p>
 <dd class="field-odd"><p>pandas.DataFrame</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.Community.medium">
+<em class="property">property </em><code class="sig-name descname">medium</code><a class="headerlink" href="#micom.Community.medium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the medium.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1449,7 +1499,7 @@ doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</p>
 
 <dl class="py method">
 <dt id="micom.Community.optimize">
-<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">raise_error</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">raise_error</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">1e-06</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">1e-06</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize the model using flux balance analysis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

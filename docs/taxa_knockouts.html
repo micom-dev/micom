@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Taxa knockouts &#8212; micom 0.16.0 documentation</title>
+    <title>Taxa knockouts &#8212; micom 0.18.4 documentation</title>
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -42,7 +42,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.16.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.18.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -87,9 +87,9 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by MICOM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html#Solvers">Solvers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="high_level.html">The High Level API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
@@ -328,9 +328,9 @@ div.rendered_html tbody tr:hover {
 <p>An interesting question concerning any given microbial community is how dependent the growth of one bacteria is one the presence of other bacteria. One strategy to answer that is to perform <em>in silico</em> knockouts for each individual taxa in a community and observe how this changes the growth rates of other bacteria. If the knowckout of one bacteria increases the growth of another one this indicates competitivity whereas a dimished growth rate indicted cooperativity. In order to get unique growth
 rate solutions we will again use cooperative tradeoff.</p>
 <p>For large models as managed in micom running those knockouts can be challenging due to numerical problems and the tendency of the solvers to get stuck in a previous solutions. <code class="docutils literal notranslate"><span class="pre">micom</span></code> thus implements an optimized knockout algorithms that avoids numerical and solver issues as much as possible.</p>
-<p>Still you should be aware that knockouts are computationally instensive due to the large numbers of quadratic and linear programming problems that have to be solved. For realistic communities with 10-500 taxa you should expect a full knockout experiment to take between 1 and 5 hours. Here we will perform the knockouts for our small <em>E. coli</em> example.</p>
+<p>Still you should be aware that knockouts are computationally instensive due to the large numbers of quadratic and linear programming problems that have to be solved. For realistic communities with 10-100 taxa and many samples you should expect a full knockout experiment to take between 1 and 5 hours. Here we will perform the knockouts for our small <em>E. coli</em> example.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -339,7 +339,7 @@ rate solutions we will again use cooperative tradeoff.</p>
 <span class="n">tax</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">test_taxonomy</span><span class="p">()</span>
 <span class="n">com</span> <span class="o">=</span> <span class="n">Community</span><span class="p">(</span><span class="n">tax</span><span class="p">)</span>
 
-<span class="n">ko</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">knockout_species</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">ko</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">knockout_taxa</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 <span class="n">ko</span>
 </pre></div>
 </div>
@@ -347,10 +347,115 @@ rate solutions we will again use cooperative tradeoff.</p>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9ca1f0fedae947fdb1c6a9fc8f9099d1", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-100%|██████████| 5/5 [00:02&lt;00:00,  2.42models/s]
-100%|██████████| 5/5 [00:00&lt;00:00, 12.25knockout(s)/s]
+
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "75d0f69b3a6d495d92bc5dacf12c16e4", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>compartments</th>
+      <th>Escherichia_coli_1</th>
+      <th>Escherichia_coli_2</th>
+      <th>Escherichia_coli_3</th>
+      <th>Escherichia_coli_4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Escherichia_coli_1</th>
+      <td>-0.873922</td>
+      <td>0.305549</td>
+      <td>0.305549</td>
+      <td>0.305549</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_2</th>
+      <td>0.305549</td>
+      <td>-0.873922</td>
+      <td>0.305549</td>
+      <td>0.305549</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_3</th>
+      <td>0.305549</td>
+      <td>0.305549</td>
+      <td>-0.873922</td>
+      <td>0.305549</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_4</th>
+      <td>0.305549</td>
+      <td>0.305549</td>
+      <td>0.305549</td>
+      <td>-0.873922</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>By default <code class="docutils literal notranslate"><span class="pre">knockout_species</span></code> returns the changes in growth rate meaning the difference between the growth rate after the knockout and the growth rate before. Rows denote the taxa that has been kncked out and columns the changes in growth rate. As we can see all knockouts increase the growth rates of the remaining <em>E. coli</em> strains in this example which makes sense since all of them compete for the same resources. Alternatively we can also just get the new growth rates after the knockout</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">com</span><span class="o">.</span><span class="n">knockout_taxa</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "928883ae07e8481ca13924c3fb38f918", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -380,141 +485,35 @@ rate solutions we will again use cooperative tradeoff.</p>
       <th>Escherichia_coli_2</th>
       <th>Escherichia_coli_3</th>
       <th>Escherichia_coli_4</th>
-      <th>Escherichia_coli_5</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Escherichia_coli_1</th>
-      <td>-0.873922</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-    </tr>
-    <tr>
-      <th>Escherichia_coli_2</th>
-      <td>0.229162</td>
-      <td>-0.873922</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-    </tr>
-    <tr>
-      <th>Escherichia_coli_3</th>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>-0.873922</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-    </tr>
-    <tr>
-      <th>Escherichia_coli_4</th>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>-0.873922</td>
-      <td>0.229162</td>
-    </tr>
-    <tr>
-      <th>Escherichia_coli_5</th>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>-0.873922</td>
-    </tr>
-  </tbody>
-</table>
-</div></div>
-</div>
-<p>By default <code class="docutils literal notranslate"><span class="pre">knockout_species</span></code> returns the changes in growth rate meaning the difference between the growth rate after the knockout and the growth rate before. Rows denote the taxa that has been kncked out and columns the changes in growth rate. As we can see all knockouts increase the growth rates of the remaining <em>E. coli</em> strains in this example which makes sense since all of them compete for the same resources. Alternatively we can also just get the new growth rates after the knockout</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">com</span><span class="o">.</span><span class="n">knockout_species</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-100%|██████████| 5/5 [00:00&lt;00:00, 12.18knockout(s)/s]
-</pre></div></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>compartments</th>
-      <th>Escherichia_coli_1</th>
-      <th>Escherichia_coli_2</th>
-      <th>Escherichia_coli_3</th>
-      <th>Escherichia_coli_4</th>
-      <th>Escherichia_coli_5</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>Escherichia_coli_1</th>
       <td>0.000000</td>
-      <td>1.103083</td>
-      <td>1.103083</td>
-      <td>1.103083</td>
-      <td>1.103083</td>
+      <td>1.179471</td>
+      <td>1.179471</td>
+      <td>1.179471</td>
     </tr>
     <tr>
       <th>Escherichia_coli_2</th>
-      <td>1.103083</td>
+      <td>1.179471</td>
       <td>0.000000</td>
-      <td>1.103083</td>
-      <td>1.103083</td>
-      <td>1.103083</td>
+      <td>1.179471</td>
+      <td>1.179471</td>
     </tr>
     <tr>
       <th>Escherichia_coli_3</th>
-      <td>1.103083</td>
-      <td>1.103083</td>
+      <td>1.179471</td>
+      <td>1.179471</td>
       <td>0.000000</td>
-      <td>1.103083</td>
-      <td>1.103083</td>
+      <td>1.179471</td>
     </tr>
     <tr>
       <th>Escherichia_coli_4</th>
-      <td>1.103083</td>
-      <td>1.103083</td>
-      <td>1.103083</td>
-      <td>0.000000</td>
-      <td>1.103083</td>
-    </tr>
-    <tr>
-      <th>Escherichia_coli_5</th>
-      <td>1.103083</td>
-      <td>1.103083</td>
-      <td>1.103083</td>
-      <td>1.103083</td>
+      <td>1.179471</td>
+      <td>1.179471</td>
+      <td>1.179471</td>
       <td>0.000000</td>
     </tr>
   </tbody>
@@ -523,24 +522,30 @@ rate solutions we will again use cooperative tradeoff.</p>
 </div>
 <p>…or the relative change ((new - old)/old):</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">com</span><span class="o">.</span><span class="n">knockout_species</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;relative change&quot;</span><span class="p">)</span>
+<span></span><span class="n">com</span><span class="o">.</span><span class="n">knockout_taxa</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;relative change&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8ce9258753ee49968a268b5c718c4c6a", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-100%|██████████| 5/5 [00:00&lt;00:00, 11.76knockout(s)/s]
+
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -566,49 +571,36 @@ rate solutions we will again use cooperative tradeoff.</p>
       <th>Escherichia_coli_2</th>
       <th>Escherichia_coli_3</th>
       <th>Escherichia_coli_4</th>
-      <th>Escherichia_coli_5</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>Escherichia_coli_1</th>
-      <td>-1.000000</td>
-      <td>0.262222</td>
-      <td>0.262222</td>
-      <td>0.262222</td>
-      <td>0.262222</td>
+      <td>-1.00000</td>
+      <td>0.34963</td>
+      <td>0.34963</td>
+      <td>0.34963</td>
     </tr>
     <tr>
       <th>Escherichia_coli_2</th>
-      <td>0.262222</td>
-      <td>-1.000000</td>
-      <td>0.262222</td>
-      <td>0.262222</td>
-      <td>0.262222</td>
+      <td>0.34963</td>
+      <td>-1.00000</td>
+      <td>0.34963</td>
+      <td>0.34963</td>
     </tr>
     <tr>
       <th>Escherichia_coli_3</th>
-      <td>0.262222</td>
-      <td>0.262222</td>
-      <td>-1.000000</td>
-      <td>0.262222</td>
-      <td>0.262222</td>
+      <td>0.34963</td>
+      <td>0.34963</td>
+      <td>-1.00000</td>
+      <td>0.34963</td>
     </tr>
     <tr>
       <th>Escherichia_coli_4</th>
-      <td>0.262222</td>
-      <td>0.262222</td>
-      <td>0.262222</td>
-      <td>-1.000000</td>
-      <td>0.262222</td>
-    </tr>
-    <tr>
-      <th>Escherichia_coli_5</th>
-      <td>0.262222</td>
-      <td>0.262222</td>
-      <td>0.262222</td>
-      <td>0.262222</td>
-      <td>-1.000000</td>
+      <td>0.34963</td>
+      <td>0.34963</td>
+      <td>0.34963</td>
+      <td>-1.00000</td>
     </tr>
   </tbody>
 </table>
@@ -616,24 +608,30 @@ rate solutions we will again use cooperative tradeoff.</p>
 </div>
 <p>In certain circumstances the diagonal entries can be confusing since the knocked out taxa always loses its entire growth. We can suppress the diagonal using the <code class="docutils literal notranslate"><span class="pre">diag</span></code> argument.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">com</span><span class="o">.</span><span class="n">knockout_species</span><span class="p">(</span><span class="n">diag</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span></span><span class="n">com</span><span class="o">.</span><span class="n">knockout_taxa</span><span class="p">(</span><span class="n">diag</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "682a06068a3046208c4d0d6ed964ddf7", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-100%|██████████| 5/5 [00:00&lt;00:00, 11.83knockout(s)/s]
+
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -659,48 +657,35 @@ rate solutions we will again use cooperative tradeoff.</p>
       <th>Escherichia_coli_2</th>
       <th>Escherichia_coli_3</th>
       <th>Escherichia_coli_4</th>
-      <th>Escherichia_coli_5</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>Escherichia_coli_1</th>
       <td>NaN</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
+      <td>0.305549</td>
+      <td>0.305549</td>
+      <td>0.305549</td>
     </tr>
     <tr>
       <th>Escherichia_coli_2</th>
-      <td>0.229162</td>
+      <td>0.305549</td>
       <td>NaN</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
+      <td>0.305549</td>
+      <td>0.305549</td>
     </tr>
     <tr>
       <th>Escherichia_coli_3</th>
-      <td>0.229162</td>
-      <td>0.229162</td>
+      <td>0.305549</td>
+      <td>0.305549</td>
       <td>NaN</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
+      <td>0.305549</td>
     </tr>
     <tr>
       <th>Escherichia_coli_4</th>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>NaN</td>
-      <td>0.229162</td>
-    </tr>
-    <tr>
-      <th>Escherichia_coli_5</th>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
-      <td>0.229162</td>
+      <td>0.305549</td>
+      <td>0.305549</td>
+      <td>0.305549</td>
       <td>NaN</td>
     </tr>
   </tbody>

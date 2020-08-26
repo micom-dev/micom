@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>High level workflows &#8212; micom 0.16.0 documentation</title>
+    <title>MICOM workflows &#8212; micom 0.18.4 documentation</title>
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -22,7 +22,7 @@
     <script src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Building communities" href="community.html" />
+    <link rel="next" title="Visualizations" href="viz.html" />
     <link rel="prev" title="Installing micom" href="installing.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -42,7 +42,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.16.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.18.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -72,7 +72,7 @@
     </a>
   </li>
   <li>
-    <a href="community.html" title="Next Chapter: Building communities"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Building communities &raquo;</span>
+    <a href="viz.html" title="Next Chapter: Visualizations"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Visualizations &raquo;</span>
     </a>
   </li>
             </ul>
@@ -87,9 +87,9 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by MICOM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html#Solvers">Solvers</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">The High Level API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
@@ -323,18 +323,20 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="High-level-workflows">
-<h1>High level workflows<a class="headerlink" href="#High-level-workflows" title="Permalink to this headline">¶</a></h1>
-<p>The MICOM API can be cumbersome when working with many samples at once. To make this easier we provide premade workflows when working with several samples at once. All workflows assume the following:</p>
+<div class="section" id="MICOM-workflows">
+<h1>MICOM workflows<a class="headerlink" href="#MICOM-workflows" title="Permalink to this headline">¶</a></h1>
+<p>The MICOM workflow API provides prebuilt solutions for the most common MICOM analyses across several samples. This will manage most of the workload for you and uses an efficient parallelization scheme to make use of several CPU cores. The workflow API is probably the best entry point for you if the following is true:</p>
 <ol class="arabic simple">
 <li><p>You have at least 2 samples with taxonomy assignments and abundances for each</p></li>
 <li><p>You have chosen to use one of the preused model databases or have already built your own</p></li>
 <li><p>You want to run a set of standard analyses and visualization on the models</p></li>
 </ol>
-<p>In that case the premade workflows will make your analysis much simpler and faster and will take care of parallelizing your analyses. The high level API can be mixed with the MICOM API at any point. So you could do a few steps with the premade workflows and then run you own analyses downstream from that.</p>
+<p>In that case the prebuilt workflows will make your analysis much simpler and faster and will take care of parallelizing your analyses. The worflow API can be mixed with the MICOM API at any point. So you could do a few steps with the workflows and then run you own analyses downstream from that. Additionally, you can directly import you start data from Qiime 2. See the <a class="reference external" href="qiime2.html">Loading Qiime 2 data</a>.</p>
+<div class="section" id="Building-and-models-and-simulating-growth">
+<h2>Building and models and simulating growth<a class="headerlink" href="#Building-and-models-and-simulating-growth" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="Input-formats">
-<h2>Input formats<a class="headerlink" href="#Input-formats" title="Permalink to this headline">¶</a></h2>
-<p>To start building community models for all your samples you will need to provide your data to MICOM. MICOM prefers to have the taxonomy and abundances for all samples in a single <a class="reference external" href="https://vita.had.co.nz/papers/tidy-data.pdf">tidy DataFrame</a>. Here each taxon in each sample is a row which provides its taxonomy and abundance. This may sound a bit confusing but should become pretty cleat when looking at an example. MICOM can generate a simple example DataFrame which we can use as guidance.</p>
+<h3>Input formats<a class="headerlink" href="#Input-formats" title="Permalink to this headline">¶</a></h3>
+<p>To start building community models for all your samples you will need to provide your data to MICOM. MICOM prefers to have the taxonomy and abundances for all samples in a single <a class="reference external" href="https://vita.had.co.nz/papers/tidy-data.pdf">tidy DataFrame</a>. Here each taxon in each sample is a row which provides its taxonomy and abundance. This may sound a bit confusing but should become pretty clear when looking at an example. MICOM can generate a simple example DataFrame which we can use as guidance.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -390,7 +392,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_1</td>
-      <td>893</td>
+      <td>737</td>
     </tr>
     <tr>
       <th>1</th>
@@ -401,7 +403,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_1</td>
-      <td>338</td>
+      <td>24</td>
     </tr>
     <tr>
       <th>2</th>
@@ -412,7 +414,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_1</td>
-      <td>823</td>
+      <td>167</td>
     </tr>
     <tr>
       <th>3</th>
@@ -423,7 +425,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_1</td>
-      <td>381</td>
+      <td>696</td>
     </tr>
     <tr>
       <th>0</th>
@@ -434,7 +436,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_2</td>
-      <td>979</td>
+      <td>964</td>
     </tr>
     <tr>
       <th>1</th>
@@ -445,7 +447,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_2</td>
-      <td>553</td>
+      <td>570</td>
     </tr>
     <tr>
       <th>2</th>
@@ -456,7 +458,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_2</td>
-      <td>420</td>
+      <td>108</td>
     </tr>
     <tr>
       <th>3</th>
@@ -467,7 +469,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_2</td>
-      <td>54</td>
+      <td>685</td>
     </tr>
     <tr>
       <th>0</th>
@@ -478,7 +480,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_3</td>
-      <td>708</td>
+      <td>105</td>
     </tr>
     <tr>
       <th>1</th>
@@ -489,7 +491,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_3</td>
-      <td>323</td>
+      <td>197</td>
     </tr>
     <tr>
       <th>2</th>
@@ -500,7 +502,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_3</td>
-      <td>63</td>
+      <td>403</td>
     </tr>
     <tr>
       <th>3</th>
@@ -511,7 +513,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_3</td>
-      <td>16</td>
+      <td>995</td>
     </tr>
     <tr>
       <th>0</th>
@@ -522,7 +524,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_4</td>
-      <td>920</td>
+      <td>92</td>
     </tr>
     <tr>
       <th>1</th>
@@ -533,7 +535,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_4</td>
-      <td>420</td>
+      <td>663</td>
     </tr>
     <tr>
       <th>2</th>
@@ -544,7 +546,7 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_4</td>
-      <td>422</td>
+      <td>759</td>
     </tr>
     <tr>
       <th>3</th>
@@ -555,19 +557,19 @@ div.rendered_html tbody tr:hover {
       <td>72</td>
       <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
       <td>sample_4</td>
-      <td>831</td>
+      <td>299</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-<p>This is very simple example where each sample contains 4 different <em>E. coli</em> species in random abundances. Thus, every sample has 4 rows in this DataFrame. The DataFrame also contains additional columns, <strong>the only required columns are ``id``, ``sample_id``, ``abundance`` and one column that provides the summary rank, here ``species``.</strong></p>
-<p>Note that we also have an additional column <code class="docutils literal notranslate"><span class="pre">genus</span></code> here. The minimal taxonomic information you have to provide is only the name of the phylogenetic rank matching the database you are using. So if you are using a genus-level database you will need a column <code class="docutils literal notranslate"><span class="pre">genus</span></code>. In this case we mill use a species-level database so we had to provide a column <code class="docutils literal notranslate"><span class="pre">genus</span></code>. If there any additional columns from the set <code class="docutils literal notranslate"><span class="pre">[&quot;kingdom&quot;,</span> <span class="pre">&quot;phylum&quot;,</span> <span class="pre">&quot;class&quot;,</span> <span class="pre">&quot;order&quot;,</span> <span class="pre">&quot;family&quot;,</span> <span class="pre">&quot;genus&quot;,</span> <span class="pre">&quot;species&quot;]</span></code> those will be used
-to make the mapping with the database more stringent. For instance, here we provided a column <code class="docutils literal notranslate"><span class="pre">genus</span></code> which means models will only be counted as a “match” if the taxon has the same genus <em>and</em> species in the data and the model database. Thus, the more phylogentic rank columns you include in the data you pass to MICOM, the more stringent MICOM will become matching to the reference database. This can be used to circumvent poorly matching ranks as well. For instance, if you know your data matches
-well by genus and phylum names but families are named differently even for the same taxa you can omit the <code class="docutils literal notranslate"><span class="pre">family</span></code> column from your data.</p>
+<p>This is very simple example where each sample contains 4 different <em>E. coli</em> species in random abundances. Thus, every sample has 4 rows in this DataFrame. The DataFrame also contains additional columns, <strong>the only required columns are “id”, “sample_id”, “abundance” and one column that provides the summary rank, here “species”.</strong></p>
+<p>Note that we also have an additional column “genus” here. The minimal taxonomic information you have to provide is only the name of the taxonomy rank matching the database you are using. So if you are using a genus-level database you will need a column “genus”. In this case we mill use a species-level database so we had to provide a column “species”. If there any additional columns from the set <code class="docutils literal notranslate"><span class="pre">{&quot;kingdom&quot;,</span> <span class="pre">&quot;phylum&quot;,</span> <span class="pre">&quot;class&quot;,</span> <span class="pre">&quot;order&quot;,</span> <span class="pre">&quot;family&quot;,</span> <span class="pre">&quot;genus&quot;,</span> <span class="pre">&quot;species&quot;}</span></code> those will be used to make
+the mapping with the database more stringent. For instance, here we provided a column “genus” which means models will only be counted as a “match” if the taxon has the same genus <em>and</em> species in the data and the model database.</p>
+<p>Thus, the more taxonomic rank columns you include in the data you pass to MICOM, the more stringent MICOM will become matching to the reference database. This can be used to circumvent poorly matching ranks as well. For instance, if you know your data matches well by genus and phylum names but families are named differently even for the same taxa you can omit the “family” column from your data.</p>
 </div>
 <div class="section" id="Building-community-models">
-<h2>Building community models<a class="headerlink" href="#Building-community-models" title="Permalink to this headline">¶</a></h2>
+<h3>Building community models<a class="headerlink" href="#Building-community-models" title="Permalink to this headline">¶</a></h3>
 <p>To build a community sample for each of your sample you will need the abundance table as provided above and a model database. Usually we recommend to use one of the prebuilt MICOM database from <a class="reference external" href="https://doi.org/10.5281/zenodo.3755182">https://doi.org/10.5281/zenodo.3755182</a>. Additionally, you can also <a href="#id1"><span class="problematic" id="id2">`create your own database &lt;&gt;`__</span></a>.</p>
 <p>For our example we have a custom species-level database that is bundled with MICOM. With the abundance table and database you can now start building your models by providing a folder where the assembled community models should be stored.</p>
 <div class="nbinput docutils container">
@@ -582,13 +584,18 @@ well by genus and phylum names but families are named differently even for the s
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "78a295855cc441d9ac1a9b48cfae18ac", "version_major": 2, "version_minor": 0}</script></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
- 25%|██▌       | 1/4 [00:00&lt;00:01,  2.77sample(s)/s]2020-05-11 17:30:06.324 | WARNING  | micom.community:__init__:211 - Less than 50% of the abundance could be matched to the model database. Model `None` may not be representative of the sample
-100%|██████████| 4/4 [00:00&lt;00:00,  5.18sample(s)/s]
+
 </pre></div></div>
 </div>
 <p>This will also allow you to specify a relative abundance cutoff for a taxon to be included with the <code class="docutils literal notranslate"><span class="pre">cutoff</span></code> argument. The default is to include only taxa that constitute at least 0.01% of the sample. Model building will be automatically parallelized over multiple CPUs and the number of cores/threads to use for should be set with the <code class="docutils literal notranslate"><span class="pre">threads</span></code> argument. The workflows will also warn you if for any samples less than 50% of the abundance was matched to the database. Since our data was random
@@ -626,7 +633,6 @@ this may have happened here.</p>
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>genus</th>
       <th>reactions</th>
       <th>metabolites</th>
       <th>file</th>
@@ -640,7 +646,6 @@ this may have happened here.</p>
   <tbody>
     <tr>
       <th>0</th>
-      <td>Escherichia</td>
       <td>95</td>
       <td>72</td>
       <td>sample_1.pickle</td>
@@ -648,11 +653,10 @@ this may have happened here.</p>
       <td>3.0</td>
       <td>4.0</td>
       <td>0.75</td>
-      <td>0.633265</td>
+      <td>0.546182</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>Escherichia</td>
       <td>95</td>
       <td>72</td>
       <td>sample_2.pickle</td>
@@ -660,11 +664,10 @@ this may have happened here.</p>
       <td>3.0</td>
       <td>4.0</td>
       <td>0.75</td>
-      <td>0.511964</td>
+      <td>0.585733</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Escherichia</td>
       <td>95</td>
       <td>72</td>
       <td>sample_3.pickle</td>
@@ -672,11 +675,10 @@ this may have happened here.</p>
       <td>3.0</td>
       <td>4.0</td>
       <td>0.75</td>
-      <td>0.362162</td>
+      <td>0.938235</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>Escherichia</td>
       <td>95</td>
       <td>72</td>
       <td>sample_4.pickle</td>
@@ -684,7 +686,7 @@ this may have happened here.</p>
       <td>3.0</td>
       <td>4.0</td>
       <td>0.75</td>
-      <td>0.645199</td>
+      <td>0.949255</td>
     </tr>
   </tbody>
 </table>
@@ -715,7 +717,7 @@ is matched. A value of 1.0 would be perfect but is usually hard to achieve. Valu
 </div>
 </div>
 <div class="section" id="Simulating-growth">
-<h2>Simulating growth<a class="headerlink" href="#Simulating-growth" title="Permalink to this headline">¶</a></h2>
+<h3>Simulating growth<a class="headerlink" href="#Simulating-growth" title="Permalink to this headline">¶</a></h3>
 <p>With our built models we can now advance to simulating growth with MICOMs <code class="docutils literal notranslate"><span class="pre">cooperative</span> <span class="pre">tradeoff</span></code> algorithm. This will use the manifest we just generated but will also require a growth medium to be specified. A growth medium provided information which metabolites are available to the microbes for consumption and also provided an upper bound on the flux it is added to the system. This can be obtained from fluxomics data or approximated from growth media (for cultivation settings) or diet data
 (for gut microbiota models). Obtaining a correct media composition can be challenging. We will show some helper functions for that later on but for now we will use a pres-specified medium saved in Qiime 2 format. We also provide a growth medium describing an average Western diet for the AGORA model database at <a class="reference external" href="https://doi.org/10.5281/zenodo.3755182">https://doi.org/10.5281/zenodo.3755182</a>.</p>
 <p>Growth media in MICOM are pretty simple DataFrames and can be read from a variety of formats. Here we will use the Qiime 2 Artifact format.</p>
@@ -759,28 +761,34 @@ is matched. A value of 1.0 would be perfect but is usually hard to achieve. Valu
       <th>flux</th>
       <th>metabolite</th>
     </tr>
+    <tr>
+      <th>reaction</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
+      <th>EX_glc__D_m</th>
       <td>EX_glc__D_m</td>
       <td>10.000000</td>
       <td>glc__D_m</td>
     </tr>
     <tr>
-      <th>1</th>
+      <th>EX_nh4_m</th>
       <td>EX_nh4_m</td>
       <td>4.362240</td>
       <td>nh4_m</td>
     </tr>
     <tr>
-      <th>2</th>
+      <th>EX_o2_m</th>
       <td>EX_o2_m</td>
       <td>18.579253</td>
       <td>o2_m</td>
     </tr>
     <tr>
-      <th>3</th>
+      <th>EX_pi_m</th>
       <td>EX_pi_m</td>
       <td>2.942960</td>
       <td>pi_m</td>
@@ -802,23 +810,29 @@ is matched. A value of 1.0 would be perfect but is usually hard to achieve. Valu
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "743e2060838746dba287e2405d9fa24b", "version_major": 2, "version_minor": 0}</script></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-100%|██████████| 4/4 [00:00&lt;00:00, 14.17sample(s)/s]
+
 </pre></div></div>
 </div>
 <p>This gives us a results tuple with three entries: <code class="docutils literal notranslate"><span class="pre">growth_rates</span></code>, <code class="docutils literal notranslate"><span class="pre">exchanges</span></code>, and <code class="docutils literal notranslate"><span class="pre">annotations</span></code> providing the growth rates, exchange fluxes and metabolite annotations, respectively. This could be passed on to the visualization workflows or you could run your own analyses on those DataFrames. But for now we will go back and look at some helper workflows to choose a tradeoff parameter and get media.</p>
 </div>
 <div class="section" id="Choosing-a-tradeoff-parameter">
-<h2>Choosing a tradeoff parameter<a class="headerlink" href="#Choosing-a-tradeoff-parameter" title="Permalink to this headline">¶</a></h2>
+<h3>Choosing a tradeoff parameter<a class="headerlink" href="#Choosing-a-tradeoff-parameter" title="Permalink to this headline">¶</a></h3>
 <p>Results depend strongly on the tradeoff parameter. Even though values between 0.3-0.6 usually work well we recommend to run a tradeoff analysis to choose the best parameters for your data set and protocol. If you have already analyzed many samples in your lab and found a particular value to work well in general you may just use that but you should at least run this analysis once. In <a class="reference external" href="https://doi.org/10.1128/mSystems.00606-19">our paper</a> we found that tradeoff best reproducing <em>in vivo</em> growth
 rates is the largest tradeoff that allows the majority of the bacteria to grow. Thus, the best tradeoff value is the value providing the best compromise between individual and cooperative growth.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">tradeoff</span></code> workflow will run growth simulations with several tradeoff values and return the results.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -832,13 +846,19 @@ rates is the largest tradeoff that allows the majority of the bacteria to grow. 
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "bbfbe841ee974de8bdd97787104d468d", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-100%|██████████| 4/4 [00:00&lt;00:00, 11.44sample(s)/s]
+
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -882,53 +902,53 @@ rates is the largest tradeoff that allows the majority of the bacteria to grow. 
   <tbody>
     <tr>
       <th>Escherichia_coli_2</th>
-      <td>0.538462</td>
+      <td>0.027057</td>
       <td>0.000000</td>
       <td>95</td>
       <td>72</td>
       <td>Escherichia_coli_2</td>
       <td>NaN</td>
-      <td>sample_2</td>
+      <td>sample_1</td>
     </tr>
     <tr>
       <th>Escherichia_coli_3</th>
-      <td>0.408958</td>
-      <td>1.153402</td>
+      <td>0.188275</td>
+      <td>0.000000</td>
       <td>95</td>
       <td>72</td>
       <td>Escherichia_coli_3</td>
       <td>NaN</td>
-      <td>sample_2</td>
+      <td>sample_1</td>
     </tr>
     <tr>
       <th>Escherichia_coli_4</th>
-      <td>0.052580</td>
-      <td>6.243912</td>
+      <td>0.784667</td>
+      <td>0.127443</td>
       <td>95</td>
       <td>72</td>
       <td>Escherichia_coli_4</td>
       <td>NaN</td>
-      <td>sample_2</td>
+      <td>sample_1</td>
     </tr>
     <tr>
       <th>Escherichia_coli_2</th>
-      <td>0.538462</td>
-      <td>0.936552</td>
+      <td>0.027057</td>
+      <td>0.004151</td>
       <td>95</td>
       <td>72</td>
       <td>Escherichia_coli_2</td>
       <td>1.0</td>
-      <td>sample_2</td>
+      <td>sample_1</td>
     </tr>
     <tr>
       <th>Escherichia_coli_3</th>
-      <td>0.408958</td>
-      <td>0.711305</td>
+      <td>0.188275</td>
+      <td>0.028882</td>
       <td>95</td>
       <td>72</td>
       <td>Escherichia_coli_3</td>
       <td>1.0</td>
-      <td>sample_2</td>
+      <td>sample_1</td>
     </tr>
   </tbody>
 </table>
@@ -936,16 +956,17 @@ rates is the largest tradeoff that allows the majority of the bacteria to grow. 
 </div>
 <p>As we see it returns growth rates for each taxon in each sample for various tradeoff values. There is also a tradeoff value of <code class="docutils literal notranslate"><span class="pre">NaN</span></code> which means optimization of the pure community growth rate without regularization which usually has very bad performance and is provided as a reference. To choose a good value we can count how many of the taxa can grow (growth rate &gt; 1e-6) on average for each of the tradeoff values across all samples.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tradeoff_rates</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;tradeoff&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span></span><span class="n">tradeoff_rates</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;tradeoff&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1026,15 +1047,15 @@ rates is the largest tradeoff that allows the majority of the bacteria to grow. 
 </table>
 </div></div>
 </div>
-<p>In that case all taxa (3 taxa for 4 samples each) can grow for all tradeoff values since we provided an excess of nutrients in the medium. So a tradeoff of 1.0 would have been the best here. For real data you will usually see those numbers decline for larger tradeoff values. A more detailed analysis can be performed with the <code class="docutils literal notranslate"><span class="pre">`plot_tradeoff</span></code> visualization &lt;&gt;`__.</p>
+<p>In that case all taxa (3 taxa for 4 samples each) can grow for all tradeoff values since we provided an excess of nutrients in the medium. So a tradeoff of 1.0 would have been the best here. For real data you will usually see those numbers decline for larger tradeoff values. A more detailed analysis can be performed with the <code class="docutils literal notranslate"><span class="pre">`plot_tradeoff</span></code> visualization &lt;viz.html&gt;`__.</p>
 </div>
 <div class="section" id="Fixing-growth-media">
-<h2>Fixing growth media<a class="headerlink" href="#Fixing-growth-media" title="Permalink to this headline">¶</a></h2>
+<h3>Fixing growth media<a class="headerlink" href="#Fixing-growth-media" title="Permalink to this headline">¶</a></h3>
 <p>Providing a growth medium may be complicated since you often only have some intuitions about a few components of the medium but lack information on others. Even when supplying putatively complete descriptions you will often observe that the models will predict the absence of growth since you are lacking an essential cofactor. To help with this MICOM provides a workflow that can complete any predefined growth medium with the minimal additional substrates to allow growth for all taxa in the
 database.</p>
 <p>For instance let us assume we know that our <em>E. coli</em> samples consume Glucose and Oxygen. The respective exchange reactions are <code class="docutils literal notranslate"><span class="pre">EX_glc__D_m</span></code> and <code class="docutils literal notranslate"><span class="pre">EX_o2_m</span></code>. So we can start by building our candidate medium assuming we can import twice as much oxygen as glucose.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1046,7 +1067,7 @@ database.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1089,7 +1110,7 @@ database.</p>
 </div>
 <p>We can now ask MICOM to complete this medium by adding the smallest amount of overall flux so that all taxa in the database can grow with a growth rate off at least 0.1 1/h.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1104,13 +1125,19 @@ database.</p>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "24135849961c41548e212f719862bdae", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-100%|██████████| 4/4 [00:00&lt;00:00, 26.59model(s)/s]
+
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1172,6 +1199,7 @@ database.</p>
 </div></div>
 </div>
 <p>So we see that we can achieve growth by adding import for phosphate and glutamine.</p>
+</div>
 </div>
 </div>
 

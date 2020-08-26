@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Workflows &#8212; micom 0.16.0 documentation</title>
+    <title>Writing your own workflows &#8212; micom 0.18.4 documentation</title>
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -42,7 +42,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.16.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.18.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -87,9 +87,9 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by MICOM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html#Solvers">Solvers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="high_level.html">The High Level API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
@@ -323,8 +323,8 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="Workflows">
-<h1>Workflows<a class="headerlink" href="#Workflows" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Writing-your-own-workflows">
+<h1>Writing your own workflows<a class="headerlink" href="#Writing-your-own-workflows" title="Permalink to this headline">¶</a></h1>
 <p>Micom was designed to create and analyze personalized metabolic models for microbial communities. This makes it necessary to run many of the analyses in micom for many samples. As all of the methods currently implemented in micom can be run independently for each sample this workload can be parallelized pretty easily. To make this simple micom provides a workflow module that lets you run analyses for many samples in parallel. It also integrate with the micom logger and has workarounds for some
 memory leaks in optlang which improves memory usage. As a rule of thumb for each sample you will need one CPU and about 1GB of RAM, so if you have a server with 16 cores and 16+GB of RAM available you can run up to 16 samples in parallel.</p>
 <p>For a workflow you will need two things:</p>
@@ -381,37 +381,37 @@ memory leaks in optlang which improves memory usage. As a rule of thumb for each
       <th>0</th>
       <td>Escherichia_coli_1</td>
       <td>Escherichia</td>
-      <td>Eschericia coli</td>
+      <td>Escherichia coli</td>
       <td>95</td>
       <td>72</td>
-      <td>/Users/cdiener/code/micom/micom/data/e_coli_co...</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Escherichia_coli_2</td>
       <td>Escherichia</td>
-      <td>Eschericia coli</td>
+      <td>Escherichia coli</td>
       <td>95</td>
       <td>72</td>
-      <td>/Users/cdiener/code/micom/micom/data/e_coli_co...</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Escherichia_coli_3</td>
       <td>Escherichia</td>
-      <td>Eschericia coli</td>
+      <td>Escherichia coli</td>
       <td>95</td>
       <td>72</td>
-      <td>/Users/cdiener/code/micom/micom/data/e_coli_co...</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Escherichia_coli_4</td>
       <td>Escherichia</td>
-      <td>Eschericia coli</td>
+      <td>Escherichia coli</td>
       <td>95</td>
       <td>72</td>
-      <td>/Users/cdiener/code/micom/micom/data/e_coli_co...</td>
+      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>
     </tr>
   </tbody>
 </table>
@@ -444,12 +444,18 @@ memory leaks in optlang which improves memory usage. As a rule of thumb for each
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8ecb59a4c4ad44478e97a948503ecb36", "version_major": 2, "version_minor": 0}</script></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-100%|██████████| 10/10 [00:16&lt;00:00,  1.67s/sample(s)]
+
 </pre></div></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">results</span></code> is a list that contains one entry for each result (in the correct order).</p>

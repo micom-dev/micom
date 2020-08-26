@@ -4,19 +4,21 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# High level workflows\n",
+    "# MICOM workflows\n",
     "\n",
-    "The MICOM API can be cumbersome when working with many samples at once. To make this easier we provide premade workflows when working with several samples at once. All workflows assume the following:\n",
+    "The MICOM workflow API provides prebuilt solutions for the most common MICOM analyses across several samples. This will manage most of the workload for you and uses an efficient parallelization scheme to make use of several CPU cores. The workflow API is probably the best entry point for you if the following is true:\n",
     "\n",
     "1. You have at least 2 samples with taxonomy assignments and abundances for each\n",
     "2. You have chosen to use one of the preused model databases or have already built your own\n",
     "3. You want to run a set of standard analyses and visualization on the models\n",
     "\n",
-    "In that case the premade workflows will make your analysis much simpler and faster and will take care of parallelizing your analyses. The high level API can be mixed with the MICOM API at any point. So you could do a few steps with the premade workflows and then run you own analyses downstream from that.\n",
+    "In that case the prebuilt workflows will make your analysis much simpler and faster and will take care of parallelizing your analyses. The worflow API can be mixed with the MICOM API at any point. So you could do a few steps with the workflows and then run you own analyses downstream from that. Additionally, you can directly import you start data from Qiime 2. See the [Loading Qiime 2 data](qiime2.html).\n",
     "\n",
-    "## Input formats\n",
+    "## Building and models and simulating growth\n",
     "\n",
-    "To start building community models for all your samples you will need to provide your data to MICOM. MICOM prefers to have the taxonomy and abundances for all samples in a single [tidy DataFrame](https://vita.had.co.nz/papers/tidy-data.pdf). Here each taxon in each sample is a row which provides its taxonomy and abundance. This may sound a bit confusing but should become pretty cleat when looking at an example. MICOM can generate a simple example DataFrame which we can use as guidance."
+    "### Input formats\n",
+    "\n",
+    "To start building community models for all your samples you will need to provide your data to MICOM. MICOM prefers to have the taxonomy and abundances for all samples in a single [tidy DataFrame](https://vita.had.co.nz/papers/tidy-data.pdf). Here each taxon in each sample is a row which provides its taxonomy and abundance. This may sound a bit confusing but should become pretty clear when looking at an example. MICOM can generate a simple example DataFrame which we can use as guidance."
    ]
   },
   {
@@ -65,7 +67,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_1</td>\n",
-       "      <td>893</td>\n",
+       "      <td>737</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>1</th>\n",
@@ -76,7 +78,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_1</td>\n",
-       "      <td>338</td>\n",
+       "      <td>24</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>2</th>\n",
@@ -87,7 +89,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_1</td>\n",
-       "      <td>823</td>\n",
+       "      <td>167</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>3</th>\n",
@@ -98,7 +100,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_1</td>\n",
-       "      <td>381</td>\n",
+       "      <td>696</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>0</th>\n",
@@ -109,7 +111,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_2</td>\n",
-       "      <td>979</td>\n",
+       "      <td>964</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>1</th>\n",
@@ -120,7 +122,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_2</td>\n",
-       "      <td>553</td>\n",
+       "      <td>570</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>2</th>\n",
@@ -131,7 +133,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_2</td>\n",
-       "      <td>420</td>\n",
+       "      <td>108</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>3</th>\n",
@@ -142,7 +144,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_2</td>\n",
-       "      <td>54</td>\n",
+       "      <td>685</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>0</th>\n",
@@ -153,7 +155,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_3</td>\n",
-       "      <td>708</td>\n",
+       "      <td>105</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>1</th>\n",
@@ -164,7 +166,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_3</td>\n",
-       "      <td>323</td>\n",
+       "      <td>197</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>2</th>\n",
@@ -175,7 +177,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_3</td>\n",
-       "      <td>63</td>\n",
+       "      <td>403</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>3</th>\n",
@@ -186,7 +188,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_3</td>\n",
-       "      <td>16</td>\n",
+       "      <td>995</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>0</th>\n",
@@ -197,7 +199,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_4</td>\n",
-       "      <td>920</td>\n",
+       "      <td>92</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>1</th>\n",
@@ -208,7 +210,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_4</td>\n",
-       "      <td>420</td>\n",
+       "      <td>663</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>2</th>\n",
@@ -219,7 +221,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_4</td>\n",
-       "      <td>422</td>\n",
+       "      <td>759</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>3</th>\n",
@@ -230,7 +232,7 @@
        "      <td>72</td>\n",
        "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "      <td>sample_4</td>\n",
-       "      <td>831</td>\n",
+       "      <td>299</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -274,22 +276,22 @@
        "3           72  /home/cdiener/code/micom/micom/data/e_coli_cor...  sample_4   \n",
        "\n",
        "   abundance  \n",
-       "0        893  \n",
-       "1        338  \n",
-       "2        823  \n",
-       "3        381  \n",
-       "0        979  \n",
-       "1        553  \n",
-       "2        420  \n",
-       "3         54  \n",
-       "0        708  \n",
-       "1        323  \n",
-       "2         63  \n",
-       "3         16  \n",
-       "0        920  \n",
-       "1        420  \n",
-       "2        422  \n",
-       "3        831  "
+       "0        737  \n",
+       "1         24  \n",
+       "2        167  \n",
+       "3        696  \n",
+       "0        964  \n",
+       "1        570  \n",
+       "2        108  \n",
+       "3        685  \n",
+       "0        105  \n",
+       "1        197  \n",
+       "2        403  \n",
+       "3        995  \n",
+       "0         92  \n",
+       "1        663  \n",
+       "2        759  \n",
+       "3        299  "
       ]
      },
      "execution_count": 1,
@@ -308,16 +310,18 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "This is very simple example where each sample contains 4 different *E. coli* species in random abundances. Thus, every sample has 4 rows in this DataFrame. The DataFrame also contains additional columns, **the only required columns are `id`, `sample_id`, `abundance` and one column that provides the summary rank, here `species`.**\n",
+    "This is very simple example where each sample contains 4 different *E. coli* species in random abundances. Thus, every sample has 4 rows in this DataFrame. The DataFrame also contains additional columns, **the only required columns are \"id\", \"sample_id\", \"abundance\" and one column that provides the summary rank, here \"species\".**\n",
     "\n",
-    "Note that we also have an additional column `genus` here. The minimal taxonomic information you have to provide is only the name of the phylogenetic rank matching the database you are using. So if you are using a genus-level database you will need a column `genus`. In this case we mill use a species-level database so we had to provide a column `genus`. If there any additional columns from the set `[\"kingdom\", \"phylum\", \"class\", \"order\", \"family\", \"genus\", \"species\"]` those will be used to make the mapping with the database more stringent. For instance, here we provided a column `genus` which means models will only be counted as a \"match\" if the taxon has the same genus *and* species in the data and the model database. Thus, the more phylogentic rank columns you include in the data you pass to MICOM, the more stringent MICOM will become matching to the reference database. This can be used to circumvent poorly matching ranks as well. For instance, if you know your data matches well by genus and phylum names but families are named differently even for the same taxa you can omit the `family` column from your data."
+    "Note that we also have an additional column \"genus\" here. The minimal taxonomic information you have to provide is only the name of the taxonomy rank matching the database you are using. So if you are using a genus-level database you will need a column \"genus\". In this case we mill use a species-level database so we had to provide a column \"species\". If there any additional columns from the set `{\"kingdom\", \"phylum\", \"class\", \"order\", \"family\", \"genus\", \"species\"}` those will be used to make the mapping with the database more stringent. For instance, here we provided a column \"genus\" which means models will only be counted as a \"match\" if the taxon has the same genus *and* species in the data and the model database. \n",
+    "\n",
+    "Thus, the more taxonomic rank columns you include in the data you pass to MICOM, the more stringent MICOM will become matching to the reference database. This can be used to circumvent poorly matching ranks as well. For instance, if you know your data matches well by genus and phylum names but families are named differently even for the same taxa you can omit the \"family\" column from your data."
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Building community models\n",
+    "### Building community models\n",
     "\n",
     "To build a community sample for each of your sample you will need the abundance table as provided above and a model database. Usually we recommend to use one of the prebuilt MICOM database from https://doi.org/10.5281/zenodo.3755182. Additionally, you can also [create your own database]().\n",
     "\n",
@@ -327,14 +331,29 @@
   {
    "cell_type": "code",
    "execution_count": 2,
-   "metadata": {},
+   "metadata": {
+    "tags": []
+   },
    "outputs": [
     {
-     "name": "stderr",
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "78a295855cc441d9ac1a9b48cfae18ac",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "HBox(children=(FloatProgress(value=0.0, max=4.0), HTML(value='')))"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
      "output_type": "stream",
      "text": [
-      " 25%|██▌       | 1/4 [00:00<00:01,  2.77sample(s)/s]2020-05-11 17:30:06.324 | WARNING  | micom.community:__init__:211 - Less than 50% of the abundance could be matched to the model database. Model `None` may not be representative of the sample\n",
-      "100%|██████████| 4/4 [00:00<00:00,  5.18sample(s)/s]\n"
+      "\n"
      ]
     }
    ],
@@ -380,7 +399,6 @@
        "  <thead>\n",
        "    <tr style=\"text-align: right;\">\n",
        "      <th></th>\n",
-       "      <th>genus</th>\n",
        "      <th>reactions</th>\n",
        "      <th>metabolites</th>\n",
        "      <th>file</th>\n",
@@ -394,7 +412,6 @@
        "  <tbody>\n",
        "    <tr>\n",
        "      <th>0</th>\n",
-       "      <td>Escherichia</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "      <td>sample_1.pickle</td>\n",
@@ -402,11 +419,10 @@
        "      <td>3.0</td>\n",
        "      <td>4.0</td>\n",
        "      <td>0.75</td>\n",
-       "      <td>0.633265</td>\n",
+       "      <td>0.546182</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>1</th>\n",
-       "      <td>Escherichia</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "      <td>sample_2.pickle</td>\n",
@@ -414,11 +430,10 @@
        "      <td>3.0</td>\n",
        "      <td>4.0</td>\n",
        "      <td>0.75</td>\n",
-       "      <td>0.511964</td>\n",
+       "      <td>0.585733</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>2</th>\n",
-       "      <td>Escherichia</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "      <td>sample_3.pickle</td>\n",
@@ -426,11 +441,10 @@
        "      <td>3.0</td>\n",
        "      <td>4.0</td>\n",
        "      <td>0.75</td>\n",
-       "      <td>0.362162</td>\n",
+       "      <td>0.938235</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>3</th>\n",
-       "      <td>Escherichia</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "      <td>sample_4.pickle</td>\n",
@@ -438,24 +452,24 @@
        "      <td>3.0</td>\n",
        "      <td>4.0</td>\n",
        "      <td>0.75</td>\n",
-       "      <td>0.645199</td>\n",
+       "      <td>0.949255</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
        "</div>"
       ],
       "text/plain": [
-       "         genus  reactions  metabolites             file sample_id  found_taxa  \\\n",
-       "0  Escherichia         95           72  sample_1.pickle  sample_1         3.0   \n",
-       "1  Escherichia         95           72  sample_2.pickle  sample_2         3.0   \n",
-       "2  Escherichia         95           72  sample_3.pickle  sample_3         3.0   \n",
-       "3  Escherichia         95           72  sample_4.pickle  sample_4         3.0   \n",
+       "   reactions  metabolites             file sample_id  found_taxa  total_taxa  \\\n",
+       "0         95           72  sample_1.pickle  sample_1         3.0         4.0   \n",
+       "1         95           72  sample_2.pickle  sample_2         3.0         4.0   \n",
+       "2         95           72  sample_3.pickle  sample_3         3.0         4.0   \n",
+       "3         95           72  sample_4.pickle  sample_4         3.0         4.0   \n",
        "\n",
-       "   total_taxa  found_fraction  found_abundance_fraction  \n",
-       "0         4.0            0.75                  0.633265  \n",
-       "1         4.0            0.75                  0.511964  \n",
-       "2         4.0            0.75                  0.362162  \n",
-       "3         4.0            0.75                  0.645199  "
+       "   found_fraction  found_abundance_fraction  \n",
+       "0            0.75                  0.546182  \n",
+       "1            0.75                  0.585733  \n",
+       "2            0.75                  0.938235  \n",
+       "3            0.75                  0.949255  "
       ]
      },
      "execution_count": 3,
@@ -500,7 +514,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Simulating growth\n",
+    "### Simulating growth\n",
     "\n",
     "With our built models we can now advance to simulating growth with MICOMs `cooperative tradeoff` algorithm. This will use the manifest we just generated but will also require a growth medium to be specified. A growth medium provided information which metabolites are available to the microbes for consumption and also provided an upper bound on the flux it is added to the system. This can be obtained from fluxomics data or approximated from growth media (for cultivation settings) or diet data (for gut microbiota models). Obtaining a correct media composition can be challenging. We will show some helper functions for that later on but for now we will use a pres-specified medium saved in Qiime 2 format. We also provide a growth medium describing an average Western diet for the AGORA model database at https://doi.org/10.5281/zenodo.3755182. \n",
     "\n",
@@ -537,28 +551,34 @@
        "      <th>flux</th>\n",
        "      <th>metabolite</th>\n",
        "    </tr>\n",
+       "    <tr>\n",
+       "      <th>reaction</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
        "  </thead>\n",
        "  <tbody>\n",
        "    <tr>\n",
-       "      <th>0</th>\n",
+       "      <th>EX_glc__D_m</th>\n",
        "      <td>EX_glc__D_m</td>\n",
        "      <td>10.000000</td>\n",
        "      <td>glc__D_m</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>1</th>\n",
+       "      <th>EX_nh4_m</th>\n",
        "      <td>EX_nh4_m</td>\n",
        "      <td>4.362240</td>\n",
        "      <td>nh4_m</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>2</th>\n",
+       "      <th>EX_o2_m</th>\n",
        "      <td>EX_o2_m</td>\n",
        "      <td>18.579253</td>\n",
        "      <td>o2_m</td>\n",
        "    </tr>\n",
        "    <tr>\n",
-       "      <th>3</th>\n",
+       "      <th>EX_pi_m</th>\n",
        "      <td>EX_pi_m</td>\n",
        "      <td>2.942960</td>\n",
        "      <td>pi_m</td>\n",
@@ -568,11 +588,12 @@
        "</div>"
       ],
       "text/plain": [
-       "      reaction       flux metabolite\n",
-       "0  EX_glc__D_m  10.000000   glc__D_m\n",
-       "1     EX_nh4_m   4.362240      nh4_m\n",
-       "2      EX_o2_m  18.579253       o2_m\n",
-       "3      EX_pi_m   2.942960       pi_m"
+       "                reaction       flux metabolite\n",
+       "reaction                                      \n",
+       "EX_glc__D_m  EX_glc__D_m  10.000000   glc__D_m\n",
+       "EX_nh4_m        EX_nh4_m   4.362240      nh4_m\n",
+       "EX_o2_m          EX_o2_m  18.579253       o2_m\n",
+       "EX_pi_m          EX_pi_m   2.942960       pi_m"
       ]
      },
      "execution_count": 5,
@@ -603,10 +624,24 @@
    "metadata": {},
    "outputs": [
     {
-     "name": "stderr",
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "743e2060838746dba287e2405d9fa24b",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "HBox(children=(FloatProgress(value=0.0, max=4.0), HTML(value='')))"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
      "output_type": "stream",
      "text": [
-      "100%|██████████| 4/4 [00:00<00:00, 14.17sample(s)/s]\n"
+      "\n"
      ]
     }
    ],
@@ -627,7 +662,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Choosing a tradeoff parameter\n",
+    "### Choosing a tradeoff parameter\n",
     "\n",
     "Results depend strongly on the tradeoff parameter. Even though values between 0.3-0.6 usually work well we recommend to run a tradeoff analysis to choose the best parameters for your data set and protocol. If you have already analyzed many samples in your lab and found a particular value to work well in general you may just use that but you should at least run this analysis once. In [our paper](https://doi.org/10.1128/mSystems.00606-19) we found that tradeoff best reproducing *in vivo* growth rates is the largest tradeoff that allows the majority of the bacteria to grow. Thus, the best tradeoff value is the value providing the best compromise between individual and cooperative growth. \n",
     "\n",
@@ -636,14 +671,28 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [
     {
-     "name": "stderr",
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "bbfbe841ee974de8bdd97787104d468d",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "HBox(children=(FloatProgress(value=0.0, max=4.0), HTML(value='')))"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
      "output_type": "stream",
      "text": [
-      "100%|██████████| 4/4 [00:00<00:00, 11.44sample(s)/s]\n"
+      "\n"
      ]
     },
     {
@@ -689,53 +738,53 @@
        "  <tbody>\n",
        "    <tr>\n",
        "      <th>Escherichia_coli_2</th>\n",
-       "      <td>0.538462</td>\n",
+       "      <td>0.027057</td>\n",
        "      <td>0.000000</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "      <td>Escherichia_coli_2</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>sample_2</td>\n",
+       "      <td>sample_1</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>Escherichia_coli_3</th>\n",
-       "      <td>0.408958</td>\n",
-       "      <td>1.153402</td>\n",
+       "      <td>0.188275</td>\n",
+       "      <td>0.000000</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "      <td>Escherichia_coli_3</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>sample_2</td>\n",
+       "      <td>sample_1</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>Escherichia_coli_4</th>\n",
-       "      <td>0.052580</td>\n",
-       "      <td>6.243912</td>\n",
+       "      <td>0.784667</td>\n",
+       "      <td>0.127443</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "      <td>Escherichia_coli_4</td>\n",
        "      <td>NaN</td>\n",
-       "      <td>sample_2</td>\n",
+       "      <td>sample_1</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>Escherichia_coli_2</th>\n",
-       "      <td>0.538462</td>\n",
-       "      <td>0.936552</td>\n",
+       "      <td>0.027057</td>\n",
+       "      <td>0.004151</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "      <td>Escherichia_coli_2</td>\n",
        "      <td>1.0</td>\n",
-       "      <td>sample_2</td>\n",
+       "      <td>sample_1</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>Escherichia_coli_3</th>\n",
-       "      <td>0.408958</td>\n",
-       "      <td>0.711305</td>\n",
+       "      <td>0.188275</td>\n",
+       "      <td>0.028882</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
        "      <td>Escherichia_coli_3</td>\n",
        "      <td>1.0</td>\n",
-       "      <td>sample_2</td>\n",
+       "      <td>sample_1</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -744,22 +793,22 @@
       "text/plain": [
        "                    abundance  growth_rate  reactions  metabolites  \\\n",
        "compartments                                                         \n",
-       "Escherichia_coli_2   0.538462     0.000000         95           72   \n",
-       "Escherichia_coli_3   0.408958     1.153402         95           72   \n",
-       "Escherichia_coli_4   0.052580     6.243912         95           72   \n",
-       "Escherichia_coli_2   0.538462     0.936552         95           72   \n",
-       "Escherichia_coli_3   0.408958     0.711305         95           72   \n",
+       "Escherichia_coli_2   0.027057     0.000000         95           72   \n",
+       "Escherichia_coli_3   0.188275     0.000000         95           72   \n",
+       "Escherichia_coli_4   0.784667     0.127443         95           72   \n",
+       "Escherichia_coli_2   0.027057     0.004151         95           72   \n",
+       "Escherichia_coli_3   0.188275     0.028882         95           72   \n",
        "\n",
        "                                 taxon  tradeoff sample_id  \n",
        "compartments                                                \n",
-       "Escherichia_coli_2  Escherichia_coli_2       NaN  sample_2  \n",
-       "Escherichia_coli_3  Escherichia_coli_3       NaN  sample_2  \n",
-       "Escherichia_coli_4  Escherichia_coli_4       NaN  sample_2  \n",
-       "Escherichia_coli_2  Escherichia_coli_2       1.0  sample_2  \n",
-       "Escherichia_coli_3  Escherichia_coli_3       1.0  sample_2  "
+       "Escherichia_coli_2  Escherichia_coli_2       NaN  sample_1  \n",
+       "Escherichia_coli_3  Escherichia_coli_3       NaN  sample_1  \n",
+       "Escherichia_coli_4  Escherichia_coli_4       NaN  sample_1  \n",
+       "Escherichia_coli_2  Escherichia_coli_2       1.0  sample_1  \n",
+       "Escherichia_coli_3  Escherichia_coli_3       1.0  sample_1  "
       ]
      },
-     "execution_count": 7,
+     "execution_count": 10,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -780,7 +829,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [
     {
@@ -877,27 +926,28 @@
        "9       1.0  12"
       ]
      },
-     "execution_count": 8,
+     "execution_count": 11,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "tradeoff_rates.groupby(\"tradeoff\").apply(lambda df: (df.growth_rate > 1e-6).sum()).reset_index()"
+    "tradeoff_rates.groupby(\"tradeoff\").apply(\n",
+    "    lambda df: (df.growth_rate > 1e-6).sum()).reset_index()"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "In that case all taxa (3 taxa for 4 samples each) can grow for all tradeoff values since we provided an excess of nutrients in the medium. So a tradeoff of 1.0 would have been the best here. For real data you will usually see those numbers decline for larger tradeoff values. A more detailed analysis can be performed with the [`plot_tradeoff` visualization]()."
+    "In that case all taxa (3 taxa for 4 samples each) can grow for all tradeoff values since we provided an excess of nutrients in the medium. So a tradeoff of 1.0 would have been the best here. For real data you will usually see those numbers decline for larger tradeoff values. A more detailed analysis can be performed with the [`plot_tradeoff` visualization](viz.html)."
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Fixing growth media\n",
+    "### Fixing growth media\n",
     "\n",
     "Providing a growth medium may be complicated since you often only have some intuitions about a few components of the medium but lack information on others. Even when supplying putatively complete descriptions you will often observe that the models will predict the absence of growth since you are lacking an essential cofactor. To help with this MICOM provides a workflow that can complete any predefined growth medium with the minimal additional substrates to allow growth for all taxa in the database. \n",
     "\n",
@@ -906,7 +956,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [
     {
@@ -955,7 +1005,7 @@
        "1      EX_o2_m    20"
       ]
      },
-     "execution_count": 9,
+     "execution_count": 8,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -976,14 +1026,28 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [
     {
-     "name": "stderr",
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "24135849961c41548e212f719862bdae",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "HBox(children=(FloatProgress(value=0.0, max=4.0), HTML(value='')))"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
      "output_type": "stream",
      "text": [
-      "100%|██████████| 4/4 [00:00<00:00, 26.59model(s)/s]\n"
+      "\n"
      ]
     },
     {
@@ -1054,7 +1118,7 @@
        "3      EX_pi_m       pi_m    Phosphate   0.36787"
       ]
      },
-     "execution_count": 10,
+     "execution_count": 9,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -1091,7 +1155,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.8.3rc1"
+   "version": "3.8.5"
   }
  },
  "nbformat": 4,

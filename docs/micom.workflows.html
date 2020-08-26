@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>micom.workflows package &#8212; micom 0.16.0 documentation</title>
+    <title>micom.workflows package &#8212; micom 0.18.4 documentation</title>
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -41,7 +41,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.16.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.18.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -82,9 +82,9 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by MICOM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html#Solvers">Solvers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="high_level.html">The High Level API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
@@ -243,7 +243,7 @@ that contains the arguments for each sample.</p></li>
 <p>Performs growth and exchange analysis for several models.</p>
 <dl class="py function">
 <dt id="micom.workflows.grow.grow">
-<code class="sig-prename descclassname">micom.workflows.grow.</code><code class="sig-name descname">grow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoff</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.grow.grow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.workflows.grow.</code><code class="sig-name descname">grow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoff</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.grow.grow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simulate growth for a set of community models.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -251,12 +251,14 @@ that contains the arguments for each sample.</p></li>
 <li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – The manifest as returned by the <cite>build</cite> workflow.</p></li>
 <li><p><strong>model_folder</strong> (<em>str</em>) – The folder in which to find the files mentioned in the manifest.</p></li>
 <li><p><strong>medium</strong> (<em>pandas.DataFrame</em>) – A growth medium. Must have columns “reaction” and “flux” denoting
-exchnage reactions and their respective maximum flux.</p></li>
+exchange reactions and their respective maximum flux.</p></li>
 <li><p><strong>tradeoff</strong> (<em>float in</em><em> (</em><em>0.0</em><em>, </em><em>1.0</em><em>]</em>) – A tradeoff value. Can be chosen by running the <cite>tradeoff</cite> workflow or
 by experince. Tradeoff values of 0.5 for metagenomcis data and 0.3 for
 16S data seem to work well.</p></li>
 <li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
 rule of thumb you will need around 1GB of RAM for each thread.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver tolerance.</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the solver tolerance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -450,7 +452,7 @@ from the original metadata.</p>
 
 <dl class="py function">
 <dt id="micom.workflows.grow">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">grow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoff</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.grow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">grow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoff</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.grow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simulate growth for a set of community models.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -458,12 +460,14 @@ from the original metadata.</p>
 <li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – The manifest as returned by the <cite>build</cite> workflow.</p></li>
 <li><p><strong>model_folder</strong> (<em>str</em>) – The folder in which to find the files mentioned in the manifest.</p></li>
 <li><p><strong>medium</strong> (<em>pandas.DataFrame</em>) – A growth medium. Must have columns “reaction” and “flux” denoting
-exchnage reactions and their respective maximum flux.</p></li>
+exchange reactions and their respective maximum flux.</p></li>
 <li><p><strong>tradeoff</strong> (<em>float in</em><em> (</em><em>0.0</em><em>, </em><em>1.0</em><em>]</em>) – A tradeoff value. Can be chosen by running the <cite>tradeoff</cite> workflow or
 by experince. Tradeoff values of 0.5 for metagenomcis data and 0.3 for
 16S data seem to work well.</p></li>
 <li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
 rule of thumb you will need around 1GB of RAM for each thread.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver tolerance.</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the solver tolerance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

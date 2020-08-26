@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Workflows\n",
+    "## Writing your own workflows\n",
     "\n",
     "Micom was designed to create and analyze personalized metabolic models for microbial communities. This makes it necessary to run many of the analyses in micom for many samples. As all of the methods currently implemented in micom can be run independently for each sample this workload can be parallelized pretty easily. To make this simple micom provides a workflow module that lets you run analyses for many samples in parallel. It also integrate with the micom logger and has workarounds for some memory leaks in optlang which improves memory usage. As a rule of thumb for each sample you will need one CPU and about 1GB of RAM, so if you have a server with 16 cores and 16+GB of RAM available you can run up to 16 samples in parallel.\n",
     "\n",
@@ -55,54 +55,54 @@
        "      <th>0</th>\n",
        "      <td>Escherichia_coli_1</td>\n",
        "      <td>Escherichia</td>\n",
-       "      <td>Eschericia coli</td>\n",
+       "      <td>Escherichia coli</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
-       "      <td>/Users/cdiener/code/micom/micom/data/e_coli_co...</td>\n",
+       "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>1</th>\n",
        "      <td>Escherichia_coli_2</td>\n",
        "      <td>Escherichia</td>\n",
-       "      <td>Eschericia coli</td>\n",
+       "      <td>Escherichia coli</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
-       "      <td>/Users/cdiener/code/micom/micom/data/e_coli_co...</td>\n",
+       "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>2</th>\n",
        "      <td>Escherichia_coli_3</td>\n",
        "      <td>Escherichia</td>\n",
-       "      <td>Eschericia coli</td>\n",
+       "      <td>Escherichia coli</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
-       "      <td>/Users/cdiener/code/micom/micom/data/e_coli_co...</td>\n",
+       "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>3</th>\n",
        "      <td>Escherichia_coli_4</td>\n",
        "      <td>Escherichia</td>\n",
-       "      <td>Eschericia coli</td>\n",
+       "      <td>Escherichia coli</td>\n",
        "      <td>95</td>\n",
        "      <td>72</td>\n",
-       "      <td>/Users/cdiener/code/micom/micom/data/e_coli_co...</td>\n",
+       "      <td>/home/cdiener/code/micom/micom/data/e_coli_cor...</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
        "</div>"
       ],
       "text/plain": [
-       "                   id        genus          species  reactions  metabolites  \\\n",
-       "0  Escherichia_coli_1  Escherichia  Eschericia coli         95           72   \n",
-       "1  Escherichia_coli_2  Escherichia  Eschericia coli         95           72   \n",
-       "2  Escherichia_coli_3  Escherichia  Eschericia coli         95           72   \n",
-       "3  Escherichia_coli_4  Escherichia  Eschericia coli         95           72   \n",
+       "                   id        genus           species  reactions  metabolites  \\\n",
+       "0  Escherichia_coli_1  Escherichia  Escherichia coli         95           72   \n",
+       "1  Escherichia_coli_2  Escherichia  Escherichia coli         95           72   \n",
+       "2  Escherichia_coli_3  Escherichia  Escherichia coli         95           72   \n",
+       "3  Escherichia_coli_4  Escherichia  Escherichia coli         95           72   \n",
        "\n",
        "                                                file  \n",
-       "0  /Users/cdiener/code/micom/micom/data/e_coli_co...  \n",
-       "1  /Users/cdiener/code/micom/micom/data/e_coli_co...  \n",
-       "2  /Users/cdiener/code/micom/micom/data/e_coli_co...  \n",
-       "3  /Users/cdiener/code/micom/micom/data/e_coli_co...  "
+       "0  /home/cdiener/code/micom/micom/data/e_coli_cor...  \n",
+       "1  /home/cdiener/code/micom/micom/data/e_coli_cor...  \n",
+       "2  /home/cdiener/code/micom/micom/data/e_coli_cor...  \n",
+       "3  /home/cdiener/code/micom/micom/data/e_coli_cor...  "
       ]
      },
      "execution_count": 1,
@@ -151,10 +151,24 @@
    "metadata": {},
    "outputs": [
     {
-     "name": "stderr",
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "8ecb59a4c4ad44478e97a948503ecb36",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "HBox(children=(FloatProgress(value=0.0, max=10.0), HTML(value='')))"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "name": "stdout",
      "output_type": "stream",
      "text": [
-      "100%|██████████| 10/10 [00:16<00:00,  1.67s/sample(s)]\n"
+      "\n"
      ]
     }
    ],
@@ -293,7 +307,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.7"
+   "version": "3.8.5"
   }
  },
  "nbformat": 4,

@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Installing micom &#8212; micom 0.16.0 documentation</title>
+    <title>Installing micom &#8212; micom 0.18.4 documentation</title>
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -22,7 +22,7 @@
     <script src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="High level workflows" href="high_level.html" />
+    <link rel="next" title="MICOM workflows" href="high_level.html" />
     <link rel="prev" title="How does MICOM model communities" href="logic.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -42,7 +42,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.16.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.18.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -72,7 +72,7 @@
     </a>
   </li>
   <li>
-    <a href="high_level.html" title="Next Chapter: High level workflows"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">High level workflows &raquo;</span>
+    <a href="high_level.html" title="Next Chapter: MICOM workflows"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">MICOM workflows &raquo;</span>
     </a>
   </li>
             </ul>
@@ -87,9 +87,9 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by MICOM</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing micom</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Solvers">Solvers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="high_level.html">The High Level API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installing MICOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
@@ -331,10 +331,27 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>For a system-wide installation you can omit <code class="docutils literal notranslate"><span class="pre">--user</span></code>.</p>
 <p>The same installation strategy also works with Anaconda installations or any other Python distribution. Supported Python versions are 3.6 and 3.7.</p>
-</div>
-<div class="section" id="Solvers">
-<h1>Solvers<a class="headerlink" href="#Solvers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Install-a-QP-solver">
+<h2>Install a QP solver<a class="headerlink" href="#Install-a-QP-solver" title="Permalink to this headline">¶</a></h2>
 <p>Many of the methods in <code class="docutils literal notranslate"><span class="pre">micom</span></code> unfortunately require high performance and QP-capable solvers. Thus, for full functionality you will require a commercial solver such as <a class="reference external" href="https://www.ibm.com/products/ilog-cplex-optimization-studio">Cplex</a> or <a class="reference external" href="http://www.gurobi.com/index">Gurobi</a>. Both have academic licenses and can be obtained for free for academic users.</p>
+<div class="section" id="CPLEX">
+<h3>CPLEX<a class="headerlink" href="#CPLEX" title="Permalink to this headline">¶</a></h3>
+<p>After registering and downloading the CPLEX studio for your OS unpack it (by running the provided installer) to a directory of your choice (we will assume it’s called ibm).</p>
+<p>Now install the CPLEX python package:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ibm/cplex/python/3.6/x86-64_linux
+</pre></div>
+</div>
+</div>
+<div class="section" id="Gurobi">
+<h3>Gurobi<a class="headerlink" href="#Gurobi" title="Permalink to this headline">¶</a></h3>
+<p>Gurobi can be installed with conda.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c gurobi gurobi
+</pre></div>
+</div>
+<p>You will now have to register the installation using your license key.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grbgetkey YOUR-LICENSE-KEY
+</pre></div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -342,6 +359,8 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>

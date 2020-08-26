@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Growth media &#8212; micom 0.16.0 documentation</title>
+    <title>Growth media &#8212; micom 0.18.4 documentation</title>
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -42,7 +42,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.16.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.18.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -87,9 +87,9 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by MICOM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing micom</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installing.html#Solvers">Solvers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="high_level.html">The High Level API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Building communities</a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Growth media</a></li>
@@ -327,7 +327,7 @@ div.rendered_html tbody tr:hover {
 <h1>Growth media<a class="headerlink" href="#Growth-media" title="Permalink to this headline">¶</a></h1>
 <p>In many instances you might be interested what metabolites your microbial community consumes and produces. <code class="docutils literal notranslate"><span class="pre">micom</span></code> provides facilities to make this simple. Since flux distributions are usually not unique we will usually analyze the “minimal medium”, meaning the smallest set of import fluxes that allow optimal growth. We will again use our <em>E. coli</em> test case.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -338,17 +338,23 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4bf3d74bdbab4aba9d578d380212053e", "version_major": 2, "version_minor": 0}</script></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area stderr docutils container">
+<div class="output_area docutils container">
 <div class="highlight"><pre>
-100%|██████████| 5/5 [00:02&lt;00:00,  2.45models/s]
+
 </pre></div></div>
 </div>
 <p>The easiest case would be that we have a particular community growth rate we want to enforce. In this case we can get the minimal medium with:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -360,21 +366,19 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-EX_glc__D_m    10.000000
-EX_nh4_m        4.362240
-EX_o2_m        18.579253
-EX_pi_m         2.942960
+EX_o2_m        1.398333
+EX_glc__D_m    1.398333
 dtype: float64
 </pre></div></div>
 </div>
 <p>By default this gives the solution with the smallest total import flux. We could also minimize the <em>number</em> of used import fluxes:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -383,22 +387,19 @@ dtype: float64
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-EX_glc__D_m    10.000000
-EX_nh4_m        4.362240
-EX_o2_m        18.579253
-EX_pi_m         2.942960
+EX_glc__D_m    3.499375
 dtype: float64
 </pre></div></div>
 </div>
 <p>However, this will be unfeasibly slow and complicated for larger (ergo real) community models so we recommend using the default instead.</p>
 <p>As argued before there are many unrealistic growth rate distributions that can be used for a given optimal community growth rate. It is also possible to use the results from cooperative tradeoff as additional constraints in the minimal media calculation.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -410,21 +411,21 @@ dtype: float64
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+EX_pi_m         3.214886
+EX_o2_m        21.799487
+EX_nh4_m        4.765318
 EX_glc__D_m    10.000000
-EX_nh4_m        4.765319
-EX_o2_m        21.799493
-EX_pi_m         3.214895
 dtype: float64
 </pre></div></div>
 </div>
 <p>In practice you might want to lower the required growth rates a bit to avoid the inclusion of particular imports just to push you the last few percent to the optimum. For instance to only require 95% of the community and individual growth rates:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -434,15 +435,15 @@ dtype: float64
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-EX_glc__D_m    10.000000
-EX_nh4_m        4.527053
-EX_o2_m        19.895962
 EX_pi_m         3.054150
+EX_o2_m        19.895954
+EX_nh4_m        4.527052
+EX_glc__D_m    10.000000
 dtype: float64
 </pre></div></div>
 </div>
@@ -450,7 +451,7 @@ dtype: float64
 <h2>Export fluxes<a class="headerlink" href="#Export-fluxes" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes you will also be interested in which metabolites the community produces. This information can be obtained with the <code class="docutils literal notranslate"><span class="pre">exports</span></code> argument of the <code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> function which will also return the active exports (metabolites produced by the community) under minimal growth.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -460,18 +461,18 @@ dtype: float64
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-EX_co2_m      -22.809833
+EX_h_m        -17.530883
+EX_pi_m         3.214886
+EX_o2_m        21.799487
+EX_nh4_m        4.765318
 EX_glc__D_m    10.000000
-EX_h_m        -17.530865
-EX_h2o_m      -29.175827
-EX_nh4_m        4.765319
-EX_o2_m        21.799493
-EX_pi_m         3.214895
+EX_co2_m      -22.809827
+EX_h2o_m      -29.175810
 dtype: float64
 </pre></div></div>
 </div>
@@ -481,7 +482,7 @@ dtype: float64
 <h2>Applying growth media<a class="headerlink" href="#Applying-growth-media" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">micom</span></code> pretty much uses the <a class="reference external" href="https://cobrapy.readthedocs.io/en/stable/_autogen/cobra.core.model.html?highlight=medium#cobra.core.model.Model.medium">cobrapy method</a> of assigning media. Essentially you will need a dictionary-like structure that maps exchange reactions to their upper import flux bound. Fortunately, the output of <code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> can be used directly for that. So to calculate the minimal medium and use it as the actual growth medium afterwards we can do the following:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -492,7 +493,7 @@ dtype: float64
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -530,35 +531,28 @@ dtype: float64
   <tbody>
     <tr>
       <th>Escherichia_coli_1</th>
-      <td>0.2</td>
+      <td>0.25</td>
       <td>0.8</td>
       <td>95</td>
       <td>72</td>
     </tr>
     <tr>
       <th>Escherichia_coli_2</th>
-      <td>0.2</td>
+      <td>0.25</td>
       <td>0.8</td>
       <td>95</td>
       <td>72</td>
     </tr>
     <tr>
       <th>Escherichia_coli_3</th>
-      <td>0.2</td>
+      <td>0.25</td>
       <td>0.8</td>
       <td>95</td>
       <td>72</td>
     </tr>
     <tr>
       <th>Escherichia_coli_4</th>
-      <td>0.2</td>
-      <td>0.8</td>
-      <td>95</td>
-      <td>72</td>
-    </tr>
-    <tr>
-      <th>Escherichia_coli_5</th>
-      <td>0.2</td>
+      <td>0.25</td>
       <td>0.8</td>
       <td>95</td>
       <td>72</td>
@@ -575,15 +569,6 @@ dtype: float64
 </div></div>
 </div>
 <p>As we see the new medium has been applied and as a consequence the growth rate has been lowered to the one specified in the minimal medium calculation.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 

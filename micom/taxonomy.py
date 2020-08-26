@@ -61,7 +61,7 @@ def build_from_qiime(
     return abundance
 
 
-def qiime_to_micom(feature_table, taxonomy):
+def qiime_to_micom(feature_table, taxonomy, collapse_on="genus"):
     """Load a micom taxonomy from Qiime 2 data.
 
     Parameters
@@ -83,4 +83,4 @@ def qiime_to_micom(feature_table, taxonomy):
     table = load_qiime_feature_table(feature_table)
     taxonomy = load_qiime_taxonomy(taxonomy)
 
-    return build_from_qiime(table, taxonomy)
+    return build_from_qiime(table, taxonomy, collapse_on)

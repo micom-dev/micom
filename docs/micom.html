@@ -3,7 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>micom package &#8212; micom 0.18.4 documentation</title>
+    <title>micom package &#8212; micom 0.18.5 documentation</title>
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -769,7 +769,7 @@ model produces biomass with a rate &gt;= <cite>min_growth</cite>.</p>
 
 <dl class="py function">
 <dt id="micom.media.minimal_medium">
-<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">minimal_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">community_growth</span></em>, <em class="sig-param"><span class="n">exchanges</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">exports</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">open_exchanges</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">solution</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.minimal_medium" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">minimal_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">community_growth</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">exports</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">exchanges</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">open_exchanges</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">solution</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.minimal_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the minimal growth medium for the community.</p>
 <p>Finds the minimal growth medium for the community which allows for
 community as well as individual growth. Here, a minimal medium can either
@@ -780,11 +780,11 @@ requiring the least components (ergo ingredients).</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community to modify.</p></li>
 <li><p><strong>community_growth</strong> (<em>positive float</em>) – The minimum community-wide growth rate.</p></li>
-<li><p><strong>exchanges</strong> (<em>list of cobra.Reactions</em>) – The list of exchange reactions that are penalized.</p></li>
 <li><p><strong>min_growth</strong> (<em>positive float</em><em> or </em><em>array-like object.</em>) – The minimum growth rate for each individual in the community. Either
 a single value applied to all individuals or one value for each.</p></li>
 <li><p><strong>exports</strong> (<em>boolean</em>) – Whether to include export fluxes in the returned medium. Defaults to
 False which will only return import fluxes.</p></li>
+<li><p><strong>exchanges</strong> (<em>list of cobra.Reactions</em>) – The list of exchange reactions that are penalized.</p></li>
 <li><p><strong>minimize_components</strong> (<em>boolean</em>) – Whether to minimize the number of components instead of the total
 import flux. Might be more intuitive if set to True but may also be
 slow to calculate for large communities.</p></li>

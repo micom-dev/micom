@@ -28,7 +28,7 @@ def plot_fit(
     variable_name="phenotype",
     filename="fit_%s.html" % datetime.now().strftime("%Y%m%d"),
     flux_type="production",
-    min_coef=0.01,
+    min_coef=0.001,
     atol=1e-6
 ):
     """Test for differential metabolite production.

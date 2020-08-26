@@ -96,9 +96,9 @@ def add_mip_obj(community, exchanges):
 def minimal_medium(
     community,
     community_growth,
-    exchanges=None,
     min_growth=0.0,
     exports=False,
+    exchanges=None,
     minimize_components=False,
     open_exchanges=False,
     solution=False,
@@ -118,14 +118,14 @@ def minimal_medium(
         The community to modify.
     community_growth : positive float
         The minimum community-wide growth rate.
-    exchanges : list of cobra.Reactions
-        The list of exchange reactions that are penalized.
     min_growth : positive float or array-like object.
         The minimum growth rate for each individual in the community. Either
         a single value applied to all individuals or one value for each.
     exports : boolean
         Whether to include export fluxes in the returned medium. Defaults to
         False which will only return import fluxes.
+    exchanges : list of cobra.Reactions
+        The list of exchange reactions that are penalized.
     minimize_components : boolean
         Whether to minimize the number of components instead of the total
         import flux. Might be more intuitive if set to True but may also be

@@ -44,12 +44,12 @@ Contents
    Installing MICOM <installing>
    MICOM workflows <high_level>
    Visualizations <viz>
-   Building communities <community>
+   Single Model API <community>
    Growth rates and fluxes <growth_fluxes>
    Growth media <media>
    Knockouts <taxa_knockouts>
    Intervention studies <elasticities>
-   Analyzing many samples in parallel <workflows>
+   Writing your own workflows <workflows>
    API <micom>
 
 

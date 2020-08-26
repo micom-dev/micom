@@ -21,11 +21,11 @@ def build_from_qiime(
     taxa.index == taxa.taxid
 
     if isinstance(collapse_on, str):
-        summarize_on = [collapse_on]
+        collapse_on = [collapse_on]
 
     ranks = [
         r
-        for r in summarize_on
+        for r in collapse_on
         if r in taxa.columns
     ]
     taxa["mapping_ranks"] = taxa[ranks].apply(

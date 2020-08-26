@@ -61,7 +61,7 @@ def plot_fit(
     Returns
     -------
     Visualization
-        A MICOM visualization. Can be served with `viz.serve`.
+        A MICOM visualization. Can be served with `viz.view`.
 
     """
     exchanges = results.exchanges

@@ -3,6 +3,14 @@
 For information on how to use `micom` please see the docs at
 https://resendislab.github.io/micom.
 
+### 0.19.0
+
+`minimal_medium` now accepts weighting the fluxes bei molecular weight or
+any elemental content. For instance, you can now calculate a minimal medium that
+minimizes carbon import for instance. The used `weigths` argument propagates
+to any workflow using this function including `complete_medium`, `fix_medium`
+and `grow`.
+
 ### 0.9.0
 
 `minimal_medium` now has an option to return all fluxes along with the

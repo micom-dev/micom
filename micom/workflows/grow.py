@@ -14,7 +14,7 @@ DIRECTION = pd.Series(["import", "export"], index=[0, 1])
 
 
 def _growth(args):
-    p, tradeoff, medium, atol, rtol = args
+    p, tradeoff, medium, weights, atol, rtol = args
     com = load_pickle(p)
 
     if atol is None:
@@ -62,6 +62,7 @@ def _growth(args):
         community_growth=sol.growth_rate,
         min_growth=rates.growth_rate.drop("medium"),
         solution=True,
+        weights=weights,
         atol=atol,
         rtol=rtol
     )["solution"]
@@ -78,6 +79,7 @@ def grow(
     medium,
     tradeoff,
     threads=1,
+    weights=None,
     atol=None,
     rtol=None
 ):
@@ -99,6 +101,13 @@ def grow(
     threads : int >=1
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
+    weights : str
+        Used during the calculaton of the minimal import rates.
+        Will scale the fluxes by a weight factor. Can either be "mass" which will
+        scale by molecular mass, a single element which will scale by
+        the elemental content (for instance "C" to scale by carbon content).
+        If None every metabolite will receive the same weight.
+        Will be ignored if `minimize_components` is True.
     atol : float
         Absolute tolerance for the growth rates. If None will use the solver tolerance.
     rtol : float
@@ -118,7 +127,7 @@ def grow(
     }
     medium = process_medium(medium, samples)
     args = [
-        [p, tradeoff, medium.flux[medium.sample_id == s], atol, rtol]
+        [p, tradeoff, medium.flux[medium.sample_id == s], weights, atol, rtol]
         for s, p in paths.items()
     ]
     results = workflow(_growth, args, threads)

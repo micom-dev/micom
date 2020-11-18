@@ -69,7 +69,7 @@ def minimal_media(
 
 def _fix_medium(args):
     """Get the fixed medium for a model."""
-    sid, p, min_growth, max_import, min_c, medium = args
+    sid, p, min_growth, max_import, min_c, medium, weights = args
     com = load_pickle(p)
     try:
         fixed = mm.complete_medium(
@@ -78,6 +78,7 @@ def _fix_medium(args):
             min_growth=min_growth,
             max_import=max_import,
             minimize_components=min_c,
+            weights=weights
         )
     except Exception:
         logger.warning(
@@ -105,6 +106,7 @@ def fix_medium(
     max_import=1,
     minimize_components=False,
     summarize=True,
+    weights=None,
     threads=1,
 ):
     """Augment a growth medium so all community members can grow in it.
@@ -129,6 +131,12 @@ def fix_medium(
     summarize: boolean
         Whether to summarize the medium across all samples. If False will
         return a medium for each sample.
+    weights : str
+        Will scale the fluxes by a weight factor. Can either be "mass" which will
+        scale by molecular mass, a single element which will scale by
+        the elemental content (for instance "C" to scale by carbon content).
+        If None every metabolite will receive the same weight.
+        Will be ignored if `minimize_components` is True.
     threads: int
         The number of processes to use.
 
@@ -156,7 +164,7 @@ def fix_medium(
         )
     args = [
         [s, p, min_growth, max_import, minimize_components,
-         medium.flux[medium.sample_id == s]]
+         medium.flux[medium.sample_id == s], weights]
         for s, p in paths.items()
     ]
     res = workflow(_fix_medium, args, n_jobs=threads, unit="model(s)")

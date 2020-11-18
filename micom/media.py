@@ -1,5 +1,6 @@
 """Manages functions for growth media analysis and manipulation."""
 
+from cobra.core.formula import Formula, elements_and_molecular_weights
 from optlang.symbolics import Zero
 import numpy as np
 import pandas as pd
@@ -13,13 +14,13 @@ from micom.logger import logger
 from micom.solution import OptimizationError
 
 
-def add_linear_obj(community, exchanges):
+def add_linear_obj(community, exchanges, weights):
     """Add a linear version of a minimal medium to the community.
 
     Changes the optimization objective to finding the growth medium requiring
     the smallest total import flux::
 
-        minimize sum |r_i| for r_i in import_reactions
+        minimize sum w_i|r_i| for r_i in import_reactions
 
     Arguments
     ---------
@@ -27,6 +28,9 @@ def add_linear_obj(community, exchanges):
         The community to modify.
     exchanges : list of cobra.Reaction
         The reactions to constrain.
+    weights : dict
+        Maps each exchange reaction to a weight that is used in the
+        minimization.
     """
     check_modification(community)
     coefs = {}
@@ -34,10 +38,11 @@ def add_linear_obj(community, exchanges):
         export = len(rxn.reactants) == 1 or (
             len(rxn.metabolites) == 2 and rxn.products[0].compartment == "m"
         )
+        met = list(rxn.metabolites)[0]
         if export:
-            coefs[rxn.reverse_variable] = 1.0
+            coefs[rxn.reverse_variable] = weights[met]
         else:
-            coefs[rxn.forward_variable] = 1.0
+            coefs[rxn.forward_variable] = weights[met]
     community.objective.set_linear_coefficients(coefs)
     community.objective.direction = "min"
     community.modification = "minimal medium linear"
@@ -93,6 +98,22 @@ def add_mip_obj(community, exchanges):
     community.modification = "minimal medium mixed-integer"
 
 
+def weight(exchanges, what):
+    """Obtain elemental weights for metabolites."""
+    mets = [list(r.metabolites)[0] for r in exchanges]
+    if what is None:
+        weights = {m: 1.0 for m in mets}
+    elif what == "mass":
+        weights = {m: max(Formula(m.formula).weight, 1e-6) for m in mets}
+    elif what in elements_and_molecular_weights:
+        weights = {m: Formula(m.formula).elements.get(what, 1e-6) for m in mets}
+    else:
+        raise ValueError(
+            "%s is not a valid elements. Must be one of: %s." %
+            (what, ", ".join(elements_and_molecular_weights)))
+    return weights
+
+
 def minimal_medium(
     community,
     community_growth,
@@ -102,6 +123,7 @@ def minimal_medium(
     minimize_components=False,
     open_exchanges=False,
     solution=False,
+    weights=None,
     atol=None,
     rtol=None,
 ):
@@ -137,6 +159,12 @@ def minimal_medium(
     solution : boolean
         Whether to also return the entire solution and all fluxes for the
         minimal medium.
+    weights : str
+        Will scale the fluxes by a weight factor. Can either be "mass" which will
+        scale by molecular mass, a single element which will scale by
+        the elemental content (for instance "C" to scale by carbon content).
+        If None every metabolite will receive the same weight.
+        Will be ignored if `minimize_components` is True.
     atol : float
         Absolute tolerance for the growth rates. If None will use the solver tolerance.
     rtol : float
@@ -179,7 +207,8 @@ def minimal_medium(
         if minimize_components:
             add_mip_obj(com, boundary_rxns)
         else:
-            add_linear_obj(com, boundary_rxns)
+            scales = weight(boundary_rxns, weights)
+            add_linear_obj(com, boundary_rxns, scales)
         sol = com.optimize(fluxes=True, pfba=False)
         if sol is None:
             logger.warning("minimization of medium was unsuccessful")
@@ -207,7 +236,7 @@ def minimal_medium(
 
 
 def complete_medium(
-    model, medium, min_growth=0.1, max_import=1, minimize_components=False
+    model, medium, min_growth=0.1, max_import=1, minimize_components=False, weights=None
 ):
     """Fill in missing components in a growth medium.
 
@@ -238,6 +267,12 @@ def complete_medium(
         slow to calculate for large communities.
     max_import: positive float
         The import rate applied for the added exchanges.
+    weights : str
+        Will scale the fluxes by a weight factor. Can either be "mass" which will
+        scale by molecular mass, a single element which will scale by
+        the elemental content (for instance "C" to scale by carbon content).
+        If None every metabolite will receive the same weight.
+        Will be ignored if `minimize_components` is True.
 
 
     Returns
@@ -270,7 +305,8 @@ def complete_medium(
         if minimize_components:
             add_mip_obj(model, candidates)
         else:
-            add_linear_obj(model, candidates)
+            scales = weight(candidates, weights)
+            add_linear_obj(model, candidates, scales)
         if isinstance(model, Community):
             sol = model.optimize(fluxes=True, pfba=False)
             fluxes = sol.fluxes.loc["medium", :]

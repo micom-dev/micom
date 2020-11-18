@@ -3,9 +3,10 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>micom package &#8212; micom 0.18.6 documentation</title>
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>micom package &#8212; micom 0.19.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,7 +15,7 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script src="_static/js/jquery-1.11.0.min.js"></script>
     <script src="_static/js/jquery-fix.js"></script>
@@ -42,7 +43,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.18.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.19.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -691,11 +692,11 @@ effector, and elasticity.</p>
 <p>Manages functions for growth media analysis and manipulation.</p>
 <dl class="py function">
 <dt id="micom.media.add_linear_obj">
-<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">add_linear_obj</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">exchanges</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.add_linear_obj" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">add_linear_obj</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">exchanges</span></em>, <em class="sig-param"><span class="n">weights</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.add_linear_obj" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a linear version of a minimal medium to the community.</p>
 <p>Changes the optimization objective to finding the growth medium requiring
 the smallest total import flux:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">minimize</span> <span class="nb">sum</span> <span class="o">|</span><span class="n">r_i</span><span class="o">|</span> <span class="k">for</span> <span class="n">r_i</span> <span class="ow">in</span> <span class="n">import_reactions</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">minimize</span> <span class="nb">sum</span> <span class="n">w_i</span><span class="o">|</span><span class="n">r_i</span><span class="o">|</span> <span class="k">for</span> <span class="n">r_i</span> <span class="ow">in</span> <span class="n">import_reactions</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -703,6 +704,8 @@ the smallest total import flux:</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>community</strong> (<a class="reference internal" href="#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community to modify.</p></li>
 <li><p><strong>exchanges</strong> (<em>list of cobra.Reaction</em>) – The reactions to constrain.</p></li>
+<li><p><strong>weights</strong> (<em>dict</em>) – Maps each exchange reaction to a weight that is used in the
+minimization.</p></li>
 </ul>
 </dd>
 </dl>
@@ -729,7 +732,7 @@ components:</p>
 
 <dl class="py function">
 <dt id="micom.media.complete_medium">
-<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">complete_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.complete_medium" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">complete_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.complete_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill in missing components in a growth medium.</p>
 <p>Finds the minimal number of additions to make a model form biomass. In
 order to avoid bias all added reactions will have a maximum import
@@ -753,6 +756,11 @@ a single value applied to all individuals or one value for each.</p></li>
 import flux. Might be more intuitive if set to True but may also be
 slow to calculate for large communities.</p></li>
 <li><p><strong>max_import</strong> (<em>positive float</em>) – The import rate applied for the added exchanges.</p></li>
+<li><p><strong>weights</strong> (<em>str</em>) – Will scale the fluxes by a weight factor. Can either be “mass” which will
+scale by molecular mass, a single element which will scale by
+the elemental content (for instance “C” to scale by carbon content).
+If None every metabolite will receive the same weight.
+Will be ignored if <cite>minimize_components</cite> is True.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -769,7 +777,7 @@ model produces biomass with a rate &gt;= <cite>min_growth</cite>.</p>
 
 <dl class="py function">
 <dt id="micom.media.minimal_medium">
-<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">minimal_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">community_growth</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">exports</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">exchanges</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">open_exchanges</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">solution</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.minimal_medium" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">minimal_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">community_growth</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">exports</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">exchanges</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">open_exchanges</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">solution</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.minimal_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the minimal growth medium for the community.</p>
 <p>Finds the minimal growth medium for the community which allows for
 community as well as individual growth. Here, a minimal medium can either
@@ -793,6 +801,11 @@ in the model possible. If set to a number all exchange reactions will
 be opened with (-number, number) as bounds.</p></li>
 <li><p><strong>solution</strong> (<em>boolean</em>) – Whether to also return the entire solution and all fluxes for the
 minimal medium.</p></li>
+<li><p><strong>weights</strong> (<em>str</em>) – Will scale the fluxes by a weight factor. Can either be “mass” which will
+scale by molecular mass, a single element which will scale by
+the elemental content (for instance “C” to scale by carbon content).
+If None every metabolite will receive the same weight.
+Will be ignored if <cite>minimize_components</cite> is True.</p></li>
 <li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver tolerance.</p></li>
 <li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the solver tolerance.</p></li>
 </ul>
@@ -806,6 +819,12 @@ reaction. If <cite>solution</cite> is True retuns a dictionary
 <dd class="field-odd"><p>pandas.Series or dict</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.media.weight">
+<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">weight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exchanges</span></em>, <em class="sig-param"><span class="n">what</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain elemental weights for metabolites.</p>
 </dd></dl>
 
 </div>
@@ -1010,14 +1029,8 @@ cooperativity cost. If set to False requires a QP-capable solver.</p></li>
 </dd></dl>
 
 </div>
-<div class="section" id="module-micom.representation">
-<span id="micom-representation-module"></span><h2>micom.representation module<a class="headerlink" href="#module-micom.representation" title="Permalink to this headline">¶</a></h2>
-<p>Converts between QP representations.</p>
-<dl class="py function">
-<dt id="micom.representation.sparse_problem">
-<code class="sig-prename descclassname">micom.representation.</code><code class="sig-name descname">sparse_problem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">com</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.representation.sparse_problem" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="micom-representation-module">
+<h2>micom.representation module<a class="headerlink" href="#micom-representation-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-micom.solution">
 <span id="micom-solution-module"></span><h2>micom.solution module<a class="headerlink" href="#module-micom.solution" title="Permalink to this headline">¶</a></h2>
@@ -1137,7 +1150,7 @@ current objective. This one will work with any objective (even non-linear
 ones).</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><code class="xref py py-func docutils literal notranslate"><span class="pre">pfba()</span></code></p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">pfba</span></code></p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1659,7 +1672,7 @@ if you know what you are doing :O</p></li>
     </p>
     <p>
         &copy; Copyright 2017-2020, Christian Diener.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
     </p>
   </div>
 </footer>

@@ -3,9 +3,10 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>micom.workflows package &#8212; micom 0.18.6 documentation</title>
-    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>micom.workflows package &#8212; micom 0.19.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,7 +15,7 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <script src="_static/js/jquery-1.11.0.min.js"></script>
     <script src="_static/js/jquery-fix.js"></script>
@@ -41,7 +42,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.18.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.19.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -243,7 +244,7 @@ that contains the arguments for each sample.</p></li>
 <p>Performs growth and exchange analysis for several models.</p>
 <dl class="py function">
 <dt id="micom.workflows.grow.grow">
-<code class="sig-prename descclassname">micom.workflows.grow.</code><code class="sig-name descname">grow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoff</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.grow.grow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.workflows.grow.</code><code class="sig-name descname">grow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoff</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.grow.grow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simulate growth for a set of community models.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -257,6 +258,12 @@ by experince. Tradeoff values of 0.5 for metagenomcis data and 0.3 for
 16S data seem to work well.</p></li>
 <li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
 rule of thumb you will need around 1GB of RAM for each thread.</p></li>
+<li><p><strong>weights</strong> (<em>str</em>) – Used during the calculaton of the minimal import rates.
+Will scale the fluxes by a weight factor. Can either be “mass” which will
+scale by molecular mass, a single element which will scale by
+the elemental content (for instance “C” to scale by carbon content).
+If None every metabolite will receive the same weight.
+Will be ignored if <cite>minimize_components</cite> is True.</p></li>
 <li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver tolerance.</p></li>
 <li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the solver tolerance.</p></li>
 </ul>
@@ -277,7 +284,7 @@ samples/models.</p>
 <p>Example workflows for micom.</p>
 <dl class="py function">
 <dt id="micom.workflows.media.fix_medium">
-<code class="sig-prename descclassname">micom.workflows.media.</code><code class="sig-name descname">fix_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summarize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.media.fix_medium" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.workflows.media.</code><code class="sig-name descname">fix_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summarize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.media.fix_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Augment a growth medium so all community members can grow in it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -293,6 +300,11 @@ import fluxes as values. If a DataFrame needs columns <cite>flux</cite> and
 total flux.</p></li>
 <li><p><strong>summarize</strong> (<em>boolean</em>) – Whether to summarize the medium across all samples. If False will
 return a medium for each sample.</p></li>
+<li><p><strong>weights</strong> (<em>str</em>) – Will scale the fluxes by a weight factor. Can either be “mass” which will
+scale by molecular mass, a single element which will scale by
+the elemental content (for instance “C” to scale by carbon content).
+If None every metabolite will receive the same weight.
+Will be ignored if <cite>minimize_components</cite> is True.</p></li>
 <li><p><strong>threads</strong> (<em>int</em>) – The number of processes to use.</p></li>
 </ul>
 </dd>
@@ -324,7 +336,7 @@ that all members of the community can grow in it.</p>
 <p>Workflow to run cooperative tradeoff with various tradeoff values.</p>
 <dl class="py function">
 <dt id="micom.workflows.tradeoff.tradeoff">
-<code class="sig-prename descclassname">micom.workflows.tradeoff.</code><code class="sig-name descname">tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoffs</span><span class="o">=</span><span class="default_value">array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.tradeoff.tradeoff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.workflows.tradeoff.</code><code class="sig-name descname">tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoffs</span><span class="o">=</span><span class="default_value">array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.])</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.tradeoff.tradeoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run growth rate predictions for varying tradeoff values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -353,25 +365,28 @@ rule of thumb you will need around 1GB of RAM for each thread.</p></li>
 <div class="section" id="module-micom.workflows">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-micom.workflows" title="Permalink to this headline">¶</a></h2>
 <p>Init file for MICOM workflows.</p>
-<dl class="py function">
-<dt id="micom.workflows.workflow">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">workflow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">args</span></em>, <em class="sig-param"><span class="n">n_jobs</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">unit</span><span class="o">=</span><span class="default_value">'sample(s)'</span></em>, <em class="sig-param"><span class="n">progress</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.workflow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run analyses for several samples in parallel.</p>
-<p>This will analyze several samples in parallel. Includes a workaround for
-optlang memory leak.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> (<em>function</em>) – A function that takes a single argument (can be any object) and
-that performs your analysis for a single sample.</p></li>
-<li><p><strong>args</strong> (<em>array-like object</em>) – An array-like object (list, tuple, numpy array, pandas Series, etc.)
-that contains the arguments for each sample.</p></li>
-<li><p><strong>n_jobs</strong> (<em>positive int</em>) – How many samples to analyze in parallel at once.</p></li>
-<li><p><strong>unit</strong> (<em>str</em>) – The unit used for the progress bar.</p></li>
-<li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
-</ul>
-</dd>
-</dl>
+<dl class="py class">
+<dt id="micom.workflows.GrowthResults">
+<em class="property">class </em><code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">GrowthResults</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">growth_rates</span></em>, <em class="sig-param"><span class="n">exchanges</span></em>, <em class="sig-param"><span class="n">annotations</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.GrowthResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="py attribute">
+<dt id="micom.workflows.GrowthResults.annotations">
+<code class="sig-name descname">annotations</code><a class="headerlink" href="#micom.workflows.GrowthResults.annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="micom.workflows.GrowthResults.exchanges">
+<code class="sig-name descname">exchanges</code><a class="headerlink" href="#micom.workflows.GrowthResults.exchanges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="micom.workflows.GrowthResults.growth_rates">
+<code class="sig-name descname">growth_rates</code><a class="headerlink" href="#micom.workflows.GrowthResults.growth_rates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
@@ -451,8 +466,44 @@ from the original metadata.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="micom.workflows.fix_medium">
+<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">fix_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summarize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.fix_medium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Augment a growth medium so all community members can grow in it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – The manifest as returned by the <cite>build</cite> workflow.</p></li>
+<li><p><strong>model_folder</strong> (<em>str</em>) – The folder in which to find the files mentioned in the manifest.</p></li>
+<li><p><strong>medium</strong> (<em>pandas.Series</em><em> or </em><em>pandas.DataFrame</em>) – A growth medium with exchange reaction IDs as index and positive
+import fluxes as values. If a DataFrame needs columns <cite>flux</cite> and
+<cite>reaction</cite>.</p></li>
+<li><p><strong>min_growth</strong> (<em>positive float</em>) – The minimum biomass production required for growth.</p></li>
+<li><p><strong>max_import</strong> (<em>positive float</em>) – The maximum import rate for added imports.</p></li>
+<li><p><strong>minimize_components</strong> (<em>boolean</em>) – Whether to minimize the number of media components rather than the
+total flux.</p></li>
+<li><p><strong>summarize</strong> (<em>boolean</em>) – Whether to summarize the medium across all samples. If False will
+return a medium for each sample.</p></li>
+<li><p><strong>weights</strong> (<em>str</em>) – Will scale the fluxes by a weight factor. Can either be “mass” which will
+scale by molecular mass, a single element which will scale by
+the elemental content (for instance “C” to scale by carbon content).
+If None every metabolite will receive the same weight.
+Will be ignored if <cite>minimize_components</cite> is True.</p></li>
+<li><p><strong>threads</strong> (<em>int</em>) – The number of processes to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A new growth medium with the smallest amount of augmentations such
+that all members of the community can grow in it.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="micom.workflows.grow">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">grow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoff</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.grow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">grow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoff</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.grow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simulate growth for a set of community models.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -466,6 +517,12 @@ by experince. Tradeoff values of 0.5 for metagenomcis data and 0.3 for
 16S data seem to work well.</p></li>
 <li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
 rule of thumb you will need around 1GB of RAM for each thread.</p></li>
+<li><p><strong>weights</strong> (<em>str</em>) – Used during the calculaton of the minimal import rates.
+Will scale the fluxes by a weight factor. Can either be “mass” which will
+scale by molecular mass, a single element which will scale by
+the elemental content (for instance “C” to scale by carbon content).
+If None every metabolite will receive the same weight.
+Will be ignored if <cite>minimize_components</cite> is True.</p></li>
 <li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver tolerance.</p></li>
 <li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the solver tolerance.</p></li>
 </ul>
@@ -481,8 +538,14 @@ samples/models.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="micom.workflows.minimal_media">
+<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">minimal_media</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">summarize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.minimal_media" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the minimal medium for a set of community models.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="micom.workflows.tradeoff">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoffs</span><span class="o">=</span><span class="default_value">array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.tradeoff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">tradeoffs</span><span class="o">=</span><span class="default_value">array([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.])</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.tradeoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run growth rate predictions for varying tradeoff values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -508,64 +571,24 @@ rule of thumb you will need around 1GB of RAM for each thread.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.workflows.fix_medium">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">fix_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summarize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.fix_medium" title="Permalink to this definition">¶</a></dt>
-<dd><p>Augment a growth medium so all community members can grow in it.</p>
+<dt id="micom.workflows.workflow">
+<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">workflow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">args</span></em>, <em class="sig-param"><span class="n">n_jobs</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">unit</span><span class="o">=</span><span class="default_value">'sample(s)'</span></em>, <em class="sig-param"><span class="n">progress</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.workflow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run analyses for several samples in parallel.</p>
+<p>This will analyze several samples in parallel. Includes a workaround for
+optlang memory leak.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – The manifest as returned by the <cite>build</cite> workflow.</p></li>
-<li><p><strong>model_folder</strong> (<em>str</em>) – The folder in which to find the files mentioned in the manifest.</p></li>
-<li><p><strong>medium</strong> (<em>pandas.Series</em><em> or </em><em>pandas.DataFrame</em>) – A growth medium with exchange reaction IDs as index and positive
-import fluxes as values. If a DataFrame needs columns <cite>flux</cite> and
-<cite>reaction</cite>.</p></li>
-<li><p><strong>min_growth</strong> (<em>positive float</em>) – The minimum biomass production required for growth.</p></li>
-<li><p><strong>max_import</strong> (<em>positive float</em>) – The maximum import rate for added imports.</p></li>
-<li><p><strong>minimize_components</strong> (<em>boolean</em>) – Whether to minimize the number of media components rather than the
-total flux.</p></li>
-<li><p><strong>summarize</strong> (<em>boolean</em>) – Whether to summarize the medium across all samples. If False will
-return a medium for each sample.</p></li>
-<li><p><strong>threads</strong> (<em>int</em>) – The number of processes to use.</p></li>
+<li><p><strong>func</strong> (<em>function</em>) – A function that takes a single argument (can be any object) and
+that performs your analysis for a single sample.</p></li>
+<li><p><strong>args</strong> (<em>array-like object</em>) – An array-like object (list, tuple, numpy array, pandas Series, etc.)
+that contains the arguments for each sample.</p></li>
+<li><p><strong>n_jobs</strong> (<em>positive int</em>) – How many samples to analyze in parallel at once.</p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – The unit used for the progress bar.</p></li>
+<li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A new growth medium with the smallest amount of augmentations such
-that all members of the community can grow in it.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pandas.DataFrame</p>
-</dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="micom.workflows.minimal_media">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">minimal_media</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">summarize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.minimal_media" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculate the minimal medium for a set of community models.</p>
-</dd></dl>
-
-<dl class="py class">
-<dt id="micom.workflows.GrowthResults">
-<em class="property">class </em><code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">GrowthResults</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">growth_rates</span></em>, <em class="sig-param"><span class="n">exchanges</span></em>, <em class="sig-param"><span class="n">annotations</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.GrowthResults" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
-<dl class="py attribute">
-<dt id="micom.workflows.GrowthResults.annotations">
-<code class="sig-name descname">annotations</code><a class="headerlink" href="#micom.workflows.GrowthResults.annotations" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 2</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="micom.workflows.GrowthResults.exchanges">
-<code class="sig-name descname">exchanges</code><a class="headerlink" href="#micom.workflows.GrowthResults.exchanges" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="micom.workflows.GrowthResults.growth_rates">
-<code class="sig-name descname">growth_rates</code><a class="headerlink" href="#micom.workflows.GrowthResults.growth_rates" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -584,7 +607,7 @@ that all members of the community can grow in it.</p>
     </p>
     <p>
         &copy; Copyright 2017-2020, Christian Diener.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
     </p>
   </div>
 </footer>

@@ -67,6 +67,6 @@ def test_complete(community):
 def test_complete_mip(community):
     m = media.minimal_medium(community, 0.85, 0.85,
                              minimize_components=True)
-    medium = media.complete_medium(community, m[0:2], 0.8, max_import=20,
+    medium = media.complete_medium(community, m[0:2], 0.8, 0.0, max_import=20,
                                    minimize_components=True)
     assert len(medium) > 2

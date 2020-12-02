@@ -122,7 +122,7 @@ def plot_fit(
             solver="liblinear",
             cv=2,
             Cs=np.power(10.0, np.arange(-6, 6, 0.5)),
-            max_iter=10000,
+            max_iter=50000,
         )
         fit = model.fit(scaled, meta)
         model = LogisticRegression(
@@ -134,9 +134,9 @@ def plot_fit(
             {"coef": fit.coef_[0, :], "metabolite": fluxes.columns}
         )
     else:
-        model = LassoCV(cv=2, max_iter=10000)
+        model = LassoCV(cv=2, max_iter=50000)
         fit = model.fit(scaled, meta)
-        model = Lasso(alpha=fit.alpha_, max_iter=10000)
+        model = Lasso(alpha=fit.alpha_, max_iter=50000)
         fit = model.fit(scaled, meta)
         score = cross_val_score(model, X=scaled, y=meta, cv=3)
         coefs = pd.DataFrame({"coef": fit.coef_, "metabolite": fluxes.columns})

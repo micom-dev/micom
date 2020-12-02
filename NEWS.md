@@ -1,7 +1,9 @@
 ## News and release notes for micom
 
+This includes a list of major changes for each minor version starting from 0.19.0.
+
 For information on how to use `micom` please see the docs at
-https://resendislab.github.io/micom.
+https://micom-dev.github.io/micom.
 
 ### 0.19.0
 

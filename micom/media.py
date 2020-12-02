@@ -109,8 +109,9 @@ def weight(exchanges, what):
         weights = {m: Formula(m.formula).elements.get(what, 1e-6) for m in mets}
     else:
         raise ValueError(
-            "%s is not a valid elements. Must be one of: %s." %
-            (what, ", ".join(elements_and_molecular_weights)))
+            "%s is not a valid elements. Must be one of: %s."
+            % (what, ", ".join(elements_and_molecular_weights))
+        )
     return weights
 
 
@@ -201,6 +202,12 @@ def minimal_medium(
             for rxn in boundary_rxns:
                 rxn.bounds = (-open_bound, open_bound)
         logger.info("applying growth rate constraints")
+        const = community.problem.Constraint(
+            community.objective.expression,
+            lb=community_growth,
+            name="micom_growth_const",
+        )
+        community.add_cons_vars([const])
         _apply_min_growth(community, min_growth, atol, rtol)
         com.objective = Zero
         logger.info("adding new media objective")
@@ -236,7 +243,13 @@ def minimal_medium(
 
 
 def complete_medium(
-    model, medium, min_growth=0.1, max_import=1, minimize_components=False, weights=None
+    model,
+    medium,
+    growth=0.1,
+    min_growth=0.001,
+    max_import=1,
+    minimize_components=False,
+    weights=None,
 ):
     """Fill in missing components in a growth medium.
 
@@ -258,9 +271,14 @@ def complete_medium(
         A growth medium. Must contain positive floats as elements and
         exchange reaction ids as index. Note that reactions not present in the
         model will be removed from the growth medium.
+    growth : positive float
+        The minimum overall growth rate that has to be achieved. For single COBRA
+        model this is just the biomass flux and for community models this is the
+        community biomass flux.
     min_growth : positive float or array-like object.
         The minimum growth rate for each individual in the community. Either
-        a single value applied to all individuals or one value for each.
+        a single value applied to all individuals or one value for each. Only used
+        if model is a `micom.Community` model.
     minimize_components : boolean
         Whether to minimize the number of components instead of the total
         import flux. Might be more intuitive if set to True but may also be
@@ -291,8 +309,13 @@ def complete_medium(
     with model:
         model.modification = None
         const = model.problem.Constraint(
-            model.objective.expression, lb=min_growth, name="micom_growth_const",
+            model.objective.expression,
+            lb=growth,
+            name="micom_growth_const",
         )
+        if isinstance(model, Community):
+            min_growth = _format_min_growth(min_growth, model.taxa)
+            _apply_min_growth(model, min_growth, tol, tol)
         model.add_cons_vars([const])
         model.objective = Zero
         model.medium = medium.to_dict()

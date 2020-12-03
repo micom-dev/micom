@@ -1,6 +1,7 @@
 """Helper to annotate metabolites and species."""
 
 import pandas as pd
+from micom import Community
 
 
 def flatten(d):
@@ -18,12 +19,9 @@ def annotate(ids, community, what="reaction"):
         raise ValueError("Invalid value for `what` :(")
 
     objs = elems.get_by_any(ids)
+    attr = "global_id" if isinstance(community, Community) else "id"
     anns = [
-        pd.Series({
-            what: o.global_id,
-            "name": o.name,
-            **flatten(o.annotation)
-        })
+        pd.Series({what: getattr(o, attr), "name": o.name, **flatten(o.annotation)})
         for o in objs
     ]
     return pd.DataFrame.from_records(anns).drop_duplicates()
@@ -31,11 +29,22 @@ def annotate(ids, community, what="reaction"):
 
 def annotate_metabolites_from_exchanges(com):
     """Annotate exchange reactions by their metabolite."""
-    mets = pd.DataFrame.from_records([
-        {"metabolite": r.reactants[0], "mid":r.reactants[0].global_id,
-         "rid": r.global_id}
-        for r in com.reactions if r.id.startswith("EX_")
-    ])
+    if isinstance(com, Community):
+        exs = com.internal_exchanges
+        attr = "global_id"
+    else:
+        exs = com.exchanges
+        attr = "id"
+    mets = pd.DataFrame.from_records(
+        [
+            {
+                "metabolite": r.reactants[0],
+                "mid": getattr(r.reactants[0], attr),
+                "rid": getattr(r, attr),
+            }
+            for r in exs
+        ]
+    )
     anns = annotate(mets.metabolite.tolist(), com, "metabolite")
     idmap = mets[["mid", "rid"]].drop_duplicates()
     idmap.index = idmap.mid

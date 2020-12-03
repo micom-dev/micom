@@ -334,8 +334,11 @@ def complete_medium(
             sol = model.optimize(fluxes=True, pfba=False)
             fluxes = sol.fluxes.loc["medium", :]
         else:
-            sol = model.optimize()
-            fluxes = sol.fluxes
+            try:
+                sol = model.optimize(raise_error=True)
+                fluxes = sol.fluxes
+            except OptimizationError:
+                sol = None
     if sol is None:
         raise OptimizationError(
             "Could not find a solution that completes the medium :("

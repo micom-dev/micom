@@ -19,7 +19,7 @@ def process_medium(medium, samples):
             m["sample_id"] = s
             meds.append(m)
         medium = pd.concat(meds, axis=0)
-    return medium
+    return medium.drop_duplicates(subset=["reaction", "sample_id"])
 
 
 def _medium(args):
@@ -69,15 +69,16 @@ def minimal_media(
 
 def _fix_medium(args):
     """Get the fixed medium for a model."""
-    sid, p, min_growth, max_import, min_c, medium, weights = args
+    sid, p, growth, min_growth, max_import, mip, medium, weights = args
     com = load_pickle(p)
     try:
         fixed = mm.complete_medium(
             com,
             medium,
+            growth=growth,
             min_growth=min_growth,
             max_import=max_import,
-            minimize_components=min_c,
+            minimize_components=mip,
             weights=weights
         )
     except Exception:
@@ -102,7 +103,8 @@ def fix_medium(
     manifest,
     model_folder,
     medium,
-    min_growth=0.1,
+    community_growth=0.1,
+    min_growth=0.001,
     max_import=1,
     minimize_components=False,
     summarize=True,
@@ -163,7 +165,7 @@ def fix_medium(
             "Some import rates were to small and were adjusted to 1e-6."
         )
     args = [
-        [s, p, min_growth, max_import, minimize_components,
+        [s, p, community_growth, min_growth, max_import, minimize_components,
          medium.flux[medium.sample_id == s], weights]
         for s, p in paths.items()
     ]

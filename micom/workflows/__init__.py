@@ -11,7 +11,7 @@ __all__ = (
     "workflow",
     "build",
     "build_database",
-    "check_db_medium"
+    "check_db_medium",
     "grow",
     "tradeoff",
     "fix_medium",

@@ -1,6 +1,8 @@
 """Test growth media for a model database."""
 
 import pandas as pd
+from cobra.medium import find_external_compartment
+from micom.annotation import annotate_metabolites_from_exchanges
 from micom.db import load_zip_model_db, load_manifest
 from micom.workflows.core import workflow
 from micom.workflows.media import process_medium
@@ -9,18 +11,35 @@ from micom.logger import logger
 from micom.solution import OptimizationError
 from micom.util import load_model
 from micom.qiime_formats import load_qiime_model_db
+import re
 from tempfile import TemporaryDirectory
+
+
+def _grow(args):
+    """Get the maximum growth rate under a given medium."""
+    file, med = args
+    mod = load_model(file)
+    good = med[med.index.isin([r.id for r in mod.exchanges])]
+    if len(good) == 0:
+        logger.warning(
+            "Could not find any reactions from the medium in `%s`. "
+            "Maybe a mismatch in IDs?"
+        )
+    mod.medium = med[med.index.isin([r.id for r in mod.exchanges])]
+    rate = mod.slim_optimize()
+    return rate
 
 
 def _try_complete(args):
     """Try to complete the medium for a model."""
     file, med, growth, max_import, mip, w = args
     mod = load_model(file)
+    exc = find_external_compartment(mod)
     try:
         fixed = mm.complete_medium(
             mod, med, growth, max_import=max_import, minimize_components=mip, weights=w
         )
-        added = fixed.index.apply(lambda i: i not in med.index).sum()
+        added = sum(i not in med.index for i in fixed.index)
         can_grow = True
         logger.info("Could grow `%s` by adding %d import." % (file, added))
     except OptimizationError:
@@ -28,20 +47,20 @@ def _try_complete(args):
         added = float("nan")
         can_grow = False
         logger.info("Could not grow `%s`." % file)
+    fixed.index = [
+        re.sub(
+            "(_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)".format(exc, exc),
+            "_m",
+            rid,
+        )
+        for rid in fixed.index
+    ]
 
     return (can_grow, added, fixed)
 
 
-def check_db_medium(
-    model_db,
-    medium,
-    growth=0.1,
-    max_added_import=1,
-    minimize_components=False,
-    weights=None,
-    threads=1
-):
-    """Check and complete a growth medium for all models in a database.
+def check_db_medium(model_db, medium, threads=1):
+    """Complete a growth medium for all models in a database.
 
     Arguments
     ---------
@@ -54,13 +73,74 @@ def check_db_medium(
         A growth medium. Must have columns "reaction" and "flux" denoting
         exchange reactions and their respective maximum flux. Can not be sample
         specific.
-    growth : positive float
-        The minimum growth rate the model has to achieve with the (fixed) medium.
+    threads : int >=1
+        The number of parallel workers to use when building models. As a
+        rule of thumb you will need around 1GB of RAM for each thread.
+
+    Returns
+    -------
+    pd.DataFrame
+        Returns an annotated manifest file with a column `can_grow` that tells you
+        whether the model can grow on the (fixed) medium, and a column `growth_rate`
+        that gives the growth rate.
+    """
+    medium = process_medium(medium, ["dummy"])
+    medium.index = medium.global_id
+    compressed = model_db.endswith(".qza") or model_db.endswith(".zip")
+    if compressed:
+        tdir = TemporaryDirectory(prefix="micom_")
+    if model_db.endswith(".qza"):
+        manifest = load_qiime_model_db(model_db, tdir.name)
+    elif model_db.endswith(".zip"):
+        manifest = load_zip_model_db(model_db, tdir.name)
+    else:
+        manifest = load_manifest(model_db)
+    rank = manifest["summary_rank"][0]
+    logger.info(
+        "Checking %d %s-level models on a medium with %d components."
+        % (manifest.shape[0], rank, len(medium))
+    )
+
+    args = [(f, medium.flux) for f in manifest.file]
+    results = workflow(_grow, args, threads)
+    manifest["growth_rate"] = results
+    manifest["can_grow"] = manifest.growth_rate.notna() & (manifest.growth_rate > 1e-6)
+
+    if compressed:
+        tdir.cleanup()
+
+    return manifest
+
+
+def complete_db_medium(
+    model_db,
+    medium,
+    growth=0.001,
+    max_added_import=1,
+    minimize_components=False,
+    weights=None,
+    threads=1,
+):
+    """Complete a growth medium for all models in a database.
+
+    Arguments
+    ---------
+    model_db : str
+        A pre-built model database. If ending in `.qza` must be a Qiime 2
+        artifact of type `MetabolicModels[JSON]`. Can also be a folder,
+        zip (must end in `.zip`) file or None if the taxonomy contains a
+        column `file`.
+    medium : pd.DataFrame
+        A growth medium. Must have columns "reaction" and "flux" denoting
+        exchange reactions and their respective maximum flux. Can not be sample
+        specific.
+    growth : positive float or pandas.Series
+        The minimum growth rate the model has to achieve with the (fixed) medium. If
+        a Series will have a minimum growth rate for each id/taxon in the model db.
     max_added_import : positive float
         Maximum import flux for each added additional import not included in the growth
-        medium. If set to zero will simply check for growth on the given medium. If
-        positive will expand the medium with additional imports in order to fulfill
-        the growth objective.
+        medium. If positive will expand the medium with additional imports in order to
+        fulfill the growth objective.
     minimize_components : boolean
         Whether to minimize the number of components instead of the total
         import flux. Might be more intuitive if set to True but may also be
@@ -82,7 +162,8 @@ def check_db_medium(
         whether the model can grow on the (fixed) medium, and a column `added` that
         gives the number of added imports apart from the ones in the medium.
     """
-    medium = process_medium(medium, "dummy").flux
+    medium = process_medium(medium, ["dummy"])
+    medium.index = medium.global_id
     compressed = model_db.endswith(".qza") or model_db.endswith(".zip")
     if compressed:
         tdir = TemporaryDirectory(prefix="micom_")
@@ -97,10 +178,20 @@ def check_db_medium(
         "Checking %d %s-level models on a medium with %d components."
         % (manifest.shape[0], rank, len(medium))
     )
+    if not isinstance(growth, pd.Series):
+        growth = pd.Series(growth, index=manifest.id)
 
+    manifest.index = manifest.id
     args = [
-        (f, medium, growth, max_added_import, minimize_components, weights)
-        for f in manifest.file
+        (
+            manifest.loc[i, "file"],
+            medium.flux,
+            growth[i],
+            max_added_import,
+            minimize_components,
+            weights,
+        )
+        for i in manifest.index
     ]
     results = workflow(_try_complete, args, threads)
     manifest["can_grow"] = [r[0] for r in results]
@@ -112,3 +203,55 @@ def check_db_medium(
         tdir.cleanup()
 
     return (manifest, imports)
+
+
+def _annotate(f):
+    """Get annotation for a model."""
+    mod = load_model(f)
+    return annotate_metabolites_from_exchanges(mod)
+
+
+def db_annotations(
+    model_db,
+    threads=1,
+):
+    """Get metabolite annotations from a model DB.
+
+    Arguments
+    ---------
+    model_db : str
+        A pre-built model database. If ending in `.qza` must be a Qiime 2
+        artifact of type `MetabolicModels[JSON]`. Can also be a folder,
+        zip (must end in `.zip`) file or None if the taxonomy contains a
+        column `file`.
+    threads : int >=1
+        The number of parallel workers to use when building models. As a
+        rule of thumb you will need around 1GB of RAM for each thread.
+
+    Returns
+    -------
+    pd.DataFrame
+        Annotations for all exchanged metabolites.
+    """
+    compressed = model_db.endswith(".qza") or model_db.endswith(".zip")
+    if compressed:
+        tdir = TemporaryDirectory(prefix="micom_")
+    if model_db.endswith(".qza"):
+        manifest = load_qiime_model_db(model_db, tdir.name)
+    elif model_db.endswith(".zip"):
+        manifest = load_zip_model_db(model_db, tdir.name)
+    else:
+        manifest = load_manifest(model_db)
+    rank = manifest["summary_rank"][0]
+    logger.info(
+        "Getting annotations from %d %s-level models ." % (manifest.shape[0], rank)
+    )
+
+    args = manifest.file.tolist()
+    results = workflow(_annotate, args, threads)
+    anns = pd.concat(results).drop_duplicates()
+
+    if compressed:
+        tdir.cleanup()
+
+    return anns

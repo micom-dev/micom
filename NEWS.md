@@ -5,6 +5,20 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please see the docs at
 https://micom-dev.github.io/micom.
 
+### 0.20.0
+
+This version brings new functionality to design growth media from a skeleton medium.
+This also allows for a quicker verification of media against the model databases.
+
+Added workflows:
+
+- `check_db_media` check if models in a model database can grow on a given medium
+- `complete_db_media`completes a growth medium so all models in the db can grow on it
+
+Together with this we now provide several new revised growth media for the gut on
+github.com/micom-dev/media. In particular, we finally provide the often requested growth
+medium for the carveME database.
+
 ### 0.19.0
 
 `minimal_medium` now accepts weighting the fluxes bei molecular weight or

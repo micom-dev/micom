@@ -75,7 +75,6 @@ setup(
         "jinja2>=2.10.0",
         "scikit-learn>=0.22.0",
         "scipy>=1.0.0",
-        "fastcluster>=1.1.0",
         "symengine>=0.6.1"
     ],
     # List additional groups of dependencies here (e.g. development

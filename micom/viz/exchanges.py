@@ -1,8 +1,7 @@
 """Visualization for exchanges."""
 
 from datetime import datetime
-from fastcluster import linkage
-from scipy.cluster.hierarchy import leaves_list
+from scipy.cluster.hierarchy import linkage, leaves_list
 from micom.viz.core import Visualization
 import pandas as pd
 from sklearn.manifold import TSNE

@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom.workflows package &#8212; micom 0.19.0 documentation</title>
+    <title>micom.workflows package &#8212; micom 0.20.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -42,7 +42,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.19.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.20.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -284,7 +284,7 @@ samples/models.</p>
 <p>Example workflows for micom.</p>
 <dl class="py function">
 <dt id="micom.workflows.media.fix_medium">
-<code class="sig-prename descclassname">micom.workflows.media.</code><code class="sig-name descname">fix_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summarize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.media.fix_medium" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.workflows.media.</code><code class="sig-name descname">fix_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">community_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summarize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.media.fix_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Augment a growth medium so all community members can grow in it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -294,6 +294,8 @@ samples/models.</p>
 <li><p><strong>medium</strong> (<em>pandas.Series</em><em> or </em><em>pandas.DataFrame</em>) – A growth medium with exchange reaction IDs as index and positive
 import fluxes as values. If a DataFrame needs columns <cite>flux</cite> and
 <cite>reaction</cite>.</p></li>
+<li><p><strong>community_growth</strong> (<em>positive float</em>) – The minimum community-wide growth rate that has to be achieved on the created
+medium.</p></li>
 <li><p><strong>min_growth</strong> (<em>positive float</em>) – The minimum biomass production required for growth.</p></li>
 <li><p><strong>max_import</strong> (<em>positive float</em>) – The maximum import rate for added imports.</p></li>
 <li><p><strong>minimize_components</strong> (<em>boolean</em>) – Whether to minimize the number of media components rather than the
@@ -466,8 +468,37 @@ from the original metadata.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="micom.workflows.check_db_medium">
+<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">check_db_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model_db</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.check_db_medium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Complete a growth medium for all models in a database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_db</strong> (<em>str</em>) – A pre-built model database. If ending in <cite>.qza</cite> must be a Qiime 2
+artifact of type <cite>MetabolicModels[JSON]</cite>. Can also be a folder,
+zip (must end in <cite>.zip</cite>) file or None if the taxonomy contains a
+column <cite>file</cite>.</p></li>
+<li><p><strong>medium</strong> (<em>pd.DataFrame</em>) – A growth medium. Must have columns “reaction” and “flux” denoting
+exchange reactions and their respective maximum flux. Can not be sample
+specific.</p></li>
+<li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
+rule of thumb you will need around 1GB of RAM for each thread.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns an annotated manifest file with a column <cite>can_grow</cite> that tells you
+whether the model can grow on the (fixed) medium, and a column <cite>growth_rate</cite>
+that gives the growth rate.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="micom.workflows.fix_medium">
-<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">fix_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summarize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.fix_medium" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.workflows.</code><code class="sig-name descname">fix_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">manifest</span></em>, <em class="sig-param"><span class="n">model_folder</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">community_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summarize</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">threads</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.fix_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Augment a growth medium so all community members can grow in it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -477,6 +508,8 @@ from the original metadata.</p>
 <li><p><strong>medium</strong> (<em>pandas.Series</em><em> or </em><em>pandas.DataFrame</em>) – A growth medium with exchange reaction IDs as index and positive
 import fluxes as values. If a DataFrame needs columns <cite>flux</cite> and
 <cite>reaction</cite>.</p></li>
+<li><p><strong>community_growth</strong> (<em>positive float</em>) – The minimum community-wide growth rate that has to be achieved on the created
+medium.</p></li>
 <li><p><strong>min_growth</strong> (<em>positive float</em>) – The minimum biomass production required for growth.</p></li>
 <li><p><strong>max_import</strong> (<em>positive float</em>) – The maximum import rate for added imports.</p></li>
 <li><p><strong>minimize_components</strong> (<em>boolean</em>) – Whether to minimize the number of media components rather than the

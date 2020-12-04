@@ -123,6 +123,9 @@ def fix_medium(
         A growth medium with exchange reaction IDs as index and positive
         import fluxes as values. If a DataFrame needs columns `flux` and
         `reaction`.
+    community_growth : positive float
+        The minimum community-wide growth rate that has to be achieved on the created
+        medium.
     min_growth : positive float
         The minimum biomass production required for growth.
     max_import : positive float

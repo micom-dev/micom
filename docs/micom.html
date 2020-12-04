@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom package &#8212; micom 0.19.0 documentation</title>
+    <title>micom package &#8212; micom 0.20.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -43,7 +43,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.19.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.20.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -732,7 +732,7 @@ components:</p>
 
 <dl class="py function">
 <dt id="micom.media.complete_medium">
-<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">complete_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.complete_medium" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">complete_medium</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span></em>, <em class="sig-param"><span class="n">medium</span></em>, <em class="sig-param"><span class="n">growth</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">max_import</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">minimize_components</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">weights</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.complete_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill in missing components in a growth medium.</p>
 <p>Finds the minimal number of additions to make a model form biomass. In
 order to avoid bias all added reactions will have a maximum import
@@ -750,8 +750,12 @@ medium for an entire model database.</p>
 <li><p><strong>medium</strong> (<em>pandas.Series</em>) – A growth medium. Must contain positive floats as elements and
 exchange reaction ids as index. Note that reactions not present in the
 model will be removed from the growth medium.</p></li>
+<li><p><strong>growth</strong> (<em>positive float</em>) – The minimum overall growth rate that has to be achieved. For single COBRA
+model this is just the biomass flux and for community models this is the
+community biomass flux.</p></li>
 <li><p><strong>min_growth</strong> (<em>positive float</em><em> or </em><em>array-like object.</em>) – The minimum growth rate for each individual in the community. Either
-a single value applied to all individuals or one value for each.</p></li>
+a single value applied to all individuals or one value for each. Only used
+if model is a <cite>micom.Community</cite> model.</p></li>
 <li><p><strong>minimize_components</strong> (<em>boolean</em>) – Whether to minimize the number of components instead of the total
 import flux. Might be more intuitive if set to True but may also be
 slow to calculate for large communities.</p></li>

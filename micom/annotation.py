@@ -30,7 +30,7 @@ def annotate(ids, community, what="reaction"):
 def annotate_metabolites_from_exchanges(com):
     """Annotate exchange reactions by their metabolite."""
     if isinstance(com, Community):
-        exs = com.internal_exchanges
+        exs = com.internal_exchanges + com.exchanges
         attr = "global_id"
     else:
         exs = com.exchanges

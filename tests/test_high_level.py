@@ -68,7 +68,7 @@ def test_fix_medium(tmp_path):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0)
     bad_medium = medium.iloc[0:2, :]
-    fixed = fix_medium(built, str(tmp_path), bad_medium, 0.5, 10)
+    fixed = fix_medium(built, str(tmp_path), bad_medium, 0.5, 0.001, 10)
     assert fixed.shape[0] > 3
     assert "description" in fixed.columns
 

@@ -66,6 +66,7 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
+    python_requires=">=3.6",
     install_requires=[
         "cobra>=0.17.1",
         "optlang>=1.4.4",

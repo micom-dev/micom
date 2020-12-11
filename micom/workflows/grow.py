@@ -66,7 +66,8 @@ def _growth(args):
         atol=atol,
         rtol=rtol
     )["solution"]
-    fluxes = sol.fluxes.loc[:, sol.fluxes.columns.str.startswith("EX_")].copy()
+    exs = [r.global_id for r in com.internal_exchanges + com.exchanges]
+    fluxes = sol.fluxes.loc[:, exs].copy()
     fluxes["sample_id"] = com.id
     fluxes["tolerance"] = atol
     anns = annotate_metabolites_from_exchanges(com)

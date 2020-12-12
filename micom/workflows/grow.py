@@ -66,7 +66,7 @@ def _growth(args):
         atol=atol,
         rtol=rtol
     )["solution"]
-    exs = [r.global_id for r in com.internal_exchanges + com.exchanges]
+    exs = list({r.global_id for r in com.internal_exchanges + com.exchanges})
     fluxes = sol.fluxes.loc[:, exs].copy()
     fluxes["sample_id"] = com.id
     fluxes["tolerance"] = atol

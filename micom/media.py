@@ -104,9 +104,9 @@ def weight(exchanges, what):
     if what is None:
         weights = {m: 1.0 for m in mets}
     elif what == "mass":
-        weights = {m: max(Formula(m.formula).weight, 1e-6) for m in mets}
+        weights = {m: max(Formula(m.formula).weight, 1e-2) for m in mets}
     elif what in elements_and_molecular_weights:
-        weights = {m: Formula(m.formula).elements.get(what, 1e-6) for m in mets}
+        weights = {m: Formula(m.formula).elements.get(what, 1e-2) for m in mets}
     else:
         raise ValueError(
             "%s is not a valid elements. Must be one of: %s."

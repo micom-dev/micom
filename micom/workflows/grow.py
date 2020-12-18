@@ -52,7 +52,8 @@ def _growth(args):
         logger.warning(
             "Could not solve cooperative tradeoff for %s. "
             "This can often be fixed by chosing ore permissive atol and rtol "
-            "arguments." % com.id)
+            "arguments." % com.id
+        )
         return None
 
     # Get the minimal medium and the solution at the same time
@@ -64,7 +65,7 @@ def _growth(args):
         solution=True,
         weights=weights,
         atol=atol,
-        rtol=rtol
+        rtol=rtol,
     )["solution"]
     exs = list({r.global_id for r in com.internal_exchanges + com.exchanges})
     fluxes = sol.fluxes.loc[:, exs].copy()
@@ -82,7 +83,7 @@ def grow(
     threads=1,
     weights=None,
     atol=None,
-    rtol=None
+    rtol=None,
 ):
     """Simulate growth for a set of community models.
 
@@ -122,8 +123,7 @@ def grow(
     """
     samples = manifest.sample_id.unique()
     paths = {
-        s: path.join(
-            model_folder, manifest[manifest.sample_id == s].file.iloc[0])
+        s: path.join(model_folder, manifest[manifest.sample_id == s].file.iloc[0])
         for s in samples
     }
     medium = process_medium(medium, samples)
@@ -141,21 +141,21 @@ def grow(
         )
     growth = pd.concat(r["growth"] for r in results if r is not None)
     growth = growth[growth.taxon != "medium"]
-    exchanges = pd.concat(r["exchanges"] for r in results)
+    exchanges = pd.concat(r["exchanges"] for r in results if r is not None)
     exchanges["taxon"] = exchanges.index
     exchanges = exchanges.melt(
         id_vars=["taxon", "sample_id", "tolerance"],
-        var_name="reaction", value_name="flux"
+        var_name="reaction",
+        value_name="flux",
     ).dropna(subset=["flux"])
     abundance = growth[["taxon", "sample_id", "abundance"]]
-    exchanges = pd.merge(exchanges, abundance,
-                         on=["taxon", "sample_id"], how="outer")
-    anns = pd.concat(r["annotations"] for r in results).drop_duplicates()
+    exchanges = pd.merge(exchanges, abundance, on=["taxon", "sample_id"], how="outer")
+    anns = pd.concat(
+        r["annotations"] for r in results if r is not None
+    ).drop_duplicates()
     anns.index = anns.reaction
     exchanges["metabolite"] = anns.loc[exchanges.reaction, "metabolite"].values
-    exchanges["direction"] = DIRECTION[
-        (exchanges.flux > 0.0).astype(int)
-    ].values
+    exchanges["direction"] = DIRECTION[(exchanges.flux > 0.0).astype(int)].values
     exchanges = exchanges[exchanges.flux.abs() > exchanges.tolerance]
 
     return GrowthResults(growth, exchanges, anns)

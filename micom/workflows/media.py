@@ -163,7 +163,7 @@ def fix_medium(
     }
     medium = process_medium(medium, samples)
     if medium.flux[medium.flux < 1e-6].any():
-        medium.loc[medium < 1e-6, "flux"] = 1e-6
+        medium.loc[medium.flux < 1e-6, "flux"] = 1e-6
         logger.info(
             "Some import rates were to small and were adjusted to 1e-6."
         )

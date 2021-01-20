@@ -11,10 +11,15 @@ from os import path
 import pandas as pd
 
 DIRECTION = pd.Series(["import", "export"], index=[0, 1])
+ARGS = {
+    "none": {"fluxes": True, "pfba": False},
+    "minimal imports": {"fluxes": False, "pfba": False},
+    "pFBA": {"fluxes": True, "pfba": True},
+}
 
 
 def _growth(args):
-    p, tradeoff, medium, weights, atol, rtol = args
+    p, tradeoff, medium, weights, strategy, atol, rtol = args
     com = load_pickle(p)
 
     if atol is None:
@@ -42,8 +47,10 @@ def _growth(args):
     com.medium = medium[medium.index.isin(ex_ids)]
 
     # Get growth rates
+    args = ARGS[strategy].copy()
+    args["fraction"] = tradeoff
     try:
-        sol = com.cooperative_tradeoff(fraction=tradeoff)
+        sol = com.cooperative_tradeoff(**args)
         rates = sol.members
         rates["taxon"] = rates.index
         rates["tradeoff"] = tradeoff
@@ -56,17 +63,19 @@ def _growth(args):
         )
         return None
 
-    # Get the minimal medium and the solution at the same time
-    sol = minimal_medium(
-        com,
-        exchanges=None,
-        community_growth=sol.growth_rate,
-        min_growth=rates.growth_rate.drop("medium"),
-        solution=True,
-        weights=weights,
-        atol=atol,
-        rtol=rtol,
-    )["solution"]
+    if strategy == "minimal imports":
+        # Get the minimal medium and the solution at the same time
+        sol = minimal_medium(
+            com,
+            exchanges=None,
+            community_growth=sol.growth_rate,
+            min_growth=rates.growth_rate.drop("medium"),
+            solution=True,
+            weights=weights,
+            atol=atol,
+            rtol=rtol,
+        )["solution"]
+
     exs = list({r.global_id for r in com.internal_exchanges + com.exchanges})
     fluxes = sol.fluxes.loc[:, exs].copy()
     fluxes["sample_id"] = com.id
@@ -82,10 +91,18 @@ def grow(
     tradeoff,
     threads=1,
     weights=None,
+    strategy="minimal imports",
     atol=None,
     rtol=None,
 ):
     """Simulate growth for a set of community models.
+
+        Note
+    ----
+    The strategy `mimimal imports` can become unstable for common carbon sources since
+    it will add in infeasible imports that are very small but import some high-C
+    molecules. If you use it check that only components from your medium have been used
+    and molecules that should be essential are indeed consumed.
 
     Parameters
     ----------
@@ -103,8 +120,13 @@ def grow(
     threads : int >=1
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
+    strategy : str
+        Computational strategy used to reduce the flux space. Default "pFBA" uses
+        parsimonious FBA, "minimal imports" used the solution with the smallest
+        total mass import from the environment, and "none" returns an arbitrary
+        feasible flux distribution.
     weights : str
-        Used during the calculaton of the minimal import rates.
+        Only used during the calculaton of the minimal import rates.
         Will scale the fluxes by a weight factor. Can either be "mass" which will
         scale by molecular mass, a single element which will scale by
         the elemental content (for instance "C" to scale by carbon content).
@@ -121,6 +143,11 @@ def grow(
         A named tuple containing the growth rates and exchange fluxes for all
         samples/models.
     """
+    if strategy not in ARGS:
+        raise ValueError(
+            "`%s` is not a valid strategy. Must be one of %s!"
+            % (strategy, ", ".join(ARGS))
+        )
     samples = manifest.sample_id.unique()
     paths = {
         s: path.join(model_folder, manifest[manifest.sample_id == s].file.iloc[0])
@@ -128,7 +155,7 @@ def grow(
     }
     medium = process_medium(medium, samples)
     args = [
-        [p, tradeoff, medium.flux[medium.sample_id == s], weights, atol, rtol]
+        [p, tradeoff, medium.flux[medium.sample_id == s], weights, strategy, atol, rtol]
         for s, p in paths.items()
     ]
     results = workflow(_growth, args, threads)

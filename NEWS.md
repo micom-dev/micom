@@ -5,6 +5,21 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please see the docs at
 https://micom-dev.github.io/micom.
 
+### 0.21.0
+
+Due to some issues with the minimal_media function it was adjusted
+to reflect the biological assumptions better. In particular it now minimizes the joint total
+import for each taxon and not only the influx into the environment. This should have minor
+impact on most models but will remove the issue of many very small infeasible (molecules
+not present in the diet) imports.
+
+The strategy to calculate fluxes in the grow workflow can now be set with the
+`strategy` argument. For instance, you can now get fluxes via parsimonious FBA instead of
+assuming minimal imports.
+
+Fixed a bug where minimal media classification with `weights="mass"` would fail due to
+invlaid elements in the formula (for instance "X").
+
 ### 0.20.0
 
 This version brings new functionality to design growth media from a skeleton medium.

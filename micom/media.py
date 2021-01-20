@@ -98,13 +98,22 @@ def add_mip_obj(community, exchanges):
     community.modification = "minimal medium mixed-integer"
 
 
+def safe_weight(met):
+    """Get the weight of a molecule."""
+    try:
+        w = max(Formula(met.formula).weight, 1.0)
+    except Exception:
+        w = 1.0
+    return w
+
+
 def weight(exchanges, what):
     """Obtain elemental weights for metabolites."""
     mets = [list(r.metabolites)[0] for r in exchanges]
     if what is None:
         weights = {m: 1.0 for m in mets}
     elif what == "mass":
-        weights = {m: max(Formula(m.formula).weight, 1e-2) for m in mets}
+        weights = {m: safe_weight(m) for m in mets}
     elif what in elements_and_molecular_weights:
         weights = {m: Formula(m.formula).elements.get(what, 1e-2) for m in mets}
     else:
@@ -188,7 +197,10 @@ def minimal_medium(
         rtol = community.solver.configuration.tolerances.optimality
 
     if exchanges is None:
-        boundary_rxns = community.exchanges
+        if isinstance(community, Community) and not minimize_components:
+            boundary_rxns = community.internal_exchanges
+        else:
+            boundary_rxns = community.exchanges
     else:
         boundary_rxns = community.reactions.get_by_any(exchanges)
     if isinstance(open_exchanges, bool):
@@ -223,7 +235,8 @@ def minimal_medium(
 
         logger.info("formatting medium")
         medium = pd.Series()
-        ex = set(com.exchanges) & set(boundary_rxns)
+        set_medium = community.medium
+        ex = [r for r in com.exchanges if r.id in set_medium]
         for rxn in ex:
             export = len(rxn.reactants) == 1
             flux = sol.fluxes.loc["medium", rxn.id]

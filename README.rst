@@ -51,19 +51,20 @@ Getting help
 ------------
 
 General questions on usage can be asked in Github Discussions
-    - https://github.com/micom-dev/micom/discussions
+    https://github.com/micom-dev/micom/discussions
 
 We are also available on the cobrapy Gitter channel
-    - https://gitter.im/opencobra/cobrapy
+    https://gitter.im/opencobra/cobrapy
 
 Questions specific to the MICOM Qiime2 plugin (q2-micom) can also be asked on the Qiime2 forum
-    - https://forum.qiime2.org/c/community-plugin-support/
+    https://forum.qiime2.org/c/community-plugin-support/
 
 Bugs can be reported at https://github.com/micom-dev/micom/issues.
 If you do so please include the following:
-    - version of MICOM that was used
-    - solver that was used (CPLEX, Gurobi, OSQP)
-    - if possible a small reproducible example
+
+- version of MICOM that was used
+- solver that was used (CPLEX, Gurobi, OSQP)
+- if possible a small reproducible example
 
 
 .. |actions status| image:: https://github.com/micom-dev/micom/workflows/Python%20package/badge.svg

@@ -12,6 +12,7 @@ from micom.util import (
 )
 from micom.logger import logger
 from micom.solution import OptimizationError
+import warnings
 
 
 def add_linear_obj(community, exchanges, weights):
@@ -101,7 +102,9 @@ def add_mip_obj(community, exchanges):
 def safe_weight(met):
     """Get the weight of a molecule."""
     try:
-        w = max(Formula(met.formula).weight, 1.0)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            w = max(Formula(met.formula).weight, 1.0)
     except Exception:
         w = 1.0
     return w

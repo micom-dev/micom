@@ -41,9 +41,9 @@ def add_linear_obj(community, exchanges, weights):
         )
         met = list(rxn.metabolites)[0]
         if export:
-            coefs[rxn.reverse_variable] = weights[met]
+            coefs[rxn.reverse_variable] = weights[met] * community.scale
         else:
-            coefs[rxn.forward_variable] = weights[met]
+            coefs[rxn.forward_variable] = weights[met] * community.scale
     community.objective.set_linear_coefficients(coefs)
     community.objective.direction = "min"
     community.modification = "minimal medium linear"
@@ -200,10 +200,7 @@ def minimal_medium(
         rtol = community.solver.configuration.tolerances.optimality
 
     if exchanges is None:
-        if isinstance(community, Community) and not minimize_components:
-            boundary_rxns = community.internal_exchanges
-        else:
-            boundary_rxns = community.exchanges
+        boundary_rxns = community.exchanges
     else:
         boundary_rxns = community.reactions.get_by_any(exchanges)
     if isinstance(open_exchanges, bool):

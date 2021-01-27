@@ -34,6 +34,9 @@ def add_linear_obj(community, exchanges, weights):
         minimization.
     """
     check_modification(community)
+    scale = 1.0
+    if isinstance(community, Community):
+        scale = community.scale
     coefs = {}
     for rxn in exchanges:
         export = len(rxn.reactants) == 1 or (
@@ -41,9 +44,9 @@ def add_linear_obj(community, exchanges, weights):
         )
         met = list(rxn.metabolites)[0]
         if export:
-            coefs[rxn.reverse_variable] = weights[met] * community.scale
+            coefs[rxn.reverse_variable] = weights[met] * scale
         else:
-            coefs[rxn.forward_variable] = weights[met] * community.scale
+            coefs[rxn.forward_variable] = weights[met] * scale
     community.objective.set_linear_coefficients(coefs)
     community.objective.direction = "min"
     community.modification = "minimal medium linear"

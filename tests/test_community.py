@@ -1,6 +1,6 @@
 """Tests for basic construction of a community."""
 
-from fixtures import community
+from .fixtures import community
 from micom import Community, load_pickle
 from micom.data import test_taxonomy
 import numpy as np

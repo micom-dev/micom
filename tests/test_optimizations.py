@@ -1,6 +1,6 @@
 """Test optimization functions."""
 
-from fixtures import community
+from .fixtures import community
 import cobra
 from cobra.util.solver import solvers
 import numpy as np

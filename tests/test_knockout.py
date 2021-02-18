@@ -1,6 +1,6 @@
 """Test knockouts."""
 
-from fixtures import community
+from .fixtures import community
 import micom.solution as ms
 import numpy as np
 from os import path

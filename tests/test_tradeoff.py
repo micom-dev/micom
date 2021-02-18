@@ -1,6 +1,6 @@
 """Test cooperative tradeoff."""
 
-from fixtures import community
+from .fixtures import community
 import micom.qiime_formats as qf
 from os import path
 from pytest import mark, raises, approx

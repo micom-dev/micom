@@ -21,7 +21,7 @@ from collections.abc import Sized
 from functools import partial
 import pandas as pd
 import numpy as np
-from tqdm.auto import tqdm
+from rich.progress import track
 
 
 def regularize_l2_norm(community, min_growth):
@@ -122,9 +122,8 @@ def knockout_taxa(
         old = com.optimize().members["growth_rate"]
         results = []
 
-        if progress:
-            taxa = tqdm(taxa, unit="knockout(s)")
-        for sp in taxa:
+        iter = track(taxa, description="Knockouts") if progress else taxa
+        for sp in iter:
             with com:
                 logger.info("getting growth rates for " "%s knockout." % sp)
                 [

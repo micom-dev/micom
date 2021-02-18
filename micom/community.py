@@ -6,7 +6,6 @@ import six.moves.cPickle as pickle
 import cobra
 import pandas as pd
 from optlang.symbolics import Zero
-from tqdm.auto import tqdm
 from micom.db import load_zip_model_db, load_manifest
 from micom.util import (
     load_model,
@@ -19,6 +18,7 @@ from micom.logger import logger
 from micom.optcom import optcom, solve
 from micom.problems import cooperative_tradeoff, knockout_taxa
 from micom.qiime_formats import load_qiime_model_db
+from rich.progress import track
 from tempfile import TemporaryDirectory
 
 _ranks = ["kingdom", "phylum", "class", "order", "family", "genus", "species", "strain"]
@@ -228,7 +228,7 @@ class Community(cobra.Model):
         obj = Zero
         self.taxa = []
         index = self.__taxonomy.index
-        index = tqdm(index, unit="models") if progress else index
+        index = track(index, description="Building") if progress else index
         for idx in index:
             row = self.__taxonomy.loc[idx]
             if isinstance(row.file, list):
@@ -462,7 +462,7 @@ class Community(cobra.Model):
         """
         index = self.__taxonomy.index
         if progress:
-            index = tqdm(self.__taxonomy.index, unit="optimizations")
+            index = track(self.__taxonomy.index, description="Optimizing")
 
         individual = (self.optimize_single(id) for id in index)
         return pd.Series(individual, self.__taxonomy.index)

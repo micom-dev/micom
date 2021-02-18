@@ -1,6 +1,6 @@
 """Test model db creation."""
 
-from fixtures import this_dir
+from .fixtures import this_dir
 import micom as mm
 import micom.workflows as mw
 import micom.db as mdb

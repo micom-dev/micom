@@ -23,7 +23,7 @@ def _tradeoff(args):
     try:
         sol = com.optimize()
     except Exception:
-        logger.warning(
+        logger.error(
             "Sample %s could not be optimized (%s)." %
             (com.id, com.solver.status),
         )

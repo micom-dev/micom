@@ -1,6 +1,6 @@
 """Test numerical stabilization methods."""
 
-from fixtures import community
+from .fixtures import community
 import micom.solution as ms
 from os import path
 from pytest import mark, raises, approx

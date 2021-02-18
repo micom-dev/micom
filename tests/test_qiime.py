@@ -1,6 +1,6 @@
 """Test Qiime 2 compatibility."""
 
-from fixtures import this_dir
+from .fixtures import this_dir
 import micom.qiime_formats as qf
 from micom.data import test_db, test_medium
 from os import path

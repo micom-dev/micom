@@ -1,6 +1,6 @@
 """Test the micom algorithms."""
 
-from fixtures import community
+from .fixtures import community
 import numpy as np
 import micom
 import micom.algorithms as algo

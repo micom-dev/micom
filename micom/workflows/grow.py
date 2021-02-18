@@ -56,7 +56,7 @@ def _growth(args):
         rates["tradeoff"] = tradeoff
         rates["sample_id"] = com.id
     except Exception:
-        logger.warning(
+        logger.error(
             "Could not solve cooperative tradeoff for %s. "
             "This can often be fixed by chosing ore permissive atol and rtol "
             "arguments." % com.id

@@ -2,7 +2,7 @@
 
 from collections import Sized, namedtuple
 from multiprocessing import Pool
-from tqdm.auto import tqdm
+from rich.progress import track
 
 GrowthResults = namedtuple(
     "GrowthResults",
@@ -37,6 +37,6 @@ def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):
     with Pool(processes=n_jobs, maxtasksperchild=1) as pool:
         it = pool.imap_unordered(func, args)
         if progress:
-            it = tqdm(it, total=len(args), unit=unit)
+            it = track(it, total=len(args), description="Running")
         results = list(it)
     return results

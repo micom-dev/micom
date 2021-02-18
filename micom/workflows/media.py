@@ -32,6 +32,7 @@ def _medium(args):
     try:
         medium = mm.minimal_medium(com, 0.0, min_growth=min_growth).to_frame()
     except Exception:
+        logger.error("Could not get a minimal medium for sample %s." % s)
         return None
     medium.columns = ["flux"]
     medium["sample_id"] = s
@@ -82,7 +83,7 @@ def _fix_medium(args):
             weights=weights
         )
     except Exception:
-        logger.warning(
+        logger.error(
             "Can't reach the specified growth rates for model %s." % sid
         )
         return None

@@ -1,6 +1,6 @@
 """Test interventions."""
 
-from fixtures import community
+from .fixtures import community
 from micom.elasticity import elasticities
 from pytest import approx
 

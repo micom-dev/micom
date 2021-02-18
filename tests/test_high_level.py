@@ -1,6 +1,6 @@
 """Test the high level API."""
 
-from fixtures import community
+from .fixtures import community
 import micom.data as md
 from micom.workflows import (
     build_database, build, grow, tradeoff, minimal_media, fix_medium)

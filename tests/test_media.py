@@ -1,6 +1,6 @@
 """Test growth media agorithms."""
 
-from fixtures import community
+from .fixtures import community
 import numpy as np
 import micom.media as media
 import pytest

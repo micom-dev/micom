@@ -1,6 +1,6 @@
 """Test visualization."""
 
-from fixtures import growth_data, tradeoff_data, check_viz
+from .fixtures import growth_data, tradeoff_data, check_viz
 import micom.viz as viz
 from os import path
 import pandas as pd

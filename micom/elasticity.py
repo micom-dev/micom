@@ -7,11 +7,11 @@ quantities.
 from functools import partial
 import pandas as pd
 import numpy as np
-from tqdm.auto import tqdm
 from cobra.util import get_context
 from micom.util import reset_min_community_growth
 from micom.problems import regularize_l2_norm
 from micom.solution import optimize_with_fraction
+from rich.progress import track
 
 
 STEP = 0.1
@@ -75,7 +75,7 @@ def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
 
     fluxes = import_fluxes.index
     if progress:
-        fluxes = tqdm(fluxes, unit="optimizations", desc="medium")
+        fluxes = track(fluxes, description="Metabolites")
     for r in fluxes:
         flux = import_fluxes[r]
         with com:
@@ -126,7 +126,7 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     taxa = abundance.index
 
     if progress:
-        taxa = tqdm(taxa, unit="optimizations", desc="taxa abundances")
+        taxa = track(taxa, description="Taxa")
     for sp in taxa:
         old = abundance[sp]
         abundance.loc[sp] *= np.exp(STEP)

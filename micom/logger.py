@@ -1,7 +1,11 @@
 """configures the logger for micom."""
 
-from loguru import logger
-import sys
+import logging
+from rich.logging import RichHandler
 
-logger.remove()
-logger.add(sys.stderr, level="WARNING")
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="WARNING", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
+)
+
+logger = logging.getLogger("micom")

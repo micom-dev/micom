@@ -1,4 +1,4 @@
-from fixtures import community
+from .fixtures import community
 import micom.problems as probs
 import numpy as np
 import pytest

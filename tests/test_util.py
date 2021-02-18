@@ -4,7 +4,7 @@ from os.path import basename
 import numpy as np
 import micom
 import micom.util as util
-from fixtures import community
+from .fixtures import community
 
 URL = "http://bigg.ucsd.edu/static/models/e_coli_core.xml.gz"
 tax = micom.data.test_taxonomy()

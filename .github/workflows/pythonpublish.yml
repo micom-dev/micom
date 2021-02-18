@@ -4,6 +4,12 @@
 name: Upload Python Package
 
 on:
+  workflow_run:
+    workflows: ["Python package"]
+    branches: [master]
+    types:
+      - completed
+      - requested
   push:
     tags:
       - 'v*'

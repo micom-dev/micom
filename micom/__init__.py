@@ -1,6 +1,7 @@
 """Simple init file for mico."""
 
 from micom.community import Community
+from micom.deps import show_versions
 from micom.util import load_pickle
 from micom import (
     algorithms,
@@ -12,7 +13,7 @@ from micom import (
     media,
     qiime_formats,
     solution,
-    workflows
+    workflows,
 )
 
 
@@ -31,6 +32,7 @@ __all__ = (
     "solution",
     "load_pickle",
     "workflows",
+    "show_versions",
 )
 
 __version__ = "0.21.4"

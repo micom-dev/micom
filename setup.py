@@ -70,6 +70,7 @@ setup(
     python_requires=">=3.6",
     install_requires=[
         "cobra>=0.17.1",
+        "depinfo>=1.7.0"
         "optlang>=1.4.4",
         "pandas>=0.20.0",
         "rich>=9.10.0",

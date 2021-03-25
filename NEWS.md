@@ -2,7 +2,7 @@
 
 This includes a list of major changes for each minor version starting from 0.19.0.
 
-For information on how to use `micom` please see the docs at
+For information on how to use `micom` please read the docs at
 https://micom-dev.github.io/micom.
 
 ### 0.22.0

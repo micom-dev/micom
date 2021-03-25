@@ -24,6 +24,8 @@ _read_funcs = {
     ".pickle": lambda fn: pickle.load(open(fn, "rb")),
 }
 
+COMPARTMENT_RE = "(_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)"
+
 
 def download_model(url, folder="."):
     """Download a model."""
@@ -99,6 +101,23 @@ def chr_or_input(m):
 def clean_ids(id):
     """Clean ids up a bit."""
     return re.sub("__(\\d+)__", chr_or_input, id)
+
+
+def compartment_id(micom_obj):
+    """Get the compartment id for a cobra object and prune the prefix if needed."""
+    comp_id = micom_obj.compartment.replace("__" + micom_obj.community_id, "")
+    pruned = comp_id.replace("C_", "")
+    match_original = (
+        re.search(COMPARTMENT_RE.format(comp_id, comp_id), micom_obj.global_id)
+        is not None
+    )
+    match_pruned = (
+        re.search(COMPARTMENT_RE.format(pruned, pruned), micom_obj.global_id)
+        is not None
+    )
+    if not match_original and match_pruned:
+        return pruned
+    return comp_id
 
 
 def join_models(model_files, id=None):
@@ -244,8 +263,7 @@ def _apply_min_growth(community, min_growth, atol=1e-6, rtol=1e-6):
             obj.lb = (1.0 - rtol) * min_growth[sp] - atol
         else:
             logger.info(
-                "minimal growth rate smaller than tolerance,"
-                " setting to zero."
+                "minimal growth rate smaller than tolerance," " setting to zero."
             )
             obj.lb = 0
 

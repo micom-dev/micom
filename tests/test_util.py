@@ -1,6 +1,7 @@
 """Test utilities."""
 
 from os.path import basename
+import cobra
 import numpy as np
 import micom
 import micom.util as util
@@ -54,3 +55,16 @@ def test_join_models():
     assert len(mod.reactions) == len(single.reactions) + 1  # added biomass
     assert len(mod.metabolites) == len(single.metabolites)
     assert np.allclose(single.slim_optimize(), mod.slim_optimize())
+
+def test_compartment_id():
+    met = cobra.core.Metabolite(id="test_met_e__taxon")
+    met.community_id = "taxon"
+    met.global_id = "text_met_e"
+    met.compartment = "e__taxon"
+    assert util.compartment_id(met) == "e"
+    met.compartment = "C_e__taxon"
+    assert util.compartment_id(met) == "e"
+    met.global_id = "test_met[e]"
+    assert util.compartment_id(met) == "e"
+    met.global_id = "test_met(e)"
+    assert util.compartment_id(met) == "e"

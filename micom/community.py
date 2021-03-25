@@ -13,6 +13,8 @@ from micom.util import (
     add_var_from_expression,
     adjust_solver_config,
     clean_ids,
+    compartment_id,
+    COMPARTMENT_RE,
 )
 from micom.logger import logger
 from micom.optcom import optcom, solve
@@ -285,7 +287,11 @@ class Community(cobra.Model):
         self.objective = self.problem.Objective(com_obj, direction="max")
 
     def __add_exchanges(
-        self, reactions, info, external_compartment="e", internal_exchange=1000,
+        self,
+        reactions,
+        info,
+        external_compartment="e",
+        internal_exchange=1000,
     ):
         """Add exchange reactions for a new model."""
         for r in reactions:
@@ -319,11 +325,9 @@ class Community(cobra.Model):
                 )
                 ub = 1e-6
             met = (r.reactants + r.products)[0]
-            old_compartment = met.compartment.replace("__" + r.community_id, "")
+            old_compartment = compartment_id(met)
             medium_id = re.sub(
-                "(_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)".format(
-                    old_compartment, old_compartment
-                ),
+                COMPARTMENT_RE.format(old_compartment, old_compartment),
                 "",
                 met.global_id,
             )
@@ -390,7 +394,10 @@ class Community(cobra.Model):
             taxa_obj = self.constraints["objective_" + sp]
             com_obj += ab * taxa_obj.expression
         const = self.problem.Constraint(
-            (v - com_obj).expand(), lb=0, ub=0, name="community_objective_equality",
+            (v - com_obj).expand(),
+            lb=0,
+            ub=0,
+            name="community_objective_equality",
         )
         self.add_cons_vars([const])
 
@@ -722,7 +729,12 @@ class Community(cobra.Model):
         return cooperative_tradeoff(self, min_growth, fraction, fluxes, pfba)
 
     def knockout_taxa(
-        self, taxa=None, fraction=1.0, method="change", progress=True, diag=True,
+        self,
+        taxa=None,
+        fraction=1.0,
+        method="change",
+        progress=True,
+        diag=True,
     ):
         """Sequentially knowckout a list of taxa in the model.
 

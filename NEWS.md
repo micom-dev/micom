@@ -5,6 +5,12 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please see the docs at
 https://micom-dev.github.io/micom.
 
+### 0.22.0
+
+Got a bit smarter in cleaning up compartment suffixes. This fixes the odd "_e_m" suffix
+in CARVEME-derived models. This will change the names of exchange reactions compared
+to version 0.21.x.
+
 ### 0.21.0
 
 Stabilize minimal_medium a bit more.

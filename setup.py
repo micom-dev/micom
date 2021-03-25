@@ -70,9 +70,9 @@ setup(
     python_requires=">=3.6",
     install_requires=[
         "cobra>=0.17.1",
-        "depinfo>=1.7.0"
-        "optlang>=1.4.4",
-        "pandas>=0.20.0",
+        "depinfo>=1.7.0",
+        "optlang>=1.4.7",
+        "pandas>=1.2.0",
         "rich>=9.10.0",
         "jinja2>=2.10.0",
         "scikit-learn>=0.22.0",

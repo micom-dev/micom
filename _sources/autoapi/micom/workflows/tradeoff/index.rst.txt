@@ -1,0 +1,50 @@
+:mod:`micom.workflows.tradeoff`
+===============================
+
+.. py:module:: micom.workflows.tradeoff
+
+.. autoapi-nested-parse::
+
+   Workflow to run cooperative tradeoff with various tradeoff values.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.workflows.tradeoff._tradeoff
+   micom.workflows.tradeoff.tradeoff
+
+
+.. function:: _tradeoff(args)
+
+
+.. function:: tradeoff(manifest, model_folder, medium, tradeoffs=np.arange(0.1, 1.0 + 1e-06, 0.1), threads=1)
+
+   Run growth rate predictions for varying tradeoff values.
+
+   :param manifest: The manifest as returned by the `build` workflow.
+   :type manifest: pandas.DataFrame
+   :param model_folder: The folder in which to find the files mentioned in the manifest.
+   :type model_folder: str
+   :param medium: A growth medium. Must have columns "reaction" and "flux" denoting
+                  exchnage reactions and their respective maximum flux.
+   :type medium: pandas.DataFrame
+   :param tradeoffs: An array of tradeoff vaues to be tested. One simulation without
+                     a tradeoff (no cooperative tradeoff) will always be run additionally
+                     and will have a tradeoff of "NaN".
+   :type tradeoffs: array of floats in (0.0, 1.0]
+   :param threads: The number of parallel workers to use when building models. As a
+                   rule of thumb you will need around 1GB of RAM for each thread.
+   :type threads: int >=1
+
+   :returns: The predicted growth rates.
+   :rtype: pandas.DataFrame
+
+

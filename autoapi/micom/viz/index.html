@@ -1,0 +1,853 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>micom.viz &#8212; version 0.22.2</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/micom.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">version 0.22.2</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../logic.html">
+   Methods used by MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../installing.html">
+   Installing MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../high_level.html">
+   MICOM workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../viz.html">
+   Visualizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../community.html">
+   Single Model API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../growth_fluxes.html">
+   Growth rates and fluxes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../media.html">
+   Growth media
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../taxa_knockouts.html">
+   Knockouts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../elasticities.html">
+   Intervention studies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../workflows.html">
+   Writing your own workflows
+  </a>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="../../index.html">
+   API Reference
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active collapsible-parent">
+    <a class="reference internal" href="../index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       micom
+      </span>
+     </code>
+    </a>
+    <ul class="current collapse-ul">
+     <li class="toctree-l3">
+      <a class="reference internal" href="../data/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.data
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3 current active collapsible-parent">
+      <a class="current reference internal" href="#">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.viz
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="exchanges/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.exchanges
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="growth/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.growth
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="prediction/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.prediction
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../workflows/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.workflows
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/build/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.build
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/db_media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.db_media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/grow/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.grow
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../algorithms/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.algorithms
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../annotation/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.annotation
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../community/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.community
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../db/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.db
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../deps/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.deps
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../duality/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.duality
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../elasticity/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.elasticity
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../logger/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.logger
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../media/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.media
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../optcom/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.optcom
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../problems/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.problems
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../qiime_formats/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.qiime_formats
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../solution/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.solution
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../taxonomy/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.taxonomy
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../util/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.util
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+    <i class="fas fa-chevron-down">
+    </i>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/autoapi/micom/viz/index.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#submodules">
+   Submodules
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#package-contents">
+   Package Contents
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classes">
+     Classes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions">
+     Functions
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.viz.Visualization">
+       Visualization
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.viz.Visualization.filename">
+         filename
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.viz.Visualization.data">
+         data
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.viz.Visualization.template">
+         template
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.viz.Visualization.view">
+         view
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.viz.Visualization.save">
+         save
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.viz.plot_exchanges_per_sample">
+       plot_exchanges_per_sample
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.viz.plot_exchanges_per_taxon">
+       plot_exchanges_per_taxon
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.viz.plot_growth">
+       plot_growth
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.viz.plot_fit">
+       plot_fit
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.viz.plot_tradeoff">
+       plot_tradeoff
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="module-micom.viz">
+<span id="micom-viz"></span><h1><a class="reference internal" href="#module-micom.viz" title="micom.viz"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><a class="headerlink" href="#module-micom.viz" title="Permalink to this headline">¶</a></h1>
+<p>Init file for MICOM Visualization.</p>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.core</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="exchanges/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.exchanges</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="growth/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.growth</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="prediction/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.prediction</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.tradeoff</span></code></a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Visualization</span></code></a></p></td>
+<td><p>A visualization object.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_exchanges_per_sample" title="micom.viz.plot_exchanges_per_sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_exchanges_per_sample</span></code></a>(results, filename='sample_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction='import', cluster=True) → None</p></td>
+<td><p>Plot the per sample exchange fluxes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_exchanges_per_taxon" title="micom.viz.plot_exchanges_per_taxon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_exchanges_per_taxon</span></code></a>(results, filename='taxon_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction='import', **tsne_args) → None</p></td>
+<td><p>Plot the exchange fluxes per taxon.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_growth" title="micom.viz.plot_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_growth</span></code></a>(results, filename='growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)</p></td>
+<td><p>Plot the taxa growth rates.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_fit" title="micom.viz.plot_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_fit</span></code></a>(results, phenotype, variable_type='binary', variable_name='phenotype', filename='fit_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', min_coef=0.001, atol=1e-06)</p></td>
+<td><p>Test for differential metabolite production.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_tradeoff" title="micom.viz.plot_tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_tradeoff</span></code></a>(tradeoff_rates, filename='tradeoff_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)</p></td>
+<td><p>Plot diagnostics for varying tradeoff values.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="micom.viz.Visualization">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">micom.viz.</span></code><code class="sig-name descname"><span class="pre">Visualization</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/core.html#Visualization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.Visualization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A visualization object.</p>
+<dl class="py attribute">
+<dt id="micom.viz.Visualization.filename">
+<code class="sig-name descname"><span class="pre">filename</span></code><a class="headerlink" href="#micom.viz.Visualization.filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>The filename of trhe saved visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="micom.viz.Visualization.data">
+<code class="sig-name descname"><span class="pre">data</span></code><a class="headerlink" href="#micom.viz.Visualization.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>The data used to create the Visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="micom.viz.Visualization.template">
+<code class="sig-name descname"><span class="pre">template</span></code><a class="headerlink" href="#micom.viz.Visualization.template" title="Permalink to this definition">¶</a></dt>
+<dd><p>The jinja template used to render the visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>jinja2.Template</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.viz.Visualization.view">
+<code class="sig-name descname"><span class="pre">view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.Visualization.view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open the visualization in a browser.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None.</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>nothing</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.viz.Visualization.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.viz.Visualization.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render and and save the visualization.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.viz.plot_exchanges_per_sample">
+<code class="sig-prename descclassname"><span class="pre">micom.viz.</span></code><code class="sig-name descname"><span class="pre">plot_exchanges_per_sample</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sample_exchanges_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'import'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../../_modules/micom/viz/exchanges.html#plot_exchanges_per_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_exchanges_per_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the per sample exchange fluxes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>micom.workflows.GrowthResults</em>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
+<li><p><strong>direction</strong> (<em>str either &quot;import&quot;</em><em> or </em><em>&quot;export&quot;</em>) – The direction of fluxes to plot.</p></li>
+<li><p><strong>cluster</strong> (<em>bool</em>) – Whether to reorder samples so that samples with similar exchange
+fluxes are close to another.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.viz.plot_exchanges_per_taxon">
+<code class="sig-prename descclassname"><span class="pre">micom.viz.</span></code><code class="sig-name descname"><span class="pre">plot_exchanges_per_taxon</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'taxon_exchanges_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'import'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">tsne_args</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="reference internal" href="../../../_modules/micom/viz/exchanges.html#plot_exchanges_per_taxon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_exchanges_per_taxon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the exchange fluxes per taxon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>micom.workflows.GrowthResults</em>) – The exchanges returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
+<li><p><strong>direction</strong> (<em>str either &quot;import&quot;</em><em> or </em><em>&quot;export&quot;</em>) – The direction of fluxes to plot.</p></li>
+<li><p><strong>tsne_args</strong> (<em>dict</em>) – Additional arguments passed to TSNE.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.viz.plot_growth">
+<code class="sig-prename descclassname"><span class="pre">micom.viz.</span></code><code class="sig-name descname"><span class="pre">plot_growth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'growth_rates_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/growth.html#plot_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_growth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the taxa growth rates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>micom.workflows.GrowthResults</em>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
+<li><p><strong>tolerance</strong> (<em>float</em>) – Smallest growth rate that will be considered. Everything lower will be
+considered not growing.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.viz.plot_fit">
+<code class="sig-prename descclassname"><span class="pre">micom.viz.</span></code><code class="sig-name descname"><span class="pre">plot_fit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'binary'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'phenotype'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fit_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'production'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_coef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/prediction.html#plot_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test for differential metabolite production.</p>
+<p>This will fit the <cite>phenotype</cite> response using L1-regularized linear models
+with log-fluxes as features. Will use LASSO regression for a continuous
+response and L1-regularized Logistic regression for a binary response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>micom.workflows.GrowthResults</em>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>phenotype</strong> (<em>pandas.Series</em>) – The data to be fitted. Its index must correspond to <cite>sample_id</cite> in
+<cite>exchanges</cite>.</p></li>
+<li><p><strong>variable_type</strong> (<em>str of</em><em> [</em><em>&quot;binary&quot;</em><em>, </em><em>&quot;continuous&quot;</em><em>]</em>) – The type of the variable.</p></li>
+<li><p><strong>variable_name</strong> (<em>str</em>) – A short description of the phenotype for instance “disease_status”.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
+<li><p><strong>flux_type</strong> (<em>str of</em><em> [</em><em>&quot;import&quot;</em><em>, </em><em>&quot;production&quot;</em><em>]</em>) – Whether to fit using import or production fluxes.</p></li>
+<li><p><strong>min_coef</strong> (<em>float in</em><em> [</em><em>0.0</em><em>, </em><em>Inf</em><em>]</em>) – Only report coefficient that are at least that large.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Tolerance to consider a flux different from zero. Should be roughly equivalent
+to the solver tolerance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.view</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.viz.plot_tradeoff">
+<code class="sig-prename descclassname"><span class="pre">micom.viz.</span></code><code class="sig-name descname"><span class="pre">plot_tradeoff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tradeoff_rates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tradeoff_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/tradeoff.html#plot_tradeoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_tradeoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot diagnostics for varying tradeoff values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tradeoff_rates</strong> (<em>pandas.DataFrame</em>) – The growth rates returned by the <cite>tradeoff</cite> workflow.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
+<li><p><strong>tolerance</strong> (<em>float</em>) – Smallest growth rate that will be considered. Everything lower will be
+considered not growing.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Christian Diener<br/>
+        
+            &copy; Copyright 2017-2021, Christian Diener.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

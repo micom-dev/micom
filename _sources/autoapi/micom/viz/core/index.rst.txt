@@ -1,0 +1,69 @@
+:mod:`micom.viz.core`
+=====================
+
+.. py:module:: micom.viz.core
+
+.. autoapi-nested-parse::
+
+   Core objects for visualization.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   micom.viz.core.Visualization
+
+
+
+.. data:: env
+   
+
+   
+
+.. class:: Visualization(filename, data, template)
+
+
+   Bases: :class:`object`
+
+   A visualization object.
+
+   .. attribute:: filename
+
+      The filename of trhe saved visualization.
+
+      :type: str
+
+   .. attribute:: data
+
+      The data used to create the Visualization.
+
+      :type: dict
+
+   .. attribute:: template
+
+      The jinja template used to render the visualization.
+
+      :type: jinja2.Template
+
+   .. method:: view(self)
+
+      Open the visualization in a browser.
+
+      :param None.:
+
+      :returns:
+      :rtype: nothing
+
+
+   .. method:: save(self, **kwargs)
+
+      Render and and save the visualization.
+
+
+

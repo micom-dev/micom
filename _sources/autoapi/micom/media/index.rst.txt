@@ -1,0 +1,168 @@
+:mod:`micom.media`
+==================
+
+.. py:module:: micom.media
+
+.. autoapi-nested-parse::
+
+   Manages functions for growth media analysis and manipulation.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.media.add_linear_obj
+   micom.media.add_mip_obj
+   micom.media.safe_weight
+   micom.media.weight
+   micom.media.minimal_medium
+   micom.media.complete_medium
+
+
+.. function:: add_linear_obj(community, exchanges, weights)
+
+   Add a linear version of a minimal medium to the community.
+
+   Changes the optimization objective to finding the growth medium requiring
+   the smallest total import flux::
+
+       minimize sum w_i|r_i| for r_i in import_reactions
+
+   :param community: The community to modify.
+   :type community: micom.Community
+   :param exchanges: The reactions to constrain.
+   :type exchanges: list of cobra.Reaction
+   :param weights: Maps each exchange reaction to a weight that is used in the
+                   minimization.
+   :type weights: dict
+
+
+.. function:: add_mip_obj(community, exchanges)
+
+   Add a mixed-integer version of a minimal medium to the community.
+
+   Changes the optimization objective to finding the medium with the least
+   components::
+
+       minimize size(R) where R part of import_reactions
+
+   :param community: The community to modify.
+   :type community: micom.Community
+   :param exchanges: The reactions to constrain.
+   :type exchanges: list of cobra.Reaction
+
+
+.. function:: safe_weight(met)
+
+   Get the weight of a molecule.
+
+
+.. function:: weight(exchanges, what)
+
+   Obtain elemental weights for metabolites.
+
+
+.. function:: minimal_medium(community, community_growth, min_growth=0.0, exports=False, exchanges=None, minimize_components=False, open_exchanges=False, solution=False, weights=None, atol=None, rtol=None)
+
+   Find the minimal growth medium for the community.
+
+   Finds the minimal growth medium for the community which allows for
+   community as well as individual growth. Here, a minimal medium can either
+   be the medium requiring the smallest total import flux or the medium
+   requiring the least components (ergo ingredients).
+
+   :param community: The community to modify.
+   :type community: micom.Community
+   :param community_growth: The minimum community-wide growth rate.
+   :type community_growth: positive float
+   :param min_growth: The minimum growth rate for each individual in the community. Either
+                      a single value applied to all individuals or one value for each.
+   :type min_growth: positive float or array-like object.
+   :param exports: Whether to include export fluxes in the returned medium. Defaults to
+                   False which will only return import fluxes.
+   :type exports: boolean
+   :param exchanges: The list of exchange reactions that are penalized.
+   :type exchanges: list of cobra.Reactions
+   :param minimize_components: Whether to minimize the number of components instead of the total
+                               import flux. Might be more intuitive if set to True but may also be
+                               slow to calculate for large communities.
+   :type minimize_components: boolean
+   :param open_exchanges: Whether to ignore currently set bounds and make all exchange reactions
+                          in the model possible. If set to a number all exchange reactions will
+                          be opened with (-number, number) as bounds.
+   :type open_exchanges: boolean or number
+   :param solution: Whether to also return the entire solution and all fluxes for the
+                    minimal medium.
+   :type solution: boolean
+   :param weights: Will scale the fluxes by a weight factor. Can either be "mass" which will
+                   scale by molecular mass, a single element which will scale by
+                   the elemental content (for instance "C" to scale by carbon content).
+                   If None every metabolite will receive the same weight.
+                   Will be ignored if `minimize_components` is True.
+   :type weights: str
+   :param atol: Absolute tolerance for the growth rates. If None will use the solver tolerance.
+   :type atol: float
+   :param rtol: Relative tolerqance for the growth rates. If None will use the solver tolerance.
+   :type rtol: float
+
+   :returns: A series {rid: flux} giving the import flux for each required import
+             reaction. If `solution` is True retuns a dictionary
+             {"medium": panas.Series, "solution": micom.CommunitySolution}.
+   :rtype: pandas.Series or dict
+
+
+.. function:: complete_medium(model, medium, growth=0.1, min_growth=0.001, max_import=1, minimize_components=False, weights=None)
+
+   Fill in missing components in a growth medium.
+
+   Finds the minimal number of additions to make a model form biomass. In
+   order to avoid bias all added reactions will have a maximum import
+   rate of `max_import`.
+
+   .. note::
+
+      This function fixes the growth medium for a single cobra Model. We also
+      provide a function `fix_medium` in `micom.workflows` that fixes a growth
+      medium for an entire model database.
+
+   :param model: The model to use.
+   :type model: cobra.Model
+   :param medium: A growth medium. Must contain positive floats as elements and
+                  exchange reaction ids as index. Note that reactions not present in the
+                  model will be removed from the growth medium.
+   :type medium: pandas.Series
+   :param growth: The minimum overall growth rate that has to be achieved. For single COBRA
+                  model this is just the biomass flux and for community models this is the
+                  community biomass flux.
+   :type growth: positive float
+   :param min_growth: The minimum growth rate for each individual in the community. Either
+                      a single value applied to all individuals or one value for each. Only used
+                      if model is a `micom.Community` model.
+   :type min_growth: positive float or array-like object.
+   :param minimize_components: Whether to minimize the number of components instead of the total
+                               import flux. Might be more intuitive if set to True but may also be
+                               slow to calculate for large communities.
+   :type minimize_components: boolean
+   :param max_import: The import rate applied for the added exchanges.
+   :type max_import: positive float
+   :param weights: Will scale the fluxes by a weight factor. Can either be "mass" which will
+                   scale by molecular mass, a single element which will scale by
+                   the elemental content (for instance "C" to scale by carbon content).
+                   If None every metabolite will receive the same weight.
+                   Will be ignored if `minimize_components` is True.
+   :type weights: str
+
+   :returns: A series {rid: flux} giving the import flux for each required import
+             reaction. This will include the initial `medium` as passed to the
+             function as well as a minimal set of additional changes such that the
+             model produces biomass with a rate >= `min_growth`.
+   :rtype: pandas.Series or dict
+
+

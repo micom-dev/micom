@@ -1,0 +1,712 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>micom.elasticity &#8212; version 0.22.2</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/micom.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">version 0.22.2</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../logic.html">
+   Methods used by MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../installing.html">
+   Installing MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../high_level.html">
+   MICOM workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../viz.html">
+   Visualizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../community.html">
+   Single Model API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../growth_fluxes.html">
+   Growth rates and fluxes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../media.html">
+   Growth media
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../taxa_knockouts.html">
+   Knockouts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../elasticities.html">
+   Intervention studies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../workflows.html">
+   Writing your own workflows
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../autoapi/index.html">
+   API Reference
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2 collapsible-parent">
+    <a class="reference internal" href="../../autoapi/micom/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       micom
+      </span>
+     </code>
+    </a>
+    <ul class="collapse-ul">
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/data/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.data
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../../autoapi/micom/viz/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.viz
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/exchanges/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.exchanges
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/growth/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.growth
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/prediction/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.prediction
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../../autoapi/micom/workflows/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.workflows
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/build/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.build
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/db_media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.db_media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/grow/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.grow
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/algorithms/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.algorithms
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/annotation/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.annotation
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/community/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.community
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/db/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.db
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/deps/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.deps
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/duality/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.duality
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/elasticity/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.elasticity
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/logger/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.logger
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/media/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.media
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/optcom/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.optcom
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/problems/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.problems
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/qiime_formats/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.qiime_formats
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/solution/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.solution
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/taxonomy/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.taxonomy
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/util/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.util
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+    <i class="fas fa-chevron-down">
+    </i>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <h1>Source code for micom.elasticity</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Calculate elasticity coefficients.</span>
+
+<span class="sd">Functions to calculate elasticity coefficients for various community</span>
+<span class="sd">quantities.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">cobra.util</span> <span class="kn">import</span> <span class="n">get_context</span>
+<span class="kn">from</span> <span class="nn">micom.util</span> <span class="kn">import</span> <span class="n">reset_min_community_growth</span>
+<span class="kn">from</span> <span class="nn">micom.problems</span> <span class="kn">import</span> <span class="n">regularize_l2_norm</span>
+<span class="kn">from</span> <span class="nn">micom.solution</span> <span class="kn">import</span> <span class="n">optimize_with_fraction</span>
+<span class="kn">from</span> <span class="nn">rich.progress</span> <span class="kn">import</span> <span class="n">track</span>
+
+
+<div class="viewcode-block" id="STEP"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.STEP">[docs]</a><span class="n">STEP</span> <span class="o">=</span> <span class="mf">0.1</span></div>
+
+
+<div class="viewcode-block" id="_get_fluxes"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity._get_fluxes">[docs]</a><span class="k">def</span> <span class="nf">_get_fluxes</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">reactions</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the primal values for a set of variables.&quot;&quot;&quot;</span>
+    <span class="n">fluxes</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">community_id</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">global_id</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">fluxes</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_derivatives"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity._derivatives">[docs]</a><span class="k">def</span> <span class="nf">_derivatives</span><span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">after</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the elasticities for fluxes.&quot;&quot;&quot;</span>
+    <span class="n">before_signs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">before</span><span class="p">)</span>
+    <span class="n">after_signs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">after</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">before_signs</span> <span class="o">-</span> <span class="n">after_signs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Some of the fluxes changed sign. &quot;</span> <span class="s2">&quot;Can&#39;t compute elasticities :(&quot;</span>
+        <span class="p">)</span>
+    <span class="n">direction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s2">&quot;zero&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">before</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;&lt;U8&quot;</span><span class="p">)</span>
+    <span class="n">direction</span><span class="p">[(</span><span class="n">before</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">after</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;forward&quot;</span>
+    <span class="n">direction</span><span class="p">[(</span><span class="n">before</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1e-6</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">after</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1e-6</span><span class="p">)]</span> <span class="o">=</span> <span class="s2">&quot;reverse&quot;</span>
+    <span class="n">derivs</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">after</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">before</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">))</span> <span class="o">/</span> <span class="n">STEP</span>
+    <span class="k">return</span> <span class="n">derivs</span><span class="p">,</span> <span class="n">direction</span></div>
+
+
+<div class="viewcode-block" id="elasticities_by_medium"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.elasticities_by_medium">[docs]</a><span class="k">def</span> <span class="nf">elasticities_by_medium</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">reactions</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">progress</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the elasticity coefficients for a set of variables.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    com : micom.Community</span>
+<span class="sd">        The community for wrhich to calculate elasticities.</span>
+<span class="sd">    variables : list of optlang.Variable</span>
+<span class="sd">        The variables for which to calculate the elasticities. All of these</span>
+<span class="sd">        must have non-zero primal vaues in the previous solution.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.Dataframe</span>
+<span class="sd">        The long/tidy version of the elasticities. Contains columns variable,</span>
+<span class="sd">        effector, and elasticity.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">regularize_l2_norm</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">sol</span> <span class="o">=</span> <span class="n">optimize_with_fraction</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">before</span> <span class="o">=</span> <span class="n">_get_fluxes</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">reactions</span><span class="p">)</span>
+    <span class="n">import_fluxes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+    <span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span><span class="p">:</span>
+        <span class="n">export</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">flux</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">community_id</span><span class="p">,</span> <span class="n">ex</span><span class="o">.</span><span class="n">global_id</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">export</span> <span class="ow">and</span> <span class="p">(</span><span class="n">flux</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1e-6</span><span class="p">):</span>
+            <span class="n">import_fluxes</span><span class="p">[</span><span class="n">ex</span><span class="p">]</span> <span class="o">=</span> <span class="n">flux</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">export</span> <span class="ow">and</span> <span class="p">(</span><span class="n">flux</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">):</span>
+            <span class="n">import_fluxes</span><span class="p">[</span><span class="n">ex</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">flux</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+    <span class="n">fluxes</span> <span class="o">=</span> <span class="n">import_fluxes</span><span class="o">.</span><span class="n">index</span>
+    <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+        <span class="n">fluxes</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Metabolites&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">fluxes</span><span class="p">:</span>
+        <span class="n">flux</span> <span class="o">=</span> <span class="n">import_fluxes</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+        <span class="k">with</span> <span class="n">com</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">flux</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1e-6</span><span class="p">:</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">lower_bound</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">STEP</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">upper_bound</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">STEP</span><span class="p">)</span>
+            <span class="n">sol</span> <span class="o">=</span> <span class="n">optimize_with_fraction</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">after</span> <span class="o">=</span> <span class="n">_get_fluxes</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">reactions</span><span class="p">)</span>
+        <span class="n">deriv</span><span class="p">,</span> <span class="n">dirs</span> <span class="o">=</span> <span class="n">_derivatives</span><span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">after</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;reaction&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">rx</span><span class="o">.</span><span class="n">global_id</span> <span class="k">for</span> <span class="n">rx</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">],</span>
+                <span class="s2">&quot;taxon&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">compartments</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">],</span>
+                <span class="s2">&quot;effector&quot;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s2">&quot;direction&quot;</span><span class="p">:</span> <span class="n">dirs</span><span class="p">,</span>
+                <span class="s2">&quot;elasticity&quot;</span><span class="p">:</span> <span class="n">deriv</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="elasticities_by_abundance"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.elasticities_by_abundance">[docs]</a><span class="k">def</span> <span class="nf">elasticities_by_abundance</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">reactions</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">progress</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the elasticity coefficients for a set of variables.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    com : micom.Community</span>
+<span class="sd">        The community for which to calculate elasticities.</span>
+<span class="sd">    variables : list of optlang.Variable</span>
+<span class="sd">        The variables for which to calculate the elasticities. All of these</span>
+<span class="sd">        must have non-zero primal vaues in the previous solution.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.Dataframe</span>
+<span class="sd">        The long/tidy version of the elasticities. Contains columns variable,</span>
+<span class="sd">        effector, and elasticity.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">regularize_l2_norm</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">sol</span> <span class="o">=</span> <span class="n">optimize_with_fraction</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">before</span> <span class="o">=</span> <span class="n">_get_fluxes</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">reactions</span><span class="p">)</span>
+    <span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">abundance</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">abundances</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">taxa</span> <span class="o">=</span> <span class="n">abundance</span><span class="o">.</span><span class="n">index</span>
+
+    <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+        <span class="n">taxa</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span><span class="n">taxa</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Taxa&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">taxa</span><span class="p">:</span>
+        <span class="n">old</span> <span class="o">=</span> <span class="n">abundance</span><span class="p">[</span><span class="n">sp</span><span class="p">]</span>
+        <span class="n">abundance</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sp</span><span class="p">]</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">STEP</span><span class="p">)</span>
+        <span class="n">com</span><span class="o">.</span><span class="n">set_abundance</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">sol</span> <span class="o">=</span> <span class="n">optimize_with_fraction</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">after</span> <span class="o">=</span> <span class="n">_get_fluxes</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">reactions</span><span class="p">)</span>
+        <span class="n">abundance</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sp</span><span class="p">]</span> <span class="o">=</span> <span class="n">old</span>
+        <span class="n">com</span><span class="o">.</span><span class="n">set_abundance</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">deriv</span><span class="p">,</span> <span class="n">dirs</span> <span class="o">=</span> <span class="n">_derivatives</span><span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">after</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;reaction&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">global_id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">],</span>
+                <span class="s2">&quot;taxon&quot;</span><span class="p">:</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">compartments</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">],</span>
+                <span class="s2">&quot;effector&quot;</span><span class="p">:</span> <span class="n">sp</span><span class="p">,</span>
+                <span class="s2">&quot;direction&quot;</span><span class="p">:</span> <span class="n">dirs</span><span class="p">,</span>
+                <span class="s2">&quot;elasticity&quot;</span><span class="p">:</span> <span class="n">deriv</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="elasticities"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.elasticities">[docs]</a><span class="k">def</span> <span class="nf">elasticities</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">reactions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate elasticities for reactions.</span>
+
+<span class="sd">    Calculates elasticity coefficients using the specified reactions as</span>
+<span class="sd">    response and exchange bounds (diet) and taxa abundances as</span>
+<span class="sd">    effectors/parameters. Will use an arbitrary flux distribution as base.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    com : micom.Community</span>
+<span class="sd">        The community for wrhich to calculate elasticities.</span>
+<span class="sd">    fraction : double</span>
+<span class="sd">        The tradeoff to use for the cooperative tradeoff method. Fraction of</span>
+<span class="sd">        maximal community growth to enforce.</span>
+<span class="sd">    reactions : iterable</span>
+<span class="sd">        A list of reactions to get elasticities for. Elements can either be</span>
+<span class="sd">        reactions from the model, strings specifying the ids of reactions</span>
+<span class="sd">        or ints specifying the indices of reactions. Defaults to using all</span>
+<span class="sd">        reactions.</span>
+<span class="sd">    progress : boolean</span>
+<span class="sd">        Whether to shwo progress bars. Will show two, one for the diet</span>
+<span class="sd">        optimizations and another one for the taxa abundances.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.DataFrame</span>
+<span class="sd">        A data frame with the following columns:</span>
+<span class="sd">        &quot;reaction&quot; - the exchange reaction (response),</span>
+<span class="sd">        &quot;taxon&quot; - the taxon the reaction is from,</span>
+<span class="sd">        &quot;effector&quot; - the parameter that was changed,</span>
+<span class="sd">        &quot;direction&quot; - whether the flux runs in the forward or reverse</span>
+<span class="sd">            direction,</span>
+<span class="sd">        &quot;elasticity&quot; - the elasticity coefficient,</span>
+<span class="sd">        &quot;type&quot; - the type of effector either &quot;exchange&quot; for diet or &quot;abundance&quot;</span>
+<span class="sd">        for taxa abundances.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">growth_rate</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">reactions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">reactions</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">reactions</span>
+    <span class="n">reactions</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">reactions</span><span class="o">.</span><span class="n">get_by_any</span><span class="p">(</span><span class="n">reactions</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">com</span><span class="p">:</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">get_context</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">reset_min_community_growth</span><span class="p">,</span> <span class="n">com</span><span class="p">))</span>
+        <span class="n">by_medium</span> <span class="o">=</span> <span class="n">elasticities_by_medium</span><span class="p">(</span>
+            <span class="n">com</span><span class="p">,</span> <span class="n">reactions</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">progress</span>
+        <span class="p">)</span>
+        <span class="n">by_medium</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;exchanges&quot;</span>
+
+        <span class="n">by_abundance</span> <span class="o">=</span> <span class="n">elasticities_by_abundance</span><span class="p">(</span>
+            <span class="n">com</span><span class="p">,</span> <span class="n">reactions</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">progress</span>
+        <span class="p">)</span>
+        <span class="n">by_abundance</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;abundance&quot;</span>
+
+    <span class="n">both</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">by_medium</span><span class="p">,</span> <span class="n">by_abundance</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">both</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">both</span><span class="o">.</span><span class="n">taxon</span> <span class="o">==</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;taxon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;medium&quot;</span>
+    <span class="k">return</span> <span class="n">both</span></div>
+</pre></div>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Christian Diener<br/>
+        
+            &copy; Copyright 2017-2021, Christian Diener.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

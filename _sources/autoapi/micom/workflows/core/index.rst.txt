@@ -1,0 +1,49 @@
+:mod:`micom.workflows.core`
+===========================
+
+.. py:module:: micom.workflows.core
+
+.. autoapi-nested-parse::
+
+   Makes it easier to run analyses on several samples in parallel.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.workflows.core.workflow
+
+
+.. data:: GrowthResults
+   
+
+   
+
+.. function:: workflow(func, args, n_jobs=4, unit='sample(s)', progress=True)
+
+   Run analyses for several samples in parallel.
+
+   This will analyze several samples in parallel. Includes a workaround for
+   optlang memory leak.
+
+   :param func: A function that takes a single argument (can be any object) and
+                that performs your analysis for a single sample.
+   :type func: function
+   :param args: An array-like object (list, tuple, numpy array, pandas Series, etc.)
+                that contains the arguments for each sample.
+   :type args: array-like object
+   :param n_jobs: How many samples to analyze in parallel at once.
+   :type n_jobs: positive int
+   :param unit: The unit used for the progress bar.
+   :type unit: str
+   :param progress: Whether to show a progress bar.
+   :type progress: bool
+
+

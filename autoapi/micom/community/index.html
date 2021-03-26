@@ -1,0 +1,998 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>micom.community &#8212; version 0.22.2</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/micom.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">version 0.22.2</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../logic.html">
+   Methods used by MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../installing.html">
+   Installing MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../high_level.html">
+   MICOM workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../viz.html">
+   Visualizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../community.html">
+   Single Model API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../growth_fluxes.html">
+   Growth rates and fluxes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../media.html">
+   Growth media
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../taxa_knockouts.html">
+   Knockouts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../elasticities.html">
+   Intervention studies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../workflows.html">
+   Writing your own workflows
+  </a>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="../../index.html">
+   API Reference
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active collapsible-parent">
+    <a class="reference internal" href="../index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       micom
+      </span>
+     </code>
+    </a>
+    <ul class="current collapse-ul">
+     <li class="toctree-l3">
+      <a class="reference internal" href="../data/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.data
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../viz/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.viz
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/exchanges/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.exchanges
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/growth/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.growth
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/prediction/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.prediction
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../workflows/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.workflows
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/build/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.build
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/db_media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.db_media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/grow/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.grow
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../algorithms/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.algorithms
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../annotation/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.annotation
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.community
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../db/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.db
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../deps/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.deps
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../duality/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.duality
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../elasticity/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.elasticity
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../logger/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.logger
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../media/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.media
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../optcom/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.optcom
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../problems/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.problems
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../qiime_formats/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.qiime_formats
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../solution/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.solution
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../taxonomy/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.taxonomy
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../util/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.util
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+    <i class="fas fa-chevron-down">
+    </i>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/autoapi/micom/community/index.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-contents">
+   Module Contents
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classes">
+     Classes
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.community._ranks">
+       _ranks
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.community.Community">
+       Community
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.__add_exchanges">
+         __add_exchanges
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.__update_exchanges">
+         __update_exchanges
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.__update_community_objective">
+         __update_community_objective
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.optimize_single">
+         optimize_single
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.optimize_all">
+         optimize_all
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.optimize">
+         optimize
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.abundances">
+         abundances
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.set_abundance">
+         set_abundance
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.taxonomy">
+         taxonomy
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.modification">
+         modification
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.exchanges">
+         exchanges
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.internal_exchanges">
+         internal_exchanges
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.medium">
+         medium
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.build_metrics">
+         build_metrics
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.optcom">
+         optcom
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.cooperative_tradeoff">
+         cooperative_tradeoff
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.knockout_taxa">
+         knockout_taxa
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.scale">
+         scale
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#micom.community.Community.to_pickle">
+         to_pickle
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="module-micom.community">
+<span id="micom-community"></span><h1><a class="reference internal" href="#module-micom.community" title="micom.community"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.community</span></code></a><a class="headerlink" href="#module-micom.community" title="Permalink to this headline">¶</a></h1>
+<p>A class representing a microbial or tissue community.</p>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.community.Community" title="micom.community.Community"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Community</span></code></a></p></td>
+<td><p>A community of models.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="micom.community._ranks">
+<code class="sig-prename descclassname"><span class="pre">micom.community.</span></code><code class="sig-name descname"><span class="pre">_ranks</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['kingdom',</span> <span class="pre">'phylum',</span> <span class="pre">'class',</span> <span class="pre">'order',</span> <span class="pre">'family',</span> <span class="pre">'genus',</span> <span class="pre">'species',</span> <span class="pre">'strain']</span></em><a class="reference internal" href="../../../_modules/micom/community.html#_ranks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community._ranks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="micom.community.Community">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">micom.community.</span></code><code class="sig-name descname"><span class="pre">Community</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">taxonomy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_exchange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cobra.Model</span></code></p>
+<p>A community of models.</p>
+<p>This class represents a community of individual models. It was designed for
+microbial communities but may also be used for multi-tissue or tissue-cell
+mixture models as long as all individuals exist within a single enclosing
+compartment.</p>
+<dl class="py method">
+<dt id="micom.community.Community.__add_exchanges">
+<code class="sig-name descname"><span class="pre">__add_exchanges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_compartment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_exchange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.__add_exchanges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.__add_exchanges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add exchange reactions for a new model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.__update_exchanges">
+<code class="sig-name descname"><span class="pre">__update_exchanges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.__update_exchanges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.__update_exchanges" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update exchanges.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.__update_community_objective">
+<code class="sig-name descname"><span class="pre">__update_community_objective</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.__update_community_objective"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.__update_community_objective" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the community objective.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.optimize_single">
+<code class="sig-name descname"><span class="pre">optimize_single</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.optimize_single"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.optimize_single" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimize growth rate for one individual.</p>
+<p><cite>optimize_single</cite> will calculate the maximal growth rate for one
+individual member of the community.</p>
+<p class="rubric">Notes</p>
+<p>This might well mean that growth rates for all other individuals are
+low since the individual may use up all available resources.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>str</em>) – The ID of the individual to be optimized.</p></li>
+<li><p><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to return all fluxes. Defaults to just returning the
+maximal growth rate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The maximal growth rate for the given taxa.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.optimize_all">
+<code class="sig-name descname"><span class="pre">optimize_all</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.optimize_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.optimize_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return solutions for individually optimizing each model.</p>
+<p class="rubric">Notes</p>
+<p>This might well mean that growth rates for all other individuals are
+low since the individual may use up all available resources. As a
+consequence the reported growth rates may usually never be obtained
+all at once.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to return all fluxes. Defaults to just returning the
+maximal growth rate.</p></li>
+<li><p><strong>progress</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to show a progress bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The maximal growth rate for each taxa.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.optimize">
+<code class="sig-name descname"><span class="pre">optimize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.optimize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimize the model using flux balance analysis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>slim</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to return a slim solution which does not contain fluxes,
+just growth rates.</p></li>
+<li><p><strong>raise_error</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Should an error be raised if the solution is not optimal. Defaults
+to False which will either return a solution with a non-optimal
+status or None if optimization fails.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The solution after optimization or None if there is no optimum.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>micom.CommunitySolution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.abundances">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">abundances</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.abundances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.abundances" title="Permalink to this definition">¶</a></dt>
+<dd><p>pandas.Series: The normalized abundances.</p>
+<p>Setting this attribute will also trigger the appropriate updates in
+the exchange fluxes and the community objective.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.set_abundance">
+<code class="sig-name descname"><span class="pre">set_abundance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.set_abundance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.set_abundance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change abundances for one or more taxa.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<em>array-like object</em>) – The new abundances. Must contain one value for each taxon. Can
+be a named object like a pandas Series.</p></li>
+<li><p><strong>normalize</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to normalize the abundances to a total of 1.0. Many things
+in micom asssume that this is always the case. Only change this
+if you know what you are doing :O</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.taxonomy">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">taxonomy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.taxonomy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.taxonomy" title="Permalink to this definition">¶</a></dt>
+<dd><p>pandas.DataFrame: The taxonomy used within the model.</p>
+<p>This attribute only returns a copy.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.modification">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">modification</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.modification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.modification" title="Permalink to this definition">¶</a></dt>
+<dd><p>str: Denotes modifications to the model currently applied.</p>
+<p>Will be None if the community is unmodified.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.exchanges">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">exchanges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.exchanges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.exchanges" title="Permalink to this definition">¶</a></dt>
+<dd><p>list: Return all exchange reactions in the model.</p>
+<p>Uses several heuristics based on the reaction name and compartments
+to exclude reactions that are <em>not</em> exchange reactions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.internal_exchanges">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">internal_exchanges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.internal_exchanges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.internal_exchanges" title="Permalink to this definition">¶</a></dt>
+<dd><p>list: Return all internal exchanges.</p>
+<p>Internal exchanges are exchanges between individual taxa and the medium.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.medium">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">medium</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.medium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the medium.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.build_metrics">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">build_metrics</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.build_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.build_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>pd.Series: Returns general metrics for database matching.</p>
+<p>Only available when built using a model database.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.optcom">
+<code class="sig-name descname"><span class="pre">optcom</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lagrangian'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.optcom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.optcom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run OptCom for the community.</p>
+<p>OptCom methods are a group of optimization procedures to find community
+solutions that provide a tradeoff between the cooperative community
+growth and the egoistic growth of each individual <a class="footnote-reference brackets" href="#c1" id="id1">1</a>. <cite>micom</cite>
+provides several strategies that can be used to find optimal solutions:</p>
+<ul class="simple">
+<li><p>“moma”: Minimization of metabolic adjustment. Simultaneously
+optimizes the community objective (maximize) and the cooperativity
+cost (minimize). This method finds an exact maximum but doubles the
+number of required variables, thus being slow.</p></li>
+<li><p>“lmoma”: The same as “moma” only with a linear
+representation of the cooperativity cost (absolute value).</p></li>
+<li><p>“original”: Solves the multi-objective problem described in <a class="footnote-reference brackets" href="#c1" id="id2">1</a>.
+Here, the community growth rate is maximized simultanously with all
+individual growth rates. Note that there are usually many
+Pareto-optimal solutions to this problem and the method will only
+give one solution. This is also the slowest method.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>community</strong> (<a class="reference internal" href="../index.html#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community to optimize.</p></li>
+<li><p><strong>strategy</strong> (<em>str</em>) – The strategy used to solve the OptCom formulation. Defaults to
+“lagrangian” which gives a decent tradeoff between speed and
+correctness.</p></li>
+<li><p><strong>min_growth</strong> (<em>float</em><em> or </em><em>array-like</em>) – The minimal growth rate required for each individual. May be a
+single value or an array-like object with the same length as there
+are individuals.</p></li>
+<li><p><strong>fluxes</strong> (<em>boolean</em>) – Whether to return the fluxes as well.</p></li>
+<li><p><strong>pfba</strong> (<em>boolean</em>) – Whether to obtain fluxes by parsimonious FBA rather than
+“classical” FBA.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The solution of the optimization. If fluxes==False will only
+contain the objective value, community growth rate and individual
+growth rates.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>micom.CommunitySolution</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="c1"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>)</span></dt>
+<dd><p>OptCom: a multi-level optimization framework for the metabolic
+modeling and analysis of microbial communities.
+Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.
+doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.cooperative_tradeoff">
+<code class="sig-name descname"><span class="pre">cooperative_tradeoff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.cooperative_tradeoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.cooperative_tradeoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the best tradeoff between community and individual growth.</p>
+<p>Finds the set of growth rates which maintian a particular community
+growth and spread up growth across all taxa as much as possible.
+This is done by minimizing the L2 norm of the growth rates with a
+minimal community growth.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_growth</strong> (<em>float</em><em> or </em><em>array-like</em><em>, </em><em>optional</em>) – The minimal growth rate required for each individual. May be a
+single value or an array-like object with the same length as there
+are individuals.</p></li>
+<li><p><strong>fraction</strong> (<em>float</em><em> or </em><em>list of floats in</em><em> [</em><em>0</em><em>, </em><em>1</em><em>]</em>) – The minum percentage of the community growth rate that has to be
+maintained. For instance 0.9 means maintain 90% of the maximal
+community growth rate. Defaults to 100%.</p></li>
+<li><p><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to return the fluxes as well.</p></li>
+<li><p><strong>pfba</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to obtain fluxes by parsimonious FBA rather than
+“classical” FBA. This is highly recommended.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver
+tolerance.</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the
+solver tolerance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The solution of the optimization. If fluxes==False will only
+contain the objective value, community growth rate and individual
+growth rates. If more than one fraction value is given will return
+a pandas Series of solutions with the fractions as indices.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>micom.CommunitySolution or pd.Series of solutions</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.knockout_taxa">
+<code class="sig-name descname"><span class="pre">knockout_taxa</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'change'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.knockout_taxa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.knockout_taxa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sequentially knowckout a list of taxa in the model.</p>
+<p>This uses cooperative tradeoff as optimization criterion in order to
+get unqiue solutions for individual growth rates. Requires a QP
+solver to work.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>taxa</strong> (<em>str</em><em> or </em><em>list of strs</em>) – Names of taxa to be knocked out.</p></li>
+<li><p><strong>fraction</strong> (<em>float in</em><em> [</em><em>0</em><em>, </em><em>1</em><em>]</em><em>, </em><em>optional</em>) – Percentage of the maximum community growth rate that has to be
+maintained. Defaults to 100%.</p></li>
+<li><p><strong>method</strong> (<em>str</em><em>, </em><em>optional</em>) – One of “raw”, “change” or “relative change” that dictates whether
+to return the new growth rate (raw), the change in growth rate
+new - old or the relative change ([new - old] / old).</p></li>
+<li><p><strong>progress</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to show a progress bar. On by default.</p></li>
+<li><p><strong>diag</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the diagonal should contain values as well. If False will
+be filled with NaNs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A data frame with one row for each knockout and growth rates in the
+columns. Here the row name indicates which taxon has been knocked
+out and the columns contain the growth changes for all taxa in
+that knockout.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.scale">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">scale</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a scale to improve numerical properties.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="micom.community.Community.to_pickle">
+<code class="sig-name descname"><span class="pre">to_pickle</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/community.html#Community.to_pickle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.community.Community.to_pickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a community in serialized form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Where to save the pickled community.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Nothing</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Christian Diener<br/>
+        
+            &copy; Copyright 2017-2021, Christian Diener.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,803 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>micom.util &#8212; version 0.22.2</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/micom.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">version 0.22.2</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../logic.html">
+   Methods used by MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../installing.html">
+   Installing MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../high_level.html">
+   MICOM workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../viz.html">
+   Visualizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../community.html">
+   Single Model API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../growth_fluxes.html">
+   Growth rates and fluxes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../media.html">
+   Growth media
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../taxa_knockouts.html">
+   Knockouts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../elasticities.html">
+   Intervention studies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../workflows.html">
+   Writing your own workflows
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../autoapi/index.html">
+   API Reference
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2 collapsible-parent">
+    <a class="reference internal" href="../../autoapi/micom/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       micom
+      </span>
+     </code>
+    </a>
+    <ul class="collapse-ul">
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/data/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.data
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../../autoapi/micom/viz/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.viz
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/exchanges/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.exchanges
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/growth/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.growth
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/prediction/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.prediction
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../../autoapi/micom/workflows/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.workflows
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/build/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.build
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/db_media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.db_media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/grow/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.grow
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/algorithms/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.algorithms
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/annotation/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.annotation
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/community/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.community
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/db/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.db
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/deps/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.deps
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/duality/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.duality
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/elasticity/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.elasticity
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/logger/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.logger
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/media/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.media
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/optcom/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.optcom
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/problems/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.problems
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/qiime_formats/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.qiime_formats
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/solution/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.solution
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/taxonomy/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.taxonomy
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/util/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.util
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+    <i class="fas fa-chevron-down">
+    </i>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <h1>Source code for micom.util</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Holds utility functions for other modules.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">cobra.io</span> <span class="k">as</span> <span class="nn">io</span>
+<span class="kn">from</span> <span class="nn">cobra.util.context</span> <span class="kn">import</span> <span class="n">get_context</span>
+<span class="kn">from</span> <span class="nn">cobra.util.solver</span> <span class="kn">import</span> <span class="n">interface_to_str</span><span class="p">,</span> <span class="n">linear_reaction_coefficients</span>
+<span class="kn">from</span> <span class="nn">cobra</span> <span class="kn">import</span> <span class="n">Reaction</span>
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">path</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span> <span class="k">as</span> <span class="nn">urlreq</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">rmtree</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+
+
+<div class="viewcode-block" id="_read_funcs"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom._read_funcs">[docs]</a><span class="n">_read_funcs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;.xml&quot;</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">read_sbml_model</span><span class="p">,</span>
+    <span class="s2">&quot;.gz&quot;</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">read_sbml_model</span><span class="p">,</span>
+    <span class="s2">&quot;.mat&quot;</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">load_matlab_model</span><span class="p">,</span>
+    <span class="s2">&quot;.json&quot;</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">load_json_model</span><span class="p">,</span>
+    <span class="s2">&quot;.pickle&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">fn</span><span class="p">:</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)),</span></div>
+<span class="p">}</span>
+
+<div class="viewcode-block" id="COMPARTMENT_RE"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.COMPARTMENT_RE">[docs]</a><span class="n">COMPARTMENT_RE</span> <span class="o">=</span> <span class="s2">&quot;(_</span><span class="si">{}</span><span class="s2">$)|([^a-zA-Z0-9 :]</span><span class="si">{}</span><span class="s2">[^a-zA-Z0-9 :]$)&quot;</span></div>
+
+
+<div class="viewcode-block" id="download_model"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.download_model">[docs]</a><span class="k">def</span> <span class="nf">download_model</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">folder</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Download a model.&quot;&quot;&quot;</span>
+    <span class="n">dest</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
+    <span class="n">urlreq</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dest</span></div>
+
+
+<div class="viewcode-block" id="_read_model"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom._read_model">[docs]</a><span class="k">def</span> <span class="nf">_read_model</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Read a model from a local file.&quot;&quot;&quot;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">read_func</span> <span class="o">=</span> <span class="n">_read_funcs</span><span class="p">[</span><span class="n">ext</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">read_func</span><span class="p">(</span><span class="n">file</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="load_model"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.load_model">[docs]</a><span class="k">def</span> <span class="nf">load_model</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load a cobra model from several file types.&quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;reading model from </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
+    <span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="ow">and</span> <span class="n">parsed</span><span class="o">.</span><span class="n">netloc</span><span class="p">:</span>
+        <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;created temporary directory </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">))</span>
+        <span class="n">filepath</span> <span class="o">=</span> <span class="n">download_model</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">folder</span><span class="o">=</span><span class="n">tmpdir</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">_read_model</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+        <span class="n">rmtree</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;deleted temporary directory </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">_read_model</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<div class="viewcode-block" id="load_pickle"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.load_pickle">[docs]</a><span class="k">def</span> <span class="nf">load_pickle</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load a community model from a pickled version.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        The file the community is stored in.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    micom.Community</span>
+<span class="sd">        The loaded community model.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">infile</span><span class="p">:</span>
+        <span class="n">mod</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+        <span class="n">adjust_solver_config</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">solver</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mod</span></div>
+
+
+<div class="viewcode-block" id="serialize_models"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.serialize_models">[docs]</a><span class="k">def</span> <span class="nf">serialize_models</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert several models to Python pickles.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;serializing </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">fname</span> <span class="o">+</span> <span class="s2">&quot;.pickle&quot;</span><span class="p">),</span> <span class="s2">&quot;wb&quot;</span><span class="p">),</span> <span class="n">protocol</span><span class="o">=</span><span class="mi">2</span></div>
+        <span class="p">)</span>  <span class="c1"># required for Python 2 compat</span>
+
+
+<div class="viewcode-block" id="chr_or_input"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.chr_or_input">[docs]</a><span class="k">def</span> <span class="nf">chr_or_input</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return ascii character for the ordinal or the original string.&quot;&quot;&quot;</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">31</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;__</span><span class="si">%d</span><span class="s2">__&quot;</span> <span class="o">%</span> <span class="n">i</span></div>
+
+
+<div class="viewcode-block" id="clean_ids"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.clean_ids">[docs]</a><span class="k">def</span> <span class="nf">clean_ids</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Clean ids up a bit.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;__(</span><span class="se">\\</span><span class="s2">d+)__&quot;</span><span class="p">,</span> <span class="n">chr_or_input</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="compartment_id"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.compartment_id">[docs]</a><span class="k">def</span> <span class="nf">compartment_id</span><span class="p">(</span><span class="n">micom_obj</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the compartment id for a cobra object and prune the prefix if needed.&quot;&quot;&quot;</span>
+    <span class="n">comp_id</span> <span class="o">=</span> <span class="n">micom_obj</span><span class="o">.</span><span class="n">compartment</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;__&quot;</span> <span class="o">+</span> <span class="n">micom_obj</span><span class="o">.</span><span class="n">community_id</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">pruned</span> <span class="o">=</span> <span class="n">comp_id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;C_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">match_original</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">COMPARTMENT_RE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">comp_id</span><span class="p">,</span> <span class="n">comp_id</span><span class="p">),</span> <span class="n">micom_obj</span><span class="o">.</span><span class="n">global_id</span><span class="p">)</span>
+        <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="p">)</span>
+    <span class="n">match_pruned</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">COMPARTMENT_RE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pruned</span><span class="p">,</span> <span class="n">pruned</span><span class="p">),</span> <span class="n">micom_obj</span><span class="o">.</span><span class="n">global_id</span><span class="p">)</span>
+        <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">match_original</span> <span class="ow">and</span> <span class="n">match_pruned</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pruned</span>
+    <span class="k">return</span> <span class="n">comp_id</span></div>
+
+
+<div class="viewcode-block" id="join_models"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.join_models">[docs]</a><span class="k">def</span> <span class="nf">join_models</span><span class="p">(</span><span class="n">model_files</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Join several models into one.</span>
+
+<span class="sd">    This requires all the models to use the same ID system.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model_files : list of strings</span>
+<span class="sd">        The files to be joined.</span>
+<span class="sd">    id : str</span>
+<span class="sd">        The new ID for the model. Will be the ID of the first model if None.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cobra.Model</span>
+<span class="sd">        The joined cobra Model.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">model_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_files</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">id</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+    <span class="n">biomass</span> <span class="o">=</span> <span class="n">Reaction</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;micom_combined_biomass&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;combined biomass reaction from model joining&quot;</span><span class="p">,</span>
+        <span class="n">subsystem</span><span class="o">=</span><span class="s2">&quot;biomass production&quot;</span><span class="p">,</span>
+        <span class="n">lower_bound</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">upper_bound</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">coefs</span> <span class="o">=</span> <span class="n">linear_reaction_coefficients</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">reactions</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">coef</span> <span class="ow">in</span> <span class="n">coefs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">biomass</span> <span class="o">+=</span> <span class="n">r</span> <span class="o">*</span> <span class="p">(</span><span class="n">coef</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">rids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">reactions</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">model_files</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+        <span class="n">new</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">reactions</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rids</span><span class="p">]</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">add_reactions</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">reactions</span><span class="o">.</span><span class="n">get_by_any</span><span class="p">(</span><span class="n">new</span><span class="p">))</span>
+        <span class="n">coefs</span> <span class="o">=</span> <span class="n">linear_reaction_coefficients</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">reactions</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">coef</span> <span class="ow">in</span> <span class="n">coefs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">biomass</span> <span class="o">+=</span> <span class="n">model</span><span class="o">.</span><span class="n">reactions</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">coef</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+        <span class="n">rids</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add_reactions</span><span class="p">([</span><span class="n">biomass</span><span class="p">])</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">biomass</span>
+
+    <span class="k">return</span> <span class="n">model</span></div>
+
+
+<div class="viewcode-block" id="fluxes_from_primals"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.fluxes_from_primals">[docs]</a><span class="k">def</span> <span class="nf">fluxes_from_primals</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extract a list of fluxes from the model primals.&quot;&quot;&quot;</span>
+    <span class="n">primals</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">primal_values</span>
+    <span class="n">rxns</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">reactions</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">info</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">r</span><span class="o">.</span><span class="n">community_id</span><span class="p">)</span>
+    <span class="n">rids</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">global_id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rxns</span><span class="p">]</span>
+
+    <span class="n">fluxes</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">primals</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">forward_variable</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">-</span> <span class="n">primals</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">reverse_variable</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">rxn</span> <span class="ow">in</span> <span class="n">rxns</span>
+    <span class="p">)</span>
+    <span class="n">fluxes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">rids</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">info</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fluxes</span></div>
+
+
+<div class="viewcode-block" id="add_var_from_expression"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.add_var_from_expression">[docs]</a><span class="k">def</span> <span class="nf">add_var_from_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add a variable to a model equaling an expression.&quot;&quot;&quot;</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
+    <span class="n">const</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">var</span> <span class="o">-</span> <span class="n">expr</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(),</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_equality&quot;</span>
+    <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">add_cons_vars</span><span class="p">([</span><span class="n">var</span><span class="p">,</span> <span class="n">const</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">var</span></div>
+
+
+<div class="viewcode-block" id="check_modification"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.check_modification">[docs]</a><span class="k">def</span> <span class="nf">check_modification</span><span class="p">(</span><span class="n">community</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Check whether a community already carries a modification.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    community : micom.Community</span>
+<span class="sd">        The community class to check.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the community already carries a modification and adding another</span>
+<span class="sd">        would not be safe.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Community already carries a modification &quot;</span>
+            <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">modification</span><span class="p">)</span></div>
+        <span class="p">)</span>
+
+
+<div class="viewcode-block" id="_format_min_growth"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom._format_min_growth">[docs]</a><span class="k">def</span> <span class="nf">_format_min_growth</span><span class="p">(</span><span class="n">min_growth</span><span class="p">,</span> <span class="n">taxa</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Format min_growth into a pandas series.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    min_growth : positive float or array-like object.</span>
+<span class="sd">        The minimum growth rate for each individual in the community. Either</span>
+<span class="sd">        a single value applied to all individuals or one value for each.</span>
+<span class="sd">    taxa : array-like</span>
+<span class="sd">        The ID for each individual model in the community.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.Series</span>
+<span class="sd">        A pandas Series mapping each individual to its minimum growth rate.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">min_growth</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">min_growth</span><span class="p">)</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">min_growth</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">taxa</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;min_growth must be single value or an array-like &quot;</span>
+                <span class="s2">&quot;object with an entry for each taxon in the model.&quot;</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">min_growth</span><span class="p">,</span> <span class="n">taxa</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_apply_min_growth"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom._apply_min_growth">[docs]</a><span class="k">def</span> <span class="nf">_apply_min_growth</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Set minimum growth constraints on a model.</span>
+
+<span class="sd">    Will integrate with the context.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">get_context</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="n">taxon</span><span class="p">,</span> <span class="n">lb</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;resetting growth rate constraint for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">taxon</span><span class="p">)</span>
+        <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">taxon</span><span class="p">]</span><span class="o">.</span><span class="n">ub</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">taxon</span><span class="p">]</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="n">lb</span>
+
+    <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;setting growth rate constraint for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">sp</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">context</span><span class="p">:</span>
+            <span class="n">context</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">reset</span><span class="p">,</span> <span class="n">sp</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">lb</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">min_growth</span><span class="p">[</span><span class="n">sp</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">atol</span><span class="p">:</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">rtol</span><span class="p">)</span> <span class="o">*</span> <span class="n">min_growth</span><span class="p">[</span><span class="n">sp</span><span class="p">]</span> <span class="o">-</span> <span class="n">atol</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;minimal growth rate smaller than tolerance,&quot;</span> <span class="s2">&quot; setting to zero.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="adjust_solver_config"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.adjust_solver_config">[docs]</a><span class="k">def</span> <span class="nf">adjust_solver_config</span><span class="p">(</span><span class="n">solver</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Adjust the optlang solver configuration for larger problems.&quot;&quot;&quot;</span>
+    <span class="n">interface</span> <span class="o">=</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span>
+
+    <span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span> <span class="o">=</span> <span class="mf">1e-6</span>
+    <span class="k">if</span> <span class="n">interface</span> <span class="o">==</span> <span class="s2">&quot;cplex&quot;</span><span class="p">:</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">lp_method</span> <span class="o">=</span> <span class="s2">&quot;barrier&quot;</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">qp_method</span> <span class="o">=</span> <span class="s2">&quot;barrier&quot;</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">threads</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">barrier</span><span class="o">.</span><span class="n">convergetol</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mf">1e-9</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">interface</span> <span class="o">==</span> <span class="s2">&quot;gurobi&quot;</span><span class="p">:</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">lp_method</span> <span class="o">=</span> <span class="s2">&quot;barrier&quot;</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Params</span><span class="o">.</span><span class="n">BarConvTol</span> <span class="o">=</span> <span class="mf">1e-9</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Params</span><span class="o">.</span><span class="n">BarIterLimit</span> <span class="o">=</span> <span class="mi">10000</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Params</span><span class="o">.</span><span class="n">Threads</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Params</span><span class="o">.</span><span class="n">LogToConsole</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">interface</span> <span class="o">==</span> <span class="s2">&quot;glpk&quot;</span><span class="p">:</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">presolve</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">interface</span> <span class="o">==</span> <span class="s2">&quot;osqp&quot;</span><span class="p">:</span>
+        <span class="c1"># as a direct solver OSQP has trouble getting to good accuracies for LPs</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">optimality</span> <span class="o">=</span> <span class="mf">1e-3</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span> <span class="o">=</span> <span class="mf">1e-4</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">presolve</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="reset_min_community_growth"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.reset_min_community_growth">[docs]</a><span class="k">def</span> <span class="nf">reset_min_community_growth</span><span class="p">(</span><span class="n">com</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reset the lower bound for the community growth.&quot;&quot;&quot;</span>
+    <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">ub</span> <span class="o">=</span> <span class="kc">None</span></div>
+</pre></div>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Christian Diener<br/>
+        
+            &copy; Copyright 2017-2021, Christian Diener.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

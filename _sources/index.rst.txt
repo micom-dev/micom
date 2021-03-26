@@ -53,7 +53,6 @@ Contents
    Knockouts <taxa_knockouts>
    Intervention studies <elasticities>
    Writing your own workflows <workflows>
-   API <micom>
 
 
 Indices and tables

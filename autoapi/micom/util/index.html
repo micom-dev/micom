@@ -1,0 +1,857 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>micom.util &#8212; version 0.22.2</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/micom.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">version 0.22.2</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../logic.html">
+   Methods used by MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../installing.html">
+   Installing MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../high_level.html">
+   MICOM workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../viz.html">
+   Visualizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../community.html">
+   Single Model API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../growth_fluxes.html">
+   Growth rates and fluxes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../media.html">
+   Growth media
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../taxa_knockouts.html">
+   Knockouts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../elasticities.html">
+   Intervention studies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../workflows.html">
+   Writing your own workflows
+  </a>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="../../index.html">
+   API Reference
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active collapsible-parent">
+    <a class="reference internal" href="../index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       micom
+      </span>
+     </code>
+    </a>
+    <ul class="current collapse-ul">
+     <li class="toctree-l3">
+      <a class="reference internal" href="../data/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.data
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../viz/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.viz
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/exchanges/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.exchanges
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/growth/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.growth
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/prediction/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.prediction
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../workflows/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.workflows
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/build/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.build
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/db_media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.db_media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/grow/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.grow
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../workflows/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../algorithms/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.algorithms
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../annotation/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.annotation
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../community/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.community
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../db/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.db
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../deps/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.deps
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../duality/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.duality
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../elasticity/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.elasticity
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../logger/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.logger
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../media/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.media
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../optcom/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.optcom
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../problems/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.problems
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../qiime_formats/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.qiime_formats
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../solution/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.solution
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../taxonomy/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.taxonomy
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.util
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+    <i class="fas fa-chevron-down">
+    </i>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/autoapi/micom/util/index.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-contents">
+   Module Contents
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions">
+     Functions
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util._read_funcs">
+       _read_funcs
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.COMPARTMENT_RE">
+       COMPARTMENT_RE
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.download_model">
+       download_model
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util._read_model">
+       _read_model
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.load_model">
+       load_model
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.load_pickle">
+       load_pickle
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.serialize_models">
+       serialize_models
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.chr_or_input">
+       chr_or_input
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.clean_ids">
+       clean_ids
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.compartment_id">
+       compartment_id
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.join_models">
+       join_models
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.fluxes_from_primals">
+       fluxes_from_primals
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.add_var_from_expression">
+       add_var_from_expression
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.check_modification">
+       check_modification
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util._format_min_growth">
+       _format_min_growth
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util._apply_min_growth">
+       _apply_min_growth
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.adjust_solver_config">
+       adjust_solver_config
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.reset_min_community_growth">
+       reset_min_community_growth
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="module-micom.util">
+<span id="micom-util"></span><h1><a class="reference internal" href="#module-micom.util" title="micom.util"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.util</span></code></a><a class="headerlink" href="#module-micom.util" title="Permalink to this headline">¶</a></h1>
+<p>Holds utility functions for other modules.</p>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.download_model" title="micom.util.download_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_model</span></code></a>(url, folder='.')</p></td>
+<td><p>Download a model.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util._read_model" title="micom.util._read_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_read_model</span></code></a>(file)</p></td>
+<td><p>Read a model from a local file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.load_model" title="micom.util.load_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_model</span></code></a>(filepath)</p></td>
+<td><p>Load a cobra model from several file types.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util.load_pickle" title="micom.util.load_pickle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_pickle</span></code></a>(filename)</p></td>
+<td><p>Load a community model from a pickled version.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.serialize_models" title="micom.util.serialize_models"><code class="xref py py-obj docutils literal notranslate"><span class="pre">serialize_models</span></code></a>(files, dir='.')</p></td>
+<td><p>Convert several models to Python pickles.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util.chr_or_input" title="micom.util.chr_or_input"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chr_or_input</span></code></a>(m)</p></td>
+<td><p>Return ascii character for the ordinal or the original string.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.clean_ids" title="micom.util.clean_ids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clean_ids</span></code></a>(id)</p></td>
+<td><p>Clean ids up a bit.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util.compartment_id" title="micom.util.compartment_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compartment_id</span></code></a>(micom_obj)</p></td>
+<td><p>Get the compartment id for a cobra object and prune the prefix if needed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.join_models" title="micom.util.join_models"><code class="xref py py-obj docutils literal notranslate"><span class="pre">join_models</span></code></a>(model_files, id=None)</p></td>
+<td><p>Join several models into one.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util.fluxes_from_primals" title="micom.util.fluxes_from_primals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fluxes_from_primals</span></code></a>(model, info)</p></td>
+<td><p>Extract a list of fluxes from the model primals.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.add_var_from_expression" title="micom.util.add_var_from_expression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_var_from_expression</span></code></a>(model, name, expr, lb=None, ub=None)</p></td>
+<td><p>Add a variable to a model equaling an expression.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util.check_modification" title="micom.util.check_modification"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_modification</span></code></a>(community)</p></td>
+<td><p>Check whether a community already carries a modification.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util._format_min_growth" title="micom.util._format_min_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_format_min_growth</span></code></a>(min_growth, taxa)</p></td>
+<td><p>Format min_growth into a pandas series.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util._apply_min_growth" title="micom.util._apply_min_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_apply_min_growth</span></code></a>(community, min_growth, atol=1e-06, rtol=1e-06)</p></td>
+<td><p>Set minimum growth constraints on a model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.adjust_solver_config" title="micom.util.adjust_solver_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adjust_solver_config</span></code></a>(solver)</p></td>
+<td><p>Adjust the optlang solver configuration for larger problems.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util.reset_min_community_growth" title="micom.util.reset_min_community_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_min_community_growth</span></code></a>(com)</p></td>
+<td><p>Reset the lower bound for the community growth.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="micom.util._read_funcs">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">_read_funcs</span></code><a class="reference internal" href="../../../_modules/micom/util.html#_read_funcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util._read_funcs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="micom.util.COMPARTMENT_RE">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">COMPARTMENT_RE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">(_{}$)|([^a-zA-Z0-9</span> <span class="pre">:]{}[^a-zA-Z0-9</span> <span class="pre">:]$)</span></em><a class="reference internal" href="../../../_modules/micom/util.html#COMPARTMENT_RE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.COMPARTMENT_RE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.download_model">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">download_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#download_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.download_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download a model.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util._read_model">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">_read_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#_read_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util._read_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a model from a local file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.load_model">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">load_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#load_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a cobra model from several file types.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.load_pickle">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">load_pickle</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#load_pickle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.load_pickle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a community model from a pickled version.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – The file the community is stored in.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The loaded community model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../index.html#micom.Community" title="micom.Community">micom.Community</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.serialize_models">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">serialize_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#serialize_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.serialize_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert several models to Python pickles.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.chr_or_input">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">chr_or_input</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#chr_or_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.chr_or_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return ascii character for the ordinal or the original string.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.clean_ids">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">clean_ids</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#clean_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.clean_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean ids up a bit.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.compartment_id">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">compartment_id</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">micom_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#compartment_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.compartment_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the compartment id for a cobra object and prune the prefix if needed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.join_models">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">join_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#join_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.join_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join several models into one.</p>
+<p>This requires all the models to use the same ID system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_files</strong> (<em>list of strings</em>) – The files to be joined.</p></li>
+<li><p><strong>id</strong> (<em>str</em>) – The new ID for the model. Will be the ID of the first model if None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The joined cobra Model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>cobra.Model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.fluxes_from_primals">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">fluxes_from_primals</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#fluxes_from_primals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.fluxes_from_primals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract a list of fluxes from the model primals.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.add_var_from_expression">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">add_var_from_expression</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ub</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#add_var_from_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.add_var_from_expression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a variable to a model equaling an expression.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.check_modification">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">check_modification</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#check_modification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.check_modification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether a community already carries a modification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>community</strong> (<a class="reference internal" href="../index.html#micom.Community" title="micom.Community"><em>micom.Community</em></a>) – The community class to check.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the community already carries a modification and adding another
+would not be safe.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util._format_min_growth">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">_format_min_growth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxa</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#_format_min_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util._format_min_growth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format min_growth into a pandas series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_growth</strong> (<em>positive float</em><em> or </em><em>array-like object.</em>) – The minimum growth rate for each individual in the community. Either
+a single value applied to all individuals or one value for each.</p></li>
+<li><p><strong>taxa</strong> (<em>array-like</em>) – The ID for each individual model in the community.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A pandas Series mapping each individual to its minimum growth rate.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util._apply_min_growth">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">_apply_min_growth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#_apply_min_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util._apply_min_growth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set minimum growth constraints on a model.</p>
+<p>Will integrate with the context.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.adjust_solver_config">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">adjust_solver_config</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#adjust_solver_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.adjust_solver_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adjust the optlang solver configuration for larger problems.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.reset_min_community_growth">
+<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">reset_min_community_growth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#reset_min_community_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.reset_min_community_growth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the lower bound for the community growth.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Christian Diener<br/>
+        
+            &copy; Copyright 2017-2021, Christian Diener.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

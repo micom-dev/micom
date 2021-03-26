@@ -1,0 +1,761 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>micom.workflows.db_media &#8212; version 0.22.2</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/micom.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">version 0.22.2</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../logic.html">
+   Methods used by MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../installing.html">
+   Installing MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../high_level.html">
+   MICOM workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../viz.html">
+   Visualizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../community.html">
+   Single Model API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../growth_fluxes.html">
+   Growth rates and fluxes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../media.html">
+   Growth media
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../taxa_knockouts.html">
+   Knockouts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../elasticities.html">
+   Intervention studies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../workflows.html">
+   Writing your own workflows
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../../autoapi/index.html">
+   API Reference
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2 collapsible-parent">
+    <a class="reference internal" href="../../../autoapi/micom/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       micom
+      </span>
+     </code>
+    </a>
+    <ul class="collapse-ul">
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/data/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.data
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../../../autoapi/micom/viz/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.viz
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/micom/viz/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/micom/viz/exchanges/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.exchanges
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/micom/viz/growth/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.growth
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/micom/viz/prediction/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.prediction
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/micom/viz/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../../../autoapi/micom/workflows/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.workflows
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/micom/workflows/build/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.build
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/micom/workflows/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/micom/workflows/db_media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.db_media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/micom/workflows/grow/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.grow
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/micom/workflows/media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../autoapi/micom/workflows/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/algorithms/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.algorithms
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/annotation/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.annotation
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/community/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.community
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/db/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.db
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/deps/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.deps
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/duality/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.duality
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/elasticity/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.elasticity
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/logger/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.logger
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/media/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.media
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/optcom/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.optcom
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/problems/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.problems
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/qiime_formats/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.qiime_formats
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/solution/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.solution
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/taxonomy/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.taxonomy
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../autoapi/micom/util/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.util
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+    <i class="fas fa-chevron-down">
+    </i>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <h1>Source code for micom.workflows.db_media</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Test growth media for a model database.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">cobra.medium</span> <span class="kn">import</span> <span class="n">find_external_compartment</span>
+<span class="kn">from</span> <span class="nn">micom.annotation</span> <span class="kn">import</span> <span class="n">annotate_metabolites_from_exchanges</span>
+<span class="kn">from</span> <span class="nn">micom.db</span> <span class="kn">import</span> <span class="n">load_zip_model_db</span><span class="p">,</span> <span class="n">load_manifest</span>
+<span class="kn">from</span> <span class="nn">micom.workflows.core</span> <span class="kn">import</span> <span class="n">workflow</span>
+<span class="kn">from</span> <span class="nn">micom.workflows.media</span> <span class="kn">import</span> <span class="n">process_medium</span>
+<span class="kn">import</span> <span class="nn">micom.media</span> <span class="k">as</span> <span class="nn">mm</span>
+<span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">micom.solution</span> <span class="kn">import</span> <span class="n">OptimizationError</span>
+<span class="kn">from</span> <span class="nn">micom.util</span> <span class="kn">import</span> <span class="n">load_model</span>
+<span class="kn">from</span> <span class="nn">micom.qiime_formats</span> <span class="kn">import</span> <span class="n">load_qiime_model_db</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
+
+
+<div class="viewcode-block" id="_grow"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._grow">[docs]</a><span class="k">def</span> <span class="nf">_grow</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the maximum growth rate under a given medium.&quot;&quot;&quot;</span>
+    <span class="n">file</span><span class="p">,</span> <span class="n">med</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">good</span> <span class="o">=</span> <span class="n">med</span><span class="p">[</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">exchanges</span><span class="p">])]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">good</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;Could not find any reactions from the medium in `</span><span class="si">%s</span><span class="s2">`. &quot;</span>
+            <span class="s2">&quot;Maybe a mismatch in IDs?&quot;</span>
+        <span class="p">)</span>
+    <span class="n">mod</span><span class="o">.</span><span class="n">medium</span> <span class="o">=</span> <span class="n">med</span><span class="p">[</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">exchanges</span><span class="p">])]</span>
+    <span class="n">rate</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">slim_optimize</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">rate</span></div>
+
+
+<div class="viewcode-block" id="_try_complete"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._try_complete">[docs]</a><span class="k">def</span> <span class="nf">_try_complete</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Try to complete the medium for a model.&quot;&quot;&quot;</span>
+    <span class="n">file</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span class="n">max_import</span><span class="p">,</span> <span class="n">mip</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">exc</span> <span class="o">=</span> <span class="n">find_external_compartment</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">fixed</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">complete_medium</span><span class="p">(</span>
+            <span class="n">mod</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span class="n">max_import</span><span class="o">=</span><span class="n">max_import</span><span class="p">,</span> <span class="n">minimize_components</span><span class="o">=</span><span class="n">mip</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">w</span>
+        <span class="p">)</span>
+        <span class="n">added</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">med</span><span class="o">.</span><span class="n">index</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fixed</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">can_grow</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Could grow `</span><span class="si">%s</span><span class="s2">` by adding </span><span class="si">%d</span><span class="s2"> import.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">added</span><span class="p">))</span>
+    <span class="k">except</span> <span class="n">OptimizationError</span><span class="p">:</span>
+        <span class="n">fixed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">added</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+        <span class="n">can_grow</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Could not grow `</span><span class="si">%s</span><span class="s2">`.&quot;</span> <span class="o">%</span> <span class="n">file</span><span class="p">)</span>
+    <span class="n">fixed</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+            <span class="s2">&quot;(_</span><span class="si">{}</span><span class="s2">$)|([^a-zA-Z0-9 :]</span><span class="si">{}</span><span class="s2">[^a-zA-Z0-9 :]$)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="n">exc</span><span class="p">),</span>
+            <span class="s2">&quot;_m&quot;</span><span class="p">,</span>
+            <span class="n">rid</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">rid</span> <span class="ow">in</span> <span class="n">fixed</span><span class="o">.</span><span class="n">index</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">can_grow</span><span class="p">,</span> <span class="n">added</span><span class="p">,</span> <span class="n">fixed</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="check_db_medium"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.db_media.check_db_medium">[docs]</a><span class="k">def</span> <span class="nf">check_db_medium</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Complete a growth medium for all models in a database.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    model_db : str</span>
+<span class="sd">        A pre-built model database. If ending in `.qza` must be a Qiime 2</span>
+<span class="sd">        artifact of type `MetabolicModels[JSON]`. Can also be a folder,</span>
+<span class="sd">        zip (must end in `.zip`) file or None if the taxonomy contains a</span>
+<span class="sd">        column `file`.</span>
+<span class="sd">    medium : pd.DataFrame</span>
+<span class="sd">        A growth medium. Must have columns &quot;reaction&quot; and &quot;flux&quot; denoting</span>
+<span class="sd">        exchange reactions and their respective maximum flux. Can not be sample</span>
+<span class="sd">        specific.</span>
+<span class="sd">    threads : int &gt;=1</span>
+<span class="sd">        The number of parallel workers to use when building models. As a</span>
+<span class="sd">        rule of thumb you will need around 1GB of RAM for each thread.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        Returns an annotated manifest file with a column `can_grow` that tells you</span>
+<span class="sd">        whether the model can grow on the (fixed) medium, and a column `growth_rate`</span>
+<span class="sd">        that gives the growth rate.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">medium</span> <span class="o">=</span> <span class="n">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;dummy&quot;</span><span class="p">])</span>
+    <span class="n">medium</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">medium</span><span class="o">.</span><span class="n">global_id</span>
+    <span class="n">compressed</span> <span class="o">=</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
+        <span class="n">tdir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">):</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_qiime_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">):</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_zip_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_manifest</span><span class="p">(</span><span class="n">model_db</span><span class="p">)</span>
+    <span class="n">rank</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;summary_rank&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;Checking </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">-level models on a medium with </span><span class="si">%d</span><span class="s2"> components.&quot;</span>
+        <span class="o">%</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rank</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">medium</span><span class="p">))</span>
+    <span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[(</span><span class="n">f</span><span class="p">,</span> <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">file</span><span class="p">]</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_grow</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
+    <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span>
+    <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;can_grow&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">growth_rate</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
+        <span class="n">tdir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">manifest</span></div>
+
+
+<div class="viewcode-block" id="complete_db_medium"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media.complete_db_medium">[docs]</a><span class="k">def</span> <span class="nf">complete_db_medium</span><span class="p">(</span>
+    <span class="n">model_db</span><span class="p">,</span>
+    <span class="n">medium</span><span class="p">,</span>
+    <span class="n">growth</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+    <span class="n">max_added_import</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">minimize_components</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Complete a growth medium for all models in a database.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    model_db : str</span>
+<span class="sd">        A pre-built model database. If ending in `.qza` must be a Qiime 2</span>
+<span class="sd">        artifact of type `MetabolicModels[JSON]`. Can also be a folder,</span>
+<span class="sd">        zip (must end in `.zip`) file or None if the taxonomy contains a</span>
+<span class="sd">        column `file`.</span>
+<span class="sd">    medium : pd.DataFrame</span>
+<span class="sd">        A growth medium. Must have columns &quot;reaction&quot; and &quot;flux&quot; denoting</span>
+<span class="sd">        exchange reactions and their respective maximum flux. Can not be sample</span>
+<span class="sd">        specific.</span>
+<span class="sd">    growth : positive float or pandas.Series</span>
+<span class="sd">        The minimum growth rate the model has to achieve with the (fixed) medium. If</span>
+<span class="sd">        a Series will have a minimum growth rate for each id/taxon in the model db.</span>
+<span class="sd">    max_added_import : positive float</span>
+<span class="sd">        Maximum import flux for each added additional import not included in the growth</span>
+<span class="sd">        medium. If positive will expand the medium with additional imports in order to</span>
+<span class="sd">        fulfill the growth objective.</span>
+<span class="sd">    minimize_components : boolean</span>
+<span class="sd">        Whether to minimize the number of components instead of the total</span>
+<span class="sd">        import flux. Might be more intuitive if set to True but may also be</span>
+<span class="sd">        slow to calculate.</span>
+<span class="sd">    weights : str</span>
+<span class="sd">        Will scale the fluxes by a weight factor. Can either be &quot;mass&quot; which will</span>
+<span class="sd">        scale by molecular mass, a single element which will scale by</span>
+<span class="sd">        the elemental content (for instance &quot;C&quot; to scale by carbon content).</span>
+<span class="sd">        If None every metabolite will receive the same weight.</span>
+<span class="sd">        Will be ignored if `minimize_components` is True.</span>
+<span class="sd">    threads : int &gt;=1</span>
+<span class="sd">        The number of parallel workers to use when building models. As a</span>
+<span class="sd">        rule of thumb you will need around 1GB of RAM for each thread.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of (manifest, import fluxes)</span>
+<span class="sd">        Returns an annotated manifest file with a column `can_grow` that tells you</span>
+<span class="sd">        whether the model can grow on the (fixed) medium, and a column `added` that</span>
+<span class="sd">        gives the number of added imports apart from the ones in the medium.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">medium</span> <span class="o">=</span> <span class="n">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;dummy&quot;</span><span class="p">])</span>
+    <span class="n">medium</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">medium</span><span class="o">.</span><span class="n">global_id</span>
+    <span class="n">compressed</span> <span class="o">=</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
+        <span class="n">tdir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">):</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_qiime_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">):</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_zip_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_manifest</span><span class="p">(</span><span class="n">model_db</span><span class="p">)</span>
+    <span class="n">rank</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;summary_rank&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;Checking </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">-level models on a medium with </span><span class="si">%d</span><span class="s2"> components.&quot;</span>
+        <span class="o">%</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rank</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">medium</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">growth</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+        <span class="n">growth</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">growth</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">manifest</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="n">manifest</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span>
+            <span class="n">manifest</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">],</span>
+            <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span>
+            <span class="n">growth</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">max_added_import</span><span class="p">,</span>
+            <span class="n">minimize_components</span><span class="p">,</span>
+            <span class="n">weights</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">index</span>
+    <span class="p">]</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_try_complete</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
+    <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;can_grow&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+    <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;added&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+    <span class="n">imports</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">([</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">])</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">imports</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">id</span>
+
+    <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
+        <span class="n">tdir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">imports</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="_annotate"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._annotate">[docs]</a><span class="k">def</span> <span class="nf">_annotate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get annotation for a model.&quot;&quot;&quot;</span>
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">annotate_metabolites_from_exchanges</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="db_annotations"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media.db_annotations">[docs]</a><span class="k">def</span> <span class="nf">db_annotations</span><span class="p">(</span>
+    <span class="n">model_db</span><span class="p">,</span>
+    <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get metabolite annotations from a model DB.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    model_db : str</span>
+<span class="sd">        A pre-built model database. If ending in `.qza` must be a Qiime 2</span>
+<span class="sd">        artifact of type `MetabolicModels[JSON]`. Can also be a folder,</span>
+<span class="sd">        zip (must end in `.zip`) file or None if the taxonomy contains a</span>
+<span class="sd">        column `file`.</span>
+<span class="sd">    threads : int &gt;=1</span>
+<span class="sd">        The number of parallel workers to use when building models. As a</span>
+<span class="sd">        rule of thumb you will need around 1GB of RAM for each thread.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        Annotations for all exchanged metabolites.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">compressed</span> <span class="o">=</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
+        <span class="n">tdir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">):</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_qiime_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">):</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_zip_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_manifest</span><span class="p">(</span><span class="n">model_db</span><span class="p">)</span>
+    <span class="n">rank</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;summary_rank&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;Getting annotations from </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">-level models .&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rank</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_annotate</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
+    <span class="n">anns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
+        <span class="n">tdir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">anns</span></div>
+</pre></div>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Christian Diener<br/>
+        
+            &copy; Copyright 2017-2021, Christian Diener.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

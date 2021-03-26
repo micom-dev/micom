@@ -1,0 +1,898 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>micom.workflows &#8212; version 0.22.2</title>
+    
+  <link rel="stylesheet" href="../../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="../../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../../index.html">
+  
+  <img src="../../../_static/micom.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">version 0.22.2</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../logic.html">
+   Methods used by MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../installing.html">
+   Installing MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../high_level.html">
+   MICOM workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../viz.html">
+   Visualizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../community.html">
+   Single Model API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../growth_fluxes.html">
+   Growth rates and fluxes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../media.html">
+   Growth media
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../taxa_knockouts.html">
+   Knockouts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../elasticities.html">
+   Intervention studies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../workflows.html">
+   Writing your own workflows
+  </a>
+ </li>
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="../../index.html">
+   API Reference
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2 current active collapsible-parent">
+    <a class="reference internal" href="../index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       micom
+      </span>
+     </code>
+    </a>
+    <ul class="current collapse-ul">
+     <li class="toctree-l3">
+      <a class="reference internal" href="../data/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.data
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../viz/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.viz
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/exchanges/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.exchanges
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/growth/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.growth
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/prediction/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.prediction
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../viz/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3 current active collapsible-parent">
+      <a class="current reference internal" href="#">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.workflows
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="build/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.build
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="db_media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.db_media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="grow/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.grow
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../algorithms/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.algorithms
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../annotation/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.annotation
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../community/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.community
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../db/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.db
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../deps/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.deps
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../duality/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.duality
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../elasticity/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.elasticity
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../logger/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.logger
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../media/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.media
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../optcom/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.optcom
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../problems/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.problems
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../qiime_formats/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.qiime_formats
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../solution/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.solution
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../taxonomy/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.taxonomy
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../util/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.util
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+    <i class="fas fa-chevron-down">
+    </i>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../../_sources/autoapi/micom/workflows/index.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#submodules">
+   Submodules
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#package-contents">
+   Package Contents
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions">
+     Functions
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.workflow">
+       workflow
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.GrowthResults">
+       GrowthResults
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.build">
+       build
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.build_database">
+       build_database
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.grow">
+       grow
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.tradeoff">
+       tradeoff
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.fix_medium">
+       fix_medium
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.minimal_media">
+       minimal_media
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.check_db_medium">
+       check_db_medium
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="module-micom.workflows">
+<span id="micom-workflows"></span><h1><a class="reference internal" href="#module-micom.workflows" title="micom.workflows"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><a class="headerlink" href="#module-micom.workflows" title="Permalink to this headline">¶</a></h1>
+<p>Init file for MICOM workflows.</p>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="build/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.build</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.core</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="db_media/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.db_media</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="grow/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.grow</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="media/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.media</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.tradeoff</span></code></a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.workflow" title="micom.workflows.workflow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">workflow</span></code></a>(func, args, n_jobs=4, unit='sample(s)', progress=True)</p></td>
+<td><p>Run analyses for several samples in parallel.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.build" title="micom.workflows.build"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build</span></code></a></p></td>
+<td><p>Worflow to build models for several samples.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.build_database" title="micom.workflows.build_database"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_database</span></code></a>(manifest, out_path, rank='genus', threads=1, compress=None, progress=True)</p></td>
+<td><p>Create a model database from a set of SBML files.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.grow" title="micom.workflows.grow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grow</span></code></a>(manifest, model_folder, medium, tradeoff, threads=1, weights=None, strategy='minimal imports', atol=None, rtol=None)</p></td>
+<td><p>Simulate growth for a set of community models.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="tradeoff/index.html#module-micom.workflows.tradeoff" title="micom.workflows.tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tradeoff</span></code></a></p></td>
+<td><p>Workflow to run cooperative tradeoff with various tradeoff values.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.fix_medium" title="micom.workflows.fix_medium"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_medium</span></code></a>(manifest, model_folder, medium, community_growth=0.1, min_growth=0.001, max_import=1, minimize_components=False, summarize=True, weights=None, threads=1)</p></td>
+<td><p>Augment a growth medium so all community members can grow in it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.minimal_media" title="micom.workflows.minimal_media"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minimal_media</span></code></a>(manifest, model_folder, summarize=True, min_growth=0.1, threads=1)</p></td>
+<td><p>Calculate the minimal medium for a set of community models.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.check_db_medium" title="micom.workflows.check_db_medium"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_db_medium</span></code></a>(model_db, medium, threads=1)</p></td>
+<td><p>Complete a growth medium for all models in a database.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="micom.workflows.workflow">
+<code class="sig-prename descclassname"><span class="pre">micom.workflows.</span></code><code class="sig-name descname"><span class="pre">workflow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sample(s)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/workflows/core.html#workflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.workflow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run analyses for several samples in parallel.</p>
+<p>This will analyze several samples in parallel. Includes a workaround for
+optlang memory leak.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<em>function</em>) – A function that takes a single argument (can be any object) and
+that performs your analysis for a single sample.</p></li>
+<li><p><strong>args</strong> (<em>array-like object</em>) – An array-like object (list, tuple, numpy array, pandas Series, etc.)
+that contains the arguments for each sample.</p></li>
+<li><p><strong>n_jobs</strong> (<em>positive int</em>) – How many samples to analyze in parallel at once.</p></li>
+<li><p><strong>unit</strong> (<em>str</em>) – The unit used for the progress bar.</p></li>
+<li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt id="micom.workflows.GrowthResults">
+<code class="sig-prename descclassname"><span class="pre">micom.workflows.</span></code><code class="sig-name descname"><span class="pre">GrowthResults</span></code><a class="reference internal" href="../../../_modules/micom/workflows/core.html#GrowthResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.GrowthResults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="micom.workflows.build">
+<code class="sig-prename descclassname"><span class="pre">micom.workflows.</span></code><code class="sig-name descname"><span class="pre">build</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">taxonomy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a series of community models.</p>
+<p>This is a best-practice implementation of building community models
+for several samples in parallel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>taxonomy</strong> (<em>pandas.DataFrame</em>) – The taxonomy used for building the model. Must have at least the
+columns “id” and “sample_id”. This must also
+contain at least a column with the same name as the rank used in
+the model database. Thus, for a genus-level database you will need
+a column <cite>genus</cite>. Additional taxa ranks can also be specified and
+will be used to be more stringent in taxa matching.
+Finally, the taxonomy should contain a column <cite>abundance</cite>. It will
+be used to quantify each individual in the community. If absent,
+MICOM will assume all individuals are present in the same amount.</p></li>
+<li><p><strong>model_db</strong> (<em>str</em>) – A pre-built model database. If ending in <cite>.qza</cite> must be a Qiime 2
+artifact of type <cite>MetabolicModels[JSON]</cite>. Can also be a folder,
+zip (must end in <cite>.zip</cite>) file or None if the taxonomy contains a
+column <cite>file</cite>.</p></li>
+<li><p><strong>out_folder</strong> (<em>str</em>) – The built models and a manifest file will be written to this
+folder.</p></li>
+<li><p><strong>cutoff</strong> (<em>float in</em><em> [</em><em>0.0</em><em>, </em><em>1.0</em><em>]</em>) – Abundance cutoff. Taxa with a relative abundance smaller than this
+will not be included in the model.</p></li>
+<li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
+rule of thumb you will need around 1GB of RAM for each thread.</p></li>
+<li><p><strong>solver</strong> (<em>str</em>) – Name of the solver used for the linear and quadratic problems.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The manifest for the built models. Contains taxa abundances,
+build metrics and file basenames.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.workflows.build_database">
+<code class="sig-prename descclassname"><span class="pre">micom.workflows.</span></code><code class="sig-name descname"><span class="pre">build_database</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'genus'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/workflows/build.html#build_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.build_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a model database from a set of SBML files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A manifest for the joined models will also be written to the output folder
+as “manifest.csv”. This may contain NA entries for additional columns
+that had different values within the summarized models.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – A manifest of SBML files containing their filepath as well as taxonomy.
+Must contain the columns “file”, “kingdom”, “phylum”, “class”,
+“order”, “family”, “genus”, and “species”. May contain additional
+columns.</p></li>
+<li><p><strong>out_path</strong> (<em>str</em>) – The directory where the joined models will be written.</p></li>
+<li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
+rule of thumb you will need around 1GB of RAM for each thread.</p></li>
+<li><p><strong>compress</strong> (<em>bool</em>) – Whether to compress the output. Default is True if out_path ends with
+“.zip” otherwise no.</p></li>
+<li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The manifest of the joined models. Will still contain information
+from the original metadata.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.workflows.grow">
+<code class="sig-prename descclassname"><span class="pre">micom.workflows.</span></code><code class="sig-name descname"><span class="pre">grow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tradeoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'minimal</span> <span class="pre">imports'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/workflows/grow.html#grow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.grow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulate growth for a set of community models.</p>
+<blockquote>
+<div><p>Note</p>
+</div></blockquote>
+<p>The strategy <cite>mimimal imports</cite> can become unstable for common carbon sources since
+it will add in infeasible imports that are very small but import some high-C
+molecules. If you use it check that only components from your medium have been used
+and molecules that should be essential are indeed consumed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – The manifest as returned by the <cite>build</cite> workflow.</p></li>
+<li><p><strong>model_folder</strong> (<em>str</em>) – The folder in which to find the files mentioned in the manifest.</p></li>
+<li><p><strong>medium</strong> (<em>pandas.DataFrame</em>) – A growth medium. Must have columns “reaction” and “flux” denoting
+exchange reactions and their respective maximum flux.</p></li>
+<li><p><strong>tradeoff</strong> (<em>float in</em><em> (</em><em>0.0</em><em>, </em><em>1.0</em><em>]</em>) – A tradeoff value. Can be chosen by running the <cite>tradeoff</cite> workflow or
+by experince. Tradeoff values of 0.5 for metagenomcis data and 0.3 for
+16S data seem to work well.</p></li>
+<li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
+rule of thumb you will need around 1GB of RAM for each thread.</p></li>
+<li><p><strong>strategy</strong> (<em>str</em>) – Computational strategy used to reduce the flux space. Default “pFBA” uses
+parsimonious FBA, “minimal imports” used the solution with the smallest
+total mass import from the environment, and “none” returns an arbitrary
+feasible flux distribution.</p></li>
+<li><p><strong>weights</strong> (<em>str</em>) – Only used during the calculaton of the minimal import rates.
+Will scale the fluxes by a weight factor. Can either be “mass” which will
+scale by molecular mass, a single element which will scale by
+the elemental content (for instance “C” to scale by carbon content).
+If None every metabolite will receive the same weight.
+Will be ignored if <cite>minimize_components</cite> is True.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver tolerance.</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the solver tolerance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A named tuple containing the growth rates and exchange fluxes for all
+samples/models.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>GrowthResults</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.workflows.tradeoff">
+<code class="sig-prename descclassname"><span class="pre">micom.workflows.</span></code><code class="sig-name descname"><span class="pre">tradeoff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tradeoffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.arange(0.1,</span> <span class="pre">1.0</span> <span class="pre">+</span> <span class="pre">1e-06,</span> <span class="pre">0.1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.tradeoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run growth rate predictions for varying tradeoff values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – The manifest as returned by the <cite>build</cite> workflow.</p></li>
+<li><p><strong>model_folder</strong> (<em>str</em>) – The folder in which to find the files mentioned in the manifest.</p></li>
+<li><p><strong>medium</strong> (<em>pandas.DataFrame</em>) – A growth medium. Must have columns “reaction” and “flux” denoting
+exchnage reactions and their respective maximum flux.</p></li>
+<li><p><strong>tradeoffs</strong> (<em>array of floats in</em><em> (</em><em>0.0</em><em>, </em><em>1.0</em><em>]</em>) – An array of tradeoff vaues to be tested. One simulation without
+a tradeoff (no cooperative tradeoff) will always be run additionally
+and will have a tradeoff of “NaN”.</p></li>
+<li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
+rule of thumb you will need around 1GB of RAM for each thread.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The predicted growth rates.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.workflows.fix_medium">
+<code class="sig-prename descclassname"><span class="pre">micom.workflows.</span></code><code class="sig-name descname"><span class="pre">fix_medium</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">community_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_import</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summarize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/workflows/media.html#fix_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.fix_medium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Augment a growth medium so all community members can grow in it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – The manifest as returned by the <cite>build</cite> workflow.</p></li>
+<li><p><strong>model_folder</strong> (<em>str</em>) – The folder in which to find the files mentioned in the manifest.</p></li>
+<li><p><strong>medium</strong> (<em>pandas.Series</em><em> or </em><em>pandas.DataFrame</em>) – A growth medium with exchange reaction IDs as index and positive
+import fluxes as values. If a DataFrame needs columns <cite>flux</cite> and
+<cite>reaction</cite>.</p></li>
+<li><p><strong>community_growth</strong> (<em>positive float</em>) – The minimum community-wide growth rate that has to be achieved on the created
+medium.</p></li>
+<li><p><strong>min_growth</strong> (<em>positive float</em>) – The minimum biomass production required for growth.</p></li>
+<li><p><strong>max_import</strong> (<em>positive float</em>) – The maximum import rate for added imports.</p></li>
+<li><p><strong>minimize_components</strong> (<em>boolean</em>) – Whether to minimize the number of media components rather than the
+total flux.</p></li>
+<li><p><strong>summarize</strong> (<em>boolean</em>) – Whether to summarize the medium across all samples. If False will
+return a medium for each sample.</p></li>
+<li><p><strong>weights</strong> (<em>str</em>) – Will scale the fluxes by a weight factor. Can either be “mass” which will
+scale by molecular mass, a single element which will scale by
+the elemental content (for instance “C” to scale by carbon content).
+If None every metabolite will receive the same weight.
+Will be ignored if <cite>minimize_components</cite> is True.</p></li>
+<li><p><strong>threads</strong> (<em>int</em>) – The number of processes to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A new growth medium with the smallest amount of augmentations such
+that all members of the community can grow in it.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.workflows.minimal_media">
+<code class="sig-prename descclassname"><span class="pre">micom.workflows.</span></code><code class="sig-name descname"><span class="pre">minimal_media</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summarize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/workflows/media.html#minimal_media"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.minimal_media" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the minimal medium for a set of community models.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.workflows.check_db_medium">
+<code class="sig-prename descclassname"><span class="pre">micom.workflows.</span></code><code class="sig-name descname"><span class="pre">check_db_medium</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/workflows/db_media.html#check_db_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.check_db_medium" title="Permalink to this definition">¶</a></dt>
+<dd><p>Complete a growth medium for all models in a database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_db</strong> (<em>str</em>) – A pre-built model database. If ending in <cite>.qza</cite> must be a Qiime 2
+artifact of type <cite>MetabolicModels[JSON]</cite>. Can also be a folder,
+zip (must end in <cite>.zip</cite>) file or None if the taxonomy contains a
+column <cite>file</cite>.</p></li>
+<li><p><strong>medium</strong> (<em>pd.DataFrame</em>) – A growth medium. Must have columns “reaction” and “flux” denoting
+exchange reactions and their respective maximum flux. Can not be sample
+specific.</p></li>
+<li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
+rule of thumb you will need around 1GB of RAM for each thread.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns an annotated manifest file with a column <cite>can_grow</cite> that tells you
+whether the model can grow on the (fixed) medium, and a column <cite>growth_rate</cite>
+that gives the growth rate.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Christian Diener<br/>
+        
+            &copy; Copyright 2017-2021, Christian Diener.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

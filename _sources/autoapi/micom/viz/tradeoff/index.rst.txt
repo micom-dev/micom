@@ -1,0 +1,39 @@
+:mod:`micom.viz.tradeoff`
+=========================
+
+.. py:module:: micom.viz.tradeoff
+
+.. autoapi-nested-parse::
+
+   Visualizations for tradeoff analysis.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.viz.tradeoff.plot_tradeoff
+
+
+.. function:: plot_tradeoff(tradeoff_rates, filename='tradeoff_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
+
+   Plot diagnostics for varying tradeoff values.
+
+   :param tradeoff_rates: The growth rates returned by the `tradeoff` workflow.
+   :type tradeoff_rates: pandas.DataFrame
+   :param filename: The HTML file where the visualization will be saved.
+   :type filename: str
+   :param tolerance: Smallest growth rate that will be considered. Everything lower will be
+                     considered not growing.
+   :type tolerance: float
+
+   :returns: A MICOM visualization. Can be served with `viz.serve`.
+   :rtype: Visualization
+
+

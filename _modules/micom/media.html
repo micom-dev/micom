@@ -1,0 +1,878 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>micom.media &#8212; version 0.22.2</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/micom.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">version 0.22.2</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../logic.html">
+   Methods used by MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../installing.html">
+   Installing MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../high_level.html">
+   MICOM workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../viz.html">
+   Visualizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../community.html">
+   Single Model API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../growth_fluxes.html">
+   Growth rates and fluxes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../media.html">
+   Growth media
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../taxa_knockouts.html">
+   Knockouts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../elasticities.html">
+   Intervention studies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../workflows.html">
+   Writing your own workflows
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../autoapi/index.html">
+   API Reference
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2 collapsible-parent">
+    <a class="reference internal" href="../../autoapi/micom/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       micom
+      </span>
+     </code>
+    </a>
+    <ul class="collapse-ul">
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/data/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.data
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../../autoapi/micom/viz/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.viz
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/exchanges/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.exchanges
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/growth/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.growth
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/prediction/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.prediction
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../../autoapi/micom/workflows/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.workflows
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/build/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.build
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/db_media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.db_media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/grow/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.grow
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/algorithms/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.algorithms
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/annotation/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.annotation
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/community/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.community
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/db/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.db
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/deps/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.deps
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/duality/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.duality
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/elasticity/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.elasticity
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/logger/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.logger
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/media/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.media
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/optcom/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.optcom
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/problems/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.problems
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/qiime_formats/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.qiime_formats
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/solution/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.solution
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/taxonomy/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.taxonomy
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/util/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.util
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+    <i class="fas fa-chevron-down">
+    </i>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <h1>Source code for micom.media</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Manages functions for growth media analysis and manipulation.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">cobra.core.formula</span> <span class="kn">import</span> <span class="n">Formula</span><span class="p">,</span> <span class="n">elements_and_molecular_weights</span>
+<span class="kn">from</span> <span class="nn">optlang.symbolics</span> <span class="kn">import</span> <span class="n">Zero</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">micom</span> <span class="kn">import</span> <span class="n">Community</span>
+<span class="kn">from</span> <span class="nn">micom.util</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">_format_min_growth</span><span class="p">,</span>
+    <span class="n">_apply_min_growth</span><span class="p">,</span>
+    <span class="n">check_modification</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">micom.solution</span> <span class="kn">import</span> <span class="n">OptimizationError</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+
+<div class="viewcode-block" id="add_linear_obj"><a class="viewcode-back" href="../../autoapi/micom/media/index.html#micom.media.add_linear_obj">[docs]</a><span class="k">def</span> <span class="nf">add_linear_obj</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">exchanges</span><span class="p">,</span> <span class="n">weights</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add a linear version of a minimal medium to the community.</span>
+
+<span class="sd">    Changes the optimization objective to finding the growth medium requiring</span>
+<span class="sd">    the smallest total import flux::</span>
+
+<span class="sd">        minimize sum w_i|r_i| for r_i in import_reactions</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    community : micom.Community</span>
+<span class="sd">        The community to modify.</span>
+<span class="sd">    exchanges : list of cobra.Reaction</span>
+<span class="sd">        The reactions to constrain.</span>
+<span class="sd">    weights : dict</span>
+<span class="sd">        Maps each exchange reaction to a weight that is used in the</span>
+<span class="sd">        minimization.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_modification</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">Community</span><span class="p">):</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">scale</span>
+    <span class="n">coefs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">rxn</span> <span class="ow">in</span> <span class="n">exchanges</span><span class="p">:</span>
+        <span class="n">export</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rxn</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">rxn</span><span class="o">.</span><span class="n">metabolites</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">rxn</span><span class="o">.</span><span class="n">products</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">compartment</span> <span class="o">==</span> <span class="s2">&quot;m&quot;</span>
+        <span class="p">)</span>
+        <span class="n">met</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rxn</span><span class="o">.</span><span class="n">metabolites</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">export</span><span class="p">:</span>
+            <span class="n">coefs</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">reverse_variable</span><span class="p">]</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="n">met</span><span class="p">]</span> <span class="o">*</span> <span class="n">scale</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">coefs</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">forward_variable</span><span class="p">]</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="n">met</span><span class="p">]</span> <span class="o">*</span> <span class="n">scale</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">set_linear_coefficients</span><span class="p">(</span><span class="n">coefs</span><span class="p">)</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;min&quot;</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="o">=</span> <span class="s2">&quot;minimal medium linear&quot;</span></div>
+
+
+<div class="viewcode-block" id="add_mip_obj"><a class="viewcode-back" href="../../autoapi/micom/media/index.html#micom.media.add_mip_obj">[docs]</a><span class="k">def</span> <span class="nf">add_mip_obj</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">exchanges</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add a mixed-integer version of a minimal medium to the community.</span>
+
+<span class="sd">    Changes the optimization objective to finding the medium with the least</span>
+<span class="sd">    components::</span>
+
+<span class="sd">        minimize size(R) where R part of import_reactions</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    community : micom.Community</span>
+<span class="sd">        The community to modify.</span>
+<span class="sd">    exchanges : list of cobra.Reaction</span>
+<span class="sd">        The reactions to constrain.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_modification</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e4</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;the MIP version of minimal media is extremely slow for&quot;</span>
+            <span class="s2">&quot; models that large :(&quot;</span>
+        <span class="p">)</span>
+    <span class="n">boundary_rxns</span> <span class="o">=</span> <span class="n">exchanges</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">bounds</span><span class="p">))</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">boundary_rxns</span><span class="p">)</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">problem</span>
+    <span class="n">coefs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">to_add</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">rxn</span> <span class="ow">in</span> <span class="n">boundary_rxns</span><span class="p">:</span>
+        <span class="n">export</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rxn</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">rxn</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">rxn</span><span class="o">.</span><span class="n">products</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">compartment</span> <span class="o">==</span> <span class="s2">&quot;m&quot;</span>
+        <span class="p">)</span>
+        <span class="n">indicator</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;ind_&quot;</span> <span class="o">+</span> <span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">export</span><span class="p">:</span>
+            <span class="n">vrv</span> <span class="o">=</span> <span class="n">rxn</span><span class="o">.</span><span class="n">reverse_variable</span>
+            <span class="n">indicator_const</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span>
+                <span class="n">vrv</span> <span class="o">-</span> <span class="n">indicator</span> <span class="o">*</span> <span class="n">M</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ind_constraint_&quot;</span> <span class="o">+</span> <span class="n">rxn</span><span class="o">.</span><span class="n">id</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vfw</span> <span class="o">=</span> <span class="n">rxn</span><span class="o">.</span><span class="n">forward_variable</span>
+            <span class="n">indicator_const</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span>
+                <span class="n">vfw</span> <span class="o">-</span> <span class="n">indicator</span> <span class="o">*</span> <span class="n">M</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ind_constraint_&quot;</span> <span class="o">+</span> <span class="n">rxn</span><span class="o">.</span><span class="n">id</span>
+            <span class="p">)</span>
+        <span class="n">to_add</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">indicator</span><span class="p">,</span> <span class="n">indicator_const</span><span class="p">])</span>
+        <span class="n">coefs</span><span class="p">[</span><span class="n">indicator</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">add_cons_vars</span><span class="p">(</span><span class="n">to_add</span><span class="p">)</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">set_linear_coefficients</span><span class="p">(</span><span class="n">coefs</span><span class="p">)</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="s2">&quot;min&quot;</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="o">=</span> <span class="s2">&quot;minimal medium mixed-integer&quot;</span></div>
+
+
+<div class="viewcode-block" id="safe_weight"><a class="viewcode-back" href="../../autoapi/micom/media/index.html#micom.media.safe_weight">[docs]</a><span class="k">def</span> <span class="nf">safe_weight</span><span class="p">(</span><span class="n">met</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the weight of a molecule.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">Formula</span><span class="p">(</span><span class="n">met</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">return</span> <span class="n">w</span></div>
+
+
+<div class="viewcode-block" id="weight"><a class="viewcode-back" href="../../autoapi/micom/media/index.html#micom.media.weight">[docs]</a><span class="k">def</span> <span class="nf">weight</span><span class="p">(</span><span class="n">exchanges</span><span class="p">,</span> <span class="n">what</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Obtain elemental weights for metabolites.&quot;&quot;&quot;</span>
+    <span class="n">mets</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">metabolites</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">exchanges</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">what</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">{</span><span class="n">m</span><span class="p">:</span> <span class="mf">1.0</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mets</span><span class="p">}</span>
+    <span class="k">elif</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;mass&quot;</span><span class="p">:</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">{</span><span class="n">m</span><span class="p">:</span> <span class="n">safe_weight</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mets</span><span class="p">}</span>
+    <span class="k">elif</span> <span class="n">what</span> <span class="ow">in</span> <span class="n">elements_and_molecular_weights</span><span class="p">:</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="p">{</span><span class="n">m</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="mf">1e-2</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mets</span><span class="p">}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not a valid elements. Must be one of: </span><span class="si">%s</span><span class="s2">.&quot;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">elements_and_molecular_weights</span><span class="p">))</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">weights</span></div>
+
+
+<div class="viewcode-block" id="minimal_medium"><a class="viewcode-back" href="../../autoapi/micom/media/index.html#micom.media.minimal_medium">[docs]</a><span class="k">def</span> <span class="nf">minimal_medium</span><span class="p">(</span>
+    <span class="n">community</span><span class="p">,</span>
+    <span class="n">community_growth</span><span class="p">,</span>
+    <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">exports</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">exchanges</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">minimize_components</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">open_exchanges</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">solution</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find the minimal growth medium for the community.</span>
+
+<span class="sd">    Finds the minimal growth medium for the community which allows for</span>
+<span class="sd">    community as well as individual growth. Here, a minimal medium can either</span>
+<span class="sd">    be the medium requiring the smallest total import flux or the medium</span>
+<span class="sd">    requiring the least components (ergo ingredients).</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    community : micom.Community</span>
+<span class="sd">        The community to modify.</span>
+<span class="sd">    community_growth : positive float</span>
+<span class="sd">        The minimum community-wide growth rate.</span>
+<span class="sd">    min_growth : positive float or array-like object.</span>
+<span class="sd">        The minimum growth rate for each individual in the community. Either</span>
+<span class="sd">        a single value applied to all individuals or one value for each.</span>
+<span class="sd">    exports : boolean</span>
+<span class="sd">        Whether to include export fluxes in the returned medium. Defaults to</span>
+<span class="sd">        False which will only return import fluxes.</span>
+<span class="sd">    exchanges : list of cobra.Reactions</span>
+<span class="sd">        The list of exchange reactions that are penalized.</span>
+<span class="sd">    minimize_components : boolean</span>
+<span class="sd">        Whether to minimize the number of components instead of the total</span>
+<span class="sd">        import flux. Might be more intuitive if set to True but may also be</span>
+<span class="sd">        slow to calculate for large communities.</span>
+<span class="sd">    open_exchanges : boolean or number</span>
+<span class="sd">        Whether to ignore currently set bounds and make all exchange reactions</span>
+<span class="sd">        in the model possible. If set to a number all exchange reactions will</span>
+<span class="sd">        be opened with (-number, number) as bounds.</span>
+<span class="sd">    solution : boolean</span>
+<span class="sd">        Whether to also return the entire solution and all fluxes for the</span>
+<span class="sd">        minimal medium.</span>
+<span class="sd">    weights : str</span>
+<span class="sd">        Will scale the fluxes by a weight factor. Can either be &quot;mass&quot; which will</span>
+<span class="sd">        scale by molecular mass, a single element which will scale by</span>
+<span class="sd">        the elemental content (for instance &quot;C&quot; to scale by carbon content).</span>
+<span class="sd">        If None every metabolite will receive the same weight.</span>
+<span class="sd">        Will be ignored if `minimize_components` is True.</span>
+<span class="sd">    atol : float</span>
+<span class="sd">        Absolute tolerance for the growth rates. If None will use the solver tolerance.</span>
+<span class="sd">    rtol : float</span>
+<span class="sd">        Relative tolerqance for the growth rates. If None will use the solver tolerance.</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.Series or dict</span>
+<span class="sd">        A series {rid: flux} giving the import flux for each required import</span>
+<span class="sd">        reaction. If `solution` is True retuns a dictionary</span>
+<span class="sd">        {&quot;medium&quot;: panas.Series, &quot;solution&quot;: micom.CommunitySolution}.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;calculating minimal medium for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">atol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">atol</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">optimality</span>
+    <span class="k">if</span> <span class="n">rtol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">rtol</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">optimality</span>
+
+    <span class="k">if</span> <span class="n">exchanges</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">boundary_rxns</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">exchanges</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">boundary_rxns</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">reactions</span><span class="o">.</span><span class="n">get_by_any</span><span class="p">(</span><span class="n">exchanges</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">open_exchanges</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="n">open_bound</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">open_bound</span> <span class="o">=</span> <span class="n">open_exchanges</span>
+    <span class="n">min_growth</span> <span class="o">=</span> <span class="n">_format_min_growth</span><span class="p">(</span><span class="n">min_growth</span><span class="p">,</span> <span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">community</span> <span class="k">as</span> <span class="n">com</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">open_exchanges</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;opening exchanges for </span><span class="si">%d</span><span class="s2"> imports&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">boundary_rxns</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">rxn</span> <span class="ow">in</span> <span class="n">boundary_rxns</span><span class="p">:</span>
+                <span class="n">rxn</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">open_bound</span><span class="p">,</span> <span class="n">open_bound</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;applying growth rate constraints&quot;</span><span class="p">)</span>
+        <span class="n">const</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span>
+            <span class="n">community</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">expression</span><span class="p">,</span>
+            <span class="n">lb</span><span class="o">=</span><span class="n">community_growth</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;micom_growth_const&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">community</span><span class="o">.</span><span class="n">add_cons_vars</span><span class="p">([</span><span class="n">const</span><span class="p">])</span>
+        <span class="n">_apply_min_growth</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="p">)</span>
+        <span class="n">com</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">Zero</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;adding new media objective&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">minimize_components</span><span class="p">:</span>
+            <span class="n">add_mip_obj</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">boundary_rxns</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scales</span> <span class="o">=</span> <span class="n">weight</span><span class="p">(</span><span class="n">boundary_rxns</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+            <span class="n">add_linear_obj</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">boundary_rxns</span><span class="p">,</span> <span class="n">scales</span><span class="p">)</span>
+        <span class="n">sol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">fluxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;minimization of medium was unsuccessful&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;formatting medium&quot;</span><span class="p">)</span>
+        <span class="n">medium</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+        <span class="n">set_medium</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">medium</span>
+        <span class="n">ex</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">set_medium</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">rxn</span> <span class="ow">in</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="n">export</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rxn</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="n">flux</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">flux</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">atol</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">export</span><span class="p">:</span>
+                <span class="n">medium</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">flux</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">export</span><span class="p">:</span>
+                <span class="n">medium</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">flux</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">exports</span><span class="p">:</span>
+            <span class="n">medium</span> <span class="o">=</span> <span class="n">medium</span><span class="p">[</span><span class="n">medium</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">solution</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;medium&quot;</span><span class="p">:</span> <span class="n">medium</span><span class="p">,</span> <span class="s2">&quot;solution&quot;</span><span class="p">:</span> <span class="n">sol</span><span class="p">}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">medium</span></div>
+
+
+<div class="viewcode-block" id="complete_medium"><a class="viewcode-back" href="../../autoapi/micom/media/index.html#micom.media.complete_medium">[docs]</a><span class="k">def</span> <span class="nf">complete_medium</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">medium</span><span class="p">,</span>
+    <span class="n">growth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+    <span class="n">max_import</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">minimize_components</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Fill in missing components in a growth medium.</span>
+
+<span class="sd">    Finds the minimal number of additions to make a model form biomass. In</span>
+<span class="sd">    order to avoid bias all added reactions will have a maximum import</span>
+<span class="sd">    rate of `max_import`.</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    This function fixes the growth medium for a single cobra Model. We also</span>
+<span class="sd">    provide a function `fix_medium` in `micom.workflows` that fixes a growth</span>
+<span class="sd">    medium for an entire model database.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    model : cobra.Model</span>
+<span class="sd">        The model to use.</span>
+<span class="sd">    medium : pandas.Series</span>
+<span class="sd">        A growth medium. Must contain positive floats as elements and</span>
+<span class="sd">        exchange reaction ids as index. Note that reactions not present in the</span>
+<span class="sd">        model will be removed from the growth medium.</span>
+<span class="sd">    growth : positive float</span>
+<span class="sd">        The minimum overall growth rate that has to be achieved. For single COBRA</span>
+<span class="sd">        model this is just the biomass flux and for community models this is the</span>
+<span class="sd">        community biomass flux.</span>
+<span class="sd">    min_growth : positive float or array-like object.</span>
+<span class="sd">        The minimum growth rate for each individual in the community. Either</span>
+<span class="sd">        a single value applied to all individuals or one value for each. Only used</span>
+<span class="sd">        if model is a `micom.Community` model.</span>
+<span class="sd">    minimize_components : boolean</span>
+<span class="sd">        Whether to minimize the number of components instead of the total</span>
+<span class="sd">        import flux. Might be more intuitive if set to True but may also be</span>
+<span class="sd">        slow to calculate for large communities.</span>
+<span class="sd">    max_import: positive float</span>
+<span class="sd">        The import rate applied for the added exchanges.</span>
+<span class="sd">    weights : str</span>
+<span class="sd">        Will scale the fluxes by a weight factor. Can either be &quot;mass&quot; which will</span>
+<span class="sd">        scale by molecular mass, a single element which will scale by</span>
+<span class="sd">        the elemental content (for instance &quot;C&quot; to scale by carbon content).</span>
+<span class="sd">        If None every metabolite will receive the same weight.</span>
+<span class="sd">        Will be ignored if `minimize_components` is True.</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.Series or dict</span>
+<span class="sd">        A series {rid: flux} giving the import flux for each required import</span>
+<span class="sd">        reaction. This will include the initial `medium` as passed to the</span>
+<span class="sd">        function as well as a minimal set of additional changes such that the</span>
+<span class="sd">        model produces biomass with a rate &gt;= `min_growth`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">exids</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">exchanges</span><span class="p">]</span>
+    <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">exchanges</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">medium</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+    <span class="n">medium</span> <span class="o">=</span> <span class="n">medium</span><span class="p">[[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">medium</span><span class="o">.</span><span class="n">index</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">exids</span><span class="p">]]</span>
+    <span class="n">tol</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
+    <span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">modification</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">const</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">expression</span><span class="p">,</span>
+            <span class="n">lb</span><span class="o">=</span><span class="n">growth</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;micom_growth_const&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">Community</span><span class="p">):</span>
+            <span class="n">min_growth</span> <span class="o">=</span> <span class="n">_format_min_growth</span><span class="p">(</span><span class="n">min_growth</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">taxa</span><span class="p">)</span>
+            <span class="n">_apply_min_growth</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">tol</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">add_cons_vars</span><span class="p">([</span><span class="n">const</span><span class="p">])</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">Zero</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">medium</span> <span class="o">=</span> <span class="n">medium</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+            <span class="n">export</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">export</span><span class="p">:</span>
+                <span class="n">ex</span><span class="o">.</span><span class="n">lower_bound</span> <span class="o">=</span> <span class="o">-</span><span class="n">max_import</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ex</span><span class="o">.</span><span class="n">upper_bound</span> <span class="o">=</span> <span class="n">max_import</span>
+        <span class="k">if</span> <span class="n">minimize_components</span><span class="p">:</span>
+            <span class="n">add_mip_obj</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">candidates</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">scales</span> <span class="o">=</span> <span class="n">weight</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+            <span class="n">add_linear_obj</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">scales</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">Community</span><span class="p">):</span>
+            <span class="n">sol</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">fluxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">fluxes</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sol</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">raise_error</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">fluxes</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span>
+            <span class="k">except</span> <span class="n">OptimizationError</span><span class="p">:</span>
+                <span class="n">sol</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">sol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">OptimizationError</span><span class="p">(</span>
+            <span class="s2">&quot;Could not find a solution that completes the medium :(&quot;</span>
+        <span class="p">)</span>
+    <span class="n">completed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">rxn</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">exchanges</span><span class="p">:</span>
+        <span class="n">export</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rxn</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">rxn</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">medium</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="n">completed</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">medium</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">flux</span> <span class="o">=</span> <span class="o">-</span><span class="n">fluxes</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="k">if</span> <span class="n">export</span> <span class="k">else</span> <span class="n">fluxes</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">flux</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">completed</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">flux</span>
+
+    <span class="k">return</span> <span class="n">completed</span><span class="p">[</span><span class="n">completed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span></div>
+</pre></div>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Christian Diener<br/>
+        
+            &copy; Copyright 2017-2021, Christian Diener.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

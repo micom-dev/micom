@@ -1,0 +1,161 @@
+:mod:`micom.util`
+=================
+
+.. py:module:: micom.util
+
+.. autoapi-nested-parse::
+
+   Holds utility functions for other modules.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.util.download_model
+   micom.util._read_model
+   micom.util.load_model
+   micom.util.load_pickle
+   micom.util.serialize_models
+   micom.util.chr_or_input
+   micom.util.clean_ids
+   micom.util.compartment_id
+   micom.util.join_models
+   micom.util.fluxes_from_primals
+   micom.util.add_var_from_expression
+   micom.util.check_modification
+   micom.util._format_min_growth
+   micom.util._apply_min_growth
+   micom.util.adjust_solver_config
+   micom.util.reset_min_community_growth
+
+
+.. data:: _read_funcs
+   
+
+   
+
+.. data:: COMPARTMENT_RE
+   :annotation: = (_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)
+
+   
+
+.. function:: download_model(url, folder='.')
+
+   Download a model.
+
+
+.. function:: _read_model(file)
+
+   Read a model from a local file.
+
+
+.. function:: load_model(filepath)
+
+   Load a cobra model from several file types.
+
+
+.. function:: load_pickle(filename)
+
+   Load a community model from a pickled version.
+
+   :param filename: The file the community is stored in.
+   :type filename: str
+
+   :returns: The loaded community model.
+   :rtype: micom.Community
+
+
+.. function:: serialize_models(files, dir='.')
+
+   Convert several models to Python pickles.
+
+
+.. function:: chr_or_input(m)
+
+   Return ascii character for the ordinal or the original string.
+
+
+.. function:: clean_ids(id)
+
+   Clean ids up a bit.
+
+
+.. function:: compartment_id(micom_obj)
+
+   Get the compartment id for a cobra object and prune the prefix if needed.
+
+
+.. function:: join_models(model_files, id=None)
+
+   Join several models into one.
+
+   This requires all the models to use the same ID system.
+
+   :param model_files: The files to be joined.
+   :type model_files: list of strings
+   :param id: The new ID for the model. Will be the ID of the first model if None.
+   :type id: str
+
+   :returns: The joined cobra Model.
+   :rtype: cobra.Model
+
+
+.. function:: fluxes_from_primals(model, info)
+
+   Extract a list of fluxes from the model primals.
+
+
+.. function:: add_var_from_expression(model, name, expr, lb=None, ub=None)
+
+   Add a variable to a model equaling an expression.
+
+
+.. function:: check_modification(community)
+
+   Check whether a community already carries a modification.
+
+   :param community: The community class to check.
+   :type community: micom.Community
+
+   :raises ValueError: If the community already carries a modification and adding another
+       would not be safe.
+
+
+.. function:: _format_min_growth(min_growth, taxa)
+
+   Format min_growth into a pandas series.
+
+   :param min_growth: The minimum growth rate for each individual in the community. Either
+                      a single value applied to all individuals or one value for each.
+   :type min_growth: positive float or array-like object.
+   :param taxa: The ID for each individual model in the community.
+   :type taxa: array-like
+
+   :returns: A pandas Series mapping each individual to its minimum growth rate.
+   :rtype: pandas.Series
+
+
+.. function:: _apply_min_growth(community, min_growth, atol=1e-06, rtol=1e-06)
+
+   Set minimum growth constraints on a model.
+
+   Will integrate with the context.
+
+
+.. function:: adjust_solver_config(solver)
+
+   Adjust the optlang solver configuration for larger problems.
+
+
+.. function:: reset_min_community_growth(com)
+
+   Reset the lower bound for the community growth.
+
+

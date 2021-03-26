@@ -1,0 +1,109 @@
+:mod:`micom.elasticity`
+=======================
+
+.. py:module:: micom.elasticity
+
+.. autoapi-nested-parse::
+
+   Calculate elasticity coefficients.
+
+   Functions to calculate elasticity coefficients for various community
+   quantities.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.elasticity._get_fluxes
+   micom.elasticity._derivatives
+   micom.elasticity.elasticities_by_medium
+   micom.elasticity.elasticities_by_abundance
+   micom.elasticity.elasticities
+
+
+.. data:: STEP
+   :annotation: = 0.1
+
+   
+
+.. function:: _get_fluxes(sol, reactions)
+
+   Get the primal values for a set of variables.
+
+
+.. function:: _derivatives(before, after)
+
+   Get the elasticities for fluxes.
+
+
+.. function:: elasticities_by_medium(com, reactions, fraction, growth_rate, progress)
+
+   Get the elasticity coefficients for a set of variables.
+
+   :param com: The community for wrhich to calculate elasticities.
+   :type com: micom.Community
+   :param variables: The variables for which to calculate the elasticities. All of these
+                     must have non-zero primal vaues in the previous solution.
+   :type variables: list of optlang.Variable
+
+   :returns: The long/tidy version of the elasticities. Contains columns variable,
+             effector, and elasticity.
+   :rtype: pandas.Dataframe
+
+
+.. function:: elasticities_by_abundance(com, reactions, fraction, growth_rate, progress)
+
+   Get the elasticity coefficients for a set of variables.
+
+   :param com: The community for which to calculate elasticities.
+   :type com: micom.Community
+   :param variables: The variables for which to calculate the elasticities. All of these
+                     must have non-zero primal vaues in the previous solution.
+   :type variables: list of optlang.Variable
+
+   :returns: The long/tidy version of the elasticities. Contains columns variable,
+             effector, and elasticity.
+   :rtype: pandas.Dataframe
+
+
+.. function:: elasticities(com, fraction=0.5, reactions=None, progress=True)
+
+   Calculate elasticities for reactions.
+
+   Calculates elasticity coefficients using the specified reactions as
+   response and exchange bounds (diet) and taxa abundances as
+   effectors/parameters. Will use an arbitrary flux distribution as base.
+
+   :param com: The community for wrhich to calculate elasticities.
+   :type com: micom.Community
+   :param fraction: The tradeoff to use for the cooperative tradeoff method. Fraction of
+                    maximal community growth to enforce.
+   :type fraction: double
+   :param reactions: A list of reactions to get elasticities for. Elements can either be
+                     reactions from the model, strings specifying the ids of reactions
+                     or ints specifying the indices of reactions. Defaults to using all
+                     reactions.
+   :type reactions: iterable
+   :param progress: Whether to shwo progress bars. Will show two, one for the diet
+                    optimizations and another one for the taxa abundances.
+   :type progress: boolean
+
+   :returns: A data frame with the following columns:
+             "reaction" - the exchange reaction (response),
+             "taxon" - the taxon the reaction is from,
+             "effector" - the parameter that was changed,
+             "direction" - whether the flux runs in the forward or reverse
+                 direction,
+             "elasticity" - the elasticity coefficient,
+             "type" - the type of effector either "exchange" for diet or "abundance"
+             for taxa abundances.
+   :rtype: pandas.DataFrame
+
+

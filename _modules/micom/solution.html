@@ -1,0 +1,795 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>micom.solution &#8212; version 0.22.2</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/micom.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">version 0.22.2</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../logic.html">
+   Methods used by MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../installing.html">
+   Installing MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../high_level.html">
+   MICOM workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../viz.html">
+   Visualizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../community.html">
+   Single Model API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../growth_fluxes.html">
+   Growth rates and fluxes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../media.html">
+   Growth media
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../taxa_knockouts.html">
+   Knockouts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../elasticities.html">
+   Intervention studies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../workflows.html">
+   Writing your own workflows
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../../autoapi/index.html">
+   API Reference
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2 collapsible-parent">
+    <a class="reference internal" href="../../autoapi/micom/index.html">
+     <code class="xref py py-mod docutils literal notranslate">
+      <span class="pre">
+       micom
+      </span>
+     </code>
+    </a>
+    <ul class="collapse-ul">
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/data/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.data
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../../autoapi/micom/viz/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.viz
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/exchanges/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.exchanges
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/growth/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.growth
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/prediction/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.prediction
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/viz/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.viz.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3 collapsible-parent">
+      <a class="reference internal" href="../../autoapi/micom/workflows/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.workflows
+        </span>
+       </code>
+      </a>
+      <ul class="collapse-ul">
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/build/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.build
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/core/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.core
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/db_media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.db_media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/grow/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.grow
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/media/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.media
+          </span>
+         </code>
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../autoapi/micom/workflows/tradeoff/index.html">
+         <code class="xref py py-mod docutils literal notranslate">
+          <span class="pre">
+           micom.workflows.tradeoff
+          </span>
+         </code>
+        </a>
+       </li>
+      </ul>
+      <i class="fas fa-chevron-down">
+      </i>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/algorithms/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.algorithms
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/annotation/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.annotation
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/community/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.community
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/db/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.db
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/deps/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.deps
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/duality/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.duality
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/elasticity/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.elasticity
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/logger/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.logger
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/media/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.media
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/optcom/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.optcom
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/problems/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.problems
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/qiime_formats/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.qiime_formats
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/solution/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.solution
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/taxonomy/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.taxonomy
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../autoapi/micom/util/index.html">
+       <code class="xref py py-mod docutils literal notranslate">
+        <span class="pre">
+         micom.util
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+    <i class="fas fa-chevron-down">
+    </i>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <h1>Source code for micom.solution</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;A community solution object.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">optlang.interface</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">OPTIMAL</span><span class="p">,</span>
+    <span class="n">NUMERIC</span><span class="p">,</span>
+    <span class="n">FEASIBLE</span><span class="p">,</span>
+    <span class="n">SUBOPTIMAL</span><span class="p">,</span>
+    <span class="n">ITERATION_LIMIT</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">optlang.symbolics</span> <span class="kn">import</span> <span class="n">Zero</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">cobra.exceptions</span> <span class="kn">import</span> <span class="n">OptimizationError</span>
+<span class="kn">from</span> <span class="nn">cobra.core</span> <span class="kn">import</span> <span class="n">Solution</span>
+<span class="kn">from</span> <span class="nn">cobra.util</span> <span class="kn">import</span> <span class="n">interface_to_str</span><span class="p">,</span> <span class="n">get_context</span>
+<span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">micom.util</span> <span class="kn">import</span> <span class="n">reset_min_community_growth</span><span class="p">,</span> <span class="n">_apply_min_growth</span>
+<span class="kn">from</span> <span class="nn">swiglpk</span> <span class="kn">import</span> <span class="n">glp_adv_basis</span>
+
+
+<div class="viewcode-block" id="good"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.good">[docs]</a><span class="n">good</span> <span class="o">=</span> <span class="p">[</span><span class="n">OPTIMAL</span><span class="p">,</span> <span class="n">NUMERIC</span><span class="p">,</span> <span class="n">FEASIBLE</span><span class="p">,</span> <span class="n">SUBOPTIMAL</span><span class="p">,</span> <span class="n">ITERATION_LIMIT</span><span class="p">]</span></div>
+<span class="sd">&quot;&quot;&quot;Solver states that permit returning the solution.&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="_group_taxa"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution._group_taxa">[docs]</a><span class="k">def</span> <span class="nf">_group_taxa</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">taxa</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Format a list of values by id and taxa.&quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">values</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">values</span><span class="p">,</span> <span class="n">what</span><span class="p">:</span> <span class="n">ids</span><span class="p">,</span> <span class="s2">&quot;compartment&quot;</span><span class="p">:</span> <span class="n">taxa</span><span class="p">})</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;compartment&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">what</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="CommunitySolution"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution">[docs]</a><span class="k">class</span> <span class="nc">CommunitySolution</span><span class="p">(</span><span class="n">Solution</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An FBA solution for an entire community.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    objective_value : float</span>
+<span class="sd">        The (optimal) value for the objective function.</span>
+<span class="sd">    members : pandas.Series</span>
+<span class="sd">        Contains basic info about the individual compartments/members of the</span>
+<span class="sd">        community such as id, abundance and growth rates. Will also include</span>
+<span class="sd">        one row for the external medium (without abundance and growth rate).</span>
+<span class="sd">    growth_rate : float</span>
+<span class="sd">        The overall growth rate for the community normalized to 1 gDW.</span>
+<span class="sd">    status : str</span>
+<span class="sd">        The solver status related to the solution.</span>
+<span class="sd">    strategy : str</span>
+<span class="sd">        The optimization strategy used to obtain the solution (may be empty).</span>
+<span class="sd">    fluxes : pandas.DataFrame</span>
+<span class="sd">        Contains the reaction fluxes (primal values of variables) stratified</span>
+<span class="sd">        by compartment. Columns denote individual fluxes and rows denote</span>
+<span class="sd">        compartments: one for every taxon plus one for the external medium.</span>
+<span class="sd">        Fluxes will be NA if the reaction does not exist in the organism.</span>
+<span class="sd">    reduced_costs : pandas.Series</span>
+<span class="sd">        Contains reaction reduced costs (dual values of variables) stratified</span>
+<span class="sd">        by taxa. Columns denote individual fluxes and rows denote taxa.</span>
+<span class="sd">        Reduced costs will be NA if the reaction does not exist in the</span>
+<span class="sd">        organism.</span>
+<span class="sd">    shadow_prices : pandas.Series</span>
+<span class="sd">        Contains metabolite shadow prices (dual values of constraints)</span>
+<span class="sd">        stratified by taxa. Columns denote individual metabolites and rows</span>
+<span class="sd">        denote taxa. Shadow prices will be NA if the metabolite does not</span>
+<span class="sd">        exist in the organism.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">community</span><span class="p">,</span> <span class="n">slim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reactions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metabolites</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the solution from a community model.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">reactions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">reactions</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">reactions</span>
+        <span class="k">if</span> <span class="n">metabolites</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">metabolites</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">metabolites</span>
+        <span class="n">rids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">r</span><span class="o">.</span><span class="n">global_id</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">community_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">])</span>
+        <span class="n">mids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">m</span><span class="o">.</span><span class="n">global_id</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">community_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">metabolites</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">slim</span><span class="p">:</span>
+            <span class="n">var_primals</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">primal_values</span>
+            <span class="n">fluxes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">var_primals</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">-</span> <span class="n">var_primals</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">reverse_id</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">],</span>
+                <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fluxes&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">CommunitySolution</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+                <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>
+                <span class="n">_group_taxa</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">rids</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">rids</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">(</span><span class="n">CommunitySolution</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+                <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">gcs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">:</span>
+            <span class="n">gcs</span><span class="p">[</span><span class="n">sp</span><span class="p">]</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span><span class="o">.</span><span class="n">primal</span>
+        <span class="c1"># Workaround for an optlang bug (PR #120)</span>
+        <span class="k">if</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">problem</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;gurobi&quot;</span><span class="p">:</span>
+            <span class="n">gcs</span> <span class="o">=</span> <span class="n">gcs</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">modification</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">members</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;abundance&quot;</span><span class="p">:</span> <span class="n">community</span><span class="o">.</span><span class="n">abundances</span><span class="p">,</span>
+                <span class="s2">&quot;growth_rate&quot;</span><span class="p">:</span> <span class="n">gcs</span><span class="p">,</span>
+                <span class="s2">&quot;reactions&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">rids</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])),</span>
+                <span class="s2">&quot;metabolites&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">Counter</span><span class="p">(</span><span class="n">mids</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])),</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;compartments&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">abundances</span> <span class="o">*</span> <span class="n">gcs</span><span class="p">)</span>
+        <span class="c1"># Save estimated accuracy for osqp</span>
+        <span class="k">if</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">problem</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;osqp&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">primal_residual</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">pri_res</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dual_residual</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">dua_res</span>
+
+<div class="viewcode-block" id="CommunitySolution._repr_html_"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution._repr_html_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="n">good</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s2">&quot;display.max_rows&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+                <span class="n">html</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="s2">&quot;&lt;strong&gt;community growth:&lt;/strong&gt; </span><span class="si">{:.3f}</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot;&lt;br&gt;&lt;strong&gt;status:&lt;/strong&gt; </span><span class="si">{}</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot;&lt;br&gt;&lt;strong&gt;taxa:&lt;/strong&gt;</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="nb">sum</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">abundance</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+                            <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">growth_rate</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+                        <span class="p">),</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">_repr_html_</span><span class="p">(),</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="s2">&quot;&lt;strong&gt;</span><span class="si">{}</span><span class="s2">&lt;/strong&gt; solution :(&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">html</span></div>
+
+<div class="viewcode-block" id="CommunitySolution.__repr__"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Convert CommunitySolution instance to string representation.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">good</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;&lt;CommunitySolution </span><span class="si">{0:s}</span><span class="s2"> at 0x</span><span class="si">{1:x}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;CommunitySolution </span><span class="si">{0:.3f}</span><span class="s2"> at 0x</span><span class="si">{1:x}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">growth_rate</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+        <span class="p">)</span>
+
+
+<div class="viewcode-block" id="add_pfba_objective"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.add_pfba_objective">[docs]</a><span class="k">def</span> <span class="nf">add_pfba_objective</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add pFBA objective.</span>
+
+<span class="sd">    Add objective to minimize the summed flux of all reactions to the</span>
+<span class="sd">    current objective. This one will work with any objective (even non-linear</span>
+<span class="sd">    ones).</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    pfba</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    community : micom.Community</span>
+<span class="sd">        The community to add the objective to.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Fix all growth rates</span>
+    <span class="n">rates</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">sp</span><span class="p">:</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span><span class="o">.</span><span class="n">primal</span> <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">community</span><span class="o">.</span><span class="n">taxa</span>
+    <span class="p">}</span>
+    <span class="n">_apply_min_growth</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">rates</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;_pfba_objective&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;model already has pfba objective&quot;</span><span class="p">)</span>
+    <span class="n">reaction_variables</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">rxn</span><span class="o">.</span><span class="n">forward_variable</span><span class="p">,</span> <span class="n">rxn</span><span class="o">.</span><span class="n">reverse_variable</span><span class="p">)</span> <span class="k">for</span> <span class="n">rxn</span> <span class="ow">in</span> <span class="n">community</span><span class="o">.</span><span class="n">reactions</span>
+    <span class="p">)</span>
+    <span class="n">variables</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">reaction_variables</span><span class="p">)</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">Zero</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">objective_direction</span> <span class="o">=</span> <span class="s2">&quot;min&quot;</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">set_linear_coefficients</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="o">=</span> <span class="s2">&quot;pFBA&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="o">+=</span> <span class="s2">&quot; and pFBA&quot;</span></div>
+
+
+<div class="viewcode-block" id="solve"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.solve">[docs]</a><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">raise_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get all fluxes stratified by taxa.&quot;&quot;&quot;</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span>
+    <span class="k">if</span> <span class="n">status</span> <span class="ow">in</span> <span class="n">good</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="n">OPTIMAL</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">raise_error</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">OptimizationError</span><span class="p">(</span><span class="s2">&quot;solver returned the status </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">status</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;solver returned the status </span><span class="si">%s</span><span class="s2">,&quot;</span> <span class="o">%</span> <span class="n">status</span>
+                    <span class="o">+</span> <span class="s2">&quot; returning the solution anyway.&quot;</span>
+                <span class="p">)</span>
+        <span class="k">if</span> <span class="n">pfba</span> <span class="ow">and</span> <span class="n">fluxes</span><span class="p">:</span>
+            <span class="n">add_pfba_objective</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="p">)</span>
+            <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">fluxes</span><span class="p">:</span>
+            <span class="n">sol</span> <span class="o">=</span> <span class="n">CommunitySolution</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sol</span> <span class="o">=</span> <span class="n">CommunitySolution</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">slim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sol</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;solver encountered an error </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">status</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="reset_solver"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.reset_solver">[docs]</a><span class="k">def</span> <span class="nf">reset_solver</span><span class="p">(</span><span class="n">community</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reset the solver.&quot;&quot;&quot;</span>
+    <span class="n">interface</span> <span class="o">=</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;resetting solver, hoping for the best.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">interface</span> <span class="o">==</span> <span class="s2">&quot;cplex&quot;</span><span class="p">:</span>
+        <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">lp_method</span> <span class="o">=</span> <span class="s2">&quot;network&quot;</span>
+        <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">lp_method</span> <span class="o">=</span> <span class="s2">&quot;barrier&quot;</span>
+    <span class="k">elif</span> <span class="n">interface</span> <span class="o">==</span> <span class="s2">&quot;gurobi&quot;</span><span class="p">:</span>
+        <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">interface</span> <span class="o">==</span> <span class="s2">&quot;glpk&quot;</span><span class="p">:</span>
+        <span class="n">glp_adv_basis</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">interface</span> <span class="o">==</span> <span class="s2">&quot;osqp&quot;</span><span class="p">:</span>
+        <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="optimize_with_retry"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.optimize_with_retry">[docs]</a><span class="k">def</span> <span class="nf">optimize_with_retry</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;could not get optimum.&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Try to reset the solver.&quot;&quot;&quot;</span>
+    <span class="n">sol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">sol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">reset_solver</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
+        <span class="n">sol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">sol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">OptimizationError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sol</span><span class="o">.</span><span class="n">objective_value</span></div>
+
+
+<div class="viewcode-block" id="crossover"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.crossover">[docs]</a><span class="k">def</span> <span class="nf">crossover</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">sol</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the crossover solution.&quot;&quot;&quot;</span>
+    <span class="n">gcs</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">growth_rate</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;medium&quot;</span><span class="p">)</span>
+    <span class="n">com_growth</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">growth_rate</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting crossover...&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">community</span> <span class="k">as</span> <span class="n">com</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;constraining growth rates.&quot;</span><span class="p">)</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">get_context</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">context</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">context</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">reset_min_community_growth</span><span class="p">,</span> <span class="n">com</span><span class="p">))</span>
+        <span class="n">reset_min_community_growth</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
+        <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">ub</span> <span class="o">=</span> <span class="n">com_growth</span> <span class="o">+</span> <span class="mf">1e-6</span>
+        <span class="n">com</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">scale</span> <span class="o">*</span> <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span>
+        <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">taxa</span><span class="p">:</span>
+            <span class="n">const</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
+            <span class="n">const</span><span class="o">.</span><span class="n">ub</span> <span class="o">=</span> <span class="n">gcs</span><span class="p">[</span><span class="n">sp</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;finding closest feasible solution&quot;</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">reset_solver</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">CommunitySolution</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">slim</span><span class="o">=</span><span class="ow">not</span> <span class="n">fluxes</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">taxa</span><span class="p">:</span>
+            <span class="n">com</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span><span class="o">.</span><span class="n">ub</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">OptimizationError</span><span class="p">(</span>
+            <span class="s2">&quot;crossover could not converge (status = </span><span class="si">%s</span><span class="s2">).&quot;</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span>
+        <span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">objective_value</span> <span class="o">/=</span> <span class="n">com</span><span class="o">.</span><span class="n">scale</span>
+    <span class="k">return</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="optimize_with_fraction"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.optimize_with_fraction">[docs]</a><span class="k">def</span> <span class="nf">optimize_with_fraction</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Optimize with a constrained community growth rate.&quot;&quot;&quot;</span>
+    <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">ub</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">growth_rate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">com</span><span class="p">:</span>
+            <span class="n">com</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">scale</span> <span class="o">*</span> <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span>
+            <span class="n">growth_rate</span> <span class="o">=</span> <span class="n">optimize_with_retry</span><span class="p">(</span>
+                <span class="n">com</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;could not get community growth rate.&quot;</span>
+            <span class="p">)</span>
+            <span class="n">growth_rate</span> <span class="o">/=</span> <span class="n">com</span><span class="o">.</span><span class="n">scale</span>
+    <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="n">fraction</span> <span class="o">*</span> <span class="n">growth_rate</span>
+    <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">ub</span> <span class="o">=</span> <span class="n">growth_rate</span>
+    <span class="n">sol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">sol</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="n">OPTIMAL</span><span class="p">:</span>
+        <span class="n">sol</span> <span class="o">=</span> <span class="n">crossover</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">sol</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="n">fluxes</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sol</span> <span class="o">=</span> <span class="n">CommunitySolution</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">slim</span><span class="o">=</span><span class="ow">not</span> <span class="n">fluxes</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sol</span></div>
+</pre></div>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Christian Diener<br/>
+        
+            &copy; Copyright 2017-2021, Christian Diener.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

@@ -1,0 +1,39 @@
+:mod:`micom.viz.growth`
+=======================
+
+.. py:module:: micom.viz.growth
+
+.. autoapi-nested-parse::
+
+   Visualization for growth rates.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.viz.growth.plot_growth
+
+
+.. function:: plot_growth(results, filename='growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
+
+   Plot the taxa growth rates.
+
+   :param results: The results returned by the `grow` workflow.
+   :type results: micom.workflows.GrowthResults
+   :param filename: The HTML file where the visualization will be saved.
+   :type filename: str
+   :param tolerance: Smallest growth rate that will be considered. Everything lower will be
+                     considered not growing.
+   :type tolerance: float
+
+   :returns: A MICOM visualization. Can be served with `viz.serve`.
+   :rtype: Visualization
+
+

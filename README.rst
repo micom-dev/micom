@@ -3,8 +3,8 @@
 
 |actions status| |coverage| |pypi status|
 
-Welcome!
---------
+Welcome
+-------
 
 `MICOM` is a Python package for metabolic modeling of microbial
 communities currently developed in the

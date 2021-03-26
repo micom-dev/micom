@@ -8,6 +8,9 @@
 
 |actions status| |coverage| |pypi status|
 
+Welcome
+-------
+
 `MICOM` is a Python package for metabolic modeling of microbial
 communities developed in the
 `Gibbons Lab <https://gibbons.systemsbiology.org>`_ at the `Institute for Systems

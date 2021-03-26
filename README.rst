@@ -1,7 +1,10 @@
-.. image:: https://github.com/micom-dev/micom/raw/master/docs/source/_static/micom.png
+.. image:: https://github.com/micom-dev/micom/raw/master/docs/source/micom.png
     :width: 640 px
 
 |actions status| |coverage| |pypi status|
+
+Welcome!
+--------
 
 `MICOM` is a Python package for metabolic modeling of microbial
 communities currently developed in the

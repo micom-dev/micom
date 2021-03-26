@@ -21,7 +21,7 @@ jobs:
         pip install wheel numpy Cython
         pip install biom-format
         pip install -e .
-        pip install sphinx nbsphinx jupyter_sphinx_theme
+        pip install sphinx nbsphinx sphinx-book-theme
     - name: Build docs
       run: |
         cd docs && make html

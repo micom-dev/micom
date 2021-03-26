@@ -73,7 +73,7 @@ jobs:
           twine upload dist/*
       - uses: actions/upload-artifact@v2
         with:
-          name: python-package
+          name: python-packages
           path: dist/*
       - name: Create Release
         uses: ncipollo/release-action@v1

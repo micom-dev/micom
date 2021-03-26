@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. image:: https://github.com/micom-dev/micom/raw/master/docs/source/_static/micom.png
+.. image:: micom.png
     :width: 640 px
 
 |actions status| |coverage| |pypi status|

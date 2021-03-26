@@ -52,11 +52,11 @@ jobs:
   release:
       needs: test
       if: startsWith(github.ref, 'refs/tags')
-      runs-on: ${{ matrix.os }}
       strategy:
         matrix:
           os: [ubuntu-latest]
           python-version: [3.8]
+      runs-on: ${{ matrix.os }}
 
       steps:
       - name: Create Release
@@ -71,3 +71,14 @@ jobs:
             Please see https://github.com/micom-dev/micom/blob/master/NEWS.md for the full release notes.
           draft: false
           prerelease: false
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install setuptools wheel twine
+      - name: Build and publish
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USER }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          python setup.py sdist bdist_wheel
+          twine upload dist/*

@@ -76,13 +76,11 @@ jobs:
           name: python-package
           path: dist/*
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v2
+        uses: ncipollo/release-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          artifacts: dist/*
+          artifacts: 'dist/*'
           body: |
             Please see https://github.com/micom-dev/micom/blob/master/NEWS.md for the full release notes.
           draft: false

@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom package &#8212; micom 0.20.0 documentation</title>
+    <title>micom package &#8212; micom 0.22.1 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootswatch-3.3.4/yeti/bootstrap.min.css" type="text/css" />
@@ -43,7 +43,7 @@
       </button>
       <a class="navbar-brand" href="index.html">
         micom</a>
-      <span class="navbar-text navbar-version pull-left"><b>0.20.x</b></span>
+      <span class="navbar-text navbar-version pull-left"><b>0.22.x</b></span>
     </div>
 
       <div class="collapse navbar-collapse nav-collapse">
@@ -229,7 +229,7 @@ the exchange fluxes and the community objective.</p>
 
 <dl class="py method">
 <dt id="micom.community.Community.cooperative_tradeoff">
-<code class="sig-name descname">cooperative_tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">fraction</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.cooperative_tradeoff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cooperative_tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">fraction</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.cooperative_tradeoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the best tradeoff between community and individual growth.</p>
 <p>Finds the set of growth rates which maintian a particular community
 growth and spread up growth across all taxa as much as possible.
@@ -247,6 +247,10 @@ community growth rate. Defaults to 100%.</p></li>
 <li><p><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to return the fluxes as well.</p></li>
 <li><p><strong>pfba</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to obtain fluxes by parsimonious FBA rather than
 “classical” FBA. This is highly recommended.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver
+tolerance.</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the
+solver tolerance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -395,7 +399,7 @@ doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</p>
 
 <dl class="py method">
 <dt id="micom.community.Community.optimize">
-<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">raise_error</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">1e-06</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">1e-06</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optimize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">raise_error</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">1e-06</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">1e-06</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.community.Community.optimize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize the model using flux balance analysis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -826,6 +830,12 @@ reaction. If <cite>solution</cite> is True retuns a dictionary
 </dd></dl>
 
 <dl class="py function">
+<dt id="micom.media.safe_weight">
+<code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">safe_weight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">met</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.safe_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the weight of a molecule.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="micom.media.weight">
 <code class="sig-prename descclassname">micom.media.</code><code class="sig-name descname">weight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exchanges</span></em>, <em class="sig-param"><span class="n">what</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.media.weight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Obtain elemental weights for metabolites.</p>
@@ -951,7 +961,7 @@ doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</p>
 <p>Implements tradeoff optimization between community and egoistic growth.</p>
 <dl class="py function">
 <dt id="micom.problems.cooperative_tradeoff">
-<code class="sig-prename descclassname">micom.problems.</code><code class="sig-name descname">cooperative_tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">min_growth</span></em>, <em class="sig-param"><span class="n">fraction</span></em>, <em class="sig-param"><span class="n">fluxes</span></em>, <em class="sig-param"><span class="n">pfba</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.cooperative_tradeoff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.problems.</code><code class="sig-name descname">cooperative_tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">min_growth</span></em>, <em class="sig-param"><span class="n">fraction</span></em>, <em class="sig-param"><span class="n">fluxes</span></em>, <em class="sig-param"><span class="n">pfba</span></em>, <em class="sig-param"><span class="n">atol</span></em>, <em class="sig-param"><span class="n">rtol</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.problems.cooperative_tradeoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the best tradeoff between community and individual growth.</p>
 </dd></dl>
 
@@ -1165,7 +1175,7 @@ ones).</p>
 
 <dl class="py function">
 <dt id="micom.solution.crossover">
-<code class="sig-prename descclassname">micom.solution.</code><code class="sig-name descname">crossover</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">sol</span></em>, <em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.solution.crossover" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.solution.</code><code class="sig-name descname">crossover</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">community</span></em>, <em class="sig-param"><span class="n">sol</span></em>, <em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.solution.crossover" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the crossover solution.</p>
 </dd></dl>
 
@@ -1177,7 +1187,7 @@ ones).</p>
 
 <dl class="py function">
 <dt id="micom.solution.optimize_with_fraction">
-<code class="sig-prename descclassname">micom.solution.</code><code class="sig-name descname">optimize_with_fraction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">com</span></em>, <em class="sig-param"><span class="n">fraction</span></em>, <em class="sig-param"><span class="n">growth_rate</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.solution.optimize_with_fraction" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">micom.solution.</code><code class="sig-name descname">optimize_with_fraction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">com</span></em>, <em class="sig-param"><span class="n">fraction</span></em>, <em class="sig-param"><span class="n">growth_rate</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.solution.optimize_with_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize with a constrained community growth rate.</p>
 </dd></dl>
 
@@ -1240,6 +1250,12 @@ ones).</p>
 <dt id="micom.util.clean_ids">
 <code class="sig-prename descclassname">micom.util.</code><code class="sig-name descname">clean_ids</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.util.clean_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean ids up a bit.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.util.compartment_id">
+<code class="sig-prename descclassname">micom.util.</code><code class="sig-name descname">compartment_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">micom_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.util.compartment_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the compartment id for a cobra object and prune the prefix if needed.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -1350,7 +1366,7 @@ the exchange fluxes and the community objective.</p>
 
 <dl class="py method">
 <dt id="micom.Community.cooperative_tradeoff">
-<code class="sig-name descname">cooperative_tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">fraction</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.cooperative_tradeoff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">cooperative_tradeoff</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">min_growth</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">fraction</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.cooperative_tradeoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the best tradeoff between community and individual growth.</p>
 <p>Finds the set of growth rates which maintian a particular community
 growth and spread up growth across all taxa as much as possible.
@@ -1368,6 +1384,10 @@ community growth rate. Defaults to 100%.</p></li>
 <li><p><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to return the fluxes as well.</p></li>
 <li><p><strong>pfba</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to obtain fluxes by parsimonious FBA rather than
 “classical” FBA. This is highly recommended.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver
+tolerance.</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the
+solver tolerance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1516,7 +1536,7 @@ doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</p>
 
 <dl class="py method">
 <dt id="micom.Community.optimize">
-<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">raise_error</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">1e-06</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">1e-06</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fluxes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pfba</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">raise_error</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">atol</span><span class="o">=</span><span class="default_value">1e-06</span></em>, <em class="sig-param"><span class="n">rtol</span><span class="o">=</span><span class="default_value">1e-06</span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize the model using flux balance analysis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1659,6 +1679,11 @@ if you know what you are doing :O</p></li>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py function">
+<dt id="micom.show_versions">
+<code class="sig-prename descclassname">micom.</code><code class="sig-name descname">show_versions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#micom.show_versions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 </div>

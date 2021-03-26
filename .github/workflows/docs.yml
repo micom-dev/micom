@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install pandoc
-      run: /
+      run: |
         sudo apt-get -y install pandoc
     - name: Set up Python
       with:

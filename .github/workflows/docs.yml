@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Install pandoc
+      run: /
+        sudo apt-get -y install pandoc
     - name: Set up Python
       with:
         python-version: '3.8'

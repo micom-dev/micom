@@ -1,8 +1,7 @@
 """A class representing a microbial or tissue community."""
 
 import re
-import six
-import six.moves.cPickle as pickle
+import pickle
 import cobra
 import pandas as pd
 from optlang.symbolics import Zero
@@ -80,7 +79,8 @@ class Community(cobra.Model):
         ----------
         taxonomy : pandas.DataFrame
             The taxonomy used for building the model. Must have at least the
-            column "id". If no model database is specified in the next argument
+            column "id" or a column specifying a taxonomic rank.
+            If no model database is specified in the next argument
             it furthermore requires a column "file" which specifies a filepath
             for each model. Valid file extensions are ".pickle", ".xml",
             ".xml.gz" and ".json". If a model database is specified this must
@@ -164,9 +164,13 @@ class Community(cobra.Model):
         )
         taxonomy = taxonomy[taxonomy.abundance > self._rtol]
 
-        if not (isinstance(taxonomy, pd.DataFrame) and "id" in taxonomy.columns):
+        if not (
+            isinstance(taxonomy, pd.DataFrame)
+            and any(taxonomy.columns.isin(["id"] + _ranks))
+        ):
             raise ValueError(
-                "`taxonomy` must be a pandas DataFrame with at" "least a column `id` :("
+                "`taxonomy` must be a pandas DataFrame with at least"
+                " a column `id` or a rank :("
             )
         if model_db is None and "file" not in taxonomy.columns:
             raise ValueError(
@@ -189,6 +193,8 @@ class Community(cobra.Model):
             rank = manifest["summary_rank"][0]
             if rank not in taxonomy.columns:
                 raise ValueError("Missing the column `%s` from the taxonomy." % rank)
+            if "id" not in taxonomy.columns:
+                taxonomy["id"] = taxonomy[rank]
             keep_cols = [
                 r
                 for r in _ranks[0 : (_ranks.index(rank) + 1)]
@@ -220,7 +226,7 @@ class Community(cobra.Model):
 
         if taxonomy.id.str.contains(r"[^A-Za-z0-9_]", regex=True).any():
             logger.warning(
-                "Taxa IDs contain prohibited characters and" " will be reformatted."
+                "Taxa IDs contain prohibited characters and will be reformatted."
             )
             taxonomy.id = taxonomy.id.replace(r"[^A-Za-z0-9_\s]+", "_", regex=True)
 
@@ -426,7 +432,7 @@ class Community(cobra.Model):
             The maximal growth rate for the given taxa.
 
         """
-        if isinstance(id, six.string_types):
+        if isinstance(id, str):
             if id not in self.__taxonomy.index:
                 raise ValueError(id + " not in taxonomy!")
             info = self.__taxonomy.loc[id]
@@ -475,7 +481,7 @@ class Community(cobra.Model):
         return pd.Series(individual, self.__taxonomy.index)
 
     def optimize(
-        self, fluxes=False, pfba=True, raise_error=False, atol=1e-6, rtol=1e-6
+        self, fluxes=False, pfba=False, raise_error=False, atol=1e-6, rtol=1e-6
     ):
         """Optimize the model using flux balance analysis.
 
@@ -496,7 +502,14 @@ class Community(cobra.Model):
 
         """
         with self:
-            solution = solve(self, fluxes=fluxes, pfba=pfba, atol=atol, rtol=rtol)
+            solution = solve(
+                self,
+                fluxes=fluxes,
+                pfba=pfba,
+                raise_error=raise_error,
+                atol=atol,
+                rtol=rtol,
+            )
         return solution
 
     @property
@@ -693,7 +706,13 @@ class Community(cobra.Model):
         return optcom(self, strategy, min_growth, fluxes, pfba)
 
     def cooperative_tradeoff(
-        self, min_growth=0.0, fraction=1.0, fluxes=False, pfba=True
+        self,
+        min_growth=0.0,
+        fraction=1.0,
+        fluxes=False,
+        pfba=False,
+        atol=None,
+        rtol=None,
     ):
         """Find the best tradeoff between community and individual growth.
 
@@ -717,6 +736,12 @@ class Community(cobra.Model):
         pfba : boolean, optional
             Whether to obtain fluxes by parsimonious FBA rather than
             "classical" FBA. This is highly recommended.
+        atol : float
+            Absolute tolerance for the growth rates. If None will use the solver
+            tolerance.
+        rtol : float
+            Relative tolerqance for the growth rates. If None will use the
+            solver tolerance.
 
         Returns
         -------
@@ -726,7 +751,14 @@ class Community(cobra.Model):
             growth rates. If more than one fraction value is given will return
             a pandas Series of solutions with the fractions as indices.
         """
-        return cooperative_tradeoff(self, min_growth, fraction, fluxes, pfba)
+        if atol is None:
+            atol = self.solver.configuration.tolerances.feasibility
+        if rtol is None:
+            rtol = self.solver.configuration.tolerances.feasibility
+
+        return cooperative_tradeoff(
+            self, min_growth, fraction, fluxes, pfba, atol, rtol
+        )
 
     def knockout_taxa(
         self,
@@ -770,7 +802,7 @@ class Community(cobra.Model):
         """
         if taxa is None:
             taxa = self.taxa
-        if isinstance(taxa, six.string_types):
+        if isinstance(taxa, str):
             taxa = [taxa]
         if any(sp not in self.taxa for sp in taxa):
             raise ValueError(

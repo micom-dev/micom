@@ -23,9 +23,9 @@ def _growth(args):
     com = load_pickle(p)
 
     if atol is None:
-        atol = com.solver.configuration.tolerances.optimality
+        atol = com.solver.configuration.tolerances.feasibility
     if rtol is None:
-        rtol = com.solver.configuration.tolerances.optimality
+        rtol = com.solver.configuration.tolerances.feasibility
 
     com = load_pickle(p)
 
@@ -48,6 +48,8 @@ def _growth(args):
 
     # Get growth rates
     args = ARGS[strategy].copy()
+    args["atol"] = atol
+    args["rtol"] = rtol
     args["fraction"] = tradeoff
     try:
         sol = com.cooperative_tradeoff(**args)

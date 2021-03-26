@@ -197,7 +197,7 @@ def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=
                     "solver returned the status %s," % status
                     + " returning the solution anyway."
                 )
-        if fluxes and pfba:
+        if pfba and fluxes:
             add_pfba_objective(community, atol, rtol)
             community.solver.optimize()
         if fluxes:
@@ -236,7 +236,7 @@ def optimize_with_retry(com, message="could not get optimum."):
         return sol.objective_value
 
 
-def crossover(community, sol, fluxes=False, pfba=False):
+def crossover(community, sol, fluxes=False):
     """Get the crossover solution."""
     gcs = sol.members.growth_rate.drop("medium")
     com_growth = sol.growth_rate
@@ -270,7 +270,7 @@ def crossover(community, sol, fluxes=False, pfba=False):
     return s
 
 
-def optimize_with_fraction(com, fraction, growth_rate=None, fluxes=False, pfba=False):
+def optimize_with_fraction(com, fraction, growth_rate=None, fluxes=False):
     """Optimize with a constrained community growth rate."""
     com.variables.community_objective.lb = 0
     com.variables.community_objective.ub = None
@@ -285,7 +285,7 @@ def optimize_with_fraction(com, fraction, growth_rate=None, fluxes=False, pfba=F
     com.variables.community_objective.ub = growth_rate
     sol = com.optimize()
     if sol.status != OPTIMAL:
-        sol = crossover(com, sol, fluxes=fluxes, pfba=pfba)
+        sol = crossover(com, sol, fluxes=fluxes)
     else:
         sol = CommunitySolution(com, slim=not fluxes)
     return sol

@@ -5,6 +5,12 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please read the docs at
 https://micom-dev.github.io/micom.
 
+### 0.22.1
+
+`atol` and `rtol` are now consistently exposed.
+
+Remove six dependency.
+
 ### 0.22.0
 
 Got a bit smarter in cleaning up compartment suffixes. This fixes the odd "_e_m" suffix

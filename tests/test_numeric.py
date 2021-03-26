@@ -11,7 +11,11 @@ def test_crossover(community):
     gcs = sol.members.growth_rate.dropna()
     sol = ms.crossover(community, sol)
     for i, g in enumerate(gcs):
-        sol.members.growth_rate[i] == approx(g)
+        assert sol.members.growth_rate[i] == approx(g)
+    sol = ms.crossover(community, sol, fluxes=True)
+    for i, g in enumerate(gcs):
+        assert sol.members.growth_rate[i] == approx(g)
+        assert sol.fluxes.shape[1] > 100
 
 
 def test_reset(community):

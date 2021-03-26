@@ -65,7 +65,7 @@ def regularize_l2_norm(community, min_growth):
     logger.info("finished adding tradeoff objective to %s" % community.id)
 
 
-def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
+def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rtol):
     """Find the best tradeoff between community and individual growth."""
     with community as com:
         solver = interface_to_str(community.problem)
@@ -75,9 +75,7 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
 
         com.objective = com.scale * com.variables.community_objective
         min_growth = (
-            optimize_with_retry(
-                com, message="could not get community growth rate."
-            )
+            optimize_with_retry(com, message="could not get community growth rate.")
             / com.scale
         )
         if not isinstance(fraction, Sized):
@@ -91,22 +89,20 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba):
         for fr in fraction:
             com.variables.community_objective.lb = fr * min_growth
             com.variables.community_objective.ub = min_growth
-            sol = solve(community, fluxes=fluxes, pfba=pfba)
+            sol = solve(community, fluxes=fluxes, pfba=pfba, atol=atol, rtol=rtol)
             # OSQP is better with QPs then LPs
             # so it won't get better with the crossover
-            if (sol.status != OPTIMAL and solver != "osqp"):
-                sol = crossover(com, sol, fluxes=fluxes, pfba=pfba)
+            if not pfba and sol.status != OPTIMAL and solver != "osqp":
+                sol = crossover(
+                    com, sol, fluxes=fluxes
+                )
             results.append((fr, sol))
         if len(results) == 1:
             return results[0][1]
-        return pd.DataFrame.from_records(
-            results, columns=["tradeoff", "solution"]
-        )
+        return pd.DataFrame.from_records(results, columns=["tradeoff", "solution"])
 
 
-def knockout_taxa(
-    community, taxa, fraction, method, progress, diag=True
-):
+def knockout_taxa(community, taxa, fraction, method, progress, diag=True):
     """Knockout a taxon from the community."""
     with community as com:
         check_modification(com)
@@ -115,8 +111,7 @@ def knockout_taxa(
 
         com.objective = com.scale * com.variables.community_objective
         community_min_growth = (
-            optimize_with_retry(com, "could not get community growth rate.")
-            / com.scale
+            optimize_with_retry(com, "could not get community growth rate.") / com.scale
         )
         regularize_l2_norm(com, fraction * community_min_growth)
         old = com.optimize().members["growth_rate"]
@@ -125,12 +120,10 @@ def knockout_taxa(
         iter = track(taxa, description="Knockouts") if progress else taxa
         for sp in iter:
             with com:
-                logger.info("getting growth rates for " "%s knockout." % sp)
+                logger.info("getting growth rates for %s knockout." % sp)
                 [
                     r.knock_out()
-                    for r in com.reactions.query(
-                        lambda ri: ri.community_id == sp
-                    )
+                    for r in com.reactions.query(lambda ri: ri.community_id == sp)
                 ]
 
                 sol = optimize_with_fraction(com, fraction)

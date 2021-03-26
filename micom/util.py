@@ -6,9 +6,9 @@ from cobra.util.solver import interface_to_str, linear_reaction_coefficients
 from cobra import Reaction
 import os.path as path
 from functools import partial
-import six.moves.cPickle as pickle
-from six.moves.urllib.parse import urlparse
-import six.moves.urllib.request as urlreq
+import pickle
+from urllib.parse import urlparse
+import urllib.request as urlreq
 import tempfile
 from shutil import rmtree
 import pandas as pd
@@ -272,6 +272,7 @@ def adjust_solver_config(solver):
     """Adjust the optlang solver configuration for larger problems."""
     interface = interface_to_str(solver.interface)
 
+    solver.configuration.tolerances.feasibility = 1e-6
     if interface == "cplex":
         solver.configuration.lp_method = "barrier"
         solver.configuration.qp_method = "barrier"

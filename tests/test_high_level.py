@@ -35,16 +35,23 @@ def test_build(tmp_path):
         assert (tmp_path / fi).exists()
 
 
-def test_grow(tmp_path):
+@pytest.mark.parametrize("strategy", ["none", "minimal imports", "pFBA"])
+def test_grow(tmp_path, strategy):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0)
-    grown = grow(built, str(tmp_path), medium, 0.5)
+    grown = grow(built, str(tmp_path), medium, 0.5, strategy=strategy)
     assert len(grown) == 3
     assert "growth_rate" in grown.growth_rates.columns
     assert "flux" in grown.exchanges.columns
     with pytest.raises(OptimizationError):
         grow(built, str(tmp_path), medium, 1.5)
 
+
+def test_grow_bad_strategy(tmp_path):
+    data = md.test_data()
+    built = build(data, db, str(tmp_path), cutoff=0)
+    with pytest.raises(ValueError):
+        grown = grow(built, str(tmp_path), medium, 0.5, strategy="blub")
 
 def test_tradeoff(tmp_path):
     data = md.test_data()

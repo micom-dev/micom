@@ -20,8 +20,8 @@ jobs:
         python -m pip install --upgrade pip cryptography
         pip install wheel numpy Cython
         pip install biom-format
-        pip install sphinx nbsphinx jupyter_sphinx_theme
         pip install -e .
+        pip install sphinx nbsphinx jupyter_sphinx_theme
     - name: Build docs
       run: |
         cd docs && make html

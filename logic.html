@@ -1,0 +1,626 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How does MICOM model communities &#8212; version 0.22.2</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installing micom" href="installing.html" />
+    <link rel="prev" title="Attribution" href="index.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/micom.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">version 0.22.2</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Methods used by MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="installing.html">
+   Installing MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="high_level.html">
+   MICOM workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="viz.html">
+   Visualizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="community.html">
+   Single Model API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="growth_fluxes.html">
+   Growth rates and fluxes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="media.html">
+   Growth media
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="taxa_knockouts.html">
+   Knockouts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="elasticities.html">
+   Intervention studies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="workflows.html">
+   Writing your own workflows
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="micom.html">
+   API
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="micom.data.html">
+     micom.data package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="micom.viz.html">
+     micom.viz package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="micom.workflows.html">
+     micom.workflows package
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/logic.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Exchanges-and-community-growth-rate">
+   Exchanges and community growth rate
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Steady-states-in-the-community">
+   Steady states in the community
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Cooperative-tradeoff">
+   Cooperative tradeoff
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Numerical-stability-and-solvers">
+   Numerical stability and solvers
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="How-does-MICOM-model-communities">
+<h1>How does MICOM model communities<a class="headerlink" href="#How-does-MICOM-model-communities" title="Permalink to this headline">¶</a></h1>
+<p><img alt="image0" src="_images/summary.png" /></p>
+<p>There are many frameworks for microbial modeling and all make their own specific assumptions in order to fit microbial communities into a mathematical representation. This is an overview about the assumptions <code class="docutils literal notranslate"><span class="pre">MICOM</span></code> makes and how it translates the community into mathematical terms. As it happens all formulations here are similar to formulation used in the <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1002363">OptCom</a> and <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1005539">SteadyCom</a> papers.</p>
+<p>In general <code class="docutils literal notranslate"><span class="pre">MICOM</span></code> makes several assumptions to infer growth rates and fluxes in a microbial community. The most important ones being:</p>
+<ol class="arabic simple">
+<li><p>Growth rates and relative abundances in the community are in steady state.</p></li>
+<li><p>Most taxa that are present in a biological sample should be able to grow (have a growth rate &gt;0).</p></li>
+<li><p>Relative DNA abundances can be used as a proxy for dry weight taxa abundances.</p></li>
+</ol>
+<p>Different to SteadyCom, MICOM does not assume that all taxa have the same growth rate and allows for taxa-specific dilution rates.</p>
+<div class="section" id="Exchanges-and-community-growth-rate">
+<h2>Exchanges and community growth rate<a class="headerlink" href="#Exchanges-and-community-growth-rate" title="Permalink to this headline">¶</a></h2>
+<p>One of the things that can easily overlooked when using FBA for communities is that growth rates and fluxes are usually given in unit mass/(abundance * time), for instance mmmol/(gDW * h). Thus, all fluxes are relative to the abundance of the single bacteria they describe. However, in a community all bacteria might have different abundances so we have to take care to balance fluxes. For instance let us take a system containing only one bacteria <span class="math notranslate nohighlight">\(i\)</span> which imports metabolite X from the
+external medium. In the medium metabolite X enters the system with an unscaled flux <span class="math notranslate nohighlight">\(v^m_x\)</span> which has units mmmol/h. Within the bacteria the metabolite is consumed with the sclaed flux <span class="math notranslate nohighlight">\(v^i_x\)</span> which has units mmol/(gDW * h). <span class="math notranslate nohighlight">\(v^i_x\)</span> described the flux that can be realized by 1 gDW of the respective bacteria. However, the abundance for bacteria <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(b_i\)</span> (in gDW), might be different than that. In order to have balanced fluxes we have to enforce that
+<span class="math notranslate nohighlight">\(v^m_x = b_i \cdot v^i_x\)</span> (overall influx equals overall consumption). If many bacteria import the respective metabolite we thus need to enforce</p>
+<div class="math notranslate nohighlight">
+\[v^m_x = \sum_i b_i \cdot v^i_x\]</div>
+<p>The actual abundances <span class="math notranslate nohighlight">\(b_i\)</span> are usually not known, but we can divide the equation by the total bacterial abundance <span class="math notranslate nohighlight">\(B = \sum_i b_i\)</span> and obtain</p>
+<div class="math notranslate nohighlight">
+\[\tilde{v}^m_x = v^m_x/B = \sum_i b_i/B \cdot v^i_x\]</div>
+<p><span class="math notranslate nohighlight">\(\tilde{v}^m_x\)</span> is now a scaled flux in the medium relative to the overall bacterial biomass in the community. The relative abundances <span class="math notranslate nohighlight">\(\tilde{b}_i = b_i/B\)</span> can be taken from metagenomic studies such as 16S rRNA quantities. This is how <code class="docutils literal notranslate"><span class="pre">MICOM</span></code> uses abundance data.</p>
+<p>In a similar manner the unscaled community growth rate (total biomass production) is given by</p>
+<div class="math notranslate nohighlight">
+\[v_{biomass} = \sum_i b_i\cdot v^i_{biomass}\]</div>
+<p>and dividing by the total biomass <span class="math notranslate nohighlight">\(B\)</span> yields</p>
+<div class="math notranslate nohighlight">
+\[\tilde{v}_{biomass} = \sum_i b_i/B v^i_{biomass}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\tilde{v}_{biomass}\)</span> now again is a scaled biomass flux relative to a total community biomass of 1 gDW. In order to adjust growth rate predictions from <code class="docutils literal notranslate"><span class="pre">MICOM</span></code> to your sample you would have to divide those growth rates by the overall weight of microbiota in your sample. For instance <a class="reference external" href="https://dx.doi.org/10.1371%2Fjournal.pbio.1002533">a recent publication</a> estimates that an average human has 200g of bacteria in the gut.</p>
+</div>
+<div class="section" id="Steady-states-in-the-community">
+<h2>Steady states in the community<a class="headerlink" href="#Steady-states-in-the-community" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">MICOM</span></code> has be designed with the gut microbiota in mind. One of the major problems when trying to apply flux balance analysis (FBA) to microbial community data especially metagenomic data are paradoxical assumptions about community growth. Flux balance analysis usually assumes a maximization of the growth rate, or at least the realization of one particular growth rate <span class="math notranslate nohighlight">\(\mu\)</span>, however metagenomic experiments usually only quantify the microbial compositions at one particular time point,
+assuming that the microbial abundance does not change. Those two assumptions are not compatible per sé. If members of the community grow with a constant rate they will accumulate exponentially over time, however we know that this is not the case in systems as the intestine (otherwise we would probably explode due to an overpopulation of bacteria and fungi). This disagreement can be aleviated by accounting for dilution of the microbiota. For instance in the gut bacteria are constantly removed in
+small amounts by death (when arriving at their specific life span) and in larger amounts by defecation. The sum of all processes removing bacteria from the system is what we call dilution here. In <code class="docutils literal notranslate"><span class="pre">MICOM</span></code> we assume the follwing about the dilution process:</p>
+<ol class="arabic simple">
+<li><p>It is relative to the bacterial abundance (the more you have in your system the more is removed by dilution)</p></li>
+<li><p>It may be specific to the bacterial strain</p></li>
+<li><p>It may specific to the sample</p></li>
+</ol>
+<ol class="arabic simple">
+<li><p>is known to be true for the gut microbiome since we know that a higher concentration of a bacteria in the gut is usually associated with a higher concentration in stool samples (which is the major dilution contributor). This is similar to <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1005539.s016">SteadyCom</a> but does not assume that the dilution rate is constant across all taxa. (2) is based on the observation that bacteria may have distinct spatial arrangements which make it easier or hader to
+be diluted. (3) is based on the assumption that the respective systems may be different (no gut is the same :D), however it is one of the assumptions we are currently trying to validate. As a consequence we assume that the abundance for bacteria <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(b_i\)</span> occurs with a growth rate <span class="math notranslate nohighlight">\(\mu_i\)</span> and balances with an arbitrary dilution process <span class="math notranslate nohighlight">\(d_i(t) = d_i(b_i)\)</span> as</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\frac{d b_i(t)}{dt} = \mu_i b_i(t) - d_i(t)\]</div>
+<p>As we can see absolute bacterial abundance can only be in steady state if growth and dilution are balanced. Additionally one could also formulate the problem in terms of relative concentrations to the total community abundance <span class="math notranslate nohighlight">\(B = \sum_i b_i\)</span> using the quotient rule, which yields:</p>
+<div class="math notranslate nohighlight">
+\[\frac{d \tilde{b}_i}{dt} = \frac{d b_i/B}{dt} = \mu_i\tilde{b}_i - \frac{d_i(t)}{B} - \cdot \tilde{b}_i\sum_k \left[\mu_k\tilde{b}_k - \frac{d_k(t)}{B}\right]\]</div>
+<p>As one can see, this equation has a steady state if for all i <span class="math notranslate nohighlight">\(\mu_i - \frac{d_i(t)}{B\cdot \tilde{b}_i} = C\)</span> for any constant C:</p>
+<p><span class="math">\begin{align}
+\frac{d \tilde{b}_i}{dt} &= C\tilde{b}_i - \tilde{b}_i\sum_k C \tilde{b}_k\\
+& = \tilde{b}_i\left(C - C\cdot 1) \right) = 0
+\end{align}</span></p>
+<p>However, in this the total abundance <span class="math notranslate nohighlight">\(B\)</span> would increase indefinitely in time. In particular it holds that <span class="math notranslate nohighlight">\(\frac{dB}{dt} = C\)</span>.</p>
+<p>Okay, what can we conclude from that? Most importantly that any abundance <span class="math notranslate nohighlight">\(b_i\)</span> or relative abundance <span class="math notranslate nohighlight">\(\tilde{b}_i\)</span> can be a valid steady state abundance as long as the respective growth and dilution rates are balanced. This means there is an infinite amount of growth rates that yield a steady state (growth rates can not be uniquely identified from abundance alone).</p>
+</div>
+<div class="section" id="Cooperative-tradeoff">
+<h2>Cooperative tradeoff<a class="headerlink" href="#Cooperative-tradeoff" title="Permalink to this headline">¶</a></h2>
+<p>Instead of solving a multi-objective problem MICOM achieves a global optimum by a two step approach called <code class="docutils literal notranslate"><span class="pre">cooperative</span> <span class="pre">tradeoff</span></code>. In simple terms:</p>
+<ol class="arabic simple">
+<li><p>obtain the maximum community growth rate <span class="math notranslate nohighlight">\(\mu_c^*\)</span> by classic FBA</p></li>
+<li><p>choose a tradeoff term <span class="math notranslate nohighlight">\(\alpha\)</span> in <span class="math notranslate nohighlight">\([0, 1]\)</span> and constrain the community growth rate such that <span class="math notranslate nohighlight">\(\mu_c \geq \alpha\cdot\mu_c^*\)</span></p></li>
+<li><p>minimize the regularization term <span class="math notranslate nohighlight">\(\sum_i \mu_i^2\)</span> which distributes growth across all individuals in the community</p></li>
+</ol>
+<p>This method is much faster than alternative methods. Also it results in solution where each individual growth is simultaneously at its maximum rate without diminishing the growth rate of other individuals (thus the term “cooperative”). In consequence, cooperative tradeoff results in an optimum which is conceptually very similar to what OptCom does but with a simpler method. In the absence of constraints MICOM yields growth rate estimates that are correlated with abundance <em>within a single
+sample</em>. This is not an assumption made <em>a priori</em> but a consequence of the optimization strategy.</p>
+</div>
+<div class="section" id="Numerical-stability-and-solvers">
+<h2>Numerical stability and solvers<a class="headerlink" href="#Numerical-stability-and-solvers" title="Permalink to this headline">¶</a></h2>
+<p>MICOM support all solver implemented in optlang (GLPK, CPLEX and Gurobi). However, since MICOM models can become quite large (50k - 500k variables) many solvers have numerical issues when solving the corresponding LP and QP problems. For realistic communities modeled on the genus, species or strain level we thus recommend using a solver that implements numerically stable interior point methods, currently only Cplex and Gurobi. Both have academic licenses available. In our experience the simpex
+methods in GLPK still work well up to 10,000 variables, but get gradually slower towards 50,000 variables and being too slow to be usable beyond that.</p>
+<p>Nevertheless, even the commercial solvers can usaully not control numerical issues in the quadratic interior point methods well. In fact for larger models they always never return an optimal solution. To avoid those numerical issues MICOM employs a crossover strategy where it will perform as many iterations in the quadratic interior point method as possible to get a candidate solution for the individual growth rates <span class="math notranslate nohighlight">\(\mu_i^{ca}\)</span>, followed by solving a linear programming problem to find a
+feasible solution close to the candidates:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+\text{maximize } &amp; \mu_c = \sum_i b_i/B \mu^i\\
+&amp; s.t. \mu_i \leq \mu_i^{ca}
+\end{align}\end{split}\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="index.html" title="previous page">Attribution</a>
+    <a class='right-next' id="next-link" href="installing.html" title="next page">Installing micom</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Christian Diener<br/>
+        
+            &copy; Copyright 2017-2021, Christian Diener.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

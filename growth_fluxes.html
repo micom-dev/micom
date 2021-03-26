@@ -1,0 +1,1499 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Growth rates and fluxes &#8212; version 0.22.2</title>
+    
+  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Growth media" href="media.html" />
+    <link rel="prev" title="Single Model API" href="community.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/micom.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">version 0.22.2</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="logic.html">
+   Methods used by MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="installing.html">
+   Installing MICOM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="high_level.html">
+   MICOM workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="viz.html">
+   Visualizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="community.html">
+   Single Model API
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Growth rates and fluxes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="media.html">
+   Growth media
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="taxa_knockouts.html">
+   Knockouts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="elasticities.html">
+   Intervention studies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="workflows.html">
+   Writing your own workflows
+  </a>
+ </li>
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="micom.html">
+   API
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="micom.data.html">
+     micom.data package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="micom.viz.html">
+     micom.viz package
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="micom.workflows.html">
+     micom.workflows package
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/growth_fluxes.ipynb.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#FBA">
+   FBA
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#Cooperative-tradeoff">
+   Cooperative tradeoff
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Growth-rates-and-fluxes">
+<h1>Growth rates and fluxes<a class="headerlink" href="#Growth-rates-and-fluxes" title="Permalink to this headline">¶</a></h1>
+<p>One of the major applications of micom is to identify growth rates and fluxes for a given community. We will return to our <em>E. coli</em> toy example.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>from micom import Community, data
+
+tax = data.test_taxonomy()
+com = Community(tax)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "914a80794c264c44a1f99717fd4dd0e8", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+</pre></div></div>
+</div>
+<div class="section" id="FBA">
+<h2>FBA<a class="headerlink" href="#FBA" title="Permalink to this headline">¶</a></h2>
+<p>If one is only interested in the community growth rate <span class="math notranslate nohighlight">\(\mu_c\)</span> we can use normal FBA to optimize this growth rate. By default micom assigns the community growth rate as the objective for a community model.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>print(com.objective.expression)
+com.optimize()
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1.0*community_objective
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<strong>community growth:</strong> 0.874<br><strong>status:</strong> optimal<br><strong>taxa:</strong><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>abundance</th>
+      <th>growth_rate</th>
+      <th>reactions</th>
+      <th>metabolites</th>
+    </tr>
+    <tr>
+      <th>compartments</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Escherichia_coli_1</th>
+      <td>0.25</td>
+      <td>0.507620</td>
+      <td>95</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_2</th>
+      <td>0.25</td>
+      <td>1.079031</td>
+      <td>95</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_3</th>
+      <td>0.25</td>
+      <td>0.000000</td>
+      <td>95</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_4</th>
+      <td>0.25</td>
+      <td>1.909035</td>
+      <td>95</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>medium</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>20</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">optimize</span></code> returns a full-fledged solution object and you can inspect several aspects of it. For instance to get individual growth rates and information for the taxa:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>sol = com.optimize()
+sol.members
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>abundance</th>
+      <th>growth_rate</th>
+      <th>reactions</th>
+      <th>metabolites</th>
+    </tr>
+    <tr>
+      <th>compartments</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Escherichia_coli_1</th>
+      <td>0.25</td>
+      <td>0.507620</td>
+      <td>95</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_2</th>
+      <td>0.25</td>
+      <td>1.079031</td>
+      <td>95</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_3</th>
+      <td>0.25</td>
+      <td>0.000000</td>
+      <td>95</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_4</th>
+      <td>0.25</td>
+      <td>1.909035</td>
+      <td>95</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>medium</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>20</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>By default micom does not return fluxes since that can be slow for realistic large community models. If you want fluxes as well you can do so by passing the <code class="docutils literal notranslate"><span class="pre">fluxes</span></code> argument to <code class="docutils literal notranslate"><span class="pre">optimize</span></code>. You can also specifiy if you would like the fluxes to be obtained by parsimonious FBA.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>sol = com.optimize(fluxes=True, pfba=True)
+sol.fluxes
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>reaction</th>
+      <th>ACALD</th>
+      <th>ACALDt</th>
+      <th>ACKr</th>
+      <th>ACONTa</th>
+      <th>ACONTb</th>
+      <th>ACt2r</th>
+      <th>ADK1</th>
+      <th>AKGDH</th>
+      <th>AKGt2r</th>
+      <th>ALCD2x</th>
+      <th>...</th>
+      <th>RPI</th>
+      <th>SUCCt2_2</th>
+      <th>SUCCt3</th>
+      <th>SUCDi</th>
+      <th>SUCOAS</th>
+      <th>TALA</th>
+      <th>THD2</th>
+      <th>TKT1</th>
+      <th>TKT2</th>
+      <th>TPI</th>
+    </tr>
+    <tr>
+      <th>compartment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Escherichia_coli_1</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.958207</td>
+      <td>3.958207</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.410537</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>-1.247066</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>3.410537</td>
+      <td>-3.410537</td>
+      <td>0.791377</td>
+      <td>0.0</td>
+      <td>0.791377</td>
+      <td>0.608127</td>
+      <td>4.616765</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_2</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>6.412778</td>
+      <td>6.412778</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>7.103137</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>-2.675271</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>7.103137</td>
+      <td>-7.103137</td>
+      <td>1.706628</td>
+      <td>0.0</td>
+      <td>1.706628</td>
+      <td>1.317098</td>
+      <td>7.873710</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_3</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.859626</td>
+      <td>1.859626</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.005102</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.005102</td>
+      <td>-0.005102</td>
+      <td>0.000000</td>
+      <td>0.0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1.857075</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_4</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>11.797502</td>
+      <td>11.797502</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>9.737846</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>...</td>
+      <td>-5.204648</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>9.737846</td>
+      <td>-9.737846</td>
+      <td>3.490910</td>
+      <td>0.0</td>
+      <td>3.490910</td>
+      <td>2.801749</td>
+      <td>15.561006</td>
+    </tr>
+    <tr>
+      <th>medium</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 115 columns</p>
+</div></div>
+</div>
+<p>By defaults fluxes are stratified by taxa and the external medium to aid further analysis.</p>
+<p>Returning to the growth rates we can see the major problem with regular FBA for community levels. Usually it will maximize growth for only a few taxa in the model yielding unrealistically high growth rates. However, in our setup we have 5 identical <em>E. coli</em> strains and we would expect all of the taxa to grow with the same rate (see Methods section).</p>
+</div>
+<div class="section" id="Cooperative-tradeoff">
+<h2>Cooperative tradeoff<a class="headerlink" href="#Cooperative-tradeoff" title="Permalink to this headline">¶</a></h2>
+<p>Cooperative tradeoff is a two step methods that allows you to get a unique solution for the the individuals growth rates that favors individual growth but still allows for a sup-optimal community growth rate. For that we always have to decide on a fraction of the maximum community growth rate we want to enforce. Our own results based on a data set of 189 gut microbiomes suggest that this tradeoff has tobe substantially lower than the optimal community growth rate to yield realistic growth rates
+(&lt;=50% optimum). For our <em>E. coli</em> model we can start with getting the best solution while still maintaining optimal community growth (100% of maximum).</p>
+<p><strong>Cooperative tradeoff requires a QP-capable solver such as cplex or gurobi (both have academic licenses available)!</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>sol = com.cooperative_tradeoff(fraction=1.0)
+sol
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<strong>community growth:</strong> 0.874<br><strong>status:</strong> optimal<br><strong>taxa:</strong><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>abundance</th>
+      <th>growth_rate</th>
+      <th>reactions</th>
+      <th>metabolites</th>
+    </tr>
+    <tr>
+      <th>compartments</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Escherichia_coli_1</th>
+      <td>0.25</td>
+      <td>0.873922</td>
+      <td>95</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_2</th>
+      <td>0.25</td>
+      <td>0.873922</td>
+      <td>95</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_3</th>
+      <td>0.25</td>
+      <td>0.873922</td>
+      <td>95</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_4</th>
+      <td>0.25</td>
+      <td>0.873922</td>
+      <td>95</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>medium</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>20</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>As we see all taxa now grow at the same rate as would be expected. If we want fluxes as well we can again request those using the <code class="docutils literal notranslate"><span class="pre">fluxes</span></code> and <code class="docutils literal notranslate"><span class="pre">pfba</span></code> arguments.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>sol = com.cooperative_tradeoff(fluxes=True, pfba=True)
+sol.fluxes
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>reaction</th>
+      <th>ACALD</th>
+      <th>ACALDt</th>
+      <th>ACKr</th>
+      <th>ACONTa</th>
+      <th>ACONTb</th>
+      <th>ACt2r</th>
+      <th>ADK1</th>
+      <th>AKGDH</th>
+      <th>AKGt2r</th>
+      <th>ALCD2x</th>
+      <th>...</th>
+      <th>RPI</th>
+      <th>SUCCt2_2</th>
+      <th>SUCCt3</th>
+      <th>SUCDi</th>
+      <th>SUCOAS</th>
+      <th>TALA</th>
+      <th>THD2</th>
+      <th>TKT1</th>
+      <th>TKT2</th>
+      <th>TPI</th>
+    </tr>
+    <tr>
+      <th>compartment</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Escherichia_coli_1</th>
+      <td>2.884724e-12</td>
+      <td>1.357458e-12</td>
+      <td>-1.418608e-10</td>
+      <td>6.00725</td>
+      <td>6.00725</td>
+      <td>-1.418608e-10</td>
+      <td>3.277165e-10</td>
+      <td>5.064376</td>
+      <td>3.095454e-12</td>
+      <td>1.527266e-12</td>
+      <td>...</td>
+      <td>-2.281503</td>
+      <td>2.891365e-11</td>
+      <td>2.634339e-11</td>
+      <td>5.064376</td>
+      <td>-5.064376</td>
+      <td>1.496984</td>
+      <td>2.891446e-11</td>
+      <td>1.496984</td>
+      <td>1.181498</td>
+      <td>7.477382</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_2</th>
+      <td>2.884724e-12</td>
+      <td>1.357458e-12</td>
+      <td>-1.418608e-10</td>
+      <td>6.00725</td>
+      <td>6.00725</td>
+      <td>-1.418608e-10</td>
+      <td>2.916750e-10</td>
+      <td>5.064376</td>
+      <td>3.095454e-12</td>
+      <td>1.527266e-12</td>
+      <td>...</td>
+      <td>-2.281503</td>
+      <td>2.891365e-11</td>
+      <td>2.634339e-11</td>
+      <td>5.064376</td>
+      <td>-5.064376</td>
+      <td>1.496984</td>
+      <td>2.891446e-11</td>
+      <td>1.496984</td>
+      <td>1.181498</td>
+      <td>7.477382</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_3</th>
+      <td>2.884724e-12</td>
+      <td>1.357458e-12</td>
+      <td>-1.418608e-10</td>
+      <td>6.00725</td>
+      <td>6.00725</td>
+      <td>-1.418608e-10</td>
+      <td>-8.500822e-10</td>
+      <td>5.064376</td>
+      <td>3.095454e-12</td>
+      <td>1.527266e-12</td>
+      <td>...</td>
+      <td>-2.281503</td>
+      <td>2.891365e-11</td>
+      <td>2.634339e-11</td>
+      <td>5.064376</td>
+      <td>-5.064376</td>
+      <td>1.496984</td>
+      <td>2.891446e-11</td>
+      <td>1.496984</td>
+      <td>1.181498</td>
+      <td>7.477382</td>
+    </tr>
+    <tr>
+      <th>Escherichia_coli_4</th>
+      <td>2.884724e-12</td>
+      <td>1.357458e-12</td>
+      <td>-1.418608e-10</td>
+      <td>6.00725</td>
+      <td>6.00725</td>
+      <td>-1.418608e-10</td>
+      <td>1.388080e-10</td>
+      <td>5.064376</td>
+      <td>3.095454e-12</td>
+      <td>1.527266e-12</td>
+      <td>...</td>
+      <td>-2.281503</td>
+      <td>2.891365e-11</td>
+      <td>2.634339e-11</td>
+      <td>5.064376</td>
+      <td>-5.064376</td>
+      <td>1.496984</td>
+      <td>2.891446e-11</td>
+      <td>1.496984</td>
+      <td>1.181498</td>
+      <td>7.477382</td>
+    </tr>
+    <tr>
+      <th>medium</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 115 columns</p>
+</div></div>
+</div>
+<p>Also if you have prior information about the growth rates you can also enforce a minimum individual growth rate for the taxa.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>sol1 = com.cooperative_tradeoff(min_growth=0.1)  # single value
+sol2 = com.cooperative_tradeoff(min_growth=[0.1, 0.2, 0.3, 0.4])  # one value for each taxa
+print(sol1, sol2)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;CommunitySolution 0.874 at 0x7f1afc37aa90&gt; &lt;CommunitySolution 0.874 at 0x7f1afc36c1f0&gt;
+</pre></div></div>
+</div>
+<p>Finally, you might want to see the impact of the tradeoff parameter on your solution. For this you can simply pass in an array-like type as the <code class="docutils literal notranslate"><span class="pre">fraction</span></code> parameter.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>import numpy as np
+
+sols = com.cooperative_tradeoff(fraction=np.arange(0.1, 1.01, 0.1))
+sols
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tradeoff</th>
+      <th>solution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>&lt;CommunitySolution 0.874 at 0x7f1b450c27f0&gt;</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.9</td>
+      <td>&lt;CommunitySolution 0.787 at 0x7f1afc4adb20&gt;</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.8</td>
+      <td>&lt;CommunitySolution 0.699 at 0x7f1afc3d0fa0&gt;</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.7</td>
+      <td>&lt;CommunitySolution 0.612 at 0x7f1afc36c040&gt;</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.6</td>
+      <td>&lt;CommunitySolution 0.524 at 0x7f1afc36c0a0&gt;</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.5</td>
+      <td>&lt;CommunitySolution 0.437 at 0x7f1afc36cd00&gt;</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.4</td>
+      <td>&lt;CommunitySolution 0.350 at 0x7f1afc36cd30&gt;</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.3</td>
+      <td>&lt;CommunitySolution 0.262 at 0x7f1afc410220&gt;</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.2</td>
+      <td>&lt;CommunitySolution 0.175 at 0x7f1afc410430&gt;</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.1</td>
+      <td>&lt;CommunitySolution 0.087 at 0x7f1afc458100&gt;</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>The solutions can than be inspected by the usual pandas methods. See the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/">pandas documentation</a> for more infos.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>rates = sols.solution.apply(lambda x: x.members.growth_rate)
+rates
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>compartments</th>
+      <th>Escherichia_coli_1</th>
+      <th>Escherichia_coli_2</th>
+      <th>Escherichia_coli_3</th>
+      <th>Escherichia_coli_4</th>
+      <th>medium</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.873922</td>
+      <td>0.873922</td>
+      <td>0.873922</td>
+      <td>0.873922</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.786529</td>
+      <td>0.786529</td>
+      <td>0.786529</td>
+      <td>0.786529</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.699137</td>
+      <td>0.699137</td>
+      <td>0.699137</td>
+      <td>0.699137</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.611745</td>
+      <td>0.611745</td>
+      <td>0.611745</td>
+      <td>0.611745</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.524353</td>
+      <td>0.524353</td>
+      <td>0.524353</td>
+      <td>0.524353</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.436961</td>
+      <td>0.436961</td>
+      <td>0.436961</td>
+      <td>0.436961</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.349569</td>
+      <td>0.349569</td>
+      <td>0.349569</td>
+      <td>0.349569</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.262176</td>
+      <td>0.262176</td>
+      <td>0.262176</td>
+      <td>0.262176</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.174784</td>
+      <td>0.174784</td>
+      <td>0.174784</td>
+      <td>0.174784</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.087392</td>
+      <td>0.087392</td>
+      <td>0.087392</td>
+      <td>0.087392</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="community.html" title="previous page">Single Model API</a>
+    <a class='right-next' id="next-link" href="media.html" title="next page">Growth media</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Christian Diener<br/>
+        
+            &copy; Copyright 2017-2021, Christian Diener.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

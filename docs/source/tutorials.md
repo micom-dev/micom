@@ -10,9 +10,9 @@ will not need to install anything to follow the course. For the full course mate
 refer to the [course homepage](https://isbscience.org/microbiome2020/).
 
 - video: [Modeling microbiota-wide metabolism with MICOM - Pt. 1](https://youtu.be/63PnJwixXGc)
-- video: [Modeling microbiota-wide metabolism with MICOM - Pt. 1](https://youtu.be/GfaglaE1br0)
+- video: [Modeling microbiota-wide metabolism with MICOM - Pt. 2](https://youtu.be/GfaglaE1br0)
 - [course slides](https://gibbons-lab.github.io/isb_course_2020/micom/)
-- [course Google colab notebook](https://colab.research.google.com/github/Gibbons-Lab/isb_course_2020/blob/master/micom.ipynb)
+- [Google colab notebook](https://colab.research.google.com/github/Gibbons-Lab/isb_course_2020/blob/master/micom.ipynb)
 
 ### q2-micom community tutorial
 

@@ -53,6 +53,7 @@ Contents
    Knockouts <taxa_knockouts>
    Intervention studies <elasticities>
    Writing your own workflows <workflows>
+   Release Notes <NEWS>
 
 
 Indices and tables

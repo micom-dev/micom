@@ -1,4 +1,4 @@
-name: Build and release docs
+name: Build and deploy docs
 
 on:
   push:
@@ -25,6 +25,7 @@ jobs:
         pip install sphinx nbsphinx sphinx-book-theme sphinx-autoapi
     - name: Build docs
       run: |
+        cp NEWS.md docs/source
         cd docs && make html
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3

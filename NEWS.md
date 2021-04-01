@@ -5,6 +5,17 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please read the docs at
 https://micom-dev.github.io/micom.
 
+### 0.22.3
+
+Fixed a bug where incorrectly labeled biomass demand reactions were treated like an
+exchange.
+
+### 0.22.2
+
+Lowered the required version for pandas to re-enable compatibility with Python 3.6.
+
+Docs are now built on all pushes.
+
 ### 0.22.1
 
 `atol` and `rtol` are now consistently exposed.

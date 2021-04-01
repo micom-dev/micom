@@ -1,9 +1,9 @@
-## News and release notes for micom
+# News and release notes for MICOM
 
 This includes a list of major changes for each minor version starting from 0.19.0.
 
-For information on how to use `micom` please read the docs at
-https://micom-dev.github.io/micom.
+For information on how to use `micom` please refer to
+[the documentation](https://micom-dev.github.io/micom).
 
 ### 0.22.3
 
@@ -61,7 +61,7 @@ minimizes carbon import for instance. The used `weigths` argument propagates
 to any workflow using this function including `complete_medium`, `fix_medium`
 and `grow`.
 
-### 0.9.0
+### 0.1.0 - 0.18.0
 
 `minimal_medium` now has an option to return all fluxes along with the
 import and export fluxes. Useful if you want to check what every individual

@@ -33,10 +33,9 @@ Attribution
 MICOM is published at https://msystems.asm.org/content/5/1/e00606-19.
 Please cite this article when referencing MICOM.
 
-
-
 To get an idea which assumptions and strategies MICOM uses we recommend
-to start with some background on the :doc:`methods <logic>`.
+to start with some background on the :doc:`methods <logic>`. The easiest way to
+use MICOM is using the :doc:`workflow API <high_level>`.
 
 Contents
 --------
@@ -45,16 +44,31 @@ Contents
 
    Methods used by MICOM <logic>
    Installing MICOM <installing>
+
    MICOM workflows <high_level>
    Visualizations <viz>
+   Writing your own workflows <workflows>
+
    Single Model API <community>
    Growth rates and fluxes <growth_fluxes>
    Growth media <media>
    Knockouts <taxa_knockouts>
    Intervention studies <elasticities>
-   Writing your own workflows <workflows>
+
+   Tutorials and Courses <tutorials>
    Release Notes <NEWS>
 
+Getting help
+------------
+
+General questions on usage can be asked in Github Discussions
+    https://github.com/micom-dev/micom/discussions
+
+We are also available on the cobrapy Gitter channel
+    https://gitter.im/opencobra/cobrapy
+
+Questions specific to the MICOM Qiime2 plugin (q2-micom) can also be asked on the Qiime2 forum
+    https://forum.qiime2.org/c/community-plugin-support/
 
 Indices and tables
 ------------------

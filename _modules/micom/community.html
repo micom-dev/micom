@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom.community &#8212; version 0.22.2</title>
+    <title>micom.community &#8212; version 0.22.3</title>
     
   <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -60,7 +60,7 @@
   <img src="../../_static/micom.png" class="logo" alt="logo">
   
   
-  <h1 class="site-logo" id="site-title">version 0.22.2</h1>
+  <h1 class="site-logo" id="site-title">version 0.22.3</h1>
   
 </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -779,6 +779,10 @@
                     <span class="s2">&quot;Reaction </span><span class="si">%s</span><span class="s2"> seems to be an exchange &quot;</span> <span class="o">%</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span>
                     <span class="o">+</span> <span class="s2">&quot;reaction but its ID does not start with &#39;EX_&#39;...&quot;</span>
                 <span class="p">)</span>
+            <span class="c1"># Some AGORA models label the biomass demand as exchange</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">bm</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">bm</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;biomass&quot;</span><span class="p">,</span> <span class="s2">&quot;bm&quot;</span><span class="p">]):</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;EX_&quot;</span><span class="p">,</span> <span class="s2">&quot;DM_&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
 
             <span class="n">export</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
             <span class="k">if</span> <span class="n">export</span><span class="p">:</span>

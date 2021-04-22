@@ -21,6 +21,15 @@ Functions
    micom.data.test_taxonomy
 
 
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.data.agora
+
+
 .. data:: agora
    
 

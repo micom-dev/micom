@@ -35,6 +35,15 @@ Functions
    micom.solution.optimize_with_fraction
 
 
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.solution.good
+
+
 .. data:: good
    
 
@@ -49,7 +58,7 @@ Functions
 .. class:: CommunitySolution(community, slim=False, reactions=None, metabolites=None)
 
 
-   Bases: :class:`cobra.core.Solution`
+   Bases: :py:obj:`cobra.core.Solution`
 
    An FBA solution for an entire community.
 

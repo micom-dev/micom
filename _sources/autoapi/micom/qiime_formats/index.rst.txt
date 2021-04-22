@@ -27,6 +27,16 @@ Functions
    micom.qiime_formats.load_qiime_taxonomy
 
 
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.qiime_formats.yaml
+   micom.qiime_formats._has_manifest
+
+
 .. data:: yaml
    
 

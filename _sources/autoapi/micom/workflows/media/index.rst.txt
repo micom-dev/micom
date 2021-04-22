@@ -25,6 +25,7 @@ Functions
    micom.workflows.media.fix_medium
 
 
+
 .. function:: process_medium(medium, samples)
 
    Prepare a medium for simulation.

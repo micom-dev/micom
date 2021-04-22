@@ -21,6 +21,7 @@ Functions
    micom.duality.fast_dual
 
 
+
 .. function:: fast_dual(model, prefix='dual_')
 
    Add dual formulation to the problem.

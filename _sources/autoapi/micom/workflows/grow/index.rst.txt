@@ -22,6 +22,16 @@ Functions
    micom.workflows.grow.grow
 
 
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.workflows.grow.DIRECTION
+   micom.workflows.grow.ARGS
+
+
 .. data:: DIRECTION
    
 

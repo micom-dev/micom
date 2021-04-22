@@ -21,6 +21,15 @@ Classes
 
 
 
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.viz.core.env
+
+
 .. data:: env
    
 
@@ -29,7 +38,7 @@ Classes
 .. class:: Visualization(filename, data, template)
 
 
-   Bases: :class:`object`
+   Bases: :py:obj:`object`
 
    A visualization object.
 

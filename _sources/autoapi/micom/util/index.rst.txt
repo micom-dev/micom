@@ -36,6 +36,16 @@ Functions
    micom.util.reset_min_community_growth
 
 
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.util._read_funcs
+   micom.util.COMPARTMENT_RE
+
+
 .. data:: _read_funcs
    
 

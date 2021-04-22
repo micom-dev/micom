@@ -22,6 +22,7 @@ Functions
    micom.taxonomy.qiime_to_micom
 
 
+
 .. function:: build_from_qiime(abundance, taxonomy: pandas.Series, collapse_on='genus') -> pandas.DataFrame
 
    Build the specification for the community models.

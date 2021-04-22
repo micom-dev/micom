@@ -21,6 +21,7 @@ Functions
    micom.viz.growth.plot_growth
 
 
+
 .. function:: plot_growth(results, filename='growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
 
    Plot the taxa growth rates.

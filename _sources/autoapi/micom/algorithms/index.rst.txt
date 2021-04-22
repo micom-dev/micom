@@ -24,6 +24,7 @@ Functions
    micom.algorithms.metabolic_dist
 
 
+
 .. function:: jaccard(inclusion)
 
    Calculate jaccard distances for a community.

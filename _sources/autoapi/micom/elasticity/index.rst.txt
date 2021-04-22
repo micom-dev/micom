@@ -28,6 +28,15 @@ Functions
    micom.elasticity.elasticities
 
 
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.elasticity.STEP
+
+
 .. data:: STEP
    :annotation: = 0.1
 

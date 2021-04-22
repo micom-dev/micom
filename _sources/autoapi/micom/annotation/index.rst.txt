@@ -23,6 +23,7 @@ Functions
    micom.annotation.annotate_metabolites_from_exchanges
 
 
+
 .. function:: flatten(d)
 
    Flatten a dictionary into strings.

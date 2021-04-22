@@ -42,6 +42,15 @@ Functions
    micom.workflows.check_db_medium
 
 
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.workflows.GrowthResults
+
+
 .. function:: workflow(func, args, n_jobs=4, unit='sample(s)', progress=True)
 
    Run analyses for several samples in parallel.
@@ -70,7 +79,7 @@ Functions
 
 .. function:: build(taxonomy, model_db, out_folder, cutoff=0.0001, threads=1, solver=None)
 
-   Builds a series of community models.
+   Build a series of community models.
 
    This is a best-practice implementation of building community models
    for several samples in parallel.

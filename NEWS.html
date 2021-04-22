@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>News and release notes for MICOM &#8212; version 0.22.5</title>
     
-  <link rel="stylesheet" href="_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -19,35 +20,31 @@
 
     
       
-  <link rel="stylesheet"
-    href="_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.d3f166471bb80abb5163.js">
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
 
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Tutorials and Courses" href="tutorials.html" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
-
-
-
+    
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
     
 
     <div class="container-xl">
@@ -56,20 +53,20 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="index.html">
-  
-  <img src="_static/micom.png" class="logo" alt="logo">
-  
-  
-  <h1 class="site-logo" id="site-title">version 0.22.5</h1>
-  
-</a>
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/micom.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">version 0.22.5</h1>
+      
+    </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
-</form>
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-    <ul class="current nav sidenav_l1">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="logic.html">
    Methods used by MICOM
@@ -130,12 +127,17 @@
    Release Notes
   </a>
  </li>
- <li class="toctree-l1 collapsible-parent">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="autoapi/index.html">
    API Reference
   </a>
-  <ul class="collapse-ul">
-   <li class="toctree-l2 collapsible-parent">
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
     <a class="reference internal" href="autoapi/micom/index.html">
      <code class="xref py py-mod docutils literal notranslate">
       <span class="pre">
@@ -143,7 +145,12 @@
       </span>
      </code>
     </a>
-    <ul class="collapse-ul">
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
      <li class="toctree-l3">
       <a class="reference internal" href="autoapi/micom/data/index.html">
        <code class="xref py py-mod docutils literal notranslate">
@@ -153,7 +160,7 @@
        </code>
       </a>
      </li>
-     <li class="toctree-l3 collapsible-parent">
+     <li class="toctree-l3 has-children">
       <a class="reference internal" href="autoapi/micom/viz/index.html">
        <code class="xref py py-mod docutils literal notranslate">
         <span class="pre">
@@ -161,7 +168,12 @@
         </span>
        </code>
       </a>
-      <ul class="collapse-ul">
+      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
        <li class="toctree-l4">
         <a class="reference internal" href="autoapi/micom/viz/core/index.html">
          <code class="xref py py-mod docutils literal notranslate">
@@ -208,10 +220,8 @@
         </a>
        </li>
       </ul>
-      <i class="fas fa-chevron-down">
-      </i>
      </li>
-     <li class="toctree-l3 collapsible-parent">
+     <li class="toctree-l3 has-children">
       <a class="reference internal" href="autoapi/micom/workflows/index.html">
        <code class="xref py py-mod docutils literal notranslate">
         <span class="pre">
@@ -219,7 +229,12 @@
         </span>
        </code>
       </a>
-      <ul class="collapse-ul">
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
        <li class="toctree-l4">
         <a class="reference internal" href="autoapi/micom/workflows/build/index.html">
          <code class="xref py py-mod docutils literal notranslate">
@@ -275,8 +290,6 @@
         </a>
        </li>
       </ul>
-      <i class="fas fa-chevron-down">
-      </i>
      </li>
      <li class="toctree-l3">
       <a class="reference internal" href="autoapi/micom/algorithms/index.html">
@@ -414,15 +427,12 @@
       </a>
      </li>
     </ul>
-    <i class="fas fa-chevron-down">
-    </i>
    </li>
   </ul>
-  <i class="fas fa-chevron-down">
-  </i>
  </li>
 </ul>
 
+    </div>
 </nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
@@ -472,12 +482,12 @@
 
             <!-- Source interaction buttons -->
 
-
             <!-- Full screen (wrap in <a> to have style consistency -->
-            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                    title="Fullscreen mode"><i
-                        class="fas fa-expand"></i></button></a>
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
 
             <!-- Launch buttons -->
 
@@ -486,66 +496,69 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i>
-            Contents
-        </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
-   0.22.5
+   0.22.6
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   0.22.4
+   0.22.5
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   0.22.3
+   0.22.4
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   0.22.2
+   0.22.3
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
-   0.22.1
+   0.22.2
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id6">
-   0.22.0
+   0.22.1
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id7">
-   0.21.0
+   0.22.0
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id8">
-   0.20.0
+   0.21.0
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id9">
-   0.19.0
+   0.20.0
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id10">
+   0.19.0
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
    0.1.0 - 0.18.0
   </a>
  </li>
 </ul>
 
-        </nav>
-        
+            </nav>
         </div>
     </div>
 </div>
@@ -560,36 +573,41 @@
 <p>For information on how to use <code class="docutils literal notranslate"><span class="pre">micom</span></code> please refer to
 <a class="reference external" href="https://micom-dev.github.io/micom">the documentation</a>.</p>
 <div class="section" id="id1">
-<h2>0.22.5<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>Fixed missing data files.</p>
+<h2>0.22.6<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Fixed an error in <code class="docutils literal notranslate"><span class="pre">micom.workflows.build</span></code> if build was run without a model database
+but with a <code class="docutils literal notranslate"><span class="pre">file</span></code> column in the taxonomy.</p>
 </div>
 <div class="section" id="id2">
-<h2>0.22.4<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>Improves version compatibility with cobrapy and QIIME 2.</p>
+<h2>0.22.5<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Fixed missing data files.</p>
 </div>
 <div class="section" id="id3">
-<h2>0.22.3<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>0.22.4<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Improves version compatibility with cobrapy and QIIME 2.</p>
+</div>
+<div class="section" id="id4">
+<h2>0.22.3<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>Fixed a bug where incorrectly labeled biomass demand reactions were treated like an
 exchange.</p>
 </div>
-<div class="section" id="id4">
-<h2>0.22.2<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>0.22.2<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>Lowered the required version for pandas to re-enable compatibility with Python 3.6.</p>
 <p>Docs are now built on all pushes.</p>
 </div>
-<div class="section" id="id5">
-<h2>0.22.1<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>0.22.1<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">atol</span></code> and <code class="docutils literal notranslate"><span class="pre">rtol</span></code> are now consistently exposed.</p>
 <p>Remove six dependency.</p>
 </div>
-<div class="section" id="id6">
-<h2>0.22.0<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>0.22.0<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>Got a bit smarter in cleaning up compartment suffixes. This fixes the odd “_e_m” suffix
 in CARVEME-derived models. This will change the names of exchange reactions compared
 to version 0.21.x.</p>
 </div>
-<div class="section" id="id7">
-<h2>0.21.0<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2>0.21.0<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>Stabilize minimal_medium a bit more.</p>
 <p>The strategy to calculate fluxes in the grow workflow can now be set with the
 <code class="docutils literal notranslate"><span class="pre">strategy</span></code> argument. For instance, you can now get fluxes via parsimonious FBA instead of
@@ -597,8 +615,8 @@ assuming minimal imports.</p>
 <p>Fixed a bug where minimal media classification with <code class="docutils literal notranslate"><span class="pre">weights=&quot;mass&quot;</span></code> would fail due to
 invalid elements in the formula (for instance “X”).</p>
 </div>
-<div class="section" id="id8">
-<h2>0.20.0<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2>0.20.0<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>This version brings new functionality to design growth media from a skeleton medium.
 This also allows for a quicker verification of media against the model databases.</p>
 <p>Added workflows:</p>
@@ -610,16 +628,16 @@ This also allows for a quicker verification of media against the model databases
 github.com/micom-dev/media. In particular, we finally provide the often requested growth
 medium for the carveME database.</p>
 </div>
-<div class="section" id="id9">
-<h2>0.19.0<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>0.19.0<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> now accepts weighting the fluxes bei molecular weight or
 any elemental content. For instance, you can now calculate a minimal medium that
 minimizes carbon import for instance. The used <code class="docutils literal notranslate"><span class="pre">weigths</span></code> argument propagates
 to any workflow using this function including <code class="docutils literal notranslate"><span class="pre">complete_medium</span></code>, <code class="docutils literal notranslate"><span class="pre">fix_medium</span></code>
 and <code class="docutils literal notranslate"><span class="pre">grow</span></code>.</p>
 </div>
-<div class="section" id="id10">
-<h2>0.1.0 - 0.18.0<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h2>0.1.0 - 0.18.0<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> now has an option to return all fluxes along with the
 import and export fluxes. Useful if you want to check what every individual
 taxa consumes.</p>
@@ -661,9 +679,8 @@ from an incomplete interior point optimization.</p>
 
       </div>
     </div>
-
     
-  <script src="_static/js/index.d3f166471bb80abb5163.js"></script>
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
 
     

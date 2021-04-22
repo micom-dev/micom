@@ -5,6 +5,11 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.22.6
+
+Fixed an error in `micom.workflows.build` if build was run without a model database
+but with a `file` column in the taxonomy.
+
 ### 0.22.5
 
 Fixed missing data files.

@@ -21,6 +21,15 @@ Functions
    micom.workflows.core.workflow
 
 
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.workflows.core.GrowthResults
+
+
 .. data:: GrowthResults
    
 

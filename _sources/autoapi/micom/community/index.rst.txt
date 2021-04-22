@@ -21,6 +21,15 @@ Classes
 
 
 
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.community._ranks
+
+
 .. data:: _ranks
    :annotation: = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species', 'strain']
 
@@ -29,7 +38,7 @@ Classes
 .. class:: Community(taxonomy, model_db=None, id=None, name=None, rel_threshold=1e-06, solver=None, progress=True, max_exchange=100, mass=1)
 
 
-   Bases: :class:`cobra.Model`
+   Bases: :py:obj:`cobra.Model`
 
    A community of models.
 

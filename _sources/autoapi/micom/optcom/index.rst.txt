@@ -23,6 +23,15 @@ Functions
    micom.optcom.optcom
 
 
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.optcom._methods
+
+
 .. function:: add_dualized_optcom(community, min_growth)
 
    Add dual Optcom variables and constraints to a community.

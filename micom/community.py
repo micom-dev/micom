@@ -177,12 +177,17 @@ class Community(cobra.Model):
                 "If no model database is specified you need to pass "
                 "file names for models in a `file` column as well."
             )
+
         compressed = False
         if model_db is not None:
             compressed = model_db.endswith(".qza") or model_db.endswith(".zip")
             if compressed:
                 tdir = TemporaryDirectory(prefix="micom_")
             if "file" in taxonomy.columns:
+                logger.warning(
+                    "The table includes a `file` column even though a model database "
+                    "is used. Will ignore it and use the model database instead."
+                )
                 del taxonomy["file"]
             if model_db.endswith(".qza"):
                 manifest = load_qiime_model_db(model_db, tdir.name)

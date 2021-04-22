@@ -22,18 +22,27 @@ def _reduce_group(df):
 def build_and_save(args):
     """Build a single community model."""
     s, tax, db, out, cutoff, solver = args
-    com = Community(tax, model_db=db, id=s, progress=False,
-                    rel_threshold=cutoff, solver=solver)
+    com = Community(
+        tax, model_db=db, id=s, progress=False, rel_threshold=cutoff, solver=solver
+    )
     com.to_pickle(out)
-    metrics = com.build_metrics.to_frame().T
-    metrics["sample_id"] = s
+    if db is None:
+        metrics = pd.DataFrame({"sample_id": s}, index=[0])
+    else:
+        metrics = com.build_metrics.to_frame().T
+        metrics["sample_id"] = s
     return metrics
 
 
 def build(
-    taxonomy, model_db, out_folder, cutoff=0.0001, threads=1, solver=None,
+    taxonomy,
+    model_db,
+    out_folder,
+    cutoff=0.0001,
+    threads=1,
+    solver=None,
 ):
-    """Builds a series of community models.
+    """Build a series of community models.
 
     This is a best-practice implementation of building community models
     for several samples in parallel.
@@ -76,19 +85,18 @@ def build(
     """
     os.makedirs(out_folder, exist_ok=True)
     samples = taxonomy.sample_id.unique()
-    out_path = pd.Series(
-        {s: os.path.join(out_folder, s + ".pickle") for s in samples}
-    )
+    out_path = pd.Series({s: os.path.join(out_folder, s + ".pickle") for s in samples})
     args = [
-        [s, taxonomy[taxonomy.sample_id == s], model_db,
-         out_path[s], cutoff, solver]
+        [s, taxonomy[taxonomy.sample_id == s], model_db, out_path[s], cutoff, solver]
         for s in samples
     ]
     res = workflow(build_and_save, args, threads)
     metrics = pd.concat(res)
     taxonomy = (
-        taxonomy.groupby("sample_id").apply(_reduce_group)
-        .dropna(axis=1).reset_index(drop=True)
+        taxonomy.groupby("sample_id")
+        .apply(_reduce_group)
+        .dropna(axis=1)
+        .reset_index(drop=True)
     )
     taxonomy = taxonomy.loc[:, ~taxonomy.columns.isin(_ranks)]
     taxonomy["file"] = taxonomy.sample_id + ".pickle"

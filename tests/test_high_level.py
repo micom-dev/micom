@@ -1,9 +1,14 @@
 """Test the high level API."""
 
-from .fixtures import community
 import micom.data as md
 from micom.workflows import (
-    build_database, build, grow, tradeoff, minimal_media, fix_medium)
+    build_database,
+    build,
+    grow,
+    tradeoff,
+    minimal_media,
+    fix_medium,
+)
 from micom.qiime_formats import load_qiime_medium, load_qiime_manifest
 from micom.solution import OptimizationError
 import pytest
@@ -26,10 +31,21 @@ def test_db(tmp_path):
 
 def test_build(tmp_path):
     data = md.test_data()
-    built = build(data, db, str(tmp_path), cutoff=0)
+    built = build(data, db, str(tmp_path), cutoff=0, threads=1)
     assert built.shape[0] == 4
     assert "sample_id" in built.columns
     assert "found_fraction" in built.columns
+    assert "file" in built.columns
+    for fi in built.file:
+        assert (tmp_path / fi).exists()
+
+
+def test_build_no_db(tmp_path):
+    data = md.test_data()
+    built = build(data, None, str(tmp_path), cutoff=0)
+    assert built.shape[0] == 4
+    assert "sample_id" in built.columns
+    assert "found_fraction" not in built.columns
     assert "file" in built.columns
     for fi in built.file:
         assert (tmp_path / fi).exists()
@@ -52,6 +68,7 @@ def test_grow_bad_strategy(tmp_path):
     built = build(data, db, str(tmp_path), cutoff=0)
     with pytest.raises(ValueError):
         grown = grow(built, str(tmp_path), medium, 0.5, strategy="blub")
+
 
 def test_tradeoff(tmp_path):
     data = md.test_data()
@@ -78,4 +95,3 @@ def test_fix_medium(tmp_path):
     fixed = fix_medium(built, str(tmp_path), bad_medium, 0.5, 0.001, 10)
     assert fixed.shape[0] > 3
     assert "description" in fixed.columns
-

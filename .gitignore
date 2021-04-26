@@ -67,6 +67,7 @@ docs/objects.inv
 docs/*.js
 docs/*.ipynb
 docs/autoapi
+docs/source/*.html
 
 # PyBuilder
 target/

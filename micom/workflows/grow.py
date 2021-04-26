@@ -67,7 +67,7 @@ def _growth(args):
 
     if strategy == "minimal imports":
         # Get the minimal medium and the solution at the same time
-        sol = minimal_medium(
+        med = minimal_medium(
             com,
             exchanges=None,
             community_growth=sol.growth_rate,
@@ -76,7 +76,15 @@ def _growth(args):
             weights=weights,
             atol=atol,
             rtol=rtol,
-        )["solution"]
+        )
+        if med is None:
+            logger.error(
+                "The minimal medium optimization failed for %s. "
+                "This can often be fixed by chosing ore permissive atol and rtol "
+                "arguments or by checking that medium fluxes are > atol." % com.id
+            )
+            return None
+        sol = med["solution"]
 
     exs = list({r.global_id for r in com.internal_exchanges + com.exchanges})
     fluxes = sol.fluxes.loc[:, exs].copy()

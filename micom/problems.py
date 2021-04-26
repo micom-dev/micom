@@ -59,7 +59,8 @@ def regularize_l2_norm(community, min_growth):
     for sp in community.taxa:
         taxa_obj = community.constraints["objective_" + sp]
         ex = sum(v for v in taxa_obj.variables if (v.ub - v.lb) > 1e-6)
-        l2 += (community.scale * (ex ** 2)).expand()
+        if not isinstance(ex, int):
+            l2 += (community.scale * (ex ** 2)).expand()
     community.objective = -l2
     community.modification = "l2 regularization"
     logger.info("finished adding tradeoff objective to %s" % community.id)

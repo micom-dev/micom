@@ -159,7 +159,7 @@ def plot_fit(
 
     exchanges = exchanges.loc[
         exchanges.metabolite.isin(coefs.metabolite.values)
-    ]
+    ].copy()
     exchanges["meta"] = meta[exchanges.sample_id].values
     exchanges["description"] = anns.loc[exchanges.metabolite, "name"].values
     var_type = "nominal" if variable_type == "binary" else "quantitative"

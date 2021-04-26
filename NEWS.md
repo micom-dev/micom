@@ -5,6 +5,17 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.22.7
+
+Fix some warnings from pandas.
+
+Avoid a crash in `reularize_l2_norm` when all reactions for a taxon have been fixed to
+zero.
+
+Raise a better error if the minimal medium optimization fails in grow.
+
+Use the right tolerance when setting atol and rtol automatically.
+
 ### 0.22.6
 
 Fixed an error in `micom.workflows.build` if build was run without a model database

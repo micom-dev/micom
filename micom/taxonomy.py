@@ -14,7 +14,7 @@ def build_from_qiime(
     collapse_on="genus"
 ) -> pd.DataFrame:
     """Build the specification for the community models."""
-    taxa = taxonomy.str.replace("[\\w_]+__|\\[|\\]", "")
+    taxa = taxonomy.str.replace("[\\w_]+__|\\[|\\]", "", regex=True)
     taxa = taxa.str.split(";\\s*", expand=True).replace("", None)
     taxa.columns = _ranks[0 : taxa.shape[1]]
     taxa["taxid"] = taxonomy.index

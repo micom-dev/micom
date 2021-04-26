@@ -198,9 +198,9 @@ def minimal_medium(
     logger.info("calculating minimal medium for %s" % community.id)
 
     if atol is None:
-        atol = community.solver.configuration.tolerances.optimality
+        atol = community.solver.configuration.tolerances.feasibility
     if rtol is None:
-        rtol = community.solver.configuration.tolerances.optimality
+        rtol = community.solver.configuration.tolerances.feasibility
 
     if exchanges is None:
         boundary_rxns = community.exchanges

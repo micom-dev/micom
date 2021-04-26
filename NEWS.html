@@ -503,61 +503,66 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
-   0.22.7
+   0.22.8
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id2">
-   0.22.6
+   0.22.7
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id3">
-   0.22.5
+   0.22.6
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id4">
-   0.22.4
+   0.22.5
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id5">
-   0.22.3
+   0.22.4
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id6">
-   0.22.2
+   0.22.3
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id7">
-   0.22.1
+   0.22.2
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id8">
-   0.22.0
+   0.22.1
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id9">
-   0.21.0
+   0.22.0
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id10">
-   0.20.0
+   0.21.0
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id11">
-   0.19.0
+   0.20.0
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id12">
+   0.19.0
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id13">
    0.1.0 - 0.18.0
   </a>
  </li>
@@ -578,49 +583,53 @@
 <p>For information on how to use <code class="docutils literal notranslate"><span class="pre">micom</span></code> please refer to
 <a class="reference external" href="https://micom-dev.github.io/micom">the documentation</a>.</p>
 <div class="section" id="id1">
-<h2>0.22.7<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>0.22.8<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Fix the signature and add deprecation warnings for optimize_* methods.</p>
+</div>
+<div class="section" id="id2">
+<h2>0.22.7<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>Fix some warnings from pandas.</p>
 <p>Avoid a crash in <code class="docutils literal notranslate"><span class="pre">reularize_l2_norm</span></code> when all reactions for a taxon have been fixed to
 zero.</p>
 <p>Raise a better error if the minimal medium optimization fails in grow.</p>
 <p>Use the right tolerance when setting atol and rtol automatically.</p>
 </div>
-<div class="section" id="id2">
-<h2>0.22.6<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>0.22.6<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>Fixed an error in <code class="docutils literal notranslate"><span class="pre">micom.workflows.build</span></code> if build was run without a model database
 but with a <code class="docutils literal notranslate"><span class="pre">file</span></code> column in the taxonomy.</p>
 </div>
-<div class="section" id="id3">
-<h2>0.22.5<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>0.22.5<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <p>Fixed missing data files.</p>
 </div>
-<div class="section" id="id4">
-<h2>0.22.4<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>0.22.4<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p>Improves version compatibility with cobrapy and QIIME 2.</p>
 </div>
-<div class="section" id="id5">
-<h2>0.22.3<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>0.22.3<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>Fixed a bug where incorrectly labeled biomass demand reactions were treated like an
 exchange.</p>
 </div>
-<div class="section" id="id6">
-<h2>0.22.2<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>0.22.2<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>Lowered the required version for pandas to re-enable compatibility with Python 3.6.</p>
 <p>Docs are now built on all pushes.</p>
 </div>
-<div class="section" id="id7">
-<h2>0.22.1<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2>0.22.1<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">atol</span></code> and <code class="docutils literal notranslate"><span class="pre">rtol</span></code> are now consistently exposed.</p>
 <p>Remove six dependency.</p>
 </div>
-<div class="section" id="id8">
-<h2>0.22.0<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2>0.22.0<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>Got a bit smarter in cleaning up compartment suffixes. This fixes the odd “_e_m” suffix
 in CARVEME-derived models. This will change the names of exchange reactions compared
 to version 0.21.x.</p>
 </div>
-<div class="section" id="id9">
-<h2>0.21.0<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>0.21.0<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>Stabilize minimal_medium a bit more.</p>
 <p>The strategy to calculate fluxes in the grow workflow can now be set with the
 <code class="docutils literal notranslate"><span class="pre">strategy</span></code> argument. For instance, you can now get fluxes via parsimonious FBA instead of
@@ -628,8 +637,8 @@ assuming minimal imports.</p>
 <p>Fixed a bug where minimal media classification with <code class="docutils literal notranslate"><span class="pre">weights=&quot;mass&quot;</span></code> would fail due to
 invalid elements in the formula (for instance “X”).</p>
 </div>
-<div class="section" id="id10">
-<h2>0.20.0<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h2>0.20.0<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <p>This version brings new functionality to design growth media from a skeleton medium.
 This also allows for a quicker verification of media against the model databases.</p>
 <p>Added workflows:</p>
@@ -641,16 +650,16 @@ This also allows for a quicker verification of media against the model databases
 github.com/micom-dev/media. In particular, we finally provide the often requested growth
 medium for the carveME database.</p>
 </div>
-<div class="section" id="id11">
-<h2>0.19.0<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h2>0.19.0<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> now accepts weighting the fluxes bei molecular weight or
 any elemental content. For instance, you can now calculate a minimal medium that
 minimizes carbon import for instance. The used <code class="docutils literal notranslate"><span class="pre">weigths</span></code> argument propagates
 to any workflow using this function including <code class="docutils literal notranslate"><span class="pre">complete_medium</span></code>, <code class="docutils literal notranslate"><span class="pre">fix_medium</span></code>
 and <code class="docutils literal notranslate"><span class="pre">grow</span></code>.</p>
 </div>
-<div class="section" id="id12">
-<h2>0.1.0 - 0.18.0<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h2>0.1.0 - 0.18.0<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> now has an option to return all fluxes along with the
 import and export fluxes. Useful if you want to check what every individual
 taxa consumes.</p>

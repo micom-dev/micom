@@ -5,6 +5,10 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.22.8
+
+Fix the signature and add deprecation warnings for optimize_* methods.
+
 ### 0.22.7
 
 Fix some warnings from pandas.

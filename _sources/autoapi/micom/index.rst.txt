@@ -114,7 +114,7 @@ Functions
       :rtype: float
 
 
-   .. method:: optimize_all(self, fluxes=False, progress=False)
+   .. method:: optimize_all(self, progress=False)
 
       Return solutions for individually optimizing each model.
 
@@ -125,9 +125,6 @@ Functions
       consequence the reported growth rates may usually never be obtained
       all at once.
 
-      :param fluxes: Whether to return all fluxes. Defaults to just returning the
-                     maximal growth rate.
-      :type fluxes: boolean, optional
       :param progress: Whether to show a progress bar.
       :type progress: boolean, optional
 

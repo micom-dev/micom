@@ -789,7 +789,7 @@ maximal growth rate.</p></li>
 
 <dl class="py method">
 <dt id="micom.Community.optimize_all">
-<code class="sig-name descname"><span class="pre">optimize_all</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize_all" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">optimize_all</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return solutions for individually optimizing each model.</p>
 <p class="rubric">Notes</p>
 <p>This might well mean that growth rates for all other individuals are
@@ -798,11 +798,7 @@ consequence the reported growth rates may usually never be obtained
 all at once.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to return all fluxes. Defaults to just returning the
-maximal growth rate.</p></li>
-<li><p><strong>progress</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to show a progress bar.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>progress</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to show a progress bar.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The maximal growth rate for each taxa.</p>

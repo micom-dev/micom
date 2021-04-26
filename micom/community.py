@@ -441,6 +441,7 @@ class Community(cobra.Model):
             The maximal growth rate for the given taxa.
 
         """
+        logger.warning("`optimize_single` is deprecated and will be removed soon :(")
         if isinstance(id, str):
             if id not in self.__taxonomy.index:
                 raise ValueError(id + " not in taxonomy!")
@@ -458,7 +459,7 @@ class Community(cobra.Model):
             m.solver.optimize()
             return m.objective.value
 
-    def optimize_all(self, fluxes=False, progress=False):
+    def optimize_all(self, progress=False):
         """Return solutions for individually optimizing each model.
 
         Notes
@@ -470,9 +471,6 @@ class Community(cobra.Model):
 
         Parameters
         ----------
-        fluxes : boolean, optional
-            Whether to return all fluxes. Defaults to just returning the
-            maximal growth rate.
         progress : boolean, optional
             Whether to show a progress bar.
 
@@ -482,6 +480,7 @@ class Community(cobra.Model):
             The maximal growth rate for each taxa.
 
         """
+        logger.warning("`optimize_all` is deprecated and will be removed soon :(")
         index = self.__taxonomy.index
         if progress:
             index = track(self.__taxonomy.index, description="Optimizing")

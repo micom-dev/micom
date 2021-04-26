@@ -687,9 +687,9 @@
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;calculating minimal medium for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">atol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">atol</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">optimality</span>
+        <span class="n">atol</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
     <span class="k">if</span> <span class="n">rtol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">rtol</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">optimality</span>
+        <span class="n">rtol</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
 
     <span class="k">if</span> <span class="n">exchanges</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">boundary_rxns</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">exchanges</span>
@@ -888,10 +888,9 @@
 
       </div>
     </div>
-    
+  
   <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
-    
+  
   </body>
 </html>

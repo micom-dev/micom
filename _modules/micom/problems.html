@@ -548,7 +548,8 @@
     <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">:</span>
         <span class="n">taxa_obj</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
         <span class="n">ex</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">taxa_obj</span><span class="o">.</span><span class="n">variables</span> <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">ub</span> <span class="o">-</span> <span class="n">v</span><span class="o">.</span><span class="n">lb</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)</span>
-        <span class="n">l2</span> <span class="o">+=</span> <span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">ex</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">expand</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">l2</span> <span class="o">+=</span> <span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">ex</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">expand</span><span class="p">()</span>
     <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="o">-</span><span class="n">l2</span>
     <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="o">=</span> <span class="s2">&quot;l2 regularization&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;finished adding tradeoff objective to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
@@ -656,10 +657,9 @@
 
       </div>
     </div>
-    
+  
   <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
-    
+  
   </body>
 </html>

@@ -58,7 +58,7 @@
     {
      "data": {
       "text/plain": [
-       "<micom.viz.core.Visualization at 0x7f21bc3cd610>"
+       "<micom.viz.core.Visualization at 0x7f17f0774490>"
       ]
      },
      "execution_count": 3,
@@ -204,26 +204,7 @@
    "cell_type": "code",
    "execution_count": 8,
    "metadata": {},
-   "outputs": [
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "/home/cdiener/code/micom/micom/viz/prediction.py:163: SettingWithCopyWarning: \n",
-      "A value is trying to be set on a copy of a slice from a DataFrame.\n",
-      "Try using .loc[row_indexer,col_indexer] = value instead\n",
-      "\n",
-      "See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy\n",
-      "  exchanges[\"meta\"] = meta[exchanges.sample_id].values\n",
-      "/home/cdiener/code/micom/micom/viz/prediction.py:164: SettingWithCopyWarning: \n",
-      "A value is trying to be set on a copy of a slice from a DataFrame.\n",
-      "Try using .loc[row_indexer,col_indexer] = value instead\n",
-      "\n",
-      "See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy\n",
-      "  exchanges[\"description\"] = anns.loc[exchanges.metabolite, \"name\"].values\n"
-     ]
-    }
-   ],
+   "outputs": [],
    "source": [
     "from micom.viz import plot_fit\n",
     "import pandas as pd\n",
@@ -238,7 +219,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The warnings can be ignored here. The output will look something like the following.\n",
+    "The output will look something like the following.\n",
     "\n",
     "[![fit](_static/fit.png)](_static/fit.html)"
    ]
@@ -260,9 +241,9 @@
  ],
  "metadata": {
   "kernelspec": {
-   "display_name": "Python 3.8.5 64-bit",
+   "display_name": "Python 3",
    "language": "python",
-   "name": "python38564bitf0104f1d307f43fe817f807276206b68"
+   "name": "python3"
   },
   "language_info": {
    "codemirror_mode": {
@@ -274,7 +255,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.8.5"
+   "version": "3.9.2"
   }
  },
  "nbformat": 4,

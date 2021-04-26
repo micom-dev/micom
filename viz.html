@@ -833,7 +833,7 @@ pl = plot_tradeoff(crc_tradeoff, filename=&quot;tradeoff.html&quot;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;micom.viz.core.Visualization at 0x7f21bc3cd610&gt;
+&lt;micom.viz.core.Visualization at 0x7f17f0774490&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -918,7 +918,7 @@ pl = plot_exchanges_per_taxon(crc_results, filename=&quot;niche.html&quot;)
 <li><p>train a LASSO regression (continuous response) or LASSO logistic regression (binary response)</p></li>
 <li><p>present the coefficients and differences in production fluxes</p></li>
 </ol>
-<div class="nbinput docutils container">
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
@@ -933,26 +933,7 @@ pl = plot_fit(crc_results, phenotype=status, variable_type=&quot;binary&quot;, f
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-/home/cdiener/code/micom/micom/viz/prediction.py:163: SettingWithCopyWarning:
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  exchanges[&#34;meta&#34;] = meta[exchanges.sample_id].values
-/home/cdiener/code/micom/micom/viz/prediction.py:164: SettingWithCopyWarning:
-A value is trying to be set on a copy of a slice from a DataFrame.
-Try using .loc[row_indexer,col_indexer] = value instead
-
-See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-  exchanges[&#34;description&#34;] = anns.loc[exchanges.metabolite, &#34;name&#34;].values
-</pre></div></div>
-</div>
-<p>The warnings can be ignored here. The output will look something like the following.</p>
+<p>The output will look something like the following.</p>
 <p><a class="reference external" href="_static/fit.html"><img alt="fit" src="_images/fit.png" /></a></p>
 <p>So we see some higher sulfate production in cancer cases but also production of harmful components as TMAO. However, with the low sample numbers we don’t get a very good prediction based on fluxes.</p>
 <div class="nbinput nblast docutils container">
@@ -995,10 +976,9 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 
       </div>
     </div>
-    
+  
   <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
-    
+  
   </body>
 </html>

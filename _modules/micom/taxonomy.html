@@ -503,7 +503,7 @@
     <span class="n">collapse_on</span><span class="o">=</span><span class="s2">&quot;genus&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Build the specification for the community models.&quot;&quot;&quot;</span>
-    <span class="n">taxa</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;[</span><span class="se">\\</span><span class="s2">w_]+__|</span><span class="se">\\</span><span class="s2">[|</span><span class="se">\\</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">taxa</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;[</span><span class="se">\\</span><span class="s2">w_]+__|</span><span class="se">\\</span><span class="s2">[|</span><span class="se">\\</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">taxa</span> <span class="o">=</span> <span class="n">taxa</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;</span><span class="se">\\</span><span class="s2">s*&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">taxa</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">_ranks</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="n">taxa</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
     <span class="n">taxa</span><span class="p">[</span><span class="s2">&quot;taxid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">index</span>
@@ -600,10 +600,9 @@
 
       </div>
     </div>
-    
+  
   <script src="../../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
-    
+  
   </body>
 </html>

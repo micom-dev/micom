@@ -21,6 +21,11 @@ ARGS = {
 def _growth(args):
     p, tradeoff, medium, weights, strategy, atol, rtol, presolve = args
     com = load_pickle(p)
+
+    if atol is None:
+        atol = com.solver.configuration.tolerances.feasibility
+    if rtol is None:
+        rtol = com.solver.configuration.tolerances.feasibility
     com.solver.configuration.presolve = presolve
 
     if "glpk" in interface_to_str(com.solver.interface):

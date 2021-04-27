@@ -71,6 +71,7 @@ def plot_exchanges_per_taxon(
     results,
     filename="taxon_exchanges_%s.html" % datetime.now().strftime("%Y%m%d"),
     direction="import",
+    use_total_flux = False,
     **tsne_args
 ) -> None:
     """Plot the exchange fluxes per taxon.
@@ -83,6 +84,8 @@ def plot_exchanges_per_taxon(
         The HTML file where the visualization will be saved.
     direction : str either "import" or "export"
         The direction of fluxes to plot.
+    use_total_fluxes : bool
+        Whether to use fluxes normalized to 1gDW of bacteria or the total flux.
     tsne_args : dict
         Additional arguments passed to TSNE.
 
@@ -93,19 +96,21 @@ def plot_exchanges_per_taxon(
 
     """
     exchanges = results.exchanges
-    tol = exchanges.tolerance.iloc[0]
 
     if direction not in ["import", "export"]:
         ValueError("Not a valid flux direction. Must be `import` or `export`.")
     exchanges = exchanges[
         (exchanges.taxon != "medium") & (exchanges.direction == direction)
     ].copy()
-    exchanges["flux"] = exchanges.flux.abs() * exchanges.abundance
+    if use_total_flux:
+        exchanges["flux"] = exchanges.flux.abs() * exchanges.abundance
+    else:
+        exchanges["flux"] = exchanges.flux.abs()
     mat = exchanges.pivot_table(
         values="flux",
         index=["sample_id", "taxon"],
         columns="reaction",
-        fill_value=tol,
+        fill_value=0.0,
     )
     reduced = TSNE(**tsne_args).fit_transform(mat.values)
     reduced = pd.DataFrame(

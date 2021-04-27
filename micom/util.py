@@ -259,9 +259,8 @@ def _apply_min_growth(community, min_growth, atol=1e-6, rtol=1e-6):
         obj = community.constraints["objective_" + sp]
         if context:
             context(partial(reset, sp, obj.lb))
-        if min_growth[sp] > atol:
-            obj.lb = (1.0 - rtol) * min_growth[sp] - atol
-        else:
+        obj.lb = (1.0 - rtol) * min_growth[sp] - atol
+        if obj.lb < atol:
             logger.info(
                 "minimal growth rate smaller than tolerance," " setting to zero."
             )

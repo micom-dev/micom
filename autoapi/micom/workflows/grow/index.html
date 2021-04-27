@@ -566,7 +566,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.grow._growth" title="micom.workflows.grow._growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_growth</span></code></a>(args)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.grow.grow" title="micom.workflows.grow.grow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grow</span></code></a>(manifest, model_folder, medium, tradeoff, threads=1, weights=None, strategy='minimal imports', atol=None, rtol=None)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.grow.grow" title="micom.workflows.grow.grow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grow</span></code></a>(manifest, model_folder, medium, tradeoff, threads=1, weights=None, strategy='minimal imports', atol=None, rtol=None, presolve=False)</p></td>
 <td><p>Simulate growth for a set of community models.</p></td>
 </tr>
 </tbody>
@@ -605,15 +605,15 @@
 
 <dl class="py function">
 <dt id="micom.workflows.grow.grow">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.grow.</span></code><code class="sig-name descname"><span class="pre">grow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tradeoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'minimal</span> <span class="pre">imports'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/grow.html#grow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.grow.grow" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">micom.workflows.grow.</span></code><code class="sig-name descname"><span class="pre">grow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tradeoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'minimal</span> <span class="pre">imports'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">presolve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/grow.html#grow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.grow.grow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simulate growth for a set of community models.</p>
-<blockquote>
-<div><p>Note</p>
-</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>The strategy <cite>mimimal imports</cite> can become unstable for common carbon sources since
 it will add in infeasible imports that are very small but import some high-C
 molecules. If you use it check that only components from your medium have been used
 and molecules that should be essential are indeed consumed.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -638,6 +638,8 @@ If None every metabolite will receive the same weight.
 Will be ignored if <cite>minimize_components</cite> is True.</p></li>
 <li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver tolerance.</p></li>
 <li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the solver tolerance.</p></li>
+<li><p><strong>presolve</strong> (<em>bool</em>) – Whether to use the presolver/scaling. Can improve numerical accuracy in some
+cases.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

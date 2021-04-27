@@ -551,7 +551,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.tradeoff._tradeoff" title="micom.workflows.tradeoff._tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_tradeoff</span></code></a>(args)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.tradeoff.tradeoff" title="micom.workflows.tradeoff.tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tradeoff</span></code></a>(manifest, model_folder, medium, tradeoffs=np.arange(0.1, 1.0 + 1e-06, 0.1), threads=1)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.tradeoff.tradeoff" title="micom.workflows.tradeoff.tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tradeoff</span></code></a>(manifest, model_folder, medium, tradeoffs=np.arange(0.1, 1.0 + 1e-06, 0.1), threads=1, atol=None, rtol=None, presolve=False)</p></td>
 <td><p>Run growth rate predictions for varying tradeoff values.</p></td>
 </tr>
 </tbody>
@@ -563,7 +563,7 @@
 
 <dl class="py function">
 <dt id="micom.workflows.tradeoff.tradeoff">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.tradeoff.</span></code><code class="sig-name descname"><span class="pre">tradeoff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tradeoffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.arange(0.1,</span> <span class="pre">1.0</span> <span class="pre">+</span> <span class="pre">1e-06,</span> <span class="pre">0.1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/tradeoff.html#tradeoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.tradeoff.tradeoff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">micom.workflows.tradeoff.</span></code><code class="sig-name descname"><span class="pre">tradeoff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tradeoffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">np.arange(0.1,</span> <span class="pre">1.0</span> <span class="pre">+</span> <span class="pre">1e-06,</span> <span class="pre">0.1)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">presolve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/tradeoff.html#tradeoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.tradeoff.tradeoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run growth rate predictions for varying tradeoff values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -577,6 +577,10 @@ a tradeoff (no cooperative tradeoff) will always be run additionally
 and will have a tradeoff of “NaN”.</p></li>
 <li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
 rule of thumb you will need around 1GB of RAM for each thread.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver tolerance.</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the solver tolerance.</p></li>
+<li><p><strong>presolve</strong> (<em>bool</em>) – Whether to use the presolver/scaling. Can improve numerical accuracy in some
+cases.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

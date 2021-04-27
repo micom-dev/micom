@@ -26,7 +26,7 @@ Functions
 .. function:: _tradeoff(args)
 
 
-.. function:: tradeoff(manifest, model_folder, medium, tradeoffs=np.arange(0.1, 1.0 + 1e-06, 0.1), threads=1)
+.. function:: tradeoff(manifest, model_folder, medium, tradeoffs=np.arange(0.1, 1.0 + 1e-06, 0.1), threads=1, atol=None, rtol=None, presolve=False)
 
    Run growth rate predictions for varying tradeoff values.
 
@@ -44,6 +44,13 @@ Functions
    :param threads: The number of parallel workers to use when building models. As a
                    rule of thumb you will need around 1GB of RAM for each thread.
    :type threads: int >=1
+   :param atol: Absolute tolerance for the growth rates. If None will use the solver tolerance.
+   :type atol: float
+   :param rtol: Relative tolerqance for the growth rates. If None will use the solver tolerance.
+   :type rtol: float
+   :param presolve: Whether to use the presolver/scaling. Can improve numerical accuracy in some
+                    cases.
+   :type presolve: bool
 
    :returns: The predicted growth rates.
    :rtype: pandas.DataFrame

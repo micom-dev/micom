@@ -811,7 +811,7 @@ all at once.</p>
 
 <dl class="py method">
 <dt id="micom.Community.optimize">
-<code class="sig-name descname"><span class="pre">optimize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">optimize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize the model using flux balance analysis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -821,6 +821,13 @@ just growth rates.</p></li>
 <li><p><strong>raise_error</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Should an error be raised if the solution is not optimal. Defaults
 to False which will either return a solution with a non-optimal
 status or None if optimization fails.</p></li>
+<li><p><strong>fluxes</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to return the fluxes as well.</p></li>
+<li><p><strong>pfba</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether to obtain fluxes by parsimonious FBA rather than
+“classical” FBA. This is highly recommended.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Absolute tolerance for the growth rates. If None will use the solver
+tolerance.</p></li>
+<li><p><strong>rtol</strong> (<em>float</em>) – Relative tolerqance for the growth rates. If None will use the
+solver tolerance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

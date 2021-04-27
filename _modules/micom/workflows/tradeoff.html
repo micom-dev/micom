@@ -500,7 +500,8 @@
 
 
 <div class="viewcode-block" id="_tradeoff"><a class="viewcode-back" href="../../../autoapi/micom/workflows/tradeoff/index.html#micom.workflows._tradeoff">[docs]</a><span class="k">def</span> <span class="nf">_tradeoff</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
-    <span class="n">p</span><span class="p">,</span> <span class="n">tradeoffs</span><span class="p">,</span> <span class="n">medium</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">p</span><span class="p">,</span> <span class="n">tradeoffs</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="p">,</span> <span class="n">presolve</span> <span class="o">=</span> <span class="n">args</span>
+
     <span class="n">com</span> <span class="o">=</span> <span class="n">load_pickle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
     <span class="n">ex_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span><span class="p">]</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
@@ -509,12 +510,13 @@
         <span class="nb">len</span><span class="p">(</span><span class="n">medium</span><span class="p">),</span>
     <span class="p">)</span>
     <span class="n">com</span><span class="o">.</span><span class="n">medium</span> <span class="o">=</span> <span class="n">medium</span><span class="p">[</span><span class="n">medium</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">ex_ids</span><span class="p">)]</span>
+    <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">presolve</span> <span class="o">=</span> <span class="n">presolve</span>
+
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">sol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+        <span class="n">sol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;Sample </span><span class="si">%s</span><span class="s2"> could not be optimized (</span><span class="si">%s</span><span class="s2">).&quot;</span> <span class="o">%</span>
-            <span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span><span class="p">),</span>
+            <span class="s2">&quot;Sample </span><span class="si">%s</span><span class="s2"> could not be optimized (</span><span class="si">%s</span><span class="s2">).&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">rates</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">members</span>
@@ -528,8 +530,8 @@
         <span class="n">sol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">cooperative_tradeoff</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="n">tradeoffs</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-            <span class="s2">&quot;Sample </span><span class="si">%s</span><span class="s2"> could not be optimized with cooperative tradeoff (</span><span class="si">%s</span><span class="s2">).&quot;</span> <span class="o">%</span>
-            <span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span><span class="p">),</span>
+            <span class="s2">&quot;Sample </span><span class="si">%s</span><span class="s2"> could not be optimized with cooperative tradeoff (</span><span class="si">%s</span><span class="s2">).&quot;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sol</span><span class="o">.</span><span class="n">solution</span><span class="p">):</span>
@@ -548,6 +550,9 @@
     <span class="n">medium</span><span class="p">,</span>
     <span class="n">tradeoffs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
     <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">presolve</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Run growth rate predictions for varying tradeoff values.</span>
 
@@ -567,6 +572,13 @@
 <span class="sd">    threads : int &gt;=1</span>
 <span class="sd">        The number of parallel workers to use when building models. As a</span>
 <span class="sd">        rule of thumb you will need around 1GB of RAM for each thread.</span>
+<span class="sd">    atol : float</span>
+<span class="sd">        Absolute tolerance for the growth rates. If None will use the solver tolerance.</span>
+<span class="sd">    rtol : float</span>
+<span class="sd">        Relative tolerqance for the growth rates. If None will use the solver tolerance.</span>
+<span class="sd">    presolve : bool</span>
+<span class="sd">        Whether to use the presolver/scaling. Can improve numerical accuracy in some</span>
+<span class="sd">        cases.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -575,17 +587,14 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">samples</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
     <span class="n">paths</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">s</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">model_folder</span><span class="p">,</span> <span class="n">manifest</span><span class="p">[</span><span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">s</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_folder</span><span class="p">,</span> <span class="n">manifest</span><span class="p">[</span><span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span>
     <span class="p">}</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">t</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mf">1.0</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tradeoffs</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;tradeoff values must between 0 and 1 :(&quot;</span>
-        <span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;tradeoff values must between 0 and 1 :(&quot;</span><span class="p">)</span>
     <span class="n">medium</span> <span class="o">=</span> <span class="n">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">tradeoffs</span><span class="p">,</span> <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="n">medium</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">]]</span>
+        <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">tradeoffs</span><span class="p">,</span> <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="n">medium</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">],</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="p">,</span> <span class="n">presolve</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">]</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_tradeoff</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>

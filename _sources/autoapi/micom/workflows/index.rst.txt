@@ -147,16 +147,16 @@ Attributes
    :rtype: pd.DataFrame
 
 
-.. function:: grow(manifest, model_folder, medium, tradeoff, threads=1, weights=None, strategy='minimal imports', atol=None, rtol=None)
+.. function:: grow(manifest, model_folder, medium, tradeoff, threads=1, weights=None, strategy='minimal imports', atol=None, rtol=None, presolve=False)
 
    Simulate growth for a set of community models.
 
-       Note
-   ----
-   The strategy `mimimal imports` can become unstable for common carbon sources since
-   it will add in infeasible imports that are very small but import some high-C
-   molecules. If you use it check that only components from your medium have been used
-   and molecules that should be essential are indeed consumed.
+   .. note::
+
+      The strategy `mimimal imports` can become unstable for common carbon sources since
+      it will add in infeasible imports that are very small but import some high-C
+      molecules. If you use it check that only components from your medium have been used
+      and molecules that should be essential are indeed consumed.
 
    :param manifest: The manifest as returned by the `build` workflow.
    :type manifest: pandas.DataFrame
@@ -188,13 +188,16 @@ Attributes
    :type atol: float
    :param rtol: Relative tolerqance for the growth rates. If None will use the solver tolerance.
    :type rtol: float
+   :param presolve: Whether to use the presolver/scaling. Can improve numerical accuracy in some
+                    cases.
+   :type presolve: bool
 
    :returns: A named tuple containing the growth rates and exchange fluxes for all
              samples/models.
    :rtype: GrowthResults
 
 
-.. function:: tradeoff(manifest, model_folder, medium, tradeoffs=np.arange(0.1, 1.0 + 1e-06, 0.1), threads=1)
+.. function:: tradeoff(manifest, model_folder, medium, tradeoffs=np.arange(0.1, 1.0 + 1e-06, 0.1), threads=1, atol=None, rtol=None, presolve=False)
 
    Run growth rate predictions for varying tradeoff values.
 
@@ -212,6 +215,13 @@ Attributes
    :param threads: The number of parallel workers to use when building models. As a
                    rule of thumb you will need around 1GB of RAM for each thread.
    :type threads: int >=1
+   :param atol: Absolute tolerance for the growth rates. If None will use the solver tolerance.
+   :type atol: float
+   :param rtol: Relative tolerqance for the growth rates. If None will use the solver tolerance.
+   :type rtol: float
+   :param presolve: Whether to use the presolver/scaling. Can improve numerical accuracy in some
+                    cases.
+   :type presolve: bool
 
    :returns: The predicted growth rates.
    :rtype: pandas.DataFrame

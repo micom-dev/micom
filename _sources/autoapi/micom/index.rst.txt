@@ -132,7 +132,7 @@ Functions
       :rtype: pandas.Series
 
 
-   .. method:: optimize(self, fluxes=False, pfba=False, raise_error=False, atol=1e-06, rtol=1e-06)
+   .. method:: optimize(self, fluxes=False, pfba=False, raise_error=False, atol=None, rtol=None)
 
       Optimize the model using flux balance analysis.
 
@@ -143,6 +143,17 @@ Functions
                           to False which will either return a solution with a non-optimal
                           status or None if optimization fails.
       :type raise_error: boolean, optional
+      :param fluxes: Whether to return the fluxes as well.
+      :type fluxes: boolean, optional
+      :param pfba: Whether to obtain fluxes by parsimonious FBA rather than
+                   "classical" FBA. This is highly recommended.
+      :type pfba: boolean, optional
+      :param atol: Absolute tolerance for the growth rates. If None will use the solver
+                   tolerance.
+      :type atol: float
+      :param rtol: Relative tolerqance for the growth rates. If None will use the
+                   solver tolerance.
+      :type rtol: float
 
       :returns: The solution after optimization or None if there is no optimum.
       :rtype: micom.CommunitySolution

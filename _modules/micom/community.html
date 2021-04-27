@@ -978,7 +978,7 @@
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">individual</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Community.optimize"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.optimize">[docs]</a>    <span class="k">def</span> <span class="nf">optimize</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">raise_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">raise_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Optimize the model using flux balance analysis.</span>
 
@@ -991,6 +991,17 @@
 <span class="sd">            Should an error be raised if the solution is not optimal. Defaults</span>
 <span class="sd">            to False which will either return a solution with a non-optimal</span>
 <span class="sd">            status or None if optimization fails.</span>
+<span class="sd">        fluxes : boolean, optional</span>
+<span class="sd">            Whether to return the fluxes as well.</span>
+<span class="sd">        pfba : boolean, optional</span>
+<span class="sd">            Whether to obtain fluxes by parsimonious FBA rather than</span>
+<span class="sd">            &quot;classical&quot; FBA. This is highly recommended.</span>
+<span class="sd">        atol : float</span>
+<span class="sd">            Absolute tolerance for the growth rates. If None will use the solver</span>
+<span class="sd">            tolerance.</span>
+<span class="sd">        rtol : float</span>
+<span class="sd">            Relative tolerqance for the growth rates. If None will use the</span>
+<span class="sd">            solver tolerance.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -998,6 +1009,11 @@
 <span class="sd">            The solution after optimization or None if there is no optimum.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">atol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">atol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
+        <span class="k">if</span> <span class="n">rtol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rtol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
+
         <span class="k">with</span> <span class="bp">self</span><span class="p">:</span>
             <span class="n">solution</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span>
                 <span class="bp">self</span><span class="p">,</span>

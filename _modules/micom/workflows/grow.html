@@ -508,15 +508,9 @@
 
 
 <div class="viewcode-block" id="_growth"><a class="viewcode-back" href="../../../autoapi/micom/workflows/grow/index.html#micom.workflows.grow._growth">[docs]</a><span class="k">def</span> <span class="nf">_growth</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
-    <span class="n">p</span><span class="p">,</span> <span class="n">tradeoff</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">p</span><span class="p">,</span> <span class="n">tradeoff</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="p">,</span> <span class="n">presolve</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">com</span> <span class="o">=</span> <span class="n">load_pickle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">atol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">atol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
-    <span class="k">if</span> <span class="n">rtol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">rtol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
-
-    <span class="n">com</span> <span class="o">=</span> <span class="n">load_pickle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">presolve</span> <span class="o">=</span> <span class="n">presolve</span>
 
     <span class="k">if</span> <span class="s2">&quot;glpk&quot;</span> <span class="ow">in</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
@@ -549,8 +543,9 @@
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
             <span class="s2">&quot;Could not solve cooperative tradeoff for </span><span class="si">%s</span><span class="s2">. &quot;</span>
-            <span class="s2">&quot;This can often be fixed by chosing ore permissive atol and rtol &quot;</span>
-            <span class="s2">&quot;arguments.&quot;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
+            <span class="s2">&quot;This can often be fixed by enabling `presolve`, choosing more &quot;</span>
+            <span class="s2">&quot;permissive atol and rtol arguments, or by checking that medium &quot;</span>
+            <span class="s2">&quot;fluxes are &gt; atol.&quot;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
@@ -569,8 +564,9 @@
         <span class="k">if</span> <span class="n">med</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
                 <span class="s2">&quot;The minimal medium optimization failed for </span><span class="si">%s</span><span class="s2">. &quot;</span>
-                <span class="s2">&quot;This can often be fixed by chosing ore permissive atol and rtol &quot;</span>
-                <span class="s2">&quot;arguments or by checking that medium fluxes are &gt; atol.&quot;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
+                <span class="s2">&quot;This can often be fixed by enabling `presolve`, choosing more &quot;</span>
+                <span class="s2">&quot;permissive atol and rtol arguments, or by checking that medium &quot;</span>
+                <span class="s2">&quot;fluxes are &gt; atol.&quot;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="n">sol</span> <span class="o">=</span> <span class="n">med</span><span class="p">[</span><span class="s2">&quot;solution&quot;</span><span class="p">]</span>
@@ -593,10 +589,11 @@
     <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;minimal imports&quot;</span><span class="p">,</span>
     <span class="n">atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">presolve</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Simulate growth for a set of community models.</span>
 
-<span class="sd">        Note</span>
+<span class="sd">    Note</span>
 <span class="sd">    ----</span>
 <span class="sd">    The strategy `mimimal imports` can become unstable for common carbon sources since</span>
 <span class="sd">    it will add in infeasible imports that are very small but import some high-C</span>
@@ -635,6 +632,9 @@
 <span class="sd">        Absolute tolerance for the growth rates. If None will use the solver tolerance.</span>
 <span class="sd">    rtol : float</span>
 <span class="sd">        Relative tolerqance for the growth rates. If None will use the solver tolerance.</span>
+<span class="sd">    presolve : bool</span>
+<span class="sd">        Whether to use the presolver/scaling. Can improve numerical accuracy in some</span>
+<span class="sd">        cases.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -654,7 +654,16 @@
     <span class="p">}</span>
     <span class="n">medium</span> <span class="o">=</span> <span class="n">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">tradeoff</span><span class="p">,</span> <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="n">medium</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">],</span> <span class="n">weights</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="p">]</span>
+        <span class="p">[</span>
+            <span class="n">p</span><span class="p">,</span>
+            <span class="n">tradeoff</span><span class="p">,</span>
+            <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="n">medium</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">],</span>
+            <span class="n">weights</span><span class="p">,</span>
+            <span class="n">strategy</span><span class="p">,</span>
+            <span class="n">atol</span><span class="p">,</span>
+            <span class="n">rtol</span><span class="p">,</span>
+            <span class="n">presolve</span><span class="p">,</span>
+        <span class="p">]</span>
         <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">]</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_growth</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>

@@ -55,13 +55,13 @@
             tooltip: {content: "data"}
         },
         encoding: {
-          x: {
+          {% if long %}x{% else %}y{% endif %}: {
             field: "sample_id",
             type: "nominal",
             axis: {title: "sample ID"},
             sort: null
           },
-          y: {
+          {% if long %}y{% else %}x{% endif %}: {
             field: "metabolite",
             type: "nominal",
             sort: null

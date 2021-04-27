@@ -47,22 +47,28 @@ def plot_exchanges_per_sample(
     mat = exchanges.pivot_table(
         values="flux", index="metabolite", columns="sample_id", fill_value=tol
     )
-    sample_order = leaves_list(linkage(mat.values.T, method="average"))
+    if cluster:
+        sample_order = leaves_list(linkage(mat.values.T, method="average"))
+    else:
+        sample_order = range(mat.shape[1])
     reaction_order = leaves_list(linkage(mat.values, method="average"))
     mat = mat.iloc[reaction_order, sample_order]
 
     mat["metabolite"] = mat.index
-    data = mat.melt(
-        id_vars="metabolite", var_name="sample_id", value_name="flux"
-    )
+    data = mat.melt(id_vars="metabolite", var_name="sample_id", value_name="flux")
     data["description"] = anns.loc[data.metabolite, "name"].values
     data = {"exchange_fluxes": data}
     viz = Visualization(filename, data, "sample_heatmap.html")
-    w = mat.shape[1] * 10
+    long = mat.shape[0] > mat.shape[1]
+    w = mat.shape[1] * 10 if long else mat.shape[0] * 10
+    height = (
+        w * mat.shape[0] / mat.shape[1] if long else w * mat.shape[1] / mat.shape[0]
+    )
     viz.save(
         data=data["exchange_fluxes"].to_json(orient="records"),
         width=w,
-        height=w * mat.shape[0] / mat.shape[1],
+        height=height,
+        long=long,
     )
     return viz
 
@@ -71,8 +77,8 @@ def plot_exchanges_per_taxon(
     results,
     filename="taxon_exchanges_%s.html" % datetime.now().strftime("%Y%m%d"),
     direction="import",
-    use_total_flux = False,
-    **tsne_args
+    use_total_flux=False,
+    **tsne_args,
 ) -> None:
     """Plot the exchange fluxes per taxon.
 

@@ -15,6 +15,8 @@ which allows better comparability. The old behavior can be enabled with
 
 Avoid negative growth rate constraints in `_apply_min_growth`.
 
+Can now enable presolving/scaling in `grow` and `tradeoff`.
+
 ### 0.22.7
 
 Fix some warnings from pandas.

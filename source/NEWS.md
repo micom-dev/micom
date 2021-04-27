@@ -5,6 +5,11 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.23.1
+
+The sample heatmap in `plot_exchanges_per_sample` is now automatically rotated when
+there are mores samples than reactions.
+
 ### 0.23.0
 
 Fix the signature and add deprecation warnings for optimize_* methods.

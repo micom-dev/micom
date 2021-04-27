@@ -13,6 +13,8 @@ Fix the signature and add deprecation warnings for optimize_* methods.
 which allows better comparability. The old behavior can be enabled with
 `use_total_flux=True`.
 
+Avoid negative growth rate constraints in `_apply_min_growth`.
+
 ### 0.22.7
 
 Fix some warnings from pandas.

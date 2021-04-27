@@ -489,7 +489,7 @@ class Community(cobra.Model):
         return pd.Series(individual, self.__taxonomy.index)
 
     def optimize(
-        self, fluxes=False, pfba=False, raise_error=False, atol=1e-6, rtol=1e-6
+        self, fluxes=False, pfba=False, raise_error=False, atol=None, rtol=None
     ):
         """Optimize the model using flux balance analysis.
 
@@ -502,6 +502,17 @@ class Community(cobra.Model):
             Should an error be raised if the solution is not optimal. Defaults
             to False which will either return a solution with a non-optimal
             status or None if optimization fails.
+        fluxes : boolean, optional
+            Whether to return the fluxes as well.
+        pfba : boolean, optional
+            Whether to obtain fluxes by parsimonious FBA rather than
+            "classical" FBA. This is highly recommended.
+        atol : float
+            Absolute tolerance for the growth rates. If None will use the solver
+            tolerance.
+        rtol : float
+            Relative tolerqance for the growth rates. If None will use the
+            solver tolerance.
 
         Returns
         -------
@@ -509,6 +520,11 @@ class Community(cobra.Model):
             The solution after optimization or None if there is no optimum.
 
         """
+        if atol is None:
+            atol = self.solver.configuration.tolerances.feasibility
+        if rtol is None:
+            rtol = self.solver.configuration.tolerances.feasibility
+
         with self:
             solution = solve(
                 self,

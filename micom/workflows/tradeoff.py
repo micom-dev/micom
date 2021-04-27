@@ -11,7 +11,8 @@ import pandas as pd
 
 
 def _tradeoff(args):
-    p, tradeoffs, medium = args
+    p, tradeoffs, medium, atol, rtol, presolve = args
+
     com = load_pickle(p)
     ex_ids = [r.id for r in com.exchanges]
     logger.info(
@@ -20,12 +21,13 @@ def _tradeoff(args):
         len(medium),
     )
     com.medium = medium[medium.index.isin(ex_ids)]
+    com.solver.configuration.presolve = presolve
+
     try:
-        sol = com.optimize()
+        sol = com.optimize(rtol=rtol, atol=atol)
     except Exception:
         logger.error(
-            "Sample %s could not be optimized (%s)." %
-            (com.id, com.solver.status),
+            "Sample %s could not be optimized (%s)." % (com.id, com.solver.status),
         )
         return None
     rates = sol.members
@@ -39,8 +41,8 @@ def _tradeoff(args):
         sol = com.cooperative_tradeoff(fraction=tradeoffs)
     except Exception:
         logger.warning(
-            "Sample %s could not be optimized with cooperative tradeoff (%s)." %
-            (com.id, com.solver.status),
+            "Sample %s could not be optimized with cooperative tradeoff (%s)."
+            % (com.id, com.solver.status),
         )
         return None
     for i, s in enumerate(sol.solution):
@@ -59,6 +61,9 @@ def tradeoff(
     medium,
     tradeoffs=np.arange(0.1, 1.0 + 1e-6, 0.1),
     threads=1,
+    atol=None,
+    rtol=None,
+    presolve=False,
 ):
     """Run growth rate predictions for varying tradeoff values.
 
@@ -78,6 +83,13 @@ def tradeoff(
     threads : int >=1
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
+    atol : float
+        Absolute tolerance for the growth rates. If None will use the solver tolerance.
+    rtol : float
+        Relative tolerqance for the growth rates. If None will use the solver tolerance.
+    presolve : bool
+        Whether to use the presolver/scaling. Can improve numerical accuracy in some
+        cases.
 
     Returns
     -------
@@ -86,17 +98,14 @@ def tradeoff(
     """
     samples = manifest.sample_id.unique()
     paths = {
-        s: path.join(
-            model_folder, manifest[manifest.sample_id == s].file.iloc[0])
+        s: path.join(model_folder, manifest[manifest.sample_id == s].file.iloc[0])
         for s in samples
     }
     if any(t < 0.0 or t > 1.0 for t in tradeoffs):
-        raise ValueError(
-            "tradeoff values must between 0 and 1 :("
-        )
+        raise ValueError("tradeoff values must between 0 and 1 :(")
     medium = process_medium(medium, samples)
     args = [
-        [p, tradeoffs, medium.flux[medium.sample_id == s]]
+        [p, tradeoffs, medium.flux[medium.sample_id == s], atol, rtol, presolve]
         for s, p in paths.items()
     ]
     results = workflow(_tradeoff, args, threads)

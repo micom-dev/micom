@@ -19,15 +19,9 @@ ARGS = {
 
 
 def _growth(args):
-    p, tradeoff, medium, weights, strategy, atol, rtol = args
+    p, tradeoff, medium, weights, strategy, atol, rtol, presolve = args
     com = load_pickle(p)
-
-    if atol is None:
-        atol = com.solver.configuration.tolerances.feasibility
-    if rtol is None:
-        rtol = com.solver.configuration.tolerances.feasibility
-
-    com = load_pickle(p)
+    com.solver.configuration.presolve = presolve
 
     if "glpk" in interface_to_str(com.solver.interface):
         logger.error(
@@ -60,8 +54,9 @@ def _growth(args):
     except Exception:
         logger.error(
             "Could not solve cooperative tradeoff for %s. "
-            "This can often be fixed by chosing ore permissive atol and rtol "
-            "arguments." % com.id
+            "This can often be fixed by enabling `presolve`, choosing more "
+            "permissive atol and rtol arguments, or by checking that medium "
+            "fluxes are > atol." % com.id
         )
         return None
 
@@ -80,8 +75,9 @@ def _growth(args):
         if med is None:
             logger.error(
                 "The minimal medium optimization failed for %s. "
-                "This can often be fixed by chosing ore permissive atol and rtol "
-                "arguments or by checking that medium fluxes are > atol." % com.id
+                "This can often be fixed by enabling `presolve`, choosing more "
+                "permissive atol and rtol arguments, or by checking that medium "
+                "fluxes are > atol." % com.id
             )
             return None
         sol = med["solution"]
@@ -104,10 +100,11 @@ def grow(
     strategy="minimal imports",
     atol=None,
     rtol=None,
+    presolve=False,
 ):
     """Simulate growth for a set of community models.
 
-        Note
+    Note
     ----
     The strategy `mimimal imports` can become unstable for common carbon sources since
     it will add in infeasible imports that are very small but import some high-C
@@ -146,6 +143,9 @@ def grow(
         Absolute tolerance for the growth rates. If None will use the solver tolerance.
     rtol : float
         Relative tolerqance for the growth rates. If None will use the solver tolerance.
+    presolve : bool
+        Whether to use the presolver/scaling. Can improve numerical accuracy in some
+        cases.
 
     Returns
     -------
@@ -165,7 +165,16 @@ def grow(
     }
     medium = process_medium(medium, samples)
     args = [
-        [p, tradeoff, medium.flux[medium.sample_id == s], weights, strategy, atol, rtol]
+        [
+            p,
+            tradeoff,
+            medium.flux[medium.sample_id == s],
+            weights,
+            strategy,
+            atol,
+            rtol,
+            presolve,
+        ]
         for s, p in paths.items()
     ]
     results = workflow(_growth, args, threads)

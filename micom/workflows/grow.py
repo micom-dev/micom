@@ -26,7 +26,10 @@ def _growth(args):
         atol = com.solver.configuration.tolerances.feasibility
     if rtol is None:
         rtol = com.solver.configuration.tolerances.feasibility
-    com.solver.configuration.presolve = presolve
+    if presolve:
+        # looks stupid but that here is to respect the preset
+        # and there is an auto setting that we want to respect
+        com.solver.configuration.presolve = presolve
 
     if "glpk" in interface_to_str(com.solver.interface):
         logger.error(

@@ -748,9 +748,8 @@
         <span class="n">obj</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">context</span><span class="p">:</span>
             <span class="n">context</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">reset</span><span class="p">,</span> <span class="n">sp</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">lb</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">min_growth</span><span class="p">[</span><span class="n">sp</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">atol</span><span class="p">:</span>
-            <span class="n">obj</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">rtol</span><span class="p">)</span> <span class="o">*</span> <span class="n">min_growth</span><span class="p">[</span><span class="n">sp</span><span class="p">]</span> <span class="o">-</span> <span class="n">atol</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">rtol</span><span class="p">)</span> <span class="o">*</span> <span class="n">min_growth</span><span class="p">[</span><span class="n">sp</span><span class="p">]</span> <span class="o">-</span> <span class="n">atol</span>
+        <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">lb</span> <span class="o">&lt;</span> <span class="n">atol</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                 <span class="s2">&quot;minimal growth rate smaller than tolerance,&quot;</span> <span class="s2">&quot; setting to zero.&quot;</span>
             <span class="p">)</span>

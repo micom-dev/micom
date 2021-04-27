@@ -5,9 +5,13 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
-### 0.22.8
+### 0.23.0
 
 Fix the signature and add deprecation warnings for optimize_* methods.
+
+`plot_exchanges_per_taxon` will now use normalized fluxes (per 1 gDW for each taxon)
+which allows better comparability. The old behavior can be enabled with
+`use_total_flux=True`.
 
 ### 0.22.7
 

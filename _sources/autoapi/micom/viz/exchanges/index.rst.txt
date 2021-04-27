@@ -41,7 +41,7 @@ Functions
    :rtype: Visualization
 
 
-.. function:: plot_exchanges_per_taxon(results, filename='taxon_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction='import', **tsne_args) -> None
+.. function:: plot_exchanges_per_taxon(results, filename='taxon_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction='import', use_total_flux=False, **tsne_args) -> None
 
    Plot the exchange fluxes per taxon.
 
@@ -51,6 +51,8 @@ Functions
    :type filename: str
    :param direction: The direction of fluxes to plot.
    :type direction: str either "import" or "export"
+   :param use_total_fluxes: Whether to use fluxes normalized to 1gDW of bacteria or the total flux.
+   :type use_total_fluxes: bool
    :param tsne_args: Additional arguments passed to TSNE.
    :type tsne_args: dict
 

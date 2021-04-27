@@ -560,6 +560,7 @@
     <span class="n">results</span><span class="p">,</span>
     <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;taxon_exchanges_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
     <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;import&quot;</span><span class="p">,</span>
+    <span class="n">use_total_flux</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">tsne_args</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Plot the exchange fluxes per taxon.</span>
@@ -572,6 +573,8 @@
 <span class="sd">        The HTML file where the visualization will be saved.</span>
 <span class="sd">    direction : str either &quot;import&quot; or &quot;export&quot;</span>
 <span class="sd">        The direction of fluxes to plot.</span>
+<span class="sd">    use_total_fluxes : bool</span>
+<span class="sd">        Whether to use fluxes normalized to 1gDW of bacteria or the total flux.</span>
 <span class="sd">    tsne_args : dict</span>
 <span class="sd">        Additional arguments passed to TSNE.</span>
 
@@ -582,19 +585,21 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">exchanges</span>
-    <span class="n">tol</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">tolerance</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">direction</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;import&quot;</span><span class="p">,</span> <span class="s2">&quot;export&quot;</span><span class="p">]:</span>
         <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not a valid flux direction. Must be `import` or `export`.&quot;</span><span class="p">)</span>
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">exchanges</span><span class="p">[</span>
         <span class="p">(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">&quot;medium&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">direction</span><span class="p">)</span>
     <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">exchanges</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">*</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">abundance</span>
+    <span class="k">if</span> <span class="n">use_total_flux</span><span class="p">:</span>
+        <span class="n">exchanges</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">*</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">abundance</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">exchanges</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
     <span class="n">mat</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
         <span class="n">values</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span>
         <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="s2">&quot;taxon&quot;</span><span class="p">],</span>
         <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">,</span>
-        <span class="n">fill_value</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+        <span class="n">fill_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">reduced</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="o">**</span><span class="n">tsne_args</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
     <span class="n">reduced</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>

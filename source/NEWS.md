@@ -10,6 +10,9 @@ For information on how to use `micom` please refer to
 The sample heatmap in `plot_exchanges_per_sample` is now automatically rotated when
 there are mores samples than reactions.
 
+media workflows will use presolving by default since those are often numerically
+problematic.
+
 ### 0.23.0
 
 Fix the signature and add deprecation warnings for optimize_* methods.

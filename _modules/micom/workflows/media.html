@@ -515,6 +515,8 @@
     <span class="sd">&quot;&quot;&quot;Get minimal medium for a single model.&quot;&quot;&quot;</span>
     <span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">min_growth</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">com</span> <span class="o">=</span> <span class="n">load_pickle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">presolve</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># minimal media are often unstable</span>
+
     <span class="c1"># open the bounds</span>
     <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span><span class="p">:</span>
         <span class="n">ex</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1000.0</span><span class="p">,</span> <span class="mf">1000.0</span><span class="p">)</span>
@@ -561,6 +563,7 @@
     <span class="sd">&quot;&quot;&quot;Get the fixed medium for a model.&quot;&quot;&quot;</span>
     <span class="n">sid</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">max_import</span><span class="p">,</span> <span class="n">mip</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">com</span> <span class="o">=</span> <span class="n">load_pickle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">presolve</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># minimal media are often unstable</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">fixed</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">complete_medium</span><span class="p">(</span>
             <span class="n">com</span><span class="p">,</span>

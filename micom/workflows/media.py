@@ -26,6 +26,8 @@ def _medium(args):
     """Get minimal medium for a single model."""
     s, p, min_growth = args
     com = load_pickle(p)
+    com.solver.configuration.presolve = True  # minimal media are often unstable
+
     # open the bounds
     for ex in com.exchanges:
         ex.bounds = (-1000.0, 1000.0)
@@ -72,6 +74,7 @@ def _fix_medium(args):
     """Get the fixed medium for a model."""
     sid, p, growth, min_growth, max_import, mip, medium, weights = args
     com = load_pickle(p)
+    com.solver.configuration.presolve = True  # minimal media are often unstable
     try:
         fixed = mm.complete_medium(
             com,

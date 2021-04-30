@@ -135,7 +135,7 @@ class Community(cobra.Model):
         if not solver:
             solver = [
                 s
-                for s in ["cplex", "osqp", "gurobi", "glpk"]
+                for s in ["cplex", "gurobi", "osqp", "glpk"]
                 if s in cobra.util.solver.solvers
             ][0]
         logger.info("using the %s solver." % solver)
@@ -492,6 +492,18 @@ class Community(cobra.Model):
         self, fluxes=False, pfba=False, raise_error=False, atol=None, rtol=None
     ):
         """Optimize the model using flux balance analysis.
+
+        This is the primary accessor for optimization in MICOM and should be used
+        for all optimizations. Different from cobrapy this will *not* return the full
+        solution by default but only growth rates which is much quicker. You can
+        request a full solution by setting the `fluxes` and `pFBA` arguments.
+
+        Note
+        ----
+        for OSQP this will use an additional quadratic regularization in order
+        to convert all LP problems to QPs and stabilize the solution. This may not
+        perform well if the community growth rate is larger 1000 (which it should never
+        be as this would be a doubling time of a few seconds).
 
         Parameters
         ----------
@@ -861,3 +873,13 @@ class Community(cobra.Model):
         """
         with open(filename, mode="wb") as out:
             pickle.dump(self, out, protocol=2)
+
+    @cobra.Model.solver.setter
+    def solver(self, s):
+        """Set the solver."""
+        if hasattr(self.solver.configuration, "lp_method"):
+            self.solver.configuration.lp_method = "auto"
+        if hasattr(self.solver.configuration, "qp_method"):
+            self.solver.configuration.qp_method = "auto"
+        cobra.Model.solver.fset(self, s)
+        adjust_solver_config(self.solver)

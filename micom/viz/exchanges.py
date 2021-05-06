@@ -61,9 +61,7 @@ def plot_exchanges_per_sample(
     viz = Visualization(filename, data, "sample_heatmap.html")
     long = mat.shape[0] > mat.shape[1]
     w = mat.shape[1] * 10 if long else mat.shape[0] * 10
-    height = (
-        w * mat.shape[0] / mat.shape[1] if long else w * mat.shape[1] / mat.shape[0]
-    )
+    height = mat.shape[0] * 10 if long else mat.shape[1] * 10
     viz.save(
         data=data["exchange_fluxes"].to_json(orient="records"),
         width=w,

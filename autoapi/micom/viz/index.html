@@ -572,6 +572,11 @@
        plot_fit
       </a>
      </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.viz.plot_tradeoff">
+       plot_tradeoff
+      </a>
+     </li>
     </ul>
    </li>
   </ul>
@@ -637,6 +642,9 @@
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_fit" title="micom.viz.plot_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_fit</span></code></a>(results, phenotype, variable_type='binary', variable_name='phenotype', filename='fit_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', min_coef=0.001, atol=1e-06)</p></td>
 <td><p>Test for differential metabolite production.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_tradeoff" title="micom.viz.plot_tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_tradeoff</span></code></a>(tradeoff_rates, filename='tradeoff_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)</p></td>
+<td><p>Plot diagnostics for varying tradeoff values.</p></td>
 </tr>
 </tbody>
 </table>
@@ -795,6 +803,28 @@ to the solver tolerance.</p></li>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.view</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="micom.viz.plot_tradeoff">
+<code class="sig-prename descclassname"><span class="pre">micom.viz.</span></code><code class="sig-name descname"><span class="pre">plot_tradeoff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tradeoff_rates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tradeoff_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/tradeoff.html#plot_tradeoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_tradeoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot diagnostics for varying tradeoff values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tradeoff_rates</strong> (<em>pandas.DataFrame</em>) – The growth rates returned by the <cite>tradeoff</cite> workflow.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
+<li><p><strong>tolerance</strong> (<em>float</em>) – Smallest growth rate that will be considered. Everything lower will be
+considered not growing.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>

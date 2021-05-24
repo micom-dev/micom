@@ -624,7 +624,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">solver</span><span class="p">:</span>
             <span class="n">solver</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">s</span>
-                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;cplex&quot;</span><span class="p">,</span> <span class="s2">&quot;osqp&quot;</span><span class="p">,</span> <span class="s2">&quot;gurobi&quot;</span><span class="p">,</span> <span class="s2">&quot;glpk&quot;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;cplex&quot;</span><span class="p">,</span> <span class="s2">&quot;gurobi&quot;</span><span class="p">,</span> <span class="s2">&quot;osqp&quot;</span><span class="p">,</span> <span class="s2">&quot;glpk&quot;</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">cobra</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">solvers</span>
             <span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;using the </span><span class="si">%s</span><span class="s2"> solver.&quot;</span> <span class="o">%</span> <span class="n">solver</span><span class="p">)</span>
@@ -981,6 +981,18 @@
         <span class="bp">self</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">raise_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Optimize the model using flux balance analysis.</span>
+
+<span class="sd">        This is the primary accessor for optimization in MICOM and should be used</span>
+<span class="sd">        for all optimizations. Different from cobrapy this will *not* return the full</span>
+<span class="sd">        solution by default but only growth rates which is much quicker. You can</span>
+<span class="sd">        request a full solution by setting the `fluxes` and `pFBA` arguments.</span>
+
+<span class="sd">        Note</span>
+<span class="sd">        ----</span>
+<span class="sd">        for OSQP this will use an additional quadratic regularization in order</span>
+<span class="sd">        to convert all LP problems to QPs and stabilize the solution. This may not</span>
+<span class="sd">        perform well if the community growth rate is larger 1000 (which it should never</span>
+<span class="sd">        be as this would be a doubling time of a few seconds).</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1349,7 +1361,17 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out</span><span class="p">:</span>
-            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div></div>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
+
+    <span class="nd">@cobra</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set the solver.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="s2">&quot;lp_method&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">lp_method</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="s2">&quot;qp_method&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">qp_method</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span>
+        <span class="n">cobra</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+        <span class="n">adjust_solver_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="p">)</span></div>
 </pre></div>
 
               </div>

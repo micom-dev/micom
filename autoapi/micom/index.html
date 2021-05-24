@@ -813,6 +813,17 @@ all at once.</p>
 <dt id="micom.Community.optimize">
 <code class="sig-name descname"><span class="pre">optimize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize the model using flux balance analysis.</p>
+<p>This is the primary accessor for optimization in MICOM and should be used
+for all optimizations. Different from cobrapy this will <em>not</em> return the full
+solution by default but only growth rates which is much quicker. You can
+request a full solution by setting the <cite>fluxes</cite> and <cite>pFBA</cite> arguments.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>for OSQP this will use an additional quadratic regularization in order
+to convert all LP problems to QPs and stabilize the solution. This may not
+perform well if the community growth rate is larger 1000 (which it should never
+be as this would be a doubling time of a few seconds).</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

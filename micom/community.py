@@ -25,6 +25,7 @@ from tempfile import TemporaryDirectory
 _ranks = ["kingdom", "phylum", "class", "order", "family", "genus", "species", "strain"]
 
 cobra.io.sbml.LOGGER.setLevel("ERROR")
+cobra.util.solver.logger.setLevel("ERROR")
 
 
 class Community(cobra.Model):

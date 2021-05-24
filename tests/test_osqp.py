@@ -66,7 +66,7 @@ def test_community_objective(community):
     y = community.optimize(fluxes=True)
     assert isinstance(x, CommunitySolution)
     assert x.growth_rate == approx(0.873922, 1e-3, 1e-3)
-    assert x.members.growth_rate.dropna().sum() == approx(4*0.873922, 1e-3, 1e-3)
+    assert x.members.growth_rate.dropna().sum() == approx(4*0.873922, 1e-2, 1e-2)
     assert isinstance(y, CommunitySolution)
     assert y.fluxes.shape[0] == 5
 
@@ -75,7 +75,7 @@ def test_cooperative_tradeoff(community):
     community.solver = "osqp"
     sol = community.cooperative_tradeoff(fraction=1.0)
     for g in sol.members.growth_rate.dropna():
-        assert g == approx(0.874, 1e-3, 1e-3)
+        assert g == approx(0.874, 1e-2, 1e-2)
 
 
 def test_multiple_tradeoffs(community):

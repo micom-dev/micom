@@ -5,6 +5,10 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.24.1
+
+Fixed settings to get better convergence behavior with OSQP.
+
 ### 0.24.0
 
 MICOM now works with OSQP and works out of the box without a commercial QP solver. See

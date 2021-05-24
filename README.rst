@@ -17,10 +17,12 @@ Medicine Mexico <https://inmegen.gob.mx>`_.
 `MICOM` allows you to construct a community model from a list on input
 COBRA models and manages exchange fluxes between individuals and individuals
 with the environment. It explicitly accounts for different abundances of
-individuals in the community and can thus incorporate data from cytometry, amplicon
-sequencing, or metagenomic shotgun sequencing. It can identify a more relevant flux
-space by incorporating an ecological model for the trade-off between individual taxa
-growth and community-wide growth that shows good agreement with experimental data.
+individuals in the community and can thus incorporate data from biomass quantification,
+cytometry, ampliconsequencing, or metagenomic shotgun sequencing.
+
+It identifies a relevant flux space by incorporating an ecological model for the trade-off
+between individual taxa growth and community-wide growth that shows good agreement with
+experimental data.
 
 Attribution
 -----------

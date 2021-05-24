@@ -5,6 +5,11 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.24.0
+
+MICOM now works with OSQP and works out of the box without a commercial QP solver. See
+the [installation docs]() for more information.
+
 ### 0.23.1
 
 The sample heatmap in `plot_exchanges_per_sample` is now automatically rotated when

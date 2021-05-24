@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Installing micom &#8212; version 0.23.1</title>
+    <title>Installing MICOM &#8212; version 0.24.0</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -61,7 +61,7 @@
       <img src="_static/micom.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">version 0.23.1</h1>
+      <h1 class="site-logo" id="site-title">version 0.24.0</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -505,21 +505,9 @@
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#Install-a-QP-solver">
-   Install a QP solver
+  <a class="reference internal nav-link" href="#(Optional)-Install-another-QP-solver">
+   (Optional) Install another QP solver
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#CPLEX">
-     CPLEX
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#Gurobi">
-     Gurobi
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -780,27 +768,27 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="Installing-micom">
-<h1>Installing micom<a class="headerlink" href="#Installing-micom" title="Permalink to this headline">¶</a></h1>
-<p><code class="docutils literal notranslate"><span class="pre">micom</span></code> is present on PyPi (the Python Package Index), so it can be installed via pip with</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --user micom
+<div class="section" id="Installing-MICOM">
+<h1>Installing MICOM<a class="headerlink" href="#Installing-MICOM" title="Permalink to this headline">¶</a></h1>
+<p>MICOM is present on PyPi (the Python Package Index), so it can be installed via pip with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install micom
 </pre></div>
 </div>
-<p>For a system-wide installation you can omit <code class="docutils literal notranslate"><span class="pre">--user</span></code>.</p>
-<p>The same installation strategy also works with Anaconda installations or any other Python distribution. Supported Python versions are 3.6 and 3.7.</p>
-<div class="section" id="Install-a-QP-solver">
-<h2>Install a QP solver<a class="headerlink" href="#Install-a-QP-solver" title="Permalink to this headline">¶</a></h2>
-<p>Many of the methods in <code class="docutils literal notranslate"><span class="pre">micom</span></code> unfortunately require high performance and QP-capable solvers. Thus, for full functionality you will require a commercial solver such as <a class="reference external" href="https://www.ibm.com/products/ilog-cplex-optimization-studio">Cplex</a> or <a class="reference external" href="http://www.gurobi.com/index">Gurobi</a>. Both have academic licenses and can be obtained for free for academic users.</p>
-<div class="section" id="CPLEX">
-<h3>CPLEX<a class="headerlink" href="#CPLEX" title="Permalink to this headline">¶</a></h3>
-<p>After registering and downloading the CPLEX studio for your OS unpack it (by running the provided installer) to a directory of your choice (we will assume it’s called ibm).</p>
-<p>Now install the CPLEX python package:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ibm/cplex/python/3.6/x86-64_linux
+<p>The same installation strategy also works with Anaconda installations or any other Python distributions. Supported Python versions are 3.7 or any later.</p>
+<p>By default MICOM will also install <a class="reference external" href="https://osqp.org">OSQP</a> as a quadratic programming solver. MICOM employs a bunch of tricks to improve OSQP performance for linear programming problems, but will still only each accuracies in the order of 1e-4. You may install a commercial QP solver to improve the accuracy and speed (all of them offer free academic licenses).</p>
+<p>If you have several supported solvers installed you may later specify one with the <code class="docutils literal notranslate"><span class="pre">solver</span></code> argument in <code class="docutils literal notranslate"><span class="pre">micom.Community</span></code> or <code class="docutils literal notranslate"><span class="pre">micom.workflows.build</span></code>.</p>
+<div class="section" id="(Optional)-Install-another-QP-solver">
+<h2>(Optional) Install another QP solver<a class="headerlink" href="#(Optional)-Install-another-QP-solver" title="Permalink to this headline">¶</a></h2>
+<p><strong>CPLEX (recommended)</strong></p>
+<p>After registering and downloading the CPLEX studio for your OS unpack it (by running the provided installer) to a directory of your choice (we will assume it’s called <code class="docutils literal notranslate"><span class="pre">ibm</span></code>).</p>
+<p>Now install the CPLEX python package into your activated environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ibm/cplex/python/3.8/x86-64_linux
 </pre></div>
 </div>
-</div>
-<div class="section" id="Gurobi">
-<h3>Gurobi<a class="headerlink" href="#Gurobi" title="Permalink to this headline">¶</a></h3>
+<p>Substitute <code class="docutils literal notranslate"><span class="pre">3.8</span></code> with your Python version. Substitute <code class="docutils literal notranslate"><span class="pre">x86-64_linux</span></code> with the folder corresponding to your system (there will only be one subfolder in that directory).</p>
+<p><strong>Gurobi (works, but not recommended)</strong></p>
+<p>MICOM is not continuously tested against Gurobi. Consequently Gurobi support is often iffy and might break for periods of time. It will also be <em>much</em> slower than CPLEX or OSQP. Gurobi is fast in solving the problem but the Gurobi Python interface is very slow in returning the optimal values for all model variables.</p>
+<p>You should only consider using Gurobi if: 1. You do not have access to CPLEX 2. You do need high accuracy solutions (tolerance of 1e-6 or lower)</p>
 <p>Gurobi can be installed with conda.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c gurobi gurobi
 </pre></div>
@@ -816,7 +804,6 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
-</div>
 </div>
 </div>
 </div>

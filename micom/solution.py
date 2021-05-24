@@ -178,6 +178,8 @@ def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
     community.objective = Zero
     community.objective_direction = "min"
     community.objective.set_linear_coefficients(dict.fromkeys(variables, 1.0))
+    if interface_to_str(community.solver.interface) == "osqp":
+        community.objective += 1e-6 * community.variables.community_objective ** 2
     if community.modification is None:
         community.modification = "pFBA"
     else:
@@ -186,6 +188,13 @@ def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
 
 def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=1e-6):
     """Get all fluxes stratified by taxa."""
+    if interface_to_str(community.solver.interface) == "osqp":
+        # This improves OSQP by soooo much
+        community.objective = community.objective.expression + (
+            1e-6
+            * community.solver.problem.direction
+            * community.variables.community_objective ** 2
+        )
     community.solver.optimize()
     status = community.solver.status
     if status in good:
@@ -204,6 +213,9 @@ def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=
             sol = CommunitySolution(community)
         else:
             sol = CommunitySolution(community, slim=True)
+        if interface_to_str(community.solver.interface) == "osqp":
+            correction = 1e-9 * community.variables.community_objective.primal ** 2
+            sol.objective_value -= community.solver.problem.direction * correction
         return sol
     logger.warning("solver encountered an error %s" % status)
     return None

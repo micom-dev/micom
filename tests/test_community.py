@@ -8,7 +8,6 @@ import numpy as np
 
 def test_construction():
     tax = test_taxonomy()
-    nr, mr = tax.reactions, tax.metabolites
     com = Community(tax)
     assert len(com.taxa) == 4
     assert len(com.taxonomy) == 4

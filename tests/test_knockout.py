@@ -17,6 +17,6 @@ def test_knockout(community):
 
 
 def test_single_knockout(community):
-    ko = community.knockout_taxa(taxa = community.taxa[0])
+    ko = community.knockout_taxa(taxa=community.taxa[0])
     assert ko.shape == (1, 4)
     assert ko.iloc[0, :].values == approx([-0.874, 0.305, 0.305, 0.305], 0.01)

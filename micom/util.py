@@ -272,6 +272,7 @@ def adjust_solver_config(solver):
     interface = interface_to_str(solver.interface)
 
     solver.configuration.tolerances.feasibility = 1e-6
+    solver.configuration.presolve = True
     if interface == "cplex":
         solver.configuration.lp_method = "barrier"
         solver.configuration.qp_method = "barrier"
@@ -283,13 +284,10 @@ def adjust_solver_config(solver):
         solver.problem.Params.BarIterLimit = 10000
         solver.problem.Params.Threads = 1
         solver.problem.Params.LogToConsole = 0
-    if interface == "glpk":
-        solver.configuration.presolve = True
     if interface == "osqp":
-        # as a direct solver OSQP has trouble getting to good accuracies for LPs
-        solver.configuration.tolerances.optimality = 1e-3
+        # as a direct solver OSQP has trouble getting to good accuracies
+        solver.configuration.tolerances.optimality = 1e-4
         solver.configuration.tolerances.feasibility = 1e-4
-        solver.configuration.presolve = False
 
 
 def reset_min_community_growth(com):

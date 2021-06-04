@@ -8,7 +8,7 @@ from micom.workflows.core import workflow
 import os
 import pandas as pd
 from tempfile import TemporaryDirectory
-from zipfile import ZipFile
+import zipfile
 
 
 def _reduce_group(df):
@@ -130,7 +130,8 @@ def _summarize_models(args):
 
 
 def build_database(
-    manifest, out_path, rank="genus", threads=1, compress=None, progress=True
+    manifest, out_path, rank="genus", threads=1,
+    compress=False, compresslevel=6, progress=True,
 ):
     """Create a model database from a set of SBML files.
 
@@ -147,14 +148,22 @@ def build_database(
         Must contain the columns "file", "kingdom", "phylum", "class",
         "order", "family", "genus", and "species". May contain additional
         columns.
+
     out_path : str
-        The directory where the joined models will be written.
+        The directory or zip file where the joined models will be written.
+
     threads : int >=1
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
-    compress : bool
-        Whether to compress the output. Default is True if out_path ends with
-        ".zip" otherwise no.
+
+    compress : False (default, no compression), "zlib", "bz2", or "lzma"
+        Whether and how to compress the output.
+        This parameter is ignored if out_path does not end with ".zip".
+
+    compresslevel : int [1-9] (default: 6)
+        Level of compression. Only used if compress is not False.
+        This parameter is ignored if out_path does not end with ".zip".
+
     progress : bool
         Whether to show a progress bar.
 
@@ -166,7 +175,6 @@ def build_database(
     """
     meta = manifest.copy()
     meta.columns = meta.columns.str.lower()
-    compress = out_path.endswith(".zip")
 
     if not REQ_FIELDS.isin(meta.columns).all():
         raise ValueError(
@@ -186,7 +194,20 @@ def build_database(
     meta["id"] = meta.index
     meta["summary_rank"] = rank
 
-    if compress:
+    # compress is ignored if outpath does not end with ".zip"
+    if out_path.endswith(".zip"):
+        compressdict = {
+            False: zipfile.ZIP_STORED,
+            "zlib": zipfile.ZIP_DEFLATED,
+            "bz2": zipfile.ZIP_BZIP2,
+            "lzma": zipfile.ZIP_LZMA,
+        }
+        compress = compressdict.get(compress, "unknown")
+        # Check compression parameters before heavy computations
+        zipfile._check_compression(compress)
+        if compresslevel not in range(1, 10):
+            raise ValueError("compresslevel must be an int between 1 and 9")
+
         with TemporaryDirectory(prefix="micom_") as tdir:
             args = [
                 (tid, row, os.path.join(tdir, "%s.json" % tid))
@@ -195,7 +216,12 @@ def build_database(
             workflow(_summarize_models, args, threads)
             meta.file = meta.index + ".json"
             meta.to_csv(os.path.join(tdir, "manifest.csv"), index=False)
-            with ZipFile(out_path, "w") as zf:
+            with zipfile.ZipFile(
+                out_path,
+                mode="w",
+                compression=compress,
+                compresslevel=compresslevel,
+            ) as zf:
                 [zf.write(a[2], os.path.basename(a[2])) for a in args]
                 zf.write(os.path.join(tdir, "manifest.csv"), "manifest.csv")
     else:

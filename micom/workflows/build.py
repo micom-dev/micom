@@ -153,11 +153,11 @@ def build_database(
     threads : int >=1
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
-    compress : str (default None), "zlib", "bz2", or "lzma"
-        Whether and how to compress the output.
+    compress : str (default None)
+        Compression method to use. Must be "zlib", "bz2", "lzma" or None.
         This parameter is ignored if out_path does not end with ".zip".
     compresslevel : int [1-9] (default: 6)
-        Level of compression. Only used if compress is not False.
+        Level of compression. Only used if compress is not None.
         This parameter is ignored if out_path does not end with ".zip".
     progress : bool
         Whether to show a progress bar.

@@ -153,7 +153,7 @@ def build_database(
     threads : int >=1
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
-    compress : False (default, no compression), "zlib", "bz2", or "lzma"
+    compress : str (default None), "zlib", "bz2", or "lzma"
         Whether and how to compress the output.
         This parameter is ignored if out_path does not end with ".zip".
     compresslevel : int [1-9] (default: 6)
@@ -191,18 +191,27 @@ def build_database(
 
     # compress is ignored if outpath does not end with ".zip"
     if out_path.endswith(".zip"):
+        # Explicitly check compression level
+        if compresslevel not in range(1, 10):
+            raise ValueError(
+                "compresslevel parameter must be an int between 1 and 9")
+
+        # Explicitly check for supported zipfile compression options
         compressdict = {
-            False: zipfile.ZIP_STORED,
+            None: zipfile.ZIP_STORED,
             "zlib": zipfile.ZIP_DEFLATED,
             "bz2": zipfile.ZIP_BZIP2,
             "lzma": zipfile.ZIP_LZMA,
         }
-        compress = compressdict.get(compress, "unknown")
-        # Check compression parameters before heavy computations
-        zipfile._check_compression(compress)
-        if compresslevel not in range(1, 10):
-            raise ValueError("compresslevel must be an int between 1 and 9")
+        if compress not in compressdict:
+            raise ValueError(
+                'compress parameter must be "zlib", "bz2", "lzma" or None')
+        compressopt = compressdict[compress]
+        # Check if zipfile compression dependencies are installed
+        # Raise RuntimeError if the module is missing
+        zipfile._check_compression(compressopt)
 
+        # Store model database as zipfile
         with TemporaryDirectory(prefix="micom_") as tdir:
             args = [
                 (tid, row, os.path.join(tdir, "%s.json" % tid))
@@ -214,7 +223,7 @@ def build_database(
             with zipfile.ZipFile(
                 out_path,
                 mode="w",
-                compression=compress,
+                compression=compressopt,
                 compresslevel=compresslevel,
             ) as zf:
                 [zf.write(a[2], os.path.basename(a[2])) for a in args]

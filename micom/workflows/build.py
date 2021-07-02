@@ -148,22 +148,17 @@ def build_database(
         Must contain the columns "file", "kingdom", "phylum", "class",
         "order", "family", "genus", and "species". May contain additional
         columns.
-
     out_path : str
         The directory or zip file where the joined models will be written.
-
     threads : int >=1
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
-
     compress : False (default, no compression), "zlib", "bz2", or "lzma"
         Whether and how to compress the output.
         This parameter is ignored if out_path does not end with ".zip".
-
     compresslevel : int [1-9] (default: 6)
         Level of compression. Only used if compress is not False.
         This parameter is ignored if out_path does not end with ".zip".
-
     progress : bool
         Whether to show a progress bar.
 

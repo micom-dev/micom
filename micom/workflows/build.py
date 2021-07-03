@@ -131,7 +131,7 @@ def _summarize_models(args):
 
 def build_database(
     manifest, out_path, rank="genus", threads=1,
-    compress=False, compresslevel=6, progress=True,
+    compress=None, compresslevel=6, progress=True,
 ):
     """Create a model database from a set of SBML files.
 

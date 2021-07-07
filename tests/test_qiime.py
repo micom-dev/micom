@@ -3,7 +3,7 @@
 from .fixtures import this_dir
 import micom.qiime_formats as qf
 from micom.data import test_db, test_medium
-from os import path, environ
+from os import path, getenv
 from pytest import mark, raises, approx
 
 db, medium = test_db, test_medium
@@ -32,7 +32,7 @@ def test_qiime_medium():
     assert "flux" in m.columns
 
 
-@mark.xfail(environ["CI"], reason="broken setup in CI")
+@mark.xfail(getenv("CI") is True, reason="broken setup in CI")
 def test_qiime_model():
     manifest = qf.load_qiime_manifest(models)
     assert "sample_id" in manifest.columns

@@ -45,6 +45,7 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest pytest-cov
+        env
         pytest --cov=micom --cov-report=xml
     - name: Upload to codecov
       if: matrix.os == 'ubuntu-latest' && matrix.python-version == 3.8

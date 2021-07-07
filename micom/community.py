@@ -873,7 +873,7 @@ class Community(cobra.Model):
 
         """
         with open(filename, mode="wb") as out:
-            pickle.dump(self, out, protocol=2)
+            pickle.dump(self, out, protocol=4)
 
     @cobra.Model.solver.setter
     def solver(self, s):

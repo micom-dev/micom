@@ -612,7 +612,7 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.build" title="micom.workflows.build"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build</span></code></a></p></td>
 <td><p>Worflow to build models for several samples.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.build_database" title="micom.workflows.build_database"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_database</span></code></a>(manifest, out_path, rank='genus', threads=1, compress=None, progress=True)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.build_database" title="micom.workflows.build_database"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_database</span></code></a>(manifest, out_path, rank='genus', threads=1, compress=None, compresslevel=6, progress=True)</p></td>
 <td><p>Create a model database from a set of SBML files.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.grow" title="micom.workflows.grow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grow</span></code></a></p></td>
@@ -715,7 +715,7 @@ build metrics and file basenames.</p>
 
 <dl class="py function">
 <dt id="micom.workflows.build_database">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.</span></code><code class="sig-name descname"><span class="pre">build_database</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'genus'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/workflows/build.html#build_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.build_database" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">micom.workflows.</span></code><code class="sig-name descname"><span class="pre">build_database</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'genus'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compresslevel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/workflows/build.html#build_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.build_database" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a model database from a set of SBML files.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -730,11 +730,13 @@ that had different values within the summarized models.</p>
 Must contain the columns “file”, “kingdom”, “phylum”, “class”,
 “order”, “family”, “genus”, and “species”. May contain additional
 columns.</p></li>
-<li><p><strong>out_path</strong> (<em>str</em>) – The directory where the joined models will be written.</p></li>
+<li><p><strong>out_path</strong> (<em>str</em>) – The directory or zip file where the joined models will be written.</p></li>
 <li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
 rule of thumb you will need around 1GB of RAM for each thread.</p></li>
-<li><p><strong>compress</strong> (<em>bool</em>) – Whether to compress the output. Default is True if out_path ends with
-“.zip” otherwise no.</p></li>
+<li><p><strong>compress</strong> (<em>str</em><em> (</em><em>default None</em><em>)</em>) – Compression method to use. Must be “zlib”, “bz2”, “lzma” or None.
+This parameter is ignored if out_path does not end with “.zip”.</p></li>
+<li><p><strong>compresslevel</strong> (<em>int</em><em> [</em><em>1-9</em><em>] </em><em>(</em><em>default: 6</em><em>)</em>) – Level of compression. Only used if compress is not None.
+This parameter is ignored if out_path does not end with “.zip”.</p></li>
 <li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
 </ul>
 </dd>

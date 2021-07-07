@@ -497,7 +497,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
-<span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
 
 
 <div class="viewcode-block" id="_reduce_group"><a class="viewcode-back" href="../../../autoapi/micom/workflows/build/index.html#micom.workflows.build._reduce_group">[docs]</a><span class="k">def</span> <span class="nf">_reduce_group</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -619,7 +619,8 @@
 
 
 <div class="viewcode-block" id="build_database"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.build.build_database">[docs]</a><span class="k">def</span> <span class="nf">build_database</span><span class="p">(</span>
-    <span class="n">manifest</span><span class="p">,</span> <span class="n">out_path</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s2">&quot;genus&quot;</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">compress</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span>
+    <span class="n">manifest</span><span class="p">,</span> <span class="n">out_path</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s2">&quot;genus&quot;</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">compress</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">compresslevel</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create a model database from a set of SBML files.</span>
 
@@ -637,13 +638,16 @@
 <span class="sd">        &quot;order&quot;, &quot;family&quot;, &quot;genus&quot;, and &quot;species&quot;. May contain additional</span>
 <span class="sd">        columns.</span>
 <span class="sd">    out_path : str</span>
-<span class="sd">        The directory where the joined models will be written.</span>
+<span class="sd">        The directory or zip file where the joined models will be written.</span>
 <span class="sd">    threads : int &gt;=1</span>
 <span class="sd">        The number of parallel workers to use when building models. As a</span>
 <span class="sd">        rule of thumb you will need around 1GB of RAM for each thread.</span>
-<span class="sd">    compress : bool</span>
-<span class="sd">        Whether to compress the output. Default is True if out_path ends with</span>
-<span class="sd">        &quot;.zip&quot; otherwise no.</span>
+<span class="sd">    compress : str (default None)</span>
+<span class="sd">        Compression method to use. Must be &quot;zlib&quot;, &quot;bz2&quot;, &quot;lzma&quot; or None.</span>
+<span class="sd">        This parameter is ignored if out_path does not end with &quot;.zip&quot;.</span>
+<span class="sd">    compresslevel : int [1-9] (default: 6)</span>
+<span class="sd">        Level of compression. Only used if compress is not None.</span>
+<span class="sd">        This parameter is ignored if out_path does not end with &quot;.zip&quot;.</span>
 <span class="sd">    progress : bool</span>
 <span class="sd">        Whether to show a progress bar.</span>
 
@@ -655,7 +659,6 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">meta</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-    <span class="n">compress</span> <span class="o">=</span> <span class="n">out_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">REQ_FIELDS</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">meta</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
@@ -675,7 +678,29 @@
     <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">index</span>
     <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;summary_rank&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rank</span>
 
-    <span class="k">if</span> <span class="n">compress</span><span class="p">:</span>
+    <span class="c1"># compress is ignored if outpath does not end with &quot;.zip&quot;</span>
+    <span class="k">if</span> <span class="n">out_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">):</span>
+        <span class="c1"># Explicitly check compression level</span>
+        <span class="k">if</span> <span class="n">compresslevel</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;compresslevel parameter must be an int between 1 and 9&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Explicitly check for supported zipfile compression options</span>
+        <span class="n">compressdict</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="kc">None</span><span class="p">:</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_STORED</span><span class="p">,</span>
+            <span class="s2">&quot;zlib&quot;</span><span class="p">:</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">,</span>
+            <span class="s2">&quot;bz2&quot;</span><span class="p">:</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_BZIP2</span><span class="p">,</span>
+            <span class="s2">&quot;lzma&quot;</span><span class="p">:</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_LZMA</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">compress</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">compressdict</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;compress parameter must be &quot;zlib&quot;, &quot;bz2&quot;, &quot;lzma&quot; or None&#39;</span><span class="p">)</span>
+        <span class="n">compressopt</span> <span class="o">=</span> <span class="n">compressdict</span><span class="p">[</span><span class="n">compress</span><span class="p">]</span>
+        <span class="c1"># Check if zipfile compression dependencies are installed</span>
+        <span class="c1"># Raise RuntimeError if the module is missing</span>
+        <span class="n">zipfile</span><span class="o">.</span><span class="n">_check_compression</span><span class="p">(</span><span class="n">compressopt</span><span class="p">)</span>
+
+        <span class="c1"># Store model database as zipfile</span>
         <span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tdir</span><span class="p">:</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="p">(</span><span class="n">tid</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tdir</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.json&quot;</span> <span class="o">%</span> <span class="n">tid</span><span class="p">))</span>
@@ -684,7 +709,12 @@
             <span class="n">workflow</span><span class="p">(</span><span class="n">_summarize_models</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
             <span class="n">meta</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">index</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span>
             <span class="n">meta</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tdir</span><span class="p">,</span> <span class="s2">&quot;manifest.csv&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span>
+                <span class="n">out_path</span><span class="p">,</span>
+                <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span>
+                <span class="n">compression</span><span class="o">=</span><span class="n">compressopt</span><span class="p">,</span>
+                <span class="n">compresslevel</span><span class="o">=</span><span class="n">compresslevel</span><span class="p">,</span>
+            <span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">:</span>
                 <span class="p">[</span><span class="n">zf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
                 <span class="n">zf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tdir</span><span class="p">,</span> <span class="s2">&quot;manifest.csv&quot;</span><span class="p">),</span> <span class="s2">&quot;manifest.csv&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>

@@ -116,7 +116,7 @@ Attributes
    :rtype: pandas.DataFrame
 
 
-.. function:: build_database(manifest, out_path, rank='genus', threads=1, compress=None, progress=True)
+.. function:: build_database(manifest, out_path, rank='genus', threads=1, compress=None, compresslevel=6, progress=True)
 
    Create a model database from a set of SBML files.
 
@@ -131,14 +131,17 @@ Attributes
                     "order", "family", "genus", and "species". May contain additional
                     columns.
    :type manifest: pandas.DataFrame
-   :param out_path: The directory where the joined models will be written.
+   :param out_path: The directory or zip file where the joined models will be written.
    :type out_path: str
    :param threads: The number of parallel workers to use when building models. As a
                    rule of thumb you will need around 1GB of RAM for each thread.
    :type threads: int >=1
-   :param compress: Whether to compress the output. Default is True if out_path ends with
-                    ".zip" otherwise no.
-   :type compress: bool
+   :param compress: Compression method to use. Must be "zlib", "bz2", "lzma" or None.
+                    This parameter is ignored if out_path does not end with ".zip".
+   :type compress: str (default None)
+   :param compresslevel: Level of compression. Only used if compress is not None.
+                         This parameter is ignored if out_path does not end with ".zip".
+   :type compresslevel: int [1-9] (default: 6)
    :param progress: Whether to show a progress bar.
    :type progress: bool
 

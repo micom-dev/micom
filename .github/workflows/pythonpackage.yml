@@ -45,6 +45,7 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest pytest-cov
+        env
         pytest --cov=micom --cov-report=xml
       env:
         CI: true

@@ -1,5 +1,5 @@
-:mod:`micom.viz.prediction`
-===========================
+:py:mod:`micom.viz.prediction`
+==============================
 
 .. py:module:: micom.viz.prediction
 
@@ -22,7 +22,7 @@ Functions
 
 
 
-.. function:: plot_fit(results, phenotype, variable_type='binary', variable_name='phenotype', filename='fit_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', min_coef=0.001, atol=1e-06)
+.. py:function:: plot_fit(results, phenotype, variable_type='binary', variable_name='phenotype', filename='fit_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', min_coef=0.001, atol=1e-06)
 
    Test for differential metabolite production.
 

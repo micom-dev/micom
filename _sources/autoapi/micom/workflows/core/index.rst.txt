@@ -1,5 +1,5 @@
-:mod:`micom.workflows.core`
-===========================
+:py:mod:`micom.workflows.core`
+==============================
 
 .. py:module:: micom.workflows.core
 
@@ -30,12 +30,12 @@ Attributes
    micom.workflows.core.GrowthResults
 
 
-.. data:: GrowthResults
+.. py:data:: GrowthResults
    
 
    
 
-.. function:: workflow(func, args, n_jobs=4, unit='sample(s)', progress=True)
+.. py:function:: workflow(func, args, n_jobs=4, unit='sample(s)', progress=True)
 
    Run analyses for several samples in parallel.
 

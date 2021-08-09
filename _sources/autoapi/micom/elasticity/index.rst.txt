@@ -1,5 +1,5 @@
-:mod:`micom.elasticity`
-=======================
+:py:mod:`micom.elasticity`
+==========================
 
 .. py:module:: micom.elasticity
 
@@ -37,22 +37,22 @@ Attributes
    micom.elasticity.STEP
 
 
-.. data:: STEP
+.. py:data:: STEP
    :annotation: = 0.1
 
    
 
-.. function:: _get_fluxes(sol, reactions)
+.. py:function:: _get_fluxes(sol, reactions)
 
    Get the primal values for a set of variables.
 
 
-.. function:: _derivatives(before, after)
+.. py:function:: _derivatives(before, after)
 
    Get the elasticities for fluxes.
 
 
-.. function:: elasticities_by_medium(com, reactions, fraction, growth_rate, progress)
+.. py:function:: elasticities_by_medium(com, reactions, fraction, growth_rate, progress)
 
    Get the elasticity coefficients for a set of variables.
 
@@ -67,7 +67,7 @@ Attributes
    :rtype: pandas.Dataframe
 
 
-.. function:: elasticities_by_abundance(com, reactions, fraction, growth_rate, progress)
+.. py:function:: elasticities_by_abundance(com, reactions, fraction, growth_rate, progress)
 
    Get the elasticity coefficients for a set of variables.
 
@@ -82,7 +82,7 @@ Attributes
    :rtype: pandas.Dataframe
 
 
-.. function:: elasticities(com, fraction=0.5, reactions=None, progress=True)
+.. py:function:: elasticities(com, fraction=0.5, reactions=None, progress=True)
 
    Calculate elasticities for reactions.
 

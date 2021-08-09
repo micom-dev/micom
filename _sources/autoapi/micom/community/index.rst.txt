@@ -1,5 +1,5 @@
-:mod:`micom.community`
-======================
+:py:mod:`micom.community`
+=========================
 
 .. py:module:: micom.community
 
@@ -30,13 +30,12 @@ Attributes
    micom.community._ranks
 
 
-.. data:: _ranks
+.. py:data:: _ranks
    :annotation: = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species', 'strain']
 
    
 
-.. class:: Community(taxonomy, model_db=None, id=None, name=None, rel_threshold=1e-06, solver=None, progress=True, max_exchange=100, mass=1)
-
+.. py:class:: Community(taxonomy, model_db=None, id=None, name=None, rel_threshold=1e-06, solver=None, progress=True, max_exchange=100, mass=1)
 
    Bases: :py:obj:`cobra.Model`
 
@@ -47,22 +46,22 @@ Attributes
    mixture models as long as all individuals exist within a single enclosing
    compartment.
 
-   .. method:: __add_exchanges(self, reactions, info, external_compartment='e', internal_exchange=1000)
+   .. py:method:: __add_exchanges(self, reactions, info, external_compartment='e', internal_exchange=1000)
 
       Add exchange reactions for a new model.
 
 
-   .. method:: __update_exchanges(self)
+   .. py:method:: __update_exchanges(self)
 
       Update exchanges.
 
 
-   .. method:: __update_community_objective(self)
+   .. py:method:: __update_community_objective(self)
 
       Update the community objective.
 
 
-   .. method:: optimize_single(self, id)
+   .. py:method:: optimize_single(self, id)
 
       Optimize growth rate for one individual.
 
@@ -84,7 +83,7 @@ Attributes
       :rtype: float
 
 
-   .. method:: optimize_all(self, progress=False)
+   .. py:method:: optimize_all(self, progress=False)
 
       Return solutions for individually optimizing each model.
 
@@ -102,7 +101,7 @@ Attributes
       :rtype: pandas.Series
 
 
-   .. method:: optimize(self, fluxes=False, pfba=False, raise_error=False, atol=None, rtol=None)
+   .. py:method:: optimize(self, fluxes=False, pfba=False, raise_error=False, atol=None, rtol=None)
 
       Optimize the model using flux balance analysis.
 
@@ -141,7 +140,7 @@ Attributes
       :rtype: micom.CommunitySolution
 
 
-   .. method:: abundances(self)
+   .. py:method:: abundances(self)
       :property:
 
       pandas.Series: The normalized abundances.
@@ -150,7 +149,7 @@ Attributes
       the exchange fluxes and the community objective.
 
 
-   .. method:: set_abundance(self, value, normalize=True)
+   .. py:method:: set_abundance(self, value, normalize=True)
 
       Change abundances for one or more taxa.
 
@@ -163,7 +162,7 @@ Attributes
       :type normalize: boolean, optional
 
 
-   .. method:: taxonomy(self)
+   .. py:method:: taxonomy(self)
       :property:
 
       pandas.DataFrame: The taxonomy used within the model.
@@ -171,7 +170,7 @@ Attributes
       This attribute only returns a copy.
 
 
-   .. method:: modification(self)
+   .. py:method:: modification(self)
       :property:
 
       str: Denotes modifications to the model currently applied.
@@ -179,7 +178,7 @@ Attributes
       Will be None if the community is unmodified.
 
 
-   .. method:: exchanges(self)
+   .. py:method:: exchanges(self)
       :property:
 
       list: Return all exchange reactions in the model.
@@ -188,7 +187,7 @@ Attributes
       to exclude reactions that are *not* exchange reactions.
 
 
-   .. method:: internal_exchanges(self)
+   .. py:method:: internal_exchanges(self)
       :property:
 
       list: Return all internal exchanges.
@@ -196,13 +195,13 @@ Attributes
       Internal exchanges are exchanges between individual taxa and the medium.
 
 
-   .. method:: medium(self)
+   .. py:method:: medium(self)
       :property:
 
       Return the medium.
 
 
-   .. method:: build_metrics(self)
+   .. py:method:: build_metrics(self)
       :property:
 
       pd.Series: Returns general metrics for database matching.
@@ -210,7 +209,7 @@ Attributes
       Only available when built using a model database.
 
 
-   .. method:: optcom(self, strategy='lagrangian', min_growth=0.0, fluxes=False, pfba=True)
+   .. py:method:: optcom(self, strategy='lagrangian', min_growth=0.0, fluxes=False, pfba=True)
 
       Run OptCom for the community.
 
@@ -260,7 +259,7 @@ Attributes
          doi: 10.1371/journal.pcbi.1002363, PMID: 22319433
 
 
-   .. method:: cooperative_tradeoff(self, min_growth=0.0, fraction=1.0, fluxes=False, pfba=False, atol=None, rtol=None)
+   .. py:method:: cooperative_tradeoff(self, min_growth=0.0, fraction=1.0, fluxes=False, pfba=False, atol=None, rtol=None)
 
       Find the best tradeoff between community and individual growth.
 
@@ -296,7 +295,7 @@ Attributes
       :rtype: micom.CommunitySolution or pd.Series of solutions
 
 
-   .. method:: knockout_taxa(self, taxa=None, fraction=1.0, method='change', progress=True, diag=True)
+   .. py:method:: knockout_taxa(self, taxa=None, fraction=1.0, method='change', progress=True, diag=True)
 
       Sequentially knowckout a list of taxa in the model.
 
@@ -326,13 +325,13 @@ Attributes
       :rtype: pandas.DataFrame
 
 
-   .. method:: scale(self)
+   .. py:method:: scale(self)
       :property:
 
       Get a scale to improve numerical properties.
 
 
-   .. method:: to_pickle(self, filename)
+   .. py:method:: to_pickle(self, filename)
 
       Save a community in serialized form.
 

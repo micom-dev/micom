@@ -1,5 +1,5 @@
-:mod:`micom.workflows.build`
-============================
+:py:mod:`micom.workflows.build`
+===============================
 
 .. py:module:: micom.workflows.build
 
@@ -34,15 +34,15 @@ Attributes
    micom.workflows.build.REQ_FIELDS
 
 
-.. function:: _reduce_group(df)
+.. py:function:: _reduce_group(df)
 
 
-.. function:: build_and_save(args)
+.. py:function:: build_and_save(args)
 
    Build a single community model.
 
 
-.. function:: build(taxonomy, model_db, out_folder, cutoff=0.0001, threads=1, solver=None)
+.. py:function:: build(taxonomy, model_db, out_folder, cutoff=0.0001, threads=1, solver=None)
 
    Build a series of community models.
 
@@ -81,15 +81,15 @@ Attributes
    :rtype: pandas.DataFrame
 
 
-.. data:: REQ_FIELDS
+.. py:data:: REQ_FIELDS
    
 
    
 
-.. function:: _summarize_models(args)
+.. py:function:: _summarize_models(args)
 
 
-.. function:: build_database(manifest, out_path, rank='genus', threads=1, compress=None, compresslevel=6, progress=True)
+.. py:function:: build_database(manifest, out_path, rank='genus', threads=1, compress=None, compresslevel=6, progress=True)
 
    Create a model database from a set of SBML files.
 

@@ -1,5 +1,5 @@
-:mod:`micom.data`
-=================
+:py:mod:`micom.data`
+====================
 
 .. py:module:: micom.data
 
@@ -30,12 +30,12 @@ Attributes
    micom.data.agora
 
 
-.. data:: agora
+.. py:data:: agora
    
 
    
 
-.. function:: test_taxonomy(n=4)
+.. py:function:: test_taxonomy(n=4)
 
    Create a simple test taxonomy.
 

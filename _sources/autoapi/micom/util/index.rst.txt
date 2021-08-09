@@ -1,5 +1,5 @@
-:mod:`micom.util`
-=================
+:py:mod:`micom.util`
+====================
 
 .. py:module:: micom.util
 
@@ -46,32 +46,32 @@ Attributes
    micom.util.COMPARTMENT_RE
 
 
-.. data:: _read_funcs
+.. py:data:: _read_funcs
    
 
    
 
-.. data:: COMPARTMENT_RE
+.. py:data:: COMPARTMENT_RE
    :annotation: = (_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)
 
    
 
-.. function:: download_model(url, folder='.')
+.. py:function:: download_model(url, folder='.')
 
    Download a model.
 
 
-.. function:: _read_model(file)
+.. py:function:: _read_model(file)
 
    Read a model from a local file.
 
 
-.. function:: load_model(filepath)
+.. py:function:: load_model(filepath)
 
    Load a cobra model from several file types.
 
 
-.. function:: load_pickle(filename)
+.. py:function:: load_pickle(filename)
 
    Load a community model from a pickled version.
 
@@ -82,27 +82,27 @@ Attributes
    :rtype: micom.Community
 
 
-.. function:: serialize_models(files, dir='.')
+.. py:function:: serialize_models(files, dir='.')
 
    Convert several models to Python pickles.
 
 
-.. function:: chr_or_input(m)
+.. py:function:: chr_or_input(m)
 
    Return ascii character for the ordinal or the original string.
 
 
-.. function:: clean_ids(id)
+.. py:function:: clean_ids(id)
 
    Clean ids up a bit.
 
 
-.. function:: compartment_id(micom_obj)
+.. py:function:: compartment_id(micom_obj)
 
    Get the compartment id for a cobra object and prune the prefix if needed.
 
 
-.. function:: join_models(model_files, id=None)
+.. py:function:: join_models(model_files, id=None)
 
    Join several models into one.
 
@@ -117,17 +117,17 @@ Attributes
    :rtype: cobra.Model
 
 
-.. function:: fluxes_from_primals(model, info)
+.. py:function:: fluxes_from_primals(model, info)
 
    Extract a list of fluxes from the model primals.
 
 
-.. function:: add_var_from_expression(model, name, expr, lb=None, ub=None)
+.. py:function:: add_var_from_expression(model, name, expr, lb=None, ub=None)
 
    Add a variable to a model equaling an expression.
 
 
-.. function:: check_modification(community)
+.. py:function:: check_modification(community)
 
    Check whether a community already carries a modification.
 
@@ -138,7 +138,7 @@ Attributes
        would not be safe.
 
 
-.. function:: _format_min_growth(min_growth, taxa)
+.. py:function:: _format_min_growth(min_growth, taxa)
 
    Format min_growth into a pandas series.
 
@@ -152,19 +152,19 @@ Attributes
    :rtype: pandas.Series
 
 
-.. function:: _apply_min_growth(community, min_growth, atol=1e-06, rtol=1e-06)
+.. py:function:: _apply_min_growth(community, min_growth, atol=1e-06, rtol=1e-06)
 
    Set minimum growth constraints on a model.
 
    Will integrate with the context.
 
 
-.. function:: adjust_solver_config(solver)
+.. py:function:: adjust_solver_config(solver)
 
    Adjust the optlang solver configuration for larger problems.
 
 
-.. function:: reset_min_community_growth(com)
+.. py:function:: reset_min_community_growth(com)
 
    Reset the lower bound for the community growth.
 

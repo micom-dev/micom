@@ -1,5 +1,5 @@
-:mod:`micom.deps`
-=================
+:py:mod:`micom.deps`
+====================
 
 .. py:module:: micom.deps
 
@@ -17,6 +17,6 @@ Functions
 
 
 
-.. function:: show_versions()
+.. py:function:: show_versions()
 
 

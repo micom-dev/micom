@@ -1,5 +1,5 @@
-:mod:`micom.problems`
-=====================
+:py:mod:`micom.problems`
+========================
 
 .. py:module:: micom.problems
 
@@ -24,7 +24,7 @@ Functions
 
 
 
-.. function:: regularize_l2_norm(community, min_growth)
+.. py:function:: regularize_l2_norm(community, min_growth)
 
    Add an objective to find the most "egoistic" solution.
 
@@ -48,12 +48,12 @@ Functions
    :type max_gcs: None or dict
 
 
-.. function:: cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rtol)
+.. py:function:: cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rtol)
 
    Find the best tradeoff between community and individual growth.
 
 
-.. function:: knockout_taxa(community, taxa, fraction, method, progress, diag=True)
+.. py:function:: knockout_taxa(community, taxa, fraction, method, progress, diag=True)
 
    Knockout a taxon from the community.
 

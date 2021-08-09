@@ -1,5 +1,5 @@
-:mod:`micom.qiime_formats`
-==========================
+:py:mod:`micom.qiime_formats`
+=============================
 
 .. py:module:: micom.qiime_formats
 
@@ -37,47 +37,47 @@ Attributes
    micom.qiime_formats._has_manifest
 
 
-.. data:: yaml
+.. py:data:: yaml
    
 
    
 
-.. data:: _has_manifest
+.. py:data:: _has_manifest
    :annotation: = ['CommunityModels[Pickle]', 'MetabolicModels[JSON]', 'MetabolicModels[SBML]']
 
    
 
-.. function:: metadata(artifact)
+.. py:function:: metadata(artifact)
 
    Read metadata from a Qiime 2 artifact.
 
 
-.. function:: load_qiime_model_db(artifact, extract_path)
+.. py:function:: load_qiime_model_db(artifact, extract_path)
 
    Prepare a model database for use.
 
 
-.. function:: load_qiime_manifest(artifact)
+.. py:function:: load_qiime_manifest(artifact)
 
    Prepare community models for use.
 
 
-.. function:: load_qiime_model(artifact, id)
+.. py:function:: load_qiime_model(artifact, id)
 
    Load a model from a Qiime 2 artifact.
 
 
-.. function:: load_qiime_medium(artifact)
+.. py:function:: load_qiime_medium(artifact)
 
    Load a growth medium/diet from a Qiime 2 artifact.
 
 
-.. function:: load_qiime_feature_table(artifact)
+.. py:function:: load_qiime_feature_table(artifact)
 
    Load a feature table from a Qiime 2 artifact.
 
 
-.. function:: load_qiime_taxonomy(artifact)
+.. py:function:: load_qiime_taxonomy(artifact)
 
    Load taxonomy feature data from a Qiime 2 artifact.
 

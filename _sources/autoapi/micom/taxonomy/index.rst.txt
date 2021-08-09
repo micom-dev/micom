@@ -1,5 +1,5 @@
-:mod:`micom.taxonomy`
-=====================
+:py:mod:`micom.taxonomy`
+========================
 
 .. py:module:: micom.taxonomy
 
@@ -23,12 +23,12 @@ Functions
 
 
 
-.. function:: build_from_qiime(abundance, taxonomy: pandas.Series, collapse_on='genus') -> pandas.DataFrame
+.. py:function:: build_from_qiime(abundance, taxonomy: pandas.Series, collapse_on='genus') -> pandas.DataFrame
 
    Build the specification for the community models.
 
 
-.. function:: qiime_to_micom(feature_table, taxonomy, collapse_on='genus')
+.. py:function:: qiime_to_micom(feature_table, taxonomy, collapse_on='genus')
 
    Load a micom taxonomy from Qiime 2 data.
 

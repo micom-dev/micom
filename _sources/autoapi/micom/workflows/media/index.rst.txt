@@ -1,5 +1,5 @@
-:mod:`micom.workflows.media`
-============================
+:py:mod:`micom.workflows.media`
+===============================
 
 .. py:module:: micom.workflows.media
 
@@ -26,27 +26,27 @@ Functions
 
 
 
-.. function:: process_medium(medium, samples)
+.. py:function:: process_medium(medium, samples)
 
    Prepare a medium for simulation.
 
 
-.. function:: _medium(args)
+.. py:function:: _medium(args)
 
    Get minimal medium for a single model.
 
 
-.. function:: minimal_media(manifest, model_folder, summarize=True, min_growth=0.1, threads=1)
+.. py:function:: minimal_media(manifest, model_folder, summarize=True, min_growth=0.1, threads=1)
 
    Calculate the minimal medium for a set of community models.
 
 
-.. function:: _fix_medium(args)
+.. py:function:: _fix_medium(args)
 
    Get the fixed medium for a model.
 
 
-.. function:: fix_medium(manifest, model_folder, medium, community_growth=0.1, min_growth=0.001, max_import=1, minimize_components=False, summarize=True, weights=None, threads=1)
+.. py:function:: fix_medium(manifest, model_folder, medium, community_growth=0.1, min_growth=0.001, max_import=1, minimize_components=False, summarize=True, weights=None, threads=1)
 
    Augment a growth medium so all community members can grow in it.
 

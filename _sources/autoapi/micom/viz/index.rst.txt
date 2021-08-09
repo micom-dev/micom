@@ -1,5 +1,5 @@
-:mod:`micom.viz`
-================
+:py:mod:`micom.viz`
+===================
 
 .. py:module:: micom.viz
 
@@ -43,12 +43,10 @@ Functions
    micom.viz.plot_exchanges_per_taxon
    micom.viz.plot_growth
    micom.viz.plot_fit
-   micom.viz.plot_tradeoff
 
 
 
-.. class:: Visualization(filename, data, template)
-
+.. py:class:: Visualization(filename, data, template)
 
    Bases: :py:obj:`object`
 
@@ -72,7 +70,7 @@ Functions
 
       :type: jinja2.Template
 
-   .. method:: view(self)
+   .. py:method:: view(self)
 
       Open the visualization in a browser.
 
@@ -82,13 +80,13 @@ Functions
       :rtype: nothing
 
 
-   .. method:: save(self, **kwargs)
+   .. py:method:: save(self, **kwargs)
 
       Render and and save the visualization.
 
 
 
-.. function:: plot_exchanges_per_sample(results, filename='sample_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction='import', cluster=True) -> None
+.. py:function:: plot_exchanges_per_sample(results, filename='sample_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction='import', cluster=True) -> None
 
    Plot the per sample exchange fluxes.
 
@@ -106,7 +104,7 @@ Functions
    :rtype: Visualization
 
 
-.. function:: plot_exchanges_per_taxon(results, filename='taxon_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction='import', use_total_flux=False, **tsne_args) -> None
+.. py:function:: plot_exchanges_per_taxon(results, filename='taxon_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction='import', use_total_flux=False, **tsne_args) -> None
 
    Plot the exchange fluxes per taxon.
 
@@ -125,7 +123,7 @@ Functions
    :rtype: Visualization
 
 
-.. function:: plot_growth(results, filename='growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
+.. py:function:: plot_growth(results, filename='growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
 
    Plot the taxa growth rates.
 
@@ -141,7 +139,7 @@ Functions
    :rtype: Visualization
 
 
-.. function:: plot_fit(results, phenotype, variable_type='binary', variable_name='phenotype', filename='fit_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', min_coef=0.001, atol=1e-06)
+.. py:function:: plot_fit(results, phenotype, variable_type='binary', variable_name='phenotype', filename='fit_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', min_coef=0.001, atol=1e-06)
 
    Test for differential metabolite production.
 
@@ -169,22 +167,6 @@ Functions
    :type atol: float
 
    :returns: A MICOM visualization. Can be served with `viz.view`.
-   :rtype: Visualization
-
-
-.. function:: plot_tradeoff(tradeoff_rates, filename='tradeoff_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
-
-   Plot diagnostics for varying tradeoff values.
-
-   :param tradeoff_rates: The growth rates returned by the `tradeoff` workflow.
-   :type tradeoff_rates: pandas.DataFrame
-   :param filename: The HTML file where the visualization will be saved.
-   :type filename: str
-   :param tolerance: Smallest growth rate that will be considered. Everything lower will be
-                     considered not growing.
-   :type tolerance: float
-
-   :returns: A MICOM visualization. Can be served with `viz.serve`.
    :rtype: Visualization
 
 

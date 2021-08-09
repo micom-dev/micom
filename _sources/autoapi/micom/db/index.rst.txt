@@ -1,5 +1,5 @@
-:mod:`micom.db`
-===============
+:py:mod:`micom.db`
+==================
 
 .. py:module:: micom.db
 
@@ -23,12 +23,12 @@ Functions
 
 
 
-.. function:: load_manifest(folder)
+.. py:function:: load_manifest(folder)
 
    Get the manifest from a model DB.
 
 
-.. function:: load_zip_model_db(artifact, extract_path)
+.. py:function:: load_zip_model_db(artifact, extract_path)
 
    Prepare a model database for use.
 

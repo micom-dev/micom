@@ -1,5 +1,5 @@
-:mod:`micom.optcom`
-===================
+:py:mod:`micom.optcom`
+======================
 
 .. py:module:: micom.optcom
 
@@ -32,7 +32,7 @@ Attributes
    micom.optcom._methods
 
 
-.. function:: add_dualized_optcom(community, min_growth)
+.. py:function:: add_dualized_optcom(community, min_growth)
 
    Add dual Optcom variables and constraints to a community.
 
@@ -56,7 +56,7 @@ Attributes
    :type min_growth: positive float or array-like object.
 
 
-.. function:: add_moma_optcom(community, min_growth, linear=False)
+.. py:function:: add_moma_optcom(community, min_growth, linear=False)
 
    Add a dualized MOMA version of OptCom.
 
@@ -82,12 +82,12 @@ Attributes
    :type linear: boolean
 
 
-.. data:: _methods
+.. py:data:: _methods
    
 
    
 
-.. function:: optcom(community, strategy, min_growth, fluxes, pfba)
+.. py:function:: optcom(community, strategy, min_growth, fluxes, pfba)
 
    Run OptCom for the community.
 

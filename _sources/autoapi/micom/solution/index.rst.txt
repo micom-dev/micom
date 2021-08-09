@@ -1,5 +1,5 @@
-:mod:`micom.solution`
-=====================
+:py:mod:`micom.solution`
+========================
 
 .. py:module:: micom.solution
 
@@ -44,19 +44,17 @@ Attributes
    micom.solution.good
 
 
-.. data:: good
+.. py:data:: good
    
 
    Solver states that permit returning the solution.
 
-
-.. function:: _group_taxa(values, ids, taxa, what='reaction')
+.. py:function:: _group_taxa(values, ids, taxa, what='reaction')
 
    Format a list of values by id and taxa.
 
 
-.. class:: CommunitySolution(community, slim=False, reactions=None, metabolites=None)
-
+.. py:class:: CommunitySolution(community, slim=False, reactions=None, metabolites=None)
 
    Bases: :py:obj:`cobra.core.Solution`
 
@@ -121,16 +119,16 @@ Attributes
 
       :type: pandas.Series
 
-   .. method:: _repr_html_(self)
+   .. py:method:: _repr_html_(self)
 
 
-   .. method:: __repr__(self)
+   .. py:method:: __repr__(self)
 
       Convert CommunitySolution instance to string representation.
 
 
 
-.. function:: add_pfba_objective(community, atol=1e-06, rtol=1e-06)
+.. py:function:: add_pfba_objective(community, atol=1e-06, rtol=1e-06)
 
    Add pFBA objective.
 
@@ -144,27 +142,27 @@ Attributes
    :type community: micom.Community
 
 
-.. function:: solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-06, rtol=1e-06)
+.. py:function:: solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-06, rtol=1e-06)
 
    Get all fluxes stratified by taxa.
 
 
-.. function:: reset_solver(community)
+.. py:function:: reset_solver(community)
 
    Reset the solver.
 
 
-.. function:: optimize_with_retry(com, message='could not get optimum.')
+.. py:function:: optimize_with_retry(com, message='could not get optimum.')
 
    Try to reset the solver.
 
 
-.. function:: crossover(community, sol, fluxes=False)
+.. py:function:: crossover(community, sol, fluxes=False)
 
    Get the crossover solution.
 
 
-.. function:: optimize_with_fraction(com, fraction, growth_rate=None, fluxes=False)
+.. py:function:: optimize_with_fraction(com, fraction, growth_rate=None, fluxes=False)
 
    Optimize with a constrained community growth rate.
 

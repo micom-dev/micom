@@ -1,5 +1,5 @@
-:mod:`micom.annotation`
-=======================
+:py:mod:`micom.annotation`
+==========================
 
 .. py:module:: micom.annotation
 
@@ -24,17 +24,17 @@ Functions
 
 
 
-.. function:: flatten(d)
+.. py:function:: flatten(d)
 
    Flatten a dictionary into strings.
 
 
-.. function:: annotate(ids, community, what='reaction')
+.. py:function:: annotate(ids, community, what='reaction')
 
    Annotate a list of entities.
 
 
-.. function:: annotate_metabolites_from_exchanges(com)
+.. py:function:: annotate_metabolites_from_exchanges(com)
 
    Annotate exchange reactions by their metabolite.
 

@@ -1,5 +1,5 @@
-:mod:`micom.viz.core`
-=====================
+:py:mod:`micom.viz.core`
+========================
 
 .. py:module:: micom.viz.core
 
@@ -30,13 +30,12 @@ Attributes
    micom.viz.core.env
 
 
-.. data:: env
+.. py:data:: env
    
 
    
 
-.. class:: Visualization(filename, data, template)
-
+.. py:class:: Visualization(filename, data, template)
 
    Bases: :py:obj:`object`
 
@@ -60,7 +59,7 @@ Attributes
 
       :type: jinja2.Template
 
-   .. method:: view(self)
+   .. py:method:: view(self)
 
       Open the visualization in a browser.
 
@@ -70,7 +69,7 @@ Attributes
       :rtype: nothing
 
 
-   .. method:: save(self, **kwargs)
+   .. py:method:: save(self, **kwargs)
 
       Render and and save the visualization.
 

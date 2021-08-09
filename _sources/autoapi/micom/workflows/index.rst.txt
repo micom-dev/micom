@@ -1,5 +1,5 @@
-:mod:`micom.workflows`
-======================
+:py:mod:`micom.workflows`
+=========================
 
 .. py:module:: micom.workflows
 
@@ -51,7 +51,7 @@ Attributes
    micom.workflows.GrowthResults
 
 
-.. function:: workflow(func, args, n_jobs=4, unit='sample(s)', progress=True)
+.. py:function:: workflow(func, args, n_jobs=4, unit='sample(s)', progress=True)
 
    Run analyses for several samples in parallel.
 
@@ -72,12 +72,12 @@ Attributes
    :type progress: bool
 
 
-.. data:: GrowthResults
+.. py:data:: GrowthResults
    
 
    
 
-.. function:: build(taxonomy, model_db, out_folder, cutoff=0.0001, threads=1, solver=None)
+.. py:function:: build(taxonomy, model_db, out_folder, cutoff=0.0001, threads=1, solver=None)
 
    Build a series of community models.
 
@@ -116,7 +116,7 @@ Attributes
    :rtype: pandas.DataFrame
 
 
-.. function:: build_database(manifest, out_path, rank='genus', threads=1, compress=None, compresslevel=6, progress=True)
+.. py:function:: build_database(manifest, out_path, rank='genus', threads=1, compress=None, compresslevel=6, progress=True)
 
    Create a model database from a set of SBML files.
 
@@ -150,7 +150,7 @@ Attributes
    :rtype: pd.DataFrame
 
 
-.. function:: grow(manifest, model_folder, medium, tradeoff, threads=1, weights=None, strategy='minimal imports', atol=None, rtol=None, presolve=False)
+.. py:function:: grow(manifest, model_folder, medium, tradeoff, threads=1, weights=None, strategy='minimal imports', atol=None, rtol=None, presolve=False)
 
    Simulate growth for a set of community models.
 
@@ -200,7 +200,7 @@ Attributes
    :rtype: GrowthResults
 
 
-.. function:: tradeoff(manifest, model_folder, medium, tradeoffs=np.arange(0.1, 1.0 + 1e-06, 0.1), threads=1, atol=None, rtol=None, presolve=False)
+.. py:function:: tradeoff(manifest, model_folder, medium, tradeoffs=np.arange(0.1, 1.0 + 1e-06, 0.1), threads=1, atol=None, rtol=None, presolve=False)
 
    Run growth rate predictions for varying tradeoff values.
 
@@ -230,7 +230,7 @@ Attributes
    :rtype: pandas.DataFrame
 
 
-.. function:: fix_medium(manifest, model_folder, medium, community_growth=0.1, min_growth=0.001, max_import=1, minimize_components=False, summarize=True, weights=None, threads=1)
+.. py:function:: fix_medium(manifest, model_folder, medium, community_growth=0.1, min_growth=0.001, max_import=1, minimize_components=False, summarize=True, weights=None, threads=1)
 
    Augment a growth medium so all community members can grow in it.
 
@@ -269,12 +269,12 @@ Attributes
    :rtype: pandas.DataFrame
 
 
-.. function:: minimal_media(manifest, model_folder, summarize=True, min_growth=0.1, threads=1)
+.. py:function:: minimal_media(manifest, model_folder, summarize=True, min_growth=0.1, threads=1)
 
    Calculate the minimal medium for a set of community models.
 
 
-.. function:: check_db_medium(model_db, medium, threads=1)
+.. py:function:: check_db_medium(model_db, medium, threads=1)
 
    Complete a growth medium for all models in a database.
 

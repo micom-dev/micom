@@ -1,5 +1,5 @@
-:mod:`micom.viz.growth`
-=======================
+:py:mod:`micom.viz.growth`
+==========================
 
 .. py:module:: micom.viz.growth
 
@@ -22,7 +22,7 @@ Functions
 
 
 
-.. function:: plot_growth(results, filename='growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
+.. py:function:: plot_growth(results, filename='growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
 
    Plot the taxa growth rates.
 

@@ -1,5 +1,5 @@
-:mod:`micom.workflows.grow`
-===========================
+:py:mod:`micom.workflows.grow`
+==============================
 
 .. py:module:: micom.workflows.grow
 
@@ -32,20 +32,20 @@ Attributes
    micom.workflows.grow.ARGS
 
 
-.. data:: DIRECTION
+.. py:data:: DIRECTION
    
 
    
 
-.. data:: ARGS
+.. py:data:: ARGS
    
 
    
 
-.. function:: _growth(args)
+.. py:function:: _growth(args)
 
 
-.. function:: grow(manifest, model_folder, medium, tradeoff, threads=1, weights=None, strategy='minimal imports', atol=None, rtol=None, presolve=False)
+.. py:function:: grow(manifest, model_folder, medium, tradeoff, threads=1, weights=None, strategy='minimal imports', atol=None, rtol=None, presolve=False)
 
    Simulate growth for a set of community models.
 

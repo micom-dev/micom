@@ -1,5 +1,5 @@
-:mod:`micom.logger`
-===================
+:py:mod:`micom.logger`
+======================
 
 .. py:module:: micom.logger
 
@@ -12,12 +12,12 @@
 Module Contents
 ---------------
 
-.. data:: FORMAT
+.. py:data:: FORMAT
    :annotation: = %(message)s
 
    
 
-.. data:: logger
+.. py:data:: logger
    
 
    

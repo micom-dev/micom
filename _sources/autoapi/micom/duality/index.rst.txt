@@ -1,5 +1,5 @@
-:mod:`micom.duality`
-====================
+:py:mod:`micom.duality`
+=======================
 
 .. py:module:: micom.duality
 
@@ -22,7 +22,7 @@ Functions
 
 
 
-.. function:: fast_dual(model, prefix='dual_')
+.. py:function:: fast_dual(model, prefix='dual_')
 
    Add dual formulation to the problem.
 

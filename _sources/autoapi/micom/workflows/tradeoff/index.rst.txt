@@ -1,5 +1,5 @@
-:mod:`micom.workflows.tradeoff`
-===============================
+:py:mod:`micom.workflows.tradeoff`
+==================================
 
 .. py:module:: micom.workflows.tradeoff
 
@@ -23,10 +23,10 @@ Functions
 
 
 
-.. function:: _tradeoff(args)
+.. py:function:: _tradeoff(args)
 
 
-.. function:: tradeoff(manifest, model_folder, medium, tradeoffs=np.arange(0.1, 1.0 + 1e-06, 0.1), threads=1, atol=None, rtol=None, presolve=False)
+.. py:function:: tradeoff(manifest, model_folder, medium, tradeoffs=np.arange(0.1, 1.0 + 1e-06, 0.1), threads=1, atol=None, rtol=None, presolve=False)
 
    Run growth rate predictions for varying tradeoff values.
 

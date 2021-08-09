@@ -1,5 +1,5 @@
-:mod:`micom.workflows.db_media`
-===============================
+:py:mod:`micom.workflows.db_media`
+==================================
 
 .. py:module:: micom.workflows.db_media
 
@@ -27,17 +27,17 @@ Functions
 
 
 
-.. function:: _grow(args)
+.. py:function:: _grow(args)
 
    Get the maximum growth rate under a given medium.
 
 
-.. function:: _try_complete(args)
+.. py:function:: _try_complete(args)
 
    Try to complete the medium for a model.
 
 
-.. function:: check_db_medium(model_db, medium, threads=1)
+.. py:function:: check_db_medium(model_db, medium, threads=1)
 
    Complete a growth medium for all models in a database.
 
@@ -60,7 +60,7 @@ Functions
    :rtype: pd.DataFrame
 
 
-.. function:: complete_db_medium(model_db, medium, growth=0.001, max_added_import=1, minimize_components=False, weights=None, threads=1)
+.. py:function:: complete_db_medium(model_db, medium, growth=0.001, max_added_import=1, minimize_components=False, weights=None, threads=1)
 
    Complete a growth medium for all models in a database.
 
@@ -100,12 +100,12 @@ Functions
    :rtype: tuple of (manifest, import fluxes)
 
 
-.. function:: _annotate(f)
+.. py:function:: _annotate(f)
 
    Get annotation for a model.
 
 
-.. function:: db_annotations(model_db, threads=1)
+.. py:function:: db_annotations(model_db, threads=1)
 
    Get metabolite annotations from a model DB.
 

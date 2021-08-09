@@ -1,5 +1,5 @@
-:mod:`micom.media`
-==================
+:py:mod:`micom.media`
+=====================
 
 .. py:module:: micom.media
 
@@ -27,7 +27,7 @@ Functions
 
 
 
-.. function:: add_linear_obj(community, exchanges, weights)
+.. py:function:: add_linear_obj(community, exchanges, weights)
 
    Add a linear version of a minimal medium to the community.
 
@@ -45,7 +45,7 @@ Functions
    :type weights: dict
 
 
-.. function:: add_mip_obj(community, exchanges)
+.. py:function:: add_mip_obj(community, exchanges)
 
    Add a mixed-integer version of a minimal medium to the community.
 
@@ -60,17 +60,17 @@ Functions
    :type exchanges: list of cobra.Reaction
 
 
-.. function:: safe_weight(met)
+.. py:function:: safe_weight(met)
 
    Get the weight of a molecule.
 
 
-.. function:: weight(exchanges, what)
+.. py:function:: weight(exchanges, what)
 
    Obtain elemental weights for metabolites.
 
 
-.. function:: minimal_medium(community, community_growth, min_growth=0.0, exports=False, exchanges=None, minimize_components=False, open_exchanges=False, solution=False, weights=None, atol=None, rtol=None)
+.. py:function:: minimal_medium(community, community_growth, min_growth=0.0, exports=False, exchanges=None, minimize_components=False, open_exchanges=False, solution=False, weights=None, atol=None, rtol=None)
 
    Find the minimal growth medium for the community.
 
@@ -119,7 +119,7 @@ Functions
    :rtype: pandas.Series or dict
 
 
-.. function:: complete_medium(model, medium, growth=0.1, min_growth=0.001, max_import=1, minimize_components=False, weights=None)
+.. py:function:: complete_medium(model, medium, growth=0.1, min_growth=0.001, max_import=1, minimize_components=False, weights=None)
 
    Fill in missing components in a growth medium.
 

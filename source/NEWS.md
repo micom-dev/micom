@@ -9,6 +9,8 @@ For information on how to use `micom` please refer to
 
 Handle CARVEME models better in `workflows.complete_medium`.
 
+Workflows now have a deterministic return error (same order as inputs).
+
 ### 0.25.0
 
 `build_database` now allows to set the compression algorithm and level.

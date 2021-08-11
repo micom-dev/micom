@@ -35,13 +35,15 @@ def _try_complete(args):
     file, med, growth, max_import, mip, w = args
     mod = load_model(file)
     exc = find_external_compartment(mod)
+    if exc.startswith("C_"):  # for CARVEME models
+        exc = exc[2:]
     try:
         fixed = mm.complete_medium(
             mod, med, growth, max_import=max_import, minimize_components=mip, weights=w
         )
         added = sum(i not in med.index for i in fixed.index)
         can_grow = True
-        logger.info("Could grow `%s` by adding %d import." % (file, added))
+        logger.info("Could grow `%s` by adding %d imports." % (file, added))
     except OptimizationError:
         fixed = pd.Series(float("nan"), index=med.index)
         added = float("nan")

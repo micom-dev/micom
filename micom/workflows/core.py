@@ -35,7 +35,7 @@ def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):
         ValueError("`args` must have a length.")
 
     with Pool(processes=n_jobs, maxtasksperchild=1) as pool:
-        it = pool.imap_unordered(func, args)
+        it = pool.imap(func, args)
         if progress:
             it = track(it, total=len(args), description="Running")
         results = list(it)

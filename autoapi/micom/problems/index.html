@@ -22,13 +22,13 @@
       
 
     
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
     
   <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -53,6 +53,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../../../_static/micom.png" class="logo" alt="logo">
       
@@ -554,7 +558,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.problems.regularize_l2_norm" title="micom.problems.regularize_l2_norm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regularize_l2_norm</span></code></a>(community, min_growth)</p></td>
-<td><p>Add an objective to find the most “egoistic” solution.</p></td>
+<td><p>Add an objective to find the most &quot;egoistic&quot; solution.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.problems.cooperative_tradeoff" title="micom.problems.cooperative_tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cooperative_tradeoff</span></code></a>(community, min_growth, fraction, fluxes, pfba, atol, rtol)</p></td>
 <td><p>Find the best tradeoff between community and individual growth.</p></td>
@@ -565,8 +569,8 @@
 </tbody>
 </table>
 <dl class="py function">
-<dt id="micom.problems.regularize_l2_norm">
-<code class="sig-prename descclassname"><span class="pre">micom.problems.</span></code><code class="sig-name descname"><span class="pre">regularize_l2_norm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/problems.html#regularize_l2_norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.problems.regularize_l2_norm" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.problems.regularize_l2_norm">
+<span class="sig-prename descclassname"><span class="pre">micom.problems.</span></span><span class="sig-name descname"><span class="pre">regularize_l2_norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/problems.html#regularize_l2_norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.problems.regularize_l2_norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add an objective to find the most “egoistic” solution.</p>
 <p>This adds an optimization objective finding a solution that maintains a
 (sub-)optimal community growth rate but is the closest solution to the
@@ -590,14 +594,14 @@ cooperativity cost. If set to False requires a QP-capable solver.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.problems.cooperative_tradeoff">
-<code class="sig-prename descclassname"><span class="pre">micom.problems.</span></code><code class="sig-name descname"><span class="pre">cooperative_tradeoff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/problems.html#cooperative_tradeoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.problems.cooperative_tradeoff" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.problems.cooperative_tradeoff">
+<span class="sig-prename descclassname"><span class="pre">micom.problems.</span></span><span class="sig-name descname"><span class="pre">cooperative_tradeoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/problems.html#cooperative_tradeoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.problems.cooperative_tradeoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the best tradeoff between community and individual growth.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.problems.knockout_taxa">
-<code class="sig-prename descclassname"><span class="pre">micom.problems.</span></code><code class="sig-name descname"><span class="pre">knockout_taxa</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/problems.html#knockout_taxa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.problems.knockout_taxa" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.problems.knockout_taxa">
+<span class="sig-prename descclassname"><span class="pre">micom.problems.</span></span><span class="sig-name descname"><span class="pre">knockout_taxa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/problems.html#knockout_taxa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.problems.knockout_taxa" title="Permalink to this definition">¶</a></dt>
 <dd><p>Knockout a taxon from the community.</p>
 </dd></dl>
 
@@ -620,7 +624,7 @@ cooperativity cost. If set to False requires a QP-capable solver.</p></li>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

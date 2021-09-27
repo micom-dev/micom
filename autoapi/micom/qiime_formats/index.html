@@ -22,13 +22,13 @@
       
 
     
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
     
   <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -53,6 +53,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../../../_static/micom.png" class="logo" alt="logo">
       
@@ -629,54 +633,54 @@
 </tbody>
 </table>
 <dl class="py data">
-<dt id="micom.qiime_formats.yaml">
-<code class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></code><code class="sig-name descname"><span class="pre">yaml</span></code><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.yaml" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.qiime_formats.yaml">
+<span class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></span><span class="sig-name descname"><span class="pre">yaml</span></span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#yaml"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.yaml" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
-<dt id="micom.qiime_formats._has_manifest">
-<code class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></code><code class="sig-name descname"><span class="pre">_has_manifest</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['CommunityModels[Pickle]',</span> <span class="pre">'MetabolicModels[JSON]',</span> <span class="pre">'MetabolicModels[SBML]']</span></em><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#_has_manifest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats._has_manifest" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.qiime_formats._has_manifest">
+<span class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></span><span class="sig-name descname"><span class="pre">_has_manifest</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['CommunityModels[Pickle]',</span> <span class="pre">'MetabolicModels[JSON]',</span> <span class="pre">'MetabolicModels[SBML]']</span></em><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#_has_manifest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats._has_manifest" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="micom.qiime_formats.metadata">
-<code class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></code><code class="sig-name descname"><span class="pre">metadata</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.metadata" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.qiime_formats.metadata">
+<span class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></span><span class="sig-name descname"><span class="pre">metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read metadata from a Qiime 2 artifact.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.qiime_formats.load_qiime_model_db">
-<code class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></code><code class="sig-name descname"><span class="pre">load_qiime_model_db</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_model_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.load_qiime_model_db" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.qiime_formats.load_qiime_model_db">
+<span class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></span><span class="sig-name descname"><span class="pre">load_qiime_model_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_model_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.load_qiime_model_db" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prepare a model database for use.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.qiime_formats.load_qiime_manifest">
-<code class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></code><code class="sig-name descname"><span class="pre">load_qiime_manifest</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_manifest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.load_qiime_manifest" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.qiime_formats.load_qiime_manifest">
+<span class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></span><span class="sig-name descname"><span class="pre">load_qiime_manifest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_manifest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.load_qiime_manifest" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prepare community models for use.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.qiime_formats.load_qiime_model">
-<code class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></code><code class="sig-name descname"><span class="pre">load_qiime_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.load_qiime_model" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.qiime_formats.load_qiime_model">
+<span class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></span><span class="sig-name descname"><span class="pre">load_qiime_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.load_qiime_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a model from a Qiime 2 artifact.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.qiime_formats.load_qiime_medium">
-<code class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></code><code class="sig-name descname"><span class="pre">load_qiime_medium</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.load_qiime_medium" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.qiime_formats.load_qiime_medium">
+<span class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></span><span class="sig-name descname"><span class="pre">load_qiime_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.load_qiime_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a growth medium/diet from a Qiime 2 artifact.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.qiime_formats.load_qiime_feature_table">
-<code class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></code><code class="sig-name descname"><span class="pre">load_qiime_feature_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_feature_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.load_qiime_feature_table" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.qiime_formats.load_qiime_feature_table">
+<span class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></span><span class="sig-name descname"><span class="pre">load_qiime_feature_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_feature_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.load_qiime_feature_table" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a feature table from a Qiime 2 artifact.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.qiime_formats.load_qiime_taxonomy">
-<code class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></code><code class="sig-name descname"><span class="pre">load_qiime_taxonomy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_taxonomy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.load_qiime_taxonomy" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.qiime_formats.load_qiime_taxonomy">
+<span class="sig-prename descclassname"><span class="pre">micom.qiime_formats.</span></span><span class="sig-name descname"><span class="pre">load_qiime_taxonomy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_taxonomy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.qiime_formats.load_qiime_taxonomy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load taxonomy feature data from a Qiime 2 artifact.</p>
 </dd></dl>
 
@@ -699,7 +703,7 @@
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

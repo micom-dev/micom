@@ -22,13 +22,13 @@
       
 
     
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
     
   <link rel="preload" as="script" href="../../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
     <script src="../../../../_static/doctools.js"></script>
@@ -53,6 +53,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../../../../_static/micom.png" class="logo" alt="logo">
       
@@ -600,18 +604,18 @@
 </tbody>
 </table>
 <dl class="py data">
-<dt id="micom.viz.core.env">
-<code class="sig-prename descclassname"><span class="pre">micom.viz.core.</span></code><code class="sig-name descname"><span class="pre">env</span></code><a class="reference internal" href="../../../../_modules/micom/viz/core.html#env"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.core.env" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.viz.core.env">
+<span class="sig-prename descclassname"><span class="pre">micom.viz.core.</span></span><span class="sig-name descname"><span class="pre">env</span></span><a class="reference internal" href="../../../../_modules/micom/viz/core.html#env"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.core.env" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
-<dt id="micom.viz.core.Visualization">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">micom.viz.core.</span></code><code class="sig-name descname"><span class="pre">Visualization</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/viz/core.html#Visualization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.core.Visualization" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.viz.core.Visualization">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">micom.viz.core.</span></span><span class="sig-name descname"><span class="pre">Visualization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/viz/core.html#Visualization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.core.Visualization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A visualization object.</p>
 <dl class="py attribute">
-<dt id="micom.viz.core.Visualization.filename">
-<code class="sig-name descname"><span class="pre">filename</span></code><a class="headerlink" href="#micom.viz.core.Visualization.filename" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.viz.core.Visualization.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><a class="headerlink" href="#micom.viz.core.Visualization.filename" title="Permalink to this definition">¶</a></dt>
 <dd><p>The filename of trhe saved visualization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -621,8 +625,8 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="micom.viz.core.Visualization.data">
-<code class="sig-name descname"><span class="pre">data</span></code><a class="headerlink" href="#micom.viz.core.Visualization.data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.viz.core.Visualization.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#micom.viz.core.Visualization.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>The data used to create the Visualization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -632,8 +636,8 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt id="micom.viz.core.Visualization.template">
-<code class="sig-name descname"><span class="pre">template</span></code><a class="headerlink" href="#micom.viz.core.Visualization.template" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.viz.core.Visualization.template">
+<span class="sig-name descname"><span class="pre">template</span></span><a class="headerlink" href="#micom.viz.core.Visualization.template" title="Permalink to this definition">¶</a></dt>
 <dd><p>The jinja template used to render the visualization.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -643,8 +647,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.viz.core.Visualization.view">
-<code class="sig-name descname"><span class="pre">view</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/viz/core.html#Visualization.view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.core.Visualization.view" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.viz.core.Visualization.view">
+<span class="sig-name descname"><span class="pre">view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/viz/core.html#Visualization.view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.core.Visualization.view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open the visualization in a browser.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -660,8 +664,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.viz.core.Visualization.save">
-<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/viz/core.html#Visualization.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.core.Visualization.save" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.viz.core.Visualization.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/viz/core.html#Visualization.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.core.Visualization.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>Render and and save the visualization.</p>
 </dd></dl>
 
@@ -686,7 +690,7 @@
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

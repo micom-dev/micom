@@ -22,13 +22,13 @@
       
 
     
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
     
   <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -53,6 +53,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../../../_static/micom.png" class="logo" alt="logo">
       
@@ -701,36 +705,36 @@
 </tbody>
 </table>
 <dl class="py data">
-<dt id="micom.util._read_funcs">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">_read_funcs</span></code><a class="reference internal" href="../../../_modules/micom/util.html#_read_funcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util._read_funcs" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util._read_funcs">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">_read_funcs</span></span><a class="reference internal" href="../../../_modules/micom/util.html#_read_funcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util._read_funcs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
-<dt id="micom.util.COMPARTMENT_RE">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">COMPARTMENT_RE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">(_{}$)|([^a-zA-Z0-9</span> <span class="pre">:]{}[^a-zA-Z0-9</span> <span class="pre">:]$)</span></em><a class="reference internal" href="../../../_modules/micom/util.html#COMPARTMENT_RE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.COMPARTMENT_RE" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.COMPARTMENT_RE">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">COMPARTMENT_RE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">(_{}$)|([^a-zA-Z0-9</span> <span class="pre">:]{}[^a-zA-Z0-9</span> <span class="pre">:]$)</span></em><a class="reference internal" href="../../../_modules/micom/util.html#COMPARTMENT_RE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.COMPARTMENT_RE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.download_model">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">download_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#download_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.download_model" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.download_model">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">download_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#download_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.download_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download a model.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util._read_model">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">_read_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#_read_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util._read_model" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util._read_model">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">_read_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#_read_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util._read_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read a model from a local file.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.load_model">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">load_model</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#load_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.load_model" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.load_model">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#load_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.load_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a cobra model from several file types.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.load_pickle">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">load_pickle</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#load_pickle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.load_pickle" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.load_pickle">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">load_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#load_pickle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.load_pickle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a community model from a pickled version.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -746,32 +750,32 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.serialize_models">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">serialize_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#serialize_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.serialize_models" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.serialize_models">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">serialize_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#serialize_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.serialize_models" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert several models to Python pickles.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.chr_or_input">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">chr_or_input</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#chr_or_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.chr_or_input" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.chr_or_input">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">chr_or_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#chr_or_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.chr_or_input" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return ascii character for the ordinal or the original string.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.clean_ids">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">clean_ids</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#clean_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.clean_ids" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.clean_ids">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">clean_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#clean_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.clean_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clean ids up a bit.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.compartment_id">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">compartment_id</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">micom_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#compartment_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.compartment_id" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.compartment_id">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">compartment_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">micom_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#compartment_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.compartment_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the compartment id for a cobra object and prune the prefix if needed.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.join_models">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">join_models</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#join_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.join_models" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.join_models">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">join_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#join_models"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.join_models" title="Permalink to this definition">¶</a></dt>
 <dd><p>Join several models into one.</p>
 <p>This requires all the models to use the same ID system.</p>
 <dl class="field-list simple">
@@ -791,20 +795,20 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.fluxes_from_primals">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">fluxes_from_primals</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#fluxes_from_primals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.fluxes_from_primals" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.fluxes_from_primals">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">fluxes_from_primals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#fluxes_from_primals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.fluxes_from_primals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract a list of fluxes from the model primals.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.add_var_from_expression">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">add_var_from_expression</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ub</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#add_var_from_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.add_var_from_expression" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.add_var_from_expression">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">add_var_from_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ub</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#add_var_from_expression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.add_var_from_expression" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a variable to a model equaling an expression.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.check_modification">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">check_modification</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#check_modification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.check_modification" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.check_modification">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">check_modification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#check_modification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.check_modification" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check whether a community already carries a modification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -818,8 +822,8 @@ would not be safe.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util._format_min_growth">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">_format_min_growth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxa</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#_format_min_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util._format_min_growth" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util._format_min_growth">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">_format_min_growth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxa</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#_format_min_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util._format_min_growth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Format min_growth into a pandas series.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -839,21 +843,21 @@ a single value applied to all individuals or one value for each.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util._apply_min_growth">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">_apply_min_growth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#_apply_min_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util._apply_min_growth" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util._apply_min_growth">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">_apply_min_growth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#_apply_min_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util._apply_min_growth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set minimum growth constraints on a model.</p>
 <p>Will integrate with the context.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.adjust_solver_config">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">adjust_solver_config</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#adjust_solver_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.adjust_solver_config" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.adjust_solver_config">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">adjust_solver_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solver</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#adjust_solver_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.adjust_solver_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adjust the optlang solver configuration for larger problems.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.util.reset_min_community_growth">
-<code class="sig-prename descclassname"><span class="pre">micom.util.</span></code><code class="sig-name descname"><span class="pre">reset_min_community_growth</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#reset_min_community_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.reset_min_community_growth" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.util.reset_min_community_growth">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">reset_min_community_growth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#reset_min_community_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.reset_min_community_growth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset the lower bound for the community growth.</p>
 </dd></dl>
 
@@ -876,7 +880,7 @@ a single value applied to all individuals or one value for each.</p></li>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

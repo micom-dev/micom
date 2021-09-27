@@ -22,13 +22,13 @@
       
 
     
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
     
   <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -53,6 +53,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../../../_static/micom.png" class="logo" alt="logo">
       
@@ -557,14 +561,14 @@
 </tbody>
 </table>
 <dl class="py function">
-<dt id="micom.taxonomy.build_from_qiime">
-<code class="sig-prename descclassname"><span class="pre">micom.taxonomy.</span></code><code class="sig-name descname"><span class="pre">build_from_qiime</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abundance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxonomy</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapse_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'genus'</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.DataFrame</span><a class="reference internal" href="../../../_modules/micom/taxonomy.html#build_from_qiime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.taxonomy.build_from_qiime" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.taxonomy.build_from_qiime">
+<span class="sig-prename descclassname"><span class="pre">micom.taxonomy.</span></span><span class="sig-name descname"><span class="pre">build_from_qiime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abundance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxonomy</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapse_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'genus'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../../../_modules/micom/taxonomy.html#build_from_qiime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.taxonomy.build_from_qiime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build the specification for the community models.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.taxonomy.qiime_to_micom">
-<code class="sig-prename descclassname"><span class="pre">micom.taxonomy.</span></code><code class="sig-name descname"><span class="pre">qiime_to_micom</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxonomy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapse_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'genus'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/taxonomy.html#qiime_to_micom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.taxonomy.qiime_to_micom" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.taxonomy.qiime_to_micom">
+<span class="sig-prename descclassname"><span class="pre">micom.taxonomy.</span></span><span class="sig-name descname"><span class="pre">qiime_to_micom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxonomy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapse_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'genus'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/taxonomy.html#qiime_to_micom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.taxonomy.qiime_to_micom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a micom taxonomy from Qiime 2 data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -604,7 +608,7 @@ format.</p>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

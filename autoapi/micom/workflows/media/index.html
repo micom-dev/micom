@@ -22,13 +22,13 @@
       
 
     
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
     
   <link rel="preload" as="script" href="../../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
     <script src="../../../../_static/doctools.js"></script>
@@ -53,6 +53,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../../../../_static/micom.png" class="logo" alt="logo">
       
@@ -581,32 +585,32 @@
 </tbody>
 </table>
 <dl class="py function">
-<dt id="micom.workflows.media.process_medium">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></code><code class="sig-name descname"><span class="pre">process_medium</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#process_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media.process_medium" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.workflows.media.process_medium">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></span><span class="sig-name descname"><span class="pre">process_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#process_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media.process_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prepare a medium for simulation.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.workflows.media._medium">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></code><code class="sig-name descname"><span class="pre">_medium</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media._medium" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.workflows.media._medium">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></span><span class="sig-name descname"><span class="pre">_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media._medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get minimal medium for a single model.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.workflows.media.minimal_media">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></code><code class="sig-name descname"><span class="pre">minimal_media</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summarize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#minimal_media"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media.minimal_media" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.workflows.media.minimal_media">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></span><span class="sig-name descname"><span class="pre">minimal_media</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summarize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#minimal_media"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media.minimal_media" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the minimal medium for a set of community models.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.workflows.media._fix_medium">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></code><code class="sig-name descname"><span class="pre">_fix_medium</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#_fix_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media._fix_medium" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.workflows.media._fix_medium">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></span><span class="sig-name descname"><span class="pre">_fix_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#_fix_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media._fix_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the fixed medium for a model.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.workflows.media.fix_medium">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></code><code class="sig-name descname"><span class="pre">fix_medium</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">community_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_import</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summarize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#fix_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media.fix_medium" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.workflows.media.fix_medium">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></span><span class="sig-name descname"><span class="pre">fix_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">community_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_import</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summarize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#fix_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media.fix_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Augment a growth medium so all community members can grow in it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -661,7 +665,7 @@ that all members of the community can grow in it.</p>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

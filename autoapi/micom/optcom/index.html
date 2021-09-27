@@ -22,13 +22,13 @@
       
 
     
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
     
   <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -53,6 +53,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../../../_static/micom.png" class="logo" alt="logo">
       
@@ -589,8 +593,8 @@
 </tbody>
 </table>
 <dl class="py function">
-<dt id="micom.optcom.add_dualized_optcom">
-<code class="sig-prename descclassname"><span class="pre">micom.optcom.</span></code><code class="sig-name descname"><span class="pre">add_dualized_optcom</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/optcom.html#add_dualized_optcom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.optcom.add_dualized_optcom" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.optcom.add_dualized_optcom">
+<span class="sig-prename descclassname"><span class="pre">micom.optcom.</span></span><span class="sig-name descname"><span class="pre">add_dualized_optcom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/optcom.html#add_dualized_optcom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.optcom.add_dualized_optcom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add dual Optcom variables and constraints to a community.</p>
 <p>Uses the original formulation of OptCom and solves the following
 multi-objective problem:</p>
@@ -615,8 +619,8 @@ a single value applied to all individuals or one value for each.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.optcom.add_moma_optcom">
-<code class="sig-prename descclassname"><span class="pre">micom.optcom.</span></code><code class="sig-name descname"><span class="pre">add_moma_optcom</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/optcom.html#add_moma_optcom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.optcom.add_moma_optcom" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.optcom.add_moma_optcom">
+<span class="sig-prename descclassname"><span class="pre">micom.optcom.</span></span><span class="sig-name descname"><span class="pre">add_moma_optcom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linear</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/optcom.html#add_moma_optcom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.optcom.add_moma_optcom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add a dualized MOMA version of OptCom.</p>
 <p>Solves a MOMA (minimization of metabolic adjustment) formulation of OptCom
 given by:</p>
@@ -644,13 +648,13 @@ cooperativity cost. If set to False requires a QP-capable solver.</p></li>
 </dd></dl>
 
 <dl class="py data">
-<dt id="micom.optcom._methods">
-<code class="sig-prename descclassname"><span class="pre">micom.optcom.</span></code><code class="sig-name descname"><span class="pre">_methods</span></code><a class="reference internal" href="../../../_modules/micom/optcom.html#_methods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.optcom._methods" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.optcom._methods">
+<span class="sig-prename descclassname"><span class="pre">micom.optcom.</span></span><span class="sig-name descname"><span class="pre">_methods</span></span><a class="reference internal" href="../../../_modules/micom/optcom.html#_methods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.optcom._methods" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="micom.optcom.optcom">
-<code class="sig-prename descclassname"><span class="pre">micom.optcom.</span></code><code class="sig-name descname"><span class="pre">optcom</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/optcom.html#optcom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.optcom.optcom" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.optcom.optcom">
+<span class="sig-prename descclassname"><span class="pre">micom.optcom.</span></span><span class="sig-name descname"><span class="pre">optcom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/optcom.html#optcom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.optcom.optcom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run OptCom for the community.</p>
 <p>OptCom methods are a group of optimization procedures to find community
 solutions that provide a tradeoff between the cooperative community
@@ -722,7 +726,7 @@ doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</p>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

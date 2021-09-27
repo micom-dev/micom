@@ -22,13 +22,13 @@
       
 
     
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
     
   <link rel="preload" as="script" href="../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -53,6 +53,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../../../_static/micom.png" class="logo" alt="logo">
       
@@ -607,25 +611,25 @@ quantities.</p>
 </tbody>
 </table>
 <dl class="py data">
-<dt id="micom.elasticity.STEP">
-<code class="sig-prename descclassname"><span class="pre">micom.elasticity.</span></code><code class="sig-name descname"><span class="pre">STEP</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0.1</span></em><a class="reference internal" href="../../../_modules/micom/elasticity.html#STEP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.elasticity.STEP" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.elasticity.STEP">
+<span class="sig-prename descclassname"><span class="pre">micom.elasticity.</span></span><span class="sig-name descname"><span class="pre">STEP</span></span><em class="property"> <span class="pre">=</span> <span class="pre">0.1</span></em><a class="reference internal" href="../../../_modules/micom/elasticity.html#STEP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.elasticity.STEP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="micom.elasticity._get_fluxes">
-<code class="sig-prename descclassname"><span class="pre">micom.elasticity.</span></code><code class="sig-name descname"><span class="pre">_get_fluxes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/elasticity.html#_get_fluxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.elasticity._get_fluxes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.elasticity._get_fluxes">
+<span class="sig-prename descclassname"><span class="pre">micom.elasticity.</span></span><span class="sig-name descname"><span class="pre">_get_fluxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/elasticity.html#_get_fluxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.elasticity._get_fluxes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the primal values for a set of variables.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.elasticity._derivatives">
-<code class="sig-prename descclassname"><span class="pre">micom.elasticity.</span></code><code class="sig-name descname"><span class="pre">_derivatives</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">before</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/elasticity.html#_derivatives"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.elasticity._derivatives" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.elasticity._derivatives">
+<span class="sig-prename descclassname"><span class="pre">micom.elasticity.</span></span><span class="sig-name descname"><span class="pre">_derivatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">before</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">after</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/elasticity.html#_derivatives"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.elasticity._derivatives" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the elasticities for fluxes.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.elasticity.elasticities_by_medium">
-<code class="sig-prename descclassname"><span class="pre">micom.elasticity.</span></code><code class="sig-name descname"><span class="pre">elasticities_by_medium</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">growth_rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/elasticity.html#elasticities_by_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.elasticity.elasticities_by_medium" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.elasticity.elasticities_by_medium">
+<span class="sig-prename descclassname"><span class="pre">micom.elasticity.</span></span><span class="sig-name descname"><span class="pre">elasticities_by_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">growth_rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/elasticity.html#elasticities_by_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.elasticity.elasticities_by_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the elasticity coefficients for a set of variables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -646,8 +650,8 @@ effector, and elasticity.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.elasticity.elasticities_by_abundance">
-<code class="sig-prename descclassname"><span class="pre">micom.elasticity.</span></code><code class="sig-name descname"><span class="pre">elasticities_by_abundance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">growth_rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/elasticity.html#elasticities_by_abundance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.elasticity.elasticities_by_abundance" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.elasticity.elasticities_by_abundance">
+<span class="sig-prename descclassname"><span class="pre">micom.elasticity.</span></span><span class="sig-name descname"><span class="pre">elasticities_by_abundance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">growth_rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/elasticity.html#elasticities_by_abundance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.elasticity.elasticities_by_abundance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the elasticity coefficients for a set of variables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -668,8 +672,8 @@ effector, and elasticity.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.elasticity.elasticities">
-<code class="sig-prename descclassname"><span class="pre">micom.elasticity.</span></code><code class="sig-name descname"><span class="pre">elasticities</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/elasticity.html#elasticities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.elasticity.elasticities" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.elasticity.elasticities">
+<span class="sig-prename descclassname"><span class="pre">micom.elasticity.</span></span><span class="sig-name descname"><span class="pre">elasticities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/elasticity.html#elasticities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.elasticity.elasticities" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate elasticities for reactions.</p>
 <p>Calculates elasticity coefficients using the specified reactions as
 response and exchange bounds (diet) and taxa abundances as
@@ -727,7 +731,7 @@ for taxa abundances.</p>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

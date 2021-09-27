@@ -22,13 +22,13 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
     
   <link rel="preload" as="script" href="../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -53,6 +53,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../../_static/micom.png" class="logo" alt="logo">
       
@@ -735,8 +739,8 @@
 </tbody>
 </table>
 <dl class="py class">
-<dt id="micom.Community">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">micom.</span></code><code class="sig-name descname"><span class="pre">Community</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">taxonomy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_exchange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/micom/community.html#Community"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.Community" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">micom.</span></span><span class="sig-name descname"><span class="pre">Community</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">taxonomy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_exchange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/micom/community.html#Community"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.Community" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">cobra.Model</span></code></p>
 <p>A community of models.</p>
 <p>This class represents a community of individual models. It was designed for
@@ -744,26 +748,26 @@ microbial communities but may also be used for multi-tissue or tissue-cell
 mixture models as long as all individuals exist within a single enclosing
 compartment.</p>
 <dl class="py method">
-<dt id="micom.Community.__add_exchanges">
-<code class="sig-name descname"><span class="pre">__add_exchanges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_compartment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_exchange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.__add_exchanges" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.__add_exchanges">
+<span class="sig-name descname"><span class="pre">__add_exchanges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_compartment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_exchange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.__add_exchanges" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add exchange reactions for a new model.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.__update_exchanges">
-<code class="sig-name descname"><span class="pre">__update_exchanges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.__update_exchanges" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.__update_exchanges">
+<span class="sig-name descname"><span class="pre">__update_exchanges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.__update_exchanges" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update exchanges.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.__update_community_objective">
-<code class="sig-name descname"><span class="pre">__update_community_objective</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.__update_community_objective" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.__update_community_objective">
+<span class="sig-name descname"><span class="pre">__update_community_objective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.__update_community_objective" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the community objective.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.optimize_single">
-<code class="sig-name descname"><span class="pre">optimize_single</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize_single" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.optimize_single">
+<span class="sig-name descname"><span class="pre">optimize_single</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize_single" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize growth rate for one individual.</p>
 <p><cite>optimize_single</cite> will calculate the maximal growth rate for one
 individual member of the community.</p>
@@ -788,8 +792,8 @@ maximal growth rate.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.optimize_all">
-<code class="sig-name descname"><span class="pre">optimize_all</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize_all" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.optimize_all">
+<span class="sig-name descname"><span class="pre">optimize_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize_all" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return solutions for individually optimizing each model.</p>
 <p class="rubric">Notes</p>
 <p>This might well mean that growth rates for all other individuals are
@@ -810,8 +814,8 @@ all at once.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.optimize">
-<code class="sig-name descname"><span class="pre">optimize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.optimize">
+<span class="sig-name descname"><span class="pre">optimize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optimize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Optimize the model using flux balance analysis.</p>
 <p>This is the primary accessor for optimization in MICOM and should be used
 for all optimizations. Different from cobrapy this will <em>not</em> return the full
@@ -851,16 +855,16 @@ solver tolerance.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.abundances">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">abundances</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.abundances" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.abundances">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">abundances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.abundances" title="Permalink to this definition">¶</a></dt>
 <dd><p>pandas.Series: The normalized abundances.</p>
 <p>Setting this attribute will also trigger the appropriate updates in
 the exchange fluxes and the community objective.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.set_abundance">
-<code class="sig-name descname"><span class="pre">set_abundance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.set_abundance" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.set_abundance">
+<span class="sig-name descname"><span class="pre">set_abundance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.set_abundance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change abundances for one or more taxa.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -876,50 +880,50 @@ if you know what you are doing :O</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.taxonomy">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">taxonomy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.taxonomy" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.taxonomy">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">taxonomy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.taxonomy" title="Permalink to this definition">¶</a></dt>
 <dd><p>pandas.DataFrame: The taxonomy used within the model.</p>
 <p>This attribute only returns a copy.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.modification">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">modification</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.modification" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.modification">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">modification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.modification" title="Permalink to this definition">¶</a></dt>
 <dd><p>str: Denotes modifications to the model currently applied.</p>
 <p>Will be None if the community is unmodified.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.exchanges">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">exchanges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.exchanges" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.exchanges">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">exchanges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.exchanges" title="Permalink to this definition">¶</a></dt>
 <dd><p>list: Return all exchange reactions in the model.</p>
 <p>Uses several heuristics based on the reaction name and compartments
 to exclude reactions that are <em>not</em> exchange reactions.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.internal_exchanges">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">internal_exchanges</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.internal_exchanges" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.internal_exchanges">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">internal_exchanges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.internal_exchanges" title="Permalink to this definition">¶</a></dt>
 <dd><p>list: Return all internal exchanges.</p>
 <p>Internal exchanges are exchanges between individual taxa and the medium.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.medium">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">medium</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.medium" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.medium">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the medium.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.build_metrics">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">build_metrics</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.build_metrics" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.build_metrics">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">build_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.build_metrics" title="Permalink to this definition">¶</a></dt>
 <dd><p>pd.Series: Returns general metrics for database matching.</p>
 <p>Only available when built using a model database.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.optcom">
-<code class="sig-name descname"><span class="pre">optcom</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lagrangian'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optcom" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.optcom">
+<span class="sig-name descname"><span class="pre">optcom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lagrangian'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.optcom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run OptCom for the community.</p>
 <p>OptCom methods are a group of optimization procedures to find community
 solutions that provide a tradeoff between the cooperative community
@@ -974,8 +978,8 @@ doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.cooperative_tradeoff">
-<code class="sig-name descname"><span class="pre">cooperative_tradeoff</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.cooperative_tradeoff" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.cooperative_tradeoff">
+<span class="sig-name descname"><span class="pre">cooperative_tradeoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.cooperative_tradeoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find the best tradeoff between community and individual growth.</p>
 <p>Finds the set of growth rates which maintian a particular community
 growth and spread up growth across all taxa as much as possible.
@@ -1012,8 +1016,8 @@ a pandas Series of solutions with the fractions as indices.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.knockout_taxa">
-<code class="sig-name descname"><span class="pre">knockout_taxa</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'change'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.knockout_taxa" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.knockout_taxa">
+<span class="sig-name descname"><span class="pre">knockout_taxa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxa</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'change'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.knockout_taxa" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sequentially knowckout a list of taxa in the model.</p>
 <p>This uses cooperative tradeoff as optimization criterion in order to
 get unqiue solutions for individual growth rates. Requires a QP
@@ -1045,14 +1049,14 @@ that knockout.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.scale">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">scale</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.scale" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.scale">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a scale to improve numerical properties.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="micom.Community.to_pickle">
-<code class="sig-name descname"><span class="pre">to_pickle</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.to_pickle" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.Community.to_pickle">
+<span class="sig-name descname"><span class="pre">to_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.Community.to_pickle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save a community in serialized form.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1070,13 +1074,13 @@ that knockout.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.show_versions">
-<code class="sig-prename descclassname"><span class="pre">micom.</span></code><code class="sig-name descname"><span class="pre">show_versions</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/micom/deps.html#show_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.show_versions" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.show_versions">
+<span class="sig-prename descclassname"><span class="pre">micom.</span></span><span class="sig-name descname"><span class="pre">show_versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/micom/deps.html#show_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.show_versions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="micom.load_pickle">
-<code class="sig-prename descclassname"><span class="pre">micom.</span></code><code class="sig-name descname"><span class="pre">load_pickle</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/micom/util.html#load_pickle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.load_pickle" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.load_pickle">
+<span class="sig-prename descclassname"><span class="pre">micom.</span></span><span class="sig-name descname"><span class="pre">load_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/micom/util.html#load_pickle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.load_pickle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a community model from a pickled version.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1110,7 +1114,7 @@ that knockout.</p>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

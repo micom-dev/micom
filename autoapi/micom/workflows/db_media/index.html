@@ -22,13 +22,13 @@
       
 
     
-    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../../_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
     
   <link rel="preload" as="script" href="../../../../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
     <script src="../../../../_static/underscore.js"></script>
     <script src="../../../../_static/doctools.js"></script>
@@ -53,6 +53,10 @@
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
       
       <img src="../../../../_static/micom.png" class="logo" alt="logo">
       
@@ -589,20 +593,20 @@
 </tbody>
 </table>
 <dl class="py function">
-<dt id="micom.workflows.db_media._grow">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></code><code class="sig-name descname"><span class="pre">_grow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#_grow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media._grow" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.workflows.db_media._grow">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">_grow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#_grow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media._grow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the maximum growth rate under a given medium.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.workflows.db_media._try_complete">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></code><code class="sig-name descname"><span class="pre">_try_complete</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#_try_complete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media._try_complete" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.workflows.db_media._try_complete">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">_try_complete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#_try_complete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media._try_complete" title="Permalink to this definition">¶</a></dt>
 <dd><p>Try to complete the medium for a model.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.workflows.db_media.check_db_medium">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></code><code class="sig-name descname"><span class="pre">check_db_medium</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#check_db_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.check_db_medium" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.workflows.db_media.check_db_medium">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">check_db_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#check_db_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.check_db_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Complete a growth medium for all models in a database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -630,8 +634,8 @@ that gives the growth rate.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.workflows.db_media.complete_db_medium">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></code><code class="sig-name descname"><span class="pre">complete_db_medium</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_added_import</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#complete_db_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.complete_db_medium" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.workflows.db_media.complete_db_medium">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">complete_db_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">growth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_added_import</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#complete_db_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.complete_db_medium" title="Permalink to this definition">¶</a></dt>
 <dd><p>Complete a growth medium for all models in a database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -672,14 +676,14 @@ gives the number of added imports apart from the ones in the medium.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.workflows.db_media._annotate">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></code><code class="sig-name descname"><span class="pre">_annotate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#_annotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media._annotate" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.workflows.db_media._annotate">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">_annotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#_annotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media._annotate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get annotation for a model.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="micom.workflows.db_media.db_annotations">
-<code class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></code><code class="sig-name descname"><span class="pre">db_annotations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#db_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.db_annotations" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.workflows.db_media.db_annotations">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">db_annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#db_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.db_annotations" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get metabolite annotations from a model DB.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -720,7 +724,7 @@ rule of thumb you will need around 1GB of RAM for each thread.</p></li>
         
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         

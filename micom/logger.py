@@ -8,4 +8,4 @@ logging.basicConfig(
     level="WARNING", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
 )
 
-logger = logging.getLogger("micom")
+logger = logging.getLogger(__name__)

@@ -5,6 +5,14 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.26.0
+
+Now adjusts active demands to be optional. This was an issue with some models
+in AGORA that had forced biotin demands. This effectively prohibits zero growth
+rates and is problematic for MICOM.
+
+Fix the logger for multiprocessing.
+
 ### 0.25.1
 
 Handle CARVEME models better in `workflows.complete_medium`.

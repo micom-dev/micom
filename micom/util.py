@@ -27,6 +27,25 @@ _read_funcs = {
 COMPARTMENT_RE = "(_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)"
 
 
+def is_active_demand(r):
+    """Check if a reaction is a demand reaction."""
+    return (
+        len(r.reactants) == len(r.metabolites) and r.lower_bound > 1e-6
+    ) or (len(r.products) == len(r.metabolites) and r.upper_bound < -1e-6)
+
+
+def fix_demands(model):
+    """Check for forced sinks and demands and deactivates them."""
+    adjusted = []
+    for r in model.reactions.query(is_active_demand):
+        if r.lower_bound > model.tolerance:
+            r.lower_bound = 0.0
+        elif r.upper_bound < -model.tolerance:
+            r.upper_bound = 0.0
+        adjusted.append(r.id)
+    return adjusted
+
+
 def download_model(url, folder="."):
     """Download a model."""
     dest = path.join(folder, path.basename(url))
@@ -39,7 +58,15 @@ def _read_model(file):
     """Read a model from a local file."""
     _, ext = path.splitext(file)
     read_func = _read_funcs[ext]
-    return read_func(file)
+    model = read_func(file)
+    adjusted = fix_demands(model)
+    if len(adjusted) > 0:
+        logger.warning(
+            "The following sinks or demands were forced in the model and have "
+            "been relaxed since they would interfere with MICOM's growth rate "
+            "estimation: %s" % ", ".join(adjusted)
+        )
+    return model
 
 
 def load_model(filepath):

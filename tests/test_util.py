@@ -1,11 +1,11 @@
 """Test utilities."""
 
-from os.path import basename
 import cobra
+from cobra.test import create_test_model
 import numpy as np
 import micom
 import micom.util as util
-from .fixtures import community
+from.fixtures import community
 
 URL = "http://bigg.ucsd.edu/static/models/e_coli_core.xml.gz"
 tax = micom.data.test_taxonomy()
@@ -68,3 +68,12 @@ def test_compartment_id():
     assert util.compartment_id(met) == "e"
     met.global_id = "test_met(e)"
     assert util.compartment_id(met) == "e"
+
+def test_fix_demands(tmp_path):
+    fpath = str(tmp_path / "test.xml")
+    model = create_test_model("textbook")
+    model.exchanges[0].lower_bound = 0.1
+    cobra.io.write_sbml_model(model, fpath)
+    model = util.load_model(fpath)
+    assert model.exchanges[0].lower_bound == 0.0
+

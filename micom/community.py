@@ -309,6 +309,10 @@ class Community(cobra.Model):
         for r in reactions:
             # Some sanity checks for whether the reaction is an exchange
             ex = external_compartment + "__" + r.community_id
+            # Some AGORA models label the biomass demand as exchange
+            if any(bm in r.id.lower() for bm in ["biomass", "bm"]):
+                r.id = r.id.replace("EX_", "DM_")
+                continue
             if not cobra.medium.is_boundary_type(r, "exchange", ex):
                 continue
             if not r.id.lower().startswith("ex"):
@@ -316,10 +320,6 @@ class Community(cobra.Model):
                     "Reaction %s seems to be an exchange " % r.id
                     + "reaction but its ID does not start with 'EX_'..."
                 )
-            # Some AGORA models label the biomass demand as exchange
-            if any(bm in r.id.lower() for bm in ["biomass", "bm"]):
-                r.id = r.id.replace("EX_", "DM_")
-                continue
 
             export = len(r.reactants) == 1
             if export:

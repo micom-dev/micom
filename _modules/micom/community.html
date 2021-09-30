@@ -802,6 +802,10 @@
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">:</span>
             <span class="c1"># Some sanity checks for whether the reaction is an exchange</span>
             <span class="n">ex</span> <span class="o">=</span> <span class="n">external_compartment</span> <span class="o">+</span> <span class="s2">&quot;__&quot;</span> <span class="o">+</span> <span class="n">r</span><span class="o">.</span><span class="n">community_id</span>
+            <span class="c1"># Some AGORA models label the biomass demand as exchange</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">bm</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">bm</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;biomass&quot;</span><span class="p">,</span> <span class="s2">&quot;bm&quot;</span><span class="p">]):</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;EX_&quot;</span><span class="p">,</span> <span class="s2">&quot;DM_&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">cobra</span><span class="o">.</span><span class="n">medium</span><span class="o">.</span><span class="n">is_boundary_type</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="s2">&quot;exchange&quot;</span><span class="p">,</span> <span class="n">ex</span><span class="p">):</span>
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;ex&quot;</span><span class="p">):</span>
@@ -809,10 +813,6 @@
                     <span class="s2">&quot;Reaction </span><span class="si">%s</span><span class="s2"> seems to be an exchange &quot;</span> <span class="o">%</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span>
                     <span class="o">+</span> <span class="s2">&quot;reaction but its ID does not start with &#39;EX_&#39;...&quot;</span>
                 <span class="p">)</span>
-            <span class="c1"># Some AGORA models label the biomass demand as exchange</span>
-            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">bm</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">bm</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;biomass&quot;</span><span class="p">,</span> <span class="s2">&quot;bm&quot;</span><span class="p">]):</span>
-                <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;EX_&quot;</span><span class="p">,</span> <span class="s2">&quot;DM_&quot;</span><span class="p">)</span>
-                <span class="k">continue</span>
 
             <span class="n">export</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
             <span class="k">if</span> <span class="n">export</span><span class="p">:</span>

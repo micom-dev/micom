@@ -18,6 +18,8 @@ Functions
 
 .. autoapisummary::
 
+   micom.util.is_active_demand
+   micom.util.fix_demands
    micom.util.download_model
    micom.util._read_model
    micom.util.load_model
@@ -55,6 +57,16 @@ Attributes
    :annotation: = (_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)
 
    
+
+.. py:function:: is_active_demand(r)
+
+   Check if a reaction is a demand reaction.
+
+
+.. py:function:: fix_demands(model)
+
+   Check for forced sinks and demands and deactivates them.
+
 
 .. py:function:: download_model(url, folder='.')
 

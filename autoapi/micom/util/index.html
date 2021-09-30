@@ -530,6 +530,16 @@
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.is_active_demand">
+       is_active_demand
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.util.fix_demands">
+       fix_demands
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#micom.util.download_model">
        download_model
       </a>
@@ -637,6 +647,12 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.is_active_demand" title="micom.util.is_active_demand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_active_demand</span></code></a>(r)</p></td>
+<td><p>Check if a reaction is a demand reaction.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util.fix_demands" title="micom.util.fix_demands"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_demands</span></code></a>(model)</p></td>
+<td><p>Check for forced sinks and demands and deactivates them.</p></td>
+</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.download_model" title="micom.util.download_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_model</span></code></a>(url, folder='.')</p></td>
 <td><p>Download a model.</p></td>
 </tr>
@@ -713,6 +729,18 @@
 <dt class="sig sig-object py" id="micom.util.COMPARTMENT_RE">
 <span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">COMPARTMENT_RE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">(_{}$)|([^a-zA-Z0-9</span> <span class="pre">:]{}[^a-zA-Z0-9</span> <span class="pre">:]$)</span></em><a class="reference internal" href="../../../_modules/micom/util.html#COMPARTMENT_RE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.COMPARTMENT_RE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="micom.util.is_active_demand">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">is_active_demand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#is_active_demand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.is_active_demand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a reaction is a demand reaction.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="micom.util.fix_demands">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">fix_demands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#fix_demands"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.fix_demands" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check for forced sinks and demands and deactivates them.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.util.download_model">

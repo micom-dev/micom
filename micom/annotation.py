@@ -1,5 +1,6 @@
 """Helper to annotate metabolites and species."""
 
+from cobra.core.formula import Formula
 import pandas as pd
 from micom import Community
 
@@ -20,10 +21,24 @@ def annotate(ids, community, what="reaction"):
 
     objs = elems.get_by_any(ids)
     attr = "global_id" if isinstance(community, Community) else "id"
-    anns = [
-        pd.Series({what: getattr(o, attr), "name": o.name, **flatten(o.annotation)})
-        for o in objs
-    ]
+
+    if what == "reaction":
+        anns = [
+            pd.Series({what: getattr(o, attr), "name": o.name, **flatten(o.annotation)})
+            for o in objs
+        ]
+    else:
+        anns = [
+            pd.Series({
+                what: getattr(o, attr),
+                "name": o.name,
+                "molecular_weight": Formula(o.formula).weight,
+                "C_number": Formula(o.formula).elements.get("C", 0),
+                "N_number": Formula(o.formula).elements.get("N", 0),
+                **flatten(o.annotation)})
+            for o in objs
+        ]
+
     return pd.DataFrame.from_records(anns).drop_duplicates()
 
 

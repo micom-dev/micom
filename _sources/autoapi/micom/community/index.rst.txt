@@ -338,7 +338,6 @@ Attributes
       :param filename: Where to save the pickled community.
       :type filename: str
 
-      :returns:
       :rtype: Nothing
 
 

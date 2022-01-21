@@ -5,4 +5,4 @@ This is a shim left here for compatibility reasons.
 
 from setuptools import setup
 
-setup(version="0.27.0")
+setup(version="0.28.0")

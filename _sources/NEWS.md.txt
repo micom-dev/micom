@@ -5,6 +5,15 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.28.0
+
+Fixes a deployment isssue witn tne previous build.
+
+### 0.27.0
+
+Annotationsnow include the molecular weight, number of carbon atoms, and the number of 
+nitrogen atomos for each compound.
+
 ### 0.26.0
 
 Now adjusts active demands to be optional. This was an issue with some models

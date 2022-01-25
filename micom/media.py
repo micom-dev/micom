@@ -237,7 +237,7 @@ def minimal_medium(
             return None
 
         logger.info("formatting medium")
-        medium = pd.Series()
+        medium = pd.Series(dtype="float64")
         set_medium = community.medium
         ex = [r for r in com.exchanges if r.id in set_medium]
         for rxn in ex:
@@ -359,7 +359,7 @@ def complete_medium(
         raise OptimizationError(
             "Could not find a solution that completes the medium :("
         )
-    completed = pd.Series()
+    completed = pd.Series(dtype="float64")
     for rxn in model.exchanges:
         export = len(rxn.reactants) == 1
         if rxn.id in medium.index:

@@ -60,7 +60,7 @@ def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
     regularize_l2_norm(com, 0.0)
     sol = optimize_with_fraction(com, fraction, growth_rate, True)
     before = _get_fluxes(sol, reactions)
-    import_fluxes = pd.Series()
+    import_fluxes = pd.Series(dtype="float64")
     dfs = []
 
     for ex in com.exchanges:

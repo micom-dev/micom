@@ -3,10 +3,10 @@
 from collections import Sized, namedtuple
 from multiprocessing import Pool
 from rich.progress import track
+import warnings
 
 GrowthResults = namedtuple(
-    "GrowthResults",
-    ["growth_rates", "exchanges", "annotations"]
+    "GrowthResults", ["growth_rates", "exchanges", "annotations"]
 )
 
 
@@ -35,8 +35,10 @@ def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):
         ValueError("`args` must have a length.")
 
     with Pool(processes=n_jobs, maxtasksperchild=1) as pool:
-        it = pool.imap(func, args)
-        if progress:
-            it = track(it, total=len(args), description="Running")
-        results = list(it)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            it = pool.imap(func, args)
+            if progress:
+                it = track(it, total=len(args), description="Running")
+            results = list(it)
     return results

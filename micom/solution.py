@@ -97,7 +97,7 @@ class CommunitySolution(Solution):
                 None,
                 None,
             )
-        gcs = pd.Series()
+        gcs = pd.Series(dtype="float64")
         for sp in community.taxa:
             gcs[sp] = community.constraints["objective_" + sp].primal
         # Workaround for an optlang bug (PR #120)

@@ -608,7 +608,7 @@
                 <span class="kc">None</span><span class="p">,</span>
                 <span class="kc">None</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="n">gcs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+        <span class="n">gcs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">:</span>
             <span class="n">gcs</span><span class="p">[</span><span class="n">sp</span><span class="p">]</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span><span class="o">.</span><span class="n">primal</span>
         <span class="c1"># Workaround for an optlang bug (PR #120)</span>

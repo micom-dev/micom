@@ -514,10 +514,10 @@
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Sized</span><span class="p">,</span> <span class="n">namedtuple</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
 <span class="kn">from</span> <span class="nn">rich.progress</span> <span class="kn">import</span> <span class="n">track</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
 <div class="viewcode-block" id="GrowthResults"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.core.GrowthResults">[docs]</a><span class="n">GrowthResults</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
-    <span class="s2">&quot;GrowthResults&quot;</span><span class="p">,</span>
-    <span class="p">[</span><span class="s2">&quot;growth_rates&quot;</span><span class="p">,</span> <span class="s2">&quot;exchanges&quot;</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">]</span></div>
+    <span class="s2">&quot;GrowthResults&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;growth_rates&quot;</span><span class="p">,</span> <span class="s2">&quot;exchanges&quot;</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">]</span></div>
 <span class="p">)</span>
 
 
@@ -546,10 +546,12 @@
         <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`args` must have a length.&quot;</span><span class="p">)</span>
 
     <span class="k">with</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">maxtasksperchild</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
-        <span class="n">it</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">imap</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
-            <span class="n">it</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Running&quot;</span><span class="p">)</span>
-        <span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+            <span class="n">it</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">imap</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+                <span class="n">it</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Running&quot;</span><span class="p">)</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">results</span></div>
 </pre></div>
 

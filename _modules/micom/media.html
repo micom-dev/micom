@@ -748,7 +748,7 @@
             <span class="k">return</span> <span class="kc">None</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;formatting medium&quot;</span><span class="p">)</span>
-        <span class="n">medium</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+        <span class="n">medium</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
         <span class="n">set_medium</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">medium</span>
         <span class="n">ex</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">set_medium</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">rxn</span> <span class="ow">in</span> <span class="n">ex</span><span class="p">:</span>
@@ -870,7 +870,7 @@
         <span class="k">raise</span> <span class="n">OptimizationError</span><span class="p">(</span>
             <span class="s2">&quot;Could not find a solution that completes the medium :(&quot;</span>
         <span class="p">)</span>
-    <span class="n">completed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+    <span class="n">completed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">rxn</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">exchanges</span><span class="p">:</span>
         <span class="n">export</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rxn</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">rxn</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">medium</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>

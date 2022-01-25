@@ -571,7 +571,7 @@
     <span class="n">regularize_l2_norm</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
     <span class="n">sol</span> <span class="o">=</span> <span class="n">optimize_with_fraction</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
     <span class="n">before</span> <span class="o">=</span> <span class="n">_get_fluxes</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">reactions</span><span class="p">)</span>
-    <span class="n">import_fluxes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span>
+    <span class="n">import_fluxes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
     <span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span><span class="p">:</span>

@@ -34,11 +34,15 @@ def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):
     if not isinstance(args, Sized):
         ValueError("`args` must have a length.")
 
-    with Pool(processes=n_jobs, maxtasksperchild=1) as pool:
+    pool = Pool(processes=n_jobs, maxtasksperchild=1) as pool:
+    try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             it = pool.imap(func, args)
             if progress:
                 it = track(it, total=len(args), description="Running")
             results = list(it)
+    finally:
+        pool.close()
+        pool.join()
     return results

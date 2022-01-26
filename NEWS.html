@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>News and release notes for MICOM &#8212; version 0.28.0</title>
+    <title>News and release notes for MICOM &#8212; version 0.28.1</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -70,7 +70,7 @@
       <img src="_static/micom.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">version 0.28.0</h1>
+      <h1 class="site-logo" id="site-title">version 0.28.1</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -779,7 +779,8 @@
 <a class="reference external" href="https://micom-dev.github.io/micom">the documentation</a>.</p>
 <div class="section" id="id1">
 <h2>0.29.0<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>Renames the <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> arguments to <code class="docutils literal notranslate"><span class="pre">threads</span></code> across the code base for consistency.</p>
+<p>Renames the <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> arguments to <code class="docutils literal notranslate"><span class="pre">threads</span></code> across the code base for consistency and
+updates the arguments for <code class="docutils literal notranslate"><span class="pre">workflow</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">workflow</span></code> now does not spawn a process for single-threaded runs, reducing overhead.</p>
 <p>Fixes an issue where <code class="docutils literal notranslate"><span class="pre">workflow</span></code> would deadlock with pytest-cov.</p>
 </div>

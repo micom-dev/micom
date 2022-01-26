@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom.workflows.media &#8212; version 0.28.0</title>
+    <title>micom.workflows.media &#8212; version 0.28.1</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet">
   <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -69,7 +69,7 @@
       <img src="../../../_static/micom.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">version 0.28.0</h1>
+      <h1 class="site-logo" id="site-title">version 0.28.1</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
@@ -685,7 +685,7 @@
          <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="n">medium</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">],</span> <span class="n">weights</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">]</span>
-    <span class="n">res</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_fix_medium</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;model(s)&quot;</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_fix_medium</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Augmenting media&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">r</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">):</span>
         <span class="k">raise</span> <span class="n">OptimizationError</span><span class="p">(</span>
             <span class="s2">&quot;All optimizations failed. You may need to increase `max_import` &quot;</span>

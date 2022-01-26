@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom.workflows.core &#8212; version 0.28.0</title>
+    <title>micom.workflows.core &#8212; version 0.28.1</title>
     
   <link href="../../../../_static/css/theme.css" rel="stylesheet">
   <link href="../../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -69,7 +69,7 @@
       <img src="../../../../_static/micom.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">version 0.28.0</h1>
+      <h1 class="site-logo" id="site-title">version 0.28.1</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
@@ -612,7 +612,7 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.core.workflow" title="micom.workflows.core.workflow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">workflow</span></code></a>(func, args, threads=4, progress=True)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.core.workflow" title="micom.workflows.core.workflow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">workflow</span></code></a>(func, args, threads=4, description=None, progress=True)</p></td>
 <td><p>Run analyses for several samples in parallel.</p></td>
 </tr>
 </tbody>
@@ -638,7 +638,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.workflows.core.workflow">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.core.</span></span><span class="sig-name descname"><span class="pre">workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/core.html#workflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.core.workflow" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.core.</span></span><span class="sig-name descname"><span class="pre">workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/core.html#workflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.core.workflow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run analyses for several samples in parallel.</p>
 <p>This will analyze several samples in parallel. Includes a workaround for
 optlang memory leak.</p>
@@ -650,7 +650,7 @@ that performs your analysis for a single sample.</p></li>
 <li><p><strong>args</strong> (<em>array-like object</em>) – An array-like object (list, tuple, numpy array, pandas Series, etc.)
 that contains the arguments for each sample.</p></li>
 <li><p><strong>threads</strong> (<em>positive int</em>) – How many samples to analyze in parallel at once.</p></li>
-<li><p><strong>unit</strong> (<em>str</em>) – The unit used for the progress bar.</p></li>
+<li><p><strong>description</strong> (<em>str</em>) – The dewscription shown in front of the progress bar.</p></li>
 <li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
 </ul>
 </dd>

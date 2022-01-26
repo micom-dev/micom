@@ -10,7 +10,7 @@ GrowthResults = namedtuple(
 )
 
 
-def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):
+def workflow(func, args, threads=4, progress=True):
     """Run analyses for several samples in parallel.
 
     This will analyze several samples in parallel. Includes a workaround for
@@ -24,7 +24,7 @@ def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):
     args : array-like object
         An array-like object (list, tuple, numpy array, pandas Series, etc.)
         that contains the arguments for each sample.
-    n_jobs : positive int
+    threads : positive int
         How many samples to analyze in parallel at once.
     unit : str
         The unit used for the progress bar.
@@ -34,7 +34,16 @@ def workflow(func, args, n_jobs=4, unit="sample(s)", progress=True):
     if not isinstance(args, Sized):
         ValueError("`args` must have a length.")
 
-    pool = Pool(processes=n_jobs, maxtasksperchild=1)
+    # Don't generate overhead if single thread
+    if threads == 1:
+        it = map(func, args)
+        if progress:
+            it = track(it, total=len(args), description="Running")
+        return list(it)
+
+    # We don't use the context  manager because of
+    # https://pytest-cov.readthedocs.io/en/latest/subprocess-support.html
+    pool = Pool(processes=threads, maxtasksperchild=1)
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")

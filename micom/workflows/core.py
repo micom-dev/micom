@@ -34,7 +34,7 @@ def workflow(func, args, threads=4, description=None, progress=True):
     if not isinstance(args, Sized):
         ValueError("`args` must have a length.")
     if description is None:
-        descritption = "Running"
+        description = "Running"
 
     # Don't generate overhead if single thread
     if threads == 1:

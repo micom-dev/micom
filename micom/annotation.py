@@ -3,6 +3,7 @@
 from cobra.core.formula import Formula
 import pandas as pd
 from micom import Community
+import warnings
 
 
 def flatten(d):
@@ -60,7 +61,9 @@ def annotate_metabolites_from_exchanges(com):
             for r in exs
         ]
     )
-    anns = annotate(mets.metabolite.tolist(), com, "metabolite")
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", category=warnings.UserWarning)
+        anns = annotate(mets.metabolite.tolist(), com, "metabolite")
     idmap = mets[["mid", "rid"]].drop_duplicates()
     idmap.index = idmap.mid
     anns["reaction"] = idmap.loc[anns.metabolite, "rid"].values

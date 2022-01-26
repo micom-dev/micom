@@ -521,7 +521,7 @@
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="workflow"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.core.workflow">[docs]</a><span class="k">def</span> <span class="nf">workflow</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;sample(s)&quot;</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="workflow"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.core.workflow">[docs]</a><span class="k">def</span> <span class="nf">workflow</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Run analyses for several samples in parallel.</span>
 
 <span class="sd">    This will analyze several samples in parallel. Includes a workaround for</span>
@@ -535,7 +535,7 @@
 <span class="sd">    args : array-like object</span>
 <span class="sd">        An array-like object (list, tuple, numpy array, pandas Series, etc.)</span>
 <span class="sd">        that contains the arguments for each sample.</span>
-<span class="sd">    n_jobs : positive int</span>
+<span class="sd">    threads : positive int</span>
 <span class="sd">        How many samples to analyze in parallel at once.</span>
 <span class="sd">    unit : str</span>
 <span class="sd">        The unit used for the progress bar.</span>
@@ -545,7 +545,16 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">Sized</span><span class="p">):</span>
         <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`args` must have a length.&quot;</span><span class="p">)</span>
 
-    <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">,</span> <span class="n">maxtasksperchild</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Don&#39;t generate overhead if single thread</span>
+    <span class="k">if</span> <span class="n">threads</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">it</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+            <span class="n">it</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Running&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+
+    <span class="c1"># We don&#39;t use the context  manager because of</span>
+    <span class="c1"># https://pytest-cov.readthedocs.io/en/latest/subprocess-support.html</span>
+    <span class="n">pool</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span> <span class="n">maxtasksperchild</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>

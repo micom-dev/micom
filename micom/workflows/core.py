@@ -10,7 +10,7 @@ GrowthResults = namedtuple(
 )
 
 
-def workflow(func, args, threads=4, progress=True):
+def workflow(func, args, threads=4, description=None, progress=True):
     """Run analyses for several samples in parallel.
 
     This will analyze several samples in parallel. Includes a workaround for
@@ -26,19 +26,21 @@ def workflow(func, args, threads=4, progress=True):
         that contains the arguments for each sample.
     threads : positive int
         How many samples to analyze in parallel at once.
-    unit : str
-        The unit used for the progress bar.
+    description : str
+        The dewscription shown in front of the progress bar.
     progress : bool
         Whether to show a progress bar.
     """
     if not isinstance(args, Sized):
         ValueError("`args` must have a length.")
+    if description is None:
+        descritption = "Running"
 
     # Don't generate overhead if single thread
     if threads == 1:
         it = map(func, args)
         if progress:
-            it = track(it, total=len(args), description="Running")
+            it = track(it, total=len(args), description=description)
         return list(it)
 
     # We don't use the context  manager because of

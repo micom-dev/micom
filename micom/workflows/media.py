@@ -174,7 +174,7 @@ def fix_medium(
          medium.flux[medium.sample_id == s], weights]
         for s, p in paths.items()
     ]
-    res = workflow(_fix_medium, args, n_jobs=threads, unit="model(s)")
+    res = workflow(_fix_medium, args, threads=threads, description="Augmenting media")
     if all(r is None for r in res):
         raise OptimizationError(
             "All optimizations failed. You may need to increase `max_import` "

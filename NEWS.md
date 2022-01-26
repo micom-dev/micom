@@ -7,7 +7,8 @@ For information on how to use `micom` please refer to
 
 ### 0.29.0
 
-Renames the `n_jobs` arguments to `threads` across the code base for consistency.
+Renames the `n_jobs` arguments to `threads` across the code base for consistency and
+updates the arguments for `workflow`.
 
 `workflow` now does not spawn a process for single-threaded runs, reducing overhead.
 

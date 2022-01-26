@@ -49,7 +49,7 @@ def workflow(func, args, threads=4, description=None, progress=True):
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            it = pool.imap(func, args)
+            it = pool.imap_unordered(func, args)
             if progress:
                 it = track(it, total=len(args), description="Running")
             results = list(it)

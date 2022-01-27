@@ -41,7 +41,7 @@ def test_build(tmp_path):
 
 
 def test_build_no_db(tmp_path):
-    data = md.test_data()
+    data = md.test_data(uses_db=False)
     built = build(data, None, str(tmp_path), cutoff=0)
     assert built.shape[0] == 4
     assert "sample_id" in built.columns

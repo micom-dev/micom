@@ -40,13 +40,15 @@ def test_taxonomy(n=4):
     return taxa
 
 
-def test_data(n_samples=4):
+def test_data(n_samples=4, uses_db=True):
     """Create a simple test data set.
 
     Parameters
     ----------
     n_samples : positive int
         How many samples to include.
+    uses_db : bool
+        Whether the data is used with a model database.
 
     Returns
     -------
@@ -61,6 +63,8 @@ def test_data(n_samples=4):
         d["species"] += " " + d.index.astype("str")
     data = pd.concat(data)
     data["abundance"] = randint(1, 1000, data.shape[0])
+    if uses_db:
+        del data["file"]
     return(data)
 
 

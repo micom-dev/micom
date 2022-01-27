@@ -62,7 +62,7 @@ def annotate_metabolites_from_exchanges(com):
         ]
     )
     with warnings.catch_warnings():
-        warnings.simplefilter("ignore", category=warnings.UserWarning)
+        warnings.simplefilter("ignore", category=UserWarning)
         anns = annotate(mets.metabolite.tolist(), com, "metabolite")
     idmap = mets[["mid", "rid"]].drop_duplicates()
     idmap.index = idmap.mid

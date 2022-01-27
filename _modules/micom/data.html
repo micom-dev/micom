@@ -551,13 +551,15 @@
     <span class="k">return</span> <span class="n">taxa</span></div>
 
 
-<span class="k">def</span> <span class="nf">test_data</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">test_data</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">uses_db</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create a simple test data set.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    n_samples : positive int</span>
 <span class="sd">        How many samples to include.</span>
+<span class="sd">    uses_db : bool</span>
+<span class="sd">        Whether the data is used with a model database.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -572,6 +574,8 @@
         <span class="n">d</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;abundance&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">uses_db</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span>
     <span class="k">return</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 

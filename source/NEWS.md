@@ -5,6 +5,14 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.29.3
+
+Suppresses some warning in annotations from cobrapy.
+
+### 0.29.2
+
+Fixes some CI and build issues.
+
 ### 0.29.0
 
 Renames the `n_jobs` arguments to `threads` across the code base for consistency and

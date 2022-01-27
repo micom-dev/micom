@@ -34,11 +34,13 @@ Submodules
    duality/index.rst
    elasticity/index.rst
    logger/index.rst
+   measures/index.rst
    media/index.rst
    optcom/index.rst
    problems/index.rst
    qiime_formats/index.rst
    solution/index.rst
+   stats/index.rst
    taxonomy/index.rst
    util/index.rst
 

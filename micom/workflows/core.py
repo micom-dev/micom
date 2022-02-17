@@ -45,15 +45,16 @@ def workflow(func, args, threads=4, description=None, progress=True):
 
     # We don't use the context  manager because of
     # https://pytest-cov.readthedocs.io/en/latest/subprocess-support.html
-    pool = Pool(processes=threads, maxtasksperchild=1)
-    try:
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            it = pool.imap_unordered(func, args)
-            if progress:
-                it = track(it, total=len(args), description="Running")
-            results = list(it)
-    finally:
-        pool.close()
-        pool.join()
-    return results
+    if __name__ == "__main__":
+        pool = Pool(processes=threads, maxtasksperchild=1)
+        try:
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                it = pool.imap_unordered(func, args)
+                if progress:
+                    it = track(it, total=len(args), description="Running")
+                results = list(it)
+        finally:
+            pool.close()
+            pool.join()
+        return results

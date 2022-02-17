@@ -52,9 +52,9 @@ def _run_test(args):
                 "p": p,
                 "n": df.shape[0],
             },
-            index=[0]
+            index=[0],
         )
-    else:
+    elif len(groups) > 2:
         lstd = df.groupby(col).flux.apply(lambda x: np.log2(x.mean() + 1e-6)).std()
         try:
             gs = [df.flux[df[col] == c] for c in groups]
@@ -69,7 +69,7 @@ def _run_test(args):
                 "p": p,
                 "n": df.shape[0],
             },
-            index=[0]
+            index=[0],
         )
 
 
@@ -88,7 +88,7 @@ def _run_corr(args):
             "p": p,
             "n": df.shape[0],
         },
-        index=[0]
+        index=[0],
     )
 
 
@@ -129,7 +129,7 @@ def compare_groups(fluxes, metadata_column, groups=None, threads=1, progress=Tru
         (fluxes[fluxes.metabolite == m], metadata_column, groups)
         for m in fluxes.metabolite.unique()
     ]
-    res = workflow(_run_test, met_data, threads=threads)
+    res = workflow(_run_test, met_data, threads=threads, progress=progress)
     res = pd.concat(res)
     res["q"] = np.nan
     res.loc[res.p.notnull(), "q"] = fdr_adjust(res.loc[res.p.notnull(), "p"])
@@ -163,7 +163,7 @@ def correlate_fluxes(fluxes, metadata_column, groups=None, threads=1, progress=T
         (fluxes[fluxes.metabolite == m], metadata_column)
         for m in fluxes.metabolite.unique()
     ]
-    res = workflow(_run_corr, met_data, threads=threads)
+    res = workflow(_run_corr, met_data, threads=threads, progress=progress)
     res = pd.concat(res)
     res["q"] = np.nan
     res.loc[res.p.notnull(), "q"] = fdr_adjust(res.loc[res.p.notnull(), "p"])

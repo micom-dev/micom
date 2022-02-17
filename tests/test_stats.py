@@ -63,17 +63,17 @@ def test_comparison_binary():
     assert "metabolite_2" in tests[tests.p < 0.01].metabolite.values
     assert "metabolite_3" in tests[tests.p > 0.01].metabolite.values
     assert "metabolite_4" in tests[tests.p > 0.01].metabolite.values
+    assert "log_fold_change" in tests.columns
 
 
 def test_comparison_many():
     data = test_grouped_fluxes()
-    tests = ms.compare_groups(
-        data, "group", groups=["group_1", "group_3"], progress=False
-    )
+    tests = ms.compare_groups(data, "group", progress=False)
     assert "metabolite_1" in tests[tests.p < 0.01].metabolite.values
     assert "metabolite_2" in tests[tests.p < 0.01].metabolite.values
     assert "metabolite_3" in tests[tests.p > 0.01].metabolite.values
     assert "metabolite_4" in tests[tests.p > 0.01].metabolite.values
+    assert "log_mean_std" in tests.columns
 
 
 def test_correlation():

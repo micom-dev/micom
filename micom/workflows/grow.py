@@ -206,7 +206,7 @@ def grow(
     exchanges = pd.merge(exchanges, abundance, on=["taxon", "sample_id"], how="outer")
     anns = pd.concat(
         r["annotations"] for r in results if r is not None
-    ).drop_duplicates()
+    ).drop_duplicates(subset=["reaction"])
     anns.index = anns.reaction
     exchanges["metabolite"] = anns.loc[exchanges.reaction, "metabolite"].values
     exchanges["direction"] = DIRECTION[(exchanges.flux > 0.0).astype(int)].values

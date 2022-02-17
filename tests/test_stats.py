@@ -35,7 +35,7 @@ def test_grouped_fluxes(n=10):
     dfs = pd.concat(dfs)
     dfs.loc[
         dfs.group.str.contains("3") & dfs.metabolite.str.contains("1|2"), "flux"
-    ] += 50.0
+    ] += 100.0
     return dfs
 
 

@@ -208,7 +208,9 @@ def grow(
         r["annotations"] for r in results if r is not None
     ).drop_duplicates(subset=["reaction"])
     anns.index = anns.reaction
-    exchanges["metabolite"] = anns.loc[exchanges.reaction, "metabolite"].values
+    exchanges["metabolite"] = pd.merge(
+        exchanges, anns[["metabolite"]], on="reaction", how="left"
+    )
     exchanges["direction"] = DIRECTION[(exchanges.flux > 0.0).astype(int)].values
     exchanges = exchanges[exchanges.flux.abs() > exchanges.tolerance]
 

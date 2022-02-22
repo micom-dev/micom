@@ -536,7 +536,7 @@
 <div class="viewcode-block" id="plot_growth"><a class="viewcode-back" href="../../../autoapi/micom/viz/index.html#micom.viz.growth.plot_growth">[docs]</a><span class="k">def</span> <span class="nf">plot_growth</span><span class="p">(</span>
     <span class="n">results</span><span class="p">,</span>
     <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;growth_rates_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
-    <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-6</span>
+    <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Plot the taxa growth rates.</span>
 
@@ -561,9 +561,8 @@
     <span class="p">]</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;growth_rates&quot;</span><span class="p">:</span> <span class="n">rates</span><span class="p">}</span>
     <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;growth.html&quot;</span><span class="p">)</span>
-    <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">rates</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span>
-    <span class="p">)</span>
+    <span class="n">aspect</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rates</span><span class="o">.</span><span class="n">taxon</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">/</span> <span class="mi">50</span><span class="p">)</span>
+    <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">rates</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">aspect</span> <span class="o">*</span> <span class="mi">400</span><span class="p">),</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">viz</span></div>
 </pre></div>

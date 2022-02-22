@@ -7,7 +7,7 @@ from micom.viz import Visualization
 def plot_growth(
     results,
     filename="growth_rates_%s.html" % datetime.now().strftime("%Y%m%d"),
-    tolerance=1e-6
+    tolerance=1e-6,
 ):
     """Plot the taxa growth rates.
 
@@ -32,8 +32,7 @@ def plot_growth(
     ]
     data = {"growth_rates": rates}
     viz = Visualization(filename, data, "growth.html")
-    viz.save(
-        data=rates.to_json(orient="records"), width=800, height=400
-    )
+    aspect = max(0.05, rates.taxon.nunique() / 50)
+    viz.save(data=rates.to_json(orient="records"), width=int(aspect * 400), height=400)
 
     return viz

@@ -15,6 +15,7 @@ jobs:
     - name: Set up Python
       with:
         python-version: '3.8'
+        cache: 'pip'
       uses: actions/setup-python@v2
     - name: Install dependencies
       run: |

@@ -7,3 +7,8 @@ osqp>=0.6.2
 coverage
 pytest
 pytest-cov
+sphinx
+nbsphinx
+sphinx-book-theme
+sphinx-autoapi
+recommonmark

@@ -1163,8 +1163,8 @@
         <span class="k">return</span> <span class="p">[</span>
             <span class="n">r</span>
             <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reactions</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">metabolites</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="s2">&quot;m&quot;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">compartment</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">metabolites</span><span class="p">]</span></div>
-        <span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">metabolites</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="s2">&quot;m&quot;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">compartment</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">metabolites</span><span class="p">]</span>
+        <span class="p">]</span></div>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.medium"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.medium">[docs]</a>    <span class="k">def</span> <span class="nf">medium</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1212,9 +1212,9 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__db_metrics</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Metrics are only available for models build using a model &quot;</span></div>
+                <span class="s2">&quot;Metrics are only available for models build using a model &quot;</span>
                 <span class="s2">&quot;database :(&quot;</span>
-            <span class="p">)</span>
+            <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Community.optcom"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.optcom">[docs]</a>    <span class="k">def</span> <span class="nf">optcom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;lagrangian&quot;</span><span class="p">,</span> <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run OptCom for the community.</span>
@@ -1323,8 +1323,8 @@
             <span class="n">rtol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
 
         <span class="k">return</span> <span class="n">cooperative_tradeoff</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span></div>
-        <span class="p">)</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span>
+        <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Community.knockout_taxa"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.knockout_taxa">[docs]</a>    <span class="k">def</span> <span class="nf">knockout_taxa</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>

@@ -550,8 +550,8 @@
     <span class="s2">&quot;.gz&quot;</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">read_sbml_model</span><span class="p">,</span>
     <span class="s2">&quot;.mat&quot;</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">load_matlab_model</span><span class="p">,</span>
     <span class="s2">&quot;.json&quot;</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">load_json_model</span><span class="p">,</span>
-    <span class="s2">&quot;.pickle&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">fn</span><span class="p">:</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)),</span></div>
-<span class="p">}</span>
+    <span class="s2">&quot;.pickle&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">fn</span><span class="p">:</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)),</span>
+<span class="p">}</span></div>
 
 <div class="viewcode-block" id="COMPARTMENT_RE"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.COMPARTMENT_RE">[docs]</a><span class="n">COMPARTMENT_RE</span> <span class="o">=</span> <span class="s2">&quot;(_</span><span class="si">{}</span><span class="s2">$)|([^a-zA-Z0-9 :]</span><span class="si">{}</span><span class="s2">[^a-zA-Z0-9 :]$)&quot;</span></div>
 
@@ -641,8 +641,8 @@
         <span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;serializing </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
         <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
-            <span class="n">model</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">fname</span> <span class="o">+</span> <span class="s2">&quot;.pickle&quot;</span><span class="p">),</span> <span class="s2">&quot;wb&quot;</span><span class="p">),</span> <span class="n">protocol</span><span class="o">=</span><span class="mi">2</span></div>
-        <span class="p">)</span>  <span class="c1"># required for Python 2 compat</span>
+            <span class="n">model</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="n">fname</span> <span class="o">+</span> <span class="s2">&quot;.pickle&quot;</span><span class="p">),</span> <span class="s2">&quot;wb&quot;</span><span class="p">),</span> <span class="n">protocol</span><span class="o">=</span><span class="mi">2</span>
+        <span class="p">)</span>  <span class="c1"># required for Python 2 compat</span></div>
 
 
 <div class="viewcode-block" id="chr_or_input"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.chr_or_input">[docs]</a><span class="k">def</span> <span class="nf">chr_or_input</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
@@ -766,8 +766,8 @@
     <span class="k">if</span> <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">&quot;Community already carries a modification &quot;</span>
-            <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">modification</span><span class="p">)</span></div>
-        <span class="p">)</span>
+            <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">)!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">modification</span><span class="p">)</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="_format_min_growth"><a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom._format_min_growth">[docs]</a><span class="k">def</span> <span class="nf">_format_min_growth</span><span class="p">(</span><span class="n">min_growth</span><span class="p">,</span> <span class="n">taxa</span><span class="p">):</span>

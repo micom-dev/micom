@@ -25,6 +25,7 @@ single_df = lambda: pd.DataFrame(
 
 
 def test_grouped_fluxes(n=10):
+    np.random.seed(42)
     dfs = []
     for group in range(1, 4):
         for i in range(1, n + 1):
@@ -40,6 +41,7 @@ def test_grouped_fluxes(n=10):
 
 
 def test_correlated_fluxes(n=10):
+    np.random.seed(42)
     dfs = []
     for t in range(1, 9):
         for i in range(1, n + 1):

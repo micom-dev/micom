@@ -5,8 +5,6 @@ import pandas as pd
 from micom import Community
 import warnings
 
-DIRECTION = {True: "export", False: "import"}
-"""Specifies the direction of an exchange."""
 
 def flatten(d):
     """Flatten a dictionary into strings."""

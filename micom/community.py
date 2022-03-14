@@ -361,7 +361,7 @@ class Community(cobra.Model):
                 medium_met.community_id = "medium"
                 ex_medium = cobra.Reaction(
                     id="EX_" + medium_met.id,
-                    name=medium_met.id + " medium exchange",
+                    name=f"{medium_met.name} exchange in the environment/medium",
                     lower_bound=lb,
                     upper_bound=ub,
                 )

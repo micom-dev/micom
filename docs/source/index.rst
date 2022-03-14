@@ -79,7 +79,7 @@ Indices and tables
 
 .. |actions status| image:: https://github.com/micom-dev/micom/workflows/Python%20package/badge.svg
    :target: https://github.com/micom-dev/micom/actions
-.. |coverage| image:: https://codecov.io/gh/micom-dev/micom/branch/master/graph/badge.svg
+.. |coverage| image:: https://codecov.io/gh/micom-dev/micom/branch/main/graph/badge.svg
    :target: https://codecov.io/gh/micom-dev/micom
 .. |pypi status| image:: https://img.shields.io/pypi/v/micom.svg
    :target: https://pypi.org/project/micom/

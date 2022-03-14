@@ -72,7 +72,7 @@ def crc_results():
     """Return growth results for a realistic example data sets.
 
     This will give you access to the results as produced by the community tutorial
-    at https://github.com/micom-dev/q2-micom/tree/master/docs.
+    at https://github.com/micom-dev/q2-micom/tree/main/docs.
 
     Returns
     -------
@@ -86,7 +86,7 @@ def crc_tradeoff():
     """Return tradeoff results for a realistic example data set.
 
     This will give you access to the tradeoffs as produced by the community tutorial
-    at https://github.com/micom-dev/q2-micom/tree/master/docs.
+    at https://github.com/micom-dev/q2-micom/tree/main/docs.
 
     Returns
     -------

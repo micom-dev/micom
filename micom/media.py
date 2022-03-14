@@ -242,7 +242,7 @@ def minimal_medium(
         ex = [r for r in com.exchanges if r.id in set_medium]
         for rxn in ex:
             export = len(rxn.reactants) == 1
-            flux = sol.fluxes.loc["medium", rxn.id]
+            flux = sol.fluxes[rxn.id]
             if abs(flux) < atol:
                 continue
             if export:
@@ -348,7 +348,7 @@ def complete_medium(
             add_linear_obj(model, candidates, scales)
         if isinstance(model, Community):
             sol = model.optimize(fluxes=True, pfba=False)
-            fluxes = sol.fluxes.loc["medium", :]
+            fluxes = sol.fluxes[sol.ids.taxon == "medium"]
         else:
             try:
                 sol = model.optimize(raise_error=True)

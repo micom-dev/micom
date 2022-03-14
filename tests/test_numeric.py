@@ -15,7 +15,7 @@ def test_crossover(community):
     sol = ms.crossover(community, sol, fluxes=True)
     for i, g in enumerate(gcs):
         assert sol.members.growth_rate[i] == approx(g)
-        assert sol.fluxes.shape[1] > 100
+        assert len(sol.fluxes) == 400
 
 
 def test_reset(community):

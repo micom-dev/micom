@@ -24,6 +24,16 @@ from swiglpk import glp_adv_basis
 good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL, ITERATION_LIMIT]
 """Solver states that permit returning the solution."""
 
+DIRECTION = {True: "export", False: "import"}
+"""Specifies the direction of an exchange."""
+
+
+def flip_direction(fluxes, directions):
+    flipper = pd.Series({"import": "export", "export": "import"})
+    dirs = directions.copy()
+    dirs[fluxes < 0.0] = flipper[dirs].values
+    return dirs
+
 
 def _group_taxa(values, ids, taxa, what="reaction"):
     """Format a list of values by id and taxa."""
@@ -55,16 +65,6 @@ class CommunitySolution(Solution):
         by compartment. Columns denote individual fluxes and rows denote
         compartments: one for every taxon plus one for the external medium.
         Fluxes will be NA if the reaction does not exist in the organism.
-    reduced_costs : pandas.Series
-        Contains reaction reduced costs (dual values of variables) stratified
-        by taxa. Columns denote individual fluxes and rows denote taxa.
-        Reduced costs will be NA if the reaction does not exist in the
-        organism.
-    shadow_prices : pandas.Series
-        Contains metabolite shadow prices (dual values of constraints)
-        stratified by taxa. Columns denote individual metabolites and rows
-        denote taxa. Shadow prices will be NA if the metabolite does not
-        exist in the organism.
 
     """
 
@@ -79,13 +79,16 @@ class CommunitySolution(Solution):
         if not slim:
             var_primals = community.solver.primal_values
             fluxes = pd.Series(
-                [var_primals[r.id] - var_primals[r.reverse_id] for r in reactions],
+                {
+                    r.id: var_primals[r.id] - var_primals[r.reverse_id]
+                    for r in reactions
+                },
                 name="fluxes",
             )
             super(CommunitySolution, self).__init__(
                 community.solver.objective.value,
                 community.solver.status,
-                _group_taxa(fluxes, rids[:, 0], rids[:, 1]),
+                fluxes,
                 None,
                 None,
             )
@@ -119,31 +122,59 @@ class CommunitySolution(Solution):
             self.primal_residual = community.solver.problem.info.pri_res
             self.dual_residual = community.solver.problem.info.dua_res
 
+        # Save information needed to stratify fluxes
+        self.tolerance = community.solver.configuration.tolerances.feasibility
+        self.rxn_names = pd.Series({r.global_id: r.name for r in community.reactions})
+        self.ids = pd.DataFrame.from_records(
+            rids, index=[r.id for r in reactions], columns=["reaction", "taxon"]
+        )
+        self.directions = pd.Series(
+            {
+                r.id: DIRECTION[len(r.reactants) > 0]
+                for r in community.exchanges + community.internal_exchanges
+            }
+        )
+
+    @property
+    def exchange_fluxes(self):
+        df = self.fluxes[self.directions.index].to_frame("flux")
+        df["micom_id"] = df.index
+        df["reaction"] = self.ids.loc[df.index, "reaction"]
+        df["name"] = self.rxn_names[df.reaction].values
+        df["taxon"] = self.ids.loc[df.index, "taxon"]
+        df["direction"] = flip_direction(df["flux"], self.directions[df.index])
+        df.reset_index(drop=True, inplace=True)
+        return df[["reaction", "name", "taxon", "flux", "direction", "micom_id"]]
+
+    @property
+    def internal_fluxes(self):
+        df = self.fluxes.to_frame("flux")
+        df["micom_id"] = df.index
+        df["reaction"] = self.ids.loc[df.index, "reaction"]
+        df["name"] = self.rxn_names[df.reaction].values
+        df["taxon"] = self.ids.loc[df.index, "taxon"]
+        df.reset_index(drop=True, inplace=True)
+        return df[["reaction", "name", "taxon", "flux", "micom_id"]]
+
     def _repr_html_(self):
         if self.status in good:
             with pd.option_context("display.max_rows", 10):
                 html = (
-                    "<strong>community growth:</strong> {:.3f}"
-                    "<br><strong>status:</strong> {}"
-                    "<br><strong>taxa:</strong>{}".format(
-                        sum(
-                            self.members.abundance.dropna()
-                            * self.members.growth_rate.dropna()
-                        ),
-                        self.status,
-                        self.members._repr_html_(),
-                    )
+                    f"<strong>community growth:</strong> {self.growth_rate:.3f}"
+                    f"<br><strong>status:</strong> {self.status}"
+                    f"<br><strong>taxa:</strong>{self.members._repr_html_()}"
                 )
         else:
-            html = "<strong>{}</strong> solution :(".format(self.status)
+            html = f"<strong>{self.status}</strong> solution :("
         return html
 
     def __repr__(self):
         """Convert CommunitySolution instance to string representation."""
         if self.status not in good:
-            return "<CommunitySolution {0:s} at 0x{1:x}>".format(self.status, id(self))
-        return "<CommunitySolution {0:.3f} at 0x{1:x}>".format(
-            self.growth_rate, id(self)
+            return f"<CommunitySolution {self.status} at 0x{id(self):x}>"
+        return (
+            f"<CommunitySolution {self.growth_rate:.3f}±{self.tolerance:g} "
+            f"at 0x{id(self):x}>"
         )
 
 
@@ -179,7 +210,7 @@ def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
     community.objective_direction = "min"
     community.objective.set_linear_coefficients(dict.fromkeys(variables, 1.0))
     if interface_to_str(community.solver.interface) == "osqp":
-        community.objective += 1e-6 * community.variables.community_objective ** 2
+        community.objective += 1e-6 * community.variables.community_objective**2
     if community.modification is None:
         community.modification = "pFBA"
     else:
@@ -193,7 +224,7 @@ def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=
         community.objective = community.objective.expression + (
             1e-6
             * community.solver.problem.direction
-            * community.variables.community_objective ** 2
+            * community.variables.community_objective**2
         )
     community.solver.optimize()
     status = community.solver.status
@@ -214,7 +245,7 @@ def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=
         else:
             sol = CommunitySolution(community, slim=True)
         if interface_to_str(community.solver.interface) == "osqp":
-            correction = 1e-9 * community.variables.community_objective.primal ** 2
+            correction = 1e-9 * community.variables.community_objective.primal**2
             sol.objective_value -= community.solver.problem.direction * correction
         return sol
     logger.warning("solver encountered an error %s" % status)

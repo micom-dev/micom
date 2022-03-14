@@ -17,14 +17,6 @@ from rich.progress import track
 STEP = 0.1
 
 
-def _get_fluxes(sol, reactions):
-    """Get the primal values for a set of variables."""
-    fluxes = {
-        r.id: sol.fluxes.loc[r.community_id, r.global_id] for r in reactions
-    }
-    return pd.Series(fluxes)
-
-
 def _derivatives(before, after):
     """Get the elasticities for fluxes."""
     before_signs = np.sign(before)
@@ -59,13 +51,13 @@ def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
     """
     regularize_l2_norm(com, 0.0)
     sol = optimize_with_fraction(com, fraction, growth_rate, True)
-    before = _get_fluxes(sol, reactions)
+    before = sol.fluxes[[r.id for r in reactions]]
     import_fluxes = pd.Series(dtype="float64")
     dfs = []
 
     for ex in com.exchanges:
         export = len(ex.reactants) == 1
-        flux = sol.fluxes.loc[ex.community_id, ex.global_id]
+        flux = sol.fluxes[ex.id]
         if export and (flux < -1e-6):
             import_fluxes[ex] = flux
         elif not export and (flux > 1e-6):
@@ -84,7 +76,7 @@ def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
             else:
                 r.upper_bound *= np.exp(STEP)
             sol = optimize_with_fraction(com, fraction, growth_rate, True)
-            after = _get_fluxes(sol, reactions)
+            after = sol.fluxes[[r.id for r in reactions]]
         deriv, dirs = _derivatives(before, after)
         res = pd.DataFrame(
             {
@@ -119,7 +111,7 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     """
     regularize_l2_norm(com, 0.0)
     sol = optimize_with_fraction(com, fraction, growth_rate, True)
-    before = _get_fluxes(sol, reactions)
+    before = sol.fluxes[[r.id for r in reactions]]
     dfs = []
 
     abundance = com.abundances.copy()
@@ -132,7 +124,7 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
         abundance.loc[sp] *= np.exp(STEP)
         com.set_abundance(abundance, normalize=False)
         sol = optimize_with_fraction(com, fraction, growth_rate, True)
-        after = _get_fluxes(sol, reactions)
+        after = sol.fluxes[[r.id for r in reactions]]
         abundance.loc[sp] = old
         com.set_abundance(abundance, normalize=False)
         deriv, dirs = _derivatives(before, after)

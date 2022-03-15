@@ -1,13 +1,13 @@
 """Implements optimization and model problems."""
 
-from micom.duality import fast_dual
-from micom.util import (
+from .duality import fast_dual
+from .util import (
     _format_min_growth,
     _apply_min_growth,
     check_modification,
 )
-from micom.logger import logger
-from micom.solution import solve
+from .logger import logger
+from .solution import solve
 from optlang.symbolics import Zero
 from functools import partial
 
@@ -121,9 +121,7 @@ def add_moma_optcom(community, min_growth, linear=False):
     _apply_min_growth(community, min_growth)
     dual_coefs = fast_dual(community)
     coefs.update({v: -coef for v, coef in dual_coefs.items()})
-    obj_constraint = prob.Constraint(
-        Zero, lb=0, ub=0, name="optcom_suboptimality"
-    )
+    obj_constraint = prob.Constraint(Zero, lb=0, ub=0, name="optcom_suboptimality")
     community.add_cons_vars([obj_constraint])
     community.solver.update()
     obj_constraint.set_linear_coefficients(coefs)
@@ -135,7 +133,7 @@ def add_moma_optcom(community, min_growth, linear=False):
         taxa_obj = community.constraints["objective_" + sp]
         ex = v - taxa_obj.expression
         if not linear:
-            ex = ex ** 2
+            ex = ex**2
         obj_expr += ex.expand()
     community.objective = prob.Objective(obj_expr, direction="min")
     community.modification = "moma optcom"
@@ -149,7 +147,7 @@ _methods = {
 }
 
 
-def optcom(community, strategy, min_growth, fluxes, pfba):
+def optcom(community, strategy="original", min_growth=0.0, fluxes=False, pfba=True):
     """Run OptCom for the community.
 
     OptCom methods are a group of optimization procedures to find community
@@ -202,9 +200,7 @@ def optcom(community, strategy, min_growth, fluxes, pfba):
 
     """
     if strategy not in _methods:
-        raise ValueError(
-            "strategy must be one of {}!".format(",".join(_methods))
-        )
+        raise ValueError("strategy must be one of {}!".format(",".join(_methods)))
     funcs = _methods[strategy]
 
     with community as com:

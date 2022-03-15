@@ -1,10 +1,10 @@
 """Workflow to run cooperative tradeoff with various tradeoff values."""
 
 from cobra.util.solver import OptimizationError
-from micom import load_pickle
-from micom.logger import logger
-from micom.workflows.core import workflow
-from micom.workflows.media import process_medium
+from ..util import load_pickle
+from ..logger import logger
+from .core import workflow
+from .media import process_medium
 import numpy as np
 from os import path
 import pandas as pd

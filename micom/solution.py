@@ -16,8 +16,8 @@ from functools import partial
 from cobra.exceptions import OptimizationError
 from cobra.core import Solution
 from cobra.util import interface_to_str, get_context
-from micom.logger import logger
-from micom.util import reset_min_community_growth, _apply_min_growth
+from .logger import logger
+from .util import reset_min_community_growth, _apply_min_growth
 from swiglpk import glp_adv_basis
 
 
@@ -28,19 +28,12 @@ DIRECTION = {True: "export", False: "import"}
 """Specifies the direction of an exchange."""
 
 
-def flip_direction(fluxes, directions):
+def _flip_direction(fluxes, directions):
+    """Assign the flow direction of the reactions based on the flux."""
     flipper = pd.Series({"import": "export", "export": "import"})
     dirs = directions.copy()
     dirs[fluxes < 0.0] = flipper[dirs].values
     return dirs
-
-
-def _group_taxa(values, ids, taxa, what="reaction"):
-    """Format a list of values by id and taxa."""
-    df = pd.DataFrame({values.name: values, what: ids, "compartment": taxa})
-    df = df.pivot(index="compartment", columns=what, values=values.name)
-    df.name = values.name
-    return df
 
 
 class CommunitySolution(Solution):
@@ -137,17 +130,36 @@ class CommunitySolution(Solution):
 
     @property
     def exchange_fluxes(self):
+        """Get the exchange fluxes for the current solution.
+
+        Returns
+        -------
+        pandas.DataFrame
+            A dataframe containing the reaction ID, description, taxon, flux,
+            direction and MICOM ID for all exchange reactions in the model. Exchange
+            reaction from and into the environment/medium have an assigned taxon of
+            "medium".
+        """
         df = self.fluxes[self.directions.index].to_frame("flux")
         df["micom_id"] = df.index
         df["reaction"] = self.ids.loc[df.index, "reaction"]
         df["name"] = self.rxn_names[df.reaction].values
         df["taxon"] = self.ids.loc[df.index, "taxon"]
-        df["direction"] = flip_direction(df["flux"], self.directions[df.index])
+        df["direction"] = _flip_direction(df["flux"], self.directions[df.index])
         df.reset_index(drop=True, inplace=True)
         return df[["reaction", "name", "taxon", "flux", "direction", "micom_id"]]
 
     @property
     def internal_fluxes(self):
+        """Get all fluxes for reaction within individual taxa.
+
+        Returns
+        -------
+        pandas.DataFrame
+            A dataframe containing the reaction ID, description, taxon, flux,
+            and MICOM ID for all reactions inside each taxon. This *excludes* all
+            exchange reactions.
+        """
         df = self.fluxes.to_frame("flux")
         df["micom_id"] = df.index
         df["reaction"] = self.ids.loc[df.index, "reaction"]
@@ -245,7 +257,7 @@ def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=
         else:
             sol = CommunitySolution(community, slim=True)
         if interface_to_str(community.solver.interface) == "osqp":
-            correction = 1e-9 * community.variables.community_objective.primal**2
+            correction = 1e-6 * community.variables.community_objective.primal**2
             sol.objective_value -= community.solver.problem.direction * correction
         return sol
     logger.warning("solver encountered an error %s" % status)

@@ -1,7 +1,7 @@
 """Visualizations for tradeoff analysis."""
 
 from datetime import datetime
-from micom.viz import Visualization
+from .core import Visualization
 import numpy as np
 import pandas as pd
 
@@ -9,7 +9,7 @@ import pandas as pd
 def plot_tradeoff(
     tradeoff_rates,
     filename="tradeoff_%s.html" % datetime.now().strftime("%Y%m%d"),
-    tolerance=1e-6
+    tolerance=1e-6,
 ):
     """Plot diagnostics for varying tradeoff values.
 

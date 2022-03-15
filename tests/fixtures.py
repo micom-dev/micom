@@ -10,6 +10,7 @@ import pandas as pd
 this_dir, _ = path.split(__file__)
 medium = micom.qiime_formats.load_qiime_medium(md.test_medium)
 
+
 @pytest.fixture
 def community():
     """A simple community containing 4 species."""
@@ -19,9 +20,7 @@ def community():
 @pytest.fixture
 def linear_community():
     """A simple community containing 4 species."""
-    return micom.Community(micom.data.test_taxonomy(), progress=False,
-                           solver="glpk")
-
+    return micom.Community(micom.data.test_taxonomy(), progress=False, solver="glpk")
 
 
 def check_viz(v):

@@ -24,10 +24,10 @@ def test_abundance_cutoff():
 
 
 def test_abundances(community):
-    assert np.allclose(community.abundances, np.ones(4)/4)
+    assert np.allclose(community.abundances, np.ones(4) / 4)
 
     ab = np.array([1.0, 2.0, 1e-8, 3.0])
-    expected = np.array([1.0/6, 2.0/6, 1e-6, 3.0/6])
+    expected = np.array([1.0 / 6, 2.0 / 6, 1e-6, 3.0 / 6])
     community.abundances = ab
     assert np.allclose(community.abundances, expected)
 

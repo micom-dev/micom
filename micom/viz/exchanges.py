@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from scipy.cluster.hierarchy import linkage, leaves_list
-from micom.viz.core import Visualization
+from .core import Visualization
 import pandas as pd
 from sklearn.manifold import TSNE
 

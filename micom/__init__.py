@@ -1,8 +1,8 @@
 """Simple init file for mico."""
 
-from micom.community import Community
-from micom.deps import show_versions
-from micom.util import load_pickle
+from .community import Community
+from .deps import show_versions
+from .util import load_pickle
 from micom import (
     algorithms,
     problems,

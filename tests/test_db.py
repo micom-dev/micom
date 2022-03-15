@@ -28,12 +28,10 @@ def test_qiime_community():
 def test_dir_build(tmp_path, rank):
     manifest = mm.data.test_taxonomy()
     with raises(ValueError):
-        dman = mw.build_database(manifest, str(tmp_path), rank=rank,
-                                 progress=False)
+        dman = mw.build_database(manifest, str(tmp_path), rank=rank, progress=False)
     for co in ["kingdom", "phylum", "class", "order", "family"]:
         manifest[co] = "fake"
-    dman = mw.build_database(manifest, str(tmp_path), rank=rank,
-                             progress=False)
+    dman = mw.build_database(manifest, str(tmp_path), rank=rank, progress=False)
     assert dman.shape[0] == 1
     assert path.exists(str(tmp_path / dman.file[0]))
     assert path.exists(str(tmp_path / "manifest.csv"))
@@ -50,12 +48,12 @@ def test_dir_build(tmp_path, rank):
 def test_zip_build(tmp_path, rank):
     manifest = mm.data.test_taxonomy()
     with raises(ValueError):
-        dman = mw.build_database(manifest, str(tmp_path), rank=rank,
-                                 progress=False)
+        dman = mw.build_database(manifest, str(tmp_path), rank=rank, progress=False)
     for co in ["kingdom", "phylum", "class", "order", "family"]:
         manifest[co] = "fake"
-    dman = mw.build_database(manifest, str(tmp_path / "test.zip"), rank=rank,
-                             progress=False)
+    dman = mw.build_database(
+        manifest, str(tmp_path / "test.zip"), rank=rank, progress=False
+    )
     assert dman.shape[0] == 1
     assert path.exists(str(tmp_path / "test.zip"))
     tax = mm.data.test_taxonomy()
@@ -65,4 +63,3 @@ def test_zip_build(tmp_path, rank):
     assert m[1] == 4
     assert m[2] == 1.0
     assert m[3] == 1.0
-

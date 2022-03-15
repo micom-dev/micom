@@ -1,7 +1,7 @@
 """Helpers to convert external data to a MICOM taxonomy."""
 
-from micom.community import _ranks
-from micom.qiime_formats import (
+from .community import _ranks
+from .qiime_formats import (
     load_qiime_feature_table,
     load_qiime_taxonomy,
 )
@@ -9,9 +9,7 @@ import pandas as pd
 
 
 def build_from_qiime(
-    abundance,
-    taxonomy: pd.Series,
-    collapse_on="genus"
+    abundance, taxonomy: pd.Series, collapse_on="genus"
 ) -> pd.DataFrame:
     """Build the specification for the community models."""
     taxa = taxonomy.str.replace("[\\w_]+__|\\[|\\]", "", regex=True)
@@ -23,11 +21,7 @@ def build_from_qiime(
     if isinstance(collapse_on, str):
         collapse_on = [collapse_on]
 
-    ranks = [
-        r
-        for r in collapse_on
-        if r in taxa.columns
-    ]
+    ranks = [r for r in collapse_on if r in taxa.columns]
     taxa["mapping_ranks"] = taxa[ranks].apply(
         lambda s: "|".join(s.astype("str")), axis=1
     )
@@ -35,7 +29,8 @@ def build_from_qiime(
     abundance = (
         abundance.collapse(
             lambda id_, x: taxa.loc[id_, "mapping_ranks"],
-            axis="observation", norm=False
+            axis="observation",
+            norm=False,
         )
         .to_dataframe(dense=True)
         .T
@@ -48,7 +43,7 @@ def build_from_qiime(
     abundance = pd.merge(
         abundance[abundance.abundance > 0.0],
         taxa[ranks + ["mapping_ranks"]].drop_duplicates(),
-        on="mapping_ranks"
+        on="mapping_ranks",
     )
     abundance["id"] = abundance["mapping_ranks"].replace(
         r"[^A-Za-z0-9_]+", "_", regex=True

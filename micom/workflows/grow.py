@@ -1,12 +1,12 @@
 """Performs growth and exchange analysis for several models."""
 
 from cobra.util.solver import interface_to_str, OptimizationError
-from micom import load_pickle
-from micom.annotation import annotate_metabolites_from_exchanges
-from micom.logger import logger
-from micom.media import minimal_medium
-from micom.workflows.core import workflow, GrowthResults
-from micom.workflows.media import process_medium
+from ..util import load_pickle
+from ..annotation import annotate_metabolites_from_exchanges
+from ..logger import logger
+from ..media import minimal_medium
+from .core import workflow, GrowthResults
+from .media import process_medium
 from os import path
 import pandas as pd
 
@@ -201,9 +201,7 @@ def grow(
         r["annotations"] for r in results if r is not None
     ).drop_duplicates(subset=["reaction"])
     anns.index = anns.reaction
-    exchanges = pd.merge(
-        exchanges, anns[["metabolite"]], on="reaction", how="left"
-    )
+    exchanges = pd.merge(exchanges, anns[["metabolite"]], on="reaction", how="left")
     exchanges["direction"] = DIRECTION[(exchanges.flux > 0.0).astype(int)].values
     exchanges = exchanges[exchanges.flux.abs() > exchanges.tolerance]
 

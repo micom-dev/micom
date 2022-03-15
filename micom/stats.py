@@ -136,8 +136,8 @@ def compare_groups(fluxes, metadata_column, groups=None, threads=1, progress=Tru
     return res
 
 
-def correlate_fluxes(fluxes, metadata_column, groups=None, threads=1, progress=True):
-    """Compare fluxes form different sample groups.
+def correlate_fluxes(fluxes, metadata_column, threads=1, progress=True):
+    """Get correlations between fluxes and a continuous covariate.
 
     Note
     ----
@@ -149,7 +149,8 @@ def correlate_fluxes(fluxes, metadata_column, groups=None, threads=1, progress=T
         A frame with net fluxes as returned by `production_rates` or
         `consumption_rates`.
     metatdata_column : str
-        The column of the DataFrame denoting the covariate.
+        The column of the DataFrame denoting the covariate. Must be a continuous
+        measure.
     threads : int
         How many threads to use to run tests in parallel.
     progress : bool

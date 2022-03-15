@@ -2,15 +2,15 @@
 
 import pandas as pd
 from cobra.medium import find_external_compartment
-from micom.annotation import annotate_metabolites_from_exchanges
-from micom.db import load_zip_model_db, load_manifest
-from micom.workflows.core import workflow
-from micom.workflows.media import process_medium
-import micom.media as mm
-from micom.logger import logger
-from micom.solution import OptimizationError
-from micom.util import load_model
-from micom.qiime_formats import load_qiime_model_db
+from ..annotation import annotate_metabolites_from_exchanges
+from ..db import load_zip_model_db, load_manifest
+from .core import workflow
+from .media import process_medium
+from .. import media as mm
+from ..logger import logger
+from ..solution import OptimizationError
+from ..util import load_model
+from ..qiime_formats import load_qiime_model_db
 import re
 from tempfile import TemporaryDirectory
 

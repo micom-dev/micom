@@ -66,7 +66,7 @@ def test_community_objective(community):
     y = community.optimize(fluxes=True)
     assert isinstance(x, CommunitySolution)
     assert x.growth_rate == approx(0.873922, 1e-3, 1e-3)
-    assert x.members.growth_rate.dropna().sum() == approx(4*0.873922, 1e-2, 1e-2)
+    assert x.members.growth_rate.dropna().sum() == approx(4 * 0.873922, 1e-2, 1e-2)
     assert isinstance(y, CommunitySolution)
     assert len(y.fluxes) == 400
 

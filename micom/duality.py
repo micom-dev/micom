@@ -1,7 +1,7 @@
 """Implements a fast dual formulation."""
 
 from sympy.core.singleton import S
-from micom.logger import logger
+from .logger import logger
 
 
 def fast_dual(model, prefix="dual_"):
@@ -73,9 +73,7 @@ def fast_dual(model, prefix="dual_"):
                 dual_objective[const_var.name] = sign * constraint.lb
             coefs = constraint.get_linear_coefficients(constraint.variables)
             for variable, coef in coefs.items():
-                coefficients.setdefault(variable.name, {})[const_var.name] = (
-                    sign * coef
-                )
+                coefficients.setdefault(variable.name, {})[const_var.name] = sign * coef
         else:
             if constraint.lb is not None:
                 lb_var = prob.Variable(
@@ -92,12 +90,9 @@ def fast_dual(model, prefix="dual_"):
                 if constraint.ub != 0:
                     dual_objective[ub_var.name] = sign * constraint.ub
 
-            if not (
-                constraint.expression.is_Add or constraint.expression.is_Mul
-            ):
+            if not (constraint.expression.is_Add or constraint.expression.is_Mul):
                 raise ValueError(
-                    "Invalid expression type: "
-                    + str(type(constraint.expression))
+                    "Invalid expression type: " + str(type(constraint.expression))
                 )
             if constraint.expression.is_Add:
                 coefficients_dict = constraint.get_linear_coefficients(
@@ -120,9 +115,7 @@ def fast_dual(model, prefix="dual_"):
     # Add dual variables from primal bounds
     for variable in model.variables:
         if not variable.type == "continuous":
-            raise ValueError(
-                "Integer variables are not supported: " + str(variable)
-            )
+            raise ValueError("Integer variables are not supported: " + str(variable))
         if variable.lb is not None and variable.lb < 0:
             raise ValueError(
                 "Problem is not in standard form ("
@@ -130,16 +123,12 @@ def fast_dual(model, prefix="dual_"):
                 + " can be negative)"
             )
         if variable.lb > 0:
-            bound_var = prob.Variable(
-                prefix + variable.name + "_lb", lb=0, ub=None
-            )
+            bound_var = prob.Variable(prefix + variable.name + "_lb", lb=0, ub=None)
             to_add.append(bound_var)
             coefficients.setdefault(variable.name, {})[bound_var.name] = -sign
             dual_objective[bound_var.name] = -sign * variable.lb
         if variable.ub is not None:
-            bound_var = prob.Variable(
-                prefix + variable.name + "_ub", lb=0, ub=None
-            )
+            bound_var = prob.Variable(prefix + variable.name + "_ub", lb=0, ub=None)
             to_add.append(bound_var)
             coefficients.setdefault(variable.name, {})[bound_var.name] = sign
             if variable.ub != 0:
@@ -154,13 +143,9 @@ def fast_dual(model, prefix="dual_"):
     for variable in model.objective.variables:
         obj_coef = primal_objective_dict[variable]
         if maximization:
-            const = prob.Constraint(
-                S.Zero, lb=obj_coef, name=prefix + variable.name
-            )
+            const = prob.Constraint(S.Zero, lb=obj_coef, name=prefix + variable.name)
         else:
-            const = prob.Constraint(
-                S.Zero, ub=obj_coef, name=prefix + variable.name
-            )
+            const = prob.Constraint(S.Zero, ub=obj_coef, name=prefix + variable.name)
         model.add_cons_vars([const])
         model.solver.update()
         coefs = {
@@ -171,9 +156,7 @@ def fast_dual(model, prefix="dual_"):
 
     # Make dual objective
     coefs = {
-        model.variables[vid]: coef
-        for vid, coef in dual_objective.items()
-        if coef != 0
+        model.variables[vid]: coef for vid, coef in dual_objective.items() if coef != 0
     }
     logger.info("dual model has {} terms in objective".format(len(coefs)))
 

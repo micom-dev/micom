@@ -5,8 +5,8 @@ import pickle
 import cobra
 import pandas as pd
 from optlang.symbolics import Zero
-from micom.db import load_zip_model_db, load_manifest
-from micom.util import (
+from .db import load_zip_model_db, load_manifest
+from .util import (
     load_model,
     join_models,
     add_var_from_expression,
@@ -15,10 +15,10 @@ from micom.util import (
     compartment_id,
     COMPARTMENT_RE,
 )
-from micom.logger import logger
-from micom.optcom import optcom, solve
-from micom.problems import cooperative_tradeoff, knockout_taxa
-from micom.qiime_formats import load_qiime_model_db
+from .logger import logger
+from .solution import solve
+from .problems import cooperative_tradeoff, knockout_taxa
+from .qiime_formats import load_qiime_model_db
 from rich.progress import track
 from tempfile import TemporaryDirectory
 
@@ -687,61 +687,6 @@ class Community(cobra.Model):
                 "database :("
             )
 
-    def optcom(self, strategy="lagrangian", min_growth=0.0, fluxes=False, pfba=True):
-        """Run OptCom for the community.
-
-        OptCom methods are a group of optimization procedures to find community
-        solutions that provide a tradeoff between the cooperative community
-        growth and the egoistic growth of each individual [#c1]_. `micom`
-        provides several strategies that can be used to find optimal solutions:
-
-        - "moma": Minimization of metabolic adjustment. Simultaneously
-          optimizes the community objective (maximize) and the cooperativity
-          cost (minimize). This method finds an exact maximum but doubles the
-          number of required variables, thus being slow.
-        - "lmoma": The same as "moma" only with a linear
-          representation of the cooperativity cost (absolute value).
-        - "original": Solves the multi-objective problem described in [#c1]_.
-          Here, the community growth rate is maximized simultanously with all
-          individual growth rates. Note that there are usually many
-          Pareto-optimal solutions to this problem and the method will only
-          give one solution. This is also the slowest method.
-
-        Parameters
-        ----------
-        community : micom.Community
-            The community to optimize.
-        strategy : str
-            The strategy used to solve the OptCom formulation. Defaults to
-            "lagrangian" which gives a decent tradeoff between speed and
-            correctness.
-        min_growth : float or array-like
-            The minimal growth rate required for each individual. May be a
-            single value or an array-like object with the same length as there
-            are individuals.
-        fluxes : boolean
-            Whether to return the fluxes as well.
-        pfba : boolean
-            Whether to obtain fluxes by parsimonious FBA rather than
-            "classical" FBA.
-
-        Returns
-        -------
-        micom.CommunitySolution
-            The solution of the optimization. If fluxes==False will only
-            contain the objective value, community growth rate and individual
-            growth rates.
-
-        References
-        ----------
-        .. [#c1] OptCom: a multi-level optimization framework for the metabolic
-           modeling and analysis of microbial communities.
-           Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.
-           doi: 10.1371/journal.pcbi.1002363, PMID: 22319433
-
-        """
-        return optcom(self, strategy, min_growth, fluxes, pfba)
-
     def cooperative_tradeoff(
         self,
         min_growth=0.0,
@@ -796,6 +741,58 @@ class Community(cobra.Model):
         return cooperative_tradeoff(
             self, min_growth, fraction, fluxes, pfba, atol, rtol
         )
+
+    def ctFBA(
+        self,
+        min_growth=0.0,
+        fraction=1.0,
+        fluxes=False,
+        pfba=False,
+        atol=None,
+        rtol=None,
+    ):
+        """Find the best tradeoff between community and individual growth.
+
+        Finds the set of growth rates which maintian a particular community
+        growth and spread up growth across all taxa as much as possible.
+        This is done by minimizing the L2 norm of the growth rates with a
+        minimal community growth.
+
+        Note
+        ----
+        `Community.ctFBA` is just an alias for `Community.cooperative_tradeoff`.
+
+        Parameters
+        ----------
+        min_growth : float or array-like, optional
+            The minimal growth rate required for each individual. May be a
+            single value or an array-like object with the same length as there
+            are individuals.
+        fraction : float or list of floats in [0, 1]
+            The minum percentage of the community growth rate that has to be
+            maintained. For instance 0.9 means maintain 90% of the maximal
+            community growth rate. Defaults to 100%.
+        fluxes : boolean, optional
+            Whether to return the fluxes as well.
+        pfba : boolean, optional
+            Whether to obtain fluxes by parsimonious FBA rather than
+            "classical" FBA. This is highly recommended.
+        atol : float
+            Absolute tolerance for the growth rates. If None will use the solver
+            tolerance.
+        rtol : float
+            Relative tolerqance for the growth rates. If None will use the
+            solver tolerance.
+
+        Returns
+        -------
+        micom.CommunitySolution or pd.Series of solutions
+            The solution of the optimization. If fluxes==False will only
+            contain the objective value, community growth rate and individual
+            growth rates. If more than one fraction value is given will return
+            a pandas Series of solutions with the fractions as indices.
+        """
+        return self.cooperative_tradeoff(min_growth, fraction, fluxes, pfba, atol, rtol)
 
     def knockout_taxa(
         self,
@@ -853,7 +850,12 @@ class Community(cobra.Model):
 
     @property
     def scale(self):
-        """Get a scale to improve numerical properties."""
+        """Get a scale to improve numerical properties.
+
+        Default optimization problems will be multiplied with the scale value
+        which in some instances (like tiny objective values) can improve the
+        convergence of the solver.
+        """
         # may have to be adjusted based on the solver in the future
         if "osqp" in str(self.problem):
             return 1.0
@@ -861,6 +863,13 @@ class Community(cobra.Model):
 
     def to_pickle(self, filename):
         """Save a community in serialized form.
+
+        Note
+        ----
+        Pickled models should not be considered a long term storage solution since
+        pickle formats are often specific to particular python versions and will not
+        play nice between different versions of MICOM. If you want long term storage
+        we recommend to just save the taxonomy table and rebuild models when needed.
 
         Parameters
         ----------
@@ -884,3 +893,10 @@ class Community(cobra.Model):
             self.solver.configuration.qp_method = "auto"
         cobra.Model.solver.fset(self, s)
         adjust_solver_config(self.solver)
+
+    def summary(self, *args, **kw_args):
+        """Overwrite the default cobrapy summary a bit."""
+        with self:
+            self.objective = -self.constraints.community_objective_equality.expression
+            return super(Community, self).summary(*args, **kw_args)
+    summary.__doc__ = cobra.Model.summary.__doc__

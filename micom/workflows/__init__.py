@@ -16,5 +16,5 @@ __all__ = (
     "tradeoff",
     "fix_medium",
     "minimal_media",
-    "GrowthResults"
+    "GrowthResults",
 )

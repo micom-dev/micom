@@ -1,8 +1,8 @@
 """Visualization for phenotype prediction."""
 
 from datetime import datetime
-from micom.viz import Visualization
-from micom.logger import logger
+from .core import Visualization
+from ..logger import logger
 import json
 import numpy as np
 import pandas as pd
@@ -29,7 +29,7 @@ def plot_fit(
     filename="fit_%s.html" % datetime.now().strftime("%Y%m%d"),
     flux_type="production",
     min_coef=0.001,
-    atol=1e-6
+    atol=1e-6,
 ):
     """Test for differential metabolite production.
 
@@ -78,11 +78,7 @@ def plot_fit(
         ]
         exchanges = (
             exchanges.groupby(["reaction", "metabolite", "sample_id"])
-            .apply(
-                lambda df: pd.Series(
-                    {"flux": sum(df.abundance * df.flux.abs())}
-                )
-            )
+            .apply(lambda df: pd.Series({"flux": sum(df.abundance * df.flux.abs())}))
             .reset_index()
         )
     exchanges = exchanges.loc[exchanges.flux > atol]
@@ -100,8 +96,7 @@ def plot_fit(
         )
     elif variable_type not in ["binary", "continuous"]:
         raise ValueError(
-            "Unsupported variable type. Must be either `binary` or "
-            "`continuous`."
+            "Unsupported variable type. Must be either `binary` or " "`continuous`."
         )
 
     fluxes = exchanges.pivot_table(
@@ -126,13 +121,14 @@ def plot_fit(
         )
         fit = model.fit(scaled, meta)
         model = LogisticRegression(
-            penalty="l1", solver="liblinear", C=fit.C_[0], max_iter=10000,
+            penalty="l1",
+            solver="liblinear",
+            C=fit.C_[0],
+            max_iter=10000,
         )
         fit = model.fit(scaled, meta)
         score = cross_val_score(model, X=scaled, y=meta, cv=LeaveOneOut())
-        coefs = pd.DataFrame(
-            {"coef": fit.coef_[0, :], "metabolite": fluxes.columns}
-        )
+        coefs = pd.DataFrame({"coef": fit.coef_[0, :], "metabolite": fluxes.columns})
     else:
         model = LassoCV(cv=2, max_iter=50000)
         fit = model.fit(scaled, meta)
@@ -153,13 +149,9 @@ def plot_fit(
     data = {"fluxes": exchanges, "coefficients": coefs}
     coefs = coefs[coefs.coef.abs() >= min_coef].sort_values(by="coef")
     predicted = cross_val_predict(model, scaled, meta, cv=LeaveOneOut())
-    fitted = pd.DataFrame(
-        {"real": meta, "predicted": predicted}, index=meta.index
-    )
+    fitted = pd.DataFrame({"real": meta, "predicted": predicted}, index=meta.index)
 
-    exchanges = exchanges.loc[
-        exchanges.metabolite.isin(coefs.metabolite.values)
-    ].copy()
+    exchanges = exchanges.loc[exchanges.metabolite.isin(coefs.metabolite.values)].copy()
     exchanges["meta"] = meta[exchanges.sample_id].values
     exchanges["description"] = anns.loc[exchanges.metabolite, "name"].values
     var_type = "nominal" if variable_type == "binary" else "quantitative"

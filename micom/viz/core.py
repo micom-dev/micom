@@ -1,6 +1,6 @@
 """Core objects for visualization."""
 
-from micom.logger import logger
+from ..logger import logger
 from os import path
 from jinja2 import Environment, PackageLoader, select_autoescape
 import webbrowser

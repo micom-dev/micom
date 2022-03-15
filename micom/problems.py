@@ -1,15 +1,15 @@
 """Implements tradeoff optimization between community and egoistic growth."""
 
 from cobra.util import interface_to_str
-from micom.util import (
+from .util import (
     _format_min_growth,
     _apply_min_growth,
     check_modification,
     get_context,
     reset_min_community_growth,
 )
-from micom.logger import logger
-from micom.solution import (
+from .logger import logger
+from .solution import (
     solve,
     crossover,
     optimize_with_retry,
@@ -60,7 +60,7 @@ def regularize_l2_norm(community, min_growth):
         taxa_obj = community.constraints["objective_" + sp]
         ex = sum(v for v in taxa_obj.variables if (v.ub - v.lb) > 1e-6)
         if not isinstance(ex, int):
-            l2 += (community.scale * (ex ** 2)).expand()
+            l2 += (community.scale * (ex**2)).expand()
     community.objective = -l2
     community.modification = "l2 regularization"
     logger.info("finished adding tradeoff objective to %s" % community.id)
@@ -94,9 +94,7 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rt
             # OSQP is better with QPs then LPs
             # so it won't get better with the crossover
             if not pfba and sol.status != OPTIMAL and solver != "osqp":
-                sol = crossover(
-                    com, sol, fluxes=fluxes
-                )
+                sol = crossover(com, sol, fluxes=fluxes)
             results.append((fr, sol))
         if len(results) == 1:
             return results[0][1]

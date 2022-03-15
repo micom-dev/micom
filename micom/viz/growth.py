@@ -1,7 +1,7 @@
 """Visualization for growth rates."""
 
 from datetime import datetime
-from micom.viz import Visualization
+from .core import Visualization
 
 
 def plot_growth(

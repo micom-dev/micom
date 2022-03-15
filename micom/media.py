@@ -5,13 +5,13 @@ from optlang.symbolics import Zero
 import numpy as np
 import pandas as pd
 from micom import Community
-from micom.util import (
+from .util import (
     _format_min_growth,
     _apply_min_growth,
     check_modification,
 )
-from micom.logger import logger
-from micom.solution import OptimizationError
+from .logger import logger
+from .solution import OptimizationError
 import warnings
 
 

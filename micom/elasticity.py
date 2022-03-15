@@ -8,9 +8,9 @@ from functools import partial
 import pandas as pd
 import numpy as np
 from cobra.util import get_context
-from micom.util import reset_min_community_growth
-from micom.problems import regularize_l2_norm
-from micom.solution import optimize_with_fraction
+from .util import reset_min_community_growth
+from .problems import regularize_l2_norm
+from .solution import optimize_with_fraction
 from rich.progress import track
 
 
@@ -22,9 +22,7 @@ def _derivatives(before, after):
     before_signs = np.sign(before)
     after_signs = np.sign(after)
     if any(np.abs(before_signs - after_signs) > 2):
-        ValueError(
-            "Some of the fluxes changed sign. " "Can't compute elasticities :("
-        )
+        ValueError("Some of the fluxes changed sign. " "Can't compute elasticities :(")
     direction = np.repeat("zero", len(before)).astype("<U8")
     direction[(before > 1e-6) | (after > 1e-6)] = "forward"
     direction[(before < -1e-6) | (after < -1e-6)] = "reverse"

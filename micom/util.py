@@ -13,7 +13,7 @@ import tempfile
 from shutil import rmtree
 import pandas as pd
 import re
-from micom.logger import logger
+from .logger import logger
 
 
 _read_funcs = {
@@ -29,9 +29,9 @@ COMPARTMENT_RE = "(_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)"
 
 def is_active_demand(r):
     """Check if a reaction is a demand reaction."""
-    return (
-        len(r.reactants) == len(r.metabolites) and r.lower_bound > 1e-6
-    ) or (len(r.products) == len(r.metabolites) and r.upper_bound < -1e-6)
+    return (len(r.reactants) == len(r.metabolites) and r.lower_bound > 1e-6) or (
+        len(r.products) == len(r.metabolites) and r.upper_bound < -1e-6
+    )
 
 
 def fix_demands(model):

@@ -1,10 +1,10 @@
 """Worflow to build models for several samples."""
 
 from cobra.io import read_sbml_model, save_json_model
-from micom.logger import logger
-from micom.util import join_models
-from micom.community import Community, _ranks
-from micom.workflows.core import workflow
+from ..logger import logger
+from ..util import join_models
+from ..community import Community, _ranks
+from .core import workflow
 import os
 import pandas as pd
 from tempfile import TemporaryDirectory
@@ -130,8 +130,13 @@ def _summarize_models(args):
 
 
 def build_database(
-    manifest, out_path, rank="genus", threads=1,
-    compress=None, compresslevel=6, progress=True,
+    manifest,
+    out_path,
+    rank="genus",
+    threads=1,
+    compress=None,
+    compresslevel=6,
+    progress=True,
 ):
     """Create a model database from a set of SBML files.
 
@@ -193,8 +198,7 @@ def build_database(
     if out_path.endswith(".zip"):
         # Explicitly check compression level
         if compresslevel not in range(1, 10):
-            raise ValueError(
-                "compresslevel parameter must be an int between 1 and 9")
+            raise ValueError("compresslevel parameter must be an int between 1 and 9")
 
         # Explicitly check for supported zipfile compression options
         compressdict = {
@@ -204,8 +208,7 @@ def build_database(
             "lzma": zipfile.ZIP_LZMA,
         }
         if compress not in compressdict:
-            raise ValueError(
-                'compress parameter must be "zlib", "bz2", "lzma" or None')
+            raise ValueError('compress parameter must be "zlib", "bz2", "lzma" or None')
         compressopt = compressdict[compress]
         # Check if zipfile compression dependencies are installed
         # Raise RuntimeError if the module is missing

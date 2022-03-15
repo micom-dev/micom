@@ -31,9 +31,11 @@ def production_rates(results):
     """
     fluxes = results.exchanges
     pos = fluxes[(fluxes.direction == "export") & (fluxes.taxon != "medium")]
-    rates = pos.groupby(["sample_id", "metabolite"]).apply(
-        lambda df: pd.Series({"flux": np.sum(df.abundance * df.flux.abs())})
-    ).reset_index()
+    rates = (
+        pos.groupby(["sample_id", "metabolite"])
+        .apply(lambda df: pd.Series({"flux": np.sum(df.abundance * df.flux.abs())}))
+        .reset_index()
+    )
     rates = pd.merge(rates, results.annotations, on="metabolite")
     return rates
 
@@ -63,8 +65,10 @@ def consumption_rates(results):
     """
     fluxes = results.exchanges
     neg = fluxes[(fluxes.direction == "import") & (fluxes.taxon != "medium")]
-    rates = neg.groupby(["sample_id", "metabolite"]).apply(
-        lambda df: pd.Series({"flux": np.sum(df.abundance * df.flux.abs())})
-    ).reset_index()
+    rates = (
+        neg.groupby(["sample_id", "metabolite"])
+        .apply(lambda df: pd.Series({"flux": np.sum(df.abundance * df.flux.abs())}))
+        .reset_index()
+    )
     rates = pd.merge(rates, results.annotations, on="metabolite")
     return rates

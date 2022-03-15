@@ -5,7 +5,7 @@ from cobra.test import create_test_model
 import numpy as np
 import micom
 import micom.util as util
-from.fixtures import community
+from .fixtures import community
 
 URL = "http://bigg.ucsd.edu/static/models/e_coli_core.xml.gz"
 tax = micom.data.test_taxonomy()
@@ -44,17 +44,20 @@ def test_fluxes_from_primals(community):
 def test_join_models():
     single = util.load_model(tax.file[0])
     single_coefs = {
-        v.name: coef for v, coef in
-        single.objective.get_linear_coefficients(single.variables).items()
+        v.name: coef
+        for v, coef in single.objective.get_linear_coefficients(
+            single.variables
+        ).items()
     }
     mod = util.join_models(tax.file, id="test_model")
     coefs = {
-        v.name: coef for v, coef in
-        mod.objective.get_linear_coefficients(mod.variables).items()
+        v.name: coef
+        for v, coef in mod.objective.get_linear_coefficients(mod.variables).items()
     }
     assert len(mod.reactions) == len(single.reactions) + 1  # added biomass
     assert len(mod.metabolites) == len(single.metabolites)
     assert np.allclose(single.slim_optimize(), mod.slim_optimize())
+
 
 def test_compartment_id():
     met = cobra.core.Metabolite(id="test_met_e__taxon")
@@ -69,6 +72,7 @@ def test_compartment_id():
     met.global_id = "test_met(e)"
     assert util.compartment_id(met) == "e"
 
+
 def test_fix_demands(tmp_path):
     fpath = str(tmp_path / "test.xml")
     model = create_test_model("textbook")
@@ -76,4 +80,3 @@ def test_fix_demands(tmp_path):
     cobra.io.write_sbml_model(model, fpath)
     model = util.load_model(fpath)
     assert model.exchanges[0].lower_bound == 0.0
-

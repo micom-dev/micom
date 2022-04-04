@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>News and release notes for MICOM &#8212; version 0.29.3</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,22 +20,19 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Tutorials and Courses" href="tutorials.html" />
@@ -44,7 +43,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -53,14 +66,10 @@
     <div class="container-xl">
       <div class="row">
           
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -463,74 +472,135 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
-<div class="sbt-scroll-pixel-helper"></div>
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            <div class="topbar-left">
-                
-                <label class="nav-toggle-button" for="__navigation">
-                    <div class="visually-hidden">Toggle navigation</div>
-                    <i class="fas fa-bars"></i>
-                </label>
-                
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
             </div>
             
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
 
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
         
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/NEWS.md.txt"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/NEWS.md.txt"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
     </div>
 </div>
 
-            <!-- Source interaction buttons -->
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
    0.29.3
@@ -658,12 +728,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>News and release notes for MICOM</h1>
@@ -807,137 +876,138 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="section" id="news-and-release-notes-for-micom">
-<h1>News and release notes for MICOM<a class="headerlink" href="#news-and-release-notes-for-micom" title="Permalink to this headline">¶</a></h1>
+  <section id="news-and-release-notes-for-micom">
+<h1>News and release notes for MICOM<a class="headerlink" href="#news-and-release-notes-for-micom" title="Permalink to this headline">#</a></h1>
 <p>This includes a list of major changes for each minor version starting from 0.19.0.</p>
 <p>For information on how to use <code class="docutils literal notranslate"><span class="pre">micom</span></code> please refer to
 <a class="reference external" href="https://micom-dev.github.io/micom">the documentation</a>.</p>
-<div class="section" id="id1">
-<h2>0.29.3<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<section id="id1">
+<h2>0.29.3<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <p>Suppresses some warning in annotations from cobrapy.</p>
-</div>
-<div class="section" id="id2">
-<h2>0.29.2<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id2">
+<h2>0.29.2<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
 <p>Fixes some CI and build issues.</p>
-</div>
-<div class="section" id="id3">
-<h2>0.29.0<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id3">
+<h2>0.29.0<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
 <p>Renames the <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> arguments to <code class="docutils literal notranslate"><span class="pre">threads</span></code> across the code base for consistency and
 updates the arguments for <code class="docutils literal notranslate"><span class="pre">workflow</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">workflow</span></code> now does not spawn a process for single-threaded runs, reducing overhead.</p>
 <p>Fixes an issue where <code class="docutils literal notranslate"><span class="pre">workflow</span></code> would deadlock with pytest-cov.</p>
-</div>
-<div class="section" id="id4">
-<h2>0.28.1<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id4">
+<h2>0.28.1<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h2>
 <p>Fixes an issue where an accumulation in warnings in spawned processes trips up
 jupyter.</p>
-</div>
-<div class="section" id="id5">
-<h2>0.28.0<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id5">
+<h2>0.28.0<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h2>
 <p>Fixes a deployment issue with the previous build.</p>
-</div>
-<div class="section" id="id6">
-<h2>0.27.0<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id6">
+<h2>0.27.0<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h2>
 <p>Annotations now include the molecular weight, number of carbon atoms, and the number of
 nitrogen atoms for each compound.</p>
-</div>
-<div class="section" id="id7">
-<h2>0.26.0<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id7">
+<h2>0.26.0<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h2>
 <p>Now adjusts active demands to be optional. This was an issue with some models
 in AGORA that had forced biotin demands. This effectively prohibits zero growth
 rates and is problematic for MICOM.</p>
 <p>Fix the logger for multiprocessing.</p>
-</div>
-<div class="section" id="id8">
-<h2>0.25.1<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id8">
+<h2>0.25.1<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h2>
 <p>Handle CARVEME models better in <code class="docutils literal notranslate"><span class="pre">workflows.complete_medium</span></code>.</p>
 <p>Workflows now have a deterministic return error (same order as inputs).</p>
-</div>
-<div class="section" id="id9">
-<h2>0.25.0<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id9">
+<h2>0.25.0<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">build_database</span></code> now allows to set the compression algorithm and level.</p>
-</div>
-<div class="section" id="id10">
-<h2>0.24.1<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id10">
+<h2>0.24.1<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h2>
 <p>Fixed settings to get better convergence behavior with OSQP.</p>
-</div>
-<div class="section" id="id11">
-<h2>0.24.0<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id11">
+<h2>0.24.0<a class="headerlink" href="#id11" title="Permalink to this headline">#</a></h2>
 <p>MICOM now works with OSQP and works out of the box without a commercial QP solver. See
 the <a class="reference external" href="#">installation docs</a> for more information.</p>
-</div>
-<div class="section" id="id12">
-<h2>0.23.1<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id12">
+<h2>0.23.1<a class="headerlink" href="#id12" title="Permalink to this headline">#</a></h2>
 <p>The sample heatmap in <code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_sample</span></code> is now automatically rotated when
 there are mores samples than reactions.</p>
 <p>media workflows will use presolving by default since those are often numerically
 problematic.</p>
-</div>
-<div class="section" id="id13">
-<h2>0.23.0<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id13">
+<h2>0.23.0<a class="headerlink" href="#id13" title="Permalink to this headline">#</a></h2>
 <p>Fix the signature and add deprecation warnings for optimize_* methods.</p>
 <p><code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_taxon</span></code> will now use normalized fluxes (per 1 gDW for each taxon)
 which allows better comparability. The old behavior can be enabled with
 <code class="docutils literal notranslate"><span class="pre">use_total_flux=True</span></code>.</p>
 <p>Avoid negative growth rate constraints in <code class="docutils literal notranslate"><span class="pre">_apply_min_growth</span></code>.</p>
 <p>Can now enable presolving/scaling in <code class="docutils literal notranslate"><span class="pre">grow</span></code> and <code class="docutils literal notranslate"><span class="pre">tradeoff</span></code>.</p>
-</div>
-<div class="section" id="id14">
-<h2>0.22.7<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id14">
+<h2>0.22.7<a class="headerlink" href="#id14" title="Permalink to this headline">#</a></h2>
 <p>Fix some warnings from pandas.</p>
 <p>Avoid a crash in <code class="docutils literal notranslate"><span class="pre">reularize_l2_norm</span></code> when all reactions for a taxon have been fixed to
 zero.</p>
 <p>Raise a better error if the minimal medium optimization fails in grow.</p>
 <p>Use the right tolerance when setting atol and rtol automatically.</p>
-</div>
-<div class="section" id="id15">
-<h2>0.22.6<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id15">
+<h2>0.22.6<a class="headerlink" href="#id15" title="Permalink to this headline">#</a></h2>
 <p>Fixed an error in <code class="docutils literal notranslate"><span class="pre">micom.workflows.build</span></code> if build was run without a model database
 but with a <code class="docutils literal notranslate"><span class="pre">file</span></code> column in the taxonomy.</p>
-</div>
-<div class="section" id="id16">
-<h2>0.22.5<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id16">
+<h2>0.22.5<a class="headerlink" href="#id16" title="Permalink to this headline">#</a></h2>
 <p>Fixed missing data files.</p>
-</div>
-<div class="section" id="id17">
-<h2>0.22.4<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id17">
+<h2>0.22.4<a class="headerlink" href="#id17" title="Permalink to this headline">#</a></h2>
 <p>Improves version compatibility with cobrapy and QIIME 2.</p>
-</div>
-<div class="section" id="id18">
-<h2>0.22.3<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id18">
+<h2>0.22.3<a class="headerlink" href="#id18" title="Permalink to this headline">#</a></h2>
 <p>Fixed a bug where incorrectly labeled biomass demand reactions were treated like an
 exchange.</p>
-</div>
-<div class="section" id="id19">
-<h2>0.22.2<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id19">
+<h2>0.22.2<a class="headerlink" href="#id19" title="Permalink to this headline">#</a></h2>
 <p>Lowered the required version for pandas to re-enable compatibility with Python 3.6.</p>
 <p>Docs are now built on all pushes.</p>
-</div>
-<div class="section" id="id20">
-<h2>0.22.1<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id20">
+<h2>0.22.1<a class="headerlink" href="#id20" title="Permalink to this headline">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">atol</span></code> and <code class="docutils literal notranslate"><span class="pre">rtol</span></code> are now consistently exposed.</p>
 <p>Remove six dependency.</p>
-</div>
-<div class="section" id="id21">
-<h2>0.22.0<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id21">
+<h2>0.22.0<a class="headerlink" href="#id21" title="Permalink to this headline">#</a></h2>
 <p>Got a bit smarter in cleaning up compartment suffixes. This fixes the odd “_e_m” suffix
 in CARVEME-derived models. This will change the names of exchange reactions compared
 to version 0.21.x.</p>
-</div>
-<div class="section" id="id22">
-<h2>0.21.0<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id22">
+<h2>0.21.0<a class="headerlink" href="#id22" title="Permalink to this headline">#</a></h2>
 <p>Stabilize minimal_medium a bit more.</p>
 <p>The strategy to calculate fluxes in the grow workflow can now be set with the
 <code class="docutils literal notranslate"><span class="pre">strategy</span></code> argument. For instance, you can now get fluxes via parsimonious FBA instead of
 assuming minimal imports.</p>
 <p>Fixed a bug where minimal media classification with <code class="docutils literal notranslate"><span class="pre">weights=&quot;mass&quot;</span></code> would fail due to
 invalid elements in the formula (for instance “X”).</p>
-</div>
-<div class="section" id="id23">
-<h2>0.20.0<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id23">
+<h2>0.20.0<a class="headerlink" href="#id23" title="Permalink to this headline">#</a></h2>
 <p>This version brings new functionality to design growth media from a skeleton medium.
 This also allows for a quicker verification of media against the model databases.</p>
 <p>Added workflows:</p>
@@ -948,17 +1018,17 @@ This also allows for a quicker verification of media against the model databases
 <p>Together with this we now provide several new revised growth media for the gut on
 github.com/micom-dev/media. In particular, we finally provide the often requested growth
 medium for the carveME database.</p>
-</div>
-<div class="section" id="id24">
-<h2>0.19.0<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id24">
+<h2>0.19.0<a class="headerlink" href="#id24" title="Permalink to this headline">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> now accepts weighting the fluxes bei molecular weight or
 any elemental content. For instance, you can now calculate a minimal medium that
 minimizes carbon import for instance. The used <code class="docutils literal notranslate"><span class="pre">weigths</span></code> argument propagates
 to any workflow using this function including <code class="docutils literal notranslate"><span class="pre">complete_medium</span></code>, <code class="docutils literal notranslate"><span class="pre">fix_medium</span></code>
 and <code class="docutils literal notranslate"><span class="pre">grow</span></code>.</p>
-</div>
-<div class="section" id="id25">
-<h2>0.1.0 - 0.18.0<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id25">
+<h2>0.1.0 - 0.18.0<a class="headerlink" href="#id25" title="Permalink to this headline">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> now has an option to return all fluxes along with the
 import and export fluxes. Useful if you want to check what every individual
 taxa consumes.</p>
@@ -970,15 +1040,17 @@ and export reactions are sensitive to changes in diet or taxa abundances.</p>
 <p>Several changes to make <code class="docutils literal notranslate"><span class="pre">micom</span></code> capable of handling numerical instable models.
 This includes a crossover strategy to obtain an optimal or near-optimal
 from an incomplete interior point optimization.</p>
-</div>
-</div>
+</section>
+</section>
 
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="tutorials.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -987,24 +1059,28 @@ from an incomplete interior point optimization.</p>
         </div>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Christian Diener<br/>
+  
+      &copy; Copyright 2017-2021, Christian Diener.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Christian Diener<br/>
-    
-        &copy; Copyright 2017-2021, Christian Diener.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

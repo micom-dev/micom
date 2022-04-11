@@ -72,7 +72,7 @@ jobs:
         run: |
           python setup.py sdist bdist_wheel
           twine upload dist/*
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: python-packages
           path: dist/*

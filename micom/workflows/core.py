@@ -1,6 +1,7 @@
 """Makes it easier to run analyses on several samples in parallel."""
 
-from collections import Sized, namedtuple
+from collections import namedtuple
+from collections.abc import Sized
 from multiprocessing import Pool
 from rich.progress import track
 import warnings

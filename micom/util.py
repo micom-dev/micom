@@ -309,9 +309,10 @@ def adjust_solver_config(solver):
         # see https://www.gurobi.com/documentation/9.5/refman/making_the_algorithm_less_.html
         solver.configuration.lp_method = "barrier"
         solver.problem.Params.BarConvTol = 1e-9
-        solver.problem.Params.BarIterLimit = 1000
+        solver.problem.Params.BarIterLimit = 2000
         solver.problem.Params.CrossoverBasis = 1
         solver.problem.Params.ScaleFlag = 2
+        solver.problem.Params.NumericFocus = 1
         solver.problem.Params.Threads = 1
         solver.problem.Params.LogToConsole = 0
     if interface == "osqp":

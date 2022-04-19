@@ -3,6 +3,7 @@
 import re
 import pickle
 import cobra
+import cobra.util.solver
 import pandas as pd
 from optlang.symbolics import Zero
 from micom.db import load_zip_model_db, load_manifest

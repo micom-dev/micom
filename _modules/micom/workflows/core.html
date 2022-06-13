@@ -558,7 +558,7 @@ title="Fullscreen mode"
   <h1>Source code for micom.workflows.core</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Makes it easier to run analyses on several samples in parallel.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Sized</span><span class="p">,</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span><span class="p">,</span> <span class="n">abc</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
 <span class="kn">from</span> <span class="nn">rich.progress</span> <span class="kn">import</span> <span class="n">track</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
@@ -589,7 +589,7 @@ title="Fullscreen mode"
 <span class="sd">    progress : bool</span>
 <span class="sd">        Whether to show a progress bar.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">Sized</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">Sized</span><span class="p">):</span>
         <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`args` must have a length.&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">description</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Running&quot;</span>

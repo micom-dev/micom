@@ -1,7 +1,7 @@
 """Test utilities."""
 
 import cobra
-from cobra.test import create_test_model
+from cobra.io import load_model
 import numpy as np
 import micom
 import micom.util as util
@@ -71,7 +71,7 @@ def test_compartment_id():
 
 def test_fix_demands(tmp_path):
     fpath = str(tmp_path / "test.xml")
-    model = create_test_model("textbook")
+    model = load_model("textbook")
     model.exchanges[0].lower_bound = 0.1
     cobra.io.write_sbml_model(model, fpath)
     model = util.load_model(fpath)

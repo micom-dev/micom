@@ -1,6 +1,6 @@
 """Makes it easier to run analyses on several samples in parallel."""
 
-from collections import Sized, namedtuple
+from collections import namedtuple, abc
 from multiprocessing import Pool
 from rich.progress import track
 import warnings
@@ -31,7 +31,7 @@ def workflow(func, args, threads=4, description=None, progress=True):
     progress : bool
         Whether to show a progress bar.
     """
-    if not isinstance(args, Sized):
+    if not isinstance(args, abc.Sized):
         ValueError("`args` must have a length.")
     if description is None:
         description = "Running"

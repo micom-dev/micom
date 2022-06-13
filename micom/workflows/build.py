@@ -185,7 +185,7 @@ def build_database(
 
     meta = meta.groupby(rank).apply(_reduce_group).reset_index(drop=True)
     logger.info("Building %d models on rank `%s`." % (meta.shape[0], rank))
-    meta.index = meta[rank].str.replace("[^\\w\\_]", "_")
+    meta.index = meta[rank].str.replace("[^\\w\\_]", "_", regex=True)
     meta["id"] = meta.index
     meta["summary_rank"] = rank
 

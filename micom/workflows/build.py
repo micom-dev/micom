@@ -1,8 +1,9 @@
 """Worflow to build models for several samples."""
 
 from cobra.io import read_sbml_model, save_json_model
+from glob import glob
 from micom.logger import logger
-from micom.util import join_models
+from micom.util import join_models, load_pickle
 from micom.community import Community, _ranks
 from micom.workflows.core import workflow
 import os
@@ -22,10 +23,13 @@ def _reduce_group(df):
 def build_and_save(args):
     """Build a single community model."""
     s, tax, db, out, cutoff, solver = args
-    com = Community(
-        tax, model_db=db, id=s, progress=False, rel_threshold=cutoff, solver=solver
-    )
-    com.to_pickle(out)
+    if os.path.exists(out):
+        com = load_pickle(out)
+    else:
+        com = Community(
+            tax, model_db=db, id=s, progress=False, rel_threshold=cutoff, solver=solver
+        )
+        com.to_pickle(out)
     if db is None:
         metrics = pd.DataFrame({"sample_id": s}, index=[0])
     else:
@@ -66,7 +70,7 @@ def build(
         column `file`.
     out_folder : str
         The built models and a manifest file will be written to this
-        folder.
+        folder. Will continue
     cutoff : float in [0.0, 1.0]
         Abundance cutoff. Taxa with a relative abundance smaller than this
         will not be included in the model.
@@ -83,7 +87,18 @@ def build(
         build metrics and file basenames.
 
     """
-    os.makedirs(out_folder, exist_ok=True)
+    if os.path.exists(out_folder):
+        existing = [
+            s.split(".pickle")[0] for s in glob("*.pickle", root_dir=out_folder)
+        ]
+        if len(existing) > 0:
+            logger.warning(
+                f"Found existing models for {len(existing)} samples. Will skip those. "
+                "Delete the output folder if you would like me to rebuild them."
+            )
+    else:
+        os.makedirs(out_folder)
+
     samples = taxonomy.sample_id.unique()
     out_path = pd.Series({s: os.path.join(out_folder, s + ".pickle") for s in samples})
     args = [
@@ -130,8 +145,13 @@ def _summarize_models(args):
 
 
 def build_database(
-    manifest, out_path, rank="genus", threads=1,
-    compress=None, compresslevel=6, progress=True,
+    manifest,
+    out_path,
+    rank="genus",
+    threads=1,
+    compress=None,
+    compresslevel=6,
+    progress=True,
 ):
     """Create a model database from a set of SBML files.
 
@@ -193,8 +213,7 @@ def build_database(
     if out_path.endswith(".zip"):
         # Explicitly check compression level
         if compresslevel not in range(1, 10):
-            raise ValueError(
-                "compresslevel parameter must be an int between 1 and 9")
+            raise ValueError("compresslevel parameter must be an int between 1 and 9")
 
         # Explicitly check for supported zipfile compression options
         compressdict = {
@@ -204,8 +223,7 @@ def build_database(
             "lzma": zipfile.ZIP_LZMA,
         }
         if compress not in compressdict:
-            raise ValueError(
-                'compress parameter must be "zlib", "bz2", "lzma" or None')
+            raise ValueError('compress parameter must be "zlib", "bz2", "lzma" or None')
         compressopt = compressdict[compress]
         # Check if zipfile compression dependencies are installed
         # Raise RuntimeError if the module is missing

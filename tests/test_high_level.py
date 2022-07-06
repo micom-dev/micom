@@ -29,7 +29,7 @@ def test_db(tmp_path):
     assert (tmp_path / "db.zip").exists()
 
 
-def test_build(tmp_path):
+def test_build(tmp_path, caplog):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0, threads=1)
     assert built.shape[0] == 4
@@ -38,6 +38,8 @@ def test_build(tmp_path):
     assert "file" in built.columns
     for fi in built.file:
         assert (tmp_path / fi).exists()
+    second_build = build(data, db, str(tmp_path), cutoff=0, threads=1)
+    assert "Found existing models for 4 samples." in caplog.text
 
 
 def test_build_no_db(tmp_path):

@@ -5,6 +5,11 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.29.6
+
+Fixes a bug where using more than 1 thread for workflows would not return results
+in some cases.
+
 ### 0.29.5
 
 Fixed some dependency errors on older Python versions.

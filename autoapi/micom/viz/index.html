@@ -663,8 +663,8 @@ title="Print to PDF"
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#micom.viz.plot_growth">
-       plot_growth
+      <a class="reference internal nav-link" href="#micom.viz.plot_fit">
+       plot_fit
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
@@ -758,8 +758,8 @@ title="Print to PDF"
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#micom.viz.plot_growth">
-       plot_growth
+      <a class="reference internal nav-link" href="#micom.viz.plot_fit">
+       plot_fit
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
@@ -826,8 +826,8 @@ title="Print to PDF"
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_exchanges_per_taxon" title="micom.viz.plot_exchanges_per_taxon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_exchanges_per_taxon</span></code></a>(results, filename='taxon_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction='import', use_total_flux=False, **tsne_args) → None</p></td>
 <td><p>Plot the exchange fluxes per taxon.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_growth" title="micom.viz.plot_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_growth</span></code></a>(results, filename='growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)</p></td>
-<td><p>Plot the taxa growth rates.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_fit" title="micom.viz.plot_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_fit</span></code></a>(results, phenotype, variable_type='binary', variable_name='phenotype', filename='fit_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', min_coef=0.001, atol=1e-06)</p></td>
+<td><p>Test for differential metabolite production.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_tradeoff" title="micom.viz.plot_tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_tradeoff</span></code></a>(tradeoff_rates, filename='tradeoff_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)</p></td>
 <td><p>Plot diagnostics for varying tradeoff values.</p></td>
@@ -941,20 +941,29 @@ fluxes are close to another.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="micom.viz.plot_growth">
-<span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_growth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'growth_rates_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/growth.html#plot_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_growth" title="Permalink to this definition">#</a></dt>
-<dd><p>Plot the taxa growth rates.</p>
+<dt class="sig sig-object py" id="micom.viz.plot_fit">
+<span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'binary'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'phenotype'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fit_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'production'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_coef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/prediction.html#plot_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_fit" title="Permalink to this definition">#</a></dt>
+<dd><p>Test for differential metabolite production.</p>
+<p>This will fit the <cite>phenotype</cite> response using L1-regularized linear models
+with log-fluxes as features. Will use LASSO regression for a continuous
+response and L1-regularized Logistic regression for a binary response.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>results</strong> (<em>micom.workflows.GrowthResults</em>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>phenotype</strong> (<em>pandas.Series</em>) – The data to be fitted. Its index must correspond to <cite>sample_id</cite> in
+<cite>exchanges</cite>.</p></li>
+<li><p><strong>variable_type</strong> (<em>str of</em><em> [</em><em>&quot;binary&quot;</em><em>, </em><em>&quot;continuous&quot;</em><em>]</em>) – The type of the variable.</p></li>
+<li><p><strong>variable_name</strong> (<em>str</em>) – A short description of the phenotype for instance “disease_status”.</p></li>
 <li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
-<li><p><strong>tolerance</strong> (<em>float</em>) – Smallest growth rate that will be considered. Everything lower will be
-considered not growing.</p></li>
+<li><p><strong>flux_type</strong> (<em>str of</em><em> [</em><em>&quot;import&quot;</em><em>, </em><em>&quot;production&quot;</em><em>]</em>) – Whether to fit using import or production fluxes.</p></li>
+<li><p><strong>min_coef</strong> (<em>float in</em><em> [</em><em>0.0</em><em>, </em><em>Inf</em><em>]</em>) – Only report coefficient that are at least that large.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Tolerance to consider a flux different from zero. Should be roughly equivalent
+to the solver tolerance.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.view</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>

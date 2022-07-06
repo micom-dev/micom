@@ -559,8 +559,9 @@ title="Fullscreen mode"
 <span></span><span class="sd">&quot;&quot;&quot;Worflow to build models for several samples.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">cobra.io</span> <span class="kn">import</span> <span class="n">read_sbml_model</span><span class="p">,</span> <span class="n">save_json_model</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
 <span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">micom.util</span> <span class="kn">import</span> <span class="n">join_models</span>
+<span class="kn">from</span> <span class="nn">micom.util</span> <span class="kn">import</span> <span class="n">join_models</span><span class="p">,</span> <span class="n">load_pickle</span>
 <span class="kn">from</span> <span class="nn">micom.community</span> <span class="kn">import</span> <span class="n">Community</span><span class="p">,</span> <span class="n">_ranks</span>
 <span class="kn">from</span> <span class="nn">micom.workflows.core</span> <span class="kn">import</span> <span class="n">workflow</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -580,10 +581,13 @@ title="Fullscreen mode"
 <div class="viewcode-block" id="build_and_save"><a class="viewcode-back" href="../../../autoapi/micom/workflows/build/index.html#micom.workflows.build.build_and_save">[docs]</a><span class="k">def</span> <span class="nf">build_and_save</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Build a single community model.&quot;&quot;&quot;</span>
     <span class="n">s</span><span class="p">,</span> <span class="n">tax</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">solver</span> <span class="o">=</span> <span class="n">args</span>
-    <span class="n">com</span> <span class="o">=</span> <span class="n">Community</span><span class="p">(</span>
-        <span class="n">tax</span><span class="p">,</span> <span class="n">model_db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rel_threshold</span><span class="o">=</span><span class="n">cutoff</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span>
-    <span class="p">)</span>
-    <span class="n">com</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">out</span><span class="p">):</span>
+        <span class="n">com</span> <span class="o">=</span> <span class="n">load_pickle</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">com</span> <span class="o">=</span> <span class="n">Community</span><span class="p">(</span>
+            <span class="n">tax</span><span class="p">,</span> <span class="n">model_db</span><span class="o">=</span><span class="n">db</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rel_threshold</span><span class="o">=</span><span class="n">cutoff</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span>
+        <span class="p">)</span>
+        <span class="n">com</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">db</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">metrics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;sample_id&quot;</span><span class="p">:</span> <span class="n">s</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
@@ -624,7 +628,7 @@ title="Fullscreen mode"
 <span class="sd">        column `file`.</span>
 <span class="sd">    out_folder : str</span>
 <span class="sd">        The built models and a manifest file will be written to this</span>
-<span class="sd">        folder.</span>
+<span class="sd">        folder. Will continue</span>
 <span class="sd">    cutoff : float in [0.0, 1.0]</span>
 <span class="sd">        Abundance cutoff. Taxa with a relative abundance smaller than this</span>
 <span class="sd">        will not be included in the model.</span>
@@ -641,7 +645,18 @@ title="Fullscreen mode"
 <span class="sd">        build metrics and file basenames.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">out_folder</span><span class="p">):</span>
+        <span class="n">existing</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.pickle&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.pickle&quot;</span><span class="p">,</span> <span class="n">root_dir</span><span class="o">=</span><span class="n">out_folder</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">existing</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Found existing models for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">existing</span><span class="p">)</span><span class="si">}</span><span class="s2"> samples. Will skip those. &quot;</span>
+                <span class="s2">&quot;Delete the output folder if you would like me to rebuild them.&quot;</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_folder</span><span class="p">)</span>
+
     <span class="n">samples</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
     <span class="n">out_path</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="n">s</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_folder</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;.pickle&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">})</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
@@ -688,8 +703,13 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="build_database"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.build.build_database">[docs]</a><span class="k">def</span> <span class="nf">build_database</span><span class="p">(</span>
-    <span class="n">manifest</span><span class="p">,</span> <span class="n">out_path</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s2">&quot;genus&quot;</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">compress</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">compresslevel</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">manifest</span><span class="p">,</span>
+    <span class="n">out_path</span><span class="p">,</span>
+    <span class="n">rank</span><span class="o">=</span><span class="s2">&quot;genus&quot;</span><span class="p">,</span>
+    <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">compress</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">compresslevel</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create a model database from a set of SBML files.</span>
 
@@ -751,8 +771,7 @@ title="Fullscreen mode"
     <span class="k">if</span> <span class="n">out_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">):</span>
         <span class="c1"># Explicitly check compression level</span>
         <span class="k">if</span> <span class="n">compresslevel</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;compresslevel parameter must be an int between 1 and 9&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;compresslevel parameter must be an int between 1 and 9&quot;</span><span class="p">)</span>
 
         <span class="c1"># Explicitly check for supported zipfile compression options</span>
         <span class="n">compressdict</span> <span class="o">=</span> <span class="p">{</span>
@@ -762,8 +781,7 @@ title="Fullscreen mode"
             <span class="s2">&quot;lzma&quot;</span><span class="p">:</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_LZMA</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">if</span> <span class="n">compress</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">compressdict</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s1">&#39;compress parameter must be &quot;zlib&quot;, &quot;bz2&quot;, &quot;lzma&quot; or None&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;compress parameter must be &quot;zlib&quot;, &quot;bz2&quot;, &quot;lzma&quot; or None&#39;</span><span class="p">)</span>
         <span class="n">compressopt</span> <span class="o">=</span> <span class="n">compressdict</span><span class="p">[</span><span class="n">compress</span><span class="p">]</span>
         <span class="c1"># Check if zipfile compression dependencies are installed</span>
         <span class="c1"># Raise RuntimeError if the module is missing</span>

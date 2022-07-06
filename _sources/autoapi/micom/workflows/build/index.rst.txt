@@ -65,7 +65,7 @@ Attributes
                     column `file`.
    :type model_db: str
    :param out_folder: The built models and a manifest file will be written to this
-                      folder.
+                      folder. Will continue
    :type out_folder: str
    :param cutoff: Abundance cutoff. Taxa with a relative abundance smaller than this
                   will not be included in the model.

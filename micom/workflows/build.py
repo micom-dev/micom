@@ -89,7 +89,7 @@ def build(
     """
     if os.path.exists(out_folder):
         existing = [
-            s.split(".pickle")[0] for s in glob("*.pickle", root_dir=out_folder)
+            s.split(".pickle")[0] for s in glob(os.path.join(out_folder, "*.pickle"))
         ]
         if len(existing) > 0:
             logger.warning(

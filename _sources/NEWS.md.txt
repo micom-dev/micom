@@ -5,6 +5,10 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.30.1
+
+Fix compatibility with Python 3.7.
+
 ### 0.30.0
 
 `build` will now detect existing models in the output folder and skip them. This now

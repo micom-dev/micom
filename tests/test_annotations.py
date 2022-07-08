@@ -1,12 +1,13 @@
 """Test for pulling out annotations from models."""
 
-from cobra.io import load_model
+from cobra.io import read_sbml_model
 from .fixtures import community
+import micom
 from micom.annotation import annotate, annotate_metabolites_from_exchanges
 
 
 def test_annotation_cobra_reactions():
-    mod = load_model("textbook")
+    mod = read_sbml_model(micom.data.test_taxonomy().file[0])
     rids = [r.id for r in mod.reactions]
     anns = annotate(rids, mod, what="reaction")
     assert "reaction" in anns.columns
@@ -15,7 +16,7 @@ def test_annotation_cobra_reactions():
 
 
 def test_annotation_cobra_metabolites():
-    mod = load_model("textbook")
+    mod = read_sbml_model(micom.data.test_taxonomy().file[0])
     mids = [m.id for m in mod.metabolites]
     anns = annotate(mids, mod, what="metabolite")
     assert "metabolite" in anns.columns
@@ -44,7 +45,7 @@ def test_annotation_micom_metabolites(community):
 
 
 def test_annotations_cobra_exchanges():
-    mod = load_model("textbook")
+    mod = read_sbml_model(micom.data.test_taxonomy().file[0])
     anns = annotate_metabolites_from_exchanges(mod)
     assert anns.shape[0] == len(mod.exchanges)
     assert all(

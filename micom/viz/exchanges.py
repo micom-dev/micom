@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from scipy.cluster.hierarchy import linkage, leaves_list
+from micom.logger import logger
 from micom.viz.core import Visualization
 import pandas as pd
 from sklearn.manifold import TSNE
@@ -116,6 +117,12 @@ def plot_exchanges_per_taxon(
         columns="reaction",
         fill_value=0.0,
     )
+
+    n = exchanges.sample_id.nunique()
+    if "perplexity" not in tsne_args and n <= 30:
+        logger.warn(f"Not enough samples. Adjusting T-SNE perplexity to {n // 2}.")
+        tsne_args["perplexity"] = n // 2
+
     reduced = TSNE(**tsne_args).fit_transform(mat.values)
     reduced = pd.DataFrame(
         reduced, index=mat.index, columns=["TSNE 1", "TSNE 2"]

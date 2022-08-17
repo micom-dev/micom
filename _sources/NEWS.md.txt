@@ -5,6 +5,14 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.30.5
+
+Fixed a bug where T-SNE would complain in low sample numbers.
+
+### 0.30.3 - 0.30.4
+
+Those were fixes to deployment and dependencies only.
+
 ### 0.30.2
 
 Avoids a bug in COBRAPY that can yield to huge serialized versions of the models.

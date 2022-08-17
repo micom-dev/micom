@@ -560,6 +560,7 @@ title="Fullscreen mode"
 
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">scipy.cluster.hierarchy</span> <span class="kn">import</span> <span class="n">linkage</span><span class="p">,</span> <span class="n">leaves_list</span>
+<span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">micom.viz.core</span> <span class="kn">import</span> <span class="n">Visualization</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
@@ -674,6 +675,12 @@ title="Fullscreen mode"
         <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">,</span>
         <span class="n">fill_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
     <span class="p">)</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
+    <span class="k">if</span> <span class="s2">&quot;perplexity&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tsne_args</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not enough samples. Adjusting T-SNE perplexity to </span><span class="si">{</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="n">tsne_args</span><span class="p">[</span><span class="s2">&quot;perplexity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">2</span>
+
     <span class="n">reduced</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="o">**</span><span class="n">tsne_args</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
     <span class="n">reduced</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
         <span class="n">reduced</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">mat</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;TSNE 1&quot;</span><span class="p">,</span> <span class="s2">&quot;TSNE 2&quot;</span><span class="p">]</span>

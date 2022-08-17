@@ -119,10 +119,10 @@ Attributes
 
       :type: pandas.Series
 
-   .. py:method:: _repr_html_(self)
+   .. py:method:: _repr_html_()
 
 
-   .. py:method:: __repr__(self)
+   .. py:method:: __repr__()
 
       Convert CommunitySolution instance to string representation.
 

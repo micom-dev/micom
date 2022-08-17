@@ -46,22 +46,22 @@ Attributes
    mixture models as long as all individuals exist within a single enclosing
    compartment.
 
-   .. py:method:: __add_exchanges(self, reactions, info, external_compartment='e', internal_exchange=1000)
+   .. py:method:: __add_exchanges(reactions, info, external_compartment='e', internal_exchange=1000)
 
       Add exchange reactions for a new model.
 
 
-   .. py:method:: __update_exchanges(self)
+   .. py:method:: __update_exchanges()
 
       Update exchanges.
 
 
-   .. py:method:: __update_community_objective(self)
+   .. py:method:: __update_community_objective()
 
       Update the community objective.
 
 
-   .. py:method:: optimize_single(self, id)
+   .. py:method:: optimize_single(id)
 
       Optimize growth rate for one individual.
 
@@ -83,7 +83,7 @@ Attributes
       :rtype: float
 
 
-   .. py:method:: optimize_all(self, progress=False)
+   .. py:method:: optimize_all(progress=False)
 
       Return solutions for individually optimizing each model.
 
@@ -101,7 +101,7 @@ Attributes
       :rtype: pandas.Series
 
 
-   .. py:method:: optimize(self, fluxes=False, pfba=False, raise_error=False, atol=None, rtol=None)
+   .. py:method:: optimize(fluxes=False, pfba=False, raise_error=False, atol=None, rtol=None)
 
       Optimize the model using flux balance analysis.
 
@@ -140,7 +140,7 @@ Attributes
       :rtype: micom.CommunitySolution
 
 
-   .. py:method:: abundances(self)
+   .. py:method:: abundances()
       :property:
 
       pandas.Series: The normalized abundances.
@@ -149,7 +149,7 @@ Attributes
       the exchange fluxes and the community objective.
 
 
-   .. py:method:: set_abundance(self, value, normalize=True)
+   .. py:method:: set_abundance(value, normalize=True)
 
       Change abundances for one or more taxa.
 
@@ -162,7 +162,7 @@ Attributes
       :type normalize: boolean, optional
 
 
-   .. py:method:: taxonomy(self)
+   .. py:method:: taxonomy()
       :property:
 
       pandas.DataFrame: The taxonomy used within the model.
@@ -170,7 +170,7 @@ Attributes
       This attribute only returns a copy.
 
 
-   .. py:method:: modification(self)
+   .. py:method:: modification()
       :property:
 
       str: Denotes modifications to the model currently applied.
@@ -178,7 +178,7 @@ Attributes
       Will be None if the community is unmodified.
 
 
-   .. py:method:: exchanges(self)
+   .. py:method:: exchanges()
       :property:
 
       list: Return all exchange reactions in the model.
@@ -187,7 +187,7 @@ Attributes
       to exclude reactions that are *not* exchange reactions.
 
 
-   .. py:method:: internal_exchanges(self)
+   .. py:method:: internal_exchanges()
       :property:
 
       list: Return all internal exchanges.
@@ -195,13 +195,13 @@ Attributes
       Internal exchanges are exchanges between individual taxa and the medium.
 
 
-   .. py:method:: medium(self)
+   .. py:method:: medium()
       :property:
 
       Return the medium.
 
 
-   .. py:method:: build_metrics(self)
+   .. py:method:: build_metrics()
       :property:
 
       pd.Series: Returns general metrics for database matching.
@@ -209,7 +209,7 @@ Attributes
       Only available when built using a model database.
 
 
-   .. py:method:: optcom(self, strategy='lagrangian', min_growth=0.0, fluxes=False, pfba=True)
+   .. py:method:: optcom(strategy='lagrangian', min_growth=0.0, fluxes=False, pfba=True)
 
       Run OptCom for the community.
 
@@ -259,7 +259,7 @@ Attributes
          doi: 10.1371/journal.pcbi.1002363, PMID: 22319433
 
 
-   .. py:method:: cooperative_tradeoff(self, min_growth=0.0, fraction=1.0, fluxes=False, pfba=False, atol=None, rtol=None)
+   .. py:method:: cooperative_tradeoff(min_growth=0.0, fraction=1.0, fluxes=False, pfba=False, atol=None, rtol=None)
 
       Find the best tradeoff between community and individual growth.
 
@@ -295,7 +295,7 @@ Attributes
       :rtype: micom.CommunitySolution or pd.Series of solutions
 
 
-   .. py:method:: knockout_taxa(self, taxa=None, fraction=1.0, method='change', progress=True, diag=True)
+   .. py:method:: knockout_taxa(taxa=None, fraction=1.0, method='change', progress=True, diag=True)
 
       Sequentially knowckout a list of taxa in the model.
 
@@ -325,13 +325,13 @@ Attributes
       :rtype: pandas.DataFrame
 
 
-   .. py:method:: scale(self)
+   .. py:method:: scale()
       :property:
 
       Get a scale to improve numerical properties.
 
 
-   .. py:method:: to_pickle(self, filename)
+   .. py:method:: to_pickle(filename)
 
       Save a community in serialized form.
 

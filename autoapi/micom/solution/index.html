@@ -898,25 +898,25 @@ title="Print to PDF"
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.solution._group_taxa" title="micom.solution._group_taxa"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_group_taxa</span></code></a>(values, ids, taxa, what='reaction')</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.solution._group_taxa" title="micom.solution._group_taxa"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_group_taxa</span></code></a>(values, ids, taxa[, what])</p></td>
 <td><p>Format a list of values by id and taxa.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.solution.add_pfba_objective" title="micom.solution.add_pfba_objective"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_pfba_objective</span></code></a>(community, atol=1e-06, rtol=1e-06)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.solution.add_pfba_objective" title="micom.solution.add_pfba_objective"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_pfba_objective</span></code></a>(community[, atol, rtol])</p></td>
 <td><p>Add pFBA objective.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.solution.solve" title="micom.solution.solve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">solve</span></code></a>(community, fluxes=True, pfba=True, raise_error=False, atol=1e-06, rtol=1e-06)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.solution.solve" title="micom.solution.solve"><code class="xref py py-obj docutils literal notranslate"><span class="pre">solve</span></code></a>(community[, fluxes, pfba, raise_error, atol, rtol])</p></td>
 <td><p>Get all fluxes stratified by taxa.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.solution.reset_solver" title="micom.solution.reset_solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_solver</span></code></a>(community)</p></td>
 <td><p>Reset the solver.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.solution.optimize_with_retry" title="micom.solution.optimize_with_retry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimize_with_retry</span></code></a>(com, message='could not get optimum.')</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.solution.optimize_with_retry" title="micom.solution.optimize_with_retry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimize_with_retry</span></code></a>(com[, message])</p></td>
 <td><p>Try to reset the solver.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.solution.crossover" title="micom.solution.crossover"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crossover</span></code></a>(community, sol, fluxes=False)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.solution.crossover" title="micom.solution.crossover"><code class="xref py py-obj docutils literal notranslate"><span class="pre">crossover</span></code></a>(community, sol[, fluxes])</p></td>
 <td><p>Get the crossover solution.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.solution.optimize_with_fraction" title="micom.solution.optimize_with_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimize_with_fraction</span></code></a>(com, fraction, growth_rate=None, fluxes=False)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.solution.optimize_with_fraction" title="micom.solution.optimize_with_fraction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimize_with_fraction</span></code></a>(com, fraction[, growth_rate, ...])</p></td>
 <td><p>Optimize with a constrained community growth rate.</p></td>
 </tr>
 </tbody>
@@ -1053,12 +1053,12 @@ exist in the organism.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution._repr_html_">
-<span class="sig-name descname"><span class="pre">_repr_html_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution._repr_html_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution._repr_html_" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_repr_html_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution._repr_html_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution._repr_html_" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.__repr__">
-<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution.__repr__" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution.__repr__" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert CommunitySolution instance to string representation.</p>
 </dd></dl>
 

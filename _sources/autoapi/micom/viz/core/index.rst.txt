@@ -59,7 +59,7 @@ Attributes
 
       :type: jinja2.Template
 
-   .. py:method:: view(self)
+   .. py:method:: view()
 
       Open the visualization in a browser.
 
@@ -68,7 +68,7 @@ Attributes
       :rtype: nothing
 
 
-   .. py:method:: save(self, **kwargs)
+   .. py:method:: save(**kwargs)
 
       Render and and save the visualization.
 

@@ -886,7 +886,7 @@ title="Print to PDF"
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.util.fix_demands" title="micom.util.fix_demands"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fix_demands</span></code></a>(model)</p></td>
 <td><p>Check for forced sinks and demands and deactivates them.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.download_model" title="micom.util.download_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_model</span></code></a>(url, folder='.')</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.download_model" title="micom.util.download_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download_model</span></code></a>(url[, folder])</p></td>
 <td><p>Download a model.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.util._read_model" title="micom.util._read_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_read_model</span></code></a>(file)</p></td>
@@ -898,7 +898,7 @@ title="Print to PDF"
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.util.load_pickle" title="micom.util.load_pickle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_pickle</span></code></a>(filename)</p></td>
 <td><p>Load a community model from a pickled version.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.serialize_models" title="micom.util.serialize_models"><code class="xref py py-obj docutils literal notranslate"><span class="pre">serialize_models</span></code></a>(files, dir='.')</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.serialize_models" title="micom.util.serialize_models"><code class="xref py py-obj docutils literal notranslate"><span class="pre">serialize_models</span></code></a>(files[, dir])</p></td>
 <td><p>Convert several models to Python pickles.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.util.chr_or_input" title="micom.util.chr_or_input"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chr_or_input</span></code></a>(m)</p></td>
@@ -910,13 +910,13 @@ title="Print to PDF"
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.util.compartment_id" title="micom.util.compartment_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compartment_id</span></code></a>(micom_obj)</p></td>
 <td><p>Get the compartment id for a cobra object and prune the prefix if needed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.join_models" title="micom.util.join_models"><code class="xref py py-obj docutils literal notranslate"><span class="pre">join_models</span></code></a>(model_files, id=None)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.join_models" title="micom.util.join_models"><code class="xref py py-obj docutils literal notranslate"><span class="pre">join_models</span></code></a>(model_files[, id])</p></td>
 <td><p>Join several models into one.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.util.fluxes_from_primals" title="micom.util.fluxes_from_primals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fluxes_from_primals</span></code></a>(model, info)</p></td>
 <td><p>Extract a list of fluxes from the model primals.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.add_var_from_expression" title="micom.util.add_var_from_expression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_var_from_expression</span></code></a>(model, name, expr, lb=None, ub=None)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.add_var_from_expression" title="micom.util.add_var_from_expression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_var_from_expression</span></code></a>(model, name, expr[, lb, ub])</p></td>
 <td><p>Add a variable to a model equaling an expression.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.util.check_modification" title="micom.util.check_modification"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_modification</span></code></a>(community)</p></td>
@@ -925,7 +925,7 @@ title="Print to PDF"
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.util._format_min_growth" title="micom.util._format_min_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_format_min_growth</span></code></a>(min_growth, taxa)</p></td>
 <td><p>Format min_growth into a pandas series.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.util._apply_min_growth" title="micom.util._apply_min_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_apply_min_growth</span></code></a>(community, min_growth, atol=1e-06, rtol=1e-06)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util._apply_min_growth" title="micom.util._apply_min_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_apply_min_growth</span></code></a>(community, min_growth[, atol, rtol])</p></td>
 <td><p>Set minimum growth constraints on a model.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.adjust_solver_config" title="micom.util.adjust_solver_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adjust_solver_config</span></code></a>(solver)</p></td>

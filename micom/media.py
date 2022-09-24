@@ -266,6 +266,7 @@ def complete_medium(
     max_import=1,
     minimize_components=False,
     weights=None,
+    strict=[],
 ):
     """Fill in missing components in a growth medium.
 
@@ -307,6 +308,14 @@ def complete_medium(
         the elemental content (for instance "C" to scale by carbon content).
         If None every metabolite will receive the same weight.
         Will be ignored if `minimize_components` is True.
+    strict : list
+        strict : list
+        Whether to match the imports in the predefined medium exactly. For reactions IDs
+        listed here will not allow additional import of the components in the provided
+        medium. For example, if your input medium has a flux of 10 mmol/(gDW*h) defined
+        and the requested growth rate can only be fulfilled by ramping this up that
+        would be allowed in non-strict mode but forbidden in strict mode. To match all
+        medium components to strict mode use `strict=medium.index`.
 
 
     Returns
@@ -319,6 +328,7 @@ def complete_medium(
 
     """
     exids = [r.id for r in model.exchanges]
+    medium_rxns = [r for r in model.exchanges if r.id in medium.index]
     candidates = [r for r in model.exchanges if r.id not in medium.index]
     medium = medium[[i for i in medium.index if i in exids]]
     tol = model.solver.configuration.tolerances.feasibility
@@ -335,6 +345,18 @@ def complete_medium(
         model.add_cons_vars([const])
         model.objective = Zero
         model.medium = medium.to_dict()
+        extra_imports = []
+        for ex in medium_rxns:
+            if ex.id in strict:
+                continue
+            ex_copy = ex.copy()
+            ex_copy.id = ex.id + "_free"
+            if hasattr(ex, "global_id"):
+                ex_copy.global_id = ex.global_id + "_free"
+                ex_copy.community_id = ex.community_id
+            extra_imports.append(ex_copy)
+            candidates.append(ex)
+        model.add_reactions(extra_imports)
         for ex in candidates:
             export = len(ex.reactants) == 1
             if export:
@@ -348,7 +370,8 @@ def complete_medium(
             add_linear_obj(model, candidates, scales)
         if isinstance(model, Community):
             sol = model.optimize(fluxes=True, pfba=False)
-            fluxes = sol.fluxes.loc["medium", :]
+            if sol is not None:
+                fluxes = sol.fluxes.loc["medium", :]
         else:
             try:
                 sol = model.optimize(raise_error=True)
@@ -362,13 +385,13 @@ def complete_medium(
     completed = pd.Series(dtype="float64")
     for rxn in model.exchanges:
         export = len(rxn.reactants) == 1
-        if rxn.id in medium.index:
-            completed[rxn.id] = medium[rxn.id]
-            continue
-        else:
-            flux = -fluxes[rxn.id] if export else fluxes[rxn.id]
+        flux = -fluxes[rxn.id] if export else fluxes[rxn.id]
         if abs(flux) < tol:
-            continue
+            flux = 0.0
         completed[rxn.id] = flux
+        if rxn in medium_rxns and rxn.id not in strict:
+            completed[rxn.id] += medium[rxn.id]
+        elif rxn in medium_rxns:
+            completed[rxn.id] = medium[rxn.id]
 
     return completed[completed > 0]

@@ -386,7 +386,7 @@ def complete_medium(
     for rxn in model.exchanges:
         export = len(rxn.reactants) == 1
         flux = -fluxes[rxn.id] if export else fluxes[rxn.id]
-        if abs(flux) < tol:
+        if flux < tol:
             flux = 0.0
         completed[rxn.id] = flux
         if rxn.id in medium.index and rxn.id not in strict:
@@ -394,4 +394,4 @@ def complete_medium(
         elif rxn.id in medium.index:
             completed[rxn.id] = medium[rxn.id]
 
-    return completed[completed > 0]
+    return completed

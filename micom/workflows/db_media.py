@@ -40,8 +40,13 @@ def _try_complete(args):
         exc = exc[2:]
     try:
         fixed = mm.complete_medium(
-            mod, med, growth, max_import=max_import, strict=strict,
-            minimize_components=mip, weights=w
+            mod,
+            med,
+            growth,
+            max_import=max_import,
+            strict=strict,
+            minimize_components=mip,
+            weights=w,
         )
         added = sum(i not in med.index for i in fixed.index)
         added_flux = fixed.sum() - med[med.index.isin(fixed.index)].sum()
@@ -193,8 +198,7 @@ def complete_db_medium(
     rank = manifest["summary_rank"][0]
     rprint(
         "Completing %d %s-level models on a medium with %d components"
-        " ([red]%d strict[/red])."
-        % (manifest.shape[0], rank, len(medium), len(strict))
+        " ([red]%d strict[/red])." % (manifest.shape[0], rank, len(medium), len(strict))
     )
     if not isinstance(growth, pd.Series):
         growth = pd.Series(growth, index=manifest.id)

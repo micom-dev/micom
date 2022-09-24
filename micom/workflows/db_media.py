@@ -12,6 +12,7 @@ from micom.solution import OptimizationError
 from micom.util import load_model
 from micom.qiime_formats import load_qiime_model_db
 import re
+from rich import print as rprint
 from tempfile import TemporaryDirectory
 
 
@@ -43,11 +44,16 @@ def _try_complete(args):
             minimize_components=mip, weights=w
         )
         added = sum(i not in med.index for i in fixed.index)
+        added_flux = fixed.sum() - med[med.index.isin(fixed.index)].sum()
         can_grow = True
-        logger.info("Could grow `%s` by adding %d imports." % (file, added))
+        logger.info(
+            "Could grow `%s` by adding %d imports"
+            "and %g additional .flux" % (file, added, added_flux)
+        )
     except OptimizationError:
         fixed = pd.Series(float("nan"), index=med.index)
         added = float("nan")
+        added_flux = float("nan")
         can_grow = False
         logger.info("Could not grow `%s`." % file)
     fixed.index = [
@@ -59,7 +65,7 @@ def _try_complete(args):
         for rid in fixed.index
     ]
 
-    return (can_grow, added, fixed)
+    return (can_grow, added, added_flux, fixed)
 
 
 def check_db_medium(model_db, medium, threads=1):
@@ -99,7 +105,7 @@ def check_db_medium(model_db, medium, threads=1):
     else:
         manifest = load_manifest(model_db)
     rank = manifest["summary_rank"][0]
-    logger.info(
+    rprint(
         "Checking %d %s-level models on a medium with %d components."
         % (manifest.shape[0], rank, len(medium))
     )
@@ -185,9 +191,10 @@ def complete_db_medium(
     else:
         manifest = load_manifest(model_db)
     rank = manifest["summary_rank"][0]
-    logger.info(
-        "Checking %d %s-level models on a medium with %d components."
-        % (manifest.shape[0], rank, len(medium))
+    rprint(
+        "Completing %d %s-level models on a medium with %d components"
+        " ([red]%d strict[/red])."
+        % (manifest.shape[0], rank, len(medium), len(strict))
     )
     if not isinstance(growth, pd.Series):
         growth = pd.Series(growth, index=manifest.id)
@@ -208,11 +215,22 @@ def complete_db_medium(
     results = workflow(_try_complete, args, threads)
     manifest["can_grow"] = [r[0] for r in results]
     manifest["added"] = [r[1] for r in results]
-    imports = pd.DataFrame.from_records([r[2] for r in results]).fillna(0.0)
+    manifest["added_flux"] = [r[2] for r in results]
+    imports = pd.DataFrame.from_records([r[3] for r in results]).fillna(0.0)
     imports.index = manifest.id
 
     if compressed:
         tdir.cleanup()
+
+    metrics = (
+        manifest.can_grow.sum(),
+        manifest.added_flux.dropna().mean(),
+        medium.flux.sum(),
+    )
+    rprint(
+        "Obtained growth for %d models adding additional"
+        " flux of %.2f/%.2f on average." % metrics
+    )
 
     return (manifest, imports)
 

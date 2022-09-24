@@ -824,6 +824,7 @@ title="Fullscreen mode"
     <span class="n">max_import</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">minimize_components</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">strict</span><span class="o">=</span><span class="p">[],</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Fill in missing components in a growth medium.</span>
 
@@ -865,6 +866,14 @@ title="Fullscreen mode"
 <span class="sd">        the elemental content (for instance &quot;C&quot; to scale by carbon content).</span>
 <span class="sd">        If None every metabolite will receive the same weight.</span>
 <span class="sd">        Will be ignored if `minimize_components` is True.</span>
+<span class="sd">    strict : list</span>
+<span class="sd">        strict : list</span>
+<span class="sd">        Whether to match the imports in the predefined medium exactly. For reactions IDs</span>
+<span class="sd">        listed here will not allow additional import of the components in the provided</span>
+<span class="sd">        medium. For example, if your input medium has a flux of 10 mmol/(gDW*h) defined</span>
+<span class="sd">        and the requested growth rate can only be fulfilled by ramping this up that</span>
+<span class="sd">        would be allowed in non-strict mode but forbidden in strict mode. To match all</span>
+<span class="sd">        medium components to strict mode use `strict=medium.index`.</span>
 
 
 <span class="sd">    Returns</span>
@@ -877,6 +886,7 @@ title="Fullscreen mode"
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">exids</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">exchanges</span><span class="p">]</span>
+    <span class="n">medium_rxns</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">exchanges</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">medium</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
     <span class="n">candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">exchanges</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">medium</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
     <span class="n">medium</span> <span class="o">=</span> <span class="n">medium</span><span class="p">[[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">medium</span><span class="o">.</span><span class="n">index</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">exids</span><span class="p">]]</span>
     <span class="n">tol</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
@@ -893,6 +903,18 @@ title="Fullscreen mode"
         <span class="n">model</span><span class="o">.</span><span class="n">add_cons_vars</span><span class="p">([</span><span class="n">const</span><span class="p">])</span>
         <span class="n">model</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">Zero</span>
         <span class="n">model</span><span class="o">.</span><span class="n">medium</span> <span class="o">=</span> <span class="n">medium</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="n">extra_imports</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">medium_rxns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ex</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">strict</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">ex_copy</span> <span class="o">=</span> <span class="n">ex</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">ex_copy</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">ex</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="s2">&quot;_free&quot;</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="s2">&quot;global_id&quot;</span><span class="p">):</span>
+                <span class="n">ex_copy</span><span class="o">.</span><span class="n">global_id</span> <span class="o">=</span> <span class="n">ex</span><span class="o">.</span><span class="n">global_id</span> <span class="o">+</span> <span class="s2">&quot;_free&quot;</span>
+                <span class="n">ex_copy</span><span class="o">.</span><span class="n">community_id</span> <span class="o">=</span> <span class="n">ex</span><span class="o">.</span><span class="n">community_id</span>
+            <span class="n">extra_imports</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ex_copy</span><span class="p">)</span>
+            <span class="n">candidates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">add_reactions</span><span class="p">(</span><span class="n">extra_imports</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ex</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
             <span class="n">export</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
             <span class="k">if</span> <span class="n">export</span><span class="p">:</span>
@@ -906,7 +928,8 @@ title="Fullscreen mode"
             <span class="n">add_linear_obj</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">candidates</span><span class="p">,</span> <span class="n">scales</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">Community</span><span class="p">):</span>
             <span class="n">sol</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">fluxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="n">fluxes</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="p">:]</span>
+            <span class="k">if</span> <span class="n">sol</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">fluxes</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="p">:]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">sol</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">raise_error</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -920,14 +943,14 @@ title="Fullscreen mode"
     <span class="n">completed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">rxn</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">exchanges</span><span class="p">:</span>
         <span class="n">export</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rxn</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">rxn</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">medium</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
-            <span class="n">completed</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">medium</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
-            <span class="k">continue</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">flux</span> <span class="o">=</span> <span class="o">-</span><span class="n">fluxes</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="k">if</span> <span class="n">export</span> <span class="k">else</span> <span class="n">fluxes</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+        <span class="n">flux</span> <span class="o">=</span> <span class="o">-</span><span class="n">fluxes</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="k">if</span> <span class="n">export</span> <span class="k">else</span> <span class="n">fluxes</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">flux</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
-            <span class="k">continue</span>
+            <span class="n">flux</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">completed</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">flux</span>
+        <span class="k">if</span> <span class="n">rxn</span> <span class="ow">in</span> <span class="n">medium_rxns</span> <span class="ow">and</span> <span class="n">rxn</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">strict</span><span class="p">:</span>
+            <span class="n">completed</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">+=</span> <span class="n">medium</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">rxn</span> <span class="ow">in</span> <span class="n">medium_rxns</span><span class="p">:</span>
+            <span class="n">completed</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">medium</span><span class="p">[</span><span class="n">rxn</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">completed</span><span class="p">[</span><span class="n">completed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span></div>
 </pre></div>

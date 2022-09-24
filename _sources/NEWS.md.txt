@@ -5,6 +5,14 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.31.0
+
+The medium completion functions now have a flag that allows adding additional flux
+to components already in the candidate medium. The default is now changed to that
+new non-strict mode which makes it much easier and more efficient to complete media.
+In that case the `max_added_import` amount now specifies the maximum flux added on top
+the limit specified in the candidate medium.
+
 ### 0.30.5
 
 Fixed a bug where T-SNE would complain in low sample numbers.

@@ -119,7 +119,7 @@ Functions
    :rtype: pandas.Series or dict
 
 
-.. py:function:: complete_medium(model, medium, growth=0.1, min_growth=0.001, max_import=1, minimize_components=False, weights=None)
+.. py:function:: complete_medium(model, medium, growth=0.1, min_growth=0.001, max_import=1, minimize_components=False, weights=None, strict=[])
 
    Fill in missing components in a growth medium.
 
@@ -159,6 +159,14 @@ Functions
                    If None every metabolite will receive the same weight.
                    Will be ignored if `minimize_components` is True.
    :type weights: str
+   :param strict: strict : list
+                  Whether to match the imports in the predefined medium exactly. For reactions IDs
+                  listed here will not allow additional import of the components in the provided
+                  medium. For example, if your input medium has a flux of 10 mmol/(gDW*h) defined
+                  and the requested growth rate can only be fulfilled by ramping this up that
+                  would be allowed in non-strict mode but forbidden in strict mode. To match all
+                  medium components to strict mode use `strict=medium.index`.
+   :type strict: list
 
    :returns: A series {rid: flux} giving the import flux for each required import
              reaction. This will include the initial `medium` as passed to the

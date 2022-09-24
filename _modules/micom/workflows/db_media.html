@@ -570,6 +570,7 @@ title="Fullscreen mode"
 <span class="kn">from</span> <span class="nn">micom.util</span> <span class="kn">import</span> <span class="n">load_model</span>
 <span class="kn">from</span> <span class="nn">micom.qiime_formats</span> <span class="kn">import</span> <span class="n">load_qiime_model_db</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="nb">print</span> <span class="k">as</span> <span class="n">rprint</span>
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
 
 
@@ -590,21 +591,32 @@ title="Fullscreen mode"
 
 <div class="viewcode-block" id="_try_complete"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._try_complete">[docs]</a><span class="k">def</span> <span class="nf">_try_complete</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Try to complete the medium for a model.&quot;&quot;&quot;</span>
-    <span class="n">file</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span class="n">max_import</span><span class="p">,</span> <span class="n">mip</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">file</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span class="n">max_import</span><span class="p">,</span> <span class="n">mip</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">strict</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="n">exc</span> <span class="o">=</span> <span class="n">find_external_compartment</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">exc</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;C_&quot;</span><span class="p">):</span>  <span class="c1"># for CARVEME models</span>
         <span class="n">exc</span> <span class="o">=</span> <span class="n">exc</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">fixed</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">complete_medium</span><span class="p">(</span>
-            <span class="n">mod</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span class="n">max_import</span><span class="o">=</span><span class="n">max_import</span><span class="p">,</span> <span class="n">minimize_components</span><span class="o">=</span><span class="n">mip</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">w</span>
+            <span class="n">mod</span><span class="p">,</span>
+            <span class="n">med</span><span class="p">,</span>
+            <span class="n">growth</span><span class="p">,</span>
+            <span class="n">max_import</span><span class="o">=</span><span class="n">max_import</span><span class="p">,</span>
+            <span class="n">strict</span><span class="o">=</span><span class="n">strict</span><span class="p">,</span>
+            <span class="n">minimize_components</span><span class="o">=</span><span class="n">mip</span><span class="p">,</span>
+            <span class="n">weights</span><span class="o">=</span><span class="n">w</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">added</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">med</span><span class="o">.</span><span class="n">index</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fixed</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">added_flux</span> <span class="o">=</span> <span class="n">fixed</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="n">med</span><span class="p">[</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">fixed</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
         <span class="n">can_grow</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Could grow `</span><span class="si">%s</span><span class="s2">` by adding </span><span class="si">%d</span><span class="s2"> imports.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">added</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Could grow `</span><span class="si">%s</span><span class="s2">` by adding </span><span class="si">%d</span><span class="s2"> imports&quot;</span>
+            <span class="s2">&quot;and </span><span class="si">%g</span><span class="s2"> additional .flux&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">added</span><span class="p">,</span> <span class="n">added_flux</span><span class="p">)</span>
+        <span class="p">)</span>
     <span class="k">except</span> <span class="n">OptimizationError</span><span class="p">:</span>
         <span class="n">fixed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
         <span class="n">added</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+        <span class="n">added_flux</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
         <span class="n">can_grow</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Could not grow `</span><span class="si">%s</span><span class="s2">`.&quot;</span> <span class="o">%</span> <span class="n">file</span><span class="p">)</span>
     <span class="n">fixed</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span>
@@ -616,7 +628,7 @@ title="Fullscreen mode"
         <span class="k">for</span> <span class="n">rid</span> <span class="ow">in</span> <span class="n">fixed</span><span class="o">.</span><span class="n">index</span>
     <span class="p">]</span>
 
-    <span class="k">return</span> <span class="p">(</span><span class="n">can_grow</span><span class="p">,</span> <span class="n">added</span><span class="p">,</span> <span class="n">fixed</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="p">(</span><span class="n">can_grow</span><span class="p">,</span> <span class="n">added</span><span class="p">,</span> <span class="n">added_flux</span><span class="p">,</span> <span class="n">fixed</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="check_db_medium"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.db_media.check_db_medium">[docs]</a><span class="k">def</span> <span class="nf">check_db_medium</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
@@ -656,7 +668,7 @@ title="Fullscreen mode"
     <span class="k">else</span><span class="p">:</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_manifest</span><span class="p">(</span><span class="n">model_db</span><span class="p">)</span>
     <span class="n">rank</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;summary_rank&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+    <span class="n">rprint</span><span class="p">(</span>
         <span class="s2">&quot;Checking </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">-level models on a medium with </span><span class="si">%d</span><span class="s2"> components.&quot;</span>
         <span class="o">%</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rank</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">medium</span><span class="p">))</span>
     <span class="p">)</span>
@@ -672,7 +684,7 @@ title="Fullscreen mode"
     <span class="k">return</span> <span class="n">manifest</span></div>
 
 
-<div class="viewcode-block" id="complete_db_medium"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media.complete_db_medium">[docs]</a><span class="k">def</span> <span class="nf">complete_db_medium</span><span class="p">(</span>
+<div class="viewcode-block" id="complete_db_medium"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.db_media.complete_db_medium">[docs]</a><span class="k">def</span> <span class="nf">complete_db_medium</span><span class="p">(</span>
     <span class="n">model_db</span><span class="p">,</span>
     <span class="n">medium</span><span class="p">,</span>
     <span class="n">growth</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
@@ -680,6 +692,7 @@ title="Fullscreen mode"
     <span class="n">minimize_components</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">strict</span><span class="o">=</span><span class="nb">list</span><span class="p">(),</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Complete a growth medium for all models in a database.</span>
 
@@ -714,6 +727,13 @@ title="Fullscreen mode"
 <span class="sd">    threads : int &gt;=1</span>
 <span class="sd">        The number of parallel workers to use when building models. As a</span>
 <span class="sd">        rule of thumb you will need around 1GB of RAM for each thread.</span>
+<span class="sd">    strict : list</span>
+<span class="sd">        Whether to match the imports in the predefined medium exactly. For reactions IDs</span>
+<span class="sd">        listed here will not allow additional import of the components in the provided</span>
+<span class="sd">        medium. For example, if your input medium has a flux of 10 mmol/(gDW*h) defined</span>
+<span class="sd">        and the requested growth rate can only be fulfilled by ramping this up that</span>
+<span class="sd">        would be allowed in non-strict mode but forbidden in strict mode. To match all</span>
+<span class="sd">        medium components to strict mode use `strict=medium.global_id`.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -734,9 +754,9 @@ title="Fullscreen mode"
     <span class="k">else</span><span class="p">:</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_manifest</span><span class="p">(</span><span class="n">model_db</span><span class="p">)</span>
     <span class="n">rank</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;summary_rank&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="s2">&quot;Checking </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">-level models on a medium with </span><span class="si">%d</span><span class="s2"> components.&quot;</span>
-        <span class="o">%</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rank</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">medium</span><span class="p">))</span>
+    <span class="n">rprint</span><span class="p">(</span>
+        <span class="s2">&quot;Completing </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">-level models on a medium with </span><span class="si">%d</span><span class="s2"> components&quot;</span>
+        <span class="s2">&quot; ([red]</span><span class="si">%d</span><span class="s2"> strict[/red]).&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rank</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">medium</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">strict</span><span class="p">))</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">growth</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
         <span class="n">growth</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">growth</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">manifest</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
@@ -750,17 +770,29 @@ title="Fullscreen mode"
             <span class="n">max_added_import</span><span class="p">,</span>
             <span class="n">minimize_components</span><span class="p">,</span>
             <span class="n">weights</span><span class="p">,</span>
+            <span class="n">strict</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">index</span>
     <span class="p">]</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_try_complete</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
     <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;can_grow&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
     <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;added&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
-    <span class="n">imports</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">([</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">])</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;added_flux&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+    <span class="n">imports</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">([</span><span class="n">r</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">])</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
     <span class="n">imports</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">id</span>
 
     <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
         <span class="n">tdir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+
+    <span class="n">metrics</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">manifest</span><span class="o">.</span><span class="n">can_grow</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+        <span class="n">manifest</span><span class="o">.</span><span class="n">added_flux</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+    <span class="p">)</span>
+    <span class="n">rprint</span><span class="p">(</span>
+        <span class="s2">&quot;Obtained growth for </span><span class="si">%d</span><span class="s2"> models adding additional&quot;</span>
+        <span class="s2">&quot; flux of </span><span class="si">%.2f</span><span class="s2">/</span><span class="si">%.2f</span><span class="s2"> on average.&quot;</span> <span class="o">%</span> <span class="n">metrics</span>
+    <span class="p">)</span>
 
     <span class="k">return</span> <span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">imports</span><span class="p">)</span></div>
 

@@ -787,7 +787,7 @@ title="Fullscreen mode"
     <span class="n">metrics</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">manifest</span><span class="o">.</span><span class="n">can_grow</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
         <span class="n">manifest</span><span class="o">.</span><span class="n">added_flux</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
-        <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+        <span class="n">imports</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
     <span class="p">)</span>
     <span class="n">rprint</span><span class="p">(</span>
         <span class="s2">&quot;Obtained growth for </span><span class="si">%d</span><span class="s2"> models adding additional&quot;</span>

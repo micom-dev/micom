@@ -623,7 +623,7 @@ title="Fullscreen mode"
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;abundance&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">uses_db</span><span class="p">:</span>
         <span class="k">del</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
 
 
 <span class="k">def</span> <span class="nf">crc_results</span><span class="p">():</span>

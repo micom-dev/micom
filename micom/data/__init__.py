@@ -65,7 +65,7 @@ def test_data(n_samples=4, uses_db=True):
     data["abundance"] = randint(1, 1000, data.shape[0])
     if uses_db:
         del data["file"]
-    return(data)
+    return data
 
 
 def crc_results():

@@ -123,7 +123,7 @@ def complete_db_medium(
     minimize_components=False,
     weights=None,
     threads=1,
-    strict=False,
+    strict=list(),
 ):
     """Complete a growth medium for all models in a database.
 
@@ -158,13 +158,13 @@ def complete_db_medium(
     threads : int >=1
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
-    strict : bool
-        Whether to match the imports in the predefined medium exactly. If True will
-        not allow additional import of the components in the provided medium. If False
-        additional import can be added but are kept as small as possible. For example
-        if your input medium has a flux of 10 mmol/(gDW*h) defined and the requested
-        growth rate can only be fulfilled by ramping this up that would be allowed in
-        non-strict mode but forbidden in strict mode.
+    strict : list
+        Whether to match the imports in the predefined medium exactly. For reactions IDs
+        listed here will not allow additional import of the components in the provided
+        medium. For example, if your input medium has a flux of 10 mmol/(gDW*h) defined
+        and the requested growth rate can only be fulfilled by ramping this up that
+        would be allowed in non-strict mode but forbidden in strict mode. To match all
+        medium components to strict mode use `strict=medium.global_id`.
 
     Returns
     -------

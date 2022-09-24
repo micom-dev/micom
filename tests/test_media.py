@@ -61,14 +61,16 @@ def test_medium_wrong_element(community):
 def test_complete_strict(community):
     m = media.minimal_medium(community, 0.85, 0.85,
                              minimize_components=False)
-    medium = media.complete_medium(community, m[0:2], 0.8, max_import=20, strict=True)
+    medium = media.complete_medium(community, m[0:2], 0.8, max_import=20,
+                                   strict=m.index)
     assert len(medium) > 2
 
 
 def test_complete_weights(community):
     m = media.minimal_medium(community, 0.85, 0.85,
                              minimize_components=False)
-    medium = media.complete_medium(community, m[0:2], 0.8, max_import=20, strict=True, weights="C")
+    medium = media.complete_medium(community, m[0:2], 0.8, max_import=20,
+                                   strict=m.index, weights="C")
     assert len(medium) == 4
 
 
@@ -76,7 +78,7 @@ def test_complete_non_strict(community):
     m = media.minimal_medium(community, 0.85, 0.85,
                              minimize_components=False)
     # request growth rates not fulfillable with previous bounds
-    medium = media.complete_medium(community, m, 0.95, 0.95, max_import=20, strict=False)
+    medium = media.complete_medium(community, m, 0.95, 0.95, max_import=20)
     community.medium = medium
     new_min = media.minimal_medium(community, 0.95, 0.95)
     assert len(medium) > 2
@@ -87,15 +89,15 @@ def test_complete_non_strict(community):
 def test_complete_mip_strict(community):
     m = media.minimal_medium(community, 0.85, 0.85,
                              minimize_components=True)
-    medium = media.complete_medium(community, m[0:2], 0.8, 0.8, max_import=20, strict=True,
-                                   minimize_components=True)
+    medium = media.complete_medium(community, m[0:2], 0.8, 0.8, max_import=20,
+                                   strict=m.index, minimize_components=True)
     assert len(medium) == 4
 
 
 def test_complete_mip_non_strict(community):
     m = media.minimal_medium(community, 0.85, 0.85,
                              minimize_components=True)
-    medium = media.complete_medium(community, m, 0.95, 0.95, max_import=20, strict=False,
+    medium = media.complete_medium(community, m, 0.95, 0.95, max_import=20,
                                    minimize_components=True)
     assert len(medium) == 5
 

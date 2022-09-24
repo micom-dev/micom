@@ -266,7 +266,7 @@ def complete_medium(
     max_import=1,
     minimize_components=False,
     weights=None,
-    strict=False,
+    strict=[],
 ):
     """Fill in missing components in a growth medium.
 
@@ -308,13 +308,14 @@ def complete_medium(
         the elemental content (for instance "C" to scale by carbon content).
         If None every metabolite will receive the same weight.
         Will be ignored if `minimize_components` is True.
-    strict : bool
-        Whether to match the imports in the predefined medium exactly. If True will
-        not allow additional import of the components in the provided medium. If False
-        additional import can be added but are kept as small as possible. For example
-        if your input medium has a flux of 10 mmol/(gDW*h) defined and the requested
-        growth rate can only be fulfilled by ramping this up that would be allowed in
-        non-strict mode but forbidden in strict mode.
+    strict : list
+        strict : list
+        Whether to match the imports in the predefined medium exactly. For reactions IDs
+        listed here will not allow additional import of the components in the provided
+        medium. For example, if your input medium has a flux of 10 mmol/(gDW*h) defined
+        and the requested growth rate can only be fulfilled by ramping this up that
+        would be allowed in non-strict mode but forbidden in strict mode. To match all
+        medium components to strict mode use `strict=medium.index`.
 
 
     Returns
@@ -345,16 +346,17 @@ def complete_medium(
         model.objective = Zero
         model.medium = medium.to_dict()
         extra_imports = []
-        if not strict:
-            for ex in medium_rxns:
-                ex_copy = ex.copy()
-                ex_copy.id = ex.id + "_free"
-                if hasattr(ex, "global_id"):
-                    ex_copy.global_id = ex.global_id + "_free"
-                    ex_copy.community_id = ex.community_id
-                extra_imports.append(ex_copy)
-                candidates.append(ex)
-            model.add_reactions(extra_imports)
+        for ex in medium_rxns:
+            if ex.id in strict:
+                continue
+            ex_copy = ex.copy()
+            ex_copy.id = ex.id + "_free"
+            if hasattr(ex, "global_id"):
+                ex_copy.global_id = ex.global_id + "_free"
+                ex_copy.community_id = ex.community_id
+            extra_imports.append(ex_copy)
+            candidates.append(ex)
+        model.add_reactions(extra_imports)
         for ex in candidates:
             export = len(ex.reactants) == 1
             if export:
@@ -387,7 +389,7 @@ def complete_medium(
         if abs(flux) < tol:
             flux = 0.0
         completed[rxn.id] = flux
-        if rxn in medium_rxns and not strict:
+        if rxn in medium_rxns and rxn.id not in strict:
             completed[rxn.id] += medium[rxn.id]
         elif rxn in medium_rxns:
             completed[rxn.id] = medium[rxn.id]

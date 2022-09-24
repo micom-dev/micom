@@ -123,6 +123,7 @@ def complete_db_medium(
     minimize_components=False,
     weights=None,
     threads=1,
+    strict=False,
 ):
     """Complete a growth medium for all models in a database.
 

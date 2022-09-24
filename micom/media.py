@@ -389,9 +389,9 @@ def complete_medium(
         if abs(flux) < tol:
             flux = 0.0
         completed[rxn.id] = flux
-        if rxn in medium_rxns and rxn.id not in strict:
+        if rxn.id in medium.index and rxn.id not in strict:
             completed[rxn.id] += medium[rxn.id]
-        elif rxn in medium_rxns:
+        elif rxn.id in medium.index:
             completed[rxn.id] = medium[rxn.id]
 
     return completed[completed > 0]

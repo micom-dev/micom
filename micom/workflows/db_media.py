@@ -229,7 +229,7 @@ def complete_db_medium(
     metrics = (
         manifest.can_grow.sum(),
         manifest.added_flux.dropna().mean(),
-        medium.flux.sum(),
+        imports.mean().sum(),
     )
     rprint(
         "Obtained growth for %d models adding additional"

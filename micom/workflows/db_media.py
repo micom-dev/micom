@@ -32,14 +32,15 @@ def _grow(args):
 
 def _try_complete(args):
     """Try to complete the medium for a model."""
-    file, med, growth, max_import, mip, w = args
+    file, med, growth, max_import, mip, w, strict = args
     mod = load_model(file)
     exc = find_external_compartment(mod)
     if exc.startswith("C_"):  # for CARVEME models
         exc = exc[2:]
     try:
         fixed = mm.complete_medium(
-            mod, med, growth, max_import=max_import, minimize_components=mip, weights=w
+            mod, med, growth, max_import=max_import, strict=strict,
+            minimize_components=mip, weights=w
         )
         added = sum(i not in med.index for i in fixed.index)
         can_grow = True
@@ -156,6 +157,13 @@ def complete_db_medium(
     threads : int >=1
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
+    strict : bool
+        Whether to match the imports in the predefined medium exactly. If True will
+        not allow additional import of the components in the provided medium. If False
+        additional import can be added but are kept as small as possible. For example
+        if your input medium has a flux of 10 mmol/(gDW*h) defined and the requested
+        growth rate can only be fulfilled by ramping this up that would be allowed in
+        non-strict mode but forbidden in strict mode.
 
     Returns
     -------
@@ -192,6 +200,7 @@ def complete_db_medium(
             max_added_import,
             minimize_components,
             weights,
+            strict,
         )
         for i in manifest.index
     ]

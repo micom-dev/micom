@@ -5,6 +5,10 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.31.1
+
+Show added flux as fraction of total in `complete_db_medium`.
+
 ### 0.31.0
 
 The medium completion functions now have a flag that allows adding additional flux

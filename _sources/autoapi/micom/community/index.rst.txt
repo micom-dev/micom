@@ -46,6 +46,64 @@ Attributes
    mixture models as long as all individuals exist within a single enclosing
    compartment.
 
+   .. py:property:: abundances
+
+      The normalized abundances.
+
+      Setting this attribute will also trigger the appropriate updates in
+      the exchange fluxes and the community objective.
+
+      :type: pandas.Series
+
+   .. py:property:: taxonomy
+
+      The taxonomy used within the model.
+
+      This attribute only returns a copy.
+
+      :type: pandas.DataFrame
+
+   .. py:property:: modification
+
+      Denotes modifications to the model currently applied.
+
+      Will be None if the community is unmodified.
+
+      :type: str
+
+   .. py:property:: exchanges
+
+      Return all exchange reactions in the model.
+
+      Uses several heuristics based on the reaction name and compartments
+      to exclude reactions that are *not* exchange reactions.
+
+      :type: list
+
+   .. py:property:: internal_exchanges
+
+      Return all internal exchanges.
+
+      Internal exchanges are exchanges between individual taxa and the medium.
+
+      :type: list
+
+   .. py:property:: medium
+
+      Return the medium.
+
+   .. py:property:: build_metrics
+
+      Returns general metrics for database matching.
+
+      Only available when built using a model database.
+
+      :type: pd.Series
+
+   .. py:property:: scale
+
+      Get a scale to improve numerical properties.
+
    .. py:method:: __add_exchanges(reactions, info, external_compartment='e', internal_exchange=1000)
 
       Add exchange reactions for a new model.
@@ -140,15 +198,6 @@ Attributes
       :rtype: micom.CommunitySolution
 
 
-   .. py:method:: abundances()
-      :property:
-
-      pandas.Series: The normalized abundances.
-
-      Setting this attribute will also trigger the appropriate updates in
-      the exchange fluxes and the community objective.
-
-
    .. py:method:: set_abundance(value, normalize=True)
 
       Change abundances for one or more taxa.
@@ -160,53 +209,6 @@ Attributes
                         in micom asssume that this is always the case. Only change this
                         if you know what you are doing :O
       :type normalize: boolean, optional
-
-
-   .. py:method:: taxonomy()
-      :property:
-
-      pandas.DataFrame: The taxonomy used within the model.
-
-      This attribute only returns a copy.
-
-
-   .. py:method:: modification()
-      :property:
-
-      str: Denotes modifications to the model currently applied.
-
-      Will be None if the community is unmodified.
-
-
-   .. py:method:: exchanges()
-      :property:
-
-      list: Return all exchange reactions in the model.
-
-      Uses several heuristics based on the reaction name and compartments
-      to exclude reactions that are *not* exchange reactions.
-
-
-   .. py:method:: internal_exchanges()
-      :property:
-
-      list: Return all internal exchanges.
-
-      Internal exchanges are exchanges between individual taxa and the medium.
-
-
-   .. py:method:: medium()
-      :property:
-
-      Return the medium.
-
-
-   .. py:method:: build_metrics()
-      :property:
-
-      pd.Series: Returns general metrics for database matching.
-
-      Only available when built using a model database.
 
 
    .. py:method:: optcom(strategy='lagrangian', min_growth=0.0, fluxes=False, pfba=True)
@@ -323,12 +325,6 @@ Attributes
                 out and the columns contain the growth changes for all taxa in
                 that knockout.
       :rtype: pandas.DataFrame
-
-
-   .. py:method:: scale()
-      :property:
-
-      Get a scale to improve numerical properties.
 
 
    .. py:method:: to_pickle(filename)

@@ -119,11 +119,10 @@ def plot_exchanges_per_taxon(
     )
 
     n = exchanges.sample_id.nunique()
-    if not tsne_args:
-        tsne_args = {
-            "initialization": "pca",
-            "learning_rate": "auto"
-        }
+    if "init" not in tsne_args:
+        tsne_args["init"] = "pca"
+    if "learning_rate" not in tsne_args:
+        tsne_args["learning_rate"] = "auto"
     if "perplexity" not in tsne_args and n <= 30:
         logger.warn(f"Not enough samples. Adjusting T-SNE perplexity to {n // 2}.")
         tsne_args["perplexity"] = n // 2

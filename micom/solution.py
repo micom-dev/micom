@@ -214,7 +214,7 @@ def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=
         else:
             sol = CommunitySolution(community, slim=True)
         if interface_to_str(community.solver.interface) == "osqp":
-            correction = 1e-6* community.variables.community_objective.primal ** 2
+            correction = 1e-6 * community.variables.community_objective.primal ** 2
             sol.objective_value -= community.solver.problem.direction * correction
         return sol
     logger.warning("solver encountered an error %s" % status)

@@ -193,10 +193,10 @@ def grow(
             "CPLEX or Gurobi installed. You may also increase the abundance "
             "cutoff to create simpler models."
         )
-    growth = pd.concat(r["growth"] for r in results if r is not None)
+    growth = pd.concat([r["growth"] for r in results if r is not None])
     growth = growth[growth.taxon != "medium"]
-    exchanges = pd.concat(r["exchanges"] for r in results if r is not None)
-    exchanges["taxon"] = exchanges.index
+    exchanges = pd.concat([r["exchanges"] for r in results if r is not None])
+    exchanges["taxon"] = exchanges.index.values
     exchanges = exchanges.melt(
         id_vars=["taxon", "sample_id", "tolerance"],
         var_name="reaction",

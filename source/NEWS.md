@@ -5,6 +5,14 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.31.5
+
+Fix a bug in the stabilization term used for OSQP. Try to avoid fragmentation warning.
+
+### 0.31.4
+
+Fix regression in T-SNE.
+
 ### 0.31.2 - 0.31.3
 
 Some more fixes to the media completion.

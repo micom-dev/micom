@@ -9,6 +9,9 @@ from micom.workflows.core import workflow, GrowthResults
 from micom.workflows.media import process_medium
 from os import path
 import pandas as pd
+import warnings
+
+warnings.filterwarnings("ignore", category=pd.errors.PerformanceWarning)
 
 DIRECTION = pd.Series(["import", "export"], index=[0, 1])
 ARGS = {
@@ -193,9 +196,9 @@ def grow(
             "CPLEX or Gurobi installed. You may also increase the abundance "
             "cutoff to create simpler models."
         )
-    growth = pd.concat([r["growth"] for r in results if r is not None])
+    growth = pd.concat(r["growth"] for r in results if r is not None)
     growth = growth[growth.taxon != "medium"]
-    exchanges = pd.concat([r["exchanges"] for r in results if r is not None])
+    exchanges = pd.concat(r["exchanges"] for r in results if r is not None)
     exchanges["taxon"] = exchanges.index.values
     exchanges = exchanges.melt(
         id_vars=["taxon", "sample_id", "tolerance"],

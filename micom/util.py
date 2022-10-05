@@ -313,11 +313,10 @@ def adjust_solver_config(solver):
         solver.problem.Params.LogToConsole = 0
     if interface == "osqp":
         # as a direct solver OSQP has trouble getting to good accuracies
-        solver.configuration.presolve = False
         solver.problem.settings["eps_rel"] = 1e-4
         solver.problem.settings["eps_abs"] = 1e-4
         solver.configuration.tolerances.feasibility = 1e-4
-        solver.problem.settings["max_iter"] = 60000
+        solver.problem.settings["max_iter"] = 50000
 
 
 def reset_min_community_growth(com):

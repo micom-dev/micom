@@ -5,6 +5,10 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.31.7
+
+Fixed a bug where minimal_medium would maximize with OSQP instead of minimize.
+
 ### 0.31.6
 
 More adjustments to OSQP.

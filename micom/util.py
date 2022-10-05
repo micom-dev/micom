@@ -317,6 +317,7 @@ def adjust_solver_config(solver):
         solver.problem.settings["eps_abs"] = 1e-4
         solver.configuration.tolerances.feasibility = 1e-4
         solver.problem.settings["max_iter"] = 50000
+        solver.configuration.presolve = True
 
 
 def reset_min_community_growth(com):

@@ -374,6 +374,7 @@ def complete_medium(
                 fluxes = sol.fluxes.loc["medium", :]
         else:
             try:
+                print(com.objective.expression)
                 sol = model.optimize(raise_error=True)
                 fluxes = sol.fluxes
             except OptimizationError:

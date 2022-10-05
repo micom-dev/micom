@@ -932,7 +932,6 @@ title="Fullscreen mode"
                 <span class="n">fluxes</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="p">:]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">expression</span><span class="p">)</span>
                 <span class="n">sol</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">raise_error</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
                 <span class="n">fluxes</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span>
             <span class="k">except</span> <span class="n">OptimizationError</span><span class="p">:</span>

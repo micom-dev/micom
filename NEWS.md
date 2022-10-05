@@ -5,6 +5,10 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.31.6
+
+More adjustments to OSQP.
+
 ### 0.31.5
 
 Fix a bug in the stabilization term used for OSQP. Try to avoid fragmentation warning.

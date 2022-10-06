@@ -748,11 +748,12 @@ title="Fullscreen mode"
     <span class="sd">&quot;&quot;&quot;Get all fluxes stratified by taxa.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;osqp&quot;</span><span class="p">:</span>
         <span class="c1"># This improves OSQP by soooo much</span>
-        <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">+=</span> <span class="p">(</span>
+        <span class="n">term</span> <span class="o">=</span> <span class="p">(</span>
             <span class="mf">1e-6</span>
             <span class="o">*</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">direction</span>
             <span class="o">*</span> <span class="n">community</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span> <span class="o">**</span> <span class="mi">2</span>
         <span class="p">)</span>
+        <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">+=</span> <span class="n">term</span>
     <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
     <span class="n">status</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span>
     <span class="k">if</span> <span class="n">status</span> <span class="ow">in</span> <span class="n">good</span><span class="p">:</span>
@@ -774,11 +775,7 @@ title="Fullscreen mode"
         <span class="k">if</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;osqp&quot;</span><span class="p">:</span>
             <span class="n">correction</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="n">community</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">primal</span> <span class="o">**</span> <span class="mi">2</span>
             <span class="n">sol</span><span class="o">.</span><span class="n">objective_value</span> <span class="o">-=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">direction</span> <span class="o">*</span> <span class="n">correction</span>
-            <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">-=</span> <span class="p">(</span>
-                <span class="mf">1e-6</span>
-                <span class="o">*</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">direction</span>
-                <span class="o">*</span> <span class="n">community</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span> <span class="o">**</span> <span class="mi">2</span>
-            <span class="p">)</span>
+            <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">-=</span> <span class="n">term</span>
         <span class="k">return</span> <span class="n">sol</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;solver encountered an error </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">status</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span></div>

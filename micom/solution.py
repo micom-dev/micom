@@ -190,11 +190,12 @@ def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=
     """Get all fluxes stratified by taxa."""
     if interface_to_str(community.solver.interface) == "osqp":
         # This improves OSQP by soooo much
-        community.objective += (
+        term = (
             1e-6
             * community.solver.problem.direction
             * community.variables.community_objective ** 2
         )
+        community.objective += term
     community.solver.optimize()
     status = community.solver.status
     if status in good:
@@ -216,11 +217,7 @@ def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=
         if interface_to_str(community.solver.interface) == "osqp":
             correction = 1e-6 * community.variables.community_objective.primal ** 2
             sol.objective_value -= community.solver.problem.direction * correction
-            community.objective -= (
-                1e-6
-                * community.solver.problem.direction
-                * community.variables.community_objective ** 2
-            )
+            community.objective -= term
         return sol
     logger.warning("solver encountered an error %s" % status)
     return None

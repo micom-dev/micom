@@ -1,6 +1,6 @@
 """Init file for MICOM workflows."""
 
-from .core import workflow, GrowthResults
+from .core import workflow, GrowthResults, save_results, load_results
 from .build import build, build_database
 from .grow import grow
 from .tradeoff import tradeoff
@@ -17,5 +17,7 @@ __all__ = (
     "tradeoff",
     "fix_medium",
     "minimal_media",
-    "GrowthResults"
+    "GrowthResults",
+    "save_results",
+    "load_results",
 )

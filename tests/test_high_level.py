@@ -8,6 +8,8 @@ from micom.workflows import (
     tradeoff,
     minimal_media,
     fix_medium,
+    save_results,
+    load_results
 )
 from micom.qiime_formats import load_qiime_medium, load_qiime_manifest
 from micom.solution import OptimizationError
@@ -97,3 +99,18 @@ def test_fix_medium(tmp_path):
     fixed = fix_medium(built, str(tmp_path), bad_medium, 0.5, 0.001, 10)
     assert fixed.shape[0] > 3
     assert "description" in fixed.columns
+
+
+def test_results_saving(tmp_path):
+    data = md.test_data()
+    built = build(data, db, str(tmp_path), cutoff=0)
+    grown = grow(built, str(tmp_path), medium, 0.5)
+    results_file = str(tmp_path / "test.zip")
+    save_results(grown, results_file)
+    assert (tmp_path / "test.zip").exists()
+    loaded = load_results(results_file)
+    assert len(loaded) == 3
+    assert loaded.growth_rates.shape == grown.growth_rates.shape
+    assert loaded.exchanges.shape == grown.exchanges.shape
+    assert loaded.annotations.shape == grown.annotations.shape
+

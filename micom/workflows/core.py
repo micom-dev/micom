@@ -2,12 +2,52 @@
 
 from collections import namedtuple, abc
 from multiprocessing import Pool
+import pandas as pd
 from rich.progress import track
 import warnings
+from zipfile import ZipFile
 
 GrowthResults = namedtuple(
     "GrowthResults", ["growth_rates", "exchanges", "annotations"]
 )
+
+
+def save_results(results, path):
+    """Save growth results to a file.
+
+    This will write all tables as CSV into a single ZIP file.
+
+    Arguments
+    ---------
+    results : GrowthResults
+        The results as returned from `grow`.
+    path : str
+        A filepath for the generated file. Should end in `.zip`.
+    """
+    with ZipFile(path, "w") as zippy:
+        for attr in ["growth_rates", "exchanges", "annotations"]:
+            getattr(results, attr).to_csv(zippy.open(f"{attr}.csv", "w"), index=False)
+
+
+def load_results(path):
+    """Load growth results from a file.
+
+    Arguments
+    ---------
+    path : str
+        Path to saved `GrowthResults`.
+
+    Returns
+    -------
+    GrowthResults
+        The saved GrowthResults.
+    """
+    tables = []
+    with ZipFile(path, "r") as zippy:
+        for attr in ["growth_rates", "exchanges", "annotations"]:
+            tab = pd.read_csv(zippy.open(f"{attr}.csv", "r"))
+            tables.append(tab)
+    return GrowthResults(*tables)
 
 
 def workflow(func, args, threads=4, description=None, progress=True):

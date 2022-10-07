@@ -188,7 +188,9 @@ def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
 
 def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=1e-6):
     """Get all fluxes stratified by taxa."""
-    if interface_to_str(community.solver.interface) == "osqp":
+    solver_name = interface_to_str(community.solver.interface)
+    term = None
+    if solver_name == "osqp" and community.objective.is_Linear:
         # This improves OSQP by soooo much
         term = (
             1e-6
@@ -214,7 +216,7 @@ def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=
             sol = CommunitySolution(community)
         else:
             sol = CommunitySolution(community, slim=True)
-        if interface_to_str(community.solver.interface) == "osqp":
+        if term:
             correction = 1e-6 * community.variables.community_objective.primal ** 2
             sol.objective_value -= community.solver.problem.direction * correction
             community.objective -= term

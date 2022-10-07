@@ -631,6 +631,16 @@ title="Print to PDF"
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.save_results">
+       save_results
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.load_results">
+       load_results
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#micom.workflows.build">
        build
       </a>
@@ -724,6 +734,16 @@ title="Print to PDF"
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.save_results">
+       save_results
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#micom.workflows.load_results">
+       load_results
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#micom.workflows.build">
        build
       </a>
@@ -806,6 +826,12 @@ title="Print to PDF"
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.workflow" title="micom.workflows.workflow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">workflow</span></code></a>(func, args[, threads, description, progress])</p></td>
 <td><p>Run analyses for several samples in parallel.</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.save_results" title="micom.workflows.save_results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_results</span></code></a>(results, path)</p></td>
+<td><p>Save growth results to a file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.load_results" title="micom.workflows.load_results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_results</span></code></a>(path)</p></td>
+<td><p>Load growth results from a file.</p></td>
+</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.build" title="micom.workflows.build"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build</span></code></a>(taxonomy, model_db, out_folder[, cutoff, ...])</p></td>
 <td><p>Build a series of community models.</p></td>
 </tr>
@@ -871,6 +897,38 @@ that contains the arguments for each sample.</p></li>
 <dt class="sig sig-object py" id="micom.workflows.GrowthResults">
 <span class="sig-prename descclassname"><span class="pre">micom.workflows.</span></span><span class="sig-name descname"><span class="pre">GrowthResults</span></span><a class="reference internal" href="../../../_modules/micom/workflows/core.html#GrowthResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.GrowthResults" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="micom.workflows.save_results">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.</span></span><span class="sig-name descname"><span class="pre">save_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/workflows/core.html#save_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.save_results" title="Permalink to this definition">#</a></dt>
+<dd><p>Save growth results to a file.</p>
+<p>This will write all tables as CSV into a single ZIP file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>GrowthResults</em>) – The results as returned from <cite>grow</cite>.</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – A filepath for the generated file. Should end in <cite>.zip</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="micom.workflows.load_results">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.</span></span><span class="sig-name descname"><span class="pre">load_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/workflows/core.html#load_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.load_results" title="Permalink to this definition">#</a></dt>
+<dd><p>Load growth results from a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to saved <cite>GrowthResults</cite>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The saved GrowthResults.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>GrowthResults</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.workflows.build">

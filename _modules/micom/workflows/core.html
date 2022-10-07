@@ -560,12 +560,52 @@ title="Fullscreen mode"
 
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span><span class="p">,</span> <span class="n">abc</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">rich.progress</span> <span class="kn">import</span> <span class="n">track</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
 
 <div class="viewcode-block" id="GrowthResults"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.core.GrowthResults">[docs]</a><span class="n">GrowthResults</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
     <span class="s2">&quot;GrowthResults&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;growth_rates&quot;</span><span class="p">,</span> <span class="s2">&quot;exchanges&quot;</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">]</span>
 <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="save_results"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.core.save_results">[docs]</a><span class="k">def</span> <span class="nf">save_results</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Save growth results to a file.</span>
+
+<span class="sd">    This will write all tables as CSV into a single ZIP file.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    results : GrowthResults</span>
+<span class="sd">        The results as returned from `grow`.</span>
+<span class="sd">    path : str</span>
+<span class="sd">        A filepath for the generated file. Should end in `.zip`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zippy</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;growth_rates&quot;</span><span class="p">,</span> <span class="s2">&quot;exchanges&quot;</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">]:</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">zippy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="load_results"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.core.load_results">[docs]</a><span class="k">def</span> <span class="nf">load_results</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load growth results from a file.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    path : str</span>
+<span class="sd">        Path to saved `GrowthResults`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    GrowthResults</span>
+<span class="sd">        The saved GrowthResults.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tables</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zippy</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;growth_rates&quot;</span><span class="p">,</span> <span class="s2">&quot;exchanges&quot;</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">]:</span>
+            <span class="n">tab</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">zippy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">))</span>
+            <span class="n">tables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tab</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">GrowthResults</span><span class="p">(</span><span class="o">*</span><span class="n">tables</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="workflow"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.core.workflow">[docs]</a><span class="k">def</span> <span class="nf">workflow</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>

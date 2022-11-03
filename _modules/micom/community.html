@@ -1413,10 +1413,9 @@ title="Fullscreen mode"
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.scale"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.scale">[docs]</a>    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Get a scale to improve numerical properties.&quot;&quot;&quot;</span>
-        <span class="c1"># may have to be adjusted based on the solver in the future</span>
-        <span class="k">if</span> <span class="s2">&quot;osqp&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">):</span>
-            <span class="k">return</span> <span class="mf">1.0</span>
-        <span class="k">return</span> <span class="mf">1000.0</span></div>
+        <span class="k">if</span> <span class="s2">&quot;cplex&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mf">1000.0</span>
+        <span class="k">return</span> <span class="mf">1.0</span></div>
 
 <div class="viewcode-block" id="Community.to_pickle"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.to_pickle">[docs]</a>    <span class="k">def</span> <span class="nf">to_pickle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Save a community in serialized form.</span>

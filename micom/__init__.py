@@ -35,4 +35,4 @@ __all__ = (
     "show_versions",
 )
 
-__version__ = "0.32.2"
+__version__ = "0.32.3"

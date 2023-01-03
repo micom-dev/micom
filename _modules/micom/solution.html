@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom.solution &#8212; version 0.32.2</title>
+    <title>micom.solution &#8212; version 0.32.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -77,7 +77,7 @@
       <img src="../../_static/micom.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">version 0.32.2</h1>
+      <h1 class="site-logo" id="site-title">version 0.32.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -584,7 +584,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="_group_taxa"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution._group_taxa">[docs]</a><span class="k">def</span> <span class="nf">_group_taxa</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">taxa</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Format a list of values by id and taxa.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Format a list of values by id and taxa.&quot;&quot;&quot;</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">values</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">values</span><span class="p">,</span> <span class="n">what</span><span class="p">:</span> <span class="n">ids</span><span class="p">,</span> <span class="s2">&quot;compartment&quot;</span><span class="p">:</span> <span class="n">taxa</span><span class="p">})</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;compartment&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">what</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="n">df</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">name</span>
@@ -592,7 +592,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="CommunitySolution"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution">[docs]</a><span class="k">class</span> <span class="nc">CommunitySolution</span><span class="p">(</span><span class="n">Solution</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;An FBA solution for an entire community.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An FBA solution for an entire community.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -627,7 +627,7 @@ title="Fullscreen mode"
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">community</span><span class="p">,</span> <span class="n">slim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">reactions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metabolites</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get the solution from a community model.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the solution from a community model.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">reactions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">reactions</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">reactions</span>
         <span class="k">if</span> <span class="n">metabolites</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -697,7 +697,7 @@ title="Fullscreen mode"
         <span class="k">return</span> <span class="n">html</span></div>
 
 <div class="viewcode-block" id="CommunitySolution.__repr__"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Convert CommunitySolution instance to string representation.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert CommunitySolution instance to string representation.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">good</span><span class="p">:</span>
             <span class="k">return</span> <span class="s2">&quot;&lt;CommunitySolution </span><span class="si">{0:s}</span><span class="s2"> at 0x</span><span class="si">{1:x}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
         <span class="k">return</span> <span class="s2">&quot;&lt;CommunitySolution </span><span class="si">{0:.3f}</span><span class="s2"> at 0x</span><span class="si">{1:x}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -706,7 +706,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="add_pfba_objective"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.add_pfba_objective">[docs]</a><span class="k">def</span> <span class="nf">add_pfba_objective</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Add pFBA objective.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add pFBA objective.</span>
 
 <span class="sd">    Add objective to minimize the summed flux of all reactions to the</span>
 <span class="sd">    current objective. This one will work with any objective (even non-linear</span>
@@ -745,7 +745,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="solve"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.solve">[docs]</a><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">raise_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get all fluxes stratified by taxa.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get all fluxes stratified by taxa.&quot;&quot;&quot;</span>
     <span class="n">solver_name</span> <span class="o">=</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span>
     <span class="n">term</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">solver_name</span> <span class="o">==</span> <span class="s2">&quot;osqp&quot;</span> <span class="ow">and</span> <span class="n">community</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">is_Linear</span><span class="p">:</span>
@@ -784,7 +784,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="reset_solver"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.reset_solver">[docs]</a><span class="k">def</span> <span class="nf">reset_solver</span><span class="p">(</span><span class="n">community</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Reset the solver.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset the solver.&quot;&quot;&quot;</span>
     <span class="n">interface</span> <span class="o">=</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;resetting solver, hoping for the best.&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">interface</span> <span class="o">==</span> <span class="s2">&quot;cplex&quot;</span><span class="p">:</span>
@@ -799,7 +799,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="optimize_with_retry"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.optimize_with_retry">[docs]</a><span class="k">def</span> <span class="nf">optimize_with_retry</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;could not get optimum.&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Try to reset the solver.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Try to reset the solver.&quot;&quot;&quot;</span>
     <span class="n">sol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">sol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">reset_solver</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
@@ -811,7 +811,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="crossover"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.crossover">[docs]</a><span class="k">def</span> <span class="nf">crossover</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">sol</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get the crossover solution.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the crossover solution.&quot;&quot;&quot;</span>
     <span class="n">gcs</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">growth_rate</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;medium&quot;</span><span class="p">)</span>
     <span class="n">com_growth</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">growth_rate</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting crossover...&quot;</span><span class="p">)</span>
@@ -845,7 +845,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="optimize_with_fraction"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.optimize_with_fraction">[docs]</a><span class="k">def</span> <span class="nf">optimize_with_fraction</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Optimize with a constrained community growth rate.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Optimize with a constrained community growth rate.&quot;&quot;&quot;</span>
     <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">ub</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">growth_rate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

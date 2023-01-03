@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom.elasticity &#8212; version 0.32.2</title>
+    <title>micom.elasticity &#8212; version 0.32.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -77,7 +77,7 @@
       <img src="../../_static/micom.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">version 0.32.2</h1>
+      <h1 class="site-logo" id="site-title">version 0.32.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -576,7 +576,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="_get_fluxes"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity._get_fluxes">[docs]</a><span class="k">def</span> <span class="nf">_get_fluxes</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">reactions</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get the primal values for a set of variables.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the primal values for a set of variables.&quot;&quot;&quot;</span>
     <span class="n">fluxes</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">community_id</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">global_id</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span>
     <span class="p">}</span>
@@ -584,7 +584,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="_derivatives"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity._derivatives">[docs]</a><span class="k">def</span> <span class="nf">_derivatives</span><span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">after</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get the elasticities for fluxes.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the elasticities for fluxes.&quot;&quot;&quot;</span>
     <span class="n">before_signs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">before</span><span class="p">)</span>
     <span class="n">after_signs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">after</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">before_signs</span> <span class="o">-</span> <span class="n">after_signs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">):</span>
@@ -599,7 +599,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="elasticities_by_medium"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.elasticities_by_medium">[docs]</a><span class="k">def</span> <span class="nf">elasticities_by_medium</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">reactions</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">progress</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get the elasticity coefficients for a set of variables.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the elasticity coefficients for a set of variables.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -659,7 +659,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="elasticities_by_abundance"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.elasticities_by_abundance">[docs]</a><span class="k">def</span> <span class="nf">elasticities_by_abundance</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">reactions</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">progress</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get the elasticity coefficients for a set of variables.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the elasticity coefficients for a set of variables.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -709,7 +709,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="elasticities"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.elasticities">[docs]</a><span class="k">def</span> <span class="nf">elasticities</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">reactions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculate elasticities for reactions.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate elasticities for reactions.</span>
 
 <span class="sd">    Calculates elasticity coefficients using the specified reactions as</span>
 <span class="sd">    response and exchange bounds (diet) and taxa abundances as</span>

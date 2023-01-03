@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Installing MICOM &#8212; version 0.32.2</title>
+    <title>Installing MICOM &#8212; version 0.32.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -82,7 +82,7 @@
       <img src="_static/micom.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">version 0.32.2</h1>
+      <h1 class="site-logo" id="site-title">version 0.32.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -903,7 +903,7 @@ div.rendered_html tbody tr:hover {
 <section id="Installing-MICOM">
 <h1>Installing MICOM<a class="headerlink" href="#Installing-MICOM" title="Permalink to this headline">#</a></h1>
 <p>MICOM is present on PyPi (the Python Package Index), so it can be installed via pip with</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install micom
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>micom
 </pre></div>
 </div>
 <p>The same installation strategy also works with Anaconda installations or any other Python distributions. Supported Python versions are 3.7 or any later.</p>
@@ -915,18 +915,18 @@ div.rendered_html tbody tr:hover {
 <p><strong>CPLEX</strong></p>
 <p>After registering and downloading the CPLEX studio for your OS unpack it (by running the provided installer) to a directory of your choice (we will assume it’s called <code class="docutils literal notranslate"><span class="pre">ibm</span></code>).</p>
 <p>Now install the CPLEX python package into your activated environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install ibm/cplex/python/3.8/x86-64_linux
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ibm/cplex/python/3.8/x86-64_linux
 </pre></div>
 </div>
 <p>Substitute <code class="docutils literal notranslate"><span class="pre">3.8</span></code> with your Python version. Substitute <code class="docutils literal notranslate"><span class="pre">x86-64_linux</span></code> with the folder corresponding to your system (there will only be one subfolder in that directory).</p>
 <p><strong>Gurobi</strong></p>
 <p>Thanks to support from Richard Oberdieck from Gurobi, the Gurobi solvers now work excellently with MICOM.</p>
 <p>Gurobi can be installed with conda.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c gurobi gurobi
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>gurobi<span class="w"> </span>gurobi
 </pre></div>
 </div>
 <p>You will now have to register the installation using your license key.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grbgetkey YOUR-LICENSE-KEY
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>grbgetkey<span class="w"> </span>YOUR-LICENSE-KEY
 </pre></div>
 </div>
 <div class="nbinput nblast docutils container">

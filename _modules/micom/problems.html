@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom.problems &#8212; version 0.32.2</title>
+    <title>micom.problems &#8212; version 0.32.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -77,7 +77,7 @@
       <img src="../../_static/micom.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">version 0.32.2</h1>
+      <h1 class="site-logo" id="site-title">version 0.32.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -583,7 +583,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="regularize_l2_norm"><a class="viewcode-back" href="../../autoapi/micom/problems/index.html#micom.problems.regularize_l2_norm">[docs]</a><span class="k">def</span> <span class="nf">regularize_l2_norm</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Add an objective to find the most &quot;egoistic&quot; solution.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add an objective to find the most &quot;egoistic&quot; solution.</span>
 
 <span class="sd">    This adds an optimization objective finding a solution that maintains a</span>
 <span class="sd">    (sub-)optimal community growth rate but is the closest solution to the</span>
@@ -625,7 +625,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="cooperative_tradeoff"><a class="viewcode-back" href="../../autoapi/micom/problems/index.html#micom.problems.cooperative_tradeoff">[docs]</a><span class="k">def</span> <span class="nf">cooperative_tradeoff</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Find the best tradeoff between community and individual growth.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the best tradeoff between community and individual growth.&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">community</span> <span class="k">as</span> <span class="n">com</span><span class="p">:</span>
         <span class="n">solver</span> <span class="o">=</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">problem</span><span class="p">)</span>
         <span class="n">check_modification</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
@@ -662,7 +662,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="knockout_taxa"><a class="viewcode-back" href="../../autoapi/micom/problems/index.html#micom.problems.knockout_taxa">[docs]</a><span class="k">def</span> <span class="nf">knockout_taxa</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">taxa</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span> <span class="n">diag</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Knockout a taxon from the community.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Knockout a taxon from the community.&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">community</span> <span class="k">as</span> <span class="n">com</span><span class="p">:</span>
         <span class="n">check_modification</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
         <span class="n">min_growth</span> <span class="o">=</span> <span class="n">_format_min_growth</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">com</span><span class="o">.</span><span class="n">taxa</span><span class="p">)</span>

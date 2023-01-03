@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom.algorithms &#8212; version 0.32.2</title>
+    <title>micom.algorithms &#8212; version 0.32.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -77,7 +77,7 @@
       <img src="../../_static/micom.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">version 0.32.2</h1>
+      <h1 class="site-logo" id="site-title">version 0.32.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -565,7 +565,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="jaccard"><a class="viewcode-back" href="../../autoapi/micom/algorithms/index.html#micom.algorithms.jaccard">[docs]</a><span class="k">def</span> <span class="nf">jaccard</span><span class="p">(</span><span class="n">inclusion</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculate jaccard distances for a community.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate jaccard distances for a community.&quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
         <span class="s2">&quot;calculating jaccard distance for </span><span class="si">{}</span><span class="s2">x</span><span class="si">{}</span><span class="s2"> input matrix&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="o">*</span><span class="n">inclusion</span><span class="o">.</span><span class="n">shape</span>
@@ -582,7 +582,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="euclidean"><a class="viewcode-back" href="../../autoapi/micom/algorithms/index.html#micom.algorithms.euclidean">[docs]</a><span class="k">def</span> <span class="nf">euclidean</span><span class="p">(</span><span class="n">inclusion</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculate euclidean distances for a community.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate euclidean distances for a community.&quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
         <span class="s2">&quot;calculating euclidean distance for </span><span class="si">{}</span><span class="s2">x</span><span class="si">{}</span><span class="s2"> input matrix&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="o">*</span><span class="n">inclusion</span><span class="o">.</span><span class="n">shape</span>
@@ -596,7 +596,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="reaction_matrix"><a class="viewcode-back" href="../../autoapi/micom/algorithms/index.html#micom.algorithms.reaction_matrix">[docs]</a><span class="k">def</span> <span class="nf">reaction_matrix</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Create a matrix of reactions x models.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a matrix of reactions x models.&quot;&quot;&quot;</span>
     <span class="n">ids</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -609,7 +609,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="metabolic_dist"><a class="viewcode-back" href="../../autoapi/micom/algorithms/index.html#micom.algorithms.metabolic_dist">[docs]</a><span class="k">def</span> <span class="nf">metabolic_dist</span><span class="p">(</span><span class="n">reactions</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">jaccard</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Calculate the metabolic distances between all members.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the metabolic distances between all members.&quot;&quot;&quot;</span>
     <span class="n">rids</span> <span class="o">=</span> <span class="p">[(</span><span class="n">r</span><span class="o">.</span><span class="n">global_id</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">community_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">]</span>
     <span class="n">rlist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rids</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reaction&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">])</span>
     <span class="n">rlist</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom.annotation &#8212; version 0.32.2</title>
+    <title>micom.annotation &#8212; version 0.32.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -77,7 +77,7 @@
       <img src="../../_static/micom.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">version 0.32.2</h1>
+      <h1 class="site-logo" id="site-title">version 0.32.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -565,12 +565,12 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="flatten"><a class="viewcode-back" href="../../autoapi/micom/annotation/index.html#micom.annotation.flatten">[docs]</a><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Flatten a dictionary into strings.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Flatten a dictionary into strings.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
 
 
 <div class="viewcode-block" id="annotate"><a class="viewcode-back" href="../../autoapi/micom/annotation/index.html#micom.annotation.annotate">[docs]</a><span class="k">def</span> <span class="nf">annotate</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">community</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Annotate a list of entities.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Annotate a list of entities.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;reaction&quot;</span><span class="p">:</span>
         <span class="n">elems</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">reactions</span>
     <span class="k">elif</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;metabolite&quot;</span><span class="p">:</span>
@@ -602,7 +602,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="annotate_metabolites_from_exchanges"><a class="viewcode-back" href="../../autoapi/micom/annotation/index.html#micom.annotation.annotate_metabolites_from_exchanges">[docs]</a><span class="k">def</span> <span class="nf">annotate_metabolites_from_exchanges</span><span class="p">(</span><span class="n">com</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Annotate exchange reactions by their metabolite.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Annotate exchange reactions by their metabolite.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">Community</span><span class="p">):</span>
         <span class="n">exs</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">internal_exchanges</span> <span class="o">+</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span>
         <span class="n">attr</span> <span class="o">=</span> <span class="s2">&quot;global_id&quot;</span>

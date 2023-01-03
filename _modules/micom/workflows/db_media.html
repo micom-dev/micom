@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom.workflows.db_media &#8212; version 0.32.2</title>
+    <title>micom.workflows.db_media &#8212; version 0.32.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -77,7 +77,7 @@
       <img src="../../../_static/micom.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">version 0.32.2</h1>
+      <h1 class="site-logo" id="site-title">version 0.32.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
@@ -575,7 +575,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="_grow"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._grow">[docs]</a><span class="k">def</span> <span class="nf">_grow</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get the maximum growth rate under a given medium.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the maximum growth rate under a given medium.&quot;&quot;&quot;</span>
     <span class="n">file</span><span class="p">,</span> <span class="n">med</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="n">good</span> <span class="o">=</span> <span class="n">med</span><span class="p">[</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">exchanges</span><span class="p">])]</span>
@@ -590,7 +590,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="_try_complete"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._try_complete">[docs]</a><span class="k">def</span> <span class="nf">_try_complete</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Try to complete the medium for a model.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Try to complete the medium for a model.&quot;&quot;&quot;</span>
     <span class="n">file</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span class="n">max_import</span><span class="p">,</span> <span class="n">mip</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">strict</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="n">exc</span> <span class="o">=</span> <span class="n">find_external_compartment</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
@@ -632,7 +632,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="check_db_medium"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.db_media.check_db_medium">[docs]</a><span class="k">def</span> <span class="nf">check_db_medium</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Complete a growth medium for all models in a database.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Complete a growth medium for all models in a database.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -694,7 +694,7 @@ title="Fullscreen mode"
     <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">strict</span><span class="o">=</span><span class="nb">list</span><span class="p">(),</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Complete a growth medium for all models in a database.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Complete a growth medium for all models in a database.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -798,7 +798,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="_annotate"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._annotate">[docs]</a><span class="k">def</span> <span class="nf">_annotate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get annotation for a model.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get annotation for a model.&quot;&quot;&quot;</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">annotate_metabolites_from_exchanges</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span></div>
 
@@ -807,7 +807,7 @@ title="Fullscreen mode"
     <span class="n">model_db</span><span class="p">,</span>
     <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Get metabolite annotations from a model DB.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get metabolite annotations from a model DB.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>

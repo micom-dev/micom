@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>micom.community &#8212; version 0.32.2</title>
+    <title>micom.community &#8212; version 0.32.3</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -77,7 +77,7 @@
       <img src="../../_static/micom.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">version 0.32.2</h1>
+      <h1 class="site-logo" id="site-title">version 0.32.3</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -588,7 +588,7 @@ title="Fullscreen mode"
 
 
 <div class="viewcode-block" id="Community"><a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community">[docs]</a><span class="k">class</span> <span class="nc">Community</span><span class="p">(</span><span class="n">cobra</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;A community of models.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A community of models.</span>
 
 <span class="sd">    This class represents a community of individual models. It was designed for</span>
 <span class="sd">    microbial communities but may also be used for multi-tissue or tissue-cell</span>
@@ -608,7 +608,7 @@ title="Fullscreen mode"
         <span class="n">max_exchange</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
         <span class="n">mass</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a new community object.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new community object.</span>
 
 <span class="sd">        `micom` builds a community from a taxonomy which may simply be a list</span>
 <span class="sd">        of model files in its simplest form. Usually, the taxonomy will contain</span>
@@ -864,7 +864,7 @@ title="Fullscreen mode"
         <span class="n">external_compartment</span><span class="o">=</span><span class="s2">&quot;e&quot;</span><span class="p">,</span>
         <span class="n">internal_exchange</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add exchange reactions for a new model.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add exchange reactions for a new model.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">:</span>
             <span class="c1"># Some sanity checks for whether the reaction is an exchange</span>
             <span class="n">ex</span> <span class="o">=</span> <span class="n">external_compartment</span> <span class="o">+</span> <span class="s2">&quot;__&quot;</span> <span class="o">+</span> <span class="n">r</span><span class="o">.</span><span class="n">community_id</span>
@@ -945,7 +945,7 @@ title="Fullscreen mode"
                 <span class="n">r</span><span class="o">.</span><span class="n">upper_bound</span> <span class="o">=</span> <span class="n">internal_exchange</span></div>
 
 <div class="viewcode-block" id="Community.__update_exchanges"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.__update_exchanges">[docs]</a>    <span class="k">def</span> <span class="nf">__update_exchanges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update exchanges.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update exchanges.&quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;updating exchange reactions for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">met</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metabolites</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">compartment</span> <span class="o">==</span> <span class="s2">&quot;m&quot;</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">met</span><span class="o">.</span><span class="n">reactions</span><span class="p">:</span>
@@ -958,7 +958,7 @@ title="Fullscreen mode"
                     <span class="n">r</span><span class="o">.</span><span class="n">add_metabolites</span><span class="p">({</span><span class="n">met</span><span class="p">:</span> <span class="o">-</span><span class="n">coef</span><span class="p">},</span> <span class="n">combine</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Community.__update_community_objective"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.__update_community_objective">[docs]</a>    <span class="k">def</span> <span class="nf">__update_community_objective</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update the community objective.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the community objective.&quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;updating the community objective for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
         <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span>
         <span class="n">const</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">community_objective_equality</span>
@@ -977,7 +977,7 @@ title="Fullscreen mode"
         <span class="bp">self</span><span class="o">.</span><span class="n">add_cons_vars</span><span class="p">([</span><span class="n">const</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="Community.optimize_single"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.optimize_single">[docs]</a>    <span class="k">def</span> <span class="nf">optimize_single</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Optimize growth rate for one individual.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Optimize growth rate for one individual.</span>
 
 <span class="sd">        `optimize_single` will calculate the maximal growth rate for one</span>
 <span class="sd">        individual member of the community.</span>
@@ -1020,7 +1020,7 @@ title="Fullscreen mode"
             <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">value</span></div>
 
 <div class="viewcode-block" id="Community.optimize_all"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.optimize_all">[docs]</a>    <span class="k">def</span> <span class="nf">optimize_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return solutions for individually optimizing each model.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return solutions for individually optimizing each model.</span>
 
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -1051,7 +1051,7 @@ title="Fullscreen mode"
 <div class="viewcode-block" id="Community.optimize"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.optimize">[docs]</a>    <span class="k">def</span> <span class="nf">optimize</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">raise_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Optimize the model using flux balance analysis.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Optimize the model using flux balance analysis.</span>
 
 <span class="sd">        This is the primary accessor for optimization in MICOM and should be used</span>
 <span class="sd">        for all optimizations. Different from cobrapy this will *not* return the full</span>
@@ -1110,7 +1110,7 @@ title="Fullscreen mode"
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.abundances"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.abundances">[docs]</a>    <span class="k">def</span> <span class="nf">abundances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;pandas.Series: The normalized abundances.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;pandas.Series: The normalized abundances.</span>
 
 <span class="sd">        Setting this attribute will also trigger the appropriate updates in</span>
 <span class="sd">        the exchange fluxes and the community objective.</span>
@@ -1122,7 +1122,7 @@ title="Fullscreen mode"
         <span class="bp">self</span><span class="o">.</span><span class="n">set_abundance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Community.set_abundance"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.set_abundance">[docs]</a>    <span class="k">def</span> <span class="nf">set_abundance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Change abundances for one or more taxa.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Change abundances for one or more taxa.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1156,7 +1156,7 @@ title="Fullscreen mode"
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.taxonomy"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.taxonomy">[docs]</a>    <span class="k">def</span> <span class="nf">taxonomy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;pandas.DataFrame: The taxonomy used within the model.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;pandas.DataFrame: The taxonomy used within the model.</span>
 
 <span class="sd">        This attribute only returns a copy.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1164,7 +1164,7 @@ title="Fullscreen mode"
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.modification"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.modification">[docs]</a>    <span class="k">def</span> <span class="nf">modification</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;str: Denotes modifications to the model currently applied.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Denotes modifications to the model currently applied.</span>
 
 <span class="sd">        Will be None if the community is unmodified.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1177,7 +1177,7 @@ title="Fullscreen mode"
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.exchanges"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.exchanges">[docs]</a>    <span class="k">def</span> <span class="nf">exchanges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;list: Return all exchange reactions in the model.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list: Return all exchange reactions in the model.</span>
 
 <span class="sd">        Uses several heuristics based on the reaction name and compartments</span>
 <span class="sd">        to exclude reactions that are *not* exchange reactions.</span>
@@ -1186,7 +1186,7 @@ title="Fullscreen mode"
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.internal_exchanges"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.internal_exchanges">[docs]</a>    <span class="k">def</span> <span class="nf">internal_exchanges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;list: Return all internal exchanges.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list: Return all internal exchanges.</span>
 
 <span class="sd">        Internal exchanges are exchanges between individual taxa and the medium.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1198,12 +1198,12 @@ title="Fullscreen mode"
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.medium"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.medium">[docs]</a>    <span class="k">def</span> <span class="nf">medium</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return the medium.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the medium.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">medium</span></div>
 
     <span class="nd">@medium</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">medium</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the medium for the community.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the medium for the community.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1234,7 +1234,7 @@ title="Fullscreen mode"
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.build_metrics"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.build_metrics">[docs]</a>    <span class="k">def</span> <span class="nf">build_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;pd.Series: Returns general metrics for database matching.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;pd.Series: Returns general metrics for database matching.</span>
 
 <span class="sd">        Only available when built using a model database.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1247,7 +1247,7 @@ title="Fullscreen mode"
             <span class="p">)</span></div>
 
 <div class="viewcode-block" id="Community.optcom"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.optcom">[docs]</a>    <span class="k">def</span> <span class="nf">optcom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;lagrangian&quot;</span><span class="p">,</span> <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Run OptCom for the community.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run OptCom for the community.</span>
 
 <span class="sd">        OptCom methods are a group of optimization procedures to find community</span>
 <span class="sd">        solutions that provide a tradeoff between the cooperative community</span>
@@ -1310,7 +1310,7 @@ title="Fullscreen mode"
         <span class="n">atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Find the best tradeoff between community and individual growth.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Find the best tradeoff between community and individual growth.</span>
 
 <span class="sd">        Finds the set of growth rates which maintian a particular community</span>
 <span class="sd">        growth and spread up growth across all taxa as much as possible.</span>
@@ -1364,7 +1364,7 @@ title="Fullscreen mode"
         <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">diag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sequentially knowckout a list of taxa in the model.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sequentially knowckout a list of taxa in the model.</span>
 
 <span class="sd">        This uses cooperative tradeoff as optimization criterion in order to</span>
 <span class="sd">        get unqiue solutions for individual growth rates. Requires a QP</span>
@@ -1412,13 +1412,13 @@ title="Fullscreen mode"
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.scale"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.scale">[docs]</a>    <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Get a scale to improve numerical properties.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a scale to improve numerical properties.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s2">&quot;cplex&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">):</span>
             <span class="k">return</span> <span class="mf">1000.0</span>
         <span class="k">return</span> <span class="mf">1.0</span></div>
 
 <div class="viewcode-block" id="Community.to_pickle"><a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.to_pickle">[docs]</a>    <span class="k">def</span> <span class="nf">to_pickle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Save a community in serialized form.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save a community in serialized form.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -1435,7 +1435,7 @@ title="Fullscreen mode"
 
     <span class="nd">@cobra</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the solver.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the solver.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="s2">&quot;lp_method&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">lp_method</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="s2">&quot;qp_method&quot;</span><span class="p">):</span>

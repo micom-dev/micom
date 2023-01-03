@@ -121,6 +121,8 @@ Attributes
 
    .. py:method:: _repr_html_()
 
+      Return a rich HTML representation of the solution.
+
 
    .. py:method:: __repr__()
 

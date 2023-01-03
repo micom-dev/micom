@@ -5,9 +5,13 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.32.3
+
+Bump the required cobra version to avoid numpy version errors.
+
 ### 0.32.1 - 0.32.2
 
-Adjustement to solver settings and lost of improvements to Gurobi that make it much
+Adjustments to solver settings and lost of improvements to Gurobi that make it much
 faster.
 
 ### 0.32.0

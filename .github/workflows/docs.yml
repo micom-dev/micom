@@ -23,7 +23,7 @@ jobs:
         pip install wheel numpy Cython
         pip install biom-format
         pip install -e .
-        pip install sphinx nbsphinx sphinx-book-theme sphinx-autoapi recommonmark
+        pip install sphinx>4.0 nbsphinx sphinx-book-theme sphinx-autoapi recommonmark
     - name: Build docs
       run: |
         cp NEWS.md docs/source

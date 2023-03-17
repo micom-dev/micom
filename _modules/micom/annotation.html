@@ -337,6 +337,7 @@ document.write(`
     <span class="n">mets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span>
         <span class="p">[</span>
             <span class="p">{</span>
+                <span class="s2">&quot;object&quot;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">reactants</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                 <span class="s2">&quot;metabolite&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">reactants</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">attr</span><span class="p">),</span>
                 <span class="s2">&quot;reaction&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
             <span class="p">}</span>
@@ -345,7 +346,7 @@ document.write(`
     <span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
     <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
-        <span class="n">anns</span> <span class="o">=</span> <span class="n">annotate</span><span class="p">(</span><span class="n">mets</span><span class="o">.</span><span class="n">metabolite</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">com</span><span class="p">,</span> <span class="s2">&quot;metabolite&quot;</span><span class="p">)</span>
+        <span class="n">anns</span> <span class="o">=</span> <span class="n">annotate</span><span class="p">(</span><span class="n">mets</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">com</span><span class="p">,</span> <span class="s2">&quot;metabolite&quot;</span><span class="p">)</span>
     <span class="n">anns</span><span class="p">[</span><span class="s2">&quot;reaction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mets</span><span class="o">.</span><span class="n">reaction</span><span class="o">.</span><span class="n">values</span>
     <span class="k">return</span> <span class="n">anns</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reaction&quot;</span><span class="p">])</span></div>
 </pre></div>

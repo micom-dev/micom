@@ -54,6 +54,7 @@ def annotate_metabolites_from_exchanges(com):
     mets = pd.DataFrame.from_records(
         [
             {
+                "object": r.reactants[0],
                 "metabolite": getattr(r.reactants[0], attr),
                 "reaction": getattr(r, attr),
             }
@@ -62,6 +63,6 @@ def annotate_metabolites_from_exchanges(com):
     ).drop_duplicates()
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", category=UserWarning)
-        anns = annotate(mets.metabolite.tolist(), com, "metabolite")
+        anns = annotate(mets.object.tolist(), com, "metabolite")
     anns["reaction"] = mets.reaction.values
     return anns.drop_duplicates(subset=["reaction"])

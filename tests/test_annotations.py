@@ -62,3 +62,21 @@ def test_annotations_micom_exchanges(community):
         col in anns.columns
         for col in ["molecular_weight", "C_number", "N_number", "kegg.compound"]
     )
+
+def test_annotations_multiple_exchanges(community):
+    mod = community
+    ex_copy = mod.exchanges[0].copy()
+    ex_copy.id = "EX_copy_m"
+    ex_copy.global_id = "EX_copy_m"
+    mod.add_reactions([ex_copy])
+    anns = annotate_metabolites_from_exchanges(mod)
+
+    assert "EX_copy_m" in anns.reaction.to_list()
+    # medium exchanges + internal exchanges + 1 added
+    assert anns.shape[0] == 41
+    assert anns.metabolite.value_counts().max() == 2
+    assert anns.metabolite.value_counts().min() == 1
+    assert all(
+        col in anns.columns
+        for col in ["molecular_weight", "C_number", "N_number", "kegg.compound"]
+    )

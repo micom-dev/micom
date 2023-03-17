@@ -5,6 +5,14 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.32.4
+
+Fixes a bug where model annotation tables could not be generated if there were multiple
+exchange reactions for a single metabolite. This made MICOM not work with AGORA2 in some
+instances.
+
+Now checks for demand reactions and in database construction as well.
+
 ### 0.32.3
 
 Bump the required cobra version to avoid numpy version errors.

@@ -1,0 +1,340 @@
+:py:mod:`micom.community`
+=========================
+
+.. py:module:: micom.community
+
+.. autoapi-nested-parse::
+
+   A class representing a microbial or tissue community.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   micom.community.Community
+
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.community._ranks
+
+
+.. py:data:: _ranks
+   :value: ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species', 'strain']
+
+   
+
+.. py:class:: Community(taxonomy, model_db=None, id=None, name=None, rel_threshold=1e-06, solver=None, progress=True, max_exchange=100, mass=1)
+
+   Bases: :py:obj:`cobra.Model`
+
+   A community of models.
+
+   This class represents a community of individual models. It was designed for
+   microbial communities but may also be used for multi-tissue or tissue-cell
+   mixture models as long as all individuals exist within a single enclosing
+   compartment.
+
+   .. py:property:: abundances
+
+      The normalized abundances.
+
+      Setting this attribute will also trigger the appropriate updates in
+      the exchange fluxes and the community objective.
+
+      :type: pandas.Series
+
+   .. py:property:: taxonomy
+
+      The taxonomy used within the model.
+
+      This attribute only returns a copy.
+
+      :type: pandas.DataFrame
+
+   .. py:property:: modification
+
+      Denotes modifications to the model currently applied.
+
+      Will be None if the community is unmodified.
+
+      :type: str
+
+   .. py:property:: exchanges
+
+      Return all exchange reactions in the model.
+
+      Uses several heuristics based on the reaction name and compartments
+      to exclude reactions that are *not* exchange reactions.
+
+      :type: list
+
+   .. py:property:: internal_exchanges
+
+      Return all internal exchanges.
+
+      Internal exchanges are exchanges between individual taxa and the medium.
+
+      :type: list
+
+   .. py:property:: medium
+
+      Return the medium.
+
+   .. py:property:: build_metrics
+
+      Returns general metrics for database matching.
+
+      Only available when built using a model database.
+
+      :type: pd.Series
+
+   .. py:property:: scale
+
+      Get a scale to improve numerical properties.
+
+   .. py:method:: __add_exchanges(reactions, info, external_compartment='e', internal_exchange=1000)
+
+      Add exchange reactions for a new model.
+
+
+   .. py:method:: __update_exchanges()
+
+      Update exchanges.
+
+
+   .. py:method:: __update_community_objective()
+
+      Update the community objective.
+
+
+   .. py:method:: optimize_single(id)
+
+      Optimize growth rate for one individual.
+
+      `optimize_single` will calculate the maximal growth rate for one
+      individual member of the community.
+
+      .. rubric:: Notes
+
+      This might well mean that growth rates for all other individuals are
+      low since the individual may use up all available resources.
+
+      :param id: The ID of the individual to be optimized.
+      :type id: str
+      :param fluxes: Whether to return all fluxes. Defaults to just returning the
+                     maximal growth rate.
+      :type fluxes: boolean, optional
+
+      :returns: The maximal growth rate for the given taxa.
+      :rtype: float
+
+
+   .. py:method:: optimize_all(progress=False)
+
+      Return solutions for individually optimizing each model.
+
+      .. rubric:: Notes
+
+      This might well mean that growth rates for all other individuals are
+      low since the individual may use up all available resources. As a
+      consequence the reported growth rates may usually never be obtained
+      all at once.
+
+      :param progress: Whether to show a progress bar.
+      :type progress: boolean, optional
+
+      :returns: The maximal growth rate for each taxa.
+      :rtype: pandas.Series
+
+
+   .. py:method:: optimize(fluxes=False, pfba=False, raise_error=False, atol=None, rtol=None)
+
+      Optimize the model using flux balance analysis.
+
+      This is the primary accessor for optimization in MICOM and should be used
+      for all optimizations. Different from cobrapy this will *not* return the full
+      solution by default but only growth rates which is much quicker. You can
+      request a full solution by setting the `fluxes` and `pFBA` arguments.
+
+      .. note::
+
+         for OSQP this will use an additional quadratic regularization in order
+         to convert all LP problems to QPs and stabilize the solution. This may not
+         perform well if the community growth rate is larger 1000 (which it should never
+         be as this would be a doubling time of a few seconds).
+
+      :param slim: Whether to return a slim solution which does not contain fluxes,
+                   just growth rates.
+      :type slim: boolean, optional
+      :param raise_error: Should an error be raised if the solution is not optimal. Defaults
+                          to False which will either return a solution with a non-optimal
+                          status or None if optimization fails.
+      :type raise_error: boolean, optional
+      :param fluxes: Whether to return the fluxes as well.
+      :type fluxes: boolean, optional
+      :param pfba: Whether to obtain fluxes by parsimonious FBA rather than
+                   "classical" FBA. This is highly recommended.
+      :type pfba: boolean, optional
+      :param atol: Absolute tolerance for the growth rates. If None will use the solver
+                   tolerance.
+      :type atol: float
+      :param rtol: Relative tolerqance for the growth rates. If None will use the
+                   solver tolerance.
+      :type rtol: float
+
+      :returns: The solution after optimization or None if there is no optimum.
+      :rtype: micom.CommunitySolution
+
+
+   .. py:method:: set_abundance(value, normalize=True)
+
+      Change abundances for one or more taxa.
+
+      :param value: The new abundances. Must contain one value for each taxon. Can
+                    be a named object like a pandas Series.
+      :type value: array-like object
+      :param normalize: Whether to normalize the abundances to a total of 1.0. Many things
+                        in micom asssume that this is always the case. Only change this
+                        if you know what you are doing :O
+      :type normalize: boolean, optional
+
+
+   .. py:method:: optcom(strategy='lagrangian', min_growth=0.0, fluxes=False, pfba=True)
+
+      Run OptCom for the community.
+
+      OptCom methods are a group of optimization procedures to find community
+      solutions that provide a tradeoff between the cooperative community
+      growth and the egoistic growth of each individual [#c1]_. `micom`
+      provides several strategies that can be used to find optimal solutions:
+
+      - "moma": Minimization of metabolic adjustment. Simultaneously
+        optimizes the community objective (maximize) and the cooperativity
+        cost (minimize). This method finds an exact maximum but doubles the
+        number of required variables, thus being slow.
+      - "lmoma": The same as "moma" only with a linear
+        representation of the cooperativity cost (absolute value).
+      - "original": Solves the multi-objective problem described in [#c1]_.
+        Here, the community growth rate is maximized simultanously with all
+        individual growth rates. Note that there are usually many
+        Pareto-optimal solutions to this problem and the method will only
+        give one solution. This is also the slowest method.
+
+      :param community: The community to optimize.
+      :type community: micom.Community
+      :param strategy: The strategy used to solve the OptCom formulation. Defaults to
+                       "lagrangian" which gives a decent tradeoff between speed and
+                       correctness.
+      :type strategy: str
+      :param min_growth: The minimal growth rate required for each individual. May be a
+                         single value or an array-like object with the same length as there
+                         are individuals.
+      :type min_growth: float or array-like
+      :param fluxes: Whether to return the fluxes as well.
+      :type fluxes: boolean
+      :param pfba: Whether to obtain fluxes by parsimonious FBA rather than
+                   "classical" FBA.
+      :type pfba: boolean
+
+      :returns: The solution of the optimization. If fluxes==False will only
+                contain the objective value, community growth rate and individual
+                growth rates.
+      :rtype: micom.CommunitySolution
+
+      .. rubric:: References
+
+      .. [#c1] OptCom: a multi-level optimization framework for the metabolic
+         modeling and analysis of microbial communities.
+         Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.
+         doi: 10.1371/journal.pcbi.1002363, PMID: 22319433
+
+
+   .. py:method:: cooperative_tradeoff(min_growth=0.0, fraction=1.0, fluxes=False, pfba=False, atol=None, rtol=None)
+
+      Find the best tradeoff between community and individual growth.
+
+      Finds the set of growth rates which maintian a particular community
+      growth and spread up growth across all taxa as much as possible.
+      This is done by minimizing the L2 norm of the growth rates with a
+      minimal community growth.
+
+      :param min_growth: The minimal growth rate required for each individual. May be a
+                         single value or an array-like object with the same length as there
+                         are individuals.
+      :type min_growth: float or array-like, optional
+      :param fraction: The minum percentage of the community growth rate that has to be
+                       maintained. For instance 0.9 means maintain 90% of the maximal
+                       community growth rate. Defaults to 100%.
+      :type fraction: float or list of floats in [0, 1]
+      :param fluxes: Whether to return the fluxes as well.
+      :type fluxes: boolean, optional
+      :param pfba: Whether to obtain fluxes by parsimonious FBA rather than
+                   "classical" FBA. This is highly recommended.
+      :type pfba: boolean, optional
+      :param atol: Absolute tolerance for the growth rates. If None will use the solver
+                   tolerance.
+      :type atol: float
+      :param rtol: Relative tolerqance for the growth rates. If None will use the
+                   solver tolerance.
+      :type rtol: float
+
+      :returns: The solution of the optimization. If fluxes==False will only
+                contain the objective value, community growth rate and individual
+                growth rates. If more than one fraction value is given will return
+                a pandas Series of solutions with the fractions as indices.
+      :rtype: micom.CommunitySolution or pd.Series of solutions
+
+
+   .. py:method:: knockout_taxa(taxa=None, fraction=1.0, method='change', progress=True, diag=True)
+
+      Sequentially knowckout a list of taxa in the model.
+
+      This uses cooperative tradeoff as optimization criterion in order to
+      get unqiue solutions for individual growth rates. Requires a QP
+      solver to work.
+
+      :param taxa: Names of taxa to be knocked out.
+      :type taxa: str or list of strs
+      :param fraction: Percentage of the maximum community growth rate that has to be
+                       maintained. Defaults to 100%.
+      :type fraction: float in [0, 1], optional
+      :param method: One of "raw", "change" or "relative change" that dictates whether
+                     to return the new growth rate (raw), the change in growth rate
+                     new - old or the relative change ([new - old] / old).
+      :type method: str, optional
+      :param progress: Whether to show a progress bar. On by default.
+      :type progress: bool, optional
+      :param diag: Whether the diagonal should contain values as well. If False will
+                   be filled with NaNs.
+      :type diag: bool, optional
+
+      :returns: A data frame with one row for each knockout and growth rates in the
+                columns. Here the row name indicates which taxon has been knocked
+                out and the columns contain the growth changes for all taxa in
+                that knockout.
+      :rtype: pandas.DataFrame
+
+
+   .. py:method:: to_pickle(filename)
+
+      Save a community in serialized form.
+
+      :param filename: Where to save the pickled community.
+      :type filename: str
+
+      :rtype: Nothing
+
+
+

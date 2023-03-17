@@ -1,0 +1,137 @@
+:py:mod:`micom.optcom`
+======================
+
+.. py:module:: micom.optcom
+
+.. autoapi-nested-parse::
+
+   Implements optimization and model problems.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.optcom.add_dualized_optcom
+   micom.optcom.add_moma_optcom
+   micom.optcom.optcom
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.optcom._methods
+
+
+.. py:function:: add_dualized_optcom(community, min_growth)
+
+   Add dual Optcom variables and constraints to a community.
+
+   Uses the original formulation of OptCom and solves the following
+   multi-objective problem::
+
+       maximize community_growth
+       s.t. maximize growth_rate_i for all i
+            s.t. Sv_i = 0
+                 lb_i >= v_i >= ub_i
+
+   .. rubric:: Notes
+
+   This method will only find one arbitrary solution from the Pareto front.
+   There may exist several other optimal solutions.
+
+   :param community: The community to modify.
+   :type community: micom.Community
+   :param min_growth: The minimum growth rate for each individual in the community. Either
+                      a single value applied to all individuals or one value for each.
+   :type min_growth: positive float or array-like object.
+
+
+.. py:function:: add_moma_optcom(community, min_growth, linear=False)
+
+   Add a dualized MOMA version of OptCom.
+
+   Solves a MOMA (minimization of metabolic adjustment) formulation of OptCom
+   given by::
+
+       minimize cooperativity_cost
+       s.t. maximize community_objective
+            s.t. Sv = 0
+                 lb >= v >= ub
+       where community_cost = sum (growth_rate - max_growth)**2
+             if linear=False or
+             community_cost = sum |growth_rate - max_growth|
+             if linear=True
+
+   :param community: The community to modify.
+   :type community: micom.Community
+   :param min_growth: The minimum growth rate for each individual in the community. Either
+                      a single value applied to all individuals or one value for each.
+   :type min_growth: positive float or array-like object.
+   :param linear: Whether to use a non-linear (sum of squares) or linear version of the
+                  cooperativity cost. If set to False requires a QP-capable solver.
+   :type linear: boolean
+
+
+.. py:data:: _methods
+
+   
+
+.. py:function:: optcom(community, strategy, min_growth, fluxes, pfba)
+
+   Run OptCom for the community.
+
+   OptCom methods are a group of optimization procedures to find community
+   solutions that provide a tradeoff between the cooperative community
+   growth and the egoistic growth of each individual [#p1]_. `micom`
+   provides several strategies that can be used to find optimal solutions:
+
+   - "moma": Minimization of metabolic adjustment. Simultaneously
+     optimizes the community objective (maximize) and the cooperativity
+     cost (minimize). This method finds an exact maximum but doubles the
+     number of required variables, thus being slow.
+   - "lmoma": The same as "moma" only with a linear
+     representation of the cooperativity cost (absolute value).
+   - "original": Solves the multi-objective problem described in [#p1]_.
+     Here, the community growth rate is maximized simultanously with all
+     individual growth rates. Note that there are usually many
+     Pareto-optimal solutions to this problem and the method will only
+     give one solution. This is also the slowest method.
+
+   :param community: The community to optimize.
+   :type community: micom.Community
+   :param strategy: The strategy used to solve the OptCom formulation. Defaults to
+                    "lagrangian" which gives a decent tradeoff between speed and
+                    correctness.
+   :type strategy: str
+   :param min_growth: The minimal growth rate required for each individual. May be a
+                      single value or an array-like object with the same length as there
+                      are individuals.
+   :type min_growth: float or array-like
+   :param fluxes: Whether to return the fluxes as well.
+   :type fluxes: boolean
+   :param pfba: Whether to obtain fluxes by parsimonious FBA rather than
+                "classical" FBA.
+   :type pfba: boolean
+
+   :returns: The solution of the optimization. If fluxes==False will only contain
+             the objective value, community growth rate and individual growth rates.
+   :rtype: micom.CommunitySolution
+
+   .. rubric:: References
+
+   .. [#p1] OptCom: a multi-level optimization framework for the metabolic
+      modeling and analysis of microbial communities.
+      Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.
+      doi: 10.1371/journal.pcbi.1002363, PMID: 22319433
+
+

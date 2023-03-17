@@ -1,0 +1,124 @@
+:py:mod:`micom.workflows.build`
+===============================
+
+.. py:module:: micom.workflows.build
+
+.. autoapi-nested-parse::
+
+   Worflow to build models for several samples.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.workflows.build._reduce_group
+   micom.workflows.build.build_and_save
+   micom.workflows.build.build
+   micom.workflows.build._summarize_models
+   micom.workflows.build.build_database
+
+
+
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.workflows.build.REQ_FIELDS
+
+
+.. py:function:: _reduce_group(df)
+
+
+.. py:function:: build_and_save(args)
+
+   Build a single community model.
+
+
+.. py:function:: build(taxonomy, model_db, out_folder, cutoff=0.0001, threads=1, solver=None)
+
+   Build a series of community models.
+
+   This is a best-practice implementation of building community models
+   for several samples in parallel.
+
+   :param taxonomy: The taxonomy used for building the model. Must have at least the
+                    columns "id" and "sample_id". This must also
+                    contain at least a column with the same name as the rank used in
+                    the model database. Thus, for a genus-level database you will need
+                    a column `genus`. Additional taxa ranks can also be specified and
+                    will be used to be more stringent in taxa matching.
+                    Finally, the taxonomy should contain a column `abundance`. It will
+                    be used to quantify each individual in the community. If absent,
+                    MICOM will assume all individuals are present in the same amount.
+   :type taxonomy: pandas.DataFrame
+   :param model_db: A pre-built model database. If ending in `.qza` must be a Qiime 2
+                    artifact of type `MetabolicModels[JSON]`. Can also be a folder,
+                    zip (must end in `.zip`) file or None if the taxonomy contains a
+                    column `file`.
+   :type model_db: str
+   :param out_folder: The built models and a manifest file will be written to this
+                      folder. Will continue
+   :type out_folder: str
+   :param cutoff: Abundance cutoff. Taxa with a relative abundance smaller than this
+                  will not be included in the model.
+   :type cutoff: float in [0.0, 1.0]
+   :param threads: The number of parallel workers to use when building models. As a
+                   rule of thumb you will need around 1GB of RAM for each thread.
+   :type threads: int >=1
+   :param solver: Name of the solver used for the linear and quadratic problems.
+   :type solver: str
+
+   :returns: The manifest for the built models. Contains taxa abundances,
+             build metrics and file basenames.
+   :rtype: pandas.DataFrame
+
+
+.. py:data:: REQ_FIELDS
+
+   
+
+.. py:function:: _summarize_models(args)
+
+
+.. py:function:: build_database(manifest, out_path, rank='genus', threads=1, compress=None, compresslevel=6, progress=True)
+
+   Create a model database from a set of SBML files.
+
+   .. note::
+
+      A manifest for the joined models will also be written to the output folder
+      as "manifest.csv". This may contain NA entries for additional columns
+      that had different values within the summarized models.
+
+   :param manifest: A manifest of SBML files containing their filepath as well as taxonomy.
+                    Must contain the columns "file", "kingdom", "phylum", "class",
+                    "order", "family", "genus", and "species". May contain additional
+                    columns.
+   :type manifest: pandas.DataFrame
+   :param out_path: The directory or zip file where the joined models will be written.
+   :type out_path: str
+   :param threads: The number of parallel workers to use when building models. As a
+                   rule of thumb you will need around 1GB of RAM for each thread.
+   :type threads: int >=1
+   :param compress: Compression method to use. Must be "zlib", "bz2", "lzma" or None.
+                    This parameter is ignored if out_path does not end with ".zip".
+   :type compress: str (default None)
+   :param compresslevel: Level of compression. Only used if compress is not None.
+                         This parameter is ignored if out_path does not end with ".zip".
+   :type compresslevel: int [1-9] (default: 6)
+   :param progress: Whether to show a progress bar.
+   :type progress: bool
+
+   :returns: The manifest of the joined models. Will still contain information
+             from the original metadata.
+   :rtype: pd.DataFrame
+
+

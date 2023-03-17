@@ -40,7 +40,7 @@ def annotate(ids, community, what="reaction"):
             for o in objs
         ]
 
-    return pd.DataFrame.from_records(anns).drop_duplicates()
+    return pd.DataFrame.from_records(anns)
 
 
 def annotate_metabolites_from_exchanges(com):
@@ -54,17 +54,14 @@ def annotate_metabolites_from_exchanges(com):
     mets = pd.DataFrame.from_records(
         [
             {
-                "metabolite": r.reactants[0],
-                "mid": getattr(r.reactants[0], attr),
-                "rid": getattr(r, attr),
+                "metabolite": getattr(r.reactants[0], attr),
+                "reaction": getattr(r, attr),
             }
             for r in exs
         ]
-    )
+    ).drop_duplicates()
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", category=UserWarning)
         anns = annotate(mets.metabolite.tolist(), com, "metabolite")
-    idmap = mets[["mid", "rid"]].drop_duplicates()
-    idmap.index = idmap.mid
-    anns["reaction"] = idmap.loc[anns.metabolite, "rid"].values
-    return anns
+    anns["reaction"] = mets.reaction.values
+    return anns.drop_duplicates(subset=["reaction"])

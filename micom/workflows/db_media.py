@@ -283,7 +283,7 @@ def db_annotations(
 
     args = manifest.file.tolist()
     results = workflow(_annotate, args, threads)
-    anns = pd.concat(results).drop_duplicates()
+    anns = pd.concat(results).drop_duplicates(subset=["reaction"])
 
     if compressed:
         tdir.cleanup()

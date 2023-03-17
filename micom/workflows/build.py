@@ -1,9 +1,9 @@
 """Worflow to build models for several samples."""
 
-from cobra.io import read_sbml_model, save_json_model
+from cobra.io import save_json_model
 from glob import glob
 from micom.logger import logger
-from micom.util import join_models, load_pickle
+from micom.util import join_models, load_pickle, _read_model
 from micom.community import Community, _ranks
 from micom.workflows.core import workflow
 import os
@@ -140,7 +140,7 @@ def _summarize_models(args):
     if len(files) > 1:
         mod = join_models(files, id=tid)
     else:
-        mod = read_sbml_model(files[0])
+        mod = _read_model(files[0])
     save_json_model(mod, new_path)
 
 
@@ -235,7 +235,7 @@ def build_database(
                 (tid, row, os.path.join(tdir, "%s.json" % tid))
                 for tid, row in meta.iterrows()
             ]
-            workflow(_summarize_models, args, threads)
+            workflow(_summarize_models, args, threads, progress=progress)
             meta.file = meta.index + ".json"
             meta.to_csv(os.path.join(tdir, "manifest.csv"), index=False)
             with zipfile.ZipFile(

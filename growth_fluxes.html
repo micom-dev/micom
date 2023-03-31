@@ -1,154 +1,183 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Growth media" href="media.html" /><link rel="prev" title="Single Model API" href="community.html" />
 
-
-<!DOCTYPE html>
-
-
-<html lang="en" >
-
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
-    <title>Growth rates and fluxes &#8212; version 0.32.4</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-
-  
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
+        <title>Growth rates and fluxes - version 0.32.4</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
-  
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'growth_fluxes';</script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Growth media" href="media.html" />
-    <link rel="prev" title="Single Model API" href="community.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --font-stack: Open Sans, Liberation Sans, sans-serif, Arial;
+  --font-stack--monospace: Fira Sans Mono, Inconsolata, monospace, Courier;
   
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">version 0.32.4</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search..."
-         aria-label="Search..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="_static/micom.png" alt="Logo"/>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+  <span class="sidebar-brand-text">version 0.32.4</span>
   
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      <div class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-  
-
-<a class="navbar-brand logo" href="index.html">
-  
-  
-  
-  
-    
-    
-      
-    
-    
-    <img src="_static/micom.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/micom.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
-        <ul class="current nav bd-sidenav">
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Methods used by MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows.html">Writing your own workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Single Model API</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Growth rates and fluxes</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Growth rates and fluxes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="elasticities.html">Intervention studies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials and Courses</a></li>
 <li class="toctree-l1"><a class="reference internal" href="NEWS.html">Release Notes</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/micom/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/micom/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="autoapi/micom/data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.data</span></code></a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/exchanges/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.exchanges</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/growth/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.growth</span></code></a></li>
@@ -156,7 +185,7 @@
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.tradeoff</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/build/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.build</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/db_media/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.db_media</span></code></a></li>
@@ -188,168 +217,43 @@
 </li>
 </ul>
 
-    </div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
-
+</div>
+</div>
 
       </div>
       
-      <main id="main-content" class="bd-main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
     </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="_sources/growth_fluxes.ipynb" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.ipynb</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-
-<script>
-document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
-  </button>
-`);
-</script>
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
-
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Growth rates and fluxes</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#FBA">FBA</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Cooperative-tradeoff">Cooperative tradeoff</a></li>
-</ul>
-            </nav>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
         </div>
-    </div>
-</div>
-
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article" role="main">
-                  
-  <section id="Growth-rates-and-fluxes">
+        <article role="main">
+          <section id="Growth-rates-and-fluxes">
 <h1>Growth rates and fluxes<a class="headerlink" href="#Growth-rates-and-fluxes" title="Permalink to this heading">#</a></h1>
 <p>One of the major applications of micom is to identify growth rates and fluxes for a given community. We will return to our <em>E. coli</em> toy example.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom import Community, data
@@ -362,22 +266,27 @@ com = Community(tax)
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
+<div class="output_area rendered_html docutils container">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "914a80794c264c44a1f99717fd4dd0e8", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1e9aca04b03846c494888870dc28f077", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-
-</pre></div></div>
+<div class="output_area rendered_html docutils container">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+</pre></div>
 </div>
 <section id="FBA">
 <h2>FBA<a class="headerlink" href="#FBA" title="Permalink to this heading">#</a></h2>
 <p>If one is only interested in the community growth rate <span class="math notranslate nohighlight">\(\mu_c\)</span> we can use normal FBA to optimize this growth rate. By default micom assigns the community growth rate as the objective for a community model.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(com.objective.expression)
@@ -394,7 +303,7 @@ com.optimize()
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -433,28 +342,28 @@ com.optimize()
     <tr>
       <th>Escherichia_coli_1</th>
       <td>0.25</td>
-      <td>0.507620</td>
+      <td>1.526449</td>
       <td>95</td>
       <td>72</td>
     </tr>
     <tr>
       <th>Escherichia_coli_2</th>
       <td>0.25</td>
-      <td>1.079031</td>
+      <td>0.653014</td>
       <td>95</td>
       <td>72</td>
     </tr>
     <tr>
       <th>Escherichia_coli_3</th>
       <td>0.25</td>
-      <td>0.000000</td>
+      <td>0.242410</td>
       <td>95</td>
       <td>72</td>
     </tr>
     <tr>
       <th>Escherichia_coli_4</th>
       <td>0.25</td>
-      <td>1.909035</td>
+      <td>1.073813</td>
       <td>95</td>
       <td>72</td>
     </tr>
@@ -471,7 +380,7 @@ com.optimize()
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">optimize</span></code> returns a full-fledged solution object and you can inspect several aspects of it. For instance to get individual growth rates and information for the taxa:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sol = com.optimize()
@@ -480,7 +389,7 @@ sol.members
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -519,28 +428,28 @@ sol.members
     <tr>
       <th>Escherichia_coli_1</th>
       <td>0.25</td>
-      <td>0.507620</td>
+      <td>1.526449</td>
       <td>95</td>
       <td>72</td>
     </tr>
     <tr>
       <th>Escherichia_coli_2</th>
       <td>0.25</td>
-      <td>1.079031</td>
+      <td>0.653014</td>
       <td>95</td>
       <td>72</td>
     </tr>
     <tr>
       <th>Escherichia_coli_3</th>
       <td>0.25</td>
-      <td>0.000000</td>
+      <td>0.242410</td>
       <td>95</td>
       <td>72</td>
     </tr>
     <tr>
       <th>Escherichia_coli_4</th>
       <td>0.25</td>
-      <td>1.909035</td>
+      <td>1.073813</td>
       <td>95</td>
       <td>72</td>
     </tr>
@@ -557,7 +466,7 @@ sol.members
 </div>
 <p>By default micom does not return fluxes since that can be slow for realistic large community models. If you want fluxes as well you can do so by passing the <code class="docutils literal notranslate"><span class="pre">fluxes</span></code> argument to <code class="docutils literal notranslate"><span class="pre">optimize</span></code>. You can also specifiy if you would like the fluxes to be obtained by parsimonious FBA.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sol = com.optimize(fluxes=True, pfba=True)
@@ -566,7 +475,7 @@ sol.fluxes
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -640,97 +549,97 @@ sol.fluxes
       <th>Escherichia_coli_1</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>0.000000</td>
+      <td>9.657372</td>
+      <td>9.657372</td>
+      <td>0.000000</td>
       <td>0.0</td>
-      <td>3.958207</td>
-      <td>3.958207</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>3.410537</td>
+      <td>8.010490</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>...</td>
-      <td>-1.247066</td>
+      <td>-4.124228</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>3.410537</td>
-      <td>-3.410537</td>
-      <td>0.791377</td>
+      <td>8.010490</td>
+      <td>-8.010490</td>
+      <td>2.753937</td>
       <td>0.0</td>
-      <td>0.791377</td>
-      <td>0.608127</td>
-      <td>4.616765</td>
+      <td>2.753937</td>
+      <td>2.202890</td>
+      <td>12.573226</td>
     </tr>
     <tr>
       <th>Escherichia_coli_2</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>0.000000</td>
+      <td>4.771520</td>
+      <td>4.771520</td>
+      <td>0.000000</td>
       <td>0.0</td>
-      <td>6.412778</td>
-      <td>6.412778</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>7.103137</td>
+      <td>4.066985</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>...</td>
-      <td>-2.675271</td>
+      <td>-1.657659</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>7.103137</td>
-      <td>-7.103137</td>
-      <td>1.706628</td>
+      <td>4.066985</td>
+      <td>-4.066985</td>
+      <td>1.071449</td>
       <td>0.0</td>
-      <td>1.706628</td>
-      <td>1.317098</td>
-      <td>7.873710</td>
+      <td>1.071449</td>
+      <td>0.835711</td>
+      <td>5.752211</td>
     </tr>
     <tr>
       <th>Escherichia_coli_3</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>0.000000</td>
+      <td>2.474664</td>
+      <td>2.474664</td>
+      <td>0.000000</td>
       <td>0.0</td>
-      <td>1.859626</td>
-      <td>1.859626</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.005102</td>
+      <td>2.213129</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>...</td>
-      <td>0.000000</td>
+      <td>-0.498116</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>0.005102</td>
-      <td>-0.005102</td>
-      <td>0.000000</td>
+      <td>2.213129</td>
+      <td>-2.213129</td>
+      <td>0.280506</td>
       <td>0.0</td>
-      <td>0.000000</td>
-      <td>0.000000</td>
-      <td>1.857075</td>
+      <td>0.280506</td>
+      <td>0.192996</td>
+      <td>2.545629</td>
     </tr>
     <tr>
       <th>Escherichia_coli_4</th>
       <td>0.0</td>
       <td>0.0</td>
+      <td>-0.000327</td>
+      <td>7.125203</td>
+      <td>7.125203</td>
+      <td>-0.000327</td>
       <td>0.0</td>
-      <td>11.797502</td>
-      <td>11.797502</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>9.737846</td>
+      <td>5.966669</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>...</td>
-      <td>-5.204648</td>
+      <td>-2.846022</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>9.737846</td>
-      <td>-9.737846</td>
-      <td>3.490910</td>
+      <td>5.966669</td>
+      <td>-5.966669</td>
+      <td>1.882062</td>
       <td>0.0</td>
-      <td>3.490910</td>
-      <td>2.801749</td>
-      <td>15.561006</td>
+      <td>1.882062</td>
+      <td>1.494416</td>
+      <td>9.038452</td>
     </tr>
     <tr>
       <th>medium</th>
@@ -770,7 +679,7 @@ sol.fluxes
 (&lt;=50% optimum). For our <em>E. coli</em> model we can start with getting the best solution while still maintaining optimal community growth (100% of maximum).</p>
 <p><strong>Cooperative tradeoff requires a QP-capable solver such as cplex or gurobi (both have academic licenses available)!</strong></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sol = com.cooperative_tradeoff(fraction=1.0)
@@ -779,7 +688,7 @@ sol
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -856,7 +765,7 @@ sol
 </div>
 <p>As we see all taxa now grow at the same rate as would be expected. If we want fluxes as well we can again request those using the <code class="docutils literal notranslate"><span class="pre">fluxes</span></code> and <code class="docutils literal notranslate"><span class="pre">pfba</span></code> arguments.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sol = com.cooperative_tradeoff(fluxes=True, pfba=True)
@@ -865,7 +774,7 @@ sol.fluxes
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -937,96 +846,96 @@ sol.fluxes
   <tbody>
     <tr>
       <th>Escherichia_coli_1</th>
-      <td>2.884724e-12</td>
-      <td>1.357458e-12</td>
-      <td>-1.418608e-10</td>
-      <td>6.00725</td>
-      <td>6.00725</td>
-      <td>-1.418608e-10</td>
-      <td>3.277165e-10</td>
+      <td>2.558942e-09</td>
+      <td>1.258398e-09</td>
+      <td>-1.022332e-07</td>
+      <td>6.007249</td>
+      <td>6.007249</td>
+      <td>-1.022332e-07</td>
+      <td>2.584638e-09</td>
       <td>5.064376</td>
-      <td>3.095454e-12</td>
-      <td>1.527266e-12</td>
+      <td>1.595951e-09</td>
+      <td>1.300544e-09</td>
       <td>...</td>
       <td>-2.281503</td>
-      <td>2.891365e-11</td>
-      <td>2.634339e-11</td>
+      <td>3.842359e-09</td>
+      <td>2.496730e-09</td>
       <td>5.064376</td>
       <td>-5.064376</td>
       <td>1.496984</td>
-      <td>2.891446e-11</td>
+      <td>2.593182e-09</td>
       <td>1.496984</td>
       <td>1.181498</td>
       <td>7.477382</td>
     </tr>
     <tr>
       <th>Escherichia_coli_2</th>
-      <td>2.884724e-12</td>
-      <td>1.357458e-12</td>
-      <td>-1.418608e-10</td>
-      <td>6.00725</td>
-      <td>6.00725</td>
-      <td>-1.418608e-10</td>
-      <td>2.916750e-10</td>
+      <td>2.558942e-09</td>
+      <td>1.258398e-09</td>
+      <td>-1.022332e-07</td>
+      <td>6.007249</td>
+      <td>6.007250</td>
+      <td>-1.022332e-07</td>
+      <td>2.584638e-09</td>
       <td>5.064376</td>
-      <td>3.095454e-12</td>
-      <td>1.527266e-12</td>
+      <td>1.595951e-09</td>
+      <td>1.300544e-09</td>
       <td>...</td>
       <td>-2.281503</td>
-      <td>2.891365e-11</td>
-      <td>2.634339e-11</td>
+      <td>3.842359e-09</td>
+      <td>2.496730e-09</td>
       <td>5.064376</td>
       <td>-5.064376</td>
       <td>1.496984</td>
-      <td>2.891446e-11</td>
+      <td>2.593182e-09</td>
       <td>1.496984</td>
       <td>1.181498</td>
       <td>7.477382</td>
     </tr>
     <tr>
       <th>Escherichia_coli_3</th>
-      <td>2.884724e-12</td>
-      <td>1.357458e-12</td>
-      <td>-1.418608e-10</td>
-      <td>6.00725</td>
-      <td>6.00725</td>
-      <td>-1.418608e-10</td>
-      <td>-8.500822e-10</td>
-      <td>5.064376</td>
-      <td>3.095454e-12</td>
-      <td>1.527266e-12</td>
+      <td>2.558942e-09</td>
+      <td>1.258398e-09</td>
+      <td>-1.022332e-07</td>
+      <td>6.007250</td>
+      <td>6.007249</td>
+      <td>-1.022332e-07</td>
+      <td>2.584638e-09</td>
+      <td>5.064375</td>
+      <td>1.595951e-09</td>
+      <td>1.300544e-09</td>
       <td>...</td>
       <td>-2.281503</td>
-      <td>2.891365e-11</td>
-      <td>2.634339e-11</td>
-      <td>5.064376</td>
-      <td>-5.064376</td>
+      <td>3.842359e-09</td>
+      <td>2.496730e-09</td>
+      <td>5.064375</td>
+      <td>-5.064375</td>
       <td>1.496984</td>
-      <td>2.891446e-11</td>
+      <td>2.593182e-09</td>
       <td>1.496984</td>
       <td>1.181498</td>
       <td>7.477382</td>
     </tr>
     <tr>
       <th>Escherichia_coli_4</th>
-      <td>2.884724e-12</td>
-      <td>1.357458e-12</td>
-      <td>-1.418608e-10</td>
-      <td>6.00725</td>
-      <td>6.00725</td>
-      <td>-1.418608e-10</td>
-      <td>1.388080e-10</td>
+      <td>2.558942e-09</td>
+      <td>1.258398e-09</td>
+      <td>-1.022332e-07</td>
+      <td>6.007249</td>
+      <td>6.007250</td>
+      <td>-1.022332e-07</td>
+      <td>2.584638e-09</td>
       <td>5.064376</td>
-      <td>3.095454e-12</td>
-      <td>1.527266e-12</td>
+      <td>1.595951e-09</td>
+      <td>1.300544e-09</td>
       <td>...</td>
       <td>-2.281503</td>
-      <td>2.891365e-11</td>
-      <td>2.634339e-11</td>
+      <td>3.842359e-09</td>
+      <td>2.496730e-09</td>
       <td>5.064376</td>
       <td>-5.064376</td>
       <td>1.496984</td>
-      <td>2.891446e-11</td>
+      <td>2.593182e-09</td>
       <td>1.496984</td>
       <td>1.181498</td>
       <td>7.477382</td>
@@ -1062,7 +971,7 @@ sol.fluxes
 </div>
 <p>Also if you have prior information about the growth rates you can also enforce a minimum individual growth rate for the taxa.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sol1 = com.cooperative_tradeoff(min_growth=0.1)  # single value
@@ -1076,12 +985,12 @@ print(sol1, sol2)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;CommunitySolution 0.874 at 0x7f1afc37aa90&gt; &lt;CommunitySolution 0.874 at 0x7f1afc36c1f0&gt;
+&lt;CommunitySolution 0.874 at 0x7f8bae77c110&gt; &lt;CommunitySolution 0.874 at 0x7f8bae299190&gt;
 </pre></div></div>
 </div>
 <p>Finally, you might want to see the impact of the tradeoff parameter on your solution. For this you can simply pass in an array-like type as the <code class="docutils literal notranslate"><span class="pre">fraction</span></code> parameter.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
@@ -1092,7 +1001,7 @@ sols
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1122,52 +1031,52 @@ sols
     <tr>
       <th>0</th>
       <td>1.0</td>
-      <td>&lt;CommunitySolution 0.874 at 0x7f1b450c27f0&gt;</td>
+      <td>&lt;CommunitySolution 0.874 at 0x7f8bae2c3050&gt;</td>
     </tr>
     <tr>
       <th>1</th>
       <td>0.9</td>
-      <td>&lt;CommunitySolution 0.787 at 0x7f1afc4adb20&gt;</td>
+      <td>&lt;CommunitySolution 0.787 at 0x7f8bae568490&gt;</td>
     </tr>
     <tr>
       <th>2</th>
       <td>0.8</td>
-      <td>&lt;CommunitySolution 0.699 at 0x7f1afc3d0fa0&gt;</td>
+      <td>&lt;CommunitySolution 0.699 at 0x7f8bae742450&gt;</td>
     </tr>
     <tr>
       <th>3</th>
       <td>0.7</td>
-      <td>&lt;CommunitySolution 0.612 at 0x7f1afc36c040&gt;</td>
+      <td>&lt;CommunitySolution 0.612 at 0x7f8bae4893d0&gt;</td>
     </tr>
     <tr>
       <th>4</th>
       <td>0.6</td>
-      <td>&lt;CommunitySolution 0.524 at 0x7f1afc36c0a0&gt;</td>
+      <td>&lt;CommunitySolution 0.524 at 0x7f8bae540950&gt;</td>
     </tr>
     <tr>
       <th>5</th>
       <td>0.5</td>
-      <td>&lt;CommunitySolution 0.437 at 0x7f1afc36cd00&gt;</td>
+      <td>&lt;CommunitySolution 0.437 at 0x7f8bae107650&gt;</td>
     </tr>
     <tr>
       <th>6</th>
       <td>0.4</td>
-      <td>&lt;CommunitySolution 0.350 at 0x7f1afc36cd30&gt;</td>
+      <td>&lt;CommunitySolution 0.350 at 0x7f8bae1104d0&gt;</td>
     </tr>
     <tr>
       <th>7</th>
       <td>0.3</td>
-      <td>&lt;CommunitySolution 0.262 at 0x7f1afc410220&gt;</td>
+      <td>&lt;CommunitySolution 0.262 at 0x7f8bae69b0d0&gt;</td>
     </tr>
     <tr>
       <th>8</th>
       <td>0.2</td>
-      <td>&lt;CommunitySolution 0.175 at 0x7f1afc410430&gt;</td>
+      <td>&lt;CommunitySolution 0.175 at 0x7f8bae5311d0&gt;</td>
     </tr>
     <tr>
       <th>9</th>
       <td>0.1</td>
-      <td>&lt;CommunitySolution 0.087 at 0x7f1afc458100&gt;</td>
+      <td>&lt;CommunitySolution 0.087 at 0x7f8bae437190&gt;</td>
     </tr>
   </tbody>
 </table>
@@ -1175,7 +1084,7 @@ sols
 </div>
 <p>The solutions can than be inspected by the usual pandas methods. See the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/">pandas documentation</a> for more infos.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>rates = sols.solution.apply(lambda x: x.members.growth_rate)
@@ -1184,7 +1093,7 @@ rates
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -1309,101 +1218,81 @@ rates
 </section>
 </section>
 
-
-                </article>
-              
-
-              
-              
-                <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="community.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Single Model API</p>
+        </article>
       </div>
-    </a>
-    <a class="right-next"
-       href="media.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Growth media</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="media.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Growth media</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="community.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Single Model API</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2017-2021, Christian Diener
             </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#FBA">FBA</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#Cooperative-tradeoff">Cooperative tradeoff</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
             
           </div>
-          <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Christian Diener
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  <p class="copyright">
-    
-      © Copyright 2017-2021, Christian Diener.
-      <br/>
-    
-  </p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div></div>
-          </footer>
+          <div class="right-details">
+            
+          </div>
+        </div>
         
-
-      </main>
+      </footer>
     </div>
-  </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Growth rates and fluxes</a><ul>
+<li><a class="reference internal" href="#FBA">FBA</a></li>
+<li><a class="reference internal" href="#Cooperative-tradeoff">Cooperative tradeoff</a></li>
+</ul>
+</li>
+</ul>
 
-  <footer class="bd-footer">
-  </footer>
-  </body>
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
 </html>

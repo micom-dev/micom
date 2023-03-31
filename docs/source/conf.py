@@ -72,7 +72,7 @@ author = "Christian Diener"
 # The full version, including alpha/beta/rc tags.
 release = micom.__version__
 
-html_theme = "sphinx_book_theme"
+html_theme = "furo"
 html_title = "version " + release
 html_logo = "micom.png"
 
@@ -81,7 +81,7 @@ html_logo = "micom.png"
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = "en"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -119,6 +119,13 @@ html_static_path = ["_static"]
 
 # Output file base name for HTML help builder.
 htmlhelp_basename = "micomdoc"
+
+html_theme_options = {
+    "light_css_variables": {
+        "font-stack": "Open Sans, Liberation Sans, sans-serif, Arial",
+        "font-stack--monospace": "Fira Sans Mono, Inconsolata, monospace, Courier",
+    },
+}
 
 
 # -- Options for LaTeX output ---------------------------------------------

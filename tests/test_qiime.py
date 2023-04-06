@@ -32,7 +32,6 @@ def test_qiime_medium():
     assert "flux" in m.columns
 
 
-@mark.xfail("CI" in environ, reason="broken setup in CI")
 def test_qiime_model():
     manifest = qf.load_qiime_manifest(models)
     assert "sample_id" in manifest.columns

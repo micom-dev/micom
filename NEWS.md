@@ -5,6 +5,13 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.32.5
+
+Backports the visualizers to be compatible with scikit-learn 0.24.1 to avoid some issues
+with Qiime2.
+
+Re-enables the Qiime model loading test in the CI.
+
 ### 0.32.4
 
 Fixes a bug where model annotation tables could not be generated if there were multiple

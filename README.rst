@@ -1,7 +1,7 @@
 .. image:: https://github.com/micom-dev/micom/raw/main/docs/source/micom.png
     :width: 640 px
 
-|actions status| |coverage| |pypi status|
+|actions status| |coverage| |pypi status| |mastodon|
 
 Welcome
 -------
@@ -71,3 +71,6 @@ Questions specific to the MICOM Qiime2 plugin (q2-micom) can also be asked on th
    :target: https://codecov.io/gh/micom-dev/micom
 .. |pypi status| image:: https://img.shields.io/pypi/v/micom.svg
    :target: https://pypi.org/project/micom/
+.. |mastodon| image:: https://img.shields.io/mastodon/follow/109960852316221526?domain=https%3A%2F%2Fmstdn.science&style=social
+   :target: https://mstdn.science/@micom
+

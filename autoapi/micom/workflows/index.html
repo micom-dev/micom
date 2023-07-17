@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="micom.workflows.build" href="build/index.html" /><link rel="prev" title="micom.viz.tradeoff" href="../viz/tradeoff/index.html" />
 
     <!-- Generated with Sphinx 7.0.1 and Furo 2023.05.20 -->
         <title>micom.workflows - version 0.32.5</title>
@@ -286,8 +286,8 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.build_database" title="micom.workflows.build_database"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_database</span></code></a>(manifest, out_path[, rank, threads, ...])</p></td>
 <td><p>Create a model database from a set of SBML files.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.grow" title="micom.workflows.grow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grow</span></code></a></p></td>
-<td><p>Performs growth and exchange analysis for several models.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.grow" title="micom.workflows.grow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">grow</span></code></a>(manifest, model_folder, medium, tradeoff[, ...])</p></td>
+<td><p>Simulate growth for a set of community models.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="tradeoff/index.html#module-micom.workflows.tradeoff" title="micom.workflows.tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tradeoff</span></code></a>(manifest, model_folder, medium[, tradeoffs, ...])</p></td>
 <td><p>Run growth rate predictions for varying tradeoff values.</p></td>
@@ -457,7 +457,7 @@ from the original metadata.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.workflows.grow">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.</span></span><span class="sig-name descname"><span class="pre">grow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tradeoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'minimal</span> <span class="pre">imports'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">presolve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#micom.workflows.grow" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.</span></span><span class="sig-name descname"><span class="pre">grow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tradeoff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'minimal</span> <span class="pre">imports'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">presolve</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/workflows/grow.html#grow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.grow" title="Permalink to this definition">#</a></dt>
 <dd><p>Simulate growth for a set of community models.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -665,8 +665,26 @@ gives the number of added imports apart from the ones in the medium.</p>
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="build/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.build</span></code></div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../viz/tradeoff/index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.tradeoff</span></code></div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">

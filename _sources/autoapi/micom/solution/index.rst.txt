@@ -55,6 +55,7 @@ Attributes
 
 .. py:class:: CommunitySolution(community, slim=False, reactions=None, metabolites=None)
 
+
    Bases: :py:obj:`cobra.core.Solution`
 
    An FBA solution for an entire community.

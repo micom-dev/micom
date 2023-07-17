@@ -37,6 +37,7 @@ Attributes
 
 .. py:class:: Community(taxonomy, model_db=None, id=None, name=None, rel_threshold=1e-06, solver=None, progress=True, max_exchange=100, mass=1)
 
+
    Bases: :py:obj:`cobra.Model`
 
    A community of models.

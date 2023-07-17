@@ -36,6 +36,7 @@ Attributes
 
 .. py:class:: Visualization(filename, data, template)
 
+
    Bases: :py:obj:`object`
 
    A visualization object.

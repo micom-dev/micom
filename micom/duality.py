@@ -62,7 +62,7 @@ def fast_dual(model, prefix="dual_"):
                 "Non-linear problems are not supported: " + str(constraint)
             )
         if constraint.lb is None and constraint.ub is None:
-            logger.warning("skipped free constraint %s" % constraint.name)
+            logger.debug("skipped free constraint %s" % constraint.name)
             continue  # Skip free constraint
         if constraint.lb == constraint.ub:
             const_var = prob.Variable(

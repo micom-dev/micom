@@ -288,11 +288,11 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_exchanges_per_taxon" title="micom.viz.plot_exchanges_per_taxon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_exchanges_per_taxon</span></code></a>(.strftime[, direction, ...])</p></td>
 <td><p>Plot the exchange fluxes per taxon.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_fit" title="micom.viz.plot_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_fit</span></code></a>(results, phenotype[, variable_type, ...])</p></td>
-<td><p>Test for differential metabolite production.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_growth" title="micom.viz.plot_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_growth</span></code></a>(results[, filename, tolerance])</p></td>
+<td><p>Plot the taxa growth rates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_tradeoff" title="micom.viz.plot_tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_tradeoff</span></code></a>(tradeoff_rates[, filename, tolerance])</p></td>
-<td><p>Plot diagnostics for varying tradeoff values.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_fit" title="micom.viz.plot_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_fit</span></code></a>(results, phenotype[, variable_type, ...])</p></td>
+<td><p>Test for differential metabolite production.</p></td>
 </tr>
 </tbody>
 </table>
@@ -404,6 +404,28 @@ fluxes are close to another.</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="micom.viz.plot_growth">
+<span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_growth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'growth_rates_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/growth.html#plot_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_growth" title="Permalink to this definition">#</a></dt>
+<dd><p>Plot the taxa growth rates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>micom.workflows.GrowthResults</em>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
+<li><p><strong>tolerance</strong> (<em>float</em>) – Smallest growth rate that will be considered. Everything lower will be
+considered not growing.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="micom.viz.plot_fit">
 <span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'binary'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'phenotype'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fit_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'production'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_coef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/prediction.html#plot_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_fit" title="Permalink to this definition">#</a></dt>
 <dd><p>Test for differential metabolite production.</p>
@@ -427,28 +449,6 @@ to the solver tolerance.</p></li>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.view</cite>.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.viz.plot_tradeoff">
-<span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_tradeoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tradeoff_rates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tradeoff_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/tradeoff.html#plot_tradeoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_tradeoff" title="Permalink to this definition">#</a></dt>
-<dd><p>Plot diagnostics for varying tradeoff values.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>tradeoff_rates</strong> (<em>pandas.DataFrame</em>) – The growth rates returned by the <cite>tradeoff</cite> workflow.</p></li>
-<li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
-<li><p><strong>tolerance</strong> (<em>float</em>) – Smallest growth rate that will be considered. Everything lower will be
-considered not growing.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>
@@ -530,8 +530,8 @@ considered not growing.</p></li>
 </li>
 <li><a class="reference internal" href="#micom.viz.plot_exchanges_per_sample"><code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_sample()</span></code></a></li>
 <li><a class="reference internal" href="#micom.viz.plot_exchanges_per_taxon"><code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_taxon()</span></code></a></li>
+<li><a class="reference internal" href="#micom.viz.plot_growth"><code class="docutils literal notranslate"><span class="pre">plot_growth()</span></code></a></li>
 <li><a class="reference internal" href="#micom.viz.plot_fit"><code class="docutils literal notranslate"><span class="pre">plot_fit()</span></code></a></li>
-<li><a class="reference internal" href="#micom.viz.plot_tradeoff"><code class="docutils literal notranslate"><span class="pre">plot_tradeoff()</span></code></a></li>
 </ul>
 </li>
 </ul>

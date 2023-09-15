@@ -64,9 +64,8 @@ We are also available on the cobrapy Gitter channel
 Questions specific to the MICOM Qiime2 plugin (q2-micom) can also be asked on the Qiime2 forum
     https://forum.qiime2.org/c/community-plugin-support/
 
-
-.. |actions status| image:: https://github.com/micom-dev/micom/workflows/Python%20package/badge.svg
-   :target: https://github.com/micom-dev/micom/actions
+.. |actions status| image:: https://github.com/micom-dev/micom/actions/workflows/pythonpackage.yml/badge.svg
+   :target: https://github.com/micom-dev/micom/actions/workflows/pythonpackage.yml
 .. |coverage| image:: https://codecov.io/gh/micom-dev/micom/branch/main/graph/badge.svg
    :target: https://codecov.io/gh/micom-dev/micom
 .. |pypi status| image:: https://img.shields.io/pypi/v/micom.svg

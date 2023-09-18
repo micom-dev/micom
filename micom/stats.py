@@ -76,15 +76,14 @@ def _run_test(args):
 def _run_corr(args):
     df, col = args
     met = df.metabolite.iloc[0]
-    lpr = pearsonr(np.log2(df["flux"] + 1e-6), df[col])[0]
     try:
-        p = spearmanr(df["flux"], df["time"])[1]
+        rho, p = spearmanr(df["flux"], df[col])
     except Exception:
-        p = np.nan
+        rho, p = np.nan, np.nan
     return pd.DataFrame(
         {
             "metabolite": met,
-            "log_pearson_rho": lpr,
+            "spearman_rho": rho,
             "p": p,
             "n": df.shape[0],
         },
@@ -99,6 +98,7 @@ def compare_groups(fluxes, metadata_column, groups=None, threads=1, progress=Tru
     ----
     This uses a non-parametric test by default. By default it will use a
     Mann-Whitney test for two groups and a Kruskal-Wallis test for >2 groups.
+    `q` are the FDR-corrected p-values (Benjamini-Hochberg correction).
 
     Arguments
     ---------
@@ -131,17 +131,22 @@ def compare_groups(fluxes, metadata_column, groups=None, threads=1, progress=Tru
     ]
     res = workflow(_run_test, met_data, threads=threads, progress=progress)
     res = pd.concat(res)
+    if len(groups) == 2:
+        res["comparison"] = f"{groups[1]} vs. {groups[0]}"
+    else:
+        res["covariate"] = metadata_column
     res["q"] = np.nan
     res.loc[res.p.notnull(), "q"] = fdr_adjust(res.loc[res.p.notnull(), "p"])
     return res
 
 
-def correlate_fluxes(fluxes, metadata_column, groups=None, threads=1, progress=True):
-    """Compare fluxes form different sample groups.
+def correlate_fluxes(fluxes, metadata_column, threads=1, progress=True):
+    """Correlate fluxes with a continuous covariate.
 
     Note
     ----
-    This uses a non-parametric test by default (Spearman rank correlation).
+    This uses a non-parametric test by default (Spearman rank correlation). `q`
+    are the FDR-corrected p-values (Benjamini-Hochberg correction).
 
     Arguments
     ---------
@@ -165,6 +170,7 @@ def correlate_fluxes(fluxes, metadata_column, groups=None, threads=1, progress=T
     ]
     res = workflow(_run_corr, met_data, threads=threads, progress=progress)
     res = pd.concat(res)
+    res["covariate"] = metadata_column
     res["q"] = np.nan
     res.loc[res.p.notnull(), "q"] = fdr_adjust(res.loc[res.p.notnull(), "p"])
     return res

@@ -66,6 +66,7 @@ def test_comparison_binary():
     assert "metabolite_3" in tests[tests.p > 0.01].metabolite.values
     assert "metabolite_4" in tests[tests.p > 0.01].metabolite.values
     assert "log_fold_change" in tests.columns
+    assert "comparison" in tests.columns
 
 
 def test_comparison_many():
@@ -76,6 +77,7 @@ def test_comparison_many():
     assert "metabolite_3" in tests[tests.p > 0.01].metabolite.values
     assert "metabolite_4" in tests[tests.p > 0.01].metabolite.values
     assert "log_mean_std" in tests.columns
+    assert "covariate" in tests.columns
 
 
 def test_correlation():
@@ -85,3 +87,5 @@ def test_correlation():
     assert "metabolite_2" in tests[tests.p < 0.01].metabolite.values
     assert "metabolite_3" in tests[tests.p > 0.01].metabolite.values
     assert "metabolite_4" in tests[tests.p > 0.01].metabolite.values
+    assert "covariate" in tests.columns
+    assert (tests.covariate == "time").all()

@@ -270,8 +270,8 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#micom.stats.compare_groups" title="micom.stats.compare_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compare_groups</span></code></a>(fluxes, metadata_column[, groups, ...])</p></td>
 <td><p>Compare fluxes form different sample groups.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.stats.correlate_fluxes" title="micom.stats.correlate_fluxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correlate_fluxes</span></code></a>(fluxes, metadata_column[, groups, ...])</p></td>
-<td><p>Compare fluxes form different sample groups.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.stats.correlate_fluxes" title="micom.stats.correlate_fluxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correlate_fluxes</span></code></a>(fluxes, metadata_column[, threads, ...])</p></td>
+<td><p>Correlate fluxes with a continuous covariate.</p></td>
 </tr>
 </tbody>
 </table>
@@ -311,7 +311,8 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This uses a non-parametric test by default. By default it will use a
-Mann-Whitney test for two groups and a Kruskal-Wallis test for &gt;2 groups.</p>
+Mann-Whitney test for two groups and a Kruskal-Wallis test for &gt;2 groups.
+<cite>q</cite> are the FDR-corrected p-values (Benjamini-Hochberg correction).</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -334,11 +335,12 @@ the DataFrame.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.stats.correlate_fluxes">
-<span class="sig-prename descclassname"><span class="pre">micom.stats.</span></span><span class="sig-name descname"><span class="pre">correlate_fluxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fluxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/stats.html#correlate_fluxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.stats.correlate_fluxes" title="Permalink to this definition">#</a></dt>
-<dd><p>Compare fluxes form different sample groups.</p>
+<span class="sig-prename descclassname"><span class="pre">micom.stats.</span></span><span class="sig-name descname"><span class="pre">correlate_fluxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fluxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/stats.html#correlate_fluxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.stats.correlate_fluxes" title="Permalink to this definition">#</a></dt>
+<dd><p>Correlate fluxes with a continuous covariate.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This uses a non-parametric test by default (Spearman rank correlation).</p>
+<p>This uses a non-parametric test by default (Spearman rank correlation). <cite>q</cite>
+are the FDR-corrected p-values (Benjamini-Hochberg correction).</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

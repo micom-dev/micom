@@ -325,15 +325,14 @@
 <div class="viewcode-block" id="_run_corr"><a class="viewcode-back" href="../../autoapi/micom/stats/index.html#micom.stats._run_corr">[docs]</a><span class="k">def</span> <span class="nf">_run_corr</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="n">df</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">met</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">metabolite</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">lpr</span> <span class="o">=</span> <span class="n">pearsonr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1e-6</span><span class="p">),</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">rho</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="n">rho</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
         <span class="p">{</span>
             <span class="s2">&quot;metabolite&quot;</span><span class="p">:</span> <span class="n">met</span><span class="p">,</span>
-            <span class="s2">&quot;log_pearson_rho&quot;</span><span class="p">:</span> <span class="n">lpr</span><span class="p">,</span>
+            <span class="s2">&quot;spearman_rho&quot;</span><span class="p">:</span> <span class="n">rho</span><span class="p">,</span>
             <span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span>
             <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
         <span class="p">},</span>
@@ -348,6 +347,7 @@
 <span class="sd">    ----</span>
 <span class="sd">    This uses a non-parametric test by default. By default it will use a</span>
 <span class="sd">    Mann-Whitney test for two groups and a Kruskal-Wallis test for &gt;2 groups.</span>
+<span class="sd">    `q` are the FDR-corrected p-values (Benjamini-Hochberg correction).</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -380,17 +380,22 @@
     <span class="p">]</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_run_test</span><span class="p">,</span> <span class="n">met_data</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">)</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">res</span><span class="p">[</span><span class="s2">&quot;comparison&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">groups</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> vs. </span><span class="si">{</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">res</span><span class="p">[</span><span class="s2">&quot;covariate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata_column</span>
     <span class="n">res</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fdr_adjust</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">&quot;p&quot;</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">res</span></div>
 
 
-<div class="viewcode-block" id="correlate_fluxes"><a class="viewcode-back" href="../../autoapi/micom/stats/index.html#micom.stats.correlate_fluxes">[docs]</a><span class="k">def</span> <span class="nf">correlate_fluxes</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compare fluxes form different sample groups.</span>
+<div class="viewcode-block" id="correlate_fluxes"><a class="viewcode-back" href="../../autoapi/micom/stats/index.html#micom.stats.correlate_fluxes">[docs]</a><span class="k">def</span> <span class="nf">correlate_fluxes</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Correlate fluxes with a continuous covariate.</span>
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
-<span class="sd">    This uses a non-parametric test by default (Spearman rank correlation).</span>
+<span class="sd">    This uses a non-parametric test by default (Spearman rank correlation). `q`</span>
+<span class="sd">    are the FDR-corrected p-values (Benjamini-Hochberg correction).</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -414,6 +419,7 @@
     <span class="p">]</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_run_corr</span><span class="p">,</span> <span class="n">met_data</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">)</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;covariate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata_column</span>
     <span class="n">res</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fdr_adjust</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">&quot;p&quot;</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">res</span></div>

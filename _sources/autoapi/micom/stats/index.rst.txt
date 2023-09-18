@@ -51,6 +51,7 @@ Functions
 
       This uses a non-parametric test by default. By default it will use a
       Mann-Whitney test for two groups and a Kruskal-Wallis test for >2 groups.
+      `q` are the FDR-corrected p-values (Benjamini-Hochberg correction).
 
    :param fluxes: A frame with net fluxes as returned by `production_rates` or
                   `consumption_rates`.
@@ -69,11 +70,14 @@ Functions
    :rtype: Returns the metabolite with their respective test statistics.
 
 
-.. py:function:: correlate_fluxes(fluxes, metadata_column, groups=None, threads=1, progress=True)
+.. py:function:: correlate_fluxes(fluxes, metadata_column, threads=1, progress=True)
 
-   Compare fluxes form different sample groups.
+   Correlate fluxes with a continuous covariate.
 
-   .. note:: This uses a non-parametric test by default (Spearman rank correlation).
+   .. note::
+
+      This uses a non-parametric test by default (Spearman rank correlation). `q`
+      are the FDR-corrected p-values (Benjamini-Hochberg correction).
 
    :param fluxes: A frame with net fluxes as returned by `production_rates` or
                   `consumption_rates`.

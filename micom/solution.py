@@ -188,16 +188,6 @@ def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
 
 def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=1e-6):
     """Get all fluxes stratified by taxa."""
-    solver_name = interface_to_str(community.solver.interface)
-    term = None
-    if solver_name == "osqp" and community.objective.is_Linear:
-        # This improves OSQP by soooo much
-        term = (
-            1e-6
-            * community.solver.problem.direction
-            * community.variables.community_objective ** 2
-        )
-        community.objective += term
     community.solver.optimize()
     status = community.solver.status
     if status in good:
@@ -216,10 +206,6 @@ def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=
             sol = CommunitySolution(community)
         else:
             sol = CommunitySolution(community, slim=True)
-        if term:
-            correction = 1e-6 * community.variables.community_objective.primal ** 2
-            sol.objective_value -= community.solver.problem.direction * correction
-            community.objective -= term
         return sol
     logger.warning("solver encountered an error %s" % status)
     return None
@@ -236,7 +222,7 @@ def reset_solver(community):
         community.solver.problem.reset()
     elif interface == "glpk":
         glp_adv_basis(community.solver.problem, 0)
-    elif interface == "osqp":
+    elif interface == "hybrid":
         community.solver.problem.reset()
 
 
@@ -268,7 +254,7 @@ def crossover(community, sol, fluxes=False):
         com.objective = com.scale * com.variables.community_objective
         for sp in com.taxa:
             const = com.constraints["objective_" + sp]
-            const.ub = gcs[sp]
+            const.ub = max(const.lb, gcs[sp])
         logger.info("finding closest feasible solution")
         s = com.optimize()
         if s is None:

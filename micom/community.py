@@ -139,7 +139,7 @@ class Community(cobra.Model):
         if not solver:
             solver = [
                 s
-                for s in ["cplex", "gurobi", "osqp", "glpk"]
+                for s in ["cplex", "gurobi", "hybrid", "glpk"]
                 if s in cobra.util.solver.solvers
             ][0]
         logger.info("using the %s solver." % solver)

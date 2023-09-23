@@ -223,6 +223,10 @@ def reset_solver(community):
     elif interface == "glpk":
         glp_adv_basis(community.solver.problem, 0)
     elif interface == "hybrid":
+        community.solver.problem.settings["iteration_limit"] = min(
+            2 * community.solver.problem.settings["iteration_limit"],
+            50000
+        )
         community.solver.problem.reset()
 
 

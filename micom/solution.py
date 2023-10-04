@@ -256,6 +256,7 @@ def crossover(community, sol, fluxes=False):
         com.variables.community_objective.lb = 0.0
         com.variables.community_objective.ub = com_growth + 1e-6
         com.objective = com.scale * com.variables.community_objective
+        com.objective_direction = "maximize"
         for sp in com.taxa:
             const = com.constraints["objective_" + sp]
             const.ub = max(const.lb, gcs[sp])

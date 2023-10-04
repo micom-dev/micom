@@ -322,7 +322,7 @@ def adjust_solver_config(solver):
         solver.problem.Params.LogToConsole = 0
     if interface == "hybrid":
         solver.configuration.tolerances.optimality = 1e-6
-        solver.problem.settings["iteration_limit"] = 20000
+        solver.problem.settings["iteration_limit"] = 15000
         solver.configuration.lp_method = "interior point"
         solver.configuration.presolve = "auto"
 

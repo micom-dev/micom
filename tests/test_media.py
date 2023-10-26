@@ -19,6 +19,10 @@ def test_nonmatching_medium(community):
     assert "EX_blabla" not in community.medium
 
 
+def test_partial_matching_medium(community):
+    community.medium = {"EX_glc__D_m": 10, "EX_blabla_m": 2}
+
+
 def test_matching_medium(community):
     community.medium = {"EX_glc__D_m": 10}
 

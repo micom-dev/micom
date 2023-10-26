@@ -139,9 +139,9 @@ def grow(
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
     strategy : str
-        Computational strategy used to reduce the flux space. Default "pFBA" uses
-        parsimonious FBA, "minimal imports" used the solution with the smallest
-        total mass import from the environment, and "none" returns an arbitrary
+        Computational strategy used to reduce the flux space. Default "minimal imports"
+        uses the solution with the smallest total import flux from the environment,
+        "pFBA" uses parsimonious FBA, and "none" returns an arbitrary
         feasible flux distribution.
     weights : str
         Only used during the calculaton of the minimal import rates.

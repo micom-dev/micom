@@ -13,6 +13,16 @@ def test_medium_linear(community):
     assert all(medium > 1e-9)
 
 
+def test_nonmatching_medium(community):
+    with pytest.raises(ValueError):
+        community.medium = {"EX_blabla": 100}
+    assert "EX_blabla" not in community.medium
+
+
+def test_matching_medium(community):
+    community.medium = {"EX_glc__D_m": 10}
+
+
 def test_medium_mip(community):
     medium = media.minimal_medium(community, 0.8, 0.8,
                                     minimize_components=True)

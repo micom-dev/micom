@@ -350,7 +350,7 @@
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;growth&quot;</span><span class="p">:</span> <span class="n">rates</span><span class="p">,</span> <span class="s2">&quot;exchanges&quot;</span><span class="p">:</span> <span class="n">fluxes</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">:</span> <span class="n">anns</span><span class="p">}</span></div>
 
 
-<div class="viewcode-block" id="grow"><a class="viewcode-back" href="../../../autoapi/micom/workflows/grow/index.html#micom.workflows.grow.grow">[docs]</a><span class="k">def</span> <span class="nf">grow</span><span class="p">(</span>
+<div class="viewcode-block" id="grow"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.grow.grow">[docs]</a><span class="k">def</span> <span class="nf">grow</span><span class="p">(</span>
     <span class="n">manifest</span><span class="p">,</span>
     <span class="n">model_folder</span><span class="p">,</span>
     <span class="n">medium</span><span class="p">,</span>
@@ -388,9 +388,9 @@
 <span class="sd">        The number of parallel workers to use when building models. As a</span>
 <span class="sd">        rule of thumb you will need around 1GB of RAM for each thread.</span>
 <span class="sd">    strategy : str</span>
-<span class="sd">        Computational strategy used to reduce the flux space. Default &quot;pFBA&quot; uses</span>
-<span class="sd">        parsimonious FBA, &quot;minimal imports&quot; used the solution with the smallest</span>
-<span class="sd">        total mass import from the environment, and &quot;none&quot; returns an arbitrary</span>
+<span class="sd">        Computational strategy used to reduce the flux space. Default &quot;minimal imports&quot;</span>
+<span class="sd">        uses the solution with the smallest total import flux from the environment,</span>
+<span class="sd">        &quot;pFBA&quot; uses parsimonious FBA, and &quot;none&quot; returns an arbitrary</span>
 <span class="sd">        feasible flux distribution.</span>
 <span class="sd">    weights : str</span>
 <span class="sd">        Only used during the calculaton of the minimal import rates.</span>

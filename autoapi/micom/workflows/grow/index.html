@@ -320,9 +320,9 @@ by experince. Tradeoff values of 0.5 for metagenomcis data and 0.3 for
 16S data seem to work well.</p></li>
 <li><p><strong>threads</strong> (<em>int &gt;=1</em>) – The number of parallel workers to use when building models. As a
 rule of thumb you will need around 1GB of RAM for each thread.</p></li>
-<li><p><strong>strategy</strong> (<em>str</em>) – Computational strategy used to reduce the flux space. Default “pFBA” uses
-parsimonious FBA, “minimal imports” used the solution with the smallest
-total mass import from the environment, and “none” returns an arbitrary
+<li><p><strong>strategy</strong> (<em>str</em>) – Computational strategy used to reduce the flux space. Default “minimal imports”
+uses the solution with the smallest total import flux from the environment,
+“pFBA” uses parsimonious FBA, and “none” returns an arbitrary
 feasible flux distribution.</p></li>
 <li><p><strong>weights</strong> (<em>str</em>) – Only used during the calculaton of the minimal import rates.
 Will scale the fluxes by a weight factor. Can either be “mass” which will

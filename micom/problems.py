@@ -135,7 +135,7 @@ def knockout_taxa(community, taxa, fraction, method, progress, diag=True):
                     new /= old
                 results.append(new)
 
-        ko = pd.DataFrame(results, index=taxa).drop("medium", 1)
+        ko = pd.DataFrame(results, index=taxa).drop("medium", axis=1)
         ko = ko.loc[ko.index.sort_values(), ko.columns.sort_values()]
         if not diag:
             np.fill_diagonal(ko.values, np.NaN)

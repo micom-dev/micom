@@ -1,7 +1,8 @@
 """Makes it easier to run analyses on several samples in parallel."""
 
 from collections import namedtuple, abc
-from multiprocessing import Pool
+from micom.logger import logger
+from multiprocessing import Pool, set_start_method, get_all_start_methods
 import pandas as pd
 from rich.progress import track
 import warnings
@@ -83,17 +84,17 @@ def workflow(func, args, threads=4, description=None, progress=True):
             it = track(it, total=len(args), description=description)
         return list(it)
 
-    # We don't use the context  manager because of
-    # https://pytest-cov.readthedocs.io/en/latest/subprocess-support.html
-    pool = Pool(processes=threads, maxtasksperchild=1)
     try:
+        method = "forkserver" if "forkserver" in get_all_start_methods() else "spawn"
+        set_start_method(method)
+    except RuntimeError:
+        logger.debug("Could not change the MP start method.")
+
+    with Pool(processes=threads, maxtasksperchild=1) as pool:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             it = pool.imap_unordered(func, args)
             if progress:
                 it = track(it, total=len(args), description="Running")
             results = list(it)
-    finally:
-        pool.close()
-        pool.join()
     return results

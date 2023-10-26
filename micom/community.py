@@ -17,6 +17,7 @@ from micom.util import (
     COMPARTMENT_RE,
 )
 from micom.logger import logger
+from micom.media import weights
 from micom.optcom import optcom, solve
 from micom.problems import cooperative_tradeoff, knockout_taxa
 from micom.qiime_formats import load_qiime_model_db
@@ -659,14 +660,20 @@ class Community(cobra.Model):
         exids = set(r.id for r in self.exchanges)
         rids = set(k for k in fluxes)
         found = rids & exids
+        C_num = sum(n for n in weights(found, "C").values() if n >= 1)
         not_found = rids - exids
         if len(found) == 0:
             raise ValueError(
                 "No ID from the medium could be found in the exchange reactions. "
                 "This means you probably have mismatched IDs..."
             )
-        if len(not_found) > 0:
+        elif C_num == 0:
             logger.warning(
+                "There does not seem to be any carbon source in your medium. "
+                "Please double-check your medium IDs. "
+            )
+        if len(not_found) > 0:
+            logger.info(
                 "I could not find the following exchanges "
                 "in your model: %s" % ", ".join(not_found)
             )

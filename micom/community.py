@@ -15,9 +15,9 @@ from micom.util import (
     clean_ids,
     compartment_id,
     COMPARTMENT_RE,
+    ex_metabolite,
 )
 from micom.logger import logger
-from micom.media import weights
 from micom.optcom import optcom, solve
 from micom.problems import cooperative_tradeoff, knockout_taxa
 from micom.qiime_formats import load_qiime_model_db
@@ -660,7 +660,12 @@ class Community(cobra.Model):
         exids = set(r.id for r in self.exchanges)
         rids = set(k for k in fluxes)
         found = rids & exids
-        C_num = sum(n for n in weights(found, "C").values() if n >= 1)
+        C_num = sum(
+            cobra.core.formula.Formula(ex_metabolite(self, rid).formula).elements.get(
+                "C", 0
+            )
+            for rid in found
+        )
         not_found = rids - exids
         if len(found) == 0:
             raise ValueError(

@@ -219,6 +219,11 @@ def add_var_from_expression(model, name, expr, lb=None, ub=None):
     return var
 
 
+def ex_metabolite(model, rid):
+    """Get the metabolite from an exchange reaction ID."""
+    return list(model.reactions.get_by_id(rid).metabolites)[0]
+
+
 def check_modification(community):
     """Check whether a community already carries a modification.
 

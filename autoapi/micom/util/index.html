@@ -297,19 +297,22 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.add_var_from_expression" title="micom.util.add_var_from_expression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_var_from_expression</span></code></a>(model, name, expr[, lb, ub])</p></td>
 <td><p>Add a variable to a model equaling an expression.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.util.check_modification" title="micom.util.check_modification"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_modification</span></code></a>(community)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util.ex_metabolite" title="micom.util.ex_metabolite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ex_metabolite</span></code></a>(model, rid)</p></td>
+<td><p>Get the metabolite from an exchange reaction ID.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.check_modification" title="micom.util.check_modification"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_modification</span></code></a>(community)</p></td>
 <td><p>Check whether a community already carries a modification.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util._format_min_growth" title="micom.util._format_min_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_format_min_growth</span></code></a>(min_growth, taxa)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util._format_min_growth" title="micom.util._format_min_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_format_min_growth</span></code></a>(min_growth, taxa)</p></td>
 <td><p>Format min_growth into a pandas series.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.util._apply_min_growth" title="micom.util._apply_min_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_apply_min_growth</span></code></a>(community, min_growth[, atol, rtol])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util._apply_min_growth" title="micom.util._apply_min_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_apply_min_growth</span></code></a>(community, min_growth[, atol, rtol])</p></td>
 <td><p>Set minimum growth constraints on a model.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.adjust_solver_config" title="micom.util.adjust_solver_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adjust_solver_config</span></code></a>(solver)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.util.adjust_solver_config" title="micom.util.adjust_solver_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">adjust_solver_config</span></code></a>(solver)</p></td>
 <td><p>Adjust the optlang solver configuration for larger problems.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.util.reset_min_community_growth" title="micom.util.reset_min_community_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_min_community_growth</span></code></a>(com)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.util.reset_min_community_growth" title="micom.util.reset_min_community_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_min_community_growth</span></code></a>(com)</p></td>
 <td><p>Reset the lower bound for the community growth.</p></td>
 </tr>
 </tbody>
@@ -445,6 +448,12 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="micom.util.ex_metabolite">
+<span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">ex_metabolite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#ex_metabolite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.ex_metabolite" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the metabolite from an exchange reaction ID.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="micom.util.check_modification">
 <span class="sig-prename descclassname"><span class="pre">micom.util.</span></span><span class="sig-name descname"><span class="pre">check_modification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#check_modification"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.util.check_modification" title="Permalink to this definition">#</a></dt>
 <dd><p>Check whether a community already carries a modification.</p>
@@ -569,6 +578,7 @@ a single value applied to all individuals or one value for each.</p></li>
 <li><a class="reference internal" href="#micom.util.join_models"><code class="docutils literal notranslate"><span class="pre">join_models()</span></code></a></li>
 <li><a class="reference internal" href="#micom.util.fluxes_from_primals"><code class="docutils literal notranslate"><span class="pre">fluxes_from_primals()</span></code></a></li>
 <li><a class="reference internal" href="#micom.util.add_var_from_expression"><code class="docutils literal notranslate"><span class="pre">add_var_from_expression()</span></code></a></li>
+<li><a class="reference internal" href="#micom.util.ex_metabolite"><code class="docutils literal notranslate"><span class="pre">ex_metabolite()</span></code></a></li>
 <li><a class="reference internal" href="#micom.util.check_modification"><code class="docutils literal notranslate"><span class="pre">check_modification()</span></code></a></li>
 <li><a class="reference internal" href="#micom.util._format_min_growth"><code class="docutils literal notranslate"><span class="pre">_format_min_growth()</span></code></a></li>
 <li><a class="reference internal" href="#micom.util._apply_min_growth"><code class="docutils literal notranslate"><span class="pre">_apply_min_growth()</span></code></a></li>

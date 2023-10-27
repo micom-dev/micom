@@ -264,6 +264,7 @@
     <span class="n">clean_ids</span><span class="p">,</span>
     <span class="n">compartment_id</span><span class="p">,</span>
     <span class="n">COMPARTMENT_RE</span><span class="p">,</span>
+    <span class="n">ex_metabolite</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">micom.optcom</span> <span class="kn">import</span> <span class="n">optcom</span><span class="p">,</span> <span class="n">solve</span>
@@ -908,14 +909,25 @@
         <span class="n">exids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">exchanges</span><span class="p">)</span>
         <span class="n">rids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">fluxes</span><span class="p">)</span>
         <span class="n">found</span> <span class="o">=</span> <span class="n">rids</span> <span class="o">&amp;</span> <span class="n">exids</span>
+        <span class="n">C_num</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="n">cobra</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">formula</span><span class="o">.</span><span class="n">Formula</span><span class="p">(</span><span class="n">ex_metabolite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">)</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="mi">0</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">rid</span> <span class="ow">in</span> <span class="n">found</span>
+        <span class="p">)</span>
         <span class="n">not_found</span> <span class="o">=</span> <span class="n">rids</span> <span class="o">-</span> <span class="n">exids</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;No ID from the medium could be found in the exchange reactions. &quot;</span>
                 <span class="s2">&quot;This means you probably have mismatched IDs...&quot;</span>
             <span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">not_found</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">C_num</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;There does not seem to be any carbon source in your medium. &quot;</span>
+                <span class="s2">&quot;Please double-check your medium IDs. &quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">not_found</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
                 <span class="s2">&quot;I could not find the following exchanges &quot;</span>
                 <span class="s2">&quot;in your model: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">not_found</span><span class="p">)</span>
             <span class="p">)</span>

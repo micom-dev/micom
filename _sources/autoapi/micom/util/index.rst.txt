@@ -31,6 +31,7 @@ Functions
    micom.util.join_models
    micom.util.fluxes_from_primals
    micom.util.add_var_from_expression
+   micom.util.ex_metabolite
    micom.util.check_modification
    micom.util._format_min_growth
    micom.util._apply_min_growth
@@ -136,6 +137,11 @@ Attributes
 .. py:function:: add_var_from_expression(model, name, expr, lb=None, ub=None)
 
    Add a variable to a model equaling an expression.
+
+
+.. py:function:: ex_metabolite(model, rid)
+
+   Get the metabolite from an exchange reaction ID.
 
 
 .. py:function:: check_modification(community)

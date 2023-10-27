@@ -30,7 +30,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip cryptography
         pip install wheel numpy Cython
-        pip install biom-format
+        pip install biom-format highspy
     - name: Install MICOM
       run: pip install -e .
     - name: install CPLEX

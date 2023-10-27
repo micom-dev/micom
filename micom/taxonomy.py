@@ -101,7 +101,9 @@ def rank_prefixes(manifest: pd.DataFrame) -> pd.Series:
         The detected prefix for each taxonomic rank in the manifest.
     """
     ranks = [c for c in manifest.columns if c.lower() in RANKS]
-    prefixes = pd.Series({r: manifest[r].str.extract(r"^([a-z]__)").iloc[0, 0] for r in ranks})
+    prefixes = pd.Series(
+        {r: manifest[r].str.extract(r"^([a-z]__)").iloc[0, 0] for r in ranks}
+    )
 
     return prefixes
 
@@ -131,9 +133,7 @@ def unify_rank_prefixes(taxonomy: pd.DataFrame, manifest: pd.DataFrame) -> pd.Da
     ranks = [c for c in taxonomy.columns if c.lower() in RANKS]
     if db_prefixes.isna().all():
         for r in ranks:
-            taxonomy[r] = taxonomy[r].str.replace(
-                r"^[a-z]__", "", regex=True
-            )
+            taxonomy[r] = taxonomy[r].str.replace(r"^[a-z]__", "", regex=True)
     else:
         for r in ranks:
             taxonomy[r] = db_prefixes[r] + taxonomy[r]

@@ -4,6 +4,7 @@ We only test the core functions with relaxed accuracies as OSQP is not good with
 """
 
 from .fixtures import community
+import cobra.util.solver as su
 import micom.data as md
 from micom.workflows import (
     build,
@@ -16,6 +17,8 @@ from micom.qiime_formats import load_qiime_medium
 from micom.solution import CommunitySolution, OptimizationError
 import pytest
 from pytest import approx
+
+pytestmark = pytest.mark.skipif("osqp" not in su.solvers)
 
 medium = load_qiime_medium(md.test_medium)
 db = md.test_db

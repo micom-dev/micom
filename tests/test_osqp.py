@@ -18,7 +18,10 @@ from micom.solution import CommunitySolution, OptimizationError
 import pytest
 from pytest import approx
 
-pytestmark = pytest.mark.skipif("osqp" not in su.solvers)
+pytestmark = pytest.mark.skipif(
+    "osqp" not in su.solvers,
+    reason="OSQP not functional here"
+)
 
 medium = load_qiime_medium(md.test_medium)
 db = md.test_db

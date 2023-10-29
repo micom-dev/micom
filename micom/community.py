@@ -21,6 +21,7 @@ from micom.logger import logger
 from micom.optcom import optcom, solve
 from micom.problems import cooperative_tradeoff, knockout_taxa
 from micom.qiime_formats import load_qiime_model_db
+from micom.taxonomy import unify_rank_prefixes
 from rich.progress import track
 from tempfile import TemporaryDirectory
 
@@ -209,6 +210,7 @@ class Community(cobra.Model):
                 if r in taxonomy.columns and r in manifest.columns
             ]
             manifest = manifest[keep_cols + ["file"]]
+            taxonomy = unify_rank_prefixes(taxonomy, manifest)
             merged = pd.merge(taxonomy, manifest, on=keep_cols)
 
             self.__db_metrics = pd.Series(

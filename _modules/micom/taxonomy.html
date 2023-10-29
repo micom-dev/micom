@@ -249,7 +249,6 @@
           <h1>Source code for micom.taxonomy</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Helpers to convert external data to a MICOM taxonomy.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">micom.community</span> <span class="kn">import</span> <span class="n">_ranks</span>
 <span class="kn">from</span> <span class="nn">micom.qiime_formats</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">load_qiime_feature_table</span><span class="p">,</span>
     <span class="n">load_qiime_taxonomy</span><span class="p">,</span>
@@ -257,26 +256,27 @@
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 
+<div class="viewcode-block" id="RANKS"><a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.taxonomy.RANKS">[docs]</a><span class="n">RANKS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kingdom&quot;</span><span class="p">,</span> <span class="s2">&quot;phylum&quot;</span><span class="p">,</span> <span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;order&quot;</span><span class="p">,</span> <span class="s2">&quot;family&quot;</span><span class="p">,</span> <span class="s2">&quot;genus&quot;</span><span class="p">,</span> <span class="s2">&quot;species&quot;</span><span class="p">,</span> <span class="s2">&quot;strain&quot;</span><span class="p">]</span></div>
+
+
 <div class="viewcode-block" id="build_from_qiime"><a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.taxonomy.build_from_qiime">[docs]</a><span class="k">def</span> <span class="nf">build_from_qiime</span><span class="p">(</span>
-    <span class="n">abundance</span><span class="p">,</span>
+    <span class="n">abundance</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
     <span class="n">taxonomy</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
-    <span class="n">collapse_on</span><span class="o">=</span><span class="s2">&quot;genus&quot;</span>
+    <span class="n">collapse_on</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;genus&quot;</span><span class="p">,</span>
+    <span class="n">trim_rank_prefix</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the specification for the community models.&quot;&quot;&quot;</span>
-    <span class="n">taxa</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;[</span><span class="se">\\</span><span class="s2">w_]+__|</span><span class="se">\\</span><span class="s2">[|</span><span class="se">\\</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">trim_rank_prefix</span><span class="p">:</span>
+        <span class="n">taxa</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;[</span><span class="se">\\</span><span class="s2">w_]+__|</span><span class="se">\\</span><span class="s2">[|</span><span class="se">\\</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">taxa</span> <span class="o">=</span> <span class="n">taxa</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;</span><span class="se">\\</span><span class="s2">s*&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">taxa</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">_ranks</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="n">taxa</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">taxa</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">RANKS</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="n">taxa</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
     <span class="n">taxa</span><span class="p">[</span><span class="s2">&quot;taxid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">index</span>
     <span class="n">taxa</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="n">taxa</span><span class="o">.</span><span class="n">taxid</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">collapse_on</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">collapse_on</span> <span class="o">=</span> <span class="p">[</span><span class="n">collapse_on</span><span class="p">]</span>
 
-    <span class="n">ranks</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">r</span>
-        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">collapse_on</span>
-        <span class="k">if</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">taxa</span><span class="o">.</span><span class="n">columns</span>
-    <span class="p">]</span>
+    <span class="n">ranks</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">collapse_on</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">taxa</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
     <span class="n">taxa</span><span class="p">[</span><span class="s2">&quot;mapping_ranks&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">taxa</span><span class="p">[</span><span class="n">ranks</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
         <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
     <span class="p">)</span>
@@ -284,7 +284,8 @@
     <span class="n">abundance</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">abundance</span><span class="o">.</span><span class="n">collapse</span><span class="p">(</span>
             <span class="k">lambda</span> <span class="n">id_</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">taxa</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">id_</span><span class="p">,</span> <span class="s2">&quot;mapping_ranks&quot;</span><span class="p">],</span>
-            <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;observation&quot;</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="kc">False</span>
+            <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;observation&quot;</span><span class="p">,</span>
+            <span class="n">norm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="o">.</span><span class="n">to_dataframe</span><span class="p">(</span><span class="n">dense</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="o">.</span><span class="n">T</span>
@@ -297,7 +298,7 @@
     <span class="n">abundance</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
         <span class="n">abundance</span><span class="p">[</span><span class="n">abundance</span><span class="o">.</span><span class="n">abundance</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">],</span>
         <span class="n">taxa</span><span class="p">[</span><span class="n">ranks</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;mapping_ranks&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(),</span>
-        <span class="n">on</span><span class="o">=</span><span class="s2">&quot;mapping_ranks&quot;</span>
+        <span class="n">on</span><span class="o">=</span><span class="s2">&quot;mapping_ranks&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">abundance</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">abundance</span><span class="p">[</span><span class="s2">&quot;mapping_ranks&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
         <span class="sa">r</span><span class="s2">&quot;[^A-Za-z0-9_]+&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span>
@@ -333,6 +334,60 @@
     <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">load_qiime_taxonomy</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">build_from_qiime</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">taxonomy</span><span class="p">,</span> <span class="n">collapse_on</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rank_prefixes"><a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.taxonomy.rank_prefixes">[docs]</a><span class="k">def</span> <span class="nf">rank_prefixes</span><span class="p">(</span><span class="n">manifest</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the used prefixes for taxonomic ranks.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    manifest : pandas.DataFrame</span>
+<span class="sd">        A model database manifest.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.Series</span>
+<span class="sd">        The detected prefix for each taxonomic rank in the manifest.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ranks</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">RANKS</span><span class="p">]</span>
+    <span class="n">prefixes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+        <span class="p">{</span><span class="n">r</span><span class="p">:</span> <span class="n">manifest</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^([a-z]__)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ranks</span><span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">prefixes</span></div>
+
+
+<div class="viewcode-block" id="unify_rank_prefixes"><a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.taxonomy.unify_rank_prefixes">[docs]</a><span class="k">def</span> <span class="nf">unify_rank_prefixes</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Handle taxonomic rank prefixes in the taxonomy or database manifest.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    taxonomy : pandas.DataFrame</span>
+<span class="sd">        A taxonomy table.</span>
+<span class="sd">    manifest : pandas.DataFrame</span>
+<span class="sd">        A database manifest.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple of pandas.DataFrame</span>
+<span class="sd">        The taxonomy with adjusted taxa names consistent with the database.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tax_prefixes</span> <span class="o">=</span> <span class="n">rank_prefixes</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">)</span>
+    <span class="n">db_prefixes</span> <span class="o">=</span> <span class="n">rank_prefixes</span><span class="p">(</span><span class="n">manifest</span><span class="p">)</span>
+    <span class="n">ranks</span> <span class="o">=</span> <span class="n">tax_prefixes</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">tax_prefixes</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">db_prefixes</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">tax_prefixes</span><span class="p">[</span><span class="n">ranks</span><span class="p">]</span> <span class="o">==</span> <span class="n">db_prefixes</span><span class="p">[</span><span class="n">ranks</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="n">taxonomy</span>
+
+    <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">ranks</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">RANKS</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">db_prefixes</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ranks</span><span class="p">:</span>
+            <span class="n">taxonomy</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="p">[</span><span class="n">r</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^[a-z]__&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ranks</span><span class="p">:</span>
+            <span class="n">taxonomy</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">db_prefixes</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">+</span> <span class="n">taxonomy</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">taxonomy</span></div>
 </pre></div>
         </article>
       </div>

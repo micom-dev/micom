@@ -270,6 +270,7 @@
 <span class="kn">from</span> <span class="nn">micom.optcom</span> <span class="kn">import</span> <span class="n">optcom</span><span class="p">,</span> <span class="n">solve</span>
 <span class="kn">from</span> <span class="nn">micom.problems</span> <span class="kn">import</span> <span class="n">cooperative_tradeoff</span><span class="p">,</span> <span class="n">knockout_taxa</span>
 <span class="kn">from</span> <span class="nn">micom.qiime_formats</span> <span class="kn">import</span> <span class="n">load_qiime_model_db</span>
+<span class="kn">from</span> <span class="nn">micom.taxonomy</span> <span class="kn">import</span> <span class="n">unify_rank_prefixes</span>
 <span class="kn">from</span> <span class="nn">rich.progress</span> <span class="kn">import</span> <span class="n">track</span>
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
 
@@ -458,6 +459,7 @@
                 <span class="k">if</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">columns</span>
             <span class="p">]</span>
             <span class="n">manifest</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="n">keep_cols</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]]</span>
+            <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">unify_rank_prefixes</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">,</span> <span class="n">manifest</span><span class="p">)</span>
             <span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">,</span> <span class="n">manifest</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">keep_cols</span><span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">__db_metrics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>

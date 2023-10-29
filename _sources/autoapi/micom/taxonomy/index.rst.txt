@@ -20,10 +20,25 @@ Functions
 
    micom.taxonomy.build_from_qiime
    micom.taxonomy.qiime_to_micom
+   micom.taxonomy.rank_prefixes
+   micom.taxonomy.unify_rank_prefixes
 
 
 
-.. py:function:: build_from_qiime(abundance, taxonomy: pandas.Series, collapse_on='genus') -> pandas.DataFrame
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.taxonomy.RANKS
+
+
+.. py:data:: RANKS
+   :value: ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species', 'strain']
+
+   
+
+.. py:function:: build_from_qiime(abundance: pandas.DataFrame, taxonomy: pandas.Series, collapse_on: str = 'genus', trim_rank_prefix: bool = False) -> pandas.DataFrame
 
    Build the specification for the community models.
 
@@ -43,5 +58,29 @@ Functions
    :returns: A micom taxonomy containing abundances and taxonomy calls in long
              format.
    :rtype: pd.DataFrame
+
+
+.. py:function:: rank_prefixes(manifest: pandas.DataFrame) -> pandas.Series
+
+   Get the used prefixes for taxonomic ranks.
+
+   :param manifest: A model database manifest.
+   :type manifest: pandas.DataFrame
+
+   :returns: The detected prefix for each taxonomic rank in the manifest.
+   :rtype: pandas.Series
+
+
+.. py:function:: unify_rank_prefixes(taxonomy: pandas.DataFrame, manifest: pandas.DataFrame) -> pandas.DataFrame
+
+   Handle taxonomic rank prefixes in the taxonomy or database manifest.
+
+   :param taxonomy: A taxonomy table.
+   :type taxonomy: pandas.DataFrame
+   :param manifest: A database manifest.
+   :type manifest: pandas.DataFrame
+
+   :returns: The taxonomy with adjusted taxa names consistent with the database.
+   :rtype: tuple of pandas.DataFrame
 
 

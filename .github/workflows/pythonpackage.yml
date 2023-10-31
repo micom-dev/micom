@@ -38,9 +38,7 @@ jobs:
       run: |
         PYTHON_VERSION=${{ matrix.python-version }}
         PYTHON_VERSION=${PYTHON_VERSION//./}
-        wget https://github.com/ERGO-Code/HiGHS/suites/15782137175/artifacts/900639030 && \
-          unzip artifact.zip && \
-          pip install highspy-1.5.3-cp${PYTHON_VERSION}-cp${PYTHON_VERSION}-macosx_10_9_x86_64.whl
+        pip install .github/wheels/highspy-1.5.3-cp${PYTHON_VERSION}-cp${PYTHON_VERSION}-macosx_10_9_x86_64.whl
     - name: Install MICOM
       run: pip install -e .
     - name: install CPLEX

@@ -31,13 +31,14 @@ jobs:
         python -m pip install --upgrade pip cryptography
         pip install wheel numpy Cython biom-format
     - name: Install highspy from PyPI
-      if: matrix.os != 'mac-latest'
+      if: matrix.os != 'macos-latest'
       run: pip install highspy
     - name: Install highspy via dev wheel
       if: matrix.os == 'macos-latest'
       run: |
         PYTHON_VERSION=${{ matrix.python-version }}
         PYTHON_VERSION=${PYTHON_VERSION//./}
+        ls -alh
         pip install .github/wheels/highspy-1.5.3-cp${PYTHON_VERSION}-cp${PYTHON_VERSION}-macosx_10_9_x86_64.whl
     - name: Install MICOM
       run: pip install -e .

@@ -4,35 +4,45 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Installing MICOM\n",
+    "# Preamble\n",
     "\n",
-    "MICOM is present on PyPi (the Python Package Index), so it can be installed via pip with"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "```bash\n",
-    "pip install micom\n",
-    "```"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "The same installation strategy also works with Anaconda installations or any other Python distributions. Supported Python versions are 3.7 or any later.\n",
+    "The same installation strategy also works with Anaconda installations or any other Python distributions. Supported Python versions are 3.8 or later.\n",
     "\n",
-    "By default MICOM will also install [OSQP](https://osqp.org) as a quadratic programming solver. MICOM employs a bunch of tricks\n",
-    "to improve OSQP performance for linear programming problems, but will still only each accuracies in the order of 1e-4. \n",
-    "You may install a commercial QP solver to improve the accuracy and speed (all of them offer free academic licenses). \n",
+    "By default MICOM will also install a linear and quadratic programming solver that will work for large problems. For this it leverages\n",
+    "a custom hybrid solver that combines [HIGHS](https://highs.dev/) and [OSQP](https://osqp.org/). Those will be installed along with MICOM\n",
+    "automatically on Windows and Linux, but require one additional step on MacOS (see below).\n",
     "\n",
     "If you have several supported solvers installed you may later specify one with the `solver` argument in `micom.Community` or\n",
     "`micom.workflows.build`.\n",
     "\n",
+    "## Install the hybrid solver on MacOS\n",
     "\n",
-    "## Install another QP solver\n",
+    "Due to a currently [broken package](https://github.com/ERGO-Code/HiGHS/issues/1348) on PyPI you will need to install HIGHSpy on MacOS by hand  This can either\n",
+    "be done by building from source following the [official instructions](https://github.com/ERGO-Code/HiGHS#python) (section \"Directly\"). We also provide fixed wheels for non-Silicon\n",
+    "MacOS platforms for Python 3.8 and 3.11. Those can be installed with:\n",
+    "\n",
+    "\n",
+    "**Python 3.8**\n",
+    "\n",
+    "```bash\n",
+    "pip install --force-reinstall https://github.com/micom-dev/micom/raw/main/.github/wheels/highspy-1.5.3-cp38-cp38-macosx_10_9_x86_64.whl\n",
+    "```\n",
+    "\n",
+    "**Python 3.11**\n",
+    "\n",
+    "```bash\n",
+    "pip install --force-reinstall https://github.com/micom-dev/micom/raw/main/.github/wheels/highspy-1.5.3-cp311-cp311-macosx_10_9_x86_64.whl\n",
+    "```\n",
+    "\n",
+    "# Installing MICOM\n",
+    "\n",
+    "MICOM is present on PyPi (the Python Package Index), so it can be installed via pip with\n",
+    "\n",
+    "```bash\n",
+    "pip install micom\n",
+    "```\n",
+    "\n",
+    "## Install faster (non open source) solvers\n",
     "\n",
     "The following solvers are proprietary but offer free licenses for academic use. Both solvers are\n",
     "faster and more accurate for the multi-step LP/QP problems in MICOM than OSQP at the moment. So if\n",
@@ -66,13 +76,6 @@
     "grbgetkey YOUR-LICENSE-KEY\n",
     "```"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {
@@ -91,7 +94,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.8.5"
+   "version": "3.11.7"
   }
  },
  "nbformat": 4,

@@ -30,9 +30,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip cryptography
         pip install wheel numpy Cython biom-format
+<<<<<<< HEAD
     - name: Install highspy from PyPI
       if: matrix.os != 'macos-latest'
       run: pip install highspy
+=======
+>>>>>>> feature/highs_tests
     - name: Install highspy via dev wheel
       if: matrix.os == 'macos-latest'
       run: |

@@ -47,6 +47,8 @@ Installation
 
     pip install micom
 
+For more info on the installation or setting up the solvers please see the `documentation <https://micom-dev.github.io/micom>`_ .
+
 Getting started
 ---------------
 

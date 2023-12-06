@@ -42,7 +42,7 @@ Contents
 .. toctree::
    :maxdepth: 1
 
-   Methods used by MICOM <logic>
+   Strategies used by MICOM <logic>
    Installing MICOM <installing>
 
    MICOM workflows <high_level>

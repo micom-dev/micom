@@ -41,8 +41,8 @@ Functions
 
    micom.viz.plot_exchanges_per_sample
    micom.viz.plot_exchanges_per_taxon
+   micom.viz.plot_growth
    micom.viz.plot_fit
-   micom.viz.plot_tradeoff
 
 
 
@@ -123,6 +123,22 @@ Functions
    :rtype: Visualization
 
 
+.. py:function:: plot_growth(results, filename='growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
+
+   Plot the taxa growth rates.
+
+   :param results: The results returned by the `grow` workflow.
+   :type results: micom.workflows.GrowthResults
+   :param filename: The HTML file where the visualization will be saved.
+   :type filename: str
+   :param tolerance: Smallest growth rate that will be considered. Everything lower will be
+                     considered not growing.
+   :type tolerance: float
+
+   :returns: A MICOM visualization. Can be served with `viz.serve`.
+   :rtype: Visualization
+
+
 .. py:function:: plot_fit(results, phenotype, variable_type='binary', variable_name='phenotype', filename='fit_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', min_coef=0.001, atol=1e-06)
 
    Test for differential metabolite production.
@@ -151,22 +167,6 @@ Functions
    :type atol: float
 
    :returns: A MICOM visualization. Can be served with `viz.view`.
-   :rtype: Visualization
-
-
-.. py:function:: plot_tradeoff(tradeoff_rates, filename='tradeoff_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
-
-   Plot diagnostics for varying tradeoff values.
-
-   :param tradeoff_rates: The growth rates returned by the `tradeoff` workflow.
-   :type tradeoff_rates: pandas.DataFrame
-   :param filename: The HTML file where the visualization will be saved.
-   :type filename: str
-   :param tolerance: Smallest growth rate that will be considered. Everything lower will be
-                     considered not growing.
-   :type tolerance: float
-
-   :returns: A MICOM visualization. Can be served with `viz.serve`.
    :rtype: Visualization
 
 

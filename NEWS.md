@@ -5,6 +5,24 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.33.1
+
+Fixes the rank prefix trimming when setting it to False in Qiime2 imports.
+
+### 0.33.0
+
+Replaces the default OSQP solver with a new hybrid solver using OSQP for QPs and HIGHS
+for everything else which improves the accuracy by several orders of magnitude. Note the new
+[installation instructions for solvers](https://micom-dev.github.io/micom/installing.html).
+
+The presence or absence of rank prefixes such as `s__` or `g__` for genus and species names,
+respectively, can now be detected and resolved automatically by MICOM. This improves
+compatibility with Qiime2 and GTDB.
+
+New solver is now tested automatically on all platforms.
+
+Small bugfixes and updates.
+
 ### 0.32.5
 
 Backports the visualizers to be compatible with scikit-learn 0.24.1 to avoid some issues

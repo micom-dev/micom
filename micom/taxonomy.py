@@ -19,6 +19,8 @@ def build_from_qiime(
     """Build the specification for the community models."""
     if trim_rank_prefix:
         taxa = taxonomy.str.replace("[\\w_]+__|\\[|\\]", "", regex=True)
+    else:
+        taxa = taxonomy
     taxa = taxa.str.split(";\\s*", expand=True).replace("", None)
     taxa.columns = RANKS[0 : taxa.shape[1]]
     taxa["taxid"] = taxonomy.index

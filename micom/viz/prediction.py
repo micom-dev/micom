@@ -65,7 +65,7 @@ def plot_fit(
 
     """
     exchanges = results.exchanges
-    anns = results.annotations
+    anns = results.annotations.drop_duplicates(subset=["metabolite"])
     anns.index = anns.metabolite
     if flux_type == "import":
         exchanges = exchanges[

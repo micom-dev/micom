@@ -3,6 +3,8 @@
 from datetime import datetime
 from micom.viz import Visualization
 from micom.logger import logger
+from micom.measures import production_rates, consumption_rates
+from micom import stats
 import json
 import numpy as np
 import pandas as pd
@@ -28,8 +30,8 @@ def plot_fit(
     variable_name="phenotype",
     filename="fit_%s.html" % datetime.now().strftime("%Y%m%d"),
     flux_type="production",
-    min_coef=0.001,
-    atol=1e-6,
+    threads=1,
+    atol=1e-6
 ):
     """Test for differential metabolite production.
 
@@ -52,8 +54,8 @@ def plot_fit(
         The HTML file where the visualization will be saved.
     flux_type : str of ["import", "production"]
         Whether to fit using import or production fluxes.
-    min_coef : float in [0.0, Inf]
-        Only report coefficient that are at least that large.
+    threads : int
+        The number of threads to use.
     atol : float
         Tolerance to consider a flux different from zero. Should be roughly equivalent
         to the solver tolerance.
@@ -68,19 +70,9 @@ def plot_fit(
     anns = results.annotations.drop_duplicates(subset=["metabolite"])
     anns.index = anns.metabolite
     if flux_type == "import":
-        exchanges = exchanges[
-            (exchanges.taxon == "medium") & (exchanges.direction == "import")
-        ]
-        exchanges["flux"] = exchanges.flux.abs()
+        exchanges = consumption_rates(results)
     else:
-        exchanges = exchanges[
-            (exchanges.taxon != "medium") & (exchanges.direction == "export")
-        ]
-        exchanges = (
-            exchanges.groupby(["reaction", "metabolite", "sample_id"])
-            .apply(lambda df: pd.Series({"flux": sum(df.abundance * df.flux.abs())}))
-            .reset_index()
-        )
+        exchanges = production_rates(results)
     exchanges = exchanges.loc[exchanges.flux > atol]
     if exchanges.shape[1] < 1:
         raise ValueError("None of the fluxes passed the tolerance threshold :(")
@@ -105,7 +97,7 @@ def plot_fit(
     fluxes = fluxes.applymap(np.log)
     meta = phenotype[fluxes.index]
     stds = fluxes.std(axis=1)
-    bad = stds < 1e-6
+    bad = stds < atol
     if bad.any():
         logger.warning("Removing %d fluxes due to zero variance." % bad.sum())
         fluxes = fluxes.loc[:, ~bad]
@@ -128,23 +120,22 @@ def plot_fit(
         )
         fit = model.fit(scaled, meta)
         score = cross_val_score(model, X=scaled, y=meta, cv=LeaveOneOut())
-        coefs = pd.DataFrame({"coef": fit.coef_[0, :], "metabolite": fluxes.columns})
+        tests = stats.compare_groups(
+            exchanges, metadata_column=variable_name, threads=threads, progress=False)
+        statistic_name = "log fold-change"
+        tests.rename(columns={"log_fold_change": "statistic"})
     else:
         model = LassoCV(cv=2, max_iter=50000)
         fit = model.fit(scaled, meta)
         model = Lasso(alpha=fit.alpha_, max_iter=50000)
         fit = model.fit(scaled, meta)
         score = cross_val_score(model, X=scaled, y=meta, cv=3)
-        coefs = pd.DataFrame({"coef": fit.coef_, "metabolite": fluxes.columns})
-    coefs["description"] = anns.loc[coefs.metabolite, "name"].values
+        tests = stats.correlate_fluxes(
+            exchanges, metadata_column=variable_name, threads=threads, progress=False)
+        statistic_name = "Spearman ρ"
+        tests.rename(columns={"spearman_rho": "statistic"})
     score = [np.mean(score), np.std(score)]
     score.append(model.score(scaled, meta))
-
-    if all(coefs.coef.abs() < min_coef):
-        raise RuntimeError(
-            "Unfortunately no metabolite flux was predictive for the "
-            "chosen phenotype and a cutoff of %g :(" % min_coef
-        )
 
     data = {"fluxes": exchanges, "coefficients": coefs}
     coefs = coefs[coefs.coef.abs() >= min_coef].sort_values(by="coef")
@@ -159,7 +150,7 @@ def plot_fit(
 
     viz.save(
         fitted=fitted.to_json(orient="records"),
-        coefs=coefs.to_json(orient="records"),
+        tests=tests.to_json(orient="records"),
         exchanges=exchanges.to_json(orient="records"),
         metabolites=json.dumps(coefs.metabolite.tolist()),
         variable=variable_name,

@@ -5,6 +5,10 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.33.2
+
+Fixes yet another annotation bug with AGORA2 due to duplicated exchanges.
+
 ### 0.33.1
 
 Fixes the rank prefix trimming when setting it to False in Qiime2 imports.

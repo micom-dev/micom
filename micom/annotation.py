@@ -65,4 +65,4 @@ def annotate_metabolites_from_exchanges(com):
         warnings.simplefilter("ignore", category=UserWarning)
         anns = annotate(mets.object.tolist(), com, "metabolite")
     anns["reaction"] = mets.reaction.values
-    return anns.drop_duplicates(subset=["reaction"])
+    return anns.drop_duplicates(subset=["metabolite"])

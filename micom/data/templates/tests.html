@@ -29,19 +29,20 @@
     <!-- Container for the visualization -->
     <div class="container">
       <p class="subtitle">
-        Each bar denotes the coefficient of the metabolite flux in a linear predictor
-        of the phenotype. All fluxes are log-transformed and standardized so
-        coefficients are roughly comparable.
+        Each bar denotes the {{statistic_name}} of the metabolite across the phenotype for test
+        with a significant FDR-corrected test.
+        All fluxes are log-transformed and standardized so statistics are roughly comparable.
       </p>
     <div id="coefs"></div>
-    <a href="#" class="button is-primary" onclick="download_data('coefficients')">Download coefficients as CSV...</a>
+    <a href="#" class="button is-primary" onclick="download_data('tests')">Download association test results as CSV...</a>
     </div>
     <br>
     <div class="container">
       <p class="subtitle">
-        The plot on the left shows a particular metabolite flux by phenotype.
+        The plot on the left shows a particular metabolite flux by phenotype with the test
+        results.
         The plot on the right shows the overall cross-validation performance of
-        the model in explaining the phenotype.
+        a regularized linear regression in explaining the phenotype.
       </p>
     <div id="vis"></div>
     <a href="#" class="button is-primary" onclick="download_data('fluxes')">Download fluxes as CSV...</a>
@@ -64,7 +65,7 @@
         width: {{cwidth}},
         height: {{cheight}},
         data: {
-            values: {{coefs | safe}}
+            values: {{tests | safe}}
         },
         mark: {
             type: "bar",
@@ -74,15 +75,15 @@
             x: {
                 field: "metabolite",
                 type: "nominal",
-                sort: "-coef"
+                sort: "-statistic"
             },
             y: {
-                field: "coef",
+                field: "statistic",
                 type: "quantitative",
-                axis: {title: "coefficient [standardized]"}
+                axis: {title: "{{statistic_name}}"}
             },
             color: {
-                field: "coef",
+                field: "statistic",
                 type: "quantitative",
                 scale: {scheme: "magma"},
                 legend: false
@@ -109,11 +110,13 @@
                 }
               },
               transform: [{
-                filter: {selection: "metab"}
+                filter: {selection: "metab"},
+                {calculate: "metab + ' [{{stat}}=}}' + format(stat[0], '.3f') + format(q, '.3g') + ']'", as: "stats"}
               }],
               mark: {
                   type: "point",
-                  tooltip: true
+                  tooltip: true,
+                  title: {text: {expr: "stats"} }
               },
               encoding: {
                   y: {

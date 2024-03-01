@@ -315,7 +315,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">exchanges</span>
-    <span class="n">anns</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">annotations</span>
+    <span class="n">anns</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;metabolite&quot;</span><span class="p">])</span>
     <span class="n">anns</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">anns</span><span class="o">.</span><span class="n">metabolite</span>
     <span class="k">if</span> <span class="n">flux_type</span> <span class="o">==</span> <span class="s2">&quot;import&quot;</span><span class="p">:</span>
         <span class="n">exchanges</span> <span class="o">=</span> <span class="n">exchanges</span><span class="p">[</span>

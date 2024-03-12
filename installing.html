@@ -162,8 +162,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Strategies used by MICOM</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Preamble</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Installing-MICOM">Installing MICOM</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Installing MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows.html">Writing your own workflows</a></li>
@@ -254,27 +253,8 @@
 <p>The same installation strategy also works with Anaconda installations or any other Python distributions. Supported Python versions are 3.8 or later.</p>
 <p>By default MICOM will also install a linear and quadratic programming solver that will work for large problems. For this it leverages a custom hybrid solver that combines <a class="reference external" href="https://highs.dev/">HIGHS</a> and <a class="reference external" href="https://osqp.org/">OSQP</a>. Those will be installed along with MICOM automatically on Windows and Linux, but require one additional step on MacOS (see below).</p>
 <p>If you have several supported solvers installed you may later specify one with the <code class="docutils literal notranslate"><span class="pre">solver</span></code> argument in <code class="docutils literal notranslate"><span class="pre">micom.Community</span></code> or <code class="docutils literal notranslate"><span class="pre">micom.workflows.build</span></code>.</p>
-<section id="Install-the-hybrid-solver-on-MacOS">
-<h2>Install the hybrid solver on MacOS<a class="headerlink" href="#Install-the-hybrid-solver-on-MacOS" title="Permalink to this heading">#</a></h2>
-<p>Due to a currently <a class="reference external" href="https://github.com/ERGO-Code/HiGHS/issues/1348">broken package</a> on PyPI you will need to install HIGHSpy on MacOS by hand This can either be done by building from source following the <a class="reference external" href="https://github.com/ERGO-Code/HiGHS#python">official instructions</a> (section “Directly”). We also provide fixed wheels for non-Silicon MacOS platforms for Python 3.8 and 3.11. Those can be installed with:</p>
-<p><strong>Python 3.8</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span>https://github.com/micom-dev/micom/raw/main/.github/wheels/highspy-1.5.3-cp38-cp38-macosx_10_9_x86_64.whl
-</pre></div>
-</div>
-<p><strong>Python 3.11</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--force-reinstall<span class="w"> </span>https://github.com/micom-dev/micom/raw/main/.github/wheels/highspy-1.5.3-cp311-cp311-macosx_10_9_x86_64.whl
-</pre></div>
-</div>
-</section>
-</section>
-<section id="Installing-MICOM">
-<h1>Installing MICOM<a class="headerlink" href="#Installing-MICOM" title="Permalink to this heading">#</a></h1>
-<p>MICOM is present on PyPi (the Python Package Index), so it can be installed via pip with</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>micom
-</pre></div>
-</div>
-<section id="Install-faster-(non-open-source)-solvers">
-<h2>Install faster (non open source) solvers<a class="headerlink" href="#Install-faster-(non-open-source)-solvers" title="Permalink to this heading">#</a></h2>
+<section id="Install-faster-(optional-non-open-source)-solvers">
+<h2>Install faster (optional non open source) solvers<a class="headerlink" href="#Install-faster-(optional-non-open-source)-solvers" title="Permalink to this heading">#</a></h2>
 <p>The following solvers are proprietary but offer free licenses for academic use. Both solvers are faster and more accurate for the multi-step LP/QP problems in MICOM than OSQP at the moment. So if yo have access to them obtaining a license is worthwhile for using MICOM.</p>
 <p><strong>CPLEX</strong></p>
 <p>After registering and downloading the CPLEX studio for your OS unpack it (by running the provided installer) to a directory of your choice (we will assume it’s called <code class="docutils literal notranslate"><span class="pre">ibm</span></code>).</p>
@@ -352,11 +332,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Preamble</a><ul>
-<li><a class="reference internal" href="#Install-the-hybrid-solver-on-MacOS">Install the hybrid solver on MacOS</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#Installing-MICOM">Installing MICOM</a><ul>
-<li><a class="reference internal" href="#Install-faster-(non-open-source)-solvers">Install faster (non open source) solvers</a></li>
+<li><a class="reference internal" href="#Install-faster-(optional-non-open-source)-solvers">Install faster (optional non open source) solvers</a></li>
 </ul>
 </li>
 </ul>

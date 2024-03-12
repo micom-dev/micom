@@ -11,7 +11,7 @@ def _metabolite_interaction(
 ) -> pd.DataFrame:
     """Checks if and how taxa interact."""
     tol = fluxes.tolerance.max()
-    f = fluxes[fluxes.flux.abs() * fluxes.abundance > tol]
+    f = fluxes[fluxes.flux.abs() > tol]
     if (f.shape[0] < 2) or (f.direction == "export").all():
         return None
     if (f.direction == "import").sum() == 2:
@@ -76,7 +76,7 @@ def _interact(args: List) -> pd.DataFrame:
         ex.groupby("sample_id")
         .apply(lambda df: sample_interactions(df, df.name, taxon))
         .reset_index(drop=True)
-        .drop(["level_1", "index"], axis=1)
+        .drop(["level_1", "index"], axis=1, errors="ignore")
         .merge(results.annotations, on="metabolite")
     )
 

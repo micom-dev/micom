@@ -8,7 +8,7 @@ def _mes(df : pd.DataFrame) -> float:
     """Helper to calculate the MES score."""
     cn = Counter(df.direction)
     p, c = cn["export"], cn["import"]
-    return 2.0 * p * c / (p + c)
+    return pd.Series(2.0 * p * c / (p + c), index=["MES"])
 
 def MES(results: GrowthResults, cutoff : float = None) -> pd.DataFrame:
     """Calculate the Metabolic Exchange Score (MES) for each metabolite.
@@ -38,11 +38,15 @@ def MES(results: GrowthResults, cutoff : float = None) -> pd.DataFrame:
            https://doi.org/10.1038/s41467-023-42112-w
     """
     if cutoff is None:
-        cutoff = results.exchanges.tolerance[1]
+        cutoff = results.exchanges.tolerance[0]
     fluxes = results.exchanges[
         (results.exchanges.flux.abs() > cutoff) &
-        (results.exchanges.compartment != "medium")
+        (results.exchanges.taxon != "medium")
     ]
     mes = fluxes.groupby(["metabolite", "sample_id"]).apply(_mes).reset_index()
-    mes = mes.merge(results.annoations, on="metabolite", how="inner")
+    mes = mes.merge(
+        results.annotations.drop_duplicates(subset=["metabolite"]),
+        on="metabolite",
+        how="inner"
+    )
     return mes

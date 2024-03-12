@@ -18,8 +18,21 @@ def _summarize(ints: pd.DataFrame) -> pd.DataFrame:
     )
 
 
-def summarize_interactions(ints: pd.DataFrame):
-    """Summarize interactions to key quantities."""
+def summarize_interactions(ints: pd.DataFrame) -> pd.DataFrame:
+    """Summarize interactions to key quantities.
+
+    Arguments
+    ---------
+    ints : pandas.DataFrame
+        The interactions for individual metabolites calculated before.
+
+    Returns
+    -------
+    pandas.DataFrame
+        The summarized interactions contaning the total flux, mass flux, carbon flux,
+        nitrogen flux and number of interactions between any pair of taxa in that
+        sample.
+    """
     return (
         ints.groupby(["sample_id", "focal", "partner"])
         .apply(_summarize)

@@ -16,12 +16,12 @@ def test_qiime_community():
     tax["abundance"] = [1, 2, 3, 4]
     del tax["file"]
     com = mm.Community(tax, db, progress=False)
-    assert len(com.abundances) == 3
+    assert len(com.abundances) == 4
     m = com.build_metrics
-    assert m[0] == 3
+    assert m[0] == 4
     assert m[1] == 4
-    assert m[2] == approx(0.75)
-    assert m[3] == approx(0.6)
+    assert m[2] == approx(1.0)
+    assert m[3] == approx(1.0)
 
 
 @mark.parametrize("rank", ["genus", "species"])

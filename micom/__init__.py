@@ -14,6 +14,7 @@ from micom import (
     qiime_formats,
     solution,
     workflows,
+    interaction,
 )
 
 

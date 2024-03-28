@@ -39,6 +39,7 @@ use MICOM is using the :doc:`workflow API <high_level>`.
 
 Contents
 --------
+
 .. toctree::
    :maxdepth: 1
 
@@ -77,7 +78,7 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-.. |actions status| image:: https://github.com/micom-dev/micom/workflows/Python%20package/badge.svg
+.. |actions status| image:: https://github.com/micom-dev/micom/actions/workflows/pythonpackage.yml/badge.svg
    :target: https://github.com/micom-dev/micom/actions
 .. |coverage| image:: https://codecov.io/gh/micom-dev/micom/branch/main/graph/badge.svg
    :target: https://codecov.io/gh/micom-dev/micom

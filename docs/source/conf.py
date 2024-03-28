@@ -62,7 +62,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "micom"
-copyright = "2017-2021, Christian Diener"
+copyright = "2017-2024, Christian Diener"
 author = "Christian Diener"
 
 # The version info for the project you're documenting, acts as replacement for

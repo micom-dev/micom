@@ -291,7 +291,10 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_growth" title="micom.viz.plot_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_growth</span></code></a>(results[, filename, tolerance])</p></td>
 <td><p>Plot the taxa growth rates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_tradeoff" title="micom.viz.plot_tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_tradeoff</span></code></a>(tradeoff_rates[, filename, tolerance])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_fit" title="micom.viz.plot_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_fit</span></code></a>(results, phenotype[, variable_type, ...])</p></td>
+<td><p>Test for differential metabolite production.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_tradeoff" title="micom.viz.plot_tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_tradeoff</span></code></a>(tradeoff_rates[, filename, tolerance])</p></td>
 <td><p>Plot diagnostics for varying tradeoff values.</p></td>
 </tr>
 </tbody>
@@ -426,6 +429,37 @@ considered not growing.</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="micom.viz.plot_fit">
+<span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'binary'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'phenotype'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fit_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'production'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_coef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/prediction.html#plot_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_fit" title="Permalink to this definition">#</a></dt>
+<dd><p>Test for differential metabolite production.</p>
+<p>This will fit the <cite>phenotype</cite> response using L1-regularized linear models
+with log-fluxes as features. Will use LASSO regression for a continuous
+response and L1-regularized Logistic regression for a binary response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<em>micom.workflows.GrowthResults</em>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>phenotype</strong> (<em>pandas.Series</em>) – The data to be fitted. Its index must correspond to <cite>sample_id</cite> in
+<cite>exchanges</cite>.</p></li>
+<li><p><strong>variable_type</strong> (<em>str</em><em> of </em><em>[</em><em>&quot;binary&quot;</em><em>, </em><em>&quot;continuous&quot;</em><em>]</em>) – The type of the variable.</p></li>
+<li><p><strong>variable_name</strong> (<em>str</em>) – A short description of the phenotype for instance “disease_status”.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
+<li><p><strong>flux_type</strong> (<em>str</em><em> of </em><em>[</em><em>&quot;import&quot;</em><em>, </em><em>&quot;production&quot;</em><em>]</em>) – Whether to fit using import or production fluxes.</p></li>
+<li><p><strong>min_coef</strong> (<em>float in</em><em> [</em><em>0.0</em><em>, </em><em>Inf</em><em>]</em>) – Only report coefficient that are at least that large.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Tolerance to consider a flux different from zero. Should be roughly equivalent
+to the solver tolerance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.view</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="micom.viz.plot_tradeoff">
 <span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_tradeoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tradeoff_rates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tradeoff_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/tradeoff.html#plot_tradeoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_tradeoff" title="Permalink to this definition">#</a></dt>
 <dd><p>Plot diagnostics for varying tradeoff values.</p>
@@ -480,7 +514,7 @@ considered not growing.</p></li>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2017-2021, Christian Diener
+                Copyright &#169; 2017-2024, Christian Diener
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -522,6 +556,7 @@ considered not growing.</p></li>
 <li><a class="reference internal" href="#micom.viz.plot_exchanges_per_sample"><code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_sample()</span></code></a></li>
 <li><a class="reference internal" href="#micom.viz.plot_exchanges_per_taxon"><code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_taxon()</span></code></a></li>
 <li><a class="reference internal" href="#micom.viz.plot_growth"><code class="docutils literal notranslate"><span class="pre">plot_growth()</span></code></a></li>
+<li><a class="reference internal" href="#micom.viz.plot_fit"><code class="docutils literal notranslate"><span class="pre">plot_fit()</span></code></a></li>
 <li><a class="reference internal" href="#micom.viz.plot_tradeoff"><code class="docutils literal notranslate"><span class="pre">plot_tradeoff()</span></code></a></li>
 </ul>
 </li>

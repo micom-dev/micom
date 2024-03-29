@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Growth rates</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.27.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.24.0"></script>
+
+    <style>
+    #ints {
+        width: 100%;
+        margin: 1em;
+    }
+    #summ {
+        width: 100%;
+        margin: 1em;
+    }
+    </style>
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+        Focal interactions for {{ taxon }}
+      </h1>
+      <h2 class="title">
+        Summarized interactions
+      </h2>
+
+      <p class="subtitle">
+        Each point denotes the total flux between the focal taxon and one interaction
+        partner in one sample. The interaction classes (provided, received, co-consumed) are always
+        in reference to the focal taxon.<br>
+        Click a point to select points from only that interaction partner. Click on an
+        empty region of the plot to reset the selection.<br>
+        Hover over each point to see its annotations. Use the "..." menu in the
+        upper right hand side to export the plot into various formats.
+      </p>
+    </div>
+    <!-- Container for the visualization -->
+    <div class="container">
+    <div id="summ"></div>
+    <a href="#" class="button is-primary" onclick="download_data('summary')">Download as CSV...</a>
+    </div><br><br>
+    <div class="container">
+      <h2 class="title">
+        Metabolic interactions
+      </h2>
+
+      <p class="subtitle">
+        Each point denotes the flux of a single metabolite between the reference (focal)
+        taxon and another interaction partner in one sample. The interaction classes
+        (provided, received, co-consumed) are always in reference to the focal taxon.<br>
+        Click a point to select points from only that interaction. Click on an
+        empty region of the plot to reset the selection.<br>
+        Hover over each point to see its annotations. Use the "..." menu in the
+        upper right hand side to export the plot into various formats.
+      </p>
+    </div>
+    <!-- Container for the visualization -->
+    <div class="container">
+    <div id="ints"></div>
+    <a href="#" class="button is-primary" onclick="download_data('interactions')">Download as CSV...</a>
+    </div>
+    <script>
+      var summSpec = {
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+        width: 400,
+        height: 200,
+        data: {
+            values: {{summary | safe}}
+        },
+        selection: {
+          pts: {type: "single", fields: ["partner"]}
+        },
+        transform: [{
+          calculate: "random()-0.5",
+          as: "jitter"
+        }],
+        mark: {
+            type: "point",
+            filled: true,
+            size: 40,
+            tooltip: {content: "data"}
+        },
+        encoding: {
+          x: {
+            field: "flux",
+            type: "quantitative",
+            scale: {type: "log"},
+            axis: {title: "flux [{{unit}}]", grid: false}
+          },
+          y: {
+            field: "class",
+            type: "nominal",
+            axis: {title: null, grid: true}
+          },
+          yOffset: {
+            field: "jitter",
+            type: "quantitative",
+            scale: {domain: [-1, 1]}
+          },
+          color: {
+            condition: {
+              selection: "pts",
+              field: "class",
+              type: "nominal",
+              legend: null
+            },
+            value: "lightgrey"
+          },
+          opacity: {
+            condition: {
+                selection: "pts",
+                value: 0.8
+            },
+            value: 0.2
+          }
+        }
+      };
+
+      var intSpec = {
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+        width: 200,
+        height: {{ 16*n_mets }},
+        data: {
+            values: {{interactions | safe}}
+        },
+        selection: {
+          pts: {type: "single", fields: ["partner"]}
+        },
+        transform: [{
+          calculate: "random()-0.5",
+          as: "jitter"
+        }],
+        mark: {
+            type: "point",
+            filled: true,
+            size: 40,
+            tooltip: {content: "data"}
+        },
+        encoding: {
+          x: {
+            field: "flux",
+            type: "quantitative",
+            scale: {type: "log"},
+            axis: {title: "flux [{{unit}}]", grid: false}
+          },
+          y: {
+            field: "name",
+            type: "nominal",
+            sort: {op: "mean", field: "flux"},
+            axis: {title: null, grid: true}
+          },
+          yOffset: {
+            field: "jitter",
+            type: "quantitative",
+            scale: {domain: [-0.9, 0.9]}
+          },
+          color: {
+            condition: {
+              selection: "pts",
+              field: "class",
+              type: "nominal",
+              legend: null
+            },
+            value: "lightgrey"
+          },
+          opacity: {
+            condition: {
+                selection: "pts",
+                value: 0.8
+            },
+            value: 0.2
+          },
+          column: {field: "class", title: null}
+        }
+      };
+
+      // Embed the visualization in the container with id `vis`
+      vegaEmbed("#ints", intSpec, {renderer: "svg"}).then(function(r) {
+        svg = document.querySelector("#ints svg");
+        svg.setAttribute("width", "100%")
+        svg.setAttribute("height", "auto")
+      });
+      vegaEmbed("#summ", summSpec, {renderer: "svg"}).then(function(r) {
+        svg = document.querySelector("#summ svg");
+        svg.setAttribute("width", "100%")
+        svg.setAttribute("height", "auto")
+      });
+
+      {% include "blobify.js" %}
+    </script>
+  </section>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 """Makes it easier to run analyses on several samples in parallel."""
 
 from collections import namedtuple, abc
-from multiprocessing import Pool
+from multiprocessing import Pool, get_context
 import pandas as pd
 from rich.progress import track
 import warnings
@@ -85,7 +85,7 @@ def workflow(func, args, threads=4, description=None, progress=True):
 
     # We don't use the context  manager because of
     # https://pytest-cov.readthedocs.io/en/latest/subprocess-support.html
-    pool = Pool(processes=threads, maxtasksperchild=1)
+    pool = get_context("spawn").Pool(processes=threads, maxtasksperchild=1)
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")

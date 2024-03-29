@@ -11,7 +11,7 @@ def _metabolite_interaction(
 ) -> pd.DataFrame:
     """Checks if and how taxa interact."""
     tol = fluxes.tolerance.max()
-    f = fluxes[fluxes.flux.abs() > tol]
+    f = fluxes[(fluxes.flux.abs() * fluxes.abundance) > tol]
     if (f.shape[0] < 2) or (f.direction == "export").all():
         return None
     if (f.direction == "import").sum() == 2:
@@ -26,7 +26,7 @@ def _metabolite_interaction(
             "focal": taxon,
             "partner": partner,
             "class": int_type,
-            "flux": (fluxes.flux.abs() * fluxes.abundance).min(),
+            "flux": (f.flux.abs() * f.abundance).min(),
         },
         index=[0],
     )
@@ -104,7 +104,7 @@ def interactions(
         The mapped interactions between the focal taxon and all other taxa.
     """
     if isinstance(taxa, str):
-        return _interact(results, taxa)
+        return _interact([results, taxa])
 
     ints = pd.concat(
         workflow(

@@ -203,9 +203,7 @@ class Community(cobra.Model):
             if rank not in taxonomy.columns:
                 raise ValueError("Missing the column `%s` from the taxonomy." % rank)
             if "id" not in taxonomy.columns:
-                taxonomy["id"] = taxonomy[rank].str.replace(
-                    r"[^A-Za-z0-9_\s]+", "_", regex=True
-                )
+                taxonomy["id"] = taxonomy[rank]
             keep_cols = [
                 r
                 for r in _ranks[0 : (_ranks.index(rank) + 1)]
@@ -225,7 +223,7 @@ class Community(cobra.Model):
             )
             logger.info(
                 "Matched %g%% of total abundance in model DB."
-                % (100.0 * self.__db_metrics[3])
+                % (100.0 * self.__db_metrics.iloc[3])
             )
             if self.__db_metrics["found_abundance_fraction"] < 0.5:
                 logger.warning(
@@ -236,7 +234,7 @@ class Community(cobra.Model):
             taxonomy = merged
             taxonomy["abundance"] /= taxonomy["abundance"].sum()
 
-        taxonomy.id = taxonomy.id.str.replace(r"[^A-Za-z0-9_\s]+", "_", regex=True)
+        taxonomy.id = taxonomy.id.str.replace(r"[^A-Za-z0-9_]+", "_", regex=True)
 
         self.__taxonomy = taxonomy
         self.__taxonomy.index = self.__taxonomy.id

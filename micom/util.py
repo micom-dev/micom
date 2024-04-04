@@ -320,13 +320,11 @@ def adjust_solver_config(solver):
         solver.problem.Params.NumericFocus = 1
         solver.problem.Params.Threads = 1
         solver.problem.Params.LogToConsole = 0
-    if interface == "osqp":
-        # as a direct solver OSQP has trouble getting to good accuracies
-        solver.problem.settings["eps_rel"] = 1e-4
-        solver.problem.settings["eps_abs"] = 1e-4
-        solver.configuration.tolerances.feasibility = 1e-4
-        solver.problem.settings["max_iter"] = 50000
-        solver.problem.settings["scaling"] = 0
+    if interface == "hybrid":
+        solver.problem.settings["optimality_tolerance"] = 1e-5
+        solver.problem.settings["lp_method"] = "auto"
+        solver.problem.settings["max_iter"] = 20000
+        solver.problem.settings["presolve"] = "auto"
 
 
 def reset_min_community_growth(com):

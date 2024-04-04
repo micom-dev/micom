@@ -5,6 +5,12 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.34.0
+
+Better default settings for the hybrid solver.
+
+Fixes an issue with taxonomy tables with species rank and without if column.
+
 ### 0.33.2
 
 Fixes yet another annotation bug with AGORA2 due to duplicated exchanges.

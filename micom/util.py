@@ -323,7 +323,7 @@ def adjust_solver_config(solver):
     if interface == "hybrid":
         solver.problem.settings["optimality_tolerance"] = 1e-5
         solver.problem.settings["lp_method"] = "auto"
-        solver.problem.settings["max_iter"] = 20000
+        solver.problem.settings["iteration_limit"] = 20000
         solver.problem.settings["presolve"] = "auto"
 
 

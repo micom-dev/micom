@@ -5,6 +5,10 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.34.1
+
+Fix a typo in the hybrid settings.
+
 ### 0.34.0
 
 Better default settings for the hybrid solver.

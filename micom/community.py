@@ -203,7 +203,9 @@ class Community(cobra.Model):
             if rank not in taxonomy.columns:
                 raise ValueError("Missing the column `%s` from the taxonomy." % rank)
             if "id" not in taxonomy.columns:
-                taxonomy["id"] = taxonomy[rank]
+                taxonomy["id"] = taxonomy[rank].str.replace(
+                    r"[^A-Za-z0-9_\s]+", "_", regex=True
+                )
             keep_cols = [
                 r
                 for r in _ranks[0 : (_ranks.index(rank) + 1)]
@@ -234,11 +236,7 @@ class Community(cobra.Model):
             taxonomy = merged
             taxonomy["abundance"] /= taxonomy["abundance"].sum()
 
-        if taxonomy.id.str.contains(r"[^A-Za-z0-9_]", regex=True).any():
-            logger.warning(
-                "Taxa IDs contain prohibited characters and will be reformatted."
-            )
-            taxonomy.id = taxonomy.id.replace(r"[^A-Za-z0-9_\s]+", "_", regex=True)
+        taxonomy.id = taxonomy.id.str.replace(r"[^A-Za-z0-9_\s]+", "_", regex=True)
 
         self.__taxonomy = taxonomy
         self.__taxonomy.index = self.__taxonomy.id

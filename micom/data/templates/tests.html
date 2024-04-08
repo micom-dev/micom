@@ -23,13 +23,13 @@
   <section class="section">
     <div class="container">
       <h1 class="title">
-        Metabolites associated with the phenotype
+        Association with the phenotype
       </h1>
     </div>
     <!-- Container for the visualization -->
     <div class="container">
       <p class="subtitle">
-        Each bar denotes the {{statistic_name}} of the metabolite across the phenotype for test
+        Each bar denotes the {{statistic}} of the metabolite across the phenotype
         with a significant FDR-corrected test.
         All fluxes are log-transformed and standardized so statistics are roughly comparable.
       </p>
@@ -39,8 +39,8 @@
     <br>
     <div class="container">
       <p class="subtitle">
-        The plot on the left shows a particular metabolite flux by phenotype with the test
-        results.
+        The plot on the left shows a particular metabolite flux by phenotype for significant
+        interactions.
         The plot on the right shows the overall cross-validation performance of
         a regularized linear regression in explaining the phenotype.
       </p>
@@ -80,7 +80,7 @@
             y: {
                 field: "statistic",
                 type: "quantitative",
-                axis: {title: "{{statistic_name}}"}
+                axis: {title: "{{statistic}}"}
             },
             color: {
                 field: "statistic",
@@ -111,7 +111,7 @@
               },
               transform: [{
                 filter: {selection: "metab"},
-                {calculate: "metab + ' [{{stat}}=}}' + format(stat[0], '.3f') + format(q, '.3g') + ']'", as: "stats"}
+                {calculate: "metab + ' [{{statistic}}=' + format(statistic[0], '.3f') + ', q=', format(q[0], '.3g') + ']'", as: "stats"}
               }],
               mark: {
                   type: "point",

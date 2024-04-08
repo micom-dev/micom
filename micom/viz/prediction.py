@@ -30,8 +30,9 @@ def plot_fit(
     variable_name="phenotype",
     filename="fit_%s.html" % datetime.now().strftime("%Y%m%d"),
     flux_type="production",
+    fdr_threshold=0.05,
     threads=1,
-    atol=1e-6
+    atol=1e-6,
 ):
     """Test for differential metabolite production.
 
@@ -49,15 +50,18 @@ def plot_fit(
     variable_type : str of ["binary", "continuous"]
         The type of the variable.
     variable_name : str
-        A short description of the phenotype for instance "disease_status".
+        A short description of the phenotype for instance "disease status".
     filename : str
         The HTML file where the visualization will be saved.
     flux_type : str of ["import", "production"]
         Whether to fit using import or production fluxes.
     threads : int
         The number of threads to use.
+    fdr_threshold : float
+        The false discovery rate cutoff to use (FRD-corrected p-value cutoff). Defaults
+        to 0.05.
     atol : float
-        Tolerance to consider a flux different from zero. Should be roughly equivalent
+        Tolerance to consider a flux different from zero. Will default
         to the solver tolerance.
 
     Returns
@@ -121,7 +125,8 @@ def plot_fit(
         fit = model.fit(scaled, meta)
         score = cross_val_score(model, X=scaled, y=meta, cv=LeaveOneOut())
         tests = stats.compare_groups(
-            exchanges, metadata_column=variable_name, threads=threads, progress=False)
+            exchanges, metadata_column=variable_name, threads=threads, progress=False
+        )
         statistic_name = "log fold-change"
         tests.rename(columns={"log_fold_change": "statistic"})
     else:
@@ -131,34 +136,38 @@ def plot_fit(
         fit = model.fit(scaled, meta)
         score = cross_val_score(model, X=scaled, y=meta, cv=3)
         tests = stats.correlate_fluxes(
-            exchanges, metadata_column=variable_name, threads=threads, progress=False)
+            exchanges, metadata_column=variable_name, threads=threads, progress=False
+        )
         statistic_name = "Spearman ρ"
         tests.rename(columns={"spearman_rho": "statistic"})
     score = [np.mean(score), np.std(score)]
     score.append(model.score(scaled, meta))
 
     data = {"fluxes": exchanges, "coefficients": coefs}
-    coefs = coefs[coefs.coef.abs() >= min_coef].sort_values(by="coef")
+    significant = tests[tests.q < fdr_threshold]
     predicted = cross_val_predict(model, scaled, meta, cv=LeaveOneOut())
     fitted = pd.DataFrame({"real": meta, "predicted": predicted}, index=meta.index)
 
-    exchanges = exchanges.loc[exchanges.metabolite.isin(coefs.metabolite.values)].copy()
+    exchanges = exchanges.loc[
+        exchanges.metabolite.isin(significant.metabolite.values)
+    ].copy()
     exchanges["meta"] = meta[exchanges.sample_id].values
-    exchanges["description"] = anns.loc[exchanges.metabolite, "name"].values
+    exchanges = pd.merge(exchanges, significant, on="metabolite", how="inner")
     var_type = "nominal" if variable_type == "binary" else "quantitative"
     viz = Visualization(filename, data, "tests.html")
 
     viz.save(
         fitted=fitted.to_json(orient="records"),
-        tests=tests.to_json(orient="records"),
+        tests=significant.to_json(orient="records"),
         exchanges=exchanges.to_json(orient="records"),
-        metabolites=json.dumps(coefs.metabolite.tolist()),
+        metabolites=json.dumps(significant.metabolite.tolist()),
         variable=variable_name,
+        statistic=statistic_name,
         type=var_type,
         score=score,
         width=400,
         height=300,
-        cheight=max(2 * coefs.shape[0], 40),
+        cheight=max(2 * coefs.shape[0], 20),
         cwidth=max(8 * coefs.shape[0], 160),
     )
 

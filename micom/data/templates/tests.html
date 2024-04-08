@@ -8,12 +8,16 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3@5.15.0/dist/d3.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.27.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.24.0"></script>
 
     <style>
     #vis {
+        width: 100%;
+        margin: 1em;
+    }
+    #stats {
         width: 100%;
         margin: 1em;
     }
@@ -33,13 +37,13 @@
         with a significant FDR-corrected test.
         All fluxes are log-transformed and standardized so statistics are roughly comparable.
       </p>
-    <div id="coefs"></div>
+    <div id="stats"></div>
     <a href="#" class="button is-primary" onclick="download_data('tests')">Download association test results as CSV...</a>
     </div>
     <br>
     <div class="container">
       <p class="subtitle">
-        The plot on the left shows a particular metabolite flux by phenotype for significant
+        The plot on the left shows a particular metabolite {{direction}} flux by phenotype for significant
         interactions.
         The plot on the right shows the overall cross-validation performance of
         a regularized linear regression in explaining the phenotype.
@@ -60,10 +64,10 @@
     </div>
     <script>
       // Assign the specification to a local variable vlSpec.
-      var coef_spec = {
-        $schema: "https://vega.github.io/schema/vega-lite/v4.json",
+      var statSpec = {
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
         width: {{cwidth}},
-        height: {{cheight}},
+        height: 100,
         data: {
             values: {{tests | safe}}
         },
@@ -75,7 +79,7 @@
             x: {
                 field: "metabolite",
                 type: "nominal",
-                sort: "-statistic"
+                sort: "y"
             },
             y: {
                 field: "statistic",
@@ -91,10 +95,10 @@
         }
       }
       var vlSpec = {
-        $schema: "https://vega.github.io/schema/vega-lite/v4.json",
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
         hconcat: [{
-              width: {{width}},
-              height: {{height}},
+              width: 200,
+              height: 300,
               data: {
                   values: {{exchanges | safe}}
               },
@@ -109,14 +113,16 @@
                   }
                 }
               },
-              transform: [{
-                filter: {selection: "metab"},
-                {calculate: "metab + ' [{{statistic}}=' + format(statistic[0], '.3f') + ', q=', format(q[0], '.3g') + ']'", as: "stats"}
-              }],
+              transform: [
+                {filter: {selection: "metab"}},
+                {calculate: "random()-0.5", as: "jitter"}
+              ],
+              title: "{{direction}}",
               mark: {
                   type: "point",
-                  tooltip: true,
-                  title: {text: {expr: "stats"} }
+                  tooltip: {content: "data"},
+                  filled: true,
+                  size: 60
               },
               encoding: {
                   y: {
@@ -126,18 +132,26 @@
                       axis: {title: "flux [mmol/gDW/h]", grid: false}
                   },
                   x: {
-                      field: "meta",
+                      field: "{{variable}}",
                       type: "{{type}}",
-                      axis: {title: "{{variable}}"}
+                      axis: {title: "{{variable}}", grid: false}
                   },
+                  {% if type == "nominal" %}
+                  xOffset: {
+                      field: "jitter",
+                      type: "quantitative",
+                      scale: {domain: [-0.6, 0.6]}
+                 }
+                 {% endif %}
               }
           }, {
-            width: {{width}},
-            height: {{height}},
+            width: 400,
+            height: 300,
             data: {
                 values: {{fitted | safe}}
             },
             {% if type == "quantitative" %}
+            title: "regression [LASSO+LOOCV]",
             mark: {
                 type: "point",
                 tooltip: true
@@ -155,25 +169,30 @@
                 },
             }
             {% else %}
+            title: "confusion matrix [LASSO+LOOCV]",
             mark: {
-                type: "bar",
+                type: "rect",
+                width: 200,
                 tooltip: true
             },
             encoding: {
-                color: {
-                    field: "predicted",
-                    type: "nominal"
-                },
+                fill: {
+                  aggregate: "count",
+                  field: "predicted",
+                  type: "quantitative",
+                  legend: null,
+                  scale: {domainMin: 0, scheme: "greys"}
+                }
+                ,
                 x: {
                     field: "real",
                     type: "nominal",
                     axis: {title: "real value"}
                 },
                 y: {
-                  aggregate: "count",
                   field: "predicted",
-                  type: "quantitative",
-                  axis: {title: "count"}
+                    type: "nominal",
+                    axis: {title: "predicted value"}
                 }
             }
             {% endif %}
@@ -181,8 +200,8 @@
       };
 
       // Embed the visualization in the container with id `vis`
-      vegaEmbed("#coefs", coef_spec, {renderer: "svg"}).then(function(r) {
-        svg = d3.select("#coefs svg");
+      vegaEmbed("#stats", statSpec, {renderer: "svg"}).then(function(r) {
+        svg = d3.select("#stats svg");
         svg.attr("width", "100%").attr("height", "auto");
       });
 

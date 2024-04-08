@@ -94,6 +94,7 @@ def plot_fit(
         raise ValueError(
             "Unsupported variable type. Must be either `binary` or " "`continuous`."
         )
+    exchanges.loc[:, variable_name] = phenotype[exchanges.sample_id].values
 
     fluxes = exchanges.pivot_table(
         index="sample_id", columns="metabolite", values="flux", fill_value=atol
@@ -128,22 +129,22 @@ def plot_fit(
             exchanges, metadata_column=variable_name, threads=threads, progress=False
         )
         statistic_name = "log fold-change"
-        tests.rename(columns={"log_fold_change": "statistic"})
+        tests.rename(columns={"log_fold_change": "statistic"}, inplace=True)
     else:
         model = LassoCV(cv=2, max_iter=50000)
         fit = model.fit(scaled, meta)
         model = Lasso(alpha=fit.alpha_, max_iter=50000)
         fit = model.fit(scaled, meta)
-        score = cross_val_score(model, X=scaled, y=meta, cv=3)
+        score = cross_val_score(model, X=scaled, y=meta, cv=2)
         tests = stats.correlate_fluxes(
             exchanges, metadata_column=variable_name, threads=threads, progress=False
         )
         statistic_name = "Spearman ρ"
-        tests.rename(columns={"spearman_rho": "statistic"})
+        tests.rename(columns={"spearman_rho": "statistic"}, inplace=True)
     score = [np.mean(score), np.std(score)]
     score.append(model.score(scaled, meta))
 
-    data = {"fluxes": exchanges, "coefficients": coefs}
+    data = {"fluxes": exchanges, "tests": tests}
     significant = tests[tests.q < fdr_threshold]
     predicted = cross_val_predict(model, scaled, meta, cv=LeaveOneOut())
     fitted = pd.DataFrame({"real": meta, "predicted": predicted}, index=meta.index)
@@ -151,8 +152,7 @@ def plot_fit(
     exchanges = exchanges.loc[
         exchanges.metabolite.isin(significant.metabolite.values)
     ].copy()
-    exchanges["meta"] = meta[exchanges.sample_id].values
-    exchanges = pd.merge(exchanges, significant, on="metabolite", how="inner")
+    exchanges[variable_name] = meta[exchanges.sample_id].values
     var_type = "nominal" if variable_type == "binary" else "quantitative"
     viz = Visualization(filename, data, "tests.html")
 
@@ -160,15 +160,14 @@ def plot_fit(
         fitted=fitted.to_json(orient="records"),
         tests=significant.to_json(orient="records"),
         exchanges=exchanges.to_json(orient="records"),
-        metabolites=json.dumps(significant.metabolite.tolist()),
+        metabolites=json.dumps([None] + significant.metabolite.tolist()),
         variable=variable_name,
         statistic=statistic_name,
         type=var_type,
+        direction=flux_type,
         score=score,
         width=400,
-        height=300,
-        cheight=max(2 * coefs.shape[0], 20),
-        cwidth=max(8 * coefs.shape[0], 160),
+        cwidth=max(12 * significant.shape[0], 160),
     )
 
     return viz

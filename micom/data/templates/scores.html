@@ -29,6 +29,18 @@
       </h1>
 
       <p class="subtitle">
+        Summarized {{name}} across all samples in a group.<br>
+        Hover over each point to see its annotations. Use the "..." menu in the
+        upper right hand side to export the plot into various formats.
+      </p>
+    </div>
+    <!-- Container for the visualization -->
+    <div class="container">
+    <div id="summ"></div>
+    <a href="#" class="button is-primary" onclick="download_data('scores')">Download as CSV...</a>
+    </div>
+    <div class="container">
+      <p class="subtitle">
         Each point denotes the {{ name }} for a single metabolite in one sample.
         Click a point to select points from only that sample. Click on an
         empty region of the plot to reset the selection.<br>
@@ -42,6 +54,41 @@
     <a href="#" class="button is-primary" onclick="download_data('scores')">Download as CSV...</a>
     </div>
     <script>
+      var summary = {
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+        width: 200,
+        height: 150,
+        data: {
+            values: {{scores | safe}}
+        },
+        params: [{
+          name: "cat",
+          bind: {"input": "select", "options": [{{ categories }}]}
+        }],
+        transform: [
+          {
+            density: "{{col_name}}",
+            groupby: ["cat"]
+          }
+        ],
+        mark: "area",
+        encoding: {
+          x: {
+            field: "{{col_name}}",
+            type: "quantitative",
+            scale: {type: "log"},
+            axis: {title: "{{name}}"}
+          },
+          y: {
+            field: "density",
+            type: "quantitative"
+          },
+          color: {
+            field: "cat"
+          },
+          opacity: 0.5
+        }
+      };
       var spec = {
         $schema: "https://vega.github.io/schema/vega-lite/v5.json",
         width: 200,
@@ -68,15 +115,15 @@
         },
         encoding: {
           x: {
-            field: "flux",
+            field: "{{col_name}}",
             type: "quantitative",
             scale: {type: "log"},
-            axis: {title: "flux [{{unit}}]", grid: false}
+            axis: {title: "{{name}}", grid: false}
           },
           y: {
             field: "name",
             type: "nominal",
-            sort: {op: "mean", field: "flux"},
+            sort: {op: "mean", field: "{{col_name}}"},
             axis: {title: null, grid: true}
           },
           yOffset: {
@@ -103,6 +150,11 @@
         }
       };
 
+      vegaEmbed("#summ", summary, {renderer: "svg"}).then(function(r) {
+        svg = document.querySelector("#summ svg");
+        svg.setAttribute("width", "100%")
+        svg.setAttribute("height", "auto")
+      });
       // Embed the visualization in the container with id `vis`
       vegaEmbed("#viz", spec, {renderer: "svg"}).then(function(r) {
         svg = document.querySelector("#viz svg");

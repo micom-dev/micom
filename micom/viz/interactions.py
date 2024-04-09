@@ -1,6 +1,7 @@
 """Visualizations for interactions."""
 
 from datetime import datetime
+import json
 from micom.interaction import interactions, summarize_interactions, MES
 from micom.logger import logger
 from micom.workflows import GrowthResults
@@ -72,43 +73,52 @@ def plot_focal_interactions(
 
 def plot_mes(
     results : GrowthResults,
-    taxon : str,
     filename : str = "mes_%s.html" % datetime.now().strftime("%Y%m%d"),
-    metadata : pd.DataFrame = None
+    groups : pd.Series = None,
+    prevalence : float = 0.5
 ) -> None:
     """Plot metabolic interactions between a focal taxa and all other taxa.
 
-    This will visualize metabolic interaction between a taxon of interest (focal taxon)
-    and all other taxa across all samples.
+    This will plot the metabolic exchange score across samples and metabolites.
+    The metabolic exchange score (MES) is defined as the geometric mean of the
+    number of producers and consumers for a given metabolite in a sample.
+
+    $$
+    MES = 2\cdot\frac{|p||c|}{|p| + |c|}
+    $$
 
     Parameters
     ----------
     results : micom.workflows.GrowthResults
         The results returned by the `grow` workflow.
-    taxon : str
-        The focal taxon to use as a reference. Must be one of the taxa appearing
-        in `results.growth_rates.taxon`.
     filename : str
         The HTML file where the visualization will be saved.
-    metadata : pamdas.DataFrame
+    metadata : pandas.DataFrame
         Additional metadata to stratify MES score. Must contain a column called
         `sample_id` and other categorical columns.
+    prevalence : float in [0, 1]
+        In what proportion of samples the metabolite has to have a non-zero MES to
+        be shown. Can be used to remove exchanges only taking place in a few samples.
 
     Returns
     -------
     Visualization
         A MICOM visualization. Can be served with `viz.serve`.
     """
-    if metadata is not None:
-        if "sample_id" not in metadata.columns:
-            raise ValueError("Metadata must contain a column named `sample_id`.")
-        categorical = metadata.drop(columns=["sample_id"]).select_dtypes(
-            include=["object", "category", "bool"]).columns
-        if len(categorical) == 0:
-            raise ValueError("Metadata contains no categorical columns.")
     tol = results.exchanges.tolerance.max()
     scores = MES(results, tol)
-    scores = pd.merge(scores, metadata[categorical], on="sample_id")
+    scores = scores[scores.MES > 0]
+    prev = scores.metabolite.value_counts() / scores.sample_id.nunique()
+    prev = prev[prev > prevalence].index
+    scores = scores[scores.metabolite.isin(prev)]
+
+    if groups is not None:
+        if groups.dtype not in ["object", "category", "bool"]:
+            raise ValueError("Groups need to be categorical.")
+        name = "group" if groups.name is None else groups.name
+        scores[name] = groups[scores.sample_id].values
+    else:
+        scores["group"] = "all"
     n_mets = scores.metabolite.nunique()
     data = {"scores": scores}
     viz = Visualization(filename, data, "scores.html")
@@ -116,8 +126,8 @@ def plot_mes(
         scores=scores.to_json(orient="records"),
         n_mets=n_mets,
         name="Metabolic Exchange Score (MES)",
-        col_name="mes",
-        categories=", ".join(categorical)
+        col_name="MES",
+        cat=name
     )
     return viz
 

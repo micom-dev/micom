@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Growth rates</title>
+    <title>{{name}}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vega@5.27.0"></script>
@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.24.0"></script>
 
     <style>
-    #ints {
+    #viz {
         width: 100%;
         margin: 1em;
     }
@@ -27,7 +27,7 @@
       <h1 class="title">
         {{ name }}
       </h1>
-
+      <br><br>
       <p class="subtitle">
         Summarized {{name}} across all samples in a group.<br>
         Hover over each point to see its annotations. Use the "..." menu in the
@@ -39,6 +39,7 @@
     <div id="summ"></div>
     <a href="#" class="button is-primary" onclick="download_data('scores')">Download as CSV...</a>
     </div>
+    <br><br>
     <div class="container">
       <p class="subtitle">
         Each point denotes the {{ name }} for a single metabolite in one sample.
@@ -56,25 +57,21 @@
     <script>
       var summary = {
         $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-        width: 200,
-        height: 150,
+        width: 400,
+        height: 300,
         data: {
             values: {{scores | safe}}
         },
-        params: [{
-          name: "cat",
-          bind: {"input": "select", "options": [{{ categories }}]}
-        }],
         transform: [
           {
             density: "{{col_name}}",
-            groupby: ["cat"]
+            groupby: ["{{cat}}"]
           }
         ],
         mark: "area",
         encoding: {
           x: {
-            field: "{{col_name}}",
+            field: "value",
             type: "quantitative",
             scale: {type: "log"},
             axis: {title: "{{name}}"}
@@ -84,9 +81,8 @@
             type: "quantitative"
           },
           color: {
-            field: "cat"
-          },
-          opacity: 0.5
+            field: "{{cat}}"
+          }
         }
       };
       var spec = {
@@ -96,10 +92,6 @@
         data: {
             values: {{scores | safe}}
         },
-        params: [{
-          name: "cat",
-          bind: {"input": "select", "options": [{{ categories }}]}
-        }],
         selection: {
           pts: {type: "single", fields: ["sample_id"]}
         },
@@ -134,7 +126,7 @@
           color: {
             condition: {
               selection: "pts",
-              field: "cat",
+              field: "{{cat}}",
               type: "nominal",
               legend: null
             },

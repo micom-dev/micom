@@ -85,7 +85,7 @@ def _interact(args: List) -> pd.DataFrame:
 
 def interactions(
     results: GrowthResults,
-    taxa: Union[str, List[str]],
+    taxa: Union[None, str, List[str]],
     threads: int = 1,
     progress: bool = True,
 ) -> pd.DataFrame:
@@ -95,8 +95,9 @@ def interactions(
     ---------
     results : GrowthResults
         The growth results to use.
-    taxa : str
-        The focal taxa to use.
+    taxa : str, list of str, or None
+        The focal taxa to use. Can be a single taxon, a list of taxa or None in which
+        case all taxa are considered.
 
     Returns
     -------
@@ -105,6 +106,8 @@ def interactions(
     """
     if isinstance(taxa, str):
         return _interact([results, taxa])
+    elif taxa is None:
+        taxa = results.growth_rates.taxon.drop("medium").unique()
 
     ints = pd.concat(
         workflow(

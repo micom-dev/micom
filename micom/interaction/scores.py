@@ -33,9 +33,9 @@ def MES(results: GrowthResults, cutoff : float = None) -> pd.DataFrame:
 
     References
     ----------
-    .. [1] V Marcelino et al. (2023)
+    .. [1] Marcelino, V.R., et al.
            Disease-specific loss of microbial cross-feeding interactions in the human gut
-           https://doi.org/10.1038/s41467-023-42112-w
+           Nat Commun 14, 6546 (2023). https://doi.org/10.1038/s41467-023-42112-w
     """
     if cutoff is None:
         cutoff = results.exchanges.tolerance[0]

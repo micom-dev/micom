@@ -6,8 +6,6 @@
     <title>Associations</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/d3@5.15.0/dist/d3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega@5.27.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.17.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.24.0"></script>
@@ -34,22 +32,28 @@
     <div class="container">
       <p class="subtitle">
         Each bar denotes the {{statistic}} of the metabolite across the phenotype
-        with a significant FDR-corrected test.
+        with a significant FDR-corrected test (q<{{q_threshold}}). Hover over the bars
+        to see the p values, q values and test statistics. The downloadable CSV includes all
+        tests (even non-significant ones).
         All fluxes are log-transformed and standardized so statistics are roughly comparable.
       </p>
     <div id="stats"></div>
     <a href="#" class="button is-primary" onclick="download_data('tests')">Download association test results as CSV...</a>
     </div>
-    <br>
+    <br><br>
     <div class="container">
       <p class="subtitle">
         The plot on the left shows a particular metabolite {{direction}} flux by phenotype for significant
-        interactions.
+        interactions. Those show individual metabolite associations with the phenotype. Hover over
+        individual points to see the metabolite annotations.<br>
         The plot on the right shows the overall cross-validation performance of
-        a regularized linear regression in explaining the phenotype.
+        a regularized linear regression in explaining the phenotype. This uses a LASSO
+        regression with the regularization parameter learned from a 2-fold cross-validation.
+        The predictions themselves are all based on leave-one-out cross-validation. It can be
+        used as an estimate of the global assocaition of the phenotype with the flux state.
       </p>
     <div id="vis"></div>
-    <a href="#" class="button is-primary" onclick="download_data('fluxes')">Download fluxes as CSV...</a>
+    <a href="#" class="button is-primary" onclick="download_data('fluxes')">Download {{direction}} fluxes as CSV...</a>
     </div>
     <br>
     <div class="container">
@@ -201,13 +205,15 @@
 
       // Embed the visualization in the container with id `vis`
       vegaEmbed("#stats", statSpec, {renderer: "svg"}).then(function(r) {
-        svg = d3.select("#stats svg");
-        svg.attr("width", "100%").attr("height", "auto");
+        svg = document.querySelector("#stats svg");
+        svg.setAttribute("width", "100%");
+        svg.setAttribute("height", "auto");
       });
 
       vegaEmbed("#vis", vlSpec, {renderer: "svg"}).then(function(r) {
-        svg = d3.select("#vis svg");
-        svg.attr("width", "100%").attr("height", "auto");
+        svg = document.querySelector("#vis svg");
+        svg.setAttribute("width", "100%");
+        svg.setAttribute("height", "auto");
       });
 
       {% include "blobify.js" %}

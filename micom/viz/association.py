@@ -23,12 +23,12 @@ from sklearn.linear_model import (
 from sklearn.preprocessing import StandardScaler
 
 
-def plot_fit(
+def plot_association(
     results,
     phenotype,
     variable_type="binary",
     variable_name="phenotype",
-    filename="fit_%s.html" % datetime.now().strftime("%Y%m%d"),
+    filename="association_%s.html" % datetime.now().strftime("%Y%m%d"),
     flux_type="production",
     fdr_threshold=0.05,
     threads=1,
@@ -36,7 +36,11 @@ def plot_fit(
 ):
     """Test for differential metabolite production.
 
-    This will fit the `phenotype` response using L1-regularized linear models
+    This will check for associations of the `phenotype` with metabolite fluxes. Individual
+    tests are performed using non-parametric tests of the overall consumption or production
+    fluxes for each samples versus the phenotype.
+
+    To assess the the global association, this will fit L1-regularized linear models
     with log-fluxes as features. Will use LASSO regression for a continuous
     response and L1-regularized Logistic regression for a binary response.
 
@@ -58,7 +62,7 @@ def plot_fit(
     threads : int
         The number of threads to use.
     fdr_threshold : float
-        The false discovery rate cutoff to use (FRD-corrected p-value cutoff). Defaults
+        The false discovery rate cutoff to use (FDR-corrected p-value cutoff). Defaults
         to 0.05.
     atol : float
         Tolerance to consider a flux different from zero. Will default
@@ -99,7 +103,7 @@ def plot_fit(
     fluxes = exchanges.pivot_table(
         index="sample_id", columns="metabolite", values="flux", fill_value=atol
     )
-    fluxes = fluxes.applymap(np.log)
+    fluxes = fluxes.map(np.log)
     meta = phenotype[fluxes.index]
     stds = fluxes.std(axis=1)
     bad = stds < atol
@@ -124,7 +128,7 @@ def plot_fit(
             max_iter=10000,
         )
         fit = model.fit(scaled, meta)
-        score = cross_val_score(model, X=scaled, y=meta, cv=LeaveOneOut())
+        score = cross_val_score(model, X=scaled, y=meta, cv=2)
         tests = stats.compare_groups(
             exchanges, metadata_column=variable_name, threads=threads, progress=False
         )
@@ -165,6 +169,7 @@ def plot_fit(
         statistic=statistic_name,
         type=var_type,
         direction=flux_type,
+        q_threshold=fdr_threshold,
         score=score,
         width=400,
         cwidth=max(12 * significant.shape[0], 160),

@@ -10,7 +10,7 @@ __all__ = (
     "plot_exchanges_per_sample",
     "plot_exchanges_per_taxon",
     "plot_growth",
-    "plot_fit",
+    "plot_association",
     "plot_tradeoff",
     "Visualization",
 )

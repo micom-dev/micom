@@ -32,7 +32,7 @@ def plot_association(
     flux_type="production",
     fdr_threshold=0.05,
     threads=1,
-    atol=1e-6,
+    atol=1e-6
 ):
     """Test for differential metabolite production.
 
@@ -96,7 +96,8 @@ def plot_association(
         )
     elif variable_type not in ["binary", "continuous"]:
         raise ValueError(
-            "Unsupported variable type. Must be either `binary` or " "`continuous`."
+            "Unsupported variable type. Must be either `binary` or "
+            "`continuous`."
         )
     exchanges.loc[:, variable_name] = phenotype[exchanges.sample_id].values
 
@@ -122,16 +123,12 @@ def plot_association(
         )
         fit = model.fit(scaled, meta)
         model = LogisticRegression(
-            penalty="l1",
-            solver="liblinear",
-            C=fit.C_[0],
-            max_iter=10000,
+            penalty="l1", solver="liblinear", C=fit.C_[0], max_iter=10000,
         )
         fit = model.fit(scaled, meta)
         score = cross_val_score(model, X=scaled, y=meta, cv=2)
         tests = stats.compare_groups(
-            exchanges, metadata_column=variable_name, threads=threads, progress=False
-        )
+            exchanges, metadata_column=variable_name, threads=threads, progress=False)
         statistic_name = "log fold-change"
         tests.rename(columns={"log_fold_change": "statistic"}, inplace=True)
     else:
@@ -141,8 +138,7 @@ def plot_association(
         fit = model.fit(scaled, meta)
         score = cross_val_score(model, X=scaled, y=meta, cv=2)
         tests = stats.correlate_fluxes(
-            exchanges, metadata_column=variable_name, threads=threads, progress=False
-        )
+            exchanges, metadata_column=variable_name, threads=threads, progress=False)
         statistic_name = "Spearman ρ"
         tests.rename(columns={"spearman_rho": "statistic"}, inplace=True)
     score = [np.mean(score), np.std(score)]
@@ -151,7 +147,9 @@ def plot_association(
     data = {"fluxes": exchanges, "tests": tests}
     significant = tests[tests.q < fdr_threshold]
     predicted = cross_val_predict(model, scaled, meta, cv=LeaveOneOut())
-    fitted = pd.DataFrame({"real": meta, "predicted": predicted}, index=meta.index)
+    fitted = pd.DataFrame(
+        {"real": meta, "predicted": predicted}, index=meta.index
+    )
 
     exchanges = exchanges.loc[
         exchanges.metabolite.isin(significant.metabolite.values)

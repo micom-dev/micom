@@ -30,13 +30,16 @@ def annotate(ids, community, what="reaction"):
         ]
     else:
         anns = [
-            pd.Series({
-                what: getattr(o, attr),
-                "name": o.name,
-                "molecular_weight": Formula(o.formula).weight,
-                "C_number": Formula(o.formula).elements.get("C", 0),
-                "N_number": Formula(o.formula).elements.get("N", 0),
-                **flatten(o.annotation)})
+            pd.Series(
+                {
+                    what: getattr(o, attr),
+                    "name": o.name,
+                    "molecular_weight": Formula(o.formula).weight,
+                    "C_number": Formula(o.formula).elements.get("C", 0),
+                    "N_number": Formula(o.formula).elements.get("N", 0),
+                    **flatten(o.annotation),
+                }
+            )
             for o in objs
         ]
 

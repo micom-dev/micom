@@ -29,9 +29,9 @@ COMPARTMENT_RE = "(_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)"
 
 def is_active_demand(r):
     """Check if a reaction is a demand reaction."""
-    return (
-        len(r.reactants) == len(r.metabolites) and r.lower_bound > 1e-6
-    ) or (len(r.products) == len(r.metabolites) and r.upper_bound < -1e-6)
+    return (len(r.reactants) == len(r.metabolites) and r.lower_bound > 1e-6) or (
+        len(r.products) == len(r.metabolites) and r.upper_bound < -1e-6
+    )
 
 
 def fix_demands(model):
@@ -112,8 +112,9 @@ def serialize_models(files, dir="."):
         model = load_model(f)
         logger.info("serializing {}".format(f))
         pickle.dump(
-            model, open(path.join(dir, fname + ".pickle"), "wb"),
-            protocol=pickle.HIGHEST_PROTOCOL
+            model,
+            open(path.join(dir, fname + ".pickle"), "wb"),
+            protocol=pickle.HIGHEST_PROTOCOL,
         )
 
 

@@ -9,13 +9,9 @@ from micom.logger import logger
 def jaccard(inclusion):
     """Calculate jaccard distances for a community."""
     logger.info(
-        "calculating jaccard distance for {}x{} input matrix".format(
-            *inclusion.shape
-        )
+        "calculating jaccard distance for {}x{} input matrix".format(*inclusion.shape)
     )
-    jaccard = np.apply_along_axis(
-        lambda a: (a & inclusion).sum(1), 1, inclusion
-    )
+    jaccard = np.apply_along_axis(lambda a: (a & inclusion).sum(1), 1, inclusion)
     jaccard = jaccard / np.apply_along_axis(
         lambda a: (a | inclusion).sum(1), 1, inclusion
     )
@@ -26,9 +22,7 @@ def jaccard(inclusion):
 def euclidean(inclusion):
     """Calculate euclidean distances for a community."""
     logger.info(
-        "calculating euclidean distance for {}x{} input matrix".format(
-            *inclusion.shape
-        )
+        "calculating euclidean distance for {}x{} input matrix".format(*inclusion.shape)
     )
     euclidean = np.apply_along_axis(
         lambda a: ((a - inclusion) ** 2).sum(1), 1, inclusion

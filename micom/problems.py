@@ -60,7 +60,7 @@ def regularize_l2_norm(community, min_growth):
         taxa_obj = community.constraints["objective_" + sp]
         ex = sum(v for v in taxa_obj.variables if (v.ub - v.lb) > 1e-6)
         if not isinstance(ex, int):
-            l2 += (community.scale * (ex ** 2)).expand()
+            l2 += (community.scale * (ex**2)).expand()
     community.objective = -l2
     community.modification = "l2 regularization"
     logger.info("finished adding tradeoff objective to %s" % community.id)
@@ -92,9 +92,7 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rt
             com.variables.community_objective.ub = min_growth
             sol = solve(community, fluxes=fluxes, pfba=pfba, atol=atol, rtol=rtol)
             if not pfba and sol.status != OPTIMAL:
-                sol = crossover(
-                    com, sol, fluxes=fluxes
-                )
+                sol = crossover(com, sol, fluxes=fluxes)
             results.append((fr, sol))
         if len(results) == 1:
             return results[0][1]

@@ -41,17 +41,13 @@ def _medium(args):
     return medium.reset_index()
 
 
-def minimal_media(
-    manifest, model_folder, summarize=True, min_growth=0.1, threads=1
-):
+def minimal_media(manifest, model_folder, summarize=True, min_growth=0.1, threads=1):
     """Calculate the minimal medium for a set of community models."""
     samples = manifest.sample_id.unique()
     paths = [
         (
             s,
-            path.join(
-                model_folder, manifest[manifest.sample_id == s].file.iloc[0]
-            ),
+            path.join(model_folder, manifest[manifest.sample_id == s].file.iloc[0]),
         )
         for s in samples
     ]
@@ -81,12 +77,10 @@ def _fix_medium(args):
             min_growth=min_growth,
             max_import=max_import,
             minimize_components=mip,
-            weights=weights
+            weights=weights,
         )
     except Exception:
-        logger.error(
-            "Can't reach the specified growth rates for model %s." % sid
-        )
+        logger.error("Can't reach the specified growth rates for model %s." % sid)
         return None
     fixed = pd.DataFrame({"reaction": fixed.index, "flux": fixed.values})
     fixed["metabolite"] = [
@@ -159,19 +153,24 @@ def fix_medium(
 
     samples = manifest.sample_id.unique()
     paths = {
-        s: path.join(
-            model_folder, manifest[manifest.sample_id == s].file.iloc[0])
+        s: path.join(model_folder, manifest[manifest.sample_id == s].file.iloc[0])
         for s in samples
     }
     medium = process_medium(medium, samples)
     if medium.flux[medium.flux < 1e-6].any():
         medium.loc[medium.flux < 1e-6, "flux"] = 1e-6
-        logger.info(
-            "Some import rates were to small and were adjusted to 1e-6."
-        )
+        logger.info("Some import rates were to small and were adjusted to 1e-6.")
     args = [
-        [s, p, community_growth, min_growth, max_import, minimize_components,
-         medium.flux[medium.sample_id == s], weights]
+        [
+            s,
+            p,
+            community_growth,
+            min_growth,
+            max_import,
+            minimize_components,
+            medium.flux[medium.sample_id == s],
+            weights,
+        ]
         for s, p in paths.items()
     ]
     res = workflow(_fix_medium, args, threads=threads, description="Augmenting media")

@@ -9,7 +9,7 @@ import pandas as pd
 def plot_tradeoff(
     tradeoff_rates,
     filename="tradeoff_%s.html" % datetime.now().strftime("%Y%m%d"),
-    tolerance=1e-6
+    tolerance=1e-6,
 ):
     """Plot diagnostics for varying tradeoff values.
 

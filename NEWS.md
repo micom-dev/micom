@@ -5,6 +5,24 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.35.0
+
+`plot_fit` got renamed to `plot_association` and will not use LASSO coefficients anymore
+as a proxy for univariate associations. Instead univariate non-parametric tests are
+run for each metabolite. This should be more stable and avoid issues with low reproducibility
+of coefficients. LASSO model performance is still reported as a global measure
+of association. In case you need access to the previous `plot_fit` function you can simply
+install a prior version of micom in a python or conda environment.
+
+Visualizations are updates requiring less dependencies now and using a current version
+of vega-lite.
+
+The transition to the hybrid solver is now completed and the installation does not require
+manual steps anymore.
+
+Lowered the iteration limit for the OSQP step in the hybrid solver as more iterations
+did usually not lead to an improvement or convergence.
+
 ### 0.34.1
 
 Fix a typo in the hybrid settings.

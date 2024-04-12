@@ -450,13 +450,6 @@ all at once.</p>
 for all optimizations. Different from cobrapy this will <em>not</em> return the full
 solution by default but only growth rates which is much quicker. You can
 request a full solution by setting the <cite>fluxes</cite> and <cite>pFBA</cite> arguments.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>for OSQP this will use an additional quadratic regularization in order
-to convert all LP problems to QPs and stabilize the solution. This may not
-perform well if the community growth rate is larger 1000 (which it should never
-be as this would be a doubling time of a few seconds).</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

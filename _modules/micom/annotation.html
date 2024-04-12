@@ -279,13 +279,16 @@
         <span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">anns</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
-                <span class="n">what</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
-                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                <span class="s2">&quot;molecular_weight&quot;</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
-                <span class="s2">&quot;C_number&quot;</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-                <span class="s2">&quot;N_number&quot;</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-                <span class="o">**</span><span class="n">flatten</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">annotation</span><span class="p">)})</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="n">what</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="s2">&quot;molecular_weight&quot;</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+                    <span class="s2">&quot;C_number&quot;</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="s2">&quot;N_number&quot;</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="o">**</span><span class="n">flatten</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">annotation</span><span class="p">),</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
             <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">objs</span>
         <span class="p">]</span>
 

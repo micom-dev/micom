@@ -201,13 +201,6 @@ Functions
       solution by default but only growth rates which is much quicker. You can
       request a full solution by setting the `fluxes` and `pFBA` arguments.
 
-      .. note::
-
-         for OSQP this will use an additional quadratic regularization in order
-         to convert all LP problems to QPs and stabilize the solution. This may not
-         perform well if the community growth rate is larger 1000 (which it should never
-         be as this would be a doubling time of a few seconds).
-
       :param slim: Whether to return a slim solution which does not contain fluxes,
                    just growth rates.
       :type slim: boolean, optional

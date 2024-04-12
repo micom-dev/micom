@@ -290,17 +290,13 @@
     <span class="k">return</span> <span class="n">medium</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="minimal_media"><a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.minimal_media">[docs]</a><span class="k">def</span> <span class="nf">minimal_media</span><span class="p">(</span>
-    <span class="n">manifest</span><span class="p">,</span> <span class="n">model_folder</span><span class="p">,</span> <span class="n">summarize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span>
-<span class="p">):</span>
+<div class="viewcode-block" id="minimal_media"><a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.minimal_media">[docs]</a><span class="k">def</span> <span class="nf">minimal_media</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">model_folder</span><span class="p">,</span> <span class="n">summarize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the minimal medium for a set of community models.&quot;&quot;&quot;</span>
     <span class="n">samples</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
     <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">(</span>
             <span class="n">s</span><span class="p">,</span>
-            <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="n">model_folder</span><span class="p">,</span> <span class="n">manifest</span><span class="p">[</span><span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="p">),</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_folder</span><span class="p">,</span> <span class="n">manifest</span><span class="p">[</span><span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span>
     <span class="p">]</span>
@@ -330,12 +326,10 @@
             <span class="n">min_growth</span><span class="o">=</span><span class="n">min_growth</span><span class="p">,</span>
             <span class="n">max_import</span><span class="o">=</span><span class="n">max_import</span><span class="p">,</span>
             <span class="n">minimize_components</span><span class="o">=</span><span class="n">mip</span><span class="p">,</span>
-            <span class="n">weights</span><span class="o">=</span><span class="n">weights</span>
+            <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;Can&#39;t reach the specified growth rates for model </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">sid</span>
-        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Can&#39;t reach the specified growth rates for model </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">sid</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">fixed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;reaction&quot;</span><span class="p">:</span> <span class="n">fixed</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;flux&quot;</span><span class="p">:</span> <span class="n">fixed</span><span class="o">.</span><span class="n">values</span><span class="p">})</span>
     <span class="n">fixed</span><span class="p">[</span><span class="s2">&quot;metabolite&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
@@ -408,19 +402,24 @@
 
     <span class="n">samples</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
     <span class="n">paths</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">s</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">model_folder</span><span class="p">,</span> <span class="n">manifest</span><span class="p">[</span><span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">s</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_folder</span><span class="p">,</span> <span class="n">manifest</span><span class="p">[</span><span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span>
     <span class="p">}</span>
     <span class="n">medium</span> <span class="o">=</span> <span class="n">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="n">medium</span><span class="o">.</span><span class="n">flux</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">]</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
         <span class="n">medium</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">medium</span><span class="o">.</span><span class="n">flux</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="s2">&quot;flux&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-6</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="s2">&quot;Some import rates were to small and were adjusted to 1e-6.&quot;</span>
-        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Some import rates were to small and were adjusted to 1e-6.&quot;</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">community_growth</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">max_import</span><span class="p">,</span> <span class="n">minimize_components</span><span class="p">,</span>
-         <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="n">medium</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">],</span> <span class="n">weights</span><span class="p">]</span>
+        <span class="p">[</span>
+            <span class="n">s</span><span class="p">,</span>
+            <span class="n">p</span><span class="p">,</span>
+            <span class="n">community_growth</span><span class="p">,</span>
+            <span class="n">min_growth</span><span class="p">,</span>
+            <span class="n">max_import</span><span class="p">,</span>
+            <span class="n">minimize_components</span><span class="p">,</span>
+            <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="n">medium</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">],</span>
+            <span class="n">weights</span><span class="p">,</span>
+        <span class="p">]</span>
         <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paths</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">]</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_fix_medium</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Augmenting media&quot;</span><span class="p">)</span>

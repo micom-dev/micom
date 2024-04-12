@@ -251,7 +251,7 @@
           <section id="Preamble">
 <h1>Preamble<a class="headerlink" href="#Preamble" title="Permalink to this heading">#</a></h1>
 <p>The same installation strategy also works with Anaconda installations or any other Python distributions. Supported Python versions are 3.8 or later.</p>
-<p>By default MICOM will also install a linear and quadratic programming solver that will work for large problems. For this it leverages a custom hybrid solver that combines <a class="reference external" href="https://highs.dev/">HIGHS</a> and <a class="reference external" href="https://osqp.org/">OSQP</a>. Those will be installed along with MICOM automatically on Windows and Linux, but require one additional step on MacOS (see below).</p>
+<p>By default MICOM will also install a linear and quadratic programming solver that will work for large problems. For this it leverages a custom hybrid solver that combines <a class="reference external" href="https://highs.dev/">HIGHS</a> and <a class="reference external" href="https://osqp.org/">OSQP</a>. Those will be installed along with MICOM automatically.</p>
 <p>If you have several supported solvers installed you may later specify one with the <code class="docutils literal notranslate"><span class="pre">solver</span></code> argument in <code class="docutils literal notranslate"><span class="pre">micom.Community</span></code> or <code class="docutils literal notranslate"><span class="pre">micom.workflows.build</span></code>.</p>
 <section id="Install-faster-(optional-non-open-source)-solvers">
 <h2>Install faster (optional non open source) solvers<a class="headerlink" href="#Install-faster-(optional-non-open-source)-solvers" title="Permalink to this heading">#</a></h2>
@@ -259,10 +259,10 @@
 <p><strong>CPLEX</strong></p>
 <p>After registering and downloading the CPLEX studio for your OS unpack it (by running the provided installer) to a directory of your choice (we will assume it’s called <code class="docutils literal notranslate"><span class="pre">ibm</span></code>).</p>
 <p>Now install the CPLEX python package into your activated environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ibm/cplex/python/3.8/x86-64_linux
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>ibm/cplex/python/3.10/x86-64_linux
 </pre></div>
 </div>
-<p>Substitute <code class="docutils literal notranslate"><span class="pre">3.8</span></code> with your Python version. Substitute <code class="docutils literal notranslate"><span class="pre">x86-64_linux</span></code> with the folder corresponding to your system (there will only be one subfolder in that directory).</p>
+<p>Substitute <code class="docutils literal notranslate"><span class="pre">3.10</span></code> with your Python version. Substitute <code class="docutils literal notranslate"><span class="pre">x86-64_linux</span></code> with the folder corresponding to your system (there will only be one subfolder in that directory).</p>
 <p><strong>Gurobi</strong></p>
 <p>Thanks to support from Richard Oberdieck from Gurobi, the Gurobi solvers now work excellently with MICOM.</p>
 <p>Gurobi can be installed with conda.</p>

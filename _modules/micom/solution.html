@@ -363,10 +363,6 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;compartments&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">abundances</span> <span class="o">*</span> <span class="n">gcs</span><span class="p">)</span>
-        <span class="c1"># Save estimated accuracy for osqp</span>
-        <span class="k">if</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">problem</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;osqp&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">primal_residual</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">pri_res</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">dual_residual</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">dua_res</span>
 
 <div class="viewcode-block" id="CommunitySolution._repr_html_"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution._repr_html_">[docs]</a>    <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="n">good</span><span class="p">:</span>
@@ -427,8 +423,6 @@
     <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">Zero</span>
     <span class="n">community</span><span class="o">.</span><span class="n">objective_direction</span> <span class="o">=</span> <span class="s2">&quot;min&quot;</span>
     <span class="n">community</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">set_linear_coefficients</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;osqp&quot;</span><span class="p">:</span>
-        <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">+=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="n">community</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span> <span class="o">**</span> <span class="mi">2</span>
     <span class="k">if</span> <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="o">=</span> <span class="s2">&quot;pFBA&quot;</span>
     <span class="k">else</span><span class="p">:</span>
@@ -438,15 +432,6 @@
 <div class="viewcode-block" id="solve"><a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.solve">[docs]</a><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">raise_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get all fluxes stratified by taxa.&quot;&quot;&quot;</span>
     <span class="n">solver_name</span> <span class="o">=</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span>
-    <span class="n">term</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">solver_name</span> <span class="o">==</span> <span class="s2">&quot;osqp&quot;</span> <span class="ow">and</span> <span class="n">community</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">is_Linear</span><span class="p">:</span>
-        <span class="c1"># This improves OSQP by soooo much</span>
-        <span class="n">term</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="mf">1e-6</span>
-            <span class="o">*</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">direction</span>
-            <span class="o">*</span> <span class="n">community</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span> <span class="o">**</span> <span class="mi">2</span>
-        <span class="p">)</span>
-        <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">+=</span> <span class="n">term</span>
     <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
     <span class="n">status</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span>
     <span class="k">if</span> <span class="n">status</span> <span class="ow">in</span> <span class="n">good</span><span class="p">:</span>
@@ -465,10 +450,6 @@
             <span class="n">sol</span> <span class="o">=</span> <span class="n">CommunitySolution</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">sol</span> <span class="o">=</span> <span class="n">CommunitySolution</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">slim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">term</span><span class="p">:</span>
-            <span class="n">correction</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="n">community</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">primal</span> <span class="o">**</span> <span class="mi">2</span>
-            <span class="n">sol</span><span class="o">.</span><span class="n">objective_value</span> <span class="o">-=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">direction</span> <span class="o">*</span> <span class="n">correction</span>
-            <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">-=</span> <span class="n">term</span>
         <span class="k">return</span> <span class="n">sol</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;solver encountered an error </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">status</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span></div>
@@ -485,7 +466,7 @@
         <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
     <span class="k">elif</span> <span class="n">interface</span> <span class="o">==</span> <span class="s2">&quot;glpk&quot;</span><span class="p">:</span>
         <span class="n">glp_adv_basis</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">interface</span> <span class="o">==</span> <span class="s2">&quot;osqp&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">interface</span> <span class="o">==</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">:</span>
         <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
 
 
@@ -517,7 +498,7 @@
         <span class="n">com</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">scale</span> <span class="o">*</span> <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span>
         <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">taxa</span><span class="p">:</span>
             <span class="n">const</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
-            <span class="n">const</span><span class="o">.</span><span class="n">ub</span> <span class="o">=</span> <span class="n">gcs</span><span class="p">[</span><span class="n">sp</span><span class="p">]</span>
+            <span class="n">const</span><span class="o">.</span><span class="n">ub</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">lb</span><span class="p">,</span> <span class="n">gcs</span><span class="p">[</span><span class="n">sp</span><span class="p">])</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;finding closest feasible solution&quot;</span><span class="p">)</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

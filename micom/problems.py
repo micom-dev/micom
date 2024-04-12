@@ -91,9 +91,7 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rt
             com.variables.community_objective.lb = fr * min_growth
             com.variables.community_objective.ub = min_growth
             sol = solve(community, fluxes=fluxes, pfba=pfba, atol=atol, rtol=rtol)
-            # OSQP is better with QPs then LPs
-            # so it won't get better with the crossover
-            if not pfba and sol.status != OPTIMAL and solver != "osqp":
+            if not pfba and sol.status != OPTIMAL:
                 sol = crossover(
                     com, sol, fluxes=fluxes
                 )

@@ -112,8 +112,9 @@ def serialize_models(files, dir="."):
         model = load_model(f)
         logger.info("serializing {}".format(f))
         pickle.dump(
-            model, open(path.join(dir, fname + ".pickle"), "wb"), protocol=2
-        )  # required for Python 2 compat
+            model, open(path.join(dir, fname + ".pickle"), "wb"),
+            protocol=pickle.HIGHEST_PROTOCOL
+        )
 
 
 def chr_or_input(m):

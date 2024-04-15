@@ -14,7 +14,7 @@ jobs:
         sudo apt-get -y install pandoc
     - name: Set up Python
       with:
-        python-version: '3.8'
+        python-version: '3.11'
         cache: 'pip'
       uses: actions/setup-python@v5.1.0
     - name: Install dependencies

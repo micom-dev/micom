@@ -182,7 +182,6 @@ def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
 
 def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=1e-6):
     """Get all fluxes stratified by taxa."""
-    solver_name = interface_to_str(community.solver.interface)
     community.solver.optimize()
     status = community.solver.status
     if status in good:

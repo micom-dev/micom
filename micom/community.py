@@ -316,7 +316,7 @@ class Community(cobra.Model):
             if not cobra.medium.is_boundary_type(r, "exchange", ex):
                 continue
             if not r.id.lower().startswith("ex"):
-                logger.warning(
+                logger.debug(
                     "Reaction %s seems to be an exchange " % r.id
                     + "reaction but its ID does not start with 'EX_'..."
                 )

@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="micom.viz.core" href="core/index.html" /><link rel="prev" title="micom.data" href="../data/index.html" />
+<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="micom.viz.association" href="association/index.html" /><link rel="prev" title="micom.data" href="../data/index.html" />
 
     <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
         <title>micom.viz - version 0.34.1</title>
@@ -177,10 +177,10 @@
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.data</span></code></a></li>
 <li class="toctree-l3 current has-children current-page"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="association/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.association</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="exchanges/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.exchanges</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="growth/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.growth</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="prediction/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.prediction</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.tradeoff</span></code></a></li>
 </ul>
 </li>
@@ -255,10 +255,10 @@
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="association/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.association</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.core</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="exchanges/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.exchanges</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.growth</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="prediction/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.prediction</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.tradeoff</span></code></a></li>
 </ul>
 </div>
@@ -291,7 +291,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_growth" title="micom.viz.plot_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_growth</span></code></a>(results[, filename, tolerance])</p></td>
 <td><p>Plot the taxa growth rates.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_fit" title="micom.viz.plot_fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_fit</span></code></a>(results, phenotype[, variable_type, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_association" title="micom.viz.plot_association"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_association</span></code></a>(results, phenotype[, variable_type, ...])</p></td>
 <td><p>Test for differential metabolite production.</p></td>
 </tr>
 </tbody>
@@ -426,10 +426,13 @@ considered not growing.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="micom.viz.plot_fit">
-<span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'binary'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'phenotype'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'fit_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'production'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_coef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/prediction.html#plot_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_fit" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="micom.viz.plot_association">
+<span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_association</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'binary'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'phenotype'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'association_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'production'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fdr_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/association.html#plot_association"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_association" title="Permalink to this definition">#</a></dt>
 <dd><p>Test for differential metabolite production.</p>
-<p>This will fit the <cite>phenotype</cite> response using L1-regularized linear models
+<p>This will check for associations of the <cite>phenotype</cite> with metabolite fluxes. Individual
+tests are performed using non-parametric tests of the overall consumption or production
+fluxes for each samples versus the phenotype.</p>
+<p>To assess the the global association, this will fit L1-regularized linear models
 with log-fluxes as features. Will use LASSO regression for a continuous
 response and L1-regularized Logistic regression for a binary response.</p>
 <dl class="field-list simple">
@@ -439,11 +442,13 @@ response and L1-regularized Logistic regression for a binary response.</p>
 <li><p><strong>phenotype</strong> (<em>pandas.Series</em>) – The data to be fitted. Its index must correspond to <cite>sample_id</cite> in
 <cite>exchanges</cite>.</p></li>
 <li><p><strong>variable_type</strong> (<em>str</em><em> of </em><em>[</em><em>&quot;binary&quot;</em><em>, </em><em>&quot;continuous&quot;</em><em>]</em>) – The type of the variable.</p></li>
-<li><p><strong>variable_name</strong> (<em>str</em>) – A short description of the phenotype for instance “disease_status”.</p></li>
+<li><p><strong>variable_name</strong> (<em>str</em>) – A short description of the phenotype for instance “disease status”.</p></li>
 <li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
 <li><p><strong>flux_type</strong> (<em>str</em><em> of </em><em>[</em><em>&quot;import&quot;</em><em>, </em><em>&quot;production&quot;</em><em>]</em>) – Whether to fit using import or production fluxes.</p></li>
-<li><p><strong>min_coef</strong> (<em>float in</em><em> [</em><em>0.0</em><em>, </em><em>Inf</em><em>]</em>) – Only report coefficient that are at least that large.</p></li>
-<li><p><strong>atol</strong> (<em>float</em>) – Tolerance to consider a flux different from zero. Should be roughly equivalent
+<li><p><strong>threads</strong> (<em>int</em>) – The number of threads to use.</p></li>
+<li><p><strong>fdr_threshold</strong> (<em>float</em>) – The false discovery rate cutoff to use (FDR-corrected p-value cutoff). Defaults
+to 0.05.</p></li>
+<li><p><strong>atol</strong> (<em>float</em>) – Tolerance to consider a flux different from zero. Will default
 to the solver tolerance.</p></li>
 </ul>
 </dd>
@@ -465,12 +470,12 @@ to the solver tolerance.</p></li>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="core/index.html">
+          <a class="next-page" href="association/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.core</span></code></div>
+                <div class="title"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.association</span></code></div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -531,7 +536,7 @@ to the solver tolerance.</p></li>
 <li><a class="reference internal" href="#micom.viz.plot_exchanges_per_sample"><code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_sample()</span></code></a></li>
 <li><a class="reference internal" href="#micom.viz.plot_exchanges_per_taxon"><code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_taxon()</span></code></a></li>
 <li><a class="reference internal" href="#micom.viz.plot_growth"><code class="docutils literal notranslate"><span class="pre">plot_growth()</span></code></a></li>
-<li><a class="reference internal" href="#micom.viz.plot_fit"><code class="docutils literal notranslate"><span class="pre">plot_fit()</span></code></a></li>
+<li><a class="reference internal" href="#micom.viz.plot_association"><code class="docutils literal notranslate"><span class="pre">plot_association()</span></code></a></li>
 </ul>
 </li>
 </ul>

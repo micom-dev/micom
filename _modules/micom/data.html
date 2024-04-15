@@ -176,10 +176,10 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../autoapi/micom/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.data</span></code></a></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../autoapi/micom/viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/viz/association/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.association</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/viz/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/viz/exchanges/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.exchanges</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/viz/growth/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.growth</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/viz/prediction/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.prediction</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/viz/tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.tradeoff</span></code></a></li>
 </ul>
 </li>
@@ -249,6 +249,7 @@
           <h1>Source code for micom.data</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Submodule including some common data sets.&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">..workflows</span> <span class="kn">import</span> <span class="n">load_results</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">split</span><span class="p">,</span> <span class="n">join</span>
 <span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randint</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -317,7 +318,7 @@
     <span class="k">return</span> <span class="n">data</span>
 
 
-<span class="k">def</span> <span class="nf">crc_results</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">test_results</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return growth results for a realistic example data sets.</span>
 
 <span class="sd">    This will give you access to the results as produced by the community tutorial</span>
@@ -326,12 +327,12 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    GrowthResults</span>
-<span class="sd">        The results for running the `grow` workflow with a tradeoff of 0.3.</span>
+<span class="sd">        The results for running the `grow` workflow with a tradeoff of 0.8.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">&quot;artifacts&quot;</span><span class="p">,</span> <span class="s2">&quot;crc_results.pickle&quot;</span><span class="p">),</span> <span class="s2">&quot;rb&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">load_results</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">&quot;artifacts&quot;</span><span class="p">,</span> <span class="s2">&quot;results.zip&quot;</span><span class="p">))</span>
 
 
-<span class="k">def</span> <span class="nf">crc_tradeoff</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">test_tradeoff</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return tradeoff results for a realistic example data set.</span>
 
 <span class="sd">    This will give you access to the tradeoffs as produced by the community tutorial</span>

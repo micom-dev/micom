@@ -1,10 +1,10 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="">
+<html class="no-js" lang="en" data-content_root="../../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>micom.optcom - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
@@ -261,7 +261,9 @@
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
 
 
-<div class="viewcode-block" id="add_dualized_optcom"><a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom.add_dualized_optcom">[docs]</a><span class="k">def</span> <span class="nf">add_dualized_optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">):</span>
+<div class="viewcode-block" id="add_dualized_optcom">
+<a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom.add_dualized_optcom">[docs]</a>
+<span class="k">def</span> <span class="nf">add_dualized_optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add dual Optcom variables and constraints to a community.</span>
 
 <span class="sd">    Uses the original formulation of OptCom and solves the following</span>
@@ -326,7 +328,10 @@
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;finished adding dual optcom to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="add_moma_optcom"><a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom.add_moma_optcom">[docs]</a><span class="k">def</span> <span class="nf">add_moma_optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">linear</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="add_moma_optcom">
+<a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom.add_moma_optcom">[docs]</a>
+<span class="k">def</span> <span class="nf">add_moma_optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">linear</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a dualized MOMA version of OptCom.</span>
 
 <span class="sd">    Solves a MOMA (minimization of metabolic adjustment) formulation of OptCom</span>
@@ -389,14 +394,20 @@
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;finished dual moma to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="_methods"><a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom._methods">[docs]</a><span class="n">_methods</span> <span class="o">=</span> <span class="p">{</span>
+
+<div class="viewcode-block" id="_methods">
+<a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom._methods">[docs]</a>
+<span class="n">_methods</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;original&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">add_dualized_optcom</span><span class="p">],</span>
     <span class="s2">&quot;moma&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">add_moma_optcom</span><span class="p">],</span>
     <span class="s2">&quot;lmoma&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">partial</span><span class="p">(</span><span class="n">add_moma_optcom</span><span class="p">,</span> <span class="n">linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)],</span>
 <span class="p">}</span></div>
 
 
-<div class="viewcode-block" id="optcom"><a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom.optcom">[docs]</a><span class="k">def</span> <span class="nf">optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="p">):</span>
+
+<div class="viewcode-block" id="optcom">
+<a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom.optcom">[docs]</a>
+<span class="k">def</span> <span class="nf">optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Run OptCom for the community.</span>
 
 <span class="sd">    OptCom methods are a group of optimization procedures to find community</span>
@@ -456,6 +467,7 @@
         <span class="c1"># Add needed variables etc.</span>
         <span class="n">funcs</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="n">com</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">solve</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="n">pfba</span><span class="p">)</span></div>
+
 </pre></div>
         </article>
       </div>
@@ -488,9 +500,9 @@
       
     </aside>
   </div>
-</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=6793453f"></script>
+</div><script src="../../_static/documentation_options.js?v=1fb6f64b"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

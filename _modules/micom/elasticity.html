@@ -1,10 +1,10 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="">
+<html class="no-js" lang="en" data-content_root="../../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>micom.elasticity - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
@@ -263,16 +263,24 @@
 <span class="kn">from</span> <span class="nn">rich.progress</span> <span class="kn">import</span> <span class="n">track</span>
 
 
-<div class="viewcode-block" id="STEP"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.STEP">[docs]</a><span class="n">STEP</span> <span class="o">=</span> <span class="mf">0.1</span></div>
+<div class="viewcode-block" id="STEP">
+<a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.STEP">[docs]</a>
+<span class="n">STEP</span> <span class="o">=</span> <span class="mf">0.1</span></div>
 
 
-<div class="viewcode-block" id="_get_fluxes"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity._get_fluxes">[docs]</a><span class="k">def</span> <span class="nf">_get_fluxes</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">reactions</span><span class="p">):</span>
+
+<div class="viewcode-block" id="_get_fluxes">
+<a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity._get_fluxes">[docs]</a>
+<span class="k">def</span> <span class="nf">_get_fluxes</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">reactions</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the primal values for a set of variables.&quot;&quot;&quot;</span>
     <span class="n">fluxes</span> <span class="o">=</span> <span class="p">{</span><span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">community_id</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">global_id</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">}</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">fluxes</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="_derivatives"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity._derivatives">[docs]</a><span class="k">def</span> <span class="nf">_derivatives</span><span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">after</span><span class="p">):</span>
+
+<div class="viewcode-block" id="_derivatives">
+<a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity._derivatives">[docs]</a>
+<span class="k">def</span> <span class="nf">_derivatives</span><span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">after</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the elasticities for fluxes.&quot;&quot;&quot;</span>
     <span class="n">before_signs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">before</span><span class="p">)</span>
     <span class="n">after_signs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">after</span><span class="p">)</span>
@@ -285,7 +293,10 @@
     <span class="k">return</span> <span class="n">derivs</span><span class="p">,</span> <span class="n">direction</span></div>
 
 
-<div class="viewcode-block" id="elasticities_by_medium"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.elasticities_by_medium">[docs]</a><span class="k">def</span> <span class="nf">elasticities_by_medium</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">reactions</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">progress</span><span class="p">):</span>
+
+<div class="viewcode-block" id="elasticities_by_medium">
+<a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.elasticities_by_medium">[docs]</a>
+<span class="k">def</span> <span class="nf">elasticities_by_medium</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">reactions</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">progress</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the elasticity coefficients for a set of variables.</span>
 
 <span class="sd">    Arguments</span>
@@ -345,7 +356,10 @@
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="elasticities_by_abundance"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.elasticities_by_abundance">[docs]</a><span class="k">def</span> <span class="nf">elasticities_by_abundance</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">reactions</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">progress</span><span class="p">):</span>
+
+<div class="viewcode-block" id="elasticities_by_abundance">
+<a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.elasticities_by_abundance">[docs]</a>
+<span class="k">def</span> <span class="nf">elasticities_by_abundance</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">reactions</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="p">,</span> <span class="n">progress</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the elasticity coefficients for a set of variables.</span>
 
 <span class="sd">    Arguments</span>
@@ -395,7 +409,10 @@
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="elasticities"><a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.elasticities">[docs]</a><span class="k">def</span> <span class="nf">elasticities</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">reactions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="elasticities">
+<a class="viewcode-back" href="../../autoapi/micom/elasticity/index.html#micom.elasticity.elasticities">[docs]</a>
+<span class="k">def</span> <span class="nf">elasticities</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">reactions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate elasticities for reactions.</span>
 
 <span class="sd">    Calculates elasticity coefficients using the specified reactions as</span>
@@ -451,6 +468,7 @@
     <span class="n">both</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">by_medium</span><span class="p">,</span> <span class="n">by_abundance</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">both</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">both</span><span class="o">.</span><span class="n">taxon</span> <span class="o">==</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;taxon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;medium&quot;</span>
     <span class="k">return</span> <span class="n">both</span></div>
+
 </pre></div>
         </article>
       </div>
@@ -483,9 +501,9 @@
       
     </aside>
   </div>
-</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=6793453f"></script>
+</div><script src="../../_static/documentation_options.js?v=1fb6f64b"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

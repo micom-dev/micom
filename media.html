@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="">
+<html class="no-js" lang="en" data-content_root="./">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Taxa knockouts" href="taxa_knockouts.html" /><link rel="prev" title="Growth rates and fluxes" href="growth_fluxes.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>Growth media - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
@@ -250,7 +250,7 @@
         </div>
         <article role="main">
           <section id="Growth-media">
-<h1>Growth media<a class="headerlink" href="#Growth-media" title="Permalink to this heading">#</a></h1>
+<h1>Growth media<a class="headerlink" href="#Growth-media" title="Link to this heading">#</a></h1>
 <p>In many instances you might be interested what metabolites your microbial community consumes and produces. <code class="docutils literal notranslate"><span class="pre">micom</span></code> provides facilities to make this simple. Since flux distributions are usually not unique we will usually analyze the “minimal medium”, meaning the smallest set of import fluxes that allow optimal growth. We will again use our <em>E. coli</em> test case.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -369,7 +369,7 @@ dtype: float64
 </pre></div></div>
 </div>
 <section id="Export-fluxes">
-<h2>Export fluxes<a class="headerlink" href="#Export-fluxes" title="Permalink to this heading">#</a></h2>
+<h2>Export fluxes<a class="headerlink" href="#Export-fluxes" title="Link to this heading">#</a></h2>
 <p>Sometimes you will also be interested in which metabolites the community produces. This information can be obtained with the <code class="docutils literal notranslate"><span class="pre">exports</span></code> argument of the <code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> function which will also return the active exports (metabolites produced by the community) under minimal growth.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -399,7 +399,7 @@ dtype: float64
 <p>By convention exports have a negative sign and imports a positive one.</p>
 </section>
 <section id="Applying-growth-media">
-<h2>Applying growth media<a class="headerlink" href="#Applying-growth-media" title="Permalink to this heading">#</a></h2>
+<h2>Applying growth media<a class="headerlink" href="#Applying-growth-media" title="Link to this heading">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">micom</span></code> pretty much uses the <a class="reference external" href="https://cobrapy.readthedocs.io/en/stable/_autogen/cobra.core.model.html?highlight=medium#cobra.core.model.Model.medium">cobrapy method</a> of assigning media. Essentially you will need a dictionary-like structure that maps exchange reactions to their upper import flux bound. Fortunately, the output of <code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> can be used directly for that. So to calculate the minimal medium and use it as the actual growth medium afterwards we can do the following:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
@@ -560,9 +560,9 @@ com.cooperative_tradeoff()
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=6793453f"></script>
+</div><script src="_static/documentation_options.js?v=1fb6f64b"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>

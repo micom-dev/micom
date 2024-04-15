@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="">
+<html class="no-js" lang="en" data-content_root="./">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Growth media" href="media.html" /><link rel="prev" title="Single Model API" href="community.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>Growth rates and fluxes - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
@@ -250,7 +250,7 @@
         </div>
         <article role="main">
           <section id="Growth-rates-and-fluxes">
-<h1>Growth rates and fluxes<a class="headerlink" href="#Growth-rates-and-fluxes" title="Permalink to this heading">#</a></h1>
+<h1>Growth rates and fluxes<a class="headerlink" href="#Growth-rates-and-fluxes" title="Link to this heading">#</a></h1>
 <p>One of the major applications of micom is to identify growth rates and fluxes for a given community. We will return to our <em>E. coli</em> toy example.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -283,7 +283,7 @@ com = Community(tax)
 </pre></div>
 </div>
 <section id="FBA">
-<h2>FBA<a class="headerlink" href="#FBA" title="Permalink to this heading">#</a></h2>
+<h2>FBA<a class="headerlink" href="#FBA" title="Link to this heading">#</a></h2>
 <p>If one is only interested in the community growth rate <span class="math notranslate nohighlight">\(\mu_c\)</span> we can use normal FBA to optimize this growth rate. By default micom assigns the community growth rate as the objective for a community model.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -674,7 +674,7 @@ sol.fluxes
 <p>Returning to the growth rates we can see the major problem with regular FBA for community levels. Usually it will maximize growth for only a few taxa in the model yielding unrealistically high growth rates. However, in our setup we have 5 identical <em>E. coli</em> strains and we would expect all of the taxa to grow with the same rate (see Methods section).</p>
 </section>
 <section id="Cooperative-tradeoff">
-<h2>Cooperative tradeoff<a class="headerlink" href="#Cooperative-tradeoff" title="Permalink to this heading">#</a></h2>
+<h2>Cooperative tradeoff<a class="headerlink" href="#Cooperative-tradeoff" title="Link to this heading">#</a></h2>
 <p>Cooperative tradeoff is a two step methods that allows you to get a unique solution for the the individuals growth rates that favors individual growth but still allows for a sup-optimal community growth rate. For that we always have to decide on a fraction of the maximum community growth rate we want to enforce. Our own results based on a data set of 189 gut microbiomes suggest that this tradeoff has tobe substantially lower than the optimal community growth rate to yield realistic growth rates
 (&lt;=50% optimum). For our <em>E. coli</em> model we can start with getting the best solution while still maintaining optimal community growth (100% of maximum).</p>
 <p><strong>Cooperative tradeoff requires a QP-capable solver such as cplex or gurobi (both have academic licenses available)!</strong></p>
@@ -1287,9 +1287,9 @@ rates
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=6793453f"></script>
+</div><script src="_static/documentation_options.js?v=1fb6f64b"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>

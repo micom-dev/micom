@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="">
+<html class="no-js" lang="en" data-content_root="./">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Writing your own workflows" href="workflows.html" /><link rel="prev" title="MICOM workflows" href="high_level.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>Visualizations - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
@@ -250,7 +250,7 @@
         </div>
         <article role="main">
           <section id="Visualizations">
-<h1>Visualizations<a class="headerlink" href="#Visualizations" title="Permalink to this heading">#</a></h1>
+<h1>Visualizations<a class="headerlink" href="#Visualizations" title="Link to this heading">#</a></h1>
 <p>MICOM provides a a set of visualizations that can be used with the outputs from MICOM workflows. Those visualizations are the same as provided by the <a class="reference external" href="https://github.com/micom-dev/q2-micom">MICOM Qiime 2 plugin</a> but are delivered as single HTML files that bundles interactive graphics and raw data.</p>
 <p>To create some more interesting figures here we will use a realistic example data set which is the output of running the MICOM grow workflow on a data set of 10 healthy fecal samples from the <a class="reference external" href="https://www.hmpdacc.org/ihmp/">iHMP cohort</a>. To see the interactive version of a visualization you can click on the provided previews. All visualization contain download buttons to download the raw data used to generate the plot.</p>
 <div class="nbinput nblast docutils container">
@@ -265,7 +265,7 @@ tradeoff = mmd.test_tradeoff()
 </div>
 </div>
 <section id="Choosing-a-tradeoff-value">
-<h2>Choosing a tradeoff value<a class="headerlink" href="#Choosing-a-tradeoff-value" title="Permalink to this heading">#</a></h2>
+<h2>Choosing a tradeoff value<a class="headerlink" href="#Choosing-a-tradeoff-value" title="Link to this heading">#</a></h2>
 <p>In the original MICOM publication we chose the tradeoff based on comparisons with <em>in vivo</em> replication rates derived from metagenome data. However, we observed that the highest correlation with replication rates is usually achieved at the largest tradeoff value that allows the majority of the taxa to grow. Thus, we can run cooperative tradeoff with varying tradeoff values and look for the characteristic elbow where the majority of the community can grow. This can be done by using the
 <code class="docutils literal notranslate"><span class="pre">plot_tradeoff</span></code> function.</p>
 <div class="nbinput nblast docutils container">
@@ -317,7 +317,7 @@ dict_keys([&#39;tradeoff&#39;])
 <p><a class="reference external" href="_static/tradeoff.html"><img alt="tradeoff" src="_images/tradeoff.png" /></a></p>
 </section>
 <section id="Plotting-growth-rates">
-<h2>Plotting growth rates<a class="headerlink" href="#Plotting-growth-rates" title="Permalink to this heading">#</a></h2>
+<h2>Plotting growth rates<a class="headerlink" href="#Plotting-growth-rates" title="Link to this heading">#</a></h2>
 <p>The first thing we may want to investigate are the growth rates predicted by MICOM. This can be done with the <code class="docutils literal notranslate"><span class="pre">plot_growth</span></code> function.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -333,7 +333,7 @@ pl = plot_growth(results, filename=&quot;growth_rates.html&quot;)
 <p><a class="reference external" href="_static/growth_rates.html"><img alt="growth rates" src="_images/growth_rates.png" /></a></p>
 </section>
 <section id="Plotting-consumed-metabolites">
-<h2>Plotting consumed metabolites<a class="headerlink" href="#Plotting-consumed-metabolites" title="Permalink to this heading">#</a></h2>
+<h2>Plotting consumed metabolites<a class="headerlink" href="#Plotting-consumed-metabolites" title="Link to this heading">#</a></h2>
 <p>To get an overview which metabolites are consumed by the entire microbiota we can use the <code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_sample</span></code> function.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -349,7 +349,7 @@ pl = plot_exchanges_per_sample(results, filename=&quot;consumption.html&quot;)
 <p><a class="reference external" href="_static/consumption.html"><img alt="consumption" src="_images/consumption.png" /></a></p>
 </section>
 <section id="Plotting-growth-niches">
-<h2>Plotting growth niches<a class="headerlink" href="#Plotting-growth-niches" title="Permalink to this heading">#</a></h2>
+<h2>Plotting growth niches<a class="headerlink" href="#Plotting-growth-niches" title="Link to this heading">#</a></h2>
 <p>What is consumed globally may be interesting but we may want to know even more how the available growth niches are occupied by the taxa in the sample. This can be done with <code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_taxon</span></code> which will embed the import fluxes for each taxon into two dimension using TSNE and plot the niche occupation map. Here taxa that overlap compete for similar sets of resources. The center of the map denotes the most competitive niche whereas the outskirts of the map denote more specialized
 consumption preferences.</p>
 <div class="nbinput docutils container">
@@ -373,7 +373,7 @@ pl = plot_exchanges_per_taxon(results, filename=&quot;niche.html&quot;)
 <p><a class="reference external" href="_static/niche.html"><img alt="niche" src="_images/niche.png" /></a></p>
 </section>
 <section id="Investigating-associations-with-a-phenotype">
-<h2>Investigating associations with a phenotype<a class="headerlink" href="#Investigating-associations-with-a-phenotype" title="Permalink to this heading">#</a></h2>
+<h2>Investigating associations with a phenotype<a class="headerlink" href="#Investigating-associations-with-a-phenotype" title="Link to this heading">#</a></h2>
 <p>Finally we may want to which fluxes relate to an observed phenotype. This can be done with the <code class="docutils literal notranslate"><span class="pre">plot_association</span></code> function which will:</p>
 <ol class="arabic simple">
 <li><p>calculate overall production or consumption fluxes (total metabolite amount produced by the microbiota)</p></li>
@@ -495,9 +495,9 @@ pl = plot_association(
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=6793453f"></script>
+</div><script src="_static/documentation_options.js?v=1fb6f64b"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>

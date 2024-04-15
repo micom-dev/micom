@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="">
+<html class="no-js" lang="en" data-content_root="./">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Single Model API" href="community.html" /><link rel="prev" title="Visualizations" href="viz.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>Writing your own workflows - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
@@ -250,7 +250,7 @@
         </div>
         <article role="main">
           <section id="Writing-your-own-workflows">
-<h1>Writing your own workflows<a class="headerlink" href="#Writing-your-own-workflows" title="Permalink to this heading">#</a></h1>
+<h1>Writing your own workflows<a class="headerlink" href="#Writing-your-own-workflows" title="Link to this heading">#</a></h1>
 <p>Micom was designed to create and analyze personalized metabolic models for microbial communities. This makes it necessary to run many of the analyses in micom for many samples. As all of the methods currently implemented in micom can be run independently for each sample this workload can be parallelized pretty easily. To make this simple micom provides a workflow module that lets you run analyses for many samples in parallel. It also integrate with the micom logger and has workarounds for some
 memory leaks in optlang which improves memory usage. As a rule of thumb for each sample you will need one CPU and about 1GB of RAM, so if you have a server with 16 cores and 16+GB of RAM available you can run up to 16 samples in parallel.</p>
 <p>For a workflow you will need two things:</p>
@@ -525,9 +525,9 @@ results = workflow(run_tradeoff, taxonomies, threads=2)
       
     </aside>
   </div>
-</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=6793453f"></script>
+</div><script src="_static/documentation_options.js?v=1fb6f64b"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>

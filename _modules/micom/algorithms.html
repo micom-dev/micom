@@ -1,10 +1,10 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="">
+<html class="no-js" lang="en" data-content_root="../../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>micom.algorithms - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
@@ -255,7 +255,9 @@
 <span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 
 
-<div class="viewcode-block" id="jaccard"><a class="viewcode-back" href="../../autoapi/micom/algorithms/index.html#micom.algorithms.jaccard">[docs]</a><span class="k">def</span> <span class="nf">jaccard</span><span class="p">(</span><span class="n">inclusion</span><span class="p">):</span>
+<div class="viewcode-block" id="jaccard">
+<a class="viewcode-back" href="../../autoapi/micom/algorithms/index.html#micom.algorithms.jaccard">[docs]</a>
+<span class="k">def</span> <span class="nf">jaccard</span><span class="p">(</span><span class="n">inclusion</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate jaccard distances for a community.&quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
         <span class="s2">&quot;calculating jaccard distance for </span><span class="si">{}</span><span class="s2">x</span><span class="si">{}</span><span class="s2"> input matrix&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">inclusion</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -268,7 +270,10 @@
     <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">jaccard</span></div>
 
 
-<div class="viewcode-block" id="euclidean"><a class="viewcode-back" href="../../autoapi/micom/algorithms/index.html#micom.algorithms.euclidean">[docs]</a><span class="k">def</span> <span class="nf">euclidean</span><span class="p">(</span><span class="n">inclusion</span><span class="p">):</span>
+
+<div class="viewcode-block" id="euclidean">
+<a class="viewcode-back" href="../../autoapi/micom/algorithms/index.html#micom.algorithms.euclidean">[docs]</a>
+<span class="k">def</span> <span class="nf">euclidean</span><span class="p">(</span><span class="n">inclusion</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate euclidean distances for a community.&quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
         <span class="s2">&quot;calculating euclidean distance for </span><span class="si">{}</span><span class="s2">x</span><span class="si">{}</span><span class="s2"> input matrix&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">inclusion</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -280,7 +285,10 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">euclidean</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="reaction_matrix"><a class="viewcode-back" href="../../autoapi/micom/algorithms/index.html#micom.algorithms.reaction_matrix">[docs]</a><span class="k">def</span> <span class="nf">reaction_matrix</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+
+<div class="viewcode-block" id="reaction_matrix">
+<a class="viewcode-back" href="../../autoapi/micom/algorithms/index.html#micom.algorithms.reaction_matrix">[docs]</a>
+<span class="k">def</span> <span class="nf">reaction_matrix</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a matrix of reactions x models.&quot;&quot;&quot;</span>
     <span class="n">ids</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
@@ -293,7 +301,10 @@
     <span class="k">return</span> <span class="n">rlist</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="metabolic_dist"><a class="viewcode-back" href="../../autoapi/micom/algorithms/index.html#micom.algorithms.metabolic_dist">[docs]</a><span class="k">def</span> <span class="nf">metabolic_dist</span><span class="p">(</span><span class="n">reactions</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">jaccard</span><span class="p">):</span>
+
+<div class="viewcode-block" id="metabolic_dist">
+<a class="viewcode-back" href="../../autoapi/micom/algorithms/index.html#micom.algorithms.metabolic_dist">[docs]</a>
+<span class="k">def</span> <span class="nf">metabolic_dist</span><span class="p">(</span><span class="n">reactions</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="n">jaccard</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the metabolic distances between all members.&quot;&quot;&quot;</span>
     <span class="n">rids</span> <span class="o">=</span> <span class="p">[(</span><span class="n">r</span><span class="o">.</span><span class="n">global_id</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">community_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">]</span>
     <span class="n">rlist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rids</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reaction&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">])</span>
@@ -304,6 +315,7 @@
     <span class="n">dists</span> <span class="o">=</span> <span class="n">metric</span><span class="p">(</span><span class="n">inclusion</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dists</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">rlist</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">rlist</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
 </pre></div>
         </article>
       </div>
@@ -336,9 +348,9 @@
       
     </aside>
   </div>
-</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=6793453f"></script>
+</div><script src="../../_static/documentation_options.js?v=1fb6f64b"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

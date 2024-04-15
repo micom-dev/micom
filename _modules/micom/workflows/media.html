@@ -1,10 +1,10 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="">
+<html class="no-js" lang="en" data-content_root="../../../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>micom.workflows.media - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
@@ -258,7 +258,9 @@
 <span class="kn">from</span> <span class="nn">micom.solution</span> <span class="kn">import</span> <span class="n">OptimizationError</span>
 
 
-<div class="viewcode-block" id="process_medium"><a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.process_medium">[docs]</a><span class="k">def</span> <span class="nf">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="n">samples</span><span class="p">):</span>
+<div class="viewcode-block" id="process_medium">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.process_medium">[docs]</a>
+<span class="k">def</span> <span class="nf">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="n">samples</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare a medium for simulation.&quot;&quot;&quot;</span>
     <span class="n">medium</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">medium</span><span class="o">.</span><span class="n">reaction</span>
     <span class="k">if</span> <span class="s2">&quot;sample_id&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">medium</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
@@ -271,7 +273,10 @@
     <span class="k">return</span> <span class="n">medium</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reaction&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_id&quot;</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="_medium"><a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows._medium">[docs]</a><span class="k">def</span> <span class="nf">_medium</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+
+<div class="viewcode-block" id="_medium">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows._medium">[docs]</a>
+<span class="k">def</span> <span class="nf">_medium</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get minimal medium for a single model.&quot;&quot;&quot;</span>
     <span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">min_growth</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">com</span> <span class="o">=</span> <span class="n">load_pickle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
@@ -290,7 +295,10 @@
     <span class="k">return</span> <span class="n">medium</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="minimal_media"><a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.minimal_media">[docs]</a><span class="k">def</span> <span class="nf">minimal_media</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">model_folder</span><span class="p">,</span> <span class="n">summarize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+<div class="viewcode-block" id="minimal_media">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.minimal_media">[docs]</a>
+<span class="k">def</span> <span class="nf">minimal_media</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">model_folder</span><span class="p">,</span> <span class="n">summarize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the minimal medium for a set of community models.&quot;&quot;&quot;</span>
     <span class="n">samples</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
     <span class="n">paths</span> <span class="o">=</span> <span class="p">[</span>
@@ -314,7 +322,10 @@
     <span class="k">return</span> <span class="n">medium</span></div>
 
 
-<div class="viewcode-block" id="_fix_medium"><a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows._fix_medium">[docs]</a><span class="k">def</span> <span class="nf">_fix_medium</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+
+<div class="viewcode-block" id="_fix_medium">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows._fix_medium">[docs]</a>
+<span class="k">def</span> <span class="nf">_fix_medium</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the fixed medium for a model.&quot;&quot;&quot;</span>
     <span class="n">sid</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">max_import</span><span class="p">,</span> <span class="n">mip</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">com</span> <span class="o">=</span> <span class="n">load_pickle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
@@ -344,7 +355,10 @@
     <span class="k">return</span> <span class="n">fixed</span></div>
 
 
-<div class="viewcode-block" id="fix_medium"><a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.fix_medium">[docs]</a><span class="k">def</span> <span class="nf">fix_medium</span><span class="p">(</span>
+
+<div class="viewcode-block" id="fix_medium">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.fix_medium">[docs]</a>
+<span class="k">def</span> <span class="nf">fix_medium</span><span class="p">(</span>
     <span class="n">manifest</span><span class="p">,</span>
     <span class="n">model_folder</span><span class="p">,</span>
     <span class="n">medium</span><span class="p">,</span>
@@ -436,6 +450,7 @@
             <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">final</span></div>
+
 </pre></div>
         </article>
       </div>
@@ -468,9 +483,9 @@
       
     </aside>
   </div>
-</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=6793453f"></script>
+</div><script src="../../../_static/documentation_options.js?v=1fb6f64b"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

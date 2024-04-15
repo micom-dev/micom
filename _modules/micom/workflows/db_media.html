@@ -1,10 +1,10 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="">
+<html class="no-js" lang="en" data-content_root="../../../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 7.1.2 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>micom.workflows.db_media - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
@@ -265,7 +265,9 @@
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
 
 
-<div class="viewcode-block" id="_grow"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._grow">[docs]</a><span class="k">def</span> <span class="nf">_grow</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="_grow">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._grow">[docs]</a>
+<span class="k">def</span> <span class="nf">_grow</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the maximum growth rate under a given medium.&quot;&quot;&quot;</span>
     <span class="n">file</span><span class="p">,</span> <span class="n">med</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
@@ -280,7 +282,10 @@
     <span class="k">return</span> <span class="n">rate</span></div>
 
 
-<div class="viewcode-block" id="_try_complete"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._try_complete">[docs]</a><span class="k">def</span> <span class="nf">_try_complete</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+
+<div class="viewcode-block" id="_try_complete">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._try_complete">[docs]</a>
+<span class="k">def</span> <span class="nf">_try_complete</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Try to complete the medium for a model.&quot;&quot;&quot;</span>
     <span class="n">file</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span class="n">max_import</span><span class="p">,</span> <span class="n">mip</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">strict</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
@@ -322,7 +327,10 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">can_grow</span><span class="p">,</span> <span class="n">added</span><span class="p">,</span> <span class="n">added_flux</span><span class="p">,</span> <span class="n">fixed</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="check_db_medium"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.db_media.check_db_medium">[docs]</a><span class="k">def</span> <span class="nf">check_db_medium</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+<div class="viewcode-block" id="check_db_medium">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.db_media.check_db_medium">[docs]</a>
+<span class="k">def</span> <span class="nf">check_db_medium</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Complete a growth medium for all models in a database.</span>
 
 <span class="sd">    Arguments</span>
@@ -375,7 +383,10 @@
     <span class="k">return</span> <span class="n">manifest</span></div>
 
 
-<div class="viewcode-block" id="complete_db_medium"><a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.db_media.complete_db_medium">[docs]</a><span class="k">def</span> <span class="nf">complete_db_medium</span><span class="p">(</span>
+
+<div class="viewcode-block" id="complete_db_medium">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.db_media.complete_db_medium">[docs]</a>
+<span class="k">def</span> <span class="nf">complete_db_medium</span><span class="p">(</span>
     <span class="n">model_db</span><span class="p">,</span>
     <span class="n">medium</span><span class="p">,</span>
     <span class="n">growth</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
@@ -488,13 +499,19 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">imports</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="_annotate"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._annotate">[docs]</a><span class="k">def</span> <span class="nf">_annotate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+
+<div class="viewcode-block" id="_annotate">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._annotate">[docs]</a>
+<span class="k">def</span> <span class="nf">_annotate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get annotation for a model.&quot;&quot;&quot;</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">annotate_metabolites_from_exchanges</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="db_annotations"><a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media.db_annotations">[docs]</a><span class="k">def</span> <span class="nf">db_annotations</span><span class="p">(</span>
+
+<div class="viewcode-block" id="db_annotations">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media.db_annotations">[docs]</a>
+<span class="k">def</span> <span class="nf">db_annotations</span><span class="p">(</span>
     <span class="n">model_db</span><span class="p">,</span>
     <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="p">):</span>
@@ -538,6 +555,7 @@
         <span class="n">tdir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="n">anns</span></div>
+
 </pre></div>
         </article>
       </div>
@@ -570,9 +588,9 @@
       
     </aside>
   </div>
-</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=6793453f"></script>
+</div><script src="../../../_static/documentation_options.js?v=1fb6f64b"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>

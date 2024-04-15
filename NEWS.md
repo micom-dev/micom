@@ -23,6 +23,11 @@ manual steps anymore.
 Lowered the iteration limit for the OSQP step in the hybrid solver as more iterations
 did usually not lead to an improvement or convergence.
 
+Convert some warnings to debug messages.
+
+Switch the the start method for multiprocessing to "spawn" which should improve
+stability for workflows.
+
 ### 0.34.1
 
 Fix a typo in the hybrid settings.

@@ -36,11 +36,10 @@ def production_rates(results):
         .apply(lambda df: pd.Series({"flux": np.sum(df.abundance * df.flux.abs())}))
         .reset_index()
     )
-    rates = pd.merge(
-        rates,
-        results.annotations.drop_duplicates(subset=["metabolite"]),
-        on="metabolite",
+    anns = results.annotations.reset_index(drop=True).drop_duplicates(
+        subset=["metabolite"]
     )
+    rates = pd.merge(rates, anns, on="metabolite")
     return rates
 
 

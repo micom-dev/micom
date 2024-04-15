@@ -43,16 +43,16 @@ def test_plot_taxon_exchanges(growth_data, tmp_path):
             growth_data, str(tmp_path / "viz.html"), direction="dog")
 
 
-def test_fit(growth_data, tmp_path):
+def test_association(growth_data, tmp_path):
     meta = pd.Series([0, 0, 1, 1],
                      index=growth_data.growth_rates.sample_id.unique())
-    v = viz.plot_fit(growth_data, meta, filename=str(tmp_path / "viz.html"),
-                     min_coef=0)
+    v = viz.plot_association(growth_data, meta, filename=str(tmp_path / "viz.html"),
+                     fdr_threshold=0.5)
     check_viz(v)
-    v = viz.plot_fit(growth_data, meta, variable_type="continuous",
-                     filename=str(tmp_path / "viz.html"), min_coef=0)
+    v = viz.plot_association(growth_data, meta, variable_type="continuous",
+                     filename=str(tmp_path / "viz.html"), fdr_threshold=0.5)
     check_viz(v)
 
     with pytest.raises(ValueError):
-        v = viz.plot_fit(growth_data, meta, variable_type="dog",
+        v = viz.plot_association(growth_data, meta, variable_type="dog",
                          filename=str(tmp_path / "viz.html"))

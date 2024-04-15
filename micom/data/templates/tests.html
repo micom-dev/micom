@@ -3,17 +3,19 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Growth rates</title>
+    <title>Associations</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/d3@5.15.0/dist/d3.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.27.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.24.0"></script>
 
     <style>
     #vis {
+        width: 100%;
+        margin: 1em;
+    }
+    #stats {
         width: 100%;
         margin: 1em;
     }
@@ -23,28 +25,35 @@
   <section class="section">
     <div class="container">
       <h1 class="title">
-        Metabolites associated with the phenotype
+        Association with the phenotype
       </h1>
     </div>
     <!-- Container for the visualization -->
     <div class="container">
       <p class="subtitle">
-        Each bar denotes the coefficient of the metabolite flux in a linear predictor
-        of the phenotype. All fluxes are log-transformed and standardized so
-        coefficients are roughly comparable.
+        Each bar denotes the {{statistic}} of the metabolite across the phenotype
+        with a significant FDR-corrected test (q<{{q_threshold}}). Hover over the bars
+        to see the p values, q values and test statistics. The downloadable CSV includes all
+        tests (even non-significant ones).
+        All fluxes are log-transformed and standardized so statistics are roughly comparable.
       </p>
-    <div id="coefs"></div>
-    <a href="#" class="button is-primary" onclick="download_data('coefficients')">Download coefficients as CSV...</a>
+    <div id="stats"></div>
+    <a href="#" class="button is-primary" onclick="download_data('tests')">Download association test results as CSV...</a>
     </div>
-    <br>
+    <br><br>
     <div class="container">
       <p class="subtitle">
-        The plot on the left shows a particular metabolite flux by phenotype.
+        The plot on the left shows a particular metabolite {{direction}} flux by phenotype for significant
+        interactions. Those show individual metabolite associations with the phenotype. Hover over
+        individual points to see the metabolite annotations.<br>
         The plot on the right shows the overall cross-validation performance of
-        the model in explaining the phenotype.
+        a regularized linear regression in explaining the phenotype. This uses a LASSO
+        regression with the regularization parameter learned from a 2-fold cross-validation.
+        The predictions themselves are all based on leave-one-out cross-validation. It can be
+        used as an estimate of the global assocaition of the phenotype with the flux state.
       </p>
     <div id="vis"></div>
-    <a href="#" class="button is-primary" onclick="download_data('fluxes')">Download fluxes as CSV...</a>
+    <a href="#" class="button is-primary" onclick="download_data('fluxes')">Download {{direction}} fluxes as CSV...</a>
     </div>
     <br>
     <div class="container">
@@ -59,12 +68,12 @@
     </div>
     <script>
       // Assign the specification to a local variable vlSpec.
-      var coef_spec = {
-        $schema: "https://vega.github.io/schema/vega-lite/v4.json",
+      var statSpec = {
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
         width: {{cwidth}},
-        height: {{cheight}},
+        height: 100,
         data: {
-            values: {{coefs | safe}}
+            values: {{tests | safe}}
         },
         mark: {
             type: "bar",
@@ -74,15 +83,15 @@
             x: {
                 field: "metabolite",
                 type: "nominal",
-                sort: "-coef"
+                sort: "y"
             },
             y: {
-                field: "coef",
+                field: "statistic",
                 type: "quantitative",
-                axis: {title: "coefficient [standardized]"}
+                axis: {title: "{{statistic}}"}
             },
             color: {
-                field: "coef",
+                field: "statistic",
                 type: "quantitative",
                 scale: {scheme: "magma"},
                 legend: false
@@ -90,10 +99,10 @@
         }
       }
       var vlSpec = {
-        $schema: "https://vega.github.io/schema/vega-lite/v4.json",
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
         hconcat: [{
-              width: {{width}},
-              height: {{height}},
+              width: 200,
+              height: 300,
               data: {
                   values: {{exchanges | safe}}
               },
@@ -108,12 +117,16 @@
                   }
                 }
               },
-              transform: [{
-                filter: {selection: "metab"}
-              }],
+              transform: [
+                {filter: {selection: "metab"}},
+                {calculate: "random()-0.5", as: "jitter"}
+              ],
+              title: "{{direction}}",
               mark: {
                   type: "point",
-                  tooltip: true
+                  tooltip: {content: "data"},
+                  filled: true,
+                  size: 60
               },
               encoding: {
                   y: {
@@ -123,18 +136,26 @@
                       axis: {title: "flux [mmol/gDW/h]", grid: false}
                   },
                   x: {
-                      field: "meta",
+                      field: "{{variable}}",
                       type: "{{type}}",
-                      axis: {title: "{{variable}}"}
+                      axis: {title: "{{variable}}", grid: false}
                   },
+                  {% if type == "nominal" %}
+                  xOffset: {
+                      field: "jitter",
+                      type: "quantitative",
+                      scale: {domain: [-0.6, 0.6]}
+                 }
+                 {% endif %}
               }
           }, {
-            width: {{width}},
-            height: {{height}},
+            width: 400,
+            height: 300,
             data: {
                 values: {{fitted | safe}}
             },
             {% if type == "quantitative" %}
+            title: "regression [LASSO+LOOCV]",
             mark: {
                 type: "point",
                 tooltip: true
@@ -152,25 +173,30 @@
                 },
             }
             {% else %}
+            title: "confusion matrix [LASSO+LOOCV]",
             mark: {
-                type: "bar",
+                type: "rect",
+                width: 200,
                 tooltip: true
             },
             encoding: {
-                color: {
-                    field: "predicted",
-                    type: "nominal"
-                },
+                fill: {
+                  aggregate: "count",
+                  field: "predicted",
+                  type: "quantitative",
+                  legend: null,
+                  scale: {domainMin: 0, scheme: "greys"}
+                }
+                ,
                 x: {
                     field: "real",
                     type: "nominal",
                     axis: {title: "real value"}
                 },
                 y: {
-                  aggregate: "count",
                   field: "predicted",
-                  type: "quantitative",
-                  axis: {title: "count"}
+                    type: "nominal",
+                    axis: {title: "predicted value"}
                 }
             }
             {% endif %}
@@ -178,14 +204,16 @@
       };
 
       // Embed the visualization in the container with id `vis`
-      vegaEmbed("#coefs", coef_spec, {renderer: "svg"}).then(function(r) {
-        svg = d3.select("#coefs svg");
-        svg.attr("width", "100%").attr("height", "auto");
+      vegaEmbed("#stats", statSpec, {renderer: "svg"}).then(function(r) {
+        svg = document.querySelector("#stats svg");
+        svg.setAttribute("width", "100%");
+        svg.setAttribute("height", "auto");
       });
 
       vegaEmbed("#vis", vlSpec, {renderer: "svg"}).then(function(r) {
-        svg = d3.select("#vis svg");
-        svg.attr("width", "100%").attr("height", "auto");
+        svg = document.querySelector("#vis svg");
+        svg.setAttribute("width", "100%");
+        svg.setAttribute("height", "auto");
       });
 
       {% include "blobify.js" %}

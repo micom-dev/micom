@@ -1,5 +1,6 @@
 """Submodule including some common data sets."""
 
+from ..workflows import load_results
 from os.path import split, join
 from numpy.random import randint
 import pandas as pd
@@ -68,7 +69,7 @@ def test_data(n_samples=4, uses_db=True):
     return data
 
 
-def crc_results():
+def test_results():
     """Return growth results for a realistic example data sets.
 
     This will give you access to the results as produced by the community tutorial
@@ -77,12 +78,12 @@ def crc_results():
     Returns
     -------
     GrowthResults
-        The results for running the `grow` workflow with a tradeoff of 0.3.
+        The results for running the `grow` workflow with a tradeoff of 0.8.
     """
-    return pickle.load(open(join(this_dir, "artifacts", "crc_results.pickle"), "rb"))
+    return load_results(join(this_dir, "artifacts", "results.zip"))
 
 
-def crc_tradeoff():
+def test_tradeoff():
     """Return tradeoff results for a realistic example data set.
 
     This will give you access to the tradeoffs as produced by the community tutorial

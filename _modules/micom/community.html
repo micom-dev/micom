@@ -565,7 +565,7 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">cobra</span><span class="o">.</span><span class="n">medium</span><span class="o">.</span><span class="n">is_boundary_type</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="s2">&quot;exchange&quot;</span><span class="p">,</span> <span class="n">ex</span><span class="p">):</span>
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;ex&quot;</span><span class="p">):</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
                     <span class="s2">&quot;Reaction </span><span class="si">%s</span><span class="s2"> seems to be an exchange &quot;</span> <span class="o">%</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span>
                     <span class="o">+</span> <span class="s2">&quot;reaction but its ID does not start with &#39;EX_&#39;...&quot;</span>
                 <span class="p">)</span>

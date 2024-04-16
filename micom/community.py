@@ -139,7 +139,7 @@ class Community(cobra.Model):
         if not solver:
             solver = [
                 s
-                for s in ["cplex", "gurobi", "osqp", "glpk"]
+                for s in ["cplex", "gurobi", "hybrid", "glpk"]
                 if s in cobra.util.solver.solvers
             ][0]
         logger.info("using the %s solver." % solver)
@@ -316,7 +316,7 @@ class Community(cobra.Model):
             if not cobra.medium.is_boundary_type(r, "exchange", ex):
                 continue
             if not r.id.lower().startswith("ex"):
-                logger.warning(
+                logger.debug(
                     "Reaction %s seems to be an exchange " % r.id
                     + "reaction but its ID does not start with 'EX_'..."
                 )
@@ -498,13 +498,6 @@ class Community(cobra.Model):
         for all optimizations. Different from cobrapy this will *not* return the full
         solution by default but only growth rates which is much quicker. You can
         request a full solution by setting the `fluxes` and `pFBA` arguments.
-
-        Note
-        ----
-        for OSQP this will use an additional quadratic regularization in order
-        to convert all LP problems to QPs and stabilize the solution. This may not
-        perform well if the community growth rate is larger 1000 (which it should never
-        be as this would be a doubling time of a few seconds).
 
         Parameters
         ----------
@@ -883,7 +876,7 @@ class Community(cobra.Model):
 
         """
         with open(filename, mode="wb") as out:
-            pickle.dump(self, out, protocol=4)
+            pickle.dump(self, out, protocol=pickle.HIGHEST_PROTOCOL)
 
     @cobra.Model.solver.setter
     def solver(self, s):

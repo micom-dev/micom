@@ -29,9 +29,9 @@ COMPARTMENT_RE = "(_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)"
 
 def is_active_demand(r):
     """Check if a reaction is a demand reaction."""
-    return (
-        len(r.reactants) == len(r.metabolites) and r.lower_bound > 1e-6
-    ) or (len(r.products) == len(r.metabolites) and r.upper_bound < -1e-6)
+    return (len(r.reactants) == len(r.metabolites) and r.lower_bound > 1e-6) or (
+        len(r.products) == len(r.metabolites) and r.upper_bound < -1e-6
+    )
 
 
 def fix_demands(model):
@@ -112,8 +112,10 @@ def serialize_models(files, dir="."):
         model = load_model(f)
         logger.info("serializing {}".format(f))
         pickle.dump(
-            model, open(path.join(dir, fname + ".pickle"), "wb"), protocol=2
-        )  # required for Python 2 compat
+            model,
+            open(path.join(dir, fname + ".pickle"), "wb"),
+            protocol=pickle.HIGHEST_PROTOCOL,
+        )
 
 
 def chr_or_input(m):
@@ -321,8 +323,8 @@ def adjust_solver_config(solver):
         solver.problem.Params.Threads = 1
         solver.problem.Params.LogToConsole = 0
     if interface == "hybrid":
-        solver.problem.settings["optimality_tolerance"] = 1e-5
-        solver.problem.settings["lp_method"] = "auto"
+        solver.problem.settings["optimality_tolerance"] = 1e-6
+        solver.problem.settings["lp_method"] = "interior point"
         solver.problem.settings["iteration_limit"] = 20000
         solver.problem.settings["presolve"] = "auto"
 

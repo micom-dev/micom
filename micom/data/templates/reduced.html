@@ -6,11 +6,9 @@
     <title>Taxa niche/production overlap</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/d3@5.15.0/dist/d3.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.27.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.24.0"></script>
 
     <style>
     #vis {
@@ -27,7 +25,7 @@
         Taxa niche/production overlap
       </h1>
       <p class="subtitle">
-        Each point denotes the reduced import/export fluxes for a single taxon
+        Each point denotes the reduced {{direction}} fluxes for a single taxon
         in a single sample. If two points are close to each other they consume
         (for direction="import") or produce (for direction="export") the same
         metabolites.<br>
@@ -47,7 +45,7 @@
     <script>
       // Assign the specification to a local variable vlSpec.
       var vlSpec = {
-        $schema: "https://vega.github.io/schema/vega-lite/v4.json",
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
         width: {{width}},
         height: {{height}},
         data: {
@@ -91,8 +89,9 @@
 
       // Embed the visualization in the container with id `vis`
       vegaEmbed("#vis", vlSpec, {renderer: "svg"}).then(function(r) {
-        svg = d3.select("#vis svg");
-        svg.attr("width", "100%").attr("height", "auto");
+        svg = document.querySelector("#vis svg");
+        svg.setAttribute("width", "100%");
+        svg.setAttribute("height", "auto");
       });
 
       {% include "blobify.js" %}

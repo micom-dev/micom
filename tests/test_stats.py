@@ -24,7 +24,7 @@ single_df = lambda: pd.DataFrame(
 )
 
 
-def test_grouped_fluxes(n=10):
+def make_grouped_fluxes(n=10):
     np.random.seed(42)
     dfs = []
     for group in range(1, 4):
@@ -40,7 +40,7 @@ def test_grouped_fluxes(n=10):
     return dfs
 
 
-def test_correlated_fluxes(n=10):
+def make_correlated_fluxes(n=10):
     np.random.seed(42)
     dfs = []
     for t in range(1, 9):
@@ -57,7 +57,7 @@ def test_correlated_fluxes(n=10):
 
 
 def test_comparison_binary():
-    data = test_grouped_fluxes()
+    data = make_grouped_fluxes()
     tests = ms.compare_groups(
         data, "group", groups=["group_1", "group_3"], progress=False
     )
@@ -70,7 +70,7 @@ def test_comparison_binary():
 
 
 def test_comparison_many():
-    data = test_grouped_fluxes()
+    data = make_grouped_fluxes()
     tests = ms.compare_groups(data, "group", progress=False)
     assert "metabolite_1" in tests[tests.p < 0.01].metabolite.values
     assert "metabolite_2" in tests[tests.p < 0.01].metabolite.values
@@ -81,7 +81,7 @@ def test_comparison_many():
 
 
 def test_correlation():
-    data = test_correlated_fluxes()
+    data = make_correlated_fluxes()
     tests = ms.correlate_fluxes(data, "time", progress=False)
     assert "metabolite_1" in tests[tests.p < 0.01].metabolite.values
     assert "metabolite_2" in tests[tests.p < 0.01].metabolite.values

@@ -1,7 +1,7 @@
 """Makes it easier to run analyses on several samples in parallel."""
 
 from collections import namedtuple, abc
-from multiprocessing import Pool, get_context
+from multiprocessing import get_context
 import pandas as pd
 from rich.progress import track
 import warnings

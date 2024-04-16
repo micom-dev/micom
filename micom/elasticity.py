@@ -19,9 +19,7 @@ STEP = 0.1
 
 def _get_fluxes(sol, reactions):
     """Get the primal values for a set of variables."""
-    fluxes = {
-        r.id: sol.fluxes.loc[r.community_id, r.global_id] for r in reactions
-    }
+    fluxes = {r.id: sol.fluxes.loc[r.community_id, r.global_id] for r in reactions}
     return pd.Series(fluxes)
 
 
@@ -30,9 +28,7 @@ def _derivatives(before, after):
     before_signs = np.sign(before)
     after_signs = np.sign(after)
     if any(np.abs(before_signs - after_signs) > 2):
-        ValueError(
-            "Some of the fluxes changed sign. " "Can't compute elasticities :("
-        )
+        ValueError("Some of the fluxes changed sign. " "Can't compute elasticities :(")
     direction = np.repeat("zero", len(before)).astype("<U8")
     direction[(before > 1e-6) | (after > 1e-6)] = "forward"
     direction[(before < -1e-6) | (after < -1e-6)] = "reverse"

@@ -31,8 +31,8 @@ def plot_growth(
         ["taxon", "sample_id", "abundance", "growth_rate"]
     ]
     data = {"growth_rates": rates}
+    n_taxa = rates.taxon.nunique()
     viz = Visualization(filename, data, "growth.html")
-    aspect = max(0.05, rates.taxon.nunique() / 50)
-    viz.save(data=rates.to_json(orient="records"), width=int(aspect * 400), height=400)
+    viz.save(data=rates.to_json(orient="records"), n_taxa=n_taxa)
 
     return viz

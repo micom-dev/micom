@@ -34,7 +34,7 @@ def plot_exchanges_per_sample(
         A MICOM visualization. Can be served with `viz.serve`.
     """
     exchanges = results.exchanges
-    anns = results.annotations
+    anns = results.annotations.copy().drop_duplicates(subset="metabolite")
     anns.index = anns.metabolite
     tol = exchanges.tolerance.iloc[0]
     if direction not in ["import", "export"]:

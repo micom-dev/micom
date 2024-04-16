@@ -99,7 +99,13 @@ def plot_mes(
         will be used to name the groups.
     prevalence : float in [0, 1]
         In what proportion of samples the metabolite has to have a non-zero MES to
-        be shown. Can be used to remove exchanges only taking place in a few samples.
+        be shown on the plots. Can be used to show only very commonly exchanged
+        metabolites.
+
+    Notes
+    -----
+    The CSV files will always include all MES scores independent of the prevalence
+    filter which is only used for visualization.
 
     Returns
     -------
@@ -107,8 +113,8 @@ def plot_mes(
         A MICOM visualization. Can be served with `viz.serve`.
     """
     tol = results.exchanges.tolerance.max()
-    scores = MES(results, tol)
-    scores = scores[scores.MES > 0]
+    raw = MES(results, tol)
+    scores = raw[raw.MES > 0]
     prev = scores.metabolite.value_counts() / scores.sample_id.nunique()
     prev = prev[prev > prevalence].index
     scores = scores[scores.metabolite.isin(prev)]
@@ -122,7 +128,7 @@ def plot_mes(
         scores["group"] = "all"
         name = "group"
     n_mets = scores.metabolite.nunique()
-    data = {"scores": scores}
+    data = {"scores": raw}
     viz = Visualization(filename, data, "scores.html")
     viz.save(
         scores=scores.to_json(orient="records"),

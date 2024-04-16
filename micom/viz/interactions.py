@@ -93,9 +93,10 @@ def plot_mes(
         The results returned by the `grow` workflow.
     filename : str
         The HTML file where the visualization will be saved.
-    metadata : pandas.DataFrame
-        Additional metadata to stratify MES score. Must contain a column called
-        `sample_id` and other categorical columns.
+    groups : pandas.Series
+        Additional metadata to stratify MES score. The index must correspond to the
+        `sample_id` in the results and values must be categorical. The `.name` attribute
+        will be used to name the groups.
     prevalence : float in [0, 1]
         In what proportion of samples the metabolite has to have a non-zero MES to
         be shown. Can be used to remove exchanges only taking place in a few samples.
@@ -119,6 +120,7 @@ def plot_mes(
         scores[name] = groups[scores.sample_id].values
     else:
         scores["group"] = "all"
+        name = "group"
     n_mets = scores.metabolite.nunique()
     data = {"scores": scores}
     viz = Visualization(filename, data, "scores.html")

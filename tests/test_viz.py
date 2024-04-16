@@ -55,4 +55,19 @@ def test_association(growth_data, tmp_path):
 
     with pytest.raises(ValueError):
         v = viz.plot_association(growth_data, meta, variable_type="dog",
-                         filename=str(tmp_path / "viz.html"))
+                         filename=str(tmp_path / "viz.html")
+        )
+
+
+def test_plot_focal_interactions(growth_data, tmp_path):
+    v = viz.plot_focal_interactions(
+        growth_data,
+        taxon="Escherichia_coli_2",
+        filename=str(tmp_path / "viz.html")
+    )
+    check_viz(v)
+
+
+def test_plot_mes(growth_data, tmp_path):
+    v = viz.plot_mes(growth_data, str(tmp_path / "viz.html"))
+    check_viz(v)

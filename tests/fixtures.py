@@ -15,13 +15,18 @@ def community():
     """A simple community containing 4 species."""
     return micom.Community(micom.data.test_taxonomy(), progress=False)
 
+@pytest.fixture
+def results():
+    """A more complex results example."""
+    res = md.test_results()
+    return res
+
 
 @pytest.fixture
 def linear_community():
     """A simple community containing 4 species."""
     return micom.Community(micom.data.test_taxonomy(), progress=False,
                            solver="glpk")
-
 
 
 def check_viz(v):

@@ -107,7 +107,7 @@ def interactions(
     if isinstance(taxa, str):
         return _interact([results, taxa])
     elif taxa is None:
-        taxa = results.growth_rates.taxon.drop("medium").unique()
+        taxa = results.growth_rates.taxon.unique()
 
     ints = pd.concat(
         workflow(

@@ -5,7 +5,7 @@ import micom.viz as viz
 from os import path
 import pandas as pd
 import pytest
-import sys
+import random
 
 
 def test_plot_growth(growth_data, tmp_path):
@@ -55,4 +55,26 @@ def test_association(growth_data, tmp_path):
 
     with pytest.raises(ValueError):
         v = viz.plot_association(growth_data, meta, variable_type="dog",
-                         filename=str(tmp_path / "viz.html"))
+                         filename=str(tmp_path / "viz.html")
+        )
+
+
+def test_plot_focal_interactions(growth_data, tmp_path):
+    v = viz.plot_focal_interactions(
+        growth_data,
+        taxon="Escherichia_coli_2",
+        filename=str(tmp_path / "viz.html")
+    )
+    check_viz(v)
+
+
+def test_plot_mes(growth_data, tmp_path):
+    v = viz.plot_mes(growth_data, filename=str(tmp_path / "viz.html"))
+    check_viz(v)
+    groups = pd.Series(
+        random.choices(["a", "b"], k=4),
+        index=growth_data.growth_rates.sample_id.unique(),
+        name="random"
+    )
+    v = viz.plot_mes(growth_data, groups=groups, filename=str(tmp_path / "viz.html"))
+    check_viz(v)

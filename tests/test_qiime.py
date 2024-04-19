@@ -14,7 +14,7 @@ def test_qiime_db(tmp_path):
     assert "uuid" in meta
     assert meta["type"] == "MetabolicModels[JSON]"
     manifest = qf.load_qiime_model_db(db, str(tmp_path))
-    assert manifest.shape[0] == 3
+    assert manifest.shape[0] == 4
     assert all(path.exists(f) for f in manifest.file)
 
 @mark.parametrize("arti", [db, models])

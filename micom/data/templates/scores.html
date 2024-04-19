@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{name}}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.27.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.17.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.24.0"></script>
+
+    <style>
+    #viz {
+        width: 100%;
+        margin: 1em;
+    }
+    #summ {
+        width: 100%;
+        margin: 1em;
+    }
+    </style>
+  </head>
+  <body>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+        {{ name }}
+      </h1>
+      <br><br>
+      <p class="subtitle">
+        Summarized {{name}} across all samples in a group.<br>
+        Hover over each point to see its annotations. Use the "..." menu in the
+        upper right hand side to export the plot into various formats.
+      </p>
+    </div>
+    <!-- Container for the visualization -->
+    <div class="container">
+    <div id="summ"></div>
+    <a href="#" class="button is-primary" onclick="download_data('scores')">Download as CSV...</a>
+    </div>
+    <br><br>
+    <div class="container">
+      <p class="subtitle">
+        Each point denotes the {{ name }} for a single metabolite in one sample.
+        Click a point to select points from only that sample. Click on an
+        empty region of the plot to reset the selection.<br>
+        Hover over each point to see its annotations. Use the "..." menu in the
+        upper right hand side to export the plot into various formats.
+      </p>
+    </div>
+    <!-- Container for the visualization -->
+    <div class="container">
+    <div id="viz"></div>
+    <a href="#" class="button is-primary" onclick="download_data('scores')">Download as CSV...</a>
+    </div>
+    <script>
+      var summary = {
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+        width: 400,
+        height: 300,
+        data: {
+            values: {{scores | safe}}
+        },
+        transform: [
+          {
+            density: "{{col_name}}",
+            groupby: ["{{cat}}"]
+          }
+        ],
+        mark: "area",
+        encoding: {
+          x: {
+            field: "value",
+            type: "quantitative",
+            scale: {type: "log"},
+            axis: {title: "{{name}}"}
+          },
+          y: {
+            field: "density",
+            type: "quantitative"
+          },
+          color: {
+            field: "{{cat}}"
+          }
+        }
+      };
+      var spec = {
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+        width: 200,
+        height: {{ 16*n_mets }},
+        data: {
+            values: {{scores | safe}}
+        },
+        selection: {
+          pts: {type: "single", fields: ["sample_id"]}
+        },
+        transform: [{
+          calculate: "random()-0.5",
+          as: "jitter"
+        }],
+        mark: {
+            type: "point",
+            filled: true,
+            size: 40,
+            tooltip: {content: "data"}
+        },
+        encoding: {
+          x: {
+            field: "{{col_name}}",
+            type: "quantitative",
+            scale: {type: "log"},
+            axis: {title: "{{name}}", grid: false}
+          },
+          y: {
+            field: "name",
+            type: "nominal",
+            sort: {op: "mean", field: "{{col_name}}"},
+            axis: {title: null, grid: true}
+          },
+          yOffset: {
+            field: "jitter",
+            type: "quantitative",
+            scale: {domain: [-0.9, 0.9]}
+          },
+          color: {
+            condition: {
+              selection: "pts",
+              field: "{{cat}}",
+              type: "nominal",
+              legend: null
+            },
+            value: "lightgrey"
+          },
+          opacity: {
+            condition: {
+                selection: "pts",
+                value: 0.8
+            },
+            value: 0.2
+          }
+        }
+      };
+
+      vegaEmbed("#summ", summary, {renderer: "svg"}).then(function(r) {
+        svg = document.querySelector("#summ svg");
+        svg.setAttribute("width", "100%")
+        svg.setAttribute("height", "auto")
+      });
+      // Embed the visualization in the container with id `vis`
+      vegaEmbed("#viz", spec, {renderer: "svg"}).then(function(r) {
+        svg = document.querySelector("#viz svg");
+        svg.setAttribute("width", "100%")
+        svg.setAttribute("height", "auto")
+      });
+
+      {% include "blobify.js" %}
+    </script>
+  </section>
+  </body>
+</html>

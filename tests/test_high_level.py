@@ -24,7 +24,7 @@ def test_db(tmp_path):
     tax = md.test_taxonomy()
     manifest.file = tax.file[0]
     built = build_database(manifest, str(tmp_path), rank="species")
-    assert built.shape[0] == 3
+    assert built.shape[0] == 4
     for fi in built.file:
         assert (tmp_path / fi).exists()
     built = build_database(manifest, str(tmp_path / "db.zip"))

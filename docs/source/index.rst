@@ -47,6 +47,7 @@ Contents
    Installing MICOM <installing>
 
    MICOM workflows <high_level>
+   Interactions <interactions>
    Visualizations <viz>
    Writing your own workflows <workflows>
 

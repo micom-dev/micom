@@ -223,7 +223,7 @@ class Community(cobra.Model):
             )
             logger.info(
                 "Matched %g%% of total abundance in model DB."
-                % (100.0 * self.__db_metrics.iloc[3])
+                % (100.0 * self.__db_metrics["found_abundance_fraction"])
             )
             if self.__db_metrics["found_abundance_fraction"] < 0.5:
                 logger.warning(

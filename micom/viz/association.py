@@ -75,8 +75,6 @@ def plot_association(
 
     """
     exchanges = results.exchanges
-    anns = results.annotations.drop_duplicates(subset=["metabolite"])
-    anns.index = anns.metabolite
     if flux_type == "import":
         exchanges = consumption_rates(results)
     else:

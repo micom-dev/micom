@@ -285,6 +285,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
+    "You can choose many types of interaction fluxes by passing the `kind` argument. Currently supported options are:\n",
+    "- \"flux\": the raw flux\n",
+    "- \"mass\": the mass flux\n",
+    "- \"C\": the carbon flux\n",
+    "- \"N\": the nitrogen flux\n",
+    "\n",
     "This will give you a larger overview that looks like this:"
    ]
   },

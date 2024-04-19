@@ -22,6 +22,18 @@ Functions
 
 
 
+Attributes
+~~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.viz.association.PANDAS_VERSION
+
+
+.. py:data:: PANDAS_VERSION
+
+   
+
 .. py:function:: plot_association(results, phenotype, variable_type='binary', variable_name='phenotype', filename='association_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', fdr_threshold=0.05, threads=1, atol=1e-06)
 
    Test for differential metabolite production.

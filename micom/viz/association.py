@@ -22,7 +22,7 @@ from sklearn.linear_model import (
 )
 from sklearn.preprocessing import StandardScaler
 
-PANDAS_VERSION = (int(x) for x in pd.__version__.split("."))
+PANDAS_VERSION = tuple(int(x) for x in pd.__version__.split("."))
 
 
 def plot_association(

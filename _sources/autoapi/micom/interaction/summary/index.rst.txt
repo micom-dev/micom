@@ -1,0 +1,43 @@
+:py:mod:`micom.interaction.summary`
+===================================
+
+.. py:module:: micom.interaction.summary
+
+.. autoapi-nested-parse::
+
+   Functions to summarize interactions over all metabolites.
+
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.interaction.summary._summarize
+   micom.interaction.summary.summarize_interactions
+
+
+
+.. py:function:: _summarize(ints: pandas.DataFrame) -> pandas.DataFrame
+
+   Summarize the overall interactions.
+
+
+.. py:function:: summarize_interactions(ints: pandas.DataFrame) -> pandas.DataFrame
+
+   Summarize interactions to key quantities.
+
+   :param ints: The interactions for individual metabolites calculated before.
+   :type ints: pandas.DataFrame
+
+   :returns: The summarized interactions contaning the total flux, mass flux, carbon flux,
+             nitrogen flux and number of interactions between any pair of taxa in that
+             sample.
+   :rtype: pandas.DataFrame
+
+

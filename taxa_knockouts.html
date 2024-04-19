@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Elasticities" href="elasticities.html" /><link rel="prev" title="Growth media" href="media.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>Taxa knockouts - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
     
@@ -165,7 +165,9 @@
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Strategies used by MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactions.html">Interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html#Plotting-interactions">Plotting interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows.html">Writing your own workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Single Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
@@ -177,15 +179,22 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/micom/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="autoapi/micom/data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.data</span></code></a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/interaction/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.interaction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/focal/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.focal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/scores/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.scores</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/summary/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.summary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/association/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.association</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/exchanges/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.exchanges</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/growth/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.growth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/interactions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.interactions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.tradeoff</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of micom.workflows</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of micom.workflows</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/build/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.build</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/db_media/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.db_media</span></code></a></li>
@@ -250,7 +259,7 @@
         </div>
         <article role="main">
           <section id="Taxa-knockouts">
-<h1>Taxa knockouts<a class="headerlink" href="#Taxa-knockouts" title="Link to this heading">#</a></h1>
+<h1>Taxa knockouts<a class="headerlink" href="#Taxa-knockouts" title="Link to this heading">¶</a></h1>
 <p>An interesting question concerning any given microbial community is how dependent the growth of one bacteria is one the presence of other bacteria. One strategy to answer that is to perform <em>in silico</em> knockouts for each individual taxa in a community and observe how this changes the growth rates of other bacteria. If the knowckout of one bacteria increases the growth of another one this indicates competitivity whereas a dimished growth rate indicted cooperativity. In order to get unique growth
 rate solutions we will again use cooperative tradeoff.</p>
 <p>For large models as managed in micom running those knockouts can be challenging due to numerical problems and the tendency of the solvers to get stuck in a previous solutions. <code class="docutils literal notranslate"><span class="pre">micom</span></code> thus implements an optimized knockout algorithms that avoids numerical and solver issues as much as possible.</p>
@@ -674,7 +683,7 @@ ko
     </aside>
   </div>
 </div><script src="_static/documentation_options.js?v=1fb6f64b"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>

@@ -3,13 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Visualizations" href="viz.html" /><link rel="prev" title="Preamble" href="installing.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Analyzing metabolic interactions" href="interactions.html" /><link rel="prev" title="Preamble" href="installing.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>MICOM workflows - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
     
@@ -165,7 +165,9 @@
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Strategies used by MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactions.html">Interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html#Plotting-interactions">Plotting interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows.html">Writing your own workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Single Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
@@ -177,15 +179,22 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/micom/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="autoapi/micom/data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.data</span></code></a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/interaction/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.interaction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/focal/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.focal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/scores/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.scores</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/summary/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.summary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/association/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.association</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/exchanges/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.exchanges</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/growth/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.growth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/interactions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.interactions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.tradeoff</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of micom.workflows</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of micom.workflows</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/build/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.build</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/db_media/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.db_media</span></code></a></li>
@@ -250,7 +259,7 @@
         </div>
         <article role="main">
           <section id="MICOM-workflows">
-<h1>MICOM workflows<a class="headerlink" href="#MICOM-workflows" title="Link to this heading">#</a></h1>
+<h1>MICOM workflows<a class="headerlink" href="#MICOM-workflows" title="Link to this heading">¶</a></h1>
 <p>The MICOM workflow API provides prebuilt solutions for the most common MICOM analyses across several samples. This will manage most of the workload for you and uses an efficient parallelization scheme to make use of several CPU cores. The workflow API is probably the best entry point for you if the following is true:</p>
 <ol class="arabic simple">
 <li><p>You have at least 2 samples with taxonomy assignments and abundances for each</p></li>
@@ -259,9 +268,9 @@
 </ol>
 <p>In that case the prebuilt workflows will make your analysis much simpler and faster and will take care of parallelizing your analyses. The worflow API can be mixed with the MICOM API at any point. So you could do a few steps with the workflows and then run you own analyses downstream from that. Additionally, you can directly import you start data from Qiime 2. See the <a class="reference external" href="qiime2.html">Loading Qiime 2 data</a>.</p>
 <section id="Building-and-models-and-simulating-growth">
-<h2>Building and models and simulating growth<a class="headerlink" href="#Building-and-models-and-simulating-growth" title="Link to this heading">#</a></h2>
+<h2>Building and models and simulating growth<a class="headerlink" href="#Building-and-models-and-simulating-growth" title="Link to this heading">¶</a></h2>
 <section id="Input-formats">
-<h3>Input formats<a class="headerlink" href="#Input-formats" title="Link to this heading">#</a></h3>
+<h3>Input formats<a class="headerlink" href="#Input-formats" title="Link to this heading">¶</a></h3>
 <p>To start building community models for all your samples you will need to provide your data to MICOM. MICOM prefers to have the taxonomy and abundances for all samples in a single <a class="reference external" href="https://vita.had.co.nz/papers/tidy-data.pdf">tidy DataFrame</a>. Here each taxon in each sample is a row which provides its taxonomy and abundance. This may sound a bit confusing but should become pretty clear when looking at an example. MICOM can generate a simple example DataFrame which we can use as guidance.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -494,7 +503,7 @@ the mapping with the database more stringent. For instance, here we provided a c
 <p>Thus, the more taxonomic rank columns you include in the data you pass to MICOM, the more stringent MICOM will become matching to the reference database. This can be used to circumvent poorly matching ranks as well. For instance, if you know your data matches well by genus and phylum names but families are named differently even for the same taxa you can omit the “family” column from your data.</p>
 </section>
 <section id="Building-community-models">
-<h3>Building community models<a class="headerlink" href="#Building-community-models" title="Link to this heading">#</a></h3>
+<h3>Building community models<a class="headerlink" href="#Building-community-models" title="Link to this heading">¶</a></h3>
 <p>To build a community sample for each of your sample you will need the abundance table as provided above and a model database. Usually we recommend to use one of the prebuilt MICOM database from <a class="reference external" href="https://doi.org/10.5281/zenodo.3755182">https://doi.org/10.5281/zenodo.3755182</a>. Additionally, you can also <a href="#id1"><span class="problematic" id="id2">`create your own database &lt;&gt;`__</span></a>.</p>
 <p>For our example we have a custom species-level database that is bundled with MICOM. With the abundance table and database you can now start building your models by providing a folder where the assembled community models should be stored.</p>
 <div class="nbinput docutils container">
@@ -639,7 +648,7 @@ print(len(com.reactions))
 </div>
 </section>
 <section id="Simulating-growth">
-<h3>Simulating growth<a class="headerlink" href="#Simulating-growth" title="Link to this heading">#</a></h3>
+<h3>Simulating growth<a class="headerlink" href="#Simulating-growth" title="Link to this heading">¶</a></h3>
 <p>With our built models we can now advance to simulating growth with MICOMs <code class="docutils literal notranslate"><span class="pre">cooperative</span> <span class="pre">tradeoff</span></code> algorithm. This will use the manifest we just generated but will also require a growth medium to be specified. A growth medium provided information which metabolites are available to the microbes for consumption and also provided an upper bound on the flux it is added to the system. This can be obtained from fluxomics data or approximated from growth media (for cultivation settings) or diet data
 (for gut microbiota models). Obtaining a correct media composition can be challenging. We will show some helper functions for that later on but for now we will use a pres-specified medium saved in Qiime 2 format. We also provide a growth medium describing an average Western diet for the AGORA model database at <a class="reference external" href="https://doi.org/10.5281/zenodo.3755182">https://doi.org/10.5281/zenodo.3755182</a>.</p>
 <p>Growth media in MICOM are pretty simple DataFrames and can be read from a variety of formats. Here we will use the Qiime 2 Artifact format.</p>
@@ -747,7 +756,7 @@ res = grow(manifest, model_folder=&quot;models&quot;, medium=medium, tradeoff=0.
 <p>This gives us a results tuple with three entries: <code class="docutils literal notranslate"><span class="pre">growth_rates</span></code>, <code class="docutils literal notranslate"><span class="pre">exchanges</span></code>, and <code class="docutils literal notranslate"><span class="pre">annotations</span></code> providing the growth rates, exchange fluxes and metabolite annotations, respectively. This could be passed on to the visualization workflows or you could run your own analyses on those DataFrames. But for now we will go back and look at some helper workflows to choose a tradeoff parameter and get media.</p>
 </section>
 <section id="Choosing-a-tradeoff-parameter">
-<h3>Choosing a tradeoff parameter<a class="headerlink" href="#Choosing-a-tradeoff-parameter" title="Link to this heading">#</a></h3>
+<h3>Choosing a tradeoff parameter<a class="headerlink" href="#Choosing-a-tradeoff-parameter" title="Link to this heading">¶</a></h3>
 <p>Results depend strongly on the tradeoff parameter. Even though values between 0.3-0.6 usually work well we recommend to run a tradeoff analysis to choose the best parameters for your data set and protocol. If you have already analyzed many samples in your lab and found a particular value to work well in general you may just use that but you should at least run this analysis once. In <a class="reference external" href="https://doi.org/10.1128/mSystems.00606-19">our paper</a> we found that tradeoff best reproducing <em>in vivo</em> growth
 rates is the largest tradeoff that allows the majority of the bacteria to grow. Thus, the best tradeoff value is the value providing the best compromise between individual and cooperative growth.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">tradeoff</span></code> workflow will run growth simulations with several tradeoff values and return the results.</p>
@@ -968,7 +977,7 @@ tradeoff_rates.head()
 <p>In that case all taxa (3 taxa for 4 samples each) can grow for all tradeoff values since we provided an excess of nutrients in the medium. So a tradeoff of 1.0 would have been the best here. For real data you will usually see those numbers decline for larger tradeoff values. A more detailed analysis can be performed with the <code class="docutils literal notranslate"><span class="pre">`plot_tradeoff</span></code> visualization &lt;viz.html&gt;`__.</p>
 </section>
 <section id="Fixing-growth-media">
-<h3>Fixing growth media<a class="headerlink" href="#Fixing-growth-media" title="Link to this heading">#</a></h3>
+<h3>Fixing growth media<a class="headerlink" href="#Fixing-growth-media" title="Link to this heading">¶</a></h3>
 <p>Providing a growth medium may be complicated since you often only have some intuitions about a few components of the medium but lack information on others. Even when supplying putatively complete descriptions you will often observe that the models will predict the absence of growth since you are lacking an essential cofactor. To help with this MICOM provides a workflow that can complete any predefined growth medium with the minimal additional substrates to allow growth for all taxa in the
 database.</p>
 <p>For instance let us assume we know that our <em>E. coli</em> samples consume Glucose and Oxygen. The respective exchange reactions are <code class="docutils literal notranslate"><span class="pre">EX_glc__D_m</span></code> and <code class="docutils literal notranslate"><span class="pre">EX_o2_m</span></code>. So we can start by building our candidate medium assuming we can import twice as much oxygen as glucose.</p>
@@ -1125,12 +1134,12 @@ medium
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="viz.html">
+          <a class="next-page" href="interactions.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Visualizations</div>
+                <div class="title">Analyzing metabolic interactions</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -1196,7 +1205,7 @@ medium
     </aside>
   </div>
 </div><script src="_static/documentation_options.js?v=1fb6f64b"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>

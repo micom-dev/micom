@@ -3,13 +3,13 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Writing your own workflows" href="workflows.html" /><link rel="prev" title="MICOM workflows" href="high_level.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Writing your own workflows" href="workflows.html" /><link rel="prev" title="Analyzing metabolic interactions" href="interactions.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>Visualizations - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
     
@@ -165,7 +165,9 @@
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Strategies used by MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactions.html">Interactions</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#Plotting-interactions">Plotting interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows.html">Writing your own workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Single Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
@@ -177,15 +179,22 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/micom/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="autoapi/micom/data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.data</span></code></a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/interaction/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.interaction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/focal/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.focal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/scores/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.scores</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/summary/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.summary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/association/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.association</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/exchanges/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.exchanges</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/growth/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.growth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/interactions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.interactions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.tradeoff</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of micom.workflows</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of micom.workflows</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/build/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.build</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/db_media/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.db_media</span></code></a></li>
@@ -250,7 +259,7 @@
         </div>
         <article role="main">
           <section id="Visualizations">
-<h1>Visualizations<a class="headerlink" href="#Visualizations" title="Link to this heading">#</a></h1>
+<h1>Visualizations<a class="headerlink" href="#Visualizations" title="Link to this heading">¶</a></h1>
 <p>MICOM provides a a set of visualizations that can be used with the outputs from MICOM workflows. Those visualizations are the same as provided by the <a class="reference external" href="https://github.com/micom-dev/q2-micom">MICOM Qiime 2 plugin</a> but are delivered as single HTML files that bundles interactive graphics and raw data.</p>
 <p>To create some more interesting figures here we will use a realistic example data set which is the output of running the MICOM grow workflow on a data set of 10 healthy fecal samples from the <a class="reference external" href="https://www.hmpdacc.org/ihmp/">iHMP cohort</a>. To see the interactive version of a visualization you can click on the provided previews. All visualization contain download buttons to download the raw data used to generate the plot.</p>
 <div class="nbinput nblast docutils container">
@@ -265,7 +274,7 @@ tradeoff = mmd.test_tradeoff()
 </div>
 </div>
 <section id="Choosing-a-tradeoff-value">
-<h2>Choosing a tradeoff value<a class="headerlink" href="#Choosing-a-tradeoff-value" title="Link to this heading">#</a></h2>
+<h2>Choosing a tradeoff value<a class="headerlink" href="#Choosing-a-tradeoff-value" title="Link to this heading">¶</a></h2>
 <p>In the original MICOM publication we chose the tradeoff based on comparisons with <em>in vivo</em> replication rates derived from metagenome data. However, we observed that the highest correlation with replication rates is usually achieved at the largest tradeoff value that allows the majority of the taxa to grow. Thus, we can run cooperative tradeoff with varying tradeoff values and look for the characteristic elbow where the majority of the community can grow. This can be done by using the
 <code class="docutils literal notranslate"><span class="pre">plot_tradeoff</span></code> function.</p>
 <div class="nbinput nblast docutils container">
@@ -293,7 +302,7 @@ pl = plot_tradeoff(tradeoff, filename=&quot;tradeoff.html&quot;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;micom.viz.core.Visualization at 0x7ff72ce1d950&gt;
+&lt;micom.viz.core.Visualization at 0x7fe492ffce90&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -317,7 +326,7 @@ dict_keys([&#39;tradeoff&#39;])
 <p><a class="reference external" href="_static/tradeoff.html"><img alt="tradeoff" src="_images/tradeoff.png" /></a></p>
 </section>
 <section id="Plotting-growth-rates">
-<h2>Plotting growth rates<a class="headerlink" href="#Plotting-growth-rates" title="Link to this heading">#</a></h2>
+<h2>Plotting growth rates<a class="headerlink" href="#Plotting-growth-rates" title="Link to this heading">¶</a></h2>
 <p>The first thing we may want to investigate are the growth rates predicted by MICOM. This can be done with the <code class="docutils literal notranslate"><span class="pre">plot_growth</span></code> function.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -333,7 +342,7 @@ pl = plot_growth(results, filename=&quot;growth_rates.html&quot;)
 <p><a class="reference external" href="_static/growth_rates.html"><img alt="growth rates" src="_images/growth_rates.png" /></a></p>
 </section>
 <section id="Plotting-consumed-metabolites">
-<h2>Plotting consumed metabolites<a class="headerlink" href="#Plotting-consumed-metabolites" title="Link to this heading">#</a></h2>
+<h2>Plotting consumed metabolites<a class="headerlink" href="#Plotting-consumed-metabolites" title="Link to this heading">¶</a></h2>
 <p>To get an overview which metabolites are consumed by the entire microbiota we can use the <code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_sample</span></code> function.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -349,7 +358,7 @@ pl = plot_exchanges_per_sample(results, filename=&quot;consumption.html&quot;)
 <p><a class="reference external" href="_static/consumption.html"><img alt="consumption" src="_images/consumption.png" /></a></p>
 </section>
 <section id="Plotting-growth-niches">
-<h2>Plotting growth niches<a class="headerlink" href="#Plotting-growth-niches" title="Link to this heading">#</a></h2>
+<h2>Plotting growth niches<a class="headerlink" href="#Plotting-growth-niches" title="Link to this heading">¶</a></h2>
 <p>What is consumed globally may be interesting but we may want to know even more how the available growth niches are occupied by the taxa in the sample. This can be done with <code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_taxon</span></code> which will embed the import fluxes for each taxon into two dimension using TSNE and plot the niche occupation map. Here taxa that overlap compete for similar sets of resources. The center of the map denotes the most competitive niche whereas the outskirts of the map denote more specialized
 consumption preferences.</p>
 <div class="nbinput docutils container">
@@ -366,14 +375,14 @@ pl = plot_exchanges_per_taxon(results, filename=&quot;niche.html&quot;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area rendered_html docutils container">
-<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[13:02:03] </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> Not enough samples. Adjusting T-SNE perplexity to <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5</span>.                           <a href="file:///home/cdiener/code/micom/micom/viz/exchanges.py" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">exchanges.py</span></a><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">:</span><a href="file:///home/cdiener/code/micom/micom/viz/exchanges.py#127" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">127</span></a>
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #7fbfbf; text-decoration-color: #7fbfbf">[12:54:10] </span><span style="color: #800000; text-decoration-color: #800000">WARNING </span> Not enough samples. Adjusting T-SNE perplexity to <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5</span>.                           <a href="file:///home/cdiener/code/micom/micom/viz/exchanges.py" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">exchanges.py</span></a><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">:</span><a href="file:///home/cdiener/code/micom/micom/viz/exchanges.py#127" target="_blank"><span style="color: #7f7f7f; text-decoration-color: #7f7f7f">127</span></a>
 </pre></div>
 </div>
 <p>This will give you the following:</p>
 <p><a class="reference external" href="_static/niche.html"><img alt="niche" src="_images/niche.png" /></a></p>
 </section>
 <section id="Investigating-associations-with-a-phenotype">
-<h2>Investigating associations with a phenotype<a class="headerlink" href="#Investigating-associations-with-a-phenotype" title="Link to this heading">#</a></h2>
+<h2>Investigating associations with a phenotype<a class="headerlink" href="#Investigating-associations-with-a-phenotype" title="Link to this heading">¶</a></h2>
 <p>Finally we may want to which fluxes relate to an observed phenotype. This can be done with the <code class="docutils literal notranslate"><span class="pre">plot_association</span></code> function which will:</p>
 <ol class="arabic simple">
 <li><p>calculate overall production or consumption fluxes (total metabolite amount produced by the microbiota)</p></li>
@@ -386,7 +395,7 @@ pl = plot_exchanges_per_taxon(results, filename=&quot;niche.html&quot;)
 <p>So you will get data on local (metabolite) and global (all fluxes) associations.</p>
 <p>To illustrate this we will create a mock phenotype that is correlated with propionate production. We will allow very high q values here. In a real analysis the default of 0.05 is more appropriate,</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.viz import plot_association
@@ -410,17 +419,44 @@ pl = plot_association(
 </div>
 </div>
 <p>The output will look something like the following.</p>
-<p><a class="reference external" href="_static/association.html"><img alt="fit" src="_images/association.png" /></a></p>
+<p><a class="reference external" href="_static/association.html"><img alt="image of the associations" src="_images/association.png" /></a></p>
 <p>So we see we recovered propionate in the analysis but we would need larger sample sizes here.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
 </section>
+</section>
+<section id="Plotting-interactions">
+<h1>Plotting interactions<a class="headerlink" href="#Plotting-interactions" title="Link to this heading">¶</a></h1>
+<p>We provide support to plot focal interactions for a taxon of interest or the Metabolic Exchange Score (MES). For instance, let’s start by plotting the interactions for Akkermansia.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.viz import plot_focal_interactions
+
+pl = plot_focal_interactions(results, taxon=&quot;s__Akkermansia_muciniphila&quot;)
+</pre></div>
+</div>
+</div>
+<p>This will give you a larger overview that looks like this:</p>
+<p><a class="reference external" href="_static/focal.html"><img alt="focal examples" src="_images/focal.png" /></a></p>
+<p>Alternatively you can also visualize the Metabolic Exchange Scores. This can be done across different groups as well. To illustrate this let’s do this with some random groups.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.viz import plot_mes
+
+groups = pd.Series(
+    5 * [&quot;a&quot;] + 5 * [&quot;b&quot;],
+    index=results.growth_rates.sample_id.unique(),
+    name=&quot;random&quot;
+)
+
+pl = plot_mes(results, groups=groups, filename=&quot;mes.html&quot;)
+</pre></div>
+</div>
+</div>
+<p>Here you see the MES for each metabolite and also a global overview across the groups.</p>
+<p><a class="reference external" href="_static/mes.html"><img alt="MES example" src="_images/mes.png" /></a></p>
 </section>
 
         </article>
@@ -437,14 +473,14 @@ pl = plot_association(
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="high_level.html">
+          <a class="prev-page" href="interactions.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">MICOM workflows</div>
+                <div class="title">Analyzing metabolic interactions</div>
                 
               </div>
             </a>
@@ -486,6 +522,7 @@ pl = plot_association(
 <li><a class="reference internal" href="#Investigating-associations-with-a-phenotype">Investigating associations with a phenotype</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#Plotting-interactions">Plotting interactions</a></li>
 </ul>
 
           </div>
@@ -496,7 +533,7 @@ pl = plot_association(
     </aside>
   </div>
 </div><script src="_static/documentation_options.js?v=1fb6f64b"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>

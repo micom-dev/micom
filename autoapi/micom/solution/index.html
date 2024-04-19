@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="micom.stats" href="../stats/index.html" /><link rel="prev" title="micom.qiime_formats" href="../qiime_formats/index.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>micom.solution - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=36a5483c" />
     
     
@@ -164,7 +164,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../logic.html">Strategies used by MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installing.html">Installing MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../interactions.html">Interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../viz.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../viz.html#Plotting-interactions">Plotting interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../workflows.html">Writing your own workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../community.html">Single Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../growth_fluxes.html">Growth rates and fluxes</a></li>
@@ -176,15 +178,22 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom</span></code></a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.data</span></code></a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../interaction/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.interaction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../interaction/focal/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.focal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interaction/scores/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.scores</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interaction/summary/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.summary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../viz/association/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.association</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../viz/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../viz/exchanges/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.exchanges</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../viz/growth/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.growth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../viz/interactions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.interactions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../viz/tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.tradeoff</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of micom.workflows</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of micom.workflows</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../workflows/build/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.build</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../workflows/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../workflows/db_media/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.db_media</span></code></a></li>
@@ -249,12 +258,12 @@
         </div>
         <article role="main">
           <section id="module-micom.solution">
-<span id="micom-solution"></span><h1><a class="reference internal" href="#module-micom.solution" title="micom.solution"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.solution</span></code></a><a class="headerlink" href="#module-micom.solution" title="Link to this heading">#</a></h1>
+<span id="micom-solution"></span><h1><a class="reference internal" href="#module-micom.solution" title="micom.solution"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.solution</span></code></a><a class="headerlink" href="#module-micom.solution" title="Link to this heading">¶</a></h1>
 <p>A community solution object.</p>
 <section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <section id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h3>
+<h3>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -266,7 +275,7 @@
 </div>
 </section>
 <section id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h3>
+<h3>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -296,7 +305,7 @@
 </div>
 </section>
 <section id="attributes">
-<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h3>
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -308,24 +317,24 @@
 </div>
 <dl class="py data">
 <dt class="sig sig-object py" id="micom.solution.good">
-<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">good</span></span><a class="reference internal" href="../../../_modules/micom/solution.html#good"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.good" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">good</span></span><a class="reference internal" href="../../../_modules/micom/solution.html#good"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.good" title="Link to this definition">¶</a></dt>
 <dd><p>Solver states that permit returning the solution.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.solution._group_taxa">
-<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">_group_taxa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">what</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'reaction'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#_group_taxa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution._group_taxa" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">_group_taxa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">what</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'reaction'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#_group_taxa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution._group_taxa" title="Link to this definition">¶</a></dt>
 <dd><p>Format a list of values by id and taxa.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">CommunitySolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metabolites</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">CommunitySolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metabolites</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">cobra.core.Solution</span></code></p>
 <p>An FBA solution for an entire community.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.objective_value">
-<span class="sig-name descname"><span class="pre">objective_value</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.objective_value" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">objective_value</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.objective_value" title="Link to this definition">¶</a></dt>
 <dd><p>The (optimal) value for the objective function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -336,7 +345,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.members">
-<span class="sig-name descname"><span class="pre">members</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.members" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">members</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.members" title="Link to this definition">¶</a></dt>
 <dd><p>Contains basic info about the individual compartments/members of the
 community such as id, abundance and growth rates. Will also include
 one row for the external medium (without abundance and growth rate).</p>
@@ -349,7 +358,7 @@ one row for the external medium (without abundance and growth rate).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.growth_rate">
-<span class="sig-name descname"><span class="pre">growth_rate</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.growth_rate" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">growth_rate</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.growth_rate" title="Link to this definition">¶</a></dt>
 <dd><p>The overall growth rate for the community normalized to 1 gDW.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -360,7 +369,7 @@ one row for the external medium (without abundance and growth rate).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.status">
-<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.status" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.status" title="Link to this definition">¶</a></dt>
 <dd><p>The solver status related to the solution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -371,7 +380,7 @@ one row for the external medium (without abundance and growth rate).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.strategy">
-<span class="sig-name descname"><span class="pre">strategy</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.strategy" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">strategy</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.strategy" title="Link to this definition">¶</a></dt>
 <dd><p>The optimization strategy used to obtain the solution (may be empty).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -382,7 +391,7 @@ one row for the external medium (without abundance and growth rate).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.fluxes">
-<span class="sig-name descname"><span class="pre">fluxes</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.fluxes" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">fluxes</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.fluxes" title="Link to this definition">¶</a></dt>
 <dd><p>Contains the reaction fluxes (primal values of variables) stratified
 by compartment. Columns denote individual fluxes and rows denote
 compartments: one for every taxon plus one for the external medium.
@@ -396,7 +405,7 @@ Fluxes will be NA if the reaction does not exist in the organism.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.reduced_costs">
-<span class="sig-name descname"><span class="pre">reduced_costs</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.reduced_costs" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">reduced_costs</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.reduced_costs" title="Link to this definition">¶</a></dt>
 <dd><p>Contains reaction reduced costs (dual values of variables) stratified
 by taxa. Columns denote individual fluxes and rows denote taxa.
 Reduced costs will be NA if the reaction does not exist in the
@@ -410,7 +419,7 @@ organism.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.shadow_prices">
-<span class="sig-name descname"><span class="pre">shadow_prices</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.shadow_prices" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">shadow_prices</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.shadow_prices" title="Link to this definition">¶</a></dt>
 <dd><p>Contains metabolite shadow prices (dual values of constraints)
 stratified by taxa. Columns denote individual metabolites and rows
 denote taxa. Shadow prices will be NA if the metabolite does not
@@ -424,13 +433,13 @@ exist in the organism.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution._repr_html_">
-<span class="sig-name descname"><span class="pre">_repr_html_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution._repr_html_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution._repr_html_" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">_repr_html_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution._repr_html_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution._repr_html_" title="Link to this definition">¶</a></dt>
 <dd><p>Return a rich HTML representation of the solution.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.__repr__">
-<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution.__repr__" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution.__repr__" title="Link to this definition">¶</a></dt>
 <dd><p>Convert CommunitySolution instance to string representation.</p>
 </dd></dl>
 
@@ -438,7 +447,7 @@ exist in the organism.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.solution.add_pfba_objective">
-<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">add_pfba_objective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#add_pfba_objective"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.add_pfba_objective" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">add_pfba_objective</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#add_pfba_objective"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.add_pfba_objective" title="Link to this definition">¶</a></dt>
 <dd><p>Add pFBA objective.</p>
 <p>Add objective to minimize the summed flux of all reactions to the
 current objective. This one will work with any objective (even non-linear
@@ -456,31 +465,31 @@ ones).</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.solution.solve">
-<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.solve" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pfba</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.solve" title="Link to this definition">¶</a></dt>
 <dd><p>Get all fluxes stratified by taxa.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.solution.reset_solver">
-<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">reset_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#reset_solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.reset_solver" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">reset_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#reset_solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.reset_solver" title="Link to this definition">¶</a></dt>
 <dd><p>Reset the solver.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.solution.optimize_with_retry">
-<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">optimize_with_retry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'could</span> <span class="pre">not</span> <span class="pre">get</span> <span class="pre">optimum.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#optimize_with_retry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.optimize_with_retry" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">optimize_with_retry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'could</span> <span class="pre">not</span> <span class="pre">get</span> <span class="pre">optimum.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#optimize_with_retry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.optimize_with_retry" title="Link to this definition">¶</a></dt>
 <dd><p>Try to reset the solver.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.solution.crossover">
-<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">crossover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#crossover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.crossover" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">crossover</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#crossover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.crossover" title="Link to this definition">¶</a></dt>
 <dd><p>Get the crossover solution.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.solution.optimize_with_fraction">
-<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">optimize_with_fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">growth_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#optimize_with_fraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.optimize_with_fraction" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">optimize_with_fraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">growth_rate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fluxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/solution.html#optimize_with_fraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.optimize_with_fraction" title="Link to this definition">¶</a></dt>
 <dd><p>Optimize with a constrained community growth rate.</p>
 </dd></dl>
 
@@ -585,7 +594,7 @@ ones).</p>
     </aside>
   </div>
 </div><script src="../../../_static/documentation_options.js?v=1fb6f64b"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>

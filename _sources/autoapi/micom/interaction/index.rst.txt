@@ -1,0 +1,84 @@
+:py:mod:`micom.interaction`
+===========================
+
+.. py:module:: micom.interaction
+
+
+Submodules
+----------
+.. toctree::
+   :titlesonly:
+   :maxdepth: 1
+
+   focal/index.rst
+   scores/index.rst
+   summary/index.rst
+
+
+Package Contents
+----------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   micom.interaction.interactions
+   micom.interaction.MES
+   micom.interaction.summarize_interactions
+
+
+
+.. py:function:: interactions(results: micom.workflows.GrowthResults, taxa: Union[None, str, List[str]], threads: int = 1, progress: bool = True) -> pandas.DataFrame
+
+   Quantify interactions of a focal/reference taxon with other taxa.
+
+   :param results: The growth results to use.
+   :type results: GrowthResults
+   :param taxa: The focal taxa to use. Can be a single taxon, a list of taxa or None in which
+                case all taxa are considered.
+   :type taxa: str, list of str, or None
+
+   :returns: The mapped interactions between the focal taxon and all other taxa.
+   :rtype: pandas.DataFrame
+
+
+.. py:function:: MES(results: micom.workflows.GrowthResults, cutoff: float = None) -> pandas.DataFrame
+
+   Calculate the Metabolic Exchange Score (MES) for each metabolite.
+
+   MES is the harmonic mean of producers and consumers for a chosen metabolite
+   in one sample. High values indicate a large prevalence of cross-feeding for the
+   particular metabolite. A value of zero indicates an absence of cross-feeding for
+   the particular metabolite.
+
+   :param results: The growth results to use.
+   :type results: GrowthResults
+   :param cutoff: The smallest flux to consider in the analysis. Will default to the
+                  solver tolerance if set to None.
+   :type cutoff: float
+
+   :returns: The scores for each metabolite and each sample including metabolite annotations.
+   :rtype: pandas.DataFrame
+
+   .. rubric:: References
+
+   .. [1] Marcelino, V.R., et al.
+          Disease-specific loss of microbial cross-feeding interactions in the human gut
+          Nat Commun 14, 6546 (2023). https://doi.org/10.1038/s41467-023-42112-w
+
+
+.. py:function:: summarize_interactions(ints: pandas.DataFrame) -> pandas.DataFrame
+
+   Summarize interactions to key quantities.
+
+   :param ints: The interactions for individual metabolites calculated before.
+   :type ints: pandas.DataFrame
+
+   :returns: The summarized interactions contaning the total flux, mass flux, carbon flux,
+             nitrogen flux and number of interactions between any pair of taxa in that
+             sample.
+   :rtype: pandas.DataFrame
+
+

@@ -16,6 +16,7 @@ Subpackages
    :maxdepth: 3
 
    data/index.rst
+   interaction/index.rst
    viz/index.rst
    workflows/index.rst
 

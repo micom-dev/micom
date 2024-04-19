@@ -5,11 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Preamble" href="installing.html" /><link rel="prev" title="Welcome" href="index.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
         <title>How does MICOM model communities - version 0.34.1</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
     <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
     
@@ -165,7 +165,9 @@
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Strategies used by MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactions.html">Interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html#Plotting-interactions">Plotting interactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows.html">Writing your own workflows</a></li>
 <li class="toctree-l1"><a class="reference internal" href="community.html">Single Model API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
@@ -177,15 +179,22 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/micom/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="autoapi/micom/data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.data</span></code></a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/interaction/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.interaction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/focal/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.focal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/scores/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.scores</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/summary/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.summary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/association/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.association</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/exchanges/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.exchanges</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/growth/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.growth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/interactions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.interactions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.tradeoff</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of micom.workflows</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of micom.workflows</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/build/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.build</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.core</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/db_media/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.db_media</span></code></a></li>
@@ -250,7 +259,7 @@
         </div>
         <article role="main">
           <section id="How-does-MICOM-model-communities">
-<h1>How does MICOM model communities<a class="headerlink" href="#How-does-MICOM-model-communities" title="Link to this heading">#</a></h1>
+<h1>How does MICOM model communities<a class="headerlink" href="#How-does-MICOM-model-communities" title="Link to this heading">¶</a></h1>
 <p><img alt="image0" src="_images/summary.png" /></p>
 <p>There are many frameworks for microbial modeling and all make their own specific assumptions in order to fit microbial communities into a mathematical representation. This is an overview about the assumptions <code class="docutils literal notranslate"><span class="pre">MICOM</span></code> makes and how it translates the community into mathematical terms. As it happens all formulations here are similar to formulation used in the <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1002363">OptCom</a> and <a class="reference external" href="https://doi.org/10.1371/journal.pcbi.1005539">SteadyCom</a> papers.</p>
 <p>In general <code class="docutils literal notranslate"><span class="pre">MICOM</span></code> makes several assumptions to infer growth rates and fluxes in a microbial community. The most important ones being:</p>
@@ -261,7 +270,7 @@
 </ol>
 <p>Different to SteadyCom, MICOM does not assume that all taxa have the same growth rate and allows for taxa-specific dilution rates.</p>
 <section id="Exchanges-and-community-growth-rate">
-<h2>Exchanges and community growth rate<a class="headerlink" href="#Exchanges-and-community-growth-rate" title="Link to this heading">#</a></h2>
+<h2>Exchanges and community growth rate<a class="headerlink" href="#Exchanges-and-community-growth-rate" title="Link to this heading">¶</a></h2>
 <p>One of the things that can easily overlooked when using FBA for communities is that growth rates and fluxes are usually given in unit mass/(abundance * time), for instance mmmol/(gDW * h). Thus, all fluxes are relative to the abundance of the single bacteria they describe. However, in a community all bacteria might have different abundances so we have to take care to balance fluxes. For instance let us take a system containing only one bacteria <span class="math notranslate nohighlight">\(i\)</span> which imports metabolite X from the
 external medium. In the medium metabolite X enters the system with an unscaled flux <span class="math notranslate nohighlight">\(v^m_x\)</span> which has units mmmol/h. Within the bacteria the metabolite is consumed with the sclaed flux <span class="math notranslate nohighlight">\(v^i_x\)</span> which has units mmol/(gDW * h). <span class="math notranslate nohighlight">\(v^i_x\)</span> described the flux that can be realized by 1 gDW of the respective bacteria. However, the abundance for bacteria <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(b_i\)</span> (in gDW), might be different than that. In order to have balanced fluxes we have to enforce that
 <span class="math notranslate nohighlight">\(v^m_x = b_i \cdot v^i_x\)</span> (overall influx equals overall consumption). If many bacteria import the respective metabolite we thus need to enforce</p>
@@ -288,7 +297,7 @@ external medium. In the medium metabolite X enters the system with an unscaled f
 <p>where <span class="math notranslate nohighlight">\(\tilde{v}_{biomass}\)</span> now again is a scaled biomass flux relative to a total community biomass of 1 gDW. In order to adjust growth rate predictions from <code class="docutils literal notranslate"><span class="pre">MICOM</span></code> to your sample you would have to divide those growth rates by the overall weight of microbiota in your sample. For instance <a class="reference external" href="https://dx.doi.org/10.1371%2Fjournal.pbio.1002533">a recent publication</a> estimates that an average human has 200g of bacteria in the gut.</p>
 </section>
 <section id="Steady-states-in-the-community">
-<h2>Steady states in the community<a class="headerlink" href="#Steady-states-in-the-community" title="Link to this heading">#</a></h2>
+<h2>Steady states in the community<a class="headerlink" href="#Steady-states-in-the-community" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">MICOM</span></code> has be designed with the gut microbiota in mind. One of the major problems when trying to apply flux balance analysis (FBA) to microbial community data especially metagenomic data are paradoxical assumptions about community growth. Flux balance analysis usually assumes a maximization of the growth rate, or at least the realization of one particular growth rate <span class="math notranslate nohighlight">\(\mu\)</span>, however metagenomic experiments usually only quantify the microbial compositions at one particular time point,
 assuming that the microbial abundance does not change. Those two assumptions are not compatible per sé. If members of the community grow with a constant rate they will accumulate exponentially over time, however we know that this is not the case in systems as the intestine (otherwise we would probably explode due to an overpopulation of bacteria and fungi). This disagreement can be aleviated by accounting for dilution of the microbiota. For instance in the gut bacteria are constantly removed in
 small amounts by death (when arriving at their specific life span) and in larger amounts by defecation. The sum of all processes removing bacteria from the system is what we call dilution here. In <code class="docutils literal notranslate"><span class="pre">MICOM</span></code> we assume the follwing about the dilution process:</p>
@@ -319,7 +328,7 @@ be diluted. (3) is based on the assumption that the respective systems may be di
 <p>Okay, what can we conclude from that? Most importantly that any abundance <span class="math notranslate nohighlight">\(b_i\)</span> or relative abundance <span class="math notranslate nohighlight">\(\tilde{b}_i\)</span> can be a valid steady state abundance as long as the respective growth and dilution rates are balanced. This means there is an infinite amount of growth rates that yield a steady state (growth rates can not be uniquely identified from abundance alone).</p>
 </section>
 <section id="Cooperative-tradeoff">
-<h2>Cooperative tradeoff<a class="headerlink" href="#Cooperative-tradeoff" title="Link to this heading">#</a></h2>
+<h2>Cooperative tradeoff<a class="headerlink" href="#Cooperative-tradeoff" title="Link to this heading">¶</a></h2>
 <p>Instead of solving a multi-objective problem MICOM achieves a global optimum by a two step approach called <code class="docutils literal notranslate"><span class="pre">cooperative</span> <span class="pre">tradeoff</span></code>. In simple terms:</p>
 <ol class="arabic simple">
 <li><p>obtain the maximum community growth rate <span class="math notranslate nohighlight">\(\mu_c^*\)</span> by classic FBA</p></li>
@@ -330,7 +339,7 @@ be diluted. (3) is based on the assumption that the respective systems may be di
 sample</em>. This is not an assumption made <em>a priori</em> but a consequence of the optimization strategy.</p>
 </section>
 <section id="Numerical-stability-and-solvers">
-<h2>Numerical stability and solvers<a class="headerlink" href="#Numerical-stability-and-solvers" title="Link to this heading">#</a></h2>
+<h2>Numerical stability and solvers<a class="headerlink" href="#Numerical-stability-and-solvers" title="Link to this heading">¶</a></h2>
 <p>MICOM support all solver implemented in optlang (GLPK, CPLEX and Gurobi). However, since MICOM models can become quite large (50k - 500k variables) many solvers have numerical issues when solving the corresponding LP and QP problems. For realistic communities modeled on the genus, species or strain level we thus recommend using a solver that implements numerically stable interior point methods, currently only Cplex and Gurobi. Both have academic licenses available. In our experience the simpex
 methods in GLPK still work well up to 10,000 variables, but get gradually slower towards 50,000 variables and being too slow to be usable beyond that.</p>
 <p>Nevertheless, even the commercial solvers can usaully not control numerical issues in the quadratic interior point methods well. In fact for larger models they always never return an optimal solution. To avoid those numerical issues MICOM employs a crossover strategy where it will perform as many iterations in the quadratic interior point method as possible to get a candidate solution for the individual growth rates <span class="math notranslate nohighlight">\(\mu_i^{ca}\)</span>, followed by solving a linear programming problem to find a
@@ -425,7 +434,7 @@ feasible solution close to the candidates:</p>
     </aside>
   </div>
 </div><script src="_static/documentation_options.js?v=1fb6f64b"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>

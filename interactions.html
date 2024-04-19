@@ -1,0 +1,904 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Visualizations" href="viz.html" /><link rel="prev" title="MICOM workflows" href="high_level.html" />
+
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.01.29 -->
+        <title>Analyzing metabolic interactions - version 0.34.1</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --font-stack: Open Sans, Liberation Sans, sans-serif, Arial;
+  --font-stack--monospace: Fira Sans Mono, Inconsolata, monospace, Courier;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">version 0.34.1</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="_static/micom.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">version 0.34.1</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="logic.html">Strategies used by MICOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Interactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="viz.html#Plotting-interactions">Plotting interactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Writing your own workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community.html">Single Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="growth_fluxes.html">Growth rates and fluxes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="taxa_knockouts.html">Knockouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elasticities.html">Intervention studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials and Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NEWS.html">Release Notes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/micom/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.data</span></code></a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/interaction/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of micom.interaction</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/focal/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.focal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/scores/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.scores</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/interaction/summary/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.interaction.summary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/viz/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of micom.viz</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/association/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.association</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.core</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/exchanges/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.exchanges</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/growth/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.growth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/interactions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.interactions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/viz/tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.viz.tradeoff</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="autoapi/micom/workflows/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows</span></code></a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of micom.workflows</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/build/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.build</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/core/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.core</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/db_media/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.db_media</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/grow/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.grow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/media/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.media</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/micom/workflows/tradeoff/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.workflows.tradeoff</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/algorithms/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.algorithms</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/annotation/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.annotation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/community/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.community</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/db/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.db</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/deps/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.deps</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/duality/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.duality</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/elasticity/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.elasticity</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/logger/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.logger</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/measures/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.measures</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/media/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.media</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/optcom/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.optcom</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/problems/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.problems</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/qiime_formats/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.qiime_formats</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/solution/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.solution</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/stats/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.stats</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/taxonomy/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.taxonomy</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/micom/util/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micom.util</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="Analyzing-metabolic-interactions">
+<h1>Analyzing metabolic interactions<a class="headerlink" href="#Analyzing-metabolic-interactions" title="Link to this heading">¶</a></h1>
+<p>Whereas the default results will show you which taxon consumes and produces which metabolite it is not immediately apparent which metabolic interactions that implies. Thus, we provide some helpers to quantify and summarize metabolic interactions between taxa.</p>
+<p>It should be noted that MICOM provides mechanistic interactions, thus they differ quite abit from correlations. First, they are calculated on a per sample basis and can thus differ between samples as well. They are also non-symmetric and directed and thus qualify as ecological interactions. The strategy used in <code class="docutils literal notranslate"><span class="pre">grow</span></code> workflow might also affect the predicted interactions. The most conservative (least interactions) will be predicted with parsimonious FBA because it will also minimize
+inter-taxon fluxes. The other strategies are somewhat more permissive for inter-taxon fluxes but may also include futile cycles (which will not appear in parsimonious FBA).</p>
+<p>Finally all-versus-all interactions can be somewhat slow for larger data sets due to the inherent combinatorial explosion. The complexity will scale with <span class="math notranslate nohighlight">\(n_{samples} \cdot n^2_{taxa} \cdot n_{metabolites}\)</span>.</p>
+<section id="Calculating-focal-interactions">
+<h2>Calculating focal interactions<a class="headerlink" href="#Calculating-focal-interactions" title="Link to this heading">¶</a></h2>
+<p>Interactions are obatined from a <code class="docutils literal notranslate"><span class="pre">GrowthResults</span></code> object as obtained by the <code class="docutils literal notranslate"><span class="pre">grow</span></code> workflow. By default they are based on a single taxon of interest (called a focal taxon) for which we will calculate all metabolic interactions with all other taxa in all samples. MICOM stratifies interactions into 3 ecological types shown below.</p>
+<p><img alt="MICOM interaction types" src="_images/interactions.png" /></p>
+<p>Let’s see what that looks like by using a larger example result.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.data import test_results
+from micom.interaction import interactions
+
+results = test_results()
+ints = interactions(results, taxa=&quot;s__Akkermansia_muciniphila&quot;)
+ints.sort_values(by=&quot;flux&quot;, ascending=False).head()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>metabolite</th>
+      <th>focal</th>
+      <th>partner</th>
+      <th>class</th>
+      <th>flux</th>
+      <th>sample_id</th>
+      <th>name</th>
+      <th>molecular_weight</th>
+      <th>C_number</th>
+      <th>N_number</th>
+      <th>...</th>
+      <th>kegg.compound</th>
+      <th>lipidmaps</th>
+      <th>metanetx.chemical</th>
+      <th>pubchem.compound</th>
+      <th>reactome</th>
+      <th>sbo</th>
+      <th>seed.compound</th>
+      <th>chebi</th>
+      <th>smiles</th>
+      <th>reaction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2115</th>
+      <td>ala_L[e]</td>
+      <td>s__Akkermansia_muciniphila</td>
+      <td>s__Bacteroides_fragilis</td>
+      <td>provided</td>
+      <td>11.238551</td>
+      <td>S_SRR5935812</td>
+      <td>L-alanine</td>
+      <td>89.09318</td>
+      <td>3</td>
+      <td>1</td>
+      <td>...</td>
+      <td>C00041</td>
+      <td>NaN</td>
+      <td>MNXM1105732</td>
+      <td>5950.0</td>
+      <td>NaN</td>
+      <td>SBO:0000247</td>
+      <td>cpd00035</td>
+      <td>CHEBI:16977</td>
+      <td>NaN</td>
+      <td>EX_ala_L(e)</td>
+    </tr>
+    <tr>
+      <th>2141</th>
+      <td>lac_D[e]</td>
+      <td>s__Akkermansia_muciniphila</td>
+      <td>s__Bacteroides_fragilis</td>
+      <td>provided</td>
+      <td>11.141526</td>
+      <td>S_SRR5935812</td>
+      <td>D-lactate</td>
+      <td>89.07000</td>
+      <td>3</td>
+      <td>0</td>
+      <td>...</td>
+      <td>C00256</td>
+      <td>NaN</td>
+      <td>MNXM731835</td>
+      <td>61503.0</td>
+      <td>NaN</td>
+      <td>SBO:0000247</td>
+      <td>cpd00221</td>
+      <td>CHEBI:42111</td>
+      <td>NaN</td>
+      <td>EX_lac_D(e)</td>
+    </tr>
+    <tr>
+      <th>1080</th>
+      <td>acald[e]</td>
+      <td>s__Akkermansia_muciniphila</td>
+      <td>s__Escherichia_coli</td>
+      <td>received</td>
+      <td>9.277781</td>
+      <td>S_SRR5935769</td>
+      <td>Acetaldehyde</td>
+      <td>44.05256</td>
+      <td>2</td>
+      <td>0</td>
+      <td>...</td>
+      <td>C00084</td>
+      <td>NaN</td>
+      <td>MNXM75</td>
+      <td>177.0</td>
+      <td>NaN</td>
+      <td>SBO:0000247</td>
+      <td>cpd00071</td>
+      <td>CHEBI:15343</td>
+      <td>NaN</td>
+      <td>EX_acald(e)</td>
+    </tr>
+    <tr>
+      <th>1120</th>
+      <td>pro_L[e]</td>
+      <td>s__Akkermansia_muciniphila</td>
+      <td>s__Escherichia_coli</td>
+      <td>received</td>
+      <td>9.208372</td>
+      <td>S_SRR5935769</td>
+      <td>L-proline</td>
+      <td>115.13046</td>
+      <td>5</td>
+      <td>1</td>
+      <td>...</td>
+      <td>C00148;C000763</td>
+      <td>NaN</td>
+      <td>MNXM114</td>
+      <td>145742.0</td>
+      <td>NaN</td>
+      <td>SBO:0000247</td>
+      <td>cpd00129</td>
+      <td>CHEBI:17203</td>
+      <td>NaN</td>
+      <td>EX_pro_L(e)</td>
+    </tr>
+    <tr>
+      <th>1094</th>
+      <td>etoh[e]</td>
+      <td>s__Akkermansia_muciniphila</td>
+      <td>s__Escherichia_coli</td>
+      <td>received</td>
+      <td>8.980545</td>
+      <td>S_SRR5935769</td>
+      <td>Ethanol</td>
+      <td>46.06844</td>
+      <td>2</td>
+      <td>0</td>
+      <td>...</td>
+      <td>C00469</td>
+      <td>NaN</td>
+      <td>MNXM734299</td>
+      <td>702.0</td>
+      <td>NaN</td>
+      <td>SBO:0000247</td>
+      <td>cpd00363</td>
+      <td>CHEBI:16236</td>
+      <td>NaN</td>
+      <td>EX_etoh(e)</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 24 columns</p>
+</div></div>
+</div>
+<p>So you see the individual metabolite flux between the pair of taxa and the interaction class in each single sample. This is quite detailed and can tell you a lot, but we can also summarize it to the overall fluxes between two taxa in a sample.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.interaction import summarize_interactions
+
+summary = summarize_interactions(ints)
+summary.head()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sample_id</th>
+      <th>focal</th>
+      <th>partner</th>
+      <th>class</th>
+      <th>flux</th>
+      <th>mass_flux</th>
+      <th>C_flux</th>
+      <th>N_flux</th>
+      <th>n_ints</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>S_SRR5935769</td>
+      <td>s__Akkermansia_muciniphila</td>
+      <td>s__Alistipes_finegoldii</td>
+      <td>co-consumed</td>
+      <td>7.349260</td>
+      <td>0.535659</td>
+      <td>16.389235</td>
+      <td>2.699664</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>S_SRR5935769</td>
+      <td>s__Akkermansia_muciniphila</td>
+      <td>s__Alistipes_finegoldii</td>
+      <td>provided</td>
+      <td>3.180756</td>
+      <td>0.342653</td>
+      <td>13.209727</td>
+      <td>2.560137</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>S_SRR5935769</td>
+      <td>s__Akkermansia_muciniphila</td>
+      <td>s__Alistipes_finegoldii</td>
+      <td>received</td>
+      <td>1.513632</td>
+      <td>0.321052</td>
+      <td>13.030612</td>
+      <td>2.967128</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>S_SRR5935769</td>
+      <td>s__Akkermansia_muciniphila</td>
+      <td>s__Alistipes_onderdonkii</td>
+      <td>co-consumed</td>
+      <td>2.329465</td>
+      <td>0.259526</td>
+      <td>8.734520</td>
+      <td>1.738114</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>S_SRR5935769</td>
+      <td>s__Akkermansia_muciniphila</td>
+      <td>s__Alistipes_onderdonkii</td>
+      <td>provided</td>
+      <td>0.906143</td>
+      <td>0.112754</td>
+      <td>5.490118</td>
+      <td>0.764795</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>This calculates the overall flux in each class for the pair of taxa. It also provides some more meaningful eestimates of flux such as the exchanged mass, carbon or nitrogen. So in this example you see that Akkermansia competes for most of the mass with Alistipes but actually receives more nitrogen from Alistipes than it competes for in that sample.</p>
+</section>
+<section id="Calculating-all-interactions">
+<h2>Calculating all interactions<a class="headerlink" href="#Calculating-all-interactions" title="Link to this heading">¶</a></h2>
+<p>It’s also possible to calculate all interactions, just be aware that this (1) generates a lot of data and (2) will take a while for larger data sets. You can parallelize the analysis over each taxon by providing the the <code class="docutils literal notranslate"><span class="pre">threads</span></code> argument. Simply provide <code class="docutils literal notranslate"><span class="pre">None</span></code> for the taxa to obtain all interactions.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>full = interactions(results, taxa=None, threads=8)
+full.shape
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "350423eff34b4836a8570d1365f2fd9b", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+</pre></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(1115688, 24)
+</pre></div></div>
+</div>
+<p>This generates quite a lot of results, but we can again use a summary.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>full_summary = summarize_interactions(full)
+full_summary.shape
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(117108, 9)
+</pre></div></div>
+</div>
+</section>
+<section id="Metabolic-Exchange-Score">
+<h2>Metabolic Exchange Score<a class="headerlink" href="#Metabolic-Exchange-Score" title="Link to this heading">¶</a></h2>
+<p>For a slightly more global view on exchanges we also provide calculation of the Metabolic Exchange Score (MES) by Marcelino et al., which is decribed <a class="reference external" href="https://doi.org/10.1038/s41467-023-42112-w">in detail here</a>. The MES is the geometric mean of the number of producers P and consumers C of a metabolite m in a single sample i, given by:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[MES^i_m = 2\cdot\frac{P^i_m\cdot C^i_m}{P^i_m + C^i_m}\]</div>
+</div>
+<p>This can be interpreted as a normalized number of all observed metabolic interactions (becuse $P:nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>cdot <a href="#id3"><span class="problematic" id="id4">`</span></a>C) is the number of all possible directed combinations of producers and consumers. So it is a measure of cross-feeding.</p>
+<p>It can also be calculated very fast for large data sets, so let’s go.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.interaction import MES
+
+scores = MES(results)
+scores.head()
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>metabolite</th>
+      <th>sample_id</th>
+      <th>MES</th>
+      <th>name</th>
+      <th>molecular_weight</th>
+      <th>C_number</th>
+      <th>N_number</th>
+      <th>bigg.metabolite</th>
+      <th>biocyc</th>
+      <th>hmdb</th>
+      <th>...</th>
+      <th>kegg.compound</th>
+      <th>lipidmaps</th>
+      <th>metanetx.chemical</th>
+      <th>pubchem.compound</th>
+      <th>reactome</th>
+      <th>sbo</th>
+      <th>seed.compound</th>
+      <th>chebi</th>
+      <th>smiles</th>
+      <th>reaction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>12dhchol[e]</td>
+      <td>S_SRR5935769</td>
+      <td>4.800000</td>
+      <td>12-Dehydrocholate</td>
+      <td>405.54758</td>
+      <td>24</td>
+      <td>0</td>
+      <td>12dhchol</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>SBO:0000247</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EX_12dhchol(e)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>12dhchol[e]</td>
+      <td>S_SRR5935812</td>
+      <td>4.800000</td>
+      <td>12-Dehydrocholate</td>
+      <td>405.54758</td>
+      <td>24</td>
+      <td>0</td>
+      <td>12dhchol</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>SBO:0000247</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EX_12dhchol(e)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>12dhchol[e]</td>
+      <td>S_SRR5935816</td>
+      <td>3.428571</td>
+      <td>12-Dehydrocholate</td>
+      <td>405.54758</td>
+      <td>24</td>
+      <td>0</td>
+      <td>12dhchol</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>SBO:0000247</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EX_12dhchol(e)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>12dhchol[e]</td>
+      <td>S_SRR5935843</td>
+      <td>4.444444</td>
+      <td>12-Dehydrocholate</td>
+      <td>405.54758</td>
+      <td>24</td>
+      <td>0</td>
+      <td>12dhchol</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>SBO:0000247</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EX_12dhchol(e)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>12dhchol[e]</td>
+      <td>S_SRR5935924</td>
+      <td>4.444444</td>
+      <td>12-Dehydrocholate</td>
+      <td>405.54758</td>
+      <td>24</td>
+      <td>0</td>
+      <td>12dhchol</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>SBO:0000247</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>EX_12dhchol(e)</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div></div>
+</div>
+<p>All of the computed interaction measures also have <a class="reference external" href="viz.html">matching visualizations</a>.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="viz.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Visualizations</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="high_level.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">MICOM workflows</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2017-2024, Christian Diener
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Analyzing metabolic interactions</a><ul>
+<li><a class="reference internal" href="#Calculating-focal-interactions">Calculating focal interactions</a></li>
+<li><a class="reference internal" href="#Calculating-all-interactions">Calculating all interactions</a></li>
+<li><a class="reference internal" href="#Metabolic-Exchange-Score">Metabolic Exchange Score</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=1fb6f64b"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

@@ -9,7 +9,7 @@ from micom.workflows import (
     minimal_media,
     fix_medium,
     save_results,
-    load_results
+    load_results,
 )
 from micom.qiime_formats import load_qiime_medium, load_qiime_manifest
 from micom.solution import OptimizationError
@@ -92,12 +92,32 @@ def test_media(tmp_path):
     assert "reaction" in media.columns
 
 
+def test_media_no_summary(tmp_path):
+    data = md.test_data()
+    built = build(data, db, str(tmp_path), cutoff=0)
+    media = minimal_media(built, str(tmp_path), min_growth=0.5, summarize=False)
+    assert media.shape[0] > 3 * built.shape[0]
+    assert "flux" in media.columns
+    assert "reaction" in media.columns
+
+
 def test_fix_medium(tmp_path):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0)
     bad_medium = medium.iloc[0:2, :]
     fixed = fix_medium(built, str(tmp_path), bad_medium, 0.5, 0.001, 10)
     assert fixed.shape[0] > 3
+    assert "description" in fixed.columns
+
+
+def test_fix_medium_no_summary(tmp_path):
+    data = md.test_data()
+    built = build(data, db, str(tmp_path), cutoff=0)
+    bad_medium = medium.iloc[0:2, :]
+    fixed = fix_medium(
+        built, str(tmp_path), bad_medium, 0.5, 0.001, 10, summarize=False
+    )
+    assert fixed.shape[0] > 3 * built.shape[0]
     assert "description" in fixed.columns
 
 
@@ -113,4 +133,3 @@ def test_results_saving(tmp_path):
     assert loaded.growth_rates.shape == grown.growth_rates.shape
     assert loaded.exchanges.shape == grown.exchanges.shape
     assert loaded.annotations.shape == grown.annotations.shape
-

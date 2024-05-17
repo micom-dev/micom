@@ -58,9 +58,9 @@ def minimal_media(manifest, model_folder, summarize=True, min_growth=0.1, thread
             "Could not find a growth medium that allows the specified "
             "growth rate for all taxa in all samples :("
         )
-    results = pd.concat(results, axis=0)
+    medium = pd.concat(results, axis=0)
     if summarize:
-        medium = results.groupby("reaction").flux.max().reset_index()
+        medium = medium.groupby("reaction").flux.max().reset_index()
     medium["metabolite"] = medium.reaction.str.replace("EX_", "")
     return medium
 

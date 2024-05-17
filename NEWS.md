@@ -5,6 +5,10 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+## 0.35.1
+
+Fix a bug where `minimal_medium(manifest, ..., summarize=False)` would crash.
+
 ### 0.35.0
 
 `plot_fit` got renamed to `plot_association` and will not use LASSO coefficients anymore

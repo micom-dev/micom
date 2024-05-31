@@ -1,5 +1,5 @@
-:py:mod:`micom.workflows`
-=========================
+micom.workflows
+===============
 
 .. py:module:: micom.workflows
 
@@ -11,24 +11,28 @@
 
 Submodules
 ----------
+
 .. toctree::
-   :titlesonly:
    :maxdepth: 1
 
-   build/index.rst
-   core/index.rst
-   db_media/index.rst
-   grow/index.rst
-   media/index.rst
-   tradeoff/index.rst
+   /autoapi/micom/workflows/build/index
+   /autoapi/micom/workflows/core/index
+   /autoapi/micom/workflows/db_media/index
+   /autoapi/micom/workflows/grow/index
+   /autoapi/micom/workflows/media/index
+   /autoapi/micom/workflows/tradeoff/index
 
 
-Package Contents
-----------------
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.workflows.GrowthResults
 
 
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -45,14 +49,8 @@ Functions
    micom.workflows.complete_db_medium
 
 
-
-Attributes
-~~~~~~~~~~
-
-.. autoapisummary::
-
-   micom.workflows.GrowthResults
-
+Package Contents
+----------------
 
 .. py:function:: workflow(func, args, threads=4, description=None, progress=True)
 
@@ -76,8 +74,6 @@ Attributes
 
 
 .. py:data:: GrowthResults
-
-   
 
 .. py:function:: save_results(results, path)
 

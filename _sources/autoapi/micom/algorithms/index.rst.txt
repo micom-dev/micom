@@ -1,5 +1,5 @@
-:py:mod:`micom.algorithms`
-==========================
+micom.algorithms
+================
 
 .. py:module:: micom.algorithms
 
@@ -9,21 +9,35 @@
 
 
 
-Module Contents
----------------
-
-
-Functions
-~~~~~~~~~
+Attributes
+----------
 
 .. autoapisummary::
 
+   micom.algorithms.logger
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.algorithms.load_model
    micom.algorithms.jaccard
    micom.algorithms.euclidean
    micom.algorithms.reaction_matrix
    micom.algorithms.metabolic_dist
 
 
+Module Contents
+---------------
+
+.. py:function:: load_model(filepath)
+
+   Load a cobra model from several file types.
+
+
+.. py:data:: logger
 
 .. py:function:: jaccard(inclusion)
 

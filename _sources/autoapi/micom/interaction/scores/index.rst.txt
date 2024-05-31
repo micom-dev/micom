@@ -1,5 +1,5 @@
-:py:mod:`micom.interaction.scores`
-==================================
+micom.interaction.scores
+========================
 
 .. py:module:: micom.interaction.scores
 
@@ -9,12 +9,16 @@
 
 
 
-Module Contents
----------------
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.interaction.scores.GrowthResults
 
 
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -22,6 +26,10 @@ Functions
    micom.interaction.scores.MES
 
 
+Module Contents
+---------------
+
+.. py:data:: GrowthResults
 
 .. py:function:: _mes(df: pandas.DataFrame) -> float
 

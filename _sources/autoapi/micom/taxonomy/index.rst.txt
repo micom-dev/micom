@@ -1,5 +1,5 @@
-:py:mod:`micom.taxonomy`
-========================
+micom.taxonomy
+==============
 
 .. py:module:: micom.taxonomy
 
@@ -9,34 +9,43 @@
 
 
 
-Module Contents
----------------
-
-
-Functions
-~~~~~~~~~
-
-.. autoapisummary::
-
-   micom.taxonomy.build_from_qiime
-   micom.taxonomy.qiime_to_micom
-   micom.taxonomy.rank_prefixes
-   micom.taxonomy.unify_rank_prefixes
-
-
-
 Attributes
-~~~~~~~~~~
+----------
 
 .. autoapisummary::
 
    micom.taxonomy.RANKS
 
 
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.taxonomy.load_qiime_feature_table
+   micom.taxonomy.load_qiime_taxonomy
+   micom.taxonomy.build_from_qiime
+   micom.taxonomy.qiime_to_micom
+   micom.taxonomy.rank_prefixes
+   micom.taxonomy.unify_rank_prefixes
+
+
+Module Contents
+---------------
+
+.. py:function:: load_qiime_feature_table(artifact)
+
+   Load a feature table from a Qiime 2 artifact.
+
+
+.. py:function:: load_qiime_taxonomy(artifact)
+
+   Load taxonomy feature data from a Qiime 2 artifact.
+
+
 .. py:data:: RANKS
    :value: ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species', 'strain']
 
-   
 
 .. py:function:: build_from_qiime(abundance: pandas.DataFrame, taxonomy: pandas.Series, collapse_on: str = 'genus', trim_rank_prefix: bool = False) -> pandas.DataFrame
 

@@ -1,5 +1,5 @@
-:py:mod:`micom.viz.tradeoff`
-============================
+micom.viz.tradeoff
+==================
 
 .. py:module:: micom.viz.tradeoff
 
@@ -9,18 +9,16 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    micom.viz.tradeoff.plot_tradeoff
 
 
+Module Contents
+---------------
 
 .. py:function:: plot_tradeoff(tradeoff_rates, filename='tradeoff_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
 

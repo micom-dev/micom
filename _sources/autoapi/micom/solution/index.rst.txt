@@ -1,5 +1,5 @@
-:py:mod:`micom.solution`
-========================
+micom.solution
+==============
 
 .. py:module:: micom.solution
 
@@ -9,23 +9,30 @@
 
 
 
-Module Contents
----------------
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.solution.logger
+   micom.solution.good
+
 
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
    micom.solution.CommunitySolution
 
 
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
+   micom.solution.reset_min_community_growth
+   micom.solution._apply_min_growth
    micom.solution._group_taxa
    micom.solution.add_pfba_objective
    micom.solution.solve
@@ -35,13 +42,21 @@ Functions
    micom.solution.optimize_with_fraction
 
 
+Module Contents
+---------------
 
-Attributes
-~~~~~~~~~~
+.. py:data:: logger
 
-.. autoapisummary::
+.. py:function:: reset_min_community_growth(com)
 
-   micom.solution.good
+   Reset the lower bound for the community growth.
+
+
+.. py:function:: _apply_min_growth(community, min_growth, atol=1e-06, rtol=1e-06)
+
+   Set minimum growth constraints on a model.
+
+   Will integrate with the context.
 
 
 .. py:data:: good
@@ -55,8 +70,8 @@ Attributes
 
 .. py:class:: CommunitySolution(community, slim=False, reactions=None, metabolites=None)
 
-
    Bases: :py:obj:`cobra.core.Solution`
+
 
    An FBA solution for an entire community.
 
@@ -119,9 +134,11 @@ Attributes
 
       :type: pandas.Series
 
+
    .. py:method:: _repr_html_()
 
       Return a rich HTML representation of the solution.
+
 
 
    .. py:method:: __repr__()

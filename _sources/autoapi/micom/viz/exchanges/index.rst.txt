@@ -1,5 +1,5 @@
-:py:mod:`micom.viz.exchanges`
-=============================
+micom.viz.exchanges
+===================
 
 .. py:module:: micom.viz.exchanges
 
@@ -9,17 +9,75 @@
 
 
 
-Module Contents
----------------
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.viz.exchanges.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   micom.viz.exchanges.Visualization
 
 
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    micom.viz.exchanges.plot_exchanges_per_sample
    micom.viz.exchanges.plot_exchanges_per_taxon
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: Visualization(filename, data, template)
+
+   Bases: :py:obj:`object`
+
+
+   A visualization object.
+
+   .. attribute:: filename
+
+      The filename of trhe saved visualization.
+
+      :type: str
+
+   .. attribute:: data
+
+      The data used to create the Visualization.
+
+      :type: dict
+
+   .. attribute:: template
+
+      The jinja template used to render the visualization.
+
+      :type: jinja2.Template
+
+
+   .. py:method:: view()
+
+      Open the visualization in a browser.
+
+      :param None.:
+
+      :rtype: nothing
+
+
+
+   .. py:method:: save(**kwargs)
+
+      Render and and save the visualization.
 
 
 

@@ -1,5 +1,5 @@
-:py:mod:`micom.workflows.grow`
-==============================
+micom.workflows.grow
+====================
 
 .. py:module:: micom.workflows.grow
 
@@ -9,39 +9,134 @@
 
 
 
-Module Contents
----------------
-
-
-Functions
-~~~~~~~~~
-
-.. autoapisummary::
-
-   micom.workflows.grow._growth
-   micom.workflows.grow.grow
-
-
-
 Attributes
-~~~~~~~~~~
+----------
 
 .. autoapisummary::
 
+   micom.workflows.grow.logger
+   micom.workflows.grow.GrowthResults
    micom.workflows.grow.DIRECTION
    micom.workflows.grow.ARGS
 
 
-.. py:data:: DIRECTION
+Functions
+---------
 
-   
+.. autoapisummary::
+
+   micom.workflows.grow.load_pickle
+   micom.workflows.grow.annotate_metabolites_from_exchanges
+   micom.workflows.grow.minimal_medium
+   micom.workflows.grow.workflow
+   micom.workflows.grow.process_medium
+   micom.workflows.grow._growth
+   micom.workflows.grow.grow
+
+
+Module Contents
+---------------
+
+.. py:function:: load_pickle(filename)
+
+   Load a community model from a pickled version.
+
+   :param filename: The file the community is stored in.
+   :type filename: str
+
+   :returns: The loaded community model.
+   :rtype: micom.Community
+
+
+.. py:function:: annotate_metabolites_from_exchanges(com)
+
+   Annotate exchange reactions by their metabolite.
+
+
+.. py:data:: logger
+
+.. py:function:: minimal_medium(community, community_growth, min_growth=0.0, exports=False, exchanges=None, minimize_components=False, open_exchanges=False, solution=False, weights=None, atol=None, rtol=None)
+
+   Find the minimal growth medium for the community.
+
+   Finds the minimal growth medium for the community which allows for
+   community as well as individual growth. Here, a minimal medium can either
+   be the medium requiring the smallest total import flux or the medium
+   requiring the least components (ergo ingredients).
+
+   :param community: The community to modify.
+   :type community: micom.Community
+   :param community_growth: The minimum community-wide growth rate.
+   :type community_growth: positive float
+   :param min_growth: The minimum growth rate for each individual in the community. Either
+                      a single value applied to all individuals or one value for each.
+   :type min_growth: positive float or array-like object.
+   :param exports: Whether to include export fluxes in the returned medium. Defaults to
+                   False which will only return import fluxes.
+   :type exports: boolean
+   :param exchanges: The list of exchange reactions that are penalized.
+   :type exchanges: list of cobra.Reactions
+   :param minimize_components: Whether to minimize the number of components instead of the total
+                               import flux. Might be more intuitive if set to True but may also be
+                               slow to calculate for large communities.
+   :type minimize_components: boolean
+   :param open_exchanges: Whether to ignore currently set bounds and make all exchange reactions
+                          in the model possible. If set to a number all exchange reactions will
+                          be opened with (-number, number) as bounds.
+   :type open_exchanges: boolean or number
+   :param solution: Whether to also return the entire solution and all fluxes for the
+                    minimal medium.
+   :type solution: boolean
+   :param weights: Will scale the fluxes by a weight factor. Can either be "mass" which will
+                   scale by molecular mass, a single element which will scale by
+                   the elemental content (for instance "C" to scale by carbon content).
+                   If None every metabolite will receive the same weight.
+                   Will be ignored if `minimize_components` is True.
+   :type weights: str
+   :param atol: Absolute tolerance for the growth rates. If None will use the solver tolerance.
+   :type atol: float
+   :param rtol: Relative tolerqance for the growth rates. If None will use the solver tolerance.
+   :type rtol: float
+
+   :returns: A series {rid: flux} giving the import flux for each required import
+             reaction. If `solution` is True retuns a dictionary
+             {"medium": panas.Series, "solution": micom.CommunitySolution}.
+   :rtype: pandas.Series or dict
+
+
+.. py:function:: workflow(func, args, threads=4, description=None, progress=True)
+
+   Run analyses for several samples in parallel.
+
+   This will analyze several samples in parallel. Includes a workaround for
+   optlang memory leak.
+
+   :param func: A function that takes a single argument (can be any object) and
+                that performs your analysis for a single sample.
+   :type func: function
+   :param args: An array-like object (list, tuple, numpy array, pandas Series, etc.)
+                that contains the arguments for each sample.
+   :type args: array-like object
+   :param threads: How many samples to analyze in parallel at once.
+   :type threads: positive int
+   :param description: The dewscription shown in front of the progress bar.
+   :type description: str
+   :param progress: Whether to show a progress bar.
+   :type progress: bool
+
+
+.. py:data:: GrowthResults
+
+.. py:function:: process_medium(medium, samples)
+
+   Prepare a medium for simulation.
+
+
+.. py:data:: DIRECTION
 
 .. py:data:: ARGS
 
-   
-
 .. py:function:: _growth(args)
-
 
 .. py:function:: grow(manifest, model_folder, medium, tradeoff, threads=1, weights=None, strategy='minimal imports', atol=None, rtol=None, presolve=False)
 

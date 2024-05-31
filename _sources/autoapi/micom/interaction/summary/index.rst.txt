@@ -1,5 +1,5 @@
-:py:mod:`micom.interaction.summary`
-===================================
+micom.interaction.summary
+=========================
 
 .. py:module:: micom.interaction.summary
 
@@ -9,12 +9,8 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -22,6 +18,8 @@ Functions
    micom.interaction.summary.summarize_interactions
 
 
+Module Contents
+---------------
 
 .. py:function:: _summarize(ints: pandas.DataFrame) -> pandas.DataFrame
 

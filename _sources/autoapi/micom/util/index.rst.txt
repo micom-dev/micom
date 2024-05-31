@@ -1,5 +1,5 @@
-:py:mod:`micom.util`
-====================
+micom.util
+==========
 
 .. py:module:: micom.util
 
@@ -9,12 +9,18 @@
 
 
 
-Module Contents
----------------
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.util.logger
+   micom.util._read_funcs
+   micom.util.COMPARTMENT_RE
 
 
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -39,24 +45,16 @@ Functions
    micom.util.reset_min_community_growth
 
 
+Module Contents
+---------------
 
-Attributes
-~~~~~~~~~~
-
-.. autoapisummary::
-
-   micom.util._read_funcs
-   micom.util.COMPARTMENT_RE
-
+.. py:data:: logger
 
 .. py:data:: _read_funcs
-
-   
 
 .. py:data:: COMPARTMENT_RE
    :value: '(_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)'
 
-   
 
 .. py:function:: is_active_demand(r)
 

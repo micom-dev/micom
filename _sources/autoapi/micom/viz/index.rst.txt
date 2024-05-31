@@ -1,5 +1,5 @@
-:py:mod:`micom.viz`
-===================
+micom.viz
+=========
 
 .. py:module:: micom.viz
 
@@ -11,32 +11,28 @@
 
 Submodules
 ----------
+
 .. toctree::
-   :titlesonly:
    :maxdepth: 1
 
-   association/index.rst
-   core/index.rst
-   exchanges/index.rst
-   growth/index.rst
-   interactions/index.rst
-   tradeoff/index.rst
+   /autoapi/micom/viz/association/index
+   /autoapi/micom/viz/core/index
+   /autoapi/micom/viz/exchanges/index
+   /autoapi/micom/viz/growth/index
+   /autoapi/micom/viz/interactions/index
+   /autoapi/micom/viz/tradeoff/index
 
-
-Package Contents
-----------------
 
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
    micom.viz.Visualization
 
 
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -48,11 +44,13 @@ Functions
    micom.viz.plot_tradeoff
 
 
+Package Contents
+----------------
 
 .. py:class:: Visualization(filename, data, template)
 
-
    Bases: :py:obj:`object`
+
 
    A visualization object.
 
@@ -74,6 +72,7 @@ Functions
 
       :type: jinja2.Template
 
+
    .. py:method:: view()
 
       Open the visualization in a browser.
@@ -81,6 +80,7 @@ Functions
       :param None.:
 
       :rtype: nothing
+
 
 
    .. py:method:: save(**kwargs)

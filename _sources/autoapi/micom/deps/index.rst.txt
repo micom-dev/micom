@@ -1,22 +1,19 @@
-:py:mod:`micom.deps`
-====================
+micom.deps
+==========
 
 .. py:module:: micom.deps
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    micom.deps.show_versions
 
 
+Module Contents
+---------------
 
 .. py:function:: show_versions()
-
 

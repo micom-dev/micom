@@ -1,5 +1,5 @@
-:py:mod:`micom.workflows.core`
-==============================
+micom.workflows.core
+====================
 
 .. py:module:: micom.workflows.core
 
@@ -9,12 +9,16 @@
 
 
 
-Module Contents
----------------
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.workflows.core.GrowthResults
 
 
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -23,18 +27,10 @@ Functions
    micom.workflows.core.workflow
 
 
-
-Attributes
-~~~~~~~~~~
-
-.. autoapisummary::
-
-   micom.workflows.core.GrowthResults
-
+Module Contents
+---------------
 
 .. py:data:: GrowthResults
-
-   
 
 .. py:function:: save_results(results, path)
 

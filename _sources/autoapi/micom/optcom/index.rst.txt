@@ -1,5 +1,5 @@
-:py:mod:`micom.optcom`
-======================
+micom.optcom
+============
 
 .. py:module:: micom.optcom
 
@@ -9,27 +9,104 @@
 
 
 
-Module Contents
----------------
-
-
-Functions
-~~~~~~~~~
+Attributes
+----------
 
 .. autoapisummary::
 
+   micom.optcom.logger
+   micom.optcom._methods
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.optcom.fast_dual
+   micom.optcom._format_min_growth
+   micom.optcom._apply_min_growth
+   micom.optcom.check_modification
+   micom.optcom.solve
    micom.optcom.add_dualized_optcom
    micom.optcom.add_moma_optcom
    micom.optcom.optcom
 
 
+Module Contents
+---------------
 
-Attributes
-~~~~~~~~~~
+.. py:function:: fast_dual(model, prefix='dual_')
 
-.. autoapisummary::
+   Add dual formulation to the problem.
 
-   micom.optcom._methods
+   A mathematical optimization problem can be viewed as a primal and a dual
+   problem. If the primal problem is a minimization problem the dual is a
+   maximization problem, and the optimal value of the dual is a lower bound of
+   the optimal value of the primal. For linear problems, strong duality holds,
+   which means that the optimal values of the primal and dual are equal
+   (duality gap = 0). This functions takes an optlang Model representing a
+   primal linear problem
+   and returns a new Model representing the dual optimization problem. The
+   provided model must have a linear objective, linear constraints and only
+   continuous variables. Furthermore, the problem must be in standard form,
+   i.e. all variables should be non-negative. Both minimization and
+   maximization problems are allowed.
+
+   .. attribute:: model
+
+      The model to be dualized.
+
+      :type: cobra.Model
+
+   .. attribute:: prefix
+
+      The string that will be prepended to all variable and constraint names
+      in the returned dual problem.
+
+      :type: str
+
+   :returns: The coefficients for the new dual objective.
+   :rtype: dict
+
+
+.. py:function:: _format_min_growth(min_growth, taxa)
+
+   Format min_growth into a pandas series.
+
+   :param min_growth: The minimum growth rate for each individual in the community. Either
+                      a single value applied to all individuals or one value for each.
+   :type min_growth: positive float or array-like object.
+   :param taxa: The ID for each individual model in the community.
+   :type taxa: array-like
+
+   :returns: A pandas Series mapping each individual to its minimum growth rate.
+   :rtype: pandas.Series
+
+
+.. py:function:: _apply_min_growth(community, min_growth, atol=1e-06, rtol=1e-06)
+
+   Set minimum growth constraints on a model.
+
+   Will integrate with the context.
+
+
+.. py:function:: check_modification(community)
+
+   Check whether a community already carries a modification.
+
+   :param community: The community class to check.
+   :type community: micom.Community
+
+   :raises ValueError: If the community already carries a modification and adding another
+       would not be safe.
+
+
+.. py:data:: logger
+
+.. py:function:: solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-06, rtol=1e-06)
+
+   Get all fluxes stratified by taxa.
 
 
 .. py:function:: add_dualized_optcom(community, min_growth)
@@ -83,8 +160,6 @@ Attributes
 
 
 .. py:data:: _methods
-
-   
 
 .. py:function:: optcom(community, strategy, min_growth, fluxes, pfba)
 

@@ -1,5 +1,5 @@
-:py:mod:`micom.qiime_formats`
-=============================
+micom.qiime_formats
+===================
 
 .. py:module:: micom.qiime_formats
 
@@ -9,15 +9,21 @@
 
 
 
-Module Contents
----------------
-
-
-Functions
-~~~~~~~~~
+Attributes
+----------
 
 .. autoapisummary::
 
+   micom.qiime_formats.yaml
+   micom.qiime_formats._has_manifest
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.qiime_formats.load_pickle
    micom.qiime_formats.metadata
    micom.qiime_formats.load_qiime_model_db
    micom.qiime_formats.load_qiime_manifest
@@ -27,24 +33,25 @@ Functions
    micom.qiime_formats.load_qiime_taxonomy
 
 
+Module Contents
+---------------
 
-Attributes
-~~~~~~~~~~
+.. py:function:: load_pickle(filename)
 
-.. autoapisummary::
+   Load a community model from a pickled version.
 
-   micom.qiime_formats.yaml
-   micom.qiime_formats._has_manifest
+   :param filename: The file the community is stored in.
+   :type filename: str
+
+   :returns: The loaded community model.
+   :rtype: micom.Community
 
 
 .. py:data:: yaml
 
-   
-
 .. py:data:: _has_manifest
    :value: ['CommunityModels[Pickle]', 'MetabolicModels[JSON]', 'MetabolicModels[SBML]']
 
-   
 
 .. py:function:: metadata(artifact)
 

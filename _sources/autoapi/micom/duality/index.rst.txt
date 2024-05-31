@@ -1,5 +1,5 @@
-:py:mod:`micom.duality`
-=======================
+micom.duality
+=============
 
 .. py:module:: micom.duality
 
@@ -9,18 +9,26 @@
 
 
 
-Module Contents
----------------
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.duality.logger
 
 
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    micom.duality.fast_dual
 
 
+Module Contents
+---------------
+
+.. py:data:: logger
 
 .. py:function:: fast_dual(model, prefix='dual_')
 

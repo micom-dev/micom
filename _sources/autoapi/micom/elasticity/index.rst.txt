@@ -1,5 +1,5 @@
-:py:mod:`micom.elasticity`
-==========================
+micom.elasticity
+================
 
 .. py:module:: micom.elasticity
 
@@ -12,15 +12,22 @@
 
 
 
-Module Contents
----------------
-
-
-Functions
-~~~~~~~~~
+Attributes
+----------
 
 .. autoapisummary::
 
+   micom.elasticity.STEP
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.elasticity.reset_min_community_growth
+   micom.elasticity.regularize_l2_norm
+   micom.elasticity.optimize_with_fraction
    micom.elasticity._get_fluxes
    micom.elasticity._derivatives
    micom.elasticity.elasticities_by_medium
@@ -28,19 +35,46 @@ Functions
    micom.elasticity.elasticities
 
 
+Module Contents
+---------------
 
-Attributes
-~~~~~~~~~~
+.. py:function:: reset_min_community_growth(com)
 
-.. autoapisummary::
+   Reset the lower bound for the community growth.
 
-   micom.elasticity.STEP
+
+.. py:function:: regularize_l2_norm(community, min_growth)
+
+   Add an objective to find the most "egoistic" solution.
+
+   This adds an optimization objective finding a solution that maintains a
+   (sub-)optimal community growth rate but is the closest solution to the
+   community members individual maximal growth rates. So it basically finds
+   the best possible tradeoff between maximizing community growth and
+   individual (egoistic) growth. Here the objective is given as the sum of
+   squared differences between the individuals current and maximal growth
+   rate. In the linear case squares are substituted by absolute values
+   (Manhattan distance).
+
+   :param community: The community to modify.
+   :type community: micom.Community
+   :param min_growth: The minimal community growth rate that has to be mantained.
+   :type min_growth: positive float
+   :param linear: Whether to use a non-linear (sum of squares) or linear version of the
+                  cooperativity cost. If set to False requires a QP-capable solver.
+   :type linear: boolean
+   :param max_gcs: The precomputed maximum individual growth rates.
+   :type max_gcs: None or dict
+
+
+.. py:function:: optimize_with_fraction(com, fraction, growth_rate=None, fluxes=False)
+
+   Optimize with a constrained community growth rate.
 
 
 .. py:data:: STEP
    :value: 0.1
 
-   
 
 .. py:function:: _get_fluxes(sol, reactions)
 

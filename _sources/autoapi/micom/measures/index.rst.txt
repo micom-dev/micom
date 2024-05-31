@@ -1,5 +1,5 @@
-:py:mod:`micom.measures`
-========================
+micom.measures
+==============
 
 .. py:module:: micom.measures
 
@@ -9,12 +9,8 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -22,6 +18,8 @@ Functions
    micom.measures.consumption_rates
 
 
+Module Contents
+---------------
 
 .. py:function:: production_rates(results)
 

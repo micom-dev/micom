@@ -1,5 +1,5 @@
-:py:mod:`micom.data`
-====================
+micom.data
+==========
 
 .. py:module:: micom.data
 
@@ -9,30 +9,26 @@
 
 
 
-Package Contents
-----------------
-
-
-Functions
-~~~~~~~~~
-
-.. autoapisummary::
-
-   micom.data.test_taxonomy
-
-
-
 Attributes
-~~~~~~~~~~
+----------
 
 .. autoapisummary::
 
    micom.data.agora
 
 
-.. py:data:: agora
+Functions
+---------
 
-   
+.. autoapisummary::
+
+   micom.data.test_taxonomy
+
+
+Package Contents
+----------------
+
+.. py:data:: agora
 
 .. py:function:: test_taxonomy(n=4)
 

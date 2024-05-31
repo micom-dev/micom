@@ -1,5 +1,5 @@
-:py:mod:`micom.viz.growth`
-==========================
+micom.viz.growth
+================
 
 .. py:module:: micom.viz.growth
 
@@ -9,18 +9,16 @@
 
 
 
-Module Contents
----------------
-
-
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
    micom.viz.growth.plot_growth
 
 
+Module Contents
+---------------
 
 .. py:function:: plot_growth(results, filename='growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
 

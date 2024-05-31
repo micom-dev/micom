@@ -1,5 +1,5 @@
-:py:mod:`micom.viz.core`
-========================
+micom.viz.core
+==============
 
 .. py:module:: micom.viz.core
 
@@ -9,35 +9,34 @@
 
 
 
-Module Contents
----------------
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.viz.core.logger
+   micom.viz.core.env
+
 
 Classes
-~~~~~~~
+-------
 
 .. autoapisummary::
 
    micom.viz.core.Visualization
 
 
+Module Contents
+---------------
 
-
-Attributes
-~~~~~~~~~~
-
-.. autoapisummary::
-
-   micom.viz.core.env
-
+.. py:data:: logger
 
 .. py:data:: env
 
-   
-
 .. py:class:: Visualization(filename, data, template)
 
-
    Bases: :py:obj:`object`
+
 
    A visualization object.
 
@@ -59,6 +58,7 @@ Attributes
 
       :type: jinja2.Template
 
+
    .. py:method:: view()
 
       Open the visualization in a browser.
@@ -66,6 +66,7 @@ Attributes
       :param None.:
 
       :rtype: nothing
+
 
 
    .. py:method:: save(**kwargs)

@@ -1,26 +1,22 @@
-:py:mod:`micom.interaction`
-===========================
+micom.interaction
+=================
 
 .. py:module:: micom.interaction
 
 
 Submodules
 ----------
+
 .. toctree::
-   :titlesonly:
    :maxdepth: 1
 
-   focal/index.rst
-   scores/index.rst
-   summary/index.rst
-
-
-Package Contents
-----------------
+   /autoapi/micom/interaction/focal/index
+   /autoapi/micom/interaction/scores/index
+   /autoapi/micom/interaction/summary/index
 
 
 Functions
-~~~~~~~~~
+---------
 
 .. autoapisummary::
 
@@ -29,6 +25,8 @@ Functions
    micom.interaction.summarize_interactions
 
 
+Package Contents
+----------------
 
 .. py:function:: interactions(results: micom.workflows.GrowthResults, taxa: Union[None, str, List[str]], threads: int = 1, progress: bool = True) -> pandas.DataFrame
 

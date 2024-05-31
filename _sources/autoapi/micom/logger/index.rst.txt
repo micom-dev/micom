@@ -1,5 +1,5 @@
-:py:mod:`micom.logger`
-======================
+micom.logger
+============
 
 .. py:module:: micom.logger
 
@@ -9,15 +9,21 @@
 
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.logger.FORMAT
+   micom.logger.logger
+
+
 Module Contents
 ---------------
 
 .. py:data:: FORMAT
    :value: '%(message)s'
 
-   
 
 .. py:data:: logger
-
-   
 

@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
         <title>micom.community - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=387cc868" />
@@ -228,8 +228,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../elasticities.html">Intervention studies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials and Courses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../NEWS.html">Release Notes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../autoapi/micom/index.html">micom</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/data/index.html">micom.data</a></li>
@@ -341,7 +339,7 @@
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
 
 <div class="viewcode-block" id="_ranks">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation._ranks">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community._ranks">[docs]</a>
 <span class="n">_ranks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kingdom&quot;</span><span class="p">,</span> <span class="s2">&quot;phylum&quot;</span><span class="p">,</span> <span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;order&quot;</span><span class="p">,</span> <span class="s2">&quot;family&quot;</span><span class="p">,</span> <span class="s2">&quot;genus&quot;</span><span class="p">,</span> <span class="s2">&quot;species&quot;</span><span class="p">,</span> <span class="s2">&quot;strain&quot;</span><span class="p">]</span></div>
 
 
@@ -350,7 +348,7 @@
 
 
 <div class="viewcode-block" id="Community">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation.Community">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community">[docs]</a>
 <span class="k">class</span> <span class="nc">Community</span><span class="p">(</span><span class="n">cobra</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A community of models.</span>
 
@@ -619,7 +617,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Objective</span><span class="p">(</span><span class="n">com_obj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;max&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Community.__add_exchanges">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation.Community.__add_exchanges">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.__add_exchanges">[docs]</a>
     <span class="k">def</span> <span class="nf">__add_exchanges</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">reactions</span><span class="p">,</span>
@@ -709,7 +707,7 @@
 
 
 <div class="viewcode-block" id="Community.__update_exchanges">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation.Community.__update_exchanges">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.__update_exchanges">[docs]</a>
     <span class="k">def</span> <span class="nf">__update_exchanges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update exchanges.&quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;updating exchange reactions for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
@@ -725,7 +723,7 @@
 
 
 <div class="viewcode-block" id="Community.__update_community_objective">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation.Community.__update_community_objective">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.__update_community_objective">[docs]</a>
     <span class="k">def</span> <span class="nf">__update_community_objective</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the community objective.&quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;updating the community objective for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
@@ -747,7 +745,7 @@
 
 
 <div class="viewcode-block" id="Community.optimize_single">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation.Community.optimize_single">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.optimize_single">[docs]</a>
     <span class="k">def</span> <span class="nf">optimize_single</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Optimize growth rate for one individual.</span>
 
@@ -793,7 +791,7 @@
 
 
 <div class="viewcode-block" id="Community.optimize_all">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation.Community.optimize_all">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.optimize_all">[docs]</a>
     <span class="k">def</span> <span class="nf">optimize_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return solutions for individually optimizing each model.</span>
 
@@ -825,7 +823,7 @@
 
 
 <div class="viewcode-block" id="Community.optimize">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation.Community.optimize">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.optimize">[docs]</a>
     <span class="k">def</span> <span class="nf">optimize</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">raise_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
@@ -882,7 +880,7 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.abundances">
-<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.annotation.Community.abundances">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.abundances">[docs]</a>
     <span class="k">def</span> <span class="nf">abundances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;pandas.Series: The normalized abundances.</span>
 
@@ -897,7 +895,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">set_abundance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Community.set_abundance">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation.Community.set_abundance">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.set_abundance">[docs]</a>
     <span class="k">def</span> <span class="nf">set_abundance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Change abundances for one or more taxa.</span>
 
@@ -934,7 +932,7 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.taxonomy">
-<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.annotation.Community.taxonomy">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.taxonomy">[docs]</a>
     <span class="k">def</span> <span class="nf">taxonomy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;pandas.DataFrame: The taxonomy used within the model.</span>
 
@@ -945,7 +943,7 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.modification">
-<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.annotation.Community.modification">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.modification">[docs]</a>
     <span class="k">def</span> <span class="nf">modification</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Denotes modifications to the model currently applied.</span>
 
@@ -961,7 +959,7 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.exchanges">
-<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.annotation.Community.exchanges">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.exchanges">[docs]</a>
     <span class="k">def</span> <span class="nf">exchanges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;list: Return all exchange reactions in the model.</span>
 
@@ -973,7 +971,7 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.internal_exchanges">
-<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.annotation.Community.internal_exchanges">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.internal_exchanges">[docs]</a>
     <span class="k">def</span> <span class="nf">internal_exchanges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;list: Return all internal exchanges.</span>
 
@@ -988,7 +986,7 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.medium">
-<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.annotation.Community.medium">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.medium">[docs]</a>
     <span class="k">def</span> <span class="nf">medium</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the medium.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">medium</span></div>
@@ -1038,7 +1036,7 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.build_metrics">
-<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.annotation.Community.build_metrics">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.build_metrics">[docs]</a>
     <span class="k">def</span> <span class="nf">build_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;pd.Series: Returns general metrics for database matching.</span>
 
@@ -1054,7 +1052,7 @@
 
 
 <div class="viewcode-block" id="Community.optcom">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation.Community.optcom">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.optcom">[docs]</a>
     <span class="k">def</span> <span class="nf">optcom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;lagrangian&quot;</span><span class="p">,</span> <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Run OptCom for the community.</span>
 
@@ -1112,7 +1110,7 @@
 
 
 <div class="viewcode-block" id="Community.cooperative_tradeoff">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation.Community.cooperative_tradeoff">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.cooperative_tradeoff">[docs]</a>
     <span class="k">def</span> <span class="nf">cooperative_tradeoff</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
@@ -1170,7 +1168,7 @@
 
 
 <div class="viewcode-block" id="Community.knockout_taxa">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation.Community.knockout_taxa">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.knockout_taxa">[docs]</a>
     <span class="k">def</span> <span class="nf">knockout_taxa</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">taxa</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -1228,7 +1226,7 @@
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Community.scale">
-<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.annotation.Community.scale">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.scale">[docs]</a>
     <span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a scale to improve numerical properties.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s2">&quot;cplex&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">):</span>
@@ -1237,7 +1235,7 @@
 
 
 <div class="viewcode-block" id="Community.to_pickle">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.annotation.Community.to_pickle">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.to_pickle">[docs]</a>
     <span class="k">def</span> <span class="nf">to_pickle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Save a community in serialized form.</span>
 

@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
         <title>micom.problems - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=387cc868" />
@@ -228,8 +228,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../elasticities.html">Intervention studies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials and Courses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../NEWS.html">Release Notes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../autoapi/micom/index.html">micom</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/data/index.html">micom.data</a></li>
@@ -340,7 +338,7 @@
 
 
 <div class="viewcode-block" id="regularize_l2_norm">
-<a class="viewcode-back" href="../../autoapi/micom/problems/index.html#micom.community.regularize_l2_norm">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/problems/index.html#micom.problems.regularize_l2_norm">[docs]</a>
 <span class="k">def</span> <span class="nf">regularize_l2_norm</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add an objective to find the most &quot;egoistic&quot; solution.</span>
 
@@ -385,7 +383,7 @@
 
 
 <div class="viewcode-block" id="cooperative_tradeoff">
-<a class="viewcode-back" href="../../autoapi/micom/problems/index.html#micom.community.cooperative_tradeoff">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/problems/index.html#micom.problems.cooperative_tradeoff">[docs]</a>
 <span class="k">def</span> <span class="nf">cooperative_tradeoff</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the best tradeoff between community and individual growth.&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">community</span> <span class="k">as</span> <span class="n">com</span><span class="p">:</span>
@@ -421,7 +419,7 @@
 
 
 <div class="viewcode-block" id="knockout_taxa">
-<a class="viewcode-back" href="../../autoapi/micom/problems/index.html#micom.community.knockout_taxa">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/problems/index.html#micom.problems.knockout_taxa">[docs]</a>
 <span class="k">def</span> <span class="nf">knockout_taxa</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">taxa</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span> <span class="n">diag</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Knockout a taxon from the community.&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">community</span> <span class="k">as</span> <span class="n">com</span><span class="p">:</span>

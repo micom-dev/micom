@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
         <title>micom.workflows.media - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=387cc868" />
@@ -228,8 +228,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../elasticities.html">Intervention studies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">Tutorials and Courses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../NEWS.html">Release Notes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../autoapi/micom/index.html">micom</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/data/index.html">micom.data</a></li>
@@ -325,7 +323,7 @@
 
 
 <div class="viewcode-block" id="process_medium">
-<a class="viewcode-back" href="../../../autoapi/micom/workflows/tradeoff/index.html#micom.workflows.db_media.process_medium">[docs]</a>
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.process_medium">[docs]</a>
 <span class="k">def</span> <span class="nf">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="n">samples</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare a medium for simulation.&quot;&quot;&quot;</span>
     <span class="n">medium</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">medium</span><span class="o">.</span><span class="n">reaction</span>
@@ -341,7 +339,7 @@
 
 
 <div class="viewcode-block" id="_medium">
-<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.db_media._medium">[docs]</a>
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows._medium">[docs]</a>
 <span class="k">def</span> <span class="nf">_medium</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get minimal medium for a single model.&quot;&quot;&quot;</span>
     <span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">min_growth</span> <span class="o">=</span> <span class="n">args</span>
@@ -363,7 +361,7 @@
 
 
 <div class="viewcode-block" id="minimal_media">
-<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.db_media.minimal_media">[docs]</a>
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.minimal_media">[docs]</a>
 <span class="k">def</span> <span class="nf">minimal_media</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">model_folder</span><span class="p">,</span> <span class="n">summarize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the minimal medium for a set of community models.&quot;&quot;&quot;</span>
     <span class="n">samples</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
@@ -390,7 +388,7 @@
 
 
 <div class="viewcode-block" id="_fix_medium">
-<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.db_media._fix_medium">[docs]</a>
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows._fix_medium">[docs]</a>
 <span class="k">def</span> <span class="nf">_fix_medium</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the fixed medium for a model.&quot;&quot;&quot;</span>
     <span class="n">sid</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">max_import</span><span class="p">,</span> <span class="n">mip</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">args</span>
@@ -423,7 +421,7 @@
 
 
 <div class="viewcode-block" id="fix_medium">
-<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.db_media.fix_medium">[docs]</a>
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/media/index.html#micom.workflows.fix_medium">[docs]</a>
 <span class="k">def</span> <span class="nf">fix_medium</span><span class="p">(</span>
     <span class="n">manifest</span><span class="p">,</span>
     <span class="n">model_folder</span><span class="p">,</span>

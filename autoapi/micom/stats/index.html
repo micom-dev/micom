@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="micom.taxonomy" href="../taxonomy/index.html" /><link rel="prev" title="micom.solution" href="../solution/index.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
         <title>micom.stats - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=387cc868" />
@@ -229,8 +229,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../elasticities.html">Intervention studies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">Tutorials and Courses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../NEWS.html">Release Notes</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">micom</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../data/index.html">micom.data</a></li>
@@ -327,22 +325,19 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.stats.workflow" title="micom.stats.workflow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">workflow</span></code></a>(func, args[, threads, description, progress])</p></td>
-<td><p>Run analyses for several samples in parallel.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.stats.fdr_adjust" title="micom.stats.fdr_adjust"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fdr_adjust</span></code></a>(p)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.stats.fdr_adjust" title="micom.stats.fdr_adjust"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fdr_adjust</span></code></a>(p)</p></td>
 <td><p>Get FDR cutoffs for p-values with Benjamini-Hochberg.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.stats._run_test" title="micom.stats._run_test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_run_test</span></code></a>(args)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.stats._run_test" title="micom.stats._run_test"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_run_test</span></code></a>(args)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.stats._run_corr" title="micom.stats._run_corr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_run_corr</span></code></a>(args)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.stats._run_corr" title="micom.stats._run_corr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_run_corr</span></code></a>(args)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.stats.compare_groups" title="micom.stats.compare_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compare_groups</span></code></a>(fluxes, metadata_column[, groups, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.stats.compare_groups" title="micom.stats.compare_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compare_groups</span></code></a>(fluxes, metadata_column[, groups, ...])</p></td>
 <td><p>Compare fluxes form different sample groups.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.stats.correlate_fluxes" title="micom.stats.correlate_fluxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correlate_fluxes</span></code></a>(fluxes, metadata_column[, threads, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.stats.correlate_fluxes" title="micom.stats.correlate_fluxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correlate_fluxes</span></code></a>(fluxes, metadata_column[, threads, ...])</p></td>
 <td><p>Correlate fluxes with a continuous covariate.</p></td>
 </tr>
 </tbody>
@@ -351,27 +346,6 @@
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.stats.workflow">
-<span class="sig-prename descclassname"><span class="pre">micom.stats.</span></span><span class="sig-name descname"><span class="pre">workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/workflows/core.html#workflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.stats.workflow" title="Link to this definition">¶</a></dt>
-<dd><p>Run analyses for several samples in parallel.</p>
-<p>This will analyze several samples in parallel. Includes a workaround for
-optlang memory leak.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> (<em>function</em>) – A function that takes a single argument (can be any object) and
-that performs your analysis for a single sample.</p></li>
-<li><p><strong>args</strong> (<em>array-like object</em>) – An array-like object (list, tuple, numpy array, pandas Series, etc.)
-that contains the arguments for each sample.</p></li>
-<li><p><strong>threads</strong> (<em>positive int</em>) – How many samples to analyze in parallel at once.</p></li>
-<li><p><strong>description</strong> (<em>str</em>) – The dewscription shown in front of the progress bar.</p></li>
-<li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.stats.fdr_adjust">
 <span class="sig-prename descclassname"><span class="pre">micom.stats.</span></span><span class="sig-name descname"><span class="pre">fdr_adjust</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/stats.html#fdr_adjust"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.stats.fdr_adjust" title="Link to this definition">¶</a></dt>
@@ -515,7 +489,6 @@ are the FDR-corrected p-values (Benjamini-Hochberg correction).</p>
 <li><a class="reference internal" href="#">micom.stats</a><ul>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#micom.stats.workflow"><code class="docutils literal notranslate"><span class="pre">workflow()</span></code></a></li>
 <li><a class="reference internal" href="#micom.stats.fdr_adjust"><code class="docutils literal notranslate"><span class="pre">fdr_adjust()</span></code></a></li>
 <li><a class="reference internal" href="#micom.stats._run_test"><code class="docutils literal notranslate"><span class="pre">_run_test()</span></code></a></li>
 <li><a class="reference internal" href="#micom.stats._run_corr"><code class="docutils literal notranslate"><span class="pre">_run_corr()</span></code></a></li>

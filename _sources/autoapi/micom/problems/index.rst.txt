@@ -9,27 +9,11 @@ micom.problems
 
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   micom.problems.logger
-
-
 Functions
 ---------
 
 .. autoapisummary::
 
-   micom.problems._format_min_growth
-   micom.problems._apply_min_growth
-   micom.problems.check_modification
-   micom.problems.reset_min_community_growth
-   micom.problems.solve
-   micom.problems.crossover
-   micom.problems.optimize_with_retry
-   micom.problems.optimize_with_fraction
    micom.problems.regularize_l2_norm
    micom.problems.cooperative_tradeoff
    micom.problems.knockout_taxa
@@ -37,65 +21,6 @@ Functions
 
 Module Contents
 ---------------
-
-.. py:function:: _format_min_growth(min_growth, taxa)
-
-   Format min_growth into a pandas series.
-
-   :param min_growth: The minimum growth rate for each individual in the community. Either
-                      a single value applied to all individuals or one value for each.
-   :type min_growth: positive float or array-like object.
-   :param taxa: The ID for each individual model in the community.
-   :type taxa: array-like
-
-   :returns: A pandas Series mapping each individual to its minimum growth rate.
-   :rtype: pandas.Series
-
-
-.. py:function:: _apply_min_growth(community, min_growth, atol=1e-06, rtol=1e-06)
-
-   Set minimum growth constraints on a model.
-
-   Will integrate with the context.
-
-
-.. py:function:: check_modification(community)
-
-   Check whether a community already carries a modification.
-
-   :param community: The community class to check.
-   :type community: micom.Community
-
-   :raises ValueError: If the community already carries a modification and adding another
-       would not be safe.
-
-
-.. py:function:: reset_min_community_growth(com)
-
-   Reset the lower bound for the community growth.
-
-
-.. py:data:: logger
-
-.. py:function:: solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-06, rtol=1e-06)
-
-   Get all fluxes stratified by taxa.
-
-
-.. py:function:: crossover(community, sol, fluxes=False)
-
-   Get the crossover solution.
-
-
-.. py:function:: optimize_with_retry(com, message='could not get optimum.')
-
-   Try to reset the solver.
-
-
-.. py:function:: optimize_with_fraction(com, fraction, growth_rate=None, fluxes=False)
-
-   Optimize with a constrained community growth rate.
-
 
 .. py:function:: regularize_l2_norm(community, min_growth)
 

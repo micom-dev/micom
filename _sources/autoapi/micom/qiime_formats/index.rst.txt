@@ -23,7 +23,6 @@ Functions
 
 .. autoapisummary::
 
-   micom.qiime_formats.load_pickle
    micom.qiime_formats.metadata
    micom.qiime_formats.load_qiime_model_db
    micom.qiime_formats.load_qiime_manifest
@@ -35,17 +34,6 @@ Functions
 
 Module Contents
 ---------------
-
-.. py:function:: load_pickle(filename)
-
-   Load a community model from a pickled version.
-
-   :param filename: The file the community is stored in.
-   :type filename: str
-
-   :returns: The loaded community model.
-   :rtype: micom.Community
-
 
 .. py:data:: yaml
 

@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
         <title>micom.solution - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=387cc868" />
@@ -228,8 +228,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../elasticities.html">Intervention studies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials and Courses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../NEWS.html">Release Notes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../autoapi/micom/index.html">micom</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/data/index.html">micom.data</a></li>
@@ -337,14 +335,14 @@
 
 
 <div class="viewcode-block" id="good">
-<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.community.good">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.good">[docs]</a>
 <span class="n">good</span> <span class="o">=</span> <span class="p">[</span><span class="n">OPTIMAL</span><span class="p">,</span> <span class="n">NUMERIC</span><span class="p">,</span> <span class="n">FEASIBLE</span><span class="p">,</span> <span class="n">SUBOPTIMAL</span><span class="p">,</span> <span class="n">ITERATION_LIMIT</span><span class="p">]</span></div>
 
 <span class="sd">&quot;&quot;&quot;Solver states that permit returning the solution.&quot;&quot;&quot;</span>
 
 
 <div class="viewcode-block" id="_group_taxa">
-<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.community._group_taxa">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution._group_taxa">[docs]</a>
 <span class="k">def</span> <span class="nf">_group_taxa</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">taxa</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Format a list of values by id and taxa.&quot;&quot;&quot;</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">values</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">values</span><span class="p">,</span> <span class="n">what</span><span class="p">:</span> <span class="n">ids</span><span class="p">,</span> <span class="s2">&quot;compartment&quot;</span><span class="p">:</span> <span class="n">taxa</span><span class="p">})</span>
@@ -355,7 +353,7 @@
 
 
 <div class="viewcode-block" id="CommunitySolution">
-<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.community.CommunitySolution">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution">[docs]</a>
 <span class="k">class</span> <span class="nc">CommunitySolution</span><span class="p">(</span><span class="n">Solution</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An FBA solution for an entire community.</span>
 
@@ -439,7 +437,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">abundances</span> <span class="o">*</span> <span class="n">gcs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="CommunitySolution._repr_html_">
-<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.community.CommunitySolution._repr_html_">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution._repr_html_">[docs]</a>
     <span class="k">def</span> <span class="nf">_repr_html_</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="n">good</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s2">&quot;display.max_rows&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
@@ -461,7 +459,7 @@
 
 
 <div class="viewcode-block" id="CommunitySolution.__repr__">
-<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.community.CommunitySolution.__repr__">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution.__repr__">[docs]</a>
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert CommunitySolution instance to string representation.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">good</span><span class="p">:</span>
@@ -474,7 +472,7 @@
 
 
 <div class="viewcode-block" id="add_pfba_objective">
-<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.community.add_pfba_objective">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.add_pfba_objective">[docs]</a>
 <span class="k">def</span> <span class="nf">add_pfba_objective</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add pFBA objective.</span>
 
@@ -514,7 +512,7 @@
 
 
 <div class="viewcode-block" id="solve">
-<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.community.solve">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.solve">[docs]</a>
 <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">raise_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get all fluxes stratified by taxa.&quot;&quot;&quot;</span>
     <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
@@ -542,7 +540,7 @@
 
 
 <div class="viewcode-block" id="reset_solver">
-<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.community.reset_solver">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.reset_solver">[docs]</a>
 <span class="k">def</span> <span class="nf">reset_solver</span><span class="p">(</span><span class="n">community</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset the solver.&quot;&quot;&quot;</span>
     <span class="n">interface</span> <span class="o">=</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span>
@@ -560,7 +558,7 @@
 
 
 <div class="viewcode-block" id="optimize_with_retry">
-<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.community.optimize_with_retry">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.optimize_with_retry">[docs]</a>
 <span class="k">def</span> <span class="nf">optimize_with_retry</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;could not get optimum.&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Try to reset the solver.&quot;&quot;&quot;</span>
     <span class="n">sol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
@@ -575,7 +573,7 @@
 
 
 <div class="viewcode-block" id="crossover">
-<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.community.crossover">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.crossover">[docs]</a>
 <span class="k">def</span> <span class="nf">crossover</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">sol</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the crossover solution.&quot;&quot;&quot;</span>
     <span class="n">gcs</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">growth_rate</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;medium&quot;</span><span class="p">)</span>
@@ -612,7 +610,7 @@
 
 
 <div class="viewcode-block" id="optimize_with_fraction">
-<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.community.optimize_with_fraction">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.optimize_with_fraction">[docs]</a>
 <span class="k">def</span> <span class="nf">optimize_with_fraction</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">growth_rate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Optimize with a constrained community growth rate.&quot;&quot;&quot;</span>
     <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="mi">0</span>

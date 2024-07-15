@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
         <title>micom.util - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=387cc868" />
@@ -228,8 +228,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../elasticities.html">Intervention studies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials and Courses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../NEWS.html">Release Notes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../autoapi/micom/index.html">micom</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/data/index.html">micom.data</a></li>
@@ -332,7 +330,7 @@
 
 
 <div class="viewcode-block" id="_read_funcs">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms._read_funcs">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom._read_funcs">[docs]</a>
 <span class="n">_read_funcs</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;.xml&quot;</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">read_sbml_model</span><span class="p">,</span>
     <span class="s2">&quot;.gz&quot;</span><span class="p">:</span> <span class="n">io</span><span class="o">.</span><span class="n">read_sbml_model</span><span class="p">,</span>
@@ -343,13 +341,13 @@
 
 
 <div class="viewcode-block" id="COMPARTMENT_RE">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.COMPARTMENT_RE">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.COMPARTMENT_RE">[docs]</a>
 <span class="n">COMPARTMENT_RE</span> <span class="o">=</span> <span class="s2">&quot;(_</span><span class="si">{}</span><span class="s2">$)|([^a-zA-Z0-9 :]</span><span class="si">{}</span><span class="s2">[^a-zA-Z0-9 :]$)&quot;</span></div>
 
 
 
 <div class="viewcode-block" id="is_active_demand">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.is_active_demand">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.is_active_demand">[docs]</a>
 <span class="k">def</span> <span class="nf">is_active_demand</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if a reaction is a demand reaction.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">metabolites</span><span class="p">)</span> <span class="ow">and</span> <span class="n">r</span><span class="o">.</span><span class="n">lower_bound</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
@@ -359,7 +357,7 @@
 
 
 <div class="viewcode-block" id="fix_demands">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.fix_demands">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.fix_demands">[docs]</a>
 <span class="k">def</span> <span class="nf">fix_demands</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check for forced sinks and demands and deactivates them.&quot;&quot;&quot;</span>
     <span class="n">adjusted</span> <span class="o">=</span> <span class="p">[]</span>
@@ -374,7 +372,7 @@
 
 
 <div class="viewcode-block" id="download_model">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.download_model">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.download_model">[docs]</a>
 <span class="k">def</span> <span class="nf">download_model</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">folder</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Download a model.&quot;&quot;&quot;</span>
     <span class="n">dest</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">))</span>
@@ -385,7 +383,7 @@
 
 
 <div class="viewcode-block" id="_read_model">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.algorithms._read_model">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom._read_model">[docs]</a>
 <span class="k">def</span> <span class="nf">_read_model</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Read a model from a local file.&quot;&quot;&quot;</span>
     <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
@@ -403,7 +401,7 @@
 
 
 <div class="viewcode-block" id="load_model">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/db_media/index.html#micom.algorithms.load_model">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.load_model">[docs]</a>
 <span class="k">def</span> <span class="nf">load_model</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a cobra model from several file types.&quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;reading model from </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span>
@@ -422,7 +420,7 @@
 
 
 <div class="viewcode-block" id="load_pickle">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/tradeoff/index.html#micom.algorithms.load_pickle">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.load_pickle">[docs]</a>
 <span class="k">def</span> <span class="nf">load_pickle</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a community model from a pickled version.</span>
 
@@ -445,7 +443,7 @@
 
 
 <div class="viewcode-block" id="serialize_models">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.serialize_models">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.serialize_models">[docs]</a>
 <span class="k">def</span> <span class="nf">serialize_models</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert several models to Python pickles.&quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
@@ -461,7 +459,7 @@
 
 
 <div class="viewcode-block" id="chr_or_input">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.chr_or_input">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.chr_or_input">[docs]</a>
 <span class="k">def</span> <span class="nf">chr_or_input</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return ascii character for the ordinal or the original string.&quot;&quot;&quot;</span>
     <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
@@ -473,7 +471,7 @@
 
 
 <div class="viewcode-block" id="clean_ids">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.clean_ids">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.clean_ids">[docs]</a>
 <span class="k">def</span> <span class="nf">clean_ids</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Clean ids up a bit.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;__(</span><span class="se">\\</span><span class="s2">d+)__&quot;</span><span class="p">,</span> <span class="n">chr_or_input</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span></div>
@@ -481,7 +479,7 @@
 
 
 <div class="viewcode-block" id="compartment_id">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.compartment_id">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.compartment_id">[docs]</a>
 <span class="k">def</span> <span class="nf">compartment_id</span><span class="p">(</span><span class="n">micom_obj</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the compartment id for a cobra object and prune the prefix if needed.&quot;&quot;&quot;</span>
     <span class="n">comp_id</span> <span class="o">=</span> <span class="n">micom_obj</span><span class="o">.</span><span class="n">compartment</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;__&quot;</span> <span class="o">+</span> <span class="n">micom_obj</span><span class="o">.</span><span class="n">community_id</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -501,7 +499,7 @@
 
 
 <div class="viewcode-block" id="join_models">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/build/index.html#micom.algorithms.join_models">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.join_models">[docs]</a>
 <span class="k">def</span> <span class="nf">join_models</span><span class="p">(</span><span class="n">model_files</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Join several models into one.</span>
 
@@ -551,7 +549,7 @@
 
 
 <div class="viewcode-block" id="fluxes_from_primals">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.fluxes_from_primals">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.fluxes_from_primals">[docs]</a>
 <span class="k">def</span> <span class="nf">fluxes_from_primals</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">info</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract a list of fluxes from the model primals.&quot;&quot;&quot;</span>
     <span class="n">primals</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">primal_values</span>
@@ -569,7 +567,7 @@
 
 
 <div class="viewcode-block" id="add_var_from_expression">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.add_var_from_expression">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.add_var_from_expression">[docs]</a>
 <span class="k">def</span> <span class="nf">add_var_from_expression</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">expr</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a variable to a model equaling an expression.&quot;&quot;&quot;</span>
     <span class="n">var</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">ub</span><span class="p">)</span>
@@ -582,7 +580,7 @@
 
 
 <div class="viewcode-block" id="ex_metabolite">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.ex_metabolite">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.ex_metabolite">[docs]</a>
 <span class="k">def</span> <span class="nf">ex_metabolite</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">rid</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the metabolite from an exchange reaction ID.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">reactions</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">rid</span><span class="p">)</span><span class="o">.</span><span class="n">metabolites</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
@@ -590,7 +588,7 @@
 
 
 <div class="viewcode-block" id="check_modification">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.check_modification">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.check_modification">[docs]</a>
 <span class="k">def</span> <span class="nf">check_modification</span><span class="p">(</span><span class="n">community</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether a community already carries a modification.</span>
 
@@ -615,7 +613,7 @@
 
 
 <div class="viewcode-block" id="_format_min_growth">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms._format_min_growth">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom._format_min_growth">[docs]</a>
 <span class="k">def</span> <span class="nf">_format_min_growth</span><span class="p">(</span><span class="n">min_growth</span><span class="p">,</span> <span class="n">taxa</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Format min_growth into a pandas series.</span>
 
@@ -646,7 +644,7 @@
 
 
 <div class="viewcode-block" id="_apply_min_growth">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms._apply_min_growth">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom._apply_min_growth">[docs]</a>
 <span class="k">def</span> <span class="nf">_apply_min_growth</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Set minimum growth constraints on a model.</span>
 
@@ -674,7 +672,7 @@
 
 
 <div class="viewcode-block" id="adjust_solver_config">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.adjust_solver_config">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.adjust_solver_config">[docs]</a>
 <span class="k">def</span> <span class="nf">adjust_solver_config</span><span class="p">(</span><span class="n">solver</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Adjust the optlang solver configuration for larger problems.&quot;&quot;&quot;</span>
     <span class="n">interface</span> <span class="o">=</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">)</span>
@@ -705,7 +703,7 @@
 
 
 <div class="viewcode-block" id="reset_min_community_growth">
-<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.algorithms.reset_min_community_growth">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/util/index.html#micom.reset_min_community_growth">[docs]</a>
 <span class="k">def</span> <span class="nf">reset_min_community_growth</span><span class="p">(</span><span class="n">com</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Reset the lower bound for the community growth.&quot;&quot;&quot;</span>
     <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="mf">0.0</span>

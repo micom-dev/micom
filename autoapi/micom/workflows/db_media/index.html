@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="micom.workflows.grow" href="../grow/index.html" /><link rel="prev" title="micom.workflows.core" href="../core/index.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
         <title>micom.workflows.db_media - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=387cc868" />
@@ -229,8 +229,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../elasticities.html">Intervention studies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../tutorials.html">Tutorials and Courses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../NEWS.html">Release Notes</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../../../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../../index.html">micom</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../../data/index.html">micom.data</a></li>
@@ -322,60 +320,27 @@
           <section id="module-micom.workflows.db_media">
 <span id="micom-workflows-db-media"></span><h1>micom.workflows.db_media<a class="headerlink" href="#module-micom.workflows.db_media" title="Link to this heading">¶</a></h1>
 <p>Test growth media for a model database.</p>
-<section id="attributes">
-<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
-<div class="table-wrapper autosummary longtable docutils container">
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.db_media.logger" title="micom.workflows.db_media.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
 <section id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.db_media.annotate_metabolites_from_exchanges" title="micom.workflows.db_media.annotate_metabolites_from_exchanges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">annotate_metabolites_from_exchanges</span></code></a>(com)</p></td>
-<td><p>Annotate exchange reactions by their metabolite.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.db_media.load_zip_model_db" title="micom.workflows.db_media.load_zip_model_db"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_zip_model_db</span></code></a>(artifact, extract_path)</p></td>
-<td><p>Prepare a model database for use.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.db_media.load_manifest" title="micom.workflows.db_media.load_manifest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_manifest</span></code></a>(folder)</p></td>
-<td><p>Get the manifest from a model DB.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.db_media.workflow" title="micom.workflows.db_media.workflow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">workflow</span></code></a>(func, args[, threads, description, progress])</p></td>
-<td><p>Run analyses for several samples in parallel.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.db_media.process_medium" title="micom.workflows.db_media.process_medium"><code class="xref py py-obj docutils literal notranslate"><span class="pre">process_medium</span></code></a>(medium, samples)</p></td>
-<td><p>Prepare a medium for simulation.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.db_media.load_model" title="micom.workflows.db_media.load_model"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_model</span></code></a>(filepath)</p></td>
-<td><p>Load a cobra model from several file types.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.db_media.load_qiime_model_db" title="micom.workflows.db_media.load_qiime_model_db"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_qiime_model_db</span></code></a>(artifact, extract_path)</p></td>
-<td><p>Prepare a model database for use.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.db_media._grow" title="micom.workflows.db_media._grow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_grow</span></code></a>(args)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.db_media._grow" title="micom.workflows.db_media._grow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_grow</span></code></a>(args)</p></td>
 <td><p>Get the maximum growth rate under a given medium.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.db_media._try_complete" title="micom.workflows.db_media._try_complete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_try_complete</span></code></a>(args)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.db_media._try_complete" title="micom.workflows.db_media._try_complete"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_try_complete</span></code></a>(args)</p></td>
 <td><p>Try to complete the medium for a model.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.db_media.check_db_medium" title="micom.workflows.db_media.check_db_medium"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_db_medium</span></code></a>(model_db, medium[, threads])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.db_media.check_db_medium" title="micom.workflows.db_media.check_db_medium"><code class="xref py py-obj docutils literal notranslate"><span class="pre">check_db_medium</span></code></a>(model_db, medium[, threads])</p></td>
 <td><p>Complete a growth medium for all models in a database.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.db_media.complete_db_medium" title="micom.workflows.db_media.complete_db_medium"><code class="xref py py-obj docutils literal notranslate"><span class="pre">complete_db_medium</span></code></a>(model_db, medium[, growth, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.db_media.complete_db_medium" title="micom.workflows.db_media.complete_db_medium"><code class="xref py py-obj docutils literal notranslate"><span class="pre">complete_db_medium</span></code></a>(model_db, medium[, growth, ...])</p></td>
 <td><p>Complete a growth medium for all models in a database.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.db_media._annotate" title="micom.workflows.db_media._annotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_annotate</span></code></a>(f)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.db_media._annotate" title="micom.workflows.db_media._annotate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_annotate</span></code></a>(f)</p></td>
 <td><p>Get annotation for a model.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.db_media.db_annotations" title="micom.workflows.db_media.db_annotations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">db_annotations</span></code></a>(model_db[, threads])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.db_media.db_annotations" title="micom.workflows.db_media.db_annotations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">db_annotations</span></code></a>(model_db[, threads])</p></td>
 <td><p>Get metabolite annotations from a model DB.</p></td>
 </tr>
 </tbody>
@@ -384,68 +349,6 @@
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.workflows.db_media.annotate_metabolites_from_exchanges">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">annotate_metabolites_from_exchanges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/annotation.html#annotate_metabolites_from_exchanges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.annotate_metabolites_from_exchanges" title="Link to this definition">¶</a></dt>
-<dd><p>Annotate exchange reactions by their metabolite.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.workflows.db_media.load_zip_model_db">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">load_zip_model_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/db.html#load_zip_model_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.load_zip_model_db" title="Link to this definition">¶</a></dt>
-<dd><p>Prepare a model database for use.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.workflows.db_media.load_manifest">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">load_manifest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/db.html#load_manifest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.load_manifest" title="Link to this definition">¶</a></dt>
-<dd><p>Get the manifest from a model DB.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.workflows.db_media.workflow">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/core.html#workflow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.workflow" title="Link to this definition">¶</a></dt>
-<dd><p>Run analyses for several samples in parallel.</p>
-<p>This will analyze several samples in parallel. Includes a workaround for
-optlang memory leak.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> (<em>function</em>) – A function that takes a single argument (can be any object) and
-that performs your analysis for a single sample.</p></li>
-<li><p><strong>args</strong> (<em>array-like object</em>) – An array-like object (list, tuple, numpy array, pandas Series, etc.)
-that contains the arguments for each sample.</p></li>
-<li><p><strong>threads</strong> (<em>positive int</em>) – How many samples to analyze in parallel at once.</p></li>
-<li><p><strong>description</strong> (<em>str</em>) – The dewscription shown in front of the progress bar.</p></li>
-<li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.workflows.db_media.process_medium">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">process_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#process_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.process_medium" title="Link to this definition">¶</a></dt>
-<dd><p>Prepare a medium for simulation.</p>
-</dd></dl>
-
-<dl class="py data">
-<dt class="sig sig-object py" id="micom.workflows.db_media.logger">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="reference internal" href="../../../../_modules/micom/logger.html#logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.logger" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.workflows.db_media.load_model">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">load_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/util.html#load_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.load_model" title="Link to this definition">¶</a></dt>
-<dd><p>Load a cobra model from several file types.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.workflows.db_media.load_qiime_model_db">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">load_qiime_model_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/qiime_formats.html#load_qiime_model_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media.load_qiime_model_db" title="Link to this definition">¶</a></dt>
-<dd><p>Prepare a model database for use.</p>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.workflows.db_media._grow">
 <span class="sig-prename descclassname"><span class="pre">micom.workflows.db_media.</span></span><span class="sig-name descname"><span class="pre">_grow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/db_media.html#_grow"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.db_media._grow" title="Link to this definition">¶</a></dt>
@@ -624,17 +527,8 @@ rule of thumb you will need around 1GB of RAM for each thread.</p></li>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">micom.workflows.db_media</a><ul>
-<li><a class="reference internal" href="#attributes">Attributes</a></li>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#micom.workflows.db_media.annotate_metabolites_from_exchanges"><code class="docutils literal notranslate"><span class="pre">annotate_metabolites_from_exchanges()</span></code></a></li>
-<li><a class="reference internal" href="#micom.workflows.db_media.load_zip_model_db"><code class="docutils literal notranslate"><span class="pre">load_zip_model_db()</span></code></a></li>
-<li><a class="reference internal" href="#micom.workflows.db_media.load_manifest"><code class="docutils literal notranslate"><span class="pre">load_manifest()</span></code></a></li>
-<li><a class="reference internal" href="#micom.workflows.db_media.workflow"><code class="docutils literal notranslate"><span class="pre">workflow()</span></code></a></li>
-<li><a class="reference internal" href="#micom.workflows.db_media.process_medium"><code class="docutils literal notranslate"><span class="pre">process_medium()</span></code></a></li>
-<li><a class="reference internal" href="#micom.workflows.db_media.logger"><code class="docutils literal notranslate"><span class="pre">logger</span></code></a></li>
-<li><a class="reference internal" href="#micom.workflows.db_media.load_model"><code class="docutils literal notranslate"><span class="pre">load_model()</span></code></a></li>
-<li><a class="reference internal" href="#micom.workflows.db_media.load_qiime_model_db"><code class="docutils literal notranslate"><span class="pre">load_qiime_model_db()</span></code></a></li>
 <li><a class="reference internal" href="#micom.workflows.db_media._grow"><code class="docutils literal notranslate"><span class="pre">_grow()</span></code></a></li>
 <li><a class="reference internal" href="#micom.workflows.db_media._try_complete"><code class="docutils literal notranslate"><span class="pre">_try_complete()</span></code></a></li>
 <li><a class="reference internal" href="#micom.workflows.db_media.check_db_medium"><code class="docutils literal notranslate"><span class="pre">check_db_medium()</span></code></a></li>

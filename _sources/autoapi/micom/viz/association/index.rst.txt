@@ -14,16 +14,7 @@ Attributes
 
 .. autoapisummary::
 
-   micom.viz.association.logger
    micom.viz.association.PANDAS_VERSION
-
-
-Classes
--------
-
-.. autoapisummary::
-
-   micom.viz.association.Visualization
 
 
 Functions
@@ -31,101 +22,11 @@ Functions
 
 .. autoapisummary::
 
-   micom.viz.association.production_rates
-   micom.viz.association.consumption_rates
    micom.viz.association.plot_association
 
 
 Module Contents
 ---------------
-
-.. py:class:: Visualization(filename, data, template)
-
-   Bases: :py:obj:`object`
-
-
-   A visualization object.
-
-   .. attribute:: filename
-
-      The filename of trhe saved visualization.
-
-      :type: str
-
-   .. attribute:: data
-
-      The data used to create the Visualization.
-
-      :type: dict
-
-   .. attribute:: template
-
-      The jinja template used to render the visualization.
-
-      :type: jinja2.Template
-
-
-   .. py:method:: view()
-
-      Open the visualization in a browser.
-
-      :param None.:
-
-      :rtype: nothing
-
-
-
-   .. py:method:: save(**kwargs)
-
-      Render and and save the visualization.
-
-
-
-.. py:data:: logger
-
-.. py:function:: production_rates(results)
-
-   Calculate the production rates for a set of metabolites.
-
-   .. note::
-
-      Production rates are not net fluxes but the flux of a particular metabolite
-      into the external environment independent whether it is taken up by another
-      taxon. The net rates can be obtained directly by inspecting the exchange fluxes
-      in the "medium" compartment.
-      The (transient) production rates reported here are the fluxes other surrounding
-      cells/consumers would have access to. Thus, they are often more interesting for
-      a phenotype than the net rates which are the excess productin rates, even in the
-      absence of another consumer.
-
-   :param results: A growth results as returned by grow.
-   :type results: micom.GrowthResults
-
-   :returns: A new flux DataFrame containing the intermediate production rates for each
-             metabolite.
-   :rtype: pandas.DataFrame
-
-
-.. py:function:: consumption_rates(results)
-
-   Calculate the production rates for a set of metabolites.
-
-   .. note::
-
-      Consumption rates are not net fluxes but the total consumption of a particular
-      metabolite by all taxa in the community independent whether it is secreted again.
-      The net rates can be obtained directly by inspecting the exchange fluxes
-      in the "medium" compartment.
-      The (transient) consumption rates reported here is the total flux of a metabolite
-      imported/consumed by taxa in the community.
-
-   :param results: A growth results as returned by grow.
-   :type results: micom.GrowthResults
-
-   :returns: A new flux DataFrame containing the intermediate production rates for each
-             metabolite.
-   :rtype: pandas.DataFrame
-
 
 .. py:data:: PANDAS_VERSION
 

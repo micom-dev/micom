@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
         <title>micom.workflows.core - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=387cc868" />
@@ -228,8 +228,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../elasticities.html">Intervention studies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">Tutorials and Courses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../NEWS.html">Release Notes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../autoapi/micom/index.html">micom</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/data/index.html">micom.data</a></li>
@@ -323,7 +321,7 @@
 <span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
 
 <div class="viewcode-block" id="GrowthResults">
-<a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.interaction.focal.GrowthResults">[docs]</a>
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.core.GrowthResults">[docs]</a>
 <span class="n">GrowthResults</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span>
     <span class="s2">&quot;GrowthResults&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;growth_rates&quot;</span><span class="p">,</span> <span class="s2">&quot;exchanges&quot;</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">]</span>
 <span class="p">)</span></div>
@@ -331,7 +329,7 @@
 
 
 <div class="viewcode-block" id="save_results">
-<a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.interaction.focal.save_results">[docs]</a>
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.core.save_results">[docs]</a>
 <span class="k">def</span> <span class="nf">save_results</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Save growth results to a file.</span>
 
@@ -351,7 +349,7 @@
 
 
 <div class="viewcode-block" id="load_results">
-<a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.interaction.focal.load_results">[docs]</a>
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.core.load_results">[docs]</a>
 <span class="k">def</span> <span class="nf">load_results</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load growth results from a file.</span>
 
@@ -375,7 +373,7 @@
 
 
 <div class="viewcode-block" id="workflow">
-<a class="viewcode-back" href="../../../autoapi/micom/workflows/tradeoff/index.html#micom.interaction.focal.workflow">[docs]</a>
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.core.workflow">[docs]</a>
 <span class="k">def</span> <span class="nf">workflow</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Run analyses for several samples in parallel.</span>
 

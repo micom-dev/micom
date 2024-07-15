@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
         <title>micom.qiime_formats - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=387cc868" />
@@ -228,8 +228,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../elasticities.html">Intervention studies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials and Courses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../NEWS.html">Release Notes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../autoapi/micom/index.html">micom</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/data/index.html">micom.data</a></li>
@@ -324,11 +322,11 @@
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
 
 <div class="viewcode-block" id="yaml">
-<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.community.yaml">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.yaml">[docs]</a>
 <span class="n">yaml</span> <span class="o">=</span> <span class="n">YAML</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="_has_manifest">
-<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.community._has_manifest">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats._has_manifest">[docs]</a>
 <span class="n">_has_manifest</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;CommunityModels[Pickle]&quot;</span><span class="p">,</span>
     <span class="s2">&quot;MetabolicModels[JSON]&quot;</span><span class="p">,</span>
@@ -338,7 +336,7 @@
 
 
 <div class="viewcode-block" id="metadata">
-<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.community.metadata">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.metadata">[docs]</a>
 <span class="k">def</span> <span class="nf">metadata</span><span class="p">(</span><span class="n">artifact</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Read metadata from a Qiime 2 artifact.&quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">:</span>
@@ -353,7 +351,7 @@
 
 
 <div class="viewcode-block" id="load_qiime_model_db">
-<a class="viewcode-back" href="../../autoapi/micom/workflows/db_media/index.html#micom.community.load_qiime_model_db">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.load_qiime_model_db">[docs]</a>
 <span class="k">def</span> <span class="nf">load_qiime_model_db</span><span class="p">(</span><span class="n">artifact</span><span class="p">,</span> <span class="n">extract_path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare a model database for use.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">extract_path</span><span class="p">):</span>
@@ -371,7 +369,7 @@
 
 
 <div class="viewcode-block" id="load_qiime_manifest">
-<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.community.load_qiime_manifest">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.load_qiime_manifest">[docs]</a>
 <span class="k">def</span> <span class="nf">load_qiime_manifest</span><span class="p">(</span><span class="n">artifact</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare community models for use.&quot;&quot;&quot;</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
@@ -386,7 +384,7 @@
 
 
 <div class="viewcode-block" id="load_qiime_model">
-<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.community.load_qiime_model">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.load_qiime_model">[docs]</a>
 <span class="k">def</span> <span class="nf">load_qiime_model</span><span class="p">(</span><span class="n">artifact</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a model from a Qiime 2 artifact.&quot;&quot;&quot;</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
@@ -409,7 +407,7 @@
 
 
 <div class="viewcode-block" id="load_qiime_medium">
-<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.community.load_qiime_medium">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.load_qiime_medium">[docs]</a>
 <span class="k">def</span> <span class="nf">load_qiime_medium</span><span class="p">(</span><span class="n">artifact</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a growth medium/diet from a Qiime 2 artifact.&quot;&quot;&quot;</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
@@ -425,7 +423,7 @@
 
 
 <div class="viewcode-block" id="load_qiime_feature_table">
-<a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.community.load_qiime_feature_table">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.load_qiime_feature_table">[docs]</a>
 <span class="k">def</span> <span class="nf">load_qiime_feature_table</span><span class="p">(</span><span class="n">artifact</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a feature table from a Qiime 2 artifact.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
@@ -448,7 +446,7 @@
 
 
 <div class="viewcode-block" id="load_qiime_taxonomy">
-<a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.community.load_qiime_taxonomy">[docs]</a>
+<a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.load_qiime_taxonomy">[docs]</a>
 <span class="k">def</span> <span class="nf">load_qiime_taxonomy</span><span class="p">(</span><span class="n">artifact</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load taxonomy feature data from a Qiime 2 artifact.&quot;&quot;&quot;</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>

@@ -9,20 +9,11 @@ micom.algorithms
 
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   micom.algorithms.logger
-
-
 Functions
 ---------
 
 .. autoapisummary::
 
-   micom.algorithms.load_model
    micom.algorithms.jaccard
    micom.algorithms.euclidean
    micom.algorithms.reaction_matrix
@@ -31,13 +22,6 @@ Functions
 
 Module Contents
 ---------------
-
-.. py:function:: load_model(filepath)
-
-   Load a cobra model from several file types.
-
-
-.. py:data:: logger
 
 .. py:function:: jaccard(inclusion)
 

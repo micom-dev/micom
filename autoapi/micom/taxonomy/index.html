@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="micom.util" href="../util/index.html" /><link rel="prev" title="micom.stats" href="../stats/index.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
         <title>micom.taxonomy - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=387cc868" />
@@ -229,8 +229,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../elasticities.html">Intervention studies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">Tutorials and Courses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../NEWS.html">Release Notes</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">micom</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../data/index.html">micom.data</a></li>
@@ -339,12 +337,6 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.taxonomy.load_qiime_feature_table" title="micom.taxonomy.load_qiime_feature_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_qiime_feature_table</span></code></a>(artifact)</p></td>
-<td><p>Load a feature table from a Qiime 2 artifact.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.taxonomy.load_qiime_taxonomy" title="micom.taxonomy.load_qiime_taxonomy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_qiime_taxonomy</span></code></a>(artifact)</p></td>
-<td><p>Load taxonomy feature data from a Qiime 2 artifact.</p></td>
-</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.taxonomy.build_from_qiime" title="micom.taxonomy.build_from_qiime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_from_qiime</span></code></a>(→ pandas.DataFrame)</p></td>
 <td><p>Build the specification for the community models.</p></td>
 </tr>
@@ -363,18 +355,6 @@
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.taxonomy.load_qiime_feature_table">
-<span class="sig-prename descclassname"><span class="pre">micom.taxonomy.</span></span><span class="sig-name descname"><span class="pre">load_qiime_feature_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_feature_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.taxonomy.load_qiime_feature_table" title="Link to this definition">¶</a></dt>
-<dd><p>Load a feature table from a Qiime 2 artifact.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.taxonomy.load_qiime_taxonomy">
-<span class="sig-prename descclassname"><span class="pre">micom.taxonomy.</span></span><span class="sig-name descname"><span class="pre">load_qiime_taxonomy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">artifact</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/qiime_formats.html#load_qiime_taxonomy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.taxonomy.load_qiime_taxonomy" title="Link to this definition">¶</a></dt>
-<dd><p>Load taxonomy feature data from a Qiime 2 artifact.</p>
-</dd></dl>
-
 <dl class="py data">
 <dt class="sig sig-object py" id="micom.taxonomy.RANKS">
 <span class="sig-prename descclassname"><span class="pre">micom.taxonomy.</span></span><span class="sig-name descname"><span class="pre">RANKS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['kingdom',</span> <span class="pre">'phylum',</span> <span class="pre">'class',</span> <span class="pre">'order',</span> <span class="pre">'family',</span> <span class="pre">'genus',</span> <span class="pre">'species',</span> <span class="pre">'strain']</span></em><a class="reference internal" href="../../../_modules/micom/taxonomy.html#RANKS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.taxonomy.RANKS" title="Link to this definition">¶</a></dt>
@@ -508,8 +488,6 @@ format.</p>
 <li><a class="reference internal" href="#attributes">Attributes</a></li>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#micom.taxonomy.load_qiime_feature_table"><code class="docutils literal notranslate"><span class="pre">load_qiime_feature_table()</span></code></a></li>
-<li><a class="reference internal" href="#micom.taxonomy.load_qiime_taxonomy"><code class="docutils literal notranslate"><span class="pre">load_qiime_taxonomy()</span></code></a></li>
 <li><a class="reference internal" href="#micom.taxonomy.RANKS"><code class="docutils literal notranslate"><span class="pre">RANKS</span></code></a></li>
 <li><a class="reference internal" href="#micom.taxonomy.build_from_qiime"><code class="docutils literal notranslate"><span class="pre">build_from_qiime()</span></code></a></li>
 <li><a class="reference internal" href="#micom.taxonomy.qiime_to_micom"><code class="docutils literal notranslate"><span class="pre">qiime_to_micom()</span></code></a></li>

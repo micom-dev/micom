@@ -14,7 +14,6 @@ Attributes
 
 .. autoapisummary::
 
-   micom.solution.logger
    micom.solution.good
 
 
@@ -31,8 +30,6 @@ Functions
 
 .. autoapisummary::
 
-   micom.solution.reset_min_community_growth
-   micom.solution._apply_min_growth
    micom.solution._group_taxa
    micom.solution.add_pfba_objective
    micom.solution.solve
@@ -44,20 +41,6 @@ Functions
 
 Module Contents
 ---------------
-
-.. py:data:: logger
-
-.. py:function:: reset_min_community_growth(com)
-
-   Reset the lower bound for the community growth.
-
-
-.. py:function:: _apply_min_growth(community, min_growth, atol=1e-06, rtol=1e-06)
-
-   Set minimum growth constraints on a model.
-
-   Will integrate with the context.
-
 
 .. py:data:: good
 

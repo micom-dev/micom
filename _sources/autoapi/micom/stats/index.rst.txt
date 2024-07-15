@@ -14,7 +14,6 @@ Functions
 
 .. autoapisummary::
 
-   micom.stats.workflow
    micom.stats.fdr_adjust
    micom.stats._run_test
    micom.stats._run_corr
@@ -24,27 +23,6 @@ Functions
 
 Module Contents
 ---------------
-
-.. py:function:: workflow(func, args, threads=4, description=None, progress=True)
-
-   Run analyses for several samples in parallel.
-
-   This will analyze several samples in parallel. Includes a workaround for
-   optlang memory leak.
-
-   :param func: A function that takes a single argument (can be any object) and
-                that performs your analysis for a single sample.
-   :type func: function
-   :param args: An array-like object (list, tuple, numpy array, pandas Series, etc.)
-                that contains the arguments for each sample.
-   :type args: array-like object
-   :param threads: How many samples to analyze in parallel at once.
-   :type threads: positive int
-   :param description: The dewscription shown in front of the progress bar.
-   :type description: str
-   :param progress: Whether to show a progress bar.
-   :type progress: bool
-
 
 .. py:function:: fdr_adjust(p)
 

@@ -9,22 +9,6 @@ micom.viz.exchanges
 
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   micom.viz.exchanges.logger
-
-
-Classes
--------
-
-.. autoapisummary::
-
-   micom.viz.exchanges.Visualization
-
-
 Functions
 ---------
 
@@ -36,50 +20,6 @@ Functions
 
 Module Contents
 ---------------
-
-.. py:data:: logger
-
-.. py:class:: Visualization(filename, data, template)
-
-   Bases: :py:obj:`object`
-
-
-   A visualization object.
-
-   .. attribute:: filename
-
-      The filename of trhe saved visualization.
-
-      :type: str
-
-   .. attribute:: data
-
-      The data used to create the Visualization.
-
-      :type: dict
-
-   .. attribute:: template
-
-      The jinja template used to render the visualization.
-
-      :type: jinja2.Template
-
-
-   .. py:method:: view()
-
-      Open the visualization in a browser.
-
-      :param None.:
-
-      :rtype: nothing
-
-
-
-   .. py:method:: save(**kwargs)
-
-      Render and and save the visualization.
-
-
 
 .. py:function:: plot_exchanges_per_sample(results, filename='sample_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction='import', cluster=True) -> None
 

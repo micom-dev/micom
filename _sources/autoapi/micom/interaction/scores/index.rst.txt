@@ -9,14 +9,6 @@ micom.interaction.scores
 
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   micom.interaction.scores.GrowthResults
-
-
 Functions
 ---------
 
@@ -28,8 +20,6 @@ Functions
 
 Module Contents
 ---------------
-
-.. py:data:: GrowthResults
 
 .. py:function:: _mes(df: pandas.DataFrame) -> float
 

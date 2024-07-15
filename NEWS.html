@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API Reference" href="autoapi/index.html" /><link rel="prev" title="Tutorials and Courses" href="tutorials.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API Reference" href="autoapi/index.html" /><link rel="prev" title="&lt;no title&gt;" href="tutorials.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
-        <title>News and release notes for MICOM - version 0.35.0</title>
+    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
+        <title>&lt;no title&gt; - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=387cc868" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
@@ -194,7 +194,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -217,7 +217,7 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
+  <ul>
 <li class="toctree-l1"><a class="reference internal" href="logic.html">Strategies used by MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing.html">Installing MICOM</a></li>
 <li class="toctree-l1"><a class="reference internal" href="high_level.html">MICOM workflows</a></li>
@@ -229,8 +229,6 @@
 <li class="toctree-l1"><a class="reference internal" href="media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="elasticities.html">Intervention studies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials and Courses</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Release Notes</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="autoapi/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="autoapi/micom/index.html">micom</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="autoapi/micom/data/index.html">micom.data</a></li>
@@ -313,27 +311,24 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="news-and-release-notes-for-micom">
-<h1>News and release notes for MICOM<a class="headerlink" href="#news-and-release-notes-for-micom" title="Link to this heading">¶</a></h1>
+          <p># News and release notes for MICOM</p>
 <p>This includes a list of major changes for each minor version starting from 0.19.0.</p>
-<p>For information on how to use <code class="docutils literal notranslate"><span class="pre">micom</span></code> please refer to
-<a class="reference external" href="https://micom-dev.github.io/micom">the documentation</a>.</p>
-<section id="id1">
-<h2>0.35.1<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
-<p>Fix a bug where <code class="docutils literal notranslate"><span class="pre">minimal_medium(manifest,</span> <span class="pre">...,</span> <span class="pre">summarize=False)</span></code> would crash.</p>
-<section id="id2">
-<h3>0.35.0<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">plot_fit</span></code> got renamed to <code class="docutils literal notranslate"><span class="pre">plot_association</span></code> and will not use LASSO coefficients anymore
+<p>For information on how to use <cite>micom</cite> please refer to
+[the documentation](<a class="reference external" href="https://micom-dev.github.io/micom">https://micom-dev.github.io/micom</a>).</p>
+<p>## 0.35.1</p>
+<p>Fix a bug where <cite>minimal_medium(manifest, …, summarize=False)</cite> would crash.</p>
+<p>### 0.35.0</p>
+<p><cite>plot_fit</cite> got renamed to <cite>plot_association</cite> and will not use LASSO coefficients anymore
 as a proxy for univariate associations. Instead univariate non-parametric tests are
 run for each metabolite. This should be more stable and avoid issues with low reproducibility
 of coefficients. LASSO model performance is still reported as a global measure
-of association. In case you need access to the previous <code class="docutils literal notranslate"><span class="pre">plot_fit</span></code> function you can simply
+of association. In case you need access to the previous <cite>plot_fit</cite> function you can simply
 install a prior version of micom in a python or conda environment.</p>
 <p>Visualizations are updates requiring less dependencies now and using a current version
 of vega-lite.</p>
@@ -344,286 +339,183 @@ did usually not lead to an improvement or convergence.</p>
 <p>Convert some warnings to debug messages.</p>
 <p>Switch the the start method for multiprocessing to “spawn” which should improve
 stability for workflows.</p>
-</section>
-<section id="id3">
-<h3>0.34.1<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>### 0.34.1</p>
 <p>Fix a typo in the hybrid settings.</p>
-</section>
-<section id="id4">
-<h3>0.34.0<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>### 0.34.0</p>
 <p>Better default settings for the hybrid solver.</p>
 <p>Fixes an issue with taxonomy tables with species rank and without if column.</p>
-</section>
-<section id="id5">
-<h3>0.33.2<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p>### 0.33.2</p>
 <p>Fixes yet another annotation bug with AGORA2 due to duplicated exchanges.</p>
-</section>
-<section id="id6">
-<h3>0.33.1<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<p>### 0.33.1</p>
 <p>Fixes the rank prefix trimming when setting it to False in Qiime2 imports.</p>
-</section>
-<section id="id7">
-<h3>0.33.0<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<p>### 0.33.0</p>
 <p>Replaces the default OSQP solver with a new hybrid solver using OSQP for QPs and HIGHS
 for everything else which improves the accuracy by several orders of magnitude. Note the new
-<a class="reference external" href="https://micom-dev.github.io/micom/installing.html">installation instructions for solvers</a>.</p>
-<p>The presence or absence of rank prefixes such as <code class="docutils literal notranslate"><span class="pre">s__</span></code> or <code class="docutils literal notranslate"><span class="pre">g__</span></code> for genus and species names,
+[installation instructions for solvers](<a class="reference external" href="https://micom-dev.github.io/micom/installing.html">https://micom-dev.github.io/micom/installing.html</a>).</p>
+<p>The presence or absence of rank prefixes such as <cite>s__</cite> or <cite>g__</cite> for genus and species names,
 respectively, can now be detected and resolved automatically by MICOM. This improves
 compatibility with Qiime2 and GTDB.</p>
 <p>New solver is now tested automatically on all platforms.</p>
 <p>Small bugfixes and updates.</p>
-</section>
-<section id="id8">
-<h3>0.32.5<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<p>### 0.32.5</p>
 <p>Backports the visualizers to be compatible with scikit-learn 0.24.1 to avoid some issues
 with Qiime2.</p>
 <p>Re-enables the Qiime model loading test in the CI.</p>
-</section>
-<section id="id9">
-<h3>0.32.4<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<p>### 0.32.4</p>
 <p>Fixes a bug where model annotation tables could not be generated if there were multiple
 exchange reactions for a single metabolite. This made MICOM not work with AGORA2 in some
 instances.</p>
 <p>Now checks for demand reactions and in database construction as well.</p>
-</section>
-<section id="id10">
-<h3>0.32.3<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h3>
+<p>### 0.32.3</p>
 <p>Bump the required cobra version to avoid numpy version errors.</p>
-</section>
-<section id="id11">
-<h3>0.32.1 - 0.32.2<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<p>### 0.32.1 - 0.32.2</p>
 <p>Adjustments to solver settings and lost of improvements to Gurobi that make it much
 faster.</p>
-</section>
-<section id="id12">
-<h3>0.32.0<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<p>### 0.32.0</p>
 <p>Helper functions to save results were added.</p>
-</section>
-<section id="id13">
-<h3>0.31.7<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<p>### 0.31.7</p>
 <p>Fixed a bug where minimal_medium would maximize with OSQP instead of minimize.</p>
-</section>
-<section id="id14">
-<h3>0.31.6<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
+<p>### 0.31.6</p>
 <p>More adjustments to OSQP.</p>
-</section>
-<section id="id15">
-<h3>0.31.5<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
+<p>### 0.31.5</p>
 <p>Fix a bug in the stabilization term used for OSQP. Try to avoid fragmentation warning.</p>
-</section>
-<section id="id16">
-<h3>0.31.4<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<p>### 0.31.4</p>
 <p>Fix regression in T-SNE.</p>
-</section>
-<section id="id17">
-<h3>0.31.2 - 0.31.3<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<p>### 0.31.2 - 0.31.3</p>
 <p>Some more fixes to the media completion.</p>
-</section>
-<section id="id18">
-<h3>0.31.1<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h3>
-<p>Show added flux as fraction of total in <code class="docutils literal notranslate"><span class="pre">complete_db_medium</span></code>.</p>
-</section>
-<section id="id19">
-<h3>0.31.0<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
+<p>### 0.31.1</p>
+<p>Show added flux as fraction of total in <cite>complete_db_medium</cite>.</p>
+<p>### 0.31.0</p>
 <p>The medium completion functions now have a flag that allows adding additional flux
 to components already in the candidate medium. The default is now changed to that
 new non-strict mode which makes it much easier and more efficient to complete media.
-In that case the <code class="docutils literal notranslate"><span class="pre">max_added_import</span></code> amount now specifies the maximum flux added on top
+In that case the <cite>max_added_import</cite> amount now specifies the maximum flux added on top
 the limit specified in the candidate medium.</p>
-</section>
-<section id="id20">
-<h3>0.30.5<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
+<p>### 0.30.5</p>
 <p>Fixed a bug where T-SNE would complain in low sample numbers.</p>
-</section>
-<section id="id21">
-<h3>0.30.3 - 0.30.4<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
+<p>### 0.30.3 - 0.30.4</p>
 <p>Those were fixes to deployment and dependencies only.</p>
-</section>
-<section id="id22">
-<h3>0.30.2<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h3>
+<p>### 0.30.2</p>
 <p>Avoids a bug in COBRAPY that can yield to huge serialized versions of the models.</p>
-</section>
-<section id="id23">
-<h3>0.30.1<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<p>### 0.30.1</p>
 <p>Fix compatibility with Python 3.7.</p>
-</section>
-<section id="id24">
-<h3>0.30.0<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">build</span></code> will now detect existing models in the output folder and skip them. This now
+<p>### 0.30.0</p>
+<p><cite>build</cite> will now detect existing models in the output folder and skip them. This now
 allows to resume interrupted builds. Explicit rebuild requires you to delete the
 folder now.</p>
-</section>
-<section id="id25">
-<h3>0.29.6<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h3>
+<p>### 0.29.6</p>
 <p>Fixes a bug where using more than 1 thread for workflows would not return results
 in some cases.</p>
-</section>
-<section id="id26">
-<h3>0.29.5<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h3>
+<p>### 0.29.5</p>
 <p>Fixed some dependency errors on older Python versions.</p>
-</section>
-<section id="id27">
-<h3>0.29.4<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h3>
+<p>### 0.29.4</p>
 <p>Port tests to cobrapy 0.25 and above. Fix an import error in workflows.core.</p>
-</section>
-<section id="id28">
-<h3>0.29.3<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h3>
+<p>### 0.29.3</p>
 <p>Suppresses some warning in annotations from cobrapy.</p>
-</section>
-<section id="id29">
-<h3>0.29.2<a class="headerlink" href="#id29" title="Link to this heading">¶</a></h3>
+<p>### 0.29.2</p>
 <p>Fixes some CI and build issues.</p>
-</section>
-<section id="id30">
-<h3>0.29.0<a class="headerlink" href="#id30" title="Link to this heading">¶</a></h3>
-<p>Renames the <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> arguments to <code class="docutils literal notranslate"><span class="pre">threads</span></code> across the code base for consistency and
-updates the arguments for <code class="docutils literal notranslate"><span class="pre">workflow</span></code>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">workflow</span></code> now does not spawn a process for single-threaded runs, reducing overhead.</p>
-<p>Fixes an issue where <code class="docutils literal notranslate"><span class="pre">workflow</span></code> would deadlock with pytest-cov.</p>
-</section>
-<section id="id31">
-<h3>0.28.1<a class="headerlink" href="#id31" title="Link to this heading">¶</a></h3>
+<p>### 0.29.0</p>
+<p>Renames the <cite>n_jobs</cite> arguments to <cite>threads</cite> across the code base for consistency and
+updates the arguments for <cite>workflow</cite>.</p>
+<p><cite>workflow</cite> now does not spawn a process for single-threaded runs, reducing overhead.</p>
+<p>Fixes an issue where <cite>workflow</cite> would deadlock with pytest-cov.</p>
+<p>### 0.28.1</p>
 <p>Fixes an issue where an accumulation in warnings in spawned processes trips up
 jupyter.</p>
-</section>
-<section id="id32">
-<h3>0.28.0<a class="headerlink" href="#id32" title="Link to this heading">¶</a></h3>
+<p>### 0.28.0</p>
 <p>Fixes a deployment issue with the previous build.</p>
-</section>
-<section id="id33">
-<h3>0.27.0<a class="headerlink" href="#id33" title="Link to this heading">¶</a></h3>
+<p>### 0.27.0</p>
 <p>Annotations now include the molecular weight, number of carbon atoms, and the number of
 nitrogen atoms for each compound.</p>
-</section>
-<section id="id34">
-<h3>0.26.0<a class="headerlink" href="#id34" title="Link to this heading">¶</a></h3>
+<p>### 0.26.0</p>
 <p>Now adjusts active demands to be optional. This was an issue with some models
 in AGORA that had forced biotin demands. This effectively prohibits zero growth
 rates and is problematic for MICOM.</p>
 <p>Fix the logger for multiprocessing.</p>
-</section>
-<section id="id35">
-<h3>0.25.1<a class="headerlink" href="#id35" title="Link to this heading">¶</a></h3>
-<p>Handle CARVEME models better in <code class="docutils literal notranslate"><span class="pre">workflows.complete_medium</span></code>.</p>
+<p>### 0.25.1</p>
+<p>Handle CARVEME models better in <cite>workflows.complete_medium</cite>.</p>
 <p>Workflows now have a deterministic return error (same order as inputs).</p>
-</section>
-<section id="id36">
-<h3>0.25.0<a class="headerlink" href="#id36" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">build_database</span></code> now allows to set the compression algorithm and level.</p>
-</section>
-<section id="id37">
-<h3>0.24.1<a class="headerlink" href="#id37" title="Link to this heading">¶</a></h3>
+<p>### 0.25.0</p>
+<p><cite>build_database</cite> now allows to set the compression algorithm and level.</p>
+<p>### 0.24.1</p>
 <p>Fixed settings to get better convergence behavior with OSQP.</p>
-</section>
-<section id="id38">
-<h3>0.24.0<a class="headerlink" href="#id38" title="Link to this heading">¶</a></h3>
+<p>### 0.24.0</p>
 <p>MICOM now works with OSQP and works out of the box without a commercial QP solver. See
-the <a class="reference external" href="#">installation docs</a> for more information.</p>
-</section>
-<section id="id39">
-<h3>0.23.1<a class="headerlink" href="#id39" title="Link to this heading">¶</a></h3>
-<p>The sample heatmap in <code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_sample</span></code> is now automatically rotated when
+the [installation docs]() for more information.</p>
+<p>### 0.23.1</p>
+<p>The sample heatmap in <cite>plot_exchanges_per_sample</cite> is now automatically rotated when
 there are mores samples than reactions.</p>
 <p>media workflows will use presolving by default since those are often numerically
 problematic.</p>
-</section>
-<section id="id40">
-<h3>0.23.0<a class="headerlink" href="#id40" title="Link to this heading">¶</a></h3>
+<p>### 0.23.0</p>
 <p>Fix the signature and add deprecation warnings for optimize_* methods.</p>
-<p><code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_taxon</span></code> will now use normalized fluxes (per 1 gDW for each taxon)
+<p><cite>plot_exchanges_per_taxon</cite> will now use normalized fluxes (per 1 gDW for each taxon)
 which allows better comparability. The old behavior can be enabled with
-<code class="docutils literal notranslate"><span class="pre">use_total_flux=True</span></code>.</p>
-<p>Avoid negative growth rate constraints in <code class="docutils literal notranslate"><span class="pre">_apply_min_growth</span></code>.</p>
-<p>Can now enable presolving/scaling in <code class="docutils literal notranslate"><span class="pre">grow</span></code> and <code class="docutils literal notranslate"><span class="pre">tradeoff</span></code>.</p>
-</section>
-<section id="id41">
-<h3>0.22.7<a class="headerlink" href="#id41" title="Link to this heading">¶</a></h3>
+<cite>use_total_flux=True</cite>.</p>
+<p>Avoid negative growth rate constraints in <cite>_apply_min_growth</cite>.</p>
+<p>Can now enable presolving/scaling in <cite>grow</cite> and <cite>tradeoff</cite>.</p>
+<p>### 0.22.7</p>
 <p>Fix some warnings from pandas.</p>
-<p>Avoid a crash in <code class="docutils literal notranslate"><span class="pre">reularize_l2_norm</span></code> when all reactions for a taxon have been fixed to
+<p>Avoid a crash in <cite>reularize_l2_norm</cite> when all reactions for a taxon have been fixed to
 zero.</p>
 <p>Raise a better error if the minimal medium optimization fails in grow.</p>
 <p>Use the right tolerance when setting atol and rtol automatically.</p>
-</section>
-<section id="id42">
-<h3>0.22.6<a class="headerlink" href="#id42" title="Link to this heading">¶</a></h3>
-<p>Fixed an error in <code class="docutils literal notranslate"><span class="pre">micom.workflows.build</span></code> if build was run without a model database
-but with a <code class="docutils literal notranslate"><span class="pre">file</span></code> column in the taxonomy.</p>
-</section>
-<section id="id43">
-<h3>0.22.5<a class="headerlink" href="#id43" title="Link to this heading">¶</a></h3>
+<p>### 0.22.6</p>
+<p>Fixed an error in <cite>micom.workflows.build</cite> if build was run without a model database
+but with a <cite>file</cite> column in the taxonomy.</p>
+<p>### 0.22.5</p>
 <p>Fixed missing data files.</p>
-</section>
-<section id="id44">
-<h3>0.22.4<a class="headerlink" href="#id44" title="Link to this heading">¶</a></h3>
+<p>### 0.22.4</p>
 <p>Improves version compatibility with cobrapy and QIIME 2.</p>
-</section>
-<section id="id45">
-<h3>0.22.3<a class="headerlink" href="#id45" title="Link to this heading">¶</a></h3>
+<p>### 0.22.3</p>
 <p>Fixed a bug where incorrectly labeled biomass demand reactions were treated like an
 exchange.</p>
-</section>
-<section id="id46">
-<h3>0.22.2<a class="headerlink" href="#id46" title="Link to this heading">¶</a></h3>
+<p>### 0.22.2</p>
 <p>Lowered the required version for pandas to re-enable compatibility with Python 3.6.</p>
 <p>Docs are now built on all pushes.</p>
-</section>
-<section id="id47">
-<h3>0.22.1<a class="headerlink" href="#id47" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">atol</span></code> and <code class="docutils literal notranslate"><span class="pre">rtol</span></code> are now consistently exposed.</p>
+<p>### 0.22.1</p>
+<p><cite>atol</cite> and <cite>rtol</cite> are now consistently exposed.</p>
 <p>Remove six dependency.</p>
-</section>
-<section id="id48">
-<h3>0.22.0<a class="headerlink" href="#id48" title="Link to this heading">¶</a></h3>
+<p>### 0.22.0</p>
 <p>Got a bit smarter in cleaning up compartment suffixes. This fixes the odd “_e_m” suffix
 in CARVEME-derived models. This will change the names of exchange reactions compared
 to version 0.21.x.</p>
-</section>
-<section id="id49">
-<h3>0.21.0<a class="headerlink" href="#id49" title="Link to this heading">¶</a></h3>
+<p>### 0.21.0</p>
 <p>Stabilize minimal_medium a bit more.</p>
 <p>The strategy to calculate fluxes in the grow workflow can now be set with the
-<code class="docutils literal notranslate"><span class="pre">strategy</span></code> argument. For instance, you can now get fluxes via parsimonious FBA instead of
+<cite>strategy</cite> argument. For instance, you can now get fluxes via parsimonious FBA instead of
 assuming minimal imports.</p>
-<p>Fixed a bug where minimal media classification with <code class="docutils literal notranslate"><span class="pre">weights=&quot;mass&quot;</span></code> would fail due to
+<p>Fixed a bug where minimal media classification with <cite>weights=”mass”</cite> would fail due to
 invalid elements in the formula (for instance “X”).</p>
-</section>
-<section id="id50">
-<h3>0.20.0<a class="headerlink" href="#id50" title="Link to this heading">¶</a></h3>
+<p>### 0.20.0</p>
 <p>This version brings new functionality to design growth media from a skeleton medium.
 This also allows for a quicker verification of media against the model databases.</p>
 <p>Added workflows:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">check_db_media</span></code> check if models in a model database can grow on a given medium</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">complete_db_media</span></code>completes a growth medium so all models in the db can grow on it</p></li>
+<li><p><cite>check_db_media</cite> check if models in a model database can grow on a given medium</p></li>
+<li><p><a href="#id1"><span class="problematic" id="id2">`</span></a>complete_db_media`completes a growth medium so all models in the db can grow on it</p></li>
 </ul>
 <p>Together with this we now provide several new revised growth media for the gut on
 github.com/micom-dev/media. In particular, we finally provide the often requested growth
 medium for the carveME database.</p>
-</section>
-<section id="id51">
-<h3>0.19.0<a class="headerlink" href="#id51" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> now accepts weighting the fluxes bei molecular weight or
+<p>### 0.19.0</p>
+<p><cite>minimal_medium</cite> now accepts weighting the fluxes bei molecular weight or
 any elemental content. For instance, you can now calculate a minimal medium that
-minimizes carbon import for instance. The used <code class="docutils literal notranslate"><span class="pre">weigths</span></code> argument propagates
-to any workflow using this function including <code class="docutils literal notranslate"><span class="pre">complete_medium</span></code>, <code class="docutils literal notranslate"><span class="pre">fix_medium</span></code>
-and <code class="docutils literal notranslate"><span class="pre">grow</span></code>.</p>
-</section>
-<section id="id52">
-<h3>0.1.0 - 0.18.0<a class="headerlink" href="#id52" title="Link to this heading">¶</a></h3>
-<p><code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> now has an option to return all fluxes along with the
+minimizes carbon import for instance. The used <cite>weigths</cite> argument propagates
+to any workflow using this function including <cite>complete_medium</cite>, <cite>fix_medium</cite>
+and <cite>grow</cite>.</p>
+<p>### 0.1.0 - 0.18.0</p>
+<p><cite>minimal_medium</cite> now has an option to return all fluxes along with the
 import and export fluxes. Useful if you want to check what every individual
 taxa consumes.</p>
-<p>Addition of <code class="docutils literal notranslate"><span class="pre">Community.cooperative_tradeoff</span></code> which brings a fast method to
+<p>Addition of <cite>Community.cooperative_tradeoff</cite> which brings a fast method to
 get nearly unique growth rates for a particular growth tradeoff (for instance
 50% maximal growth rate).</p>
 <p>Addition of elasticity coefficients which allows you to study which import
 and export reactions are sensitive to changes in diet or taxa abundances.</p>
-<p>Several changes to make <code class="docutils literal notranslate"><span class="pre">micom</span></code> capable of handling numerical instable models.
+<p>Several changes to make <cite>micom</cite> capable of handling numerical instable models.
 This includes a crossover strategy to obtain an optimal or near-optimal
 from an incomplete interior point optimization.</p>
-</section>
-</section>
-</section>
 
         </article>
       </div>
@@ -646,7 +538,7 @@ from an incomplete interior point optimization.</p>
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Tutorials and Courses</div>
+                <div class="title">&lt;no title&gt;</div>
                 
               </div>
             </a>
@@ -668,80 +560,8 @@ from an incomplete interior point optimization.</p>
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">News and release notes for MICOM</a><ul>
-<li><a class="reference internal" href="#id1">0.35.1</a><ul>
-<li><a class="reference internal" href="#id2">0.35.0</a></li>
-<li><a class="reference internal" href="#id3">0.34.1</a></li>
-<li><a class="reference internal" href="#id4">0.34.0</a></li>
-<li><a class="reference internal" href="#id5">0.33.2</a></li>
-<li><a class="reference internal" href="#id6">0.33.1</a></li>
-<li><a class="reference internal" href="#id7">0.33.0</a></li>
-<li><a class="reference internal" href="#id8">0.32.5</a></li>
-<li><a class="reference internal" href="#id9">0.32.4</a></li>
-<li><a class="reference internal" href="#id10">0.32.3</a></li>
-<li><a class="reference internal" href="#id11">0.32.1 - 0.32.2</a></li>
-<li><a class="reference internal" href="#id12">0.32.0</a></li>
-<li><a class="reference internal" href="#id13">0.31.7</a></li>
-<li><a class="reference internal" href="#id14">0.31.6</a></li>
-<li><a class="reference internal" href="#id15">0.31.5</a></li>
-<li><a class="reference internal" href="#id16">0.31.4</a></li>
-<li><a class="reference internal" href="#id17">0.31.2 - 0.31.3</a></li>
-<li><a class="reference internal" href="#id18">0.31.1</a></li>
-<li><a class="reference internal" href="#id19">0.31.0</a></li>
-<li><a class="reference internal" href="#id20">0.30.5</a></li>
-<li><a class="reference internal" href="#id21">0.30.3 - 0.30.4</a></li>
-<li><a class="reference internal" href="#id22">0.30.2</a></li>
-<li><a class="reference internal" href="#id23">0.30.1</a></li>
-<li><a class="reference internal" href="#id24">0.30.0</a></li>
-<li><a class="reference internal" href="#id25">0.29.6</a></li>
-<li><a class="reference internal" href="#id26">0.29.5</a></li>
-<li><a class="reference internal" href="#id27">0.29.4</a></li>
-<li><a class="reference internal" href="#id28">0.29.3</a></li>
-<li><a class="reference internal" href="#id29">0.29.2</a></li>
-<li><a class="reference internal" href="#id30">0.29.0</a></li>
-<li><a class="reference internal" href="#id31">0.28.1</a></li>
-<li><a class="reference internal" href="#id32">0.28.0</a></li>
-<li><a class="reference internal" href="#id33">0.27.0</a></li>
-<li><a class="reference internal" href="#id34">0.26.0</a></li>
-<li><a class="reference internal" href="#id35">0.25.1</a></li>
-<li><a class="reference internal" href="#id36">0.25.0</a></li>
-<li><a class="reference internal" href="#id37">0.24.1</a></li>
-<li><a class="reference internal" href="#id38">0.24.0</a></li>
-<li><a class="reference internal" href="#id39">0.23.1</a></li>
-<li><a class="reference internal" href="#id40">0.23.0</a></li>
-<li><a class="reference internal" href="#id41">0.22.7</a></li>
-<li><a class="reference internal" href="#id42">0.22.6</a></li>
-<li><a class="reference internal" href="#id43">0.22.5</a></li>
-<li><a class="reference internal" href="#id44">0.22.4</a></li>
-<li><a class="reference internal" href="#id45">0.22.3</a></li>
-<li><a class="reference internal" href="#id46">0.22.2</a></li>
-<li><a class="reference internal" href="#id47">0.22.1</a></li>
-<li><a class="reference internal" href="#id48">0.22.0</a></li>
-<li><a class="reference internal" href="#id49">0.21.0</a></li>
-<li><a class="reference internal" href="#id50">0.20.0</a></li>
-<li><a class="reference internal" href="#id51">0.19.0</a></li>
-<li><a class="reference internal" href="#id52">0.1.0 - 0.18.0</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="micom.stats" href="../stats/index.html" /><link rel="prev" title="micom.qiime_formats" href="../qiime_formats/index.html" />
 
-    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
         <title>micom.solution - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=387cc868" />
@@ -229,8 +229,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../elasticities.html">Intervention studies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">Tutorials and Courses</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../NEWS.html">Release Notes</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">micom</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../data/index.html">micom.data</a></li>
@@ -327,10 +325,7 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.solution.logger" title="micom.solution.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.solution.good" title="micom.solution.good"><code class="xref py py-obj docutils literal notranslate"><span class="pre">good</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.solution.good" title="micom.solution.good"><code class="xref py py-obj docutils literal notranslate"><span class="pre">good</span></code></a></p></td>
 <td><p>Solver states that permit returning the solution.</p></td>
 </tr>
 </tbody>
@@ -354,12 +349,6 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.solution.reset_min_community_growth" title="micom.solution.reset_min_community_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_min_community_growth</span></code></a>(com)</p></td>
-<td><p>Reset the lower bound for the community growth.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.solution._apply_min_growth" title="micom.solution._apply_min_growth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_apply_min_growth</span></code></a>(community, min_growth[, atol, rtol])</p></td>
-<td><p>Set minimum growth constraints on a model.</p></td>
-</tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.solution._group_taxa" title="micom.solution._group_taxa"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_group_taxa</span></code></a>(values, ids, taxa[, what])</p></td>
 <td><p>Format a list of values by id and taxa.</p></td>
 </tr>
@@ -387,24 +376,6 @@
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
-<dl class="py data">
-<dt class="sig sig-object py" id="micom.solution.logger">
-<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="reference internal" href="../../../_modules/micom/logger.html#logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.logger" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.solution.reset_min_community_growth">
-<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">reset_min_community_growth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">com</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#reset_min_community_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.reset_min_community_growth" title="Link to this definition">¶</a></dt>
-<dd><p>Reset the lower bound for the community growth.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.solution._apply_min_growth">
-<span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">_apply_min_growth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">community</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/util.html#_apply_min_growth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution._apply_min_growth" title="Link to this definition">¶</a></dt>
-<dd><p>Set minimum growth constraints on a model.</p>
-<p>Will integrate with the context.</p>
-</dd></dl>
-
 <dl class="py data">
 <dt class="sig sig-object py" id="micom.solution.good">
 <span class="sig-prename descclassname"><span class="pre">micom.solution.</span></span><span class="sig-name descname"><span class="pre">good</span></span><a class="reference internal" href="../../../_modules/micom/solution.html#good"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.good" title="Link to this definition">¶</a></dt>
@@ -646,9 +617,6 @@ ones).</p>
 <li><a class="reference internal" href="#classes">Classes</a></li>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#micom.solution.logger"><code class="docutils literal notranslate"><span class="pre">logger</span></code></a></li>
-<li><a class="reference internal" href="#micom.solution.reset_min_community_growth"><code class="docutils literal notranslate"><span class="pre">reset_min_community_growth()</span></code></a></li>
-<li><a class="reference internal" href="#micom.solution._apply_min_growth"><code class="docutils literal notranslate"><span class="pre">_apply_min_growth()</span></code></a></li>
 <li><a class="reference internal" href="#micom.solution.good"><code class="docutils literal notranslate"><span class="pre">good</span></code></a></li>
 <li><a class="reference internal" href="#micom.solution._group_taxa"><code class="docutils literal notranslate"><span class="pre">_group_taxa()</span></code></a></li>
 <li><a class="reference internal" href="#micom.solution.CommunitySolution"><code class="docutils literal notranslate"><span class="pre">CommunitySolution</span></code></a><ul>

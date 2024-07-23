@@ -277,7 +277,7 @@ def complete_medium(
     Note
     ----
     This function fixes the growth medium for a single cobra Model. We also
-    provide a function `fix_medium` in `micom.workflows` that fixes a growth
+    provide a function `complete_db_medium` in `micom.workflows` that fixes a growth
     medium for an entire model database.
 
     Arguments

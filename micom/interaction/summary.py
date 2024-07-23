@@ -2,6 +2,7 @@
 
 import pandas as pd
 
+
 def _summarize(ints: pd.DataFrame) -> pd.DataFrame:
     """Summarize the overall interactions."""
     return ints.groupby("class").apply(

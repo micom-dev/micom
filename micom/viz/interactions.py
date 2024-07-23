@@ -13,15 +13,15 @@ UNITS = {
     "flux": "mmol/[gDW·h]",
     "mass": "g/[gDW·h]",
     "C": "C/[gDW·h]",
-    "N": "N/[gDW·h]"
+    "N": "N/[gDW·h]",
 }
 
 
 def plot_focal_interactions(
-    results : GrowthResults,
-    taxon : str,
-    filename : str = "focal_interactions_%s.html" % datetime.now().strftime("%Y%m%d"),
-    kind : str = "mass"
+    results: GrowthResults,
+    taxon: str,
+    filename: str = "focal_interactions_%s.html" % datetime.now().strftime("%Y%m%d"),
+    kind: str = "mass",
 ) -> None:
     """Plot metabolic interactions between a focal taxa and all other taxa.
 
@@ -51,7 +51,8 @@ def plot_focal_interactions(
     """
     if not kind in UNITS:
         raise ValueError(
-            f"Not a supported flux type. Please choose one of {','.join(UNITS)}.")
+            f"Not a supported flux type. Please choose one of {','.join(UNITS)}."
+        )
     ints = interactions(results, taxon, progress=False)
     n_taxa = ints.partner.nunique()
     n_mets = ints.metabolite.nunique()
@@ -66,16 +67,16 @@ def plot_focal_interactions(
         n_taxa=n_taxa,
         n_mets=n_mets,
         taxon=re.sub(r"\w__", "", taxon).replace("_", " "),
-        unit=UNITS[kind]
+        unit=UNITS[kind],
     )
     return viz
 
 
 def plot_mes(
-    results : GrowthResults,
-    filename : str = "mes_%s.html" % datetime.now().strftime("%Y%m%d"),
-    groups : pd.Series = None,
-    prevalence : float = 0.5
+    results: GrowthResults,
+    filename: str = "mes_%s.html" % datetime.now().strftime("%Y%m%d"),
+    groups: pd.Series = None,
+    prevalence: float = 0.5,
 ) -> None:
     """Plot metabolic interactions between a focal taxa and all other taxa.
 
@@ -135,7 +136,6 @@ def plot_mes(
         n_mets=n_mets,
         name="Metabolic Exchange Score (MES)",
         col_name="MES",
-        cat=name
+        cat=name,
     )
     return viz
-

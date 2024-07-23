@@ -5,7 +5,8 @@ from micom import load_pickle
 from micom.annotation import annotate_metabolites_from_exchanges
 from micom.logger import logger
 from micom.media import minimal_medium
-from micom.workflows.core import workflow, GrowthResults
+from micom.workflows.core import workflow
+from micom.workflows.results import GrowthResults
 from micom.workflows.media import process_medium
 from os import path
 import pandas as pd

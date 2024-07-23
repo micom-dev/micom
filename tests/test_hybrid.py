@@ -11,7 +11,8 @@ from micom.workflows import (
     grow,
     tradeoff,
     minimal_media,
-    fix_medium,
+    complete_community_medium,
+    GrowthResults
 )
 from micom.qiime_formats import load_qiime_medium
 from micom.solution import CommunitySolution, OptimizationError
@@ -32,7 +33,7 @@ def test_grow(tmp_path, strategy):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0, solver="hybrid")
     grown = grow(built, str(tmp_path), medium, 0.5, strategy=strategy)
-    assert len(grown) == 3
+    assert isinstance(grown, GrowthResults)
     assert "growth_rate" in grown.growth_rates.columns
     assert "flux" in grown.exchanges.columns
     with pytest.raises(OptimizationError):
@@ -57,11 +58,11 @@ def test_media(tmp_path):
     assert "reaction" in media.columns
 
 
-def test_fix_medium(tmp_path):
+def test_complete_community_medium(tmp_path):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0, solver="hybrid")
     bad_medium = medium.iloc[0:2, :]
-    fixed = fix_medium(built, str(tmp_path), bad_medium, 0.5, 0.001, 10)
+    fixed = complete_community_medium(built, str(tmp_path), bad_medium, 0.5, 0.001, 10)
     assert fixed.shape[0] > 3
     assert "description" in fixed.columns
 

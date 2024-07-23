@@ -4,13 +4,15 @@ from collections import Counter
 import pandas as pd
 from micom.workflows import GrowthResults
 
-def _mes(df : pd.DataFrame) -> float:
+
+def _mes(df: pd.DataFrame) -> float:
     """Helper to calculate the MES score."""
     cn = Counter(df.direction)
     p, c = cn["export"], cn["import"]
     return pd.Series(2.0 * p * c / (p + c), index=["MES"])
 
-def MES(results: GrowthResults, cutoff : float = None) -> pd.DataFrame:
+
+def MES(results: GrowthResults, cutoff: float = None) -> pd.DataFrame:
     """Calculate the Metabolic Exchange Score (MES) for each metabolite.
 
     MES is the harmonic mean of producers and consumers for a chosen metabolite
@@ -40,13 +42,12 @@ def MES(results: GrowthResults, cutoff : float = None) -> pd.DataFrame:
     if cutoff is None:
         cutoff = results.exchanges.tolerance[0]
     fluxes = results.exchanges[
-        (results.exchanges.flux.abs() > cutoff) &
-        (results.exchanges.taxon != "medium")
+        (results.exchanges.flux.abs() > cutoff) & (results.exchanges.taxon != "medium")
     ]
     mes = fluxes.groupby(["metabolite", "sample_id"]).apply(_mes).reset_index()
     mes = mes.merge(
         results.annotations.drop_duplicates(subset=["metabolite"]),
         on="metabolite",
-        how="inner"
+        how="inner",
     )
     return mes

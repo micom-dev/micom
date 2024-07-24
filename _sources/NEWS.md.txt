@@ -9,7 +9,8 @@ For information on how to use `micom` please refer to
 
 **Minimal media workflow**
 
-The minimal media workflow is now more flexible and supports all options of the `minimal_media` base function including:
+The minimal media workflow is now more flexible and supports all options of the
+`minimal_media` base function including:
 
 - specification of a required community growth rate, taxon growth rates, or any combination
 - support for minimizing the number of media metabolites
@@ -26,11 +27,12 @@ The minimal media workflow is now more flexible and supports all options of the 
 
 **Other**
 
-- renamed `fix_medium` to `complete_db_medium` for consistency with `complete_db_medium` and to make it more clear what is happening
-- some black style fixes across the code base
-- updated optlang version for better numpy support
+Renamed `fix_medium` to `complete_db_medium` for consistency with `complete_db_medium`
+and to make it more clear what is happening.
 
-### 0.35.1
+Some black style fixes across the code base.
+
+Updated optlang version for better numpy support.
 
 Fix a bug where `minimal_medium(manifest, ..., summarize=False)` would crash.
 

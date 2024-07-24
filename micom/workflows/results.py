@@ -1,6 +1,7 @@
 """A class for tracking results for growth simulations."""
 
 from __future__ import annotations
+from functools import reduce
 from dataclasses import dataclass
 import pandas as pd
 import typing
@@ -139,3 +140,19 @@ def load_results(path):
         The saved GrowthResults.
     """
     return GrowthResults.load(path)
+
+
+def combine_results(it : typing.Iterable[GrowthResults]) -> GrowthResults:
+    """Combine several GrowthResults.
+
+    Arguments
+    ---------
+    it : Iterable of GrowthResults
+        The growth results to combine.
+
+    Returns
+    -------
+    GrowthResults
+        The merged results.
+    """
+    return reduce(lambda x, y: x+y, it)

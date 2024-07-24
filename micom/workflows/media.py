@@ -1,11 +1,10 @@
 """Example workflows for micom."""
 
-from functools import reduce
 from os import path
 import pandas as pd
 from micom import load_pickle
 from micom.workflows.core import workflow
-from micom.workflows.results import GrowthResults
+from micom.workflows.results import GrowthResults, combine_results
 import micom.media as mm
 from micom.logger import logger
 from micom.solution import OptimizationError
@@ -145,9 +144,7 @@ def minimal_media(
     medium["metabolite"] = medium.reaction.str.replace("EX_", "")
 
     if solution:
-        results = reduce(
-            lambda a, b: a + b, (r["growth"] for r in results if r is not None)
-        )
+        results = combine_results(r["growth"] for r in results if r is not None)
         return medium, results
 
     return medium

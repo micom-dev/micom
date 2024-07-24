@@ -7,9 +7,10 @@ from micom.workflows import (
     grow,
     tradeoff,
     minimal_media,
-    fix_medium,
+    complete_community_medium,
     save_results,
     load_results,
+    GrowthResults
 )
 from micom.qiime_formats import load_qiime_medium, load_qiime_manifest
 from micom.solution import OptimizationError
@@ -60,7 +61,7 @@ def test_grow(tmp_path, strategy):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0)
     grown = grow(built, str(tmp_path), medium, 0.5, strategy=strategy)
-    assert len(grown) == 3
+    assert isinstance(grown, GrowthResults)
     assert "growth_rate" in grown.growth_rates.columns
     assert "flux" in grown.exchanges.columns
     with pytest.raises(OptimizationError):
@@ -95,26 +96,49 @@ def test_media(tmp_path):
 def test_media_no_summary(tmp_path):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0)
-    media = minimal_media(built, str(tmp_path), min_growth=0.5, summarize=False)
+    media = minimal_media(built, str(tmp_path), growth=0.5, summarize=False)
     assert media.shape[0] > 3 * built.shape[0]
     assert "flux" in media.columns
     assert "reaction" in media.columns
 
+def test_media_solution(tmp_path):
+    data = md.test_data()
+    built = build(data, db, str(tmp_path), cutoff=0)
+    media, res = minimal_media(built, str(tmp_path), growth=0.5, summarize=False, solution=True)
+    assert media.shape[0] > 3 * built.shape[0]
+    assert "flux" in media.columns
+    assert "reaction" in media.columns
+    assert isinstance(res, GrowthResults)
+    assert res.growth_rates.shape[0] == 12
 
-def test_fix_medium(tmp_path):
+@pytest.mark.parametrize("w", [None, "mass", "C"])
+def test_media_weights(tmp_path, w):
+    data = md.test_data()
+    built = build(data, db, str(tmp_path), cutoff=0)
+    media = minimal_media(
+        built,
+        str(tmp_path),
+        community_growth=0.5,
+        weights=w,
+        summarize=True)
+    assert media.shape[0] > 3
+    assert "flux" in media.columns
+    assert "reaction" in media.columns
+
+def test_complete_community_medium(tmp_path):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0)
     bad_medium = medium.iloc[0:2, :]
-    fixed = fix_medium(built, str(tmp_path), bad_medium, 0.5, 0.001, 10)
+    fixed = complete_community_medium(built, str(tmp_path), bad_medium, 0.5, 0.001, 10)
     assert fixed.shape[0] > 3
     assert "description" in fixed.columns
 
 
-def test_fix_medium_no_summary(tmp_path):
+def test_complete_community_medium_no_summary(tmp_path):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0)
     bad_medium = medium.iloc[0:2, :]
-    fixed = fix_medium(
+    fixed = complete_community_medium(
         built, str(tmp_path), bad_medium, 0.5, 0.001, 10, summarize=False
     )
     assert fixed.shape[0] > 3 * built.shape[0]
@@ -129,7 +153,7 @@ def test_results_saving(tmp_path):
     save_results(grown, results_file)
     assert (tmp_path / "test.zip").exists()
     loaded = load_results(results_file)
-    assert len(loaded) == 3
+    assert isinstance(loaded, GrowthResults)
     assert loaded.growth_rates.shape == grown.growth_rates.shape
     assert loaded.exchanges.shape == grown.exchanges.shape
     assert loaded.annotations.shape == grown.annotations.shape

@@ -4,9 +4,12 @@ from os import path
 import pandas as pd
 from micom import load_pickle
 from micom.workflows.core import workflow
+from micom.workflows.results import GrowthResults, combine_results
 import micom.media as mm
 from micom.logger import logger
 from micom.solution import OptimizationError
+
+DIRECTION = pd.Series(["import", "export"], index=[0, 1])
 
 
 def process_medium(medium, samples):
@@ -24,44 +27,126 @@ def process_medium(medium, samples):
 
 def _medium(args):
     """Get minimal medium for a single model."""
-    s, p, min_growth = args
+    s, p, com_growth, growth, mc, weights, solution = args
     com = load_pickle(p)
 
-    # open the bounds
-    for ex in com.exchanges:
-        ex.bounds = (-1000.0, 1000.0)
+    tol = com.solver.configuration.tolerances.feasibility
+
     try:
-        medium = mm.minimal_medium(com, 0.0, min_growth=min_growth).to_frame()
-    except Exception:
-        logger.error("Could not get a minimal medium for sample %s." % s)
+        res = mm.minimal_medium(
+            com,
+            community_growth=com_growth,
+            min_growth=growth,
+            minimize_components=mc,
+            open_exchanges=True,
+            solution=solution,
+            weights=weights,
+            atol=tol,
+            rtol=tol,
+        )
+    except Exception as e:
+        logger.error("Could not get a minimal medium for sample %s." % e)
         return None
+    result = dict()
+    if solution:
+        medium = res["medium"].to_frame()
+        result["growth"] = GrowthResults.from_solution(res["solution"], com)
+    else:
+        medium = res.to_frame()
     medium.columns = ["flux"]
     medium["sample_id"] = s
     medium.index.name = "reaction"
-    return medium.reset_index()
+    result["medium"] = medium.reset_index()
+    return result
 
 
-def minimal_media(manifest, model_folder, summarize=True, min_growth=0.1, threads=1):
-    """Calculate the minimal medium for a set of community models."""
+def minimal_media(
+    manifest: pd.DataFrame,
+    model_folder: str,
+    community_growth: float = 0.0,
+    growth: float = 0.1,
+    minimize_components: bool = False,
+    weights: str = None,
+    summarize: bool = True,
+    solution: bool = False,
+    threads: int = 1,
+) -> pd.DataFrame:
+    """Calculate the minimal medium for a set of community models.
+
+    This requires a minimim
+
+    Arguments
+    ---------
+    manifest : pandas.DataFrame
+        The manifest as returned by the `build` workflow.
+    model_folder : str
+        The folder in which to find the files mentioned in the manifest.
+    medium : pandas.Series or pandas.DataFrame
+        A growth medium with exchange reaction IDs as index and positive
+        import fluxes as values. If a DataFrame needs columns `flux` and
+        `reaction`.
+    community_growth : positive float
+        The minimum community-wide growth rate that has to be achieved on the created
+        medium.
+    growth : positive float, dict, or pd.Series
+        The taxon-specific growth rates that have to be achieved. If a single float gives
+        the growth rate for each individual taxon. If a dict or Series gives the growth
+        rate for each taxon specified that way. Here keys are the IDs for the taxon.
+    minimize_components : boolean
+        Whether to minimize the number of media components rather than the
+        total flux. This will ignore the weight argument and might be very slow.
+    weights : str
+        Will scale the fluxes by a weight factor. Can either be "mass" which will
+        scale by molecular mass, a single element which will scale by
+        the elemental content (for instance "C" to scale by carbon content).
+        If None every metabolite will receive the same weight.
+        Will be ignored if `minimize_components` is True.
+    summarize: boolean
+        Whether to summarize the medium across all samples. If False will
+        return a medium for each sample.
+    threads: int
+        The number of processes to use.
+
+    Returns
+    -------
+    pandas.DataFrame or tuple of pandas.DataFrame and GrowthResult
+        Either the medium or, if `solution=True` a tuple of the medium and the
+        growth results.
+    """
     samples = manifest.sample_id.unique()
-    paths = [
+    args = [
         (
             s,
             path.join(model_folder, manifest[manifest.sample_id == s].file.iloc[0]),
+            community_growth,
+            growth,
+            minimize_components,
+            weights,
+            solution,
         )
         for s in samples
     ]
-    args = [[s, p, min_growth] for s, p in paths]
     results = workflow(_medium, args, threads)
-    if any(r is None for r in results):
+    if all(r is None for r in results):
         raise OptimizationError(
             "Could not find a growth medium that allows the specified "
-            "growth rate for all taxa in all samples :("
+            "growth rate for any sample :("
         )
-    medium = pd.concat(results, axis=0)
+    elif any(r is None for r in results):
+        logger.warning(
+            "For some samples I could not find a medium that fulfills "
+            "the growth rate requirements. Returning media only for the "
+            "succesful samples."
+        )
+    medium = pd.concat(r["medium"] for r in results if r is not None)
     if summarize:
         medium = medium.groupby("reaction").flux.max().reset_index()
     medium["metabolite"] = medium.reaction.str.replace("EX_", "")
+
+    if solution:
+        results = combine_results(r["growth"] for r in results if r is not None)
+        return medium, results
+
     return medium
 
 
@@ -95,19 +180,28 @@ def _fix_medium(args):
     return fixed
 
 
-def fix_medium(
-    manifest,
-    model_folder,
-    medium,
-    community_growth=0.1,
-    min_growth=0.001,
-    max_import=1,
-    minimize_components=False,
-    summarize=True,
-    weights=None,
-    threads=1,
-):
-    """Augment a growth medium so all community members can grow in it.
+def complete_community_medium(
+    manifest: pd.DataFrame,
+    model_folder: str,
+    medium: pd.DataFrame,
+    community_growth: float = 0.1,
+    min_growth: float = 0.001,
+    max_import: float = 1,
+    minimize_components: float = False,
+    summarize: bool = True,
+    weights: str = None,
+    threads: int = 1,
+) -> pd.DataFrame:
+    """Augment a growth medium so a community or specific taxa can grow on it.
+
+    Note
+    ----
+    This will complete a growth medium for a single community/sample. For building
+    growth media that work for arbitrary samples/compositions of taxa see
+    `complete_db_medium` In contrast to `complete_db_medium` this will account for
+    taxon-taxon interactions. However, growth rates will no longer be an emergent
+    property of the simulation, because one needs to specify the community growth rate
+    or growth rates for individual taxa.
 
     Arguments
     ---------

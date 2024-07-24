@@ -24,6 +24,8 @@ from swiglpk import glp_adv_basis
 good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL, ITERATION_LIMIT]
 """Solver states that permit returning the solution."""
 
+DIRECTION = pd.Series(["import", "export"], index=[0, 1])
+
 
 def _group_taxa(values, ids, taxa, what="reaction"):
     """Format a list of values by id and taxa."""

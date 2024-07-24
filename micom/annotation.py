@@ -2,7 +2,6 @@
 
 from cobra.core.formula import Formula
 import pandas as pd
-from micom import Community
 import warnings
 
 
@@ -21,7 +20,7 @@ def annotate(ids, community, what="reaction"):
         raise ValueError("Invalid value for `what` :(")
 
     objs = elems.get_by_any(ids)
-    attr = "global_id" if isinstance(community, Community) else "id"
+    attr = "global_id" if hasattr(community.reactions[0], "global_id") else "id"
 
     if what == "reaction":
         anns = [
@@ -48,7 +47,7 @@ def annotate(ids, community, what="reaction"):
 
 def annotate_metabolites_from_exchanges(com):
     """Annotate exchange reactions by their metabolite."""
-    if isinstance(com, Community):
+    if hasattr(com.reactions[0], "global_id"):
         exs = com.internal_exchanges + com.exchanges
         attr = "global_id"
     else:

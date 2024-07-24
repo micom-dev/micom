@@ -5,7 +5,32 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
-## 0.35.1
+### 0.36.0
+
+**Minimal media workflow**
+
+The minimal media workflow is now more flexible and supports all options of the `minimal_media` base function including:
+
+- specification of a required community growth rate, taxon growth rates, or any combination
+- support for minimizing the number of media metabolites
+- support for weights allowing to minimize mass uptake, carbon uptake etc.
+- returning the growth results obtained by the media minimization
+
+**Growth Results**
+
+`GrowthResults` is now a DataClass and gains some new helpers:
+
+- combining two GrowthResults via the addition operator (`r1 + r2`)
+- concatenating many growth results via `combine_results`
+- converting a `CommunitySolution` to a growth results object
+
+**Other**
+
+- renamed `fix_medium` to `complete_db_medium` for consistency with `complete_db_medium` and to make it more clear what is happening
+- some black style fixes across the code base
+- updated optlang version for better numpy support
+
+### 0.35.1
 
 Fix a bug where `minimal_medium(manifest, ..., summarize=False)` would crash.
 

@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="micom.workflows.results" href="../results/index.html" /><link rel="prev" title="micom.workflows.grow" href="../grow/index.html" />
+<link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="micom.workflows.tradeoff" href="../tradeoff/index.html" /><link rel="prev" title="micom.workflows.media" href="../media/index.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.07.18 -->
-        <title>micom.workflows.media - version 0.35.0</title>
+        <title>micom.workflows.results - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?v=613ab9ff" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=fd3f3429" />
@@ -241,8 +241,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../core/index.html">micom.workflows.core</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../db_media/index.html">micom.workflows.db_media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../grow/index.html">micom.workflows.grow</a></li>
-<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">micom.workflows.media</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../results/index.html">micom.workflows.results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../media/index.html">micom.workflows.media</a></li>
+<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">micom.workflows.results</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tradeoff/index.html">micom.workflows.tradeoff</a></li>
 </ul>
 </li>
@@ -287,7 +287,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../../../../_sources/autoapi/micom/workflows/media/index.rst.txt" title="View this page">
+  <a class="muted-link" href="../../../../_sources/autoapi/micom/workflows/results/index.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -307,15 +307,27 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-micom.workflows.media">
-<span id="micom-workflows-media"></span><h1>micom.workflows.media<a class="headerlink" href="#module-micom.workflows.media" title="Link to this heading">¶</a></h1>
-<p>Example workflows for micom.</p>
+          <section id="module-micom.workflows.results">
+<span id="micom-workflows-results"></span><h1>micom.workflows.results<a class="headerlink" href="#module-micom.workflows.results" title="Link to this heading">¶</a></h1>
+<p>A class for tracking results for growth simulations.</p>
 <section id="attributes">
 <h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.media.DIRECTION" title="micom.workflows.media.DIRECTION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DIRECTION</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.results.DIRECTION" title="micom.workflows.results.DIRECTION"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DIRECTION</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GrowthResults</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -327,20 +339,14 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.media.process_medium" title="micom.workflows.media.process_medium"><code class="xref py py-obj docutils literal notranslate"><span class="pre">process_medium</span></code></a>(medium, samples)</p></td>
-<td><p>Prepare a medium for simulation.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.results.save_results" title="micom.workflows.results.save_results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_results</span></code></a>(results, path)</p></td>
+<td><p>Save growth results to a file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.media._medium" title="micom.workflows.media._medium"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_medium</span></code></a>(args)</p></td>
-<td><p>Get minimal medium for a single model.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.results.load_results" title="micom.workflows.results.load_results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_results</span></code></a>(path)</p></td>
+<td><p>Load growth results from a file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.media.minimal_media" title="micom.workflows.media.minimal_media"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minimal_media</span></code></a>(→ pandas.DataFrame)</p></td>
-<td><p>Calculate the minimal medium for a set of community models.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.workflows.media._fix_medium" title="micom.workflows.media._fix_medium"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_fix_medium</span></code></a>(args)</p></td>
-<td><p>Get the fixed medium for a model.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.media.complete_community_medium" title="micom.workflows.media.complete_community_medium"><code class="xref py py-obj docutils literal notranslate"><span class="pre">complete_community_medium</span></code></a>(→ pandas.DataFrame)</p></td>
-<td><p>Augment a growth medium so a community or specific taxa can grow on it.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.workflows.results.combine_results" title="micom.workflows.results.combine_results"><code class="xref py py-obj docutils literal notranslate"><span class="pre">combine_results</span></code></a>(→ GrowthResults)</p></td>
+<td><p>Combine several GrowthResults.</p></td>
 </tr>
 </tbody>
 </table>
@@ -349,111 +355,127 @@
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <dl class="py data">
-<dt class="sig sig-object py" id="micom.workflows.media.DIRECTION">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></span><span class="sig-name descname"><span class="pre">DIRECTION</span></span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#DIRECTION"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media.DIRECTION" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.workflows.results.DIRECTION">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.results.</span></span><span class="sig-name descname"><span class="pre">DIRECTION</span></span><a class="reference internal" href="../../../../_modules/micom/workflows/results.html#DIRECTION"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.results.DIRECTION" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.workflows.media.process_medium">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></span><span class="sig-name descname"><span class="pre">process_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">medium</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#process_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media.process_medium" title="Link to this definition">¶</a></dt>
-<dd><p>Prepare a medium for simulation.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="micom.workflows.results.GrowthResults">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">micom.workflows.results.</span></span><span class="sig-name descname"><span class="pre">GrowthResults</span></span><a class="reference internal" href="../../../../_modules/micom/workflows/results.html#GrowthResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.results.GrowthResults" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="micom.workflows.results.GrowthResults.growth_rates">
+<span class="sig-name descname"><span class="pre">growth_rates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.DataFrame</span></em><a class="reference internal" href="../../../../_modules/micom/workflows/results.html#GrowthResults.growth_rates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.results.GrowthResults.growth_rates" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.workflows.results.GrowthResults.exchanges">
+<span class="sig-name descname"><span class="pre">exchanges</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.DataFrame</span></em><a class="reference internal" href="../../../../_modules/micom/workflows/results.html#GrowthResults.exchanges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.results.GrowthResults.exchanges" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.workflows.results.GrowthResults.annotations">
+<span class="sig-name descname"><span class="pre">annotations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">pandas.DataFrame</span></em><a class="reference internal" href="../../../../_modules/micom/workflows/results.html#GrowthResults.annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.results.GrowthResults.annotations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="micom.workflows.results.GrowthResults.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/results.html#GrowthResults.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.results.GrowthResults.save" title="Link to this definition">¶</a></dt>
+<dd><p>Save growth results to a file.</p>
+<p>This will write all tables as CSV into a single ZIP file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – A filepath for the generated file. Should end in <cite>.zip</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="micom.workflows.results.GrowthResults.load">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults"><span class="pre">GrowthResults</span></a></span></span><a class="reference internal" href="../../../../_modules/micom/workflows/results.html#GrowthResults.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.results.GrowthResults.load" title="Link to this definition">¶</a></dt>
+<dd><p>Load growth results from a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to saved <cite>GrowthResults</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The loaded growth results.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults">GrowthResults</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="micom.workflows.results.GrowthResults.__add__">
+<span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults"><span class="pre">GrowthResults</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults"><span class="pre">GrowthResults</span></a></span></span><a class="reference internal" href="../../../../_modules/micom/workflows/results.html#GrowthResults.__add__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.results.GrowthResults.__add__" title="Link to this definition">¶</a></dt>
+<dd><p>Combine two GrowthResults objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults"><em>GrowthResults</em></a>) – The other result to merge with the current one.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A merged growth result containing data from both.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>GrowthResult</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="micom.workflows.results.GrowthResults.from_solution">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_solution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sol</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../solution/index.html#micom.solution.CommunitySolution" title="micom.solution.CommunitySolution"><span class="pre">micom.solution.CommunitySolution</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">com</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../community/index.html#micom.community.Community" title="micom.community.Community"><span class="pre">micom.community.Community</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults"><span class="pre">GrowthResults</span></a></span></span><a class="reference internal" href="../../../../_modules/micom/workflows/results.html#GrowthResults.from_solution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.results.GrowthResults.from_solution" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a solution to growth results.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="micom.workflows.media._medium">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></span><span class="sig-name descname"><span class="pre">_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media._medium" title="Link to this definition">¶</a></dt>
-<dd><p>Get minimal medium for a single model.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.workflows.media.minimal_media">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></span><span class="sig-name descname"><span class="pre">minimal_media</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">community_growth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">growth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize_components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summarize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#minimal_media"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media.minimal_media" title="Link to this definition">¶</a></dt>
-<dd><p>Calculate the minimal medium for a set of community models.</p>
-<p>This requires a minimim</p>
+<dt class="sig sig-object py" id="micom.workflows.results.save_results">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.results.</span></span><span class="sig-name descname"><span class="pre">save_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults"><span class="pre">GrowthResults</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/results.html#save_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.results.save_results" title="Link to this definition">¶</a></dt>
+<dd><p>Save growth results to a file.</p>
+<p>This will write all tables as CSV into a single ZIP file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – The manifest as returned by the <cite>build</cite> workflow.</p></li>
-<li><p><strong>model_folder</strong> (<em>str</em>) – The folder in which to find the files mentioned in the manifest.</p></li>
-<li><p><strong>medium</strong> (<em>pandas.Series</em><em> or </em><em>pandas.DataFrame</em>) – A growth medium with exchange reaction IDs as index and positive
-import fluxes as values. If a DataFrame needs columns <cite>flux</cite> and
-<cite>reaction</cite>.</p></li>
-<li><p><strong>community_growth</strong> (<em>positive float</em>) – The minimum community-wide growth rate that has to be achieved on the created
-medium.</p></li>
-<li><p><strong>growth</strong> (<em>positive float</em><em>, </em><em>dict</em><em>, or </em><em>pd.Series</em>) – The taxon-specific growth rates that have to be achieved. If a single float gives
-the growth rate for each individual taxon. If a dict or Series gives the growth
-rate for each taxon specified that way. Here keys are the IDs for the taxon.</p></li>
-<li><p><strong>minimize_components</strong> (<em>boolean</em>) – Whether to minimize the number of media components rather than the
-total flux. This will ignore the weight argument and might be very slow.</p></li>
-<li><p><strong>weights</strong> (<em>str</em>) – Will scale the fluxes by a weight factor. Can either be “mass” which will
-scale by molecular mass, a single element which will scale by
-the elemental content (for instance “C” to scale by carbon content).
-If None every metabolite will receive the same weight.
-Will be ignored if <cite>minimize_components</cite> is True.</p></li>
-<li><p><strong>summarize</strong> (<em>boolean</em>) – Whether to summarize the medium across all samples. If False will
-return a medium for each sample.</p></li>
-<li><p><strong>threads</strong> (<em>int</em>) – The number of processes to use.</p></li>
+<li><p><strong>results</strong> (<a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults"><em>GrowthResults</em></a>) – The results as returned from <cite>grow</cite>.</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – A filepath for the generated file. Should end in <cite>.zip</cite>.</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Either the medium or, if <cite>solution=True</cite> a tuple of the medium and the
-growth results.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pandas.DataFrame or tuple of pandas.DataFrame and GrowthResult</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="micom.workflows.media._fix_medium">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></span><span class="sig-name descname"><span class="pre">_fix_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#_fix_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media._fix_medium" title="Link to this definition">¶</a></dt>
-<dd><p>Get the fixed medium for a model.</p>
+<dt class="sig sig-object py" id="micom.workflows.results.load_results">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.results.</span></span><span class="sig-name descname"><span class="pre">load_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../../_modules/micom/workflows/results.html#load_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.results.load_results" title="Link to this definition">¶</a></dt>
+<dd><p>Load growth results from a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – Path to saved <cite>GrowthResults</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The saved GrowthResults.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults">GrowthResults</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="micom.workflows.media.complete_community_medium">
-<span class="sig-prename descclassname"><span class="pre">micom.workflows.media.</span></span><span class="sig-name descname"><span class="pre">complete_community_medium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_folder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">medium</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">community_growth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_growth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_import</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimize_components</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summarize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../../../../_modules/micom/workflows/media.html#complete_community_medium"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.media.complete_community_medium" title="Link to this definition">¶</a></dt>
-<dd><p>Augment a growth medium so a community or specific taxa can grow on it.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This will complete a growth medium for a single community/sample. For building
-growth media that work for arbitrary samples/compositions of taxa see
-<cite>complete_db_medium</cite> In contrast to <cite>complete_db_medium</cite> this will account for
-taxon-taxon interactions. However, growth rates will no longer be an emergent
-property of the simulation, because one needs to specify the community growth rate
-or growth rates for individual taxa.</p>
-</div>
+<dt class="sig sig-object py" id="micom.workflows.results.combine_results">
+<span class="sig-prename descclassname"><span class="pre">micom.workflows.results.</span></span><span class="sig-name descname"><span class="pre">combine_results</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">it</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults"><span class="pre">GrowthResults</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults"><span class="pre">GrowthResults</span></a></span></span><a class="reference internal" href="../../../../_modules/micom/workflows/results.html#combine_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.workflows.results.combine_results" title="Link to this definition">¶</a></dt>
+<dd><p>Combine several GrowthResults.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – The manifest as returned by the <cite>build</cite> workflow.</p></li>
-<li><p><strong>model_folder</strong> (<em>str</em>) – The folder in which to find the files mentioned in the manifest.</p></li>
-<li><p><strong>medium</strong> (<em>pandas.Series</em><em> or </em><em>pandas.DataFrame</em>) – A growth medium with exchange reaction IDs as index and positive
-import fluxes as values. If a DataFrame needs columns <cite>flux</cite> and
-<cite>reaction</cite>.</p></li>
-<li><p><strong>community_growth</strong> (<em>positive float</em>) – The minimum community-wide growth rate that has to be achieved on the created
-medium.</p></li>
-<li><p><strong>min_growth</strong> (<em>positive float</em>) – The minimum biomass production required for growth.</p></li>
-<li><p><strong>max_import</strong> (<em>positive float</em>) – The maximum import rate for added imports.</p></li>
-<li><p><strong>minimize_components</strong> (<em>boolean</em>) – Whether to minimize the number of media components rather than the
-total flux.</p></li>
-<li><p><strong>summarize</strong> (<em>boolean</em>) – Whether to summarize the medium across all samples. If False will
-return a medium for each sample.</p></li>
-<li><p><strong>weights</strong> (<em>str</em>) – Will scale the fluxes by a weight factor. Can either be “mass” which will
-scale by molecular mass, a single element which will scale by
-the elemental content (for instance “C” to scale by carbon content).
-If None every metabolite will receive the same weight.
-Will be ignored if <cite>minimize_components</cite> is True.</p></li>
-<li><p><strong>threads</strong> (<em>int</em>) – The number of processes to use.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>it</strong> (<em>Iterable</em><em> of </em><a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults"><em>GrowthResults</em></a>) – The growth results to combine.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A new growth medium with the smallest amount of augmentations such
-that all members of the community can grow in it.</p>
+<dd class="field-even"><p>The merged results.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pandas.DataFrame</p>
+<dd class="field-odd"><p><a class="reference internal" href="#micom.workflows.results.GrowthResults" title="micom.workflows.results.GrowthResults">GrowthResults</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -466,23 +488,23 @@ that all members of the community can grow in it.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../results/index.html">
+          <a class="next-page" href="../tradeoff/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">micom.workflows.results</div>
+                <div class="title">micom.workflows.tradeoff</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../grow/index.html">
+          <a class="prev-page" href="../media/index.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">micom.workflows.grow</div>
+                <div class="title">micom.workflows.media</div>
                 
               </div>
             </a>
@@ -516,16 +538,25 @@ that all members of the community can grow in it.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">micom.workflows.media</a><ul>
+<li><a class="reference internal" href="#">micom.workflows.results</a><ul>
 <li><a class="reference internal" href="#attributes">Attributes</a></li>
+<li><a class="reference internal" href="#classes">Classes</a></li>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#micom.workflows.media.DIRECTION"><code class="docutils literal notranslate"><span class="pre">DIRECTION</span></code></a></li>
-<li><a class="reference internal" href="#micom.workflows.media.process_medium"><code class="docutils literal notranslate"><span class="pre">process_medium()</span></code></a></li>
-<li><a class="reference internal" href="#micom.workflows.media._medium"><code class="docutils literal notranslate"><span class="pre">_medium()</span></code></a></li>
-<li><a class="reference internal" href="#micom.workflows.media.minimal_media"><code class="docutils literal notranslate"><span class="pre">minimal_media()</span></code></a></li>
-<li><a class="reference internal" href="#micom.workflows.media._fix_medium"><code class="docutils literal notranslate"><span class="pre">_fix_medium()</span></code></a></li>
-<li><a class="reference internal" href="#micom.workflows.media.complete_community_medium"><code class="docutils literal notranslate"><span class="pre">complete_community_medium()</span></code></a></li>
+<li><a class="reference internal" href="#micom.workflows.results.DIRECTION"><code class="docutils literal notranslate"><span class="pre">DIRECTION</span></code></a></li>
+<li><a class="reference internal" href="#micom.workflows.results.GrowthResults"><code class="docutils literal notranslate"><span class="pre">GrowthResults</span></code></a><ul>
+<li><a class="reference internal" href="#micom.workflows.results.GrowthResults.growth_rates"><code class="docutils literal notranslate"><span class="pre">GrowthResults.growth_rates</span></code></a></li>
+<li><a class="reference internal" href="#micom.workflows.results.GrowthResults.exchanges"><code class="docutils literal notranslate"><span class="pre">GrowthResults.exchanges</span></code></a></li>
+<li><a class="reference internal" href="#micom.workflows.results.GrowthResults.annotations"><code class="docutils literal notranslate"><span class="pre">GrowthResults.annotations</span></code></a></li>
+<li><a class="reference internal" href="#micom.workflows.results.GrowthResults.save"><code class="docutils literal notranslate"><span class="pre">GrowthResults.save()</span></code></a></li>
+<li><a class="reference internal" href="#micom.workflows.results.GrowthResults.load"><code class="docutils literal notranslate"><span class="pre">GrowthResults.load()</span></code></a></li>
+<li><a class="reference internal" href="#micom.workflows.results.GrowthResults.__add__"><code class="docutils literal notranslate"><span class="pre">GrowthResults.__add__()</span></code></a></li>
+<li><a class="reference internal" href="#micom.workflows.results.GrowthResults.from_solution"><code class="docutils literal notranslate"><span class="pre">GrowthResults.from_solution()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#micom.workflows.results.save_results"><code class="docutils literal notranslate"><span class="pre">save_results()</span></code></a></li>
+<li><a class="reference internal" href="#micom.workflows.results.load_results"><code class="docutils literal notranslate"><span class="pre">load_results()</span></code></a></li>
+<li><a class="reference internal" href="#micom.workflows.results.combine_results"><code class="docutils literal notranslate"><span class="pre">combine_results()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -9,6 +9,14 @@ micom.workflows.media
 
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.workflows.media.DIRECTION
+
+
 Functions
 ---------
 
@@ -18,11 +26,13 @@ Functions
    micom.workflows.media._medium
    micom.workflows.media.minimal_media
    micom.workflows.media._fix_medium
-   micom.workflows.media.fix_medium
+   micom.workflows.media.complete_community_medium
 
 
 Module Contents
 ---------------
+
+.. py:data:: DIRECTION
 
 .. py:function:: process_medium(medium, samples)
 
@@ -34,9 +44,45 @@ Module Contents
    Get minimal medium for a single model.
 
 
-.. py:function:: minimal_media(manifest, model_folder, summarize=True, min_growth=0.1, threads=1)
+.. py:function:: minimal_media(manifest: pandas.DataFrame, model_folder: str, community_growth: float = 0.0, growth: float = 0.1, minimize_components: bool = False, weights: str = None, summarize: bool = True, solution: bool = False, threads: int = 1) -> pandas.DataFrame
 
    Calculate the minimal medium for a set of community models.
+
+   This requires a minimim
+
+   :param manifest: The manifest as returned by the `build` workflow.
+   :type manifest: pandas.DataFrame
+   :param model_folder: The folder in which to find the files mentioned in the manifest.
+   :type model_folder: str
+   :param medium: A growth medium with exchange reaction IDs as index and positive
+                  import fluxes as values. If a DataFrame needs columns `flux` and
+                  `reaction`.
+   :type medium: pandas.Series or pandas.DataFrame
+   :param community_growth: The minimum community-wide growth rate that has to be achieved on the created
+                            medium.
+   :type community_growth: positive float
+   :param growth: The taxon-specific growth rates that have to be achieved. If a single float gives
+                  the growth rate for each individual taxon. If a dict or Series gives the growth
+                  rate for each taxon specified that way. Here keys are the IDs for the taxon.
+   :type growth: positive float, dict, or pd.Series
+   :param minimize_components: Whether to minimize the number of media components rather than the
+                               total flux. This will ignore the weight argument and might be very slow.
+   :type minimize_components: boolean
+   :param weights: Will scale the fluxes by a weight factor. Can either be "mass" which will
+                   scale by molecular mass, a single element which will scale by
+                   the elemental content (for instance "C" to scale by carbon content).
+                   If None every metabolite will receive the same weight.
+                   Will be ignored if `minimize_components` is True.
+   :type weights: str
+   :param summarize: Whether to summarize the medium across all samples. If False will
+                     return a medium for each sample.
+   :type summarize: boolean
+   :param threads: The number of processes to use.
+   :type threads: int
+
+   :returns: Either the medium or, if `solution=True` a tuple of the medium and the
+             growth results.
+   :rtype: pandas.DataFrame or tuple of pandas.DataFrame and GrowthResult
 
 
 .. py:function:: _fix_medium(args)
@@ -44,9 +90,18 @@ Module Contents
    Get the fixed medium for a model.
 
 
-.. py:function:: fix_medium(manifest, model_folder, medium, community_growth=0.1, min_growth=0.001, max_import=1, minimize_components=False, summarize=True, weights=None, threads=1)
+.. py:function:: complete_community_medium(manifest: pandas.DataFrame, model_folder: str, medium: pandas.DataFrame, community_growth: float = 0.1, min_growth: float = 0.001, max_import: float = 1, minimize_components: float = False, summarize: bool = True, weights: str = None, threads: int = 1) -> pandas.DataFrame
 
-   Augment a growth medium so all community members can grow in it.
+   Augment a growth medium so a community or specific taxa can grow on it.
+
+   .. note::
+
+      This will complete a growth medium for a single community/sample. For building
+      growth media that work for arbitrary samples/compositions of taxa see
+      `complete_db_medium` In contrast to `complete_db_medium` this will account for
+      taxon-taxon interactions. However, growth rates will no longer be an emergent
+      property of the simulation, because one needs to specify the community growth rate
+      or growth rates for individual taxa.
 
    :param manifest: The manifest as returned by the `build` workflow.
    :type manifest: pandas.DataFrame

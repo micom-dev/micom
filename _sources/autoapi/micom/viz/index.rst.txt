@@ -73,6 +73,15 @@ Package Contents
       :type: jinja2.Template
 
 
+   .. py:attribute:: filename
+
+
+   .. py:attribute:: data
+
+
+   .. py:attribute:: template
+
+
    .. py:method:: view()
 
       Open the visualization in a browser.

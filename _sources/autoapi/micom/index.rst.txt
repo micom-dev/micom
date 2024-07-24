@@ -79,6 +79,70 @@ Package Contents
    compartment.
 
 
+   .. py:attribute:: lp_method
+      :value: 'auto'
+
+
+
+   .. py:attribute:: qp_method
+      :value: 'auto'
+
+
+
+   .. py:attribute:: presolve
+      :value: False
+
+
+
+   .. py:attribute:: solver
+
+
+   .. py:attribute:: _rtol
+
+
+   .. py:attribute:: _modification
+      :value: None
+
+
+
+   .. py:attribute:: mass
+
+
+   .. py:attribute:: __db_metrics
+      :value: None
+
+
+
+   .. py:property:: taxonomy
+      The taxonomy used within the model.
+
+      This attribute only returns a copy.
+
+      :type: pandas.DataFrame
+
+
+   .. py:attribute:: compressed
+      :value: False
+
+
+
+   .. py:attribute:: __taxonomy
+
+
+   .. py:attribute:: index
+
+
+   .. py:attribute:: obj
+
+
+   .. py:attribute:: taxa
+      :value: []
+
+
+
+   .. py:attribute:: com_obj
+
+
    .. py:method:: __add_exchanges(reactions, info, external_compartment='e', internal_exchange=1000)
 
       Add exchange reactions for a new model.
@@ -193,14 +257,6 @@ Package Contents
                         if you know what you are doing :O
       :type normalize: boolean, optional
 
-
-
-   .. py:property:: taxonomy
-      The taxonomy used within the model.
-
-      This attribute only returns a copy.
-
-      :type: pandas.DataFrame
 
 
    .. py:property:: modification

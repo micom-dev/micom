@@ -5,12 +5,12 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="micom.data" href="data/index.html" /><link rel="prev" title="API Reference" href="../index.html" />
 
-    <!-- Generated with Sphinx 7.4.0 and Furo 2024.05.06 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2024.07.18 -->
         <title>micom - version 0.35.0</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=387cc868" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=613ab9ff" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
     
     
 
@@ -91,19 +91,6 @@
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
     </svg>
   </symbol>
-  <symbol id="svg-sun-half" viewBox="0 0 24 24">
-    <title>Auto light/dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
-      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-      <circle cx="12" cy="12" r="9" />
-      <path d="M13 12h5" />
-      <path d="M13 15h4" />
-      <path d="M13 18h1" />
-      <path d="M13 9h4" />
-      <path d="M13 6h1" />
-    </svg>
-  </symbol>
   <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
     <title>Auto light/dark, in light mode</title>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -144,7 +131,7 @@
       <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
       <path d="M13.5 6.5l4 4" />
       <path d="M20 21l2 -2l-2 -2" />
-      <path d="M17 17l-2 2l2 2" /
+      <path d="M17 17l-2 2l2 2" />
     </svg>
   </symbol>
   <symbol id="svg-eye" viewBox="0 0 24 24">
@@ -229,6 +216,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../media.html">Growth media</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../taxa_knockouts.html">Knockouts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../elasticities.html">Intervention studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials and Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NEWS.html">Release Notes</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children current-page"><a class="current reference internal" href="#">micom</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of micom</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="data/index.html">micom.data</a></li>
@@ -253,6 +242,7 @@
 <li class="toctree-l4"><a class="reference internal" href="workflows/db_media/index.html">micom.workflows.db_media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="workflows/grow/index.html">micom.workflows.grow</a></li>
 <li class="toctree-l4"><a class="reference internal" href="workflows/media/index.html">micom.workflows.media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="workflows/results/index.html">micom.workflows.results</a></li>
 <li class="toctree-l4"><a class="reference internal" href="workflows/tradeoff/index.html">micom.workflows.tradeoff</a></li>
 </ul>
 </li>
@@ -393,6 +383,89 @@
 microbial communities but may also be used for multi-tissue or tissue-cell
 mixture models as long as all individuals exist within a single enclosing
 compartment.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.lp_method">
+<span class="sig-name descname"><span class="pre">lp_method</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'auto'</span></em><a class="headerlink" href="#micom.Community.lp_method" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.qp_method">
+<span class="sig-name descname"><span class="pre">qp_method</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'auto'</span></em><a class="headerlink" href="#micom.Community.qp_method" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.presolve">
+<span class="sig-name descname"><span class="pre">presolve</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#micom.Community.presolve" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.solver">
+<span class="sig-name descname"><span class="pre">solver</span></span><a class="headerlink" href="#micom.Community.solver" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community._rtol">
+<span class="sig-name descname"><span class="pre">_rtol</span></span><a class="headerlink" href="#micom.Community._rtol" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community._modification">
+<span class="sig-name descname"><span class="pre">_modification</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#micom.Community._modification" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.mass">
+<span class="sig-name descname"><span class="pre">mass</span></span><a class="headerlink" href="#micom.Community.mass" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.__db_metrics">
+<span class="sig-name descname"><span class="pre">__db_metrics</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#micom.Community.__db_metrics" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="micom.Community.taxonomy">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">taxonomy</span></span><a class="headerlink" href="#micom.Community.taxonomy" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">The</span> <span class="pre">taxonomy</span> <span class="pre">used</span> <span class="pre">within</span> <span class="pre">the</span> <span class="pre">model.</span></span></dt>
+<dd><p>This attribute only returns a copy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.compressed">
+<span class="sig-name descname"><span class="pre">compressed</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#micom.Community.compressed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.__taxonomy">
+<span class="sig-name descname"><span class="pre">__taxonomy</span></span><a class="headerlink" href="#micom.Community.__taxonomy" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.index">
+<span class="sig-name descname"><span class="pre">index</span></span><a class="headerlink" href="#micom.Community.index" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.obj">
+<span class="sig-name descname"><span class="pre">obj</span></span><a class="headerlink" href="#micom.Community.obj" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.taxa">
+<span class="sig-name descname"><span class="pre">taxa</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#micom.Community.taxa" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.com_obj">
+<span class="sig-name descname"><span class="pre">com_obj</span></span><a class="headerlink" href="#micom.Community.com_obj" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="micom.Community.__add_exchanges">
 <span class="sig-name descname"><span class="pre">__add_exchanges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_compartment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'e'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">internal_exchange</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/micom/community.html#Community.__add_exchanges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.Community.__add_exchanges" title="Link to this definition">¶</a></dt>
@@ -520,19 +593,6 @@ be a named object like a pandas Series.</p></li>
 in micom asssume that this is always the case. Only change this
 if you know what you are doing :O</p></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="micom.Community.taxonomy">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">taxonomy</span></span><a class="headerlink" href="#micom.Community.taxonomy" title="Link to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">The</span> <span class="pre">taxonomy</span> <span class="pre">used</span> <span class="pre">within</span> <span class="pre">the</span> <span class="pre">model.</span></span></dt>
-<dd><p>This attribute only returns a copy.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pandas.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -836,6 +896,21 @@ that knockout.</p>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#package-contents">Package Contents</a><ul>
 <li><a class="reference internal" href="#micom.Community"><code class="docutils literal notranslate"><span class="pre">Community</span></code></a><ul>
+<li><a class="reference internal" href="#micom.Community.lp_method"><code class="docutils literal notranslate"><span class="pre">Community.lp_method</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.qp_method"><code class="docutils literal notranslate"><span class="pre">Community.qp_method</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.presolve"><code class="docutils literal notranslate"><span class="pre">Community.presolve</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.solver"><code class="docutils literal notranslate"><span class="pre">Community.solver</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community._rtol"><code class="docutils literal notranslate"><span class="pre">Community._rtol</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community._modification"><code class="docutils literal notranslate"><span class="pre">Community._modification</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.mass"><code class="docutils literal notranslate"><span class="pre">Community.mass</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.__db_metrics"><code class="docutils literal notranslate"><span class="pre">Community.__db_metrics</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.taxonomy"><code class="docutils literal notranslate"><span class="pre">Community.taxonomy</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.compressed"><code class="docutils literal notranslate"><span class="pre">Community.compressed</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.__taxonomy"><code class="docutils literal notranslate"><span class="pre">Community.__taxonomy</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.index"><code class="docutils literal notranslate"><span class="pre">Community.index</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.obj"><code class="docutils literal notranslate"><span class="pre">Community.obj</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.taxa"><code class="docutils literal notranslate"><span class="pre">Community.taxa</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.com_obj"><code class="docutils literal notranslate"><span class="pre">Community.com_obj</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.__add_exchanges"><code class="docutils literal notranslate"><span class="pre">Community.__add_exchanges()</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.__update_exchanges"><code class="docutils literal notranslate"><span class="pre">Community.__update_exchanges()</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.__update_community_objective"><code class="docutils literal notranslate"><span class="pre">Community.__update_community_objective()</span></code></a></li>
@@ -844,7 +919,6 @@ that knockout.</p>
 <li><a class="reference internal" href="#micom.Community.optimize"><code class="docutils literal notranslate"><span class="pre">Community.optimize()</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.abundances"><code class="docutils literal notranslate"><span class="pre">Community.abundances</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.set_abundance"><code class="docutils literal notranslate"><span class="pre">Community.set_abundance()</span></code></a></li>
-<li><a class="reference internal" href="#micom.Community.taxonomy"><code class="docutils literal notranslate"><span class="pre">Community.taxonomy</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.modification"><code class="docutils literal notranslate"><span class="pre">Community.modification</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.exchanges"><code class="docutils literal notranslate"><span class="pre">Community.exchanges</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.internal_exchanges"><code class="docutils literal notranslate"><span class="pre">Community.internal_exchanges</span></code></a></li>
@@ -875,7 +949,7 @@ that knockout.</p>
 </div><script src="../../_static/documentation_options.js?v=ca1b380b"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/scripts/furo.js?v=4e2eecee"></script>
+    <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     </body>
 </html>

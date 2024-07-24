@@ -15,6 +15,7 @@ Attributes
 .. autoapisummary::
 
    micom.solution.good
+   micom.solution.DIRECTION
 
 
 Classes
@@ -45,6 +46,8 @@ Module Contents
 .. py:data:: good
 
    Solver states that permit returning the solution.
+
+.. py:data:: DIRECTION
 
 .. py:function:: _group_taxa(values, ids, taxa, what='reaction')
 
@@ -116,6 +119,29 @@ Module Contents
       exist in the organism.
 
       :type: pandas.Series
+
+
+   .. py:attribute:: rids
+
+
+   .. py:attribute:: mids
+
+
+   .. py:attribute:: gcs
+
+
+   .. py:attribute:: strategy
+
+
+   .. py:attribute:: members
+
+
+   .. py:attribute:: name
+      :value: 'compartments'
+
+
+
+   .. py:attribute:: growth_rate
 
 
    .. py:method:: _repr_html_()

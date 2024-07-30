@@ -144,7 +144,7 @@ def minimal_media(
             "growth rate for any sample :("
         )
     elif any(r is None for r in results):
-        logger.warning(
+        logger.error(
             "For some samples I could not find a medium that fulfills "
             "the growth rate requirements. Returning media only for the "
             "succesful samples."

@@ -458,7 +458,7 @@
             <span class="s2">&quot;growth rate for any sample :(&quot;</span>
         <span class="p">)</span>
     <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">r</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
             <span class="s2">&quot;For some samples I could not find a medium that fulfills &quot;</span>
             <span class="s2">&quot;the growth rate requirements. Returning media only for the &quot;</span>
             <span class="s2">&quot;succesful samples.&quot;</span>

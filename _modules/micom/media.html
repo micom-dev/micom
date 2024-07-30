@@ -506,10 +506,12 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    pandas.Series or dict</span>
+<span class="sd">    pandas.Series, dict or None</span>
 <span class="sd">        A series {rid: flux} giving the import flux for each required import</span>
 <span class="sd">        reaction. If `solution` is True retuns a dictionary</span>
-<span class="sd">        {&quot;medium&quot;: panas.Series, &quot;solution&quot;: micom.CommunitySolution}.</span>
+<span class="sd">        {&quot;medium&quot;: pandas.Series, &quot;solution&quot;: micom.CommunitySolution}.</span>
+<span class="sd">        If the medium optimization failed (usually because the specified growth</span>
+<span class="sd">        rates are not reachable) it will return None.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;calculating minimal medium for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>

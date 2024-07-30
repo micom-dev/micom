@@ -429,10 +429,12 @@ Will be ignored if <cite>minimize_components</cite> is True.</p></li>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A series {rid: flux} giving the import flux for each required import
 reaction. If <cite>solution</cite> is True retuns a dictionary
-{“medium”: panas.Series, “solution”: micom.CommunitySolution}.</p>
+{“medium”: pandas.Series, “solution”: micom.CommunitySolution}.
+If the medium optimization failed (usually because the specified growth
+rates are not reachable) it will return None.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pandas.Series or dict</p>
+<dd class="field-odd"><p>pandas.Series, dict or None</p>
 </dd>
 </dl>
 </dd></dl>

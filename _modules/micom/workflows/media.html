@@ -343,20 +343,19 @@
 
     <span class="n">tol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
 
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">minimal_medium</span><span class="p">(</span>
-            <span class="n">com</span><span class="p">,</span>
-            <span class="n">community_growth</span><span class="o">=</span><span class="n">com_growth</span><span class="p">,</span>
-            <span class="n">min_growth</span><span class="o">=</span><span class="n">growth</span><span class="p">,</span>
-            <span class="n">minimize_components</span><span class="o">=</span><span class="n">mc</span><span class="p">,</span>
-            <span class="n">open_exchanges</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">solution</span><span class="o">=</span><span class="n">solution</span><span class="p">,</span>
-            <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
-            <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
-            <span class="n">rtol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not get a minimal medium for sample </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">minimal_medium</span><span class="p">(</span>
+        <span class="n">com</span><span class="p">,</span>
+        <span class="n">community_growth</span><span class="o">=</span><span class="n">com_growth</span><span class="p">,</span>
+        <span class="n">min_growth</span><span class="o">=</span><span class="n">growth</span><span class="p">,</span>
+        <span class="n">minimize_components</span><span class="o">=</span><span class="n">mc</span><span class="p">,</span>
+        <span class="n">open_exchanges</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">solution</span><span class="o">=</span><span class="n">solution</span><span class="p">,</span>
+        <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
+        <span class="n">atol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+        <span class="n">rtol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Could not get a minimal medium for sample </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">s</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">result</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">solution</span><span class="p">:</span>
@@ -387,7 +386,19 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the minimal medium for a set of community models.</span>
 
-<span class="sd">    This requires a minimim</span>
+<span class="sd">    This requires specification of either the minimal community growth rate,</span>
+<span class="sd">    a minimal taxon growth rate that has to be reachable by all taxa in the sample</span>
+<span class="sd">    simultaneously, or a combination of both. All imports will be opened and the</span>
+<span class="sd">    minimal medium allowing those growth rates will be returned. What exactly is being</span>
+<span class="sd">    minimized (mass flux, carbon flux, number of components) can be specified through</span>
+<span class="sd">    the `weights` and `minimize_components` options.</span>
+
+<span class="sd">    Note</span>
+<span class="sd">    ----</span>
+<span class="sd">    A common usage example would be to request some realistic growth rate for the entire</span>
+<span class="sd">    community and a very low growth rate for all taxa to ensure they are growing (&quot;alive&quot;)</span>
+<span class="sd">    in the medium. The returned solution comes from the medium minimization problem and</span>
+<span class="sd">    does not have to correspond to the cooperative tradeoff solution with the same medium.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>

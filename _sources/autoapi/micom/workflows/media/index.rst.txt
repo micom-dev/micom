@@ -48,7 +48,19 @@ Module Contents
 
    Calculate the minimal medium for a set of community models.
 
-   This requires a minimim
+   This requires specification of either the minimal community growth rate,
+   a minimal taxon growth rate that has to be reachable by all taxa in the sample
+   simultaneously, or a combination of both. All imports will be opened and the
+   minimal medium allowing those growth rates will be returned. What exactly is being
+   minimized (mass flux, carbon flux, number of components) can be specified through
+   the `weights` and `minimize_components` options.
+
+   .. note::
+
+      A common usage example would be to request some realistic growth rate for the entire
+      community and a very low growth rate for all taxa to ensure they are growing ("alive")
+      in the medium. The returned solution comes from the medium minimization problem and
+      does not have to correspond to the cooperative tradeoff solution with the same medium.
 
    :param manifest: The manifest as returned by the `build` workflow.
    :type manifest: pandas.DataFrame

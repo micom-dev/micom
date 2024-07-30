@@ -5,6 +5,18 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.36.1
+
+Fixes a crash in the `minimal_media` workflow when growth rates are infeasible.
+
+Changed the default log level to ERROR to avoid message spamming in the workflows. This
+can be re-enabled with:
+
+```python
+from micom.logger import logger
+logger.setLevel("WARNING")
+```
+
 ### 0.36.0
 
 **Minimal media workflow**

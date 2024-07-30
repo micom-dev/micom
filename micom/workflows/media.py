@@ -32,20 +32,19 @@ def _medium(args):
 
     tol = com.solver.configuration.tolerances.feasibility
 
-    try:
-        res = mm.minimal_medium(
-            com,
-            community_growth=com_growth,
-            min_growth=growth,
-            minimize_components=mc,
-            open_exchanges=True,
-            solution=solution,
-            weights=weights,
-            atol=tol,
-            rtol=tol,
-        )
-    except Exception as e:
-        logger.error("Could not get a minimal medium for sample %s." % e)
+    res = mm.minimal_medium(
+        com,
+        community_growth=com_growth,
+        min_growth=growth,
+        minimize_components=mc,
+        open_exchanges=True,
+        solution=solution,
+        weights=weights,
+        atol=tol,
+        rtol=tol,
+    )
+    if res is None:
+        logger.info("Could not get a minimal medium for sample %s." % s)
         return None
     result = dict()
     if solution:
@@ -73,7 +72,19 @@ def minimal_media(
 ) -> pd.DataFrame:
     """Calculate the minimal medium for a set of community models.
 
-    This requires a minimim
+    This requires specification of either the minimal community growth rate,
+    a minimal taxon growth rate that has to be reachable by all taxa in the sample
+    simultaneously, or a combination of both. All imports will be opened and the
+    minimal medium allowing those growth rates will be returned. What exactly is being
+    minimized (mass flux, carbon flux, number of components) can be specified through
+    the `weights` and `minimize_components` options.
+
+    Note
+    ----
+    A common usage example would be to request some realistic growth rate for the entire
+    community and a very low growth rate for all taxa to ensure they are growing ("alive")
+    in the medium. The returned solution comes from the medium minimization problem and
+    does not have to correspond to the cooperative tradeoff solution with the same medium.
 
     Arguments
     ---------

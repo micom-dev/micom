@@ -189,10 +189,12 @@ def minimal_medium(
 
     Returns
     -------
-    pandas.Series or dict
+    pandas.Series, dict or None
         A series {rid: flux} giving the import flux for each required import
         reaction. If `solution` is True retuns a dictionary
-        {"medium": panas.Series, "solution": micom.CommunitySolution}.
+        {"medium": pandas.Series, "solution": micom.CommunitySolution}.
+        If the medium optimization failed (usually because the specified growth
+        rates are not reachable) it will return None.
 
     """
     logger.info("calculating minimal medium for %s" % community.id)

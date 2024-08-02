@@ -11,6 +11,9 @@ Limit logger default change to workflows only.
 
 Make some attempts to clean the taxon name in interactions.
 
+Workflows accepting per sample media will now raise an error if the medium is missing
+samples.
+
 ### 0.36.1
 
 Fixes a crash in the `minimal_media` workflow when growth rates are infeasible.

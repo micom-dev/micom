@@ -22,6 +22,11 @@ def process_medium(medium, samples):
             m["sample_id"] = s
             meds.append(m)
         medium = pd.concat(meds, axis=0)
+    elif not all(s in medium.sample_id.unique() for s in samples):
+        missing = [s for s in samples if s not in medium.sample_id.unique()]
+        raise ValueError(
+            "The medium is missing samples from the manifest: {', '.join(missing)}."
+        )
     return medium.drop_duplicates(subset=["reaction", "sample_id"])
 
 

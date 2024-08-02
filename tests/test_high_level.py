@@ -12,6 +12,7 @@ from micom.workflows import (
     load_results,
     GrowthResults
 )
+from micom.logger import logger
 from micom.qiime_formats import load_qiime_medium, load_qiime_manifest
 from micom.solution import OptimizationError
 import pytest
@@ -42,6 +43,7 @@ def test_build(tmp_path, caplog):
     for fi in built.file:
         assert (tmp_path / fi).exists()
     second_build = build(data, db, str(tmp_path), cutoff=0, threads=1)
+    print(logger.level)
     assert "Found existing models for 4 samples." in caplog.text
 
 

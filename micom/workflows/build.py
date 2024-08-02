@@ -2,14 +2,17 @@
 
 from cobra.io import save_json_model
 from glob import glob
-from micom.logger import logger
-from micom.util import join_models, load_pickle, _read_model
-from micom.community import Community, _ranks
-from micom.workflows.core import workflow
+from ..constants import RANKS
+from ..util import join_models, load_pickle, _read_model
+from ..community import Community
+from ..workflows.core import workflow
+import logging
 import os
 import pandas as pd
 from tempfile import TemporaryDirectory
 import zipfile
+
+logger = logging.getLogger(__name__)
 
 
 def _reduce_group(df):
@@ -113,7 +116,7 @@ def build(
         .dropna(axis=1)
         .reset_index(drop=True)
     )
-    taxonomy = taxonomy.loc[:, ~taxonomy.columns.isin(_ranks)]
+    taxonomy = taxonomy.loc[:, ~taxonomy.columns.isin(RANKS)]
     taxonomy["file"] = taxonomy.sample_id + ".pickle"
     taxonomy = pd.merge(taxonomy, metrics, on="sample_id")
     taxonomy.to_csv(os.path.join(out_folder, "manifest.csv"), index=False)

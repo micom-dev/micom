@@ -1,10 +1,12 @@
 """Makes it easier to run analyses on several samples in parallel."""
 
+import logging
 from collections import abc
 from multiprocessing import get_context
 from rich.progress import track
 import warnings
 
+logger = logging.getLogger(__name__)
 
 def workflow(func, args, threads=4, description=None, progress=True):
     """Run analyses for several samples in parallel.
@@ -31,6 +33,7 @@ def workflow(func, args, threads=4, description=None, progress=True):
         ValueError("`args` must have a length.")
     if description is None:
         description = "Running"
+    logger.setLevel("ERROR")
 
     # Don't generate overhead if single thread
     if threads == 1:
@@ -52,4 +55,6 @@ def workflow(func, args, threads=4, description=None, progress=True):
     finally:
         pool.close()
         pool.join()
+
+    logger.setLevel("WARNING")
     return results

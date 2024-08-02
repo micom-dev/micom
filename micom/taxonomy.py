@@ -1,13 +1,12 @@
 """Helpers to convert external data to a MICOM taxonomy."""
 
-from micom.qiime_formats import (
+from .constants import RANKS
+from .qiime_formats import (
     load_qiime_feature_table,
     load_qiime_taxonomy,
 )
 import pandas as pd
-
-
-RANKS = ["kingdom", "phylum", "class", "order", "family", "genus", "species", "strain"]
+import re
 
 
 def build_from_qiime(
@@ -141,3 +140,31 @@ def unify_rank_prefixes(taxonomy: pd.DataFrame, manifest: pd.DataFrame) -> pd.Da
             taxonomy[r] = db_prefixes[r] + taxonomy[r]
 
     return taxonomy
+
+
+def taxon_id(term : str, rates : pd.DataFrame) -> str:
+    """Find the ID for a taxon.
+
+    Arguments
+    ---------
+    term : str
+        The search term.
+    rates : pandas.Dataframe
+        A table of growth rates.
+
+    Returns
+    -------
+    str
+        The ID of the found taxon. Will raise a ValueError if not found.
+    """
+    if term in rates.taxon.values:
+        return term
+
+    term = re.sub(r"[^A-Za-z0-9_]+", "_", term)
+    if term in rates.taxon.values:
+        return term
+
+    raise ValueError(
+        f"The (cleaned) taxon name {term} is not in the data set. "
+        f"Possible taxa are: {','.join(rates.taxon.unique())}."
+    )

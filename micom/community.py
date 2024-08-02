@@ -6,8 +6,9 @@ import cobra
 import cobra.util.solver
 import pandas as pd
 from optlang.symbolics import Zero
-from micom.db import load_zip_model_db, load_manifest
-from micom.util import (
+from .constants import RANKS
+from .db import load_zip_model_db, load_manifest
+from .util import (
     load_model,
     join_models,
     add_var_from_expression,
@@ -17,18 +18,17 @@ from micom.util import (
     COMPARTMENT_RE,
     ex_metabolite,
 )
-from micom.logger import logger
 from micom.optcom import optcom, solve
 from micom.problems import cooperative_tradeoff, knockout_taxa
 from micom.qiime_formats import load_qiime_model_db
 from micom.taxonomy import unify_rank_prefixes
+import logging
 from rich.progress import track
 from tempfile import TemporaryDirectory
 
-_ranks = ["kingdom", "phylum", "class", "order", "family", "genus", "species", "strain"]
-
 cobra.io.sbml.LOGGER.setLevel("ERROR")
 cobra.util.solver.logger.setLevel("ERROR")
+logger = logging.getLogger(__name__)
 
 
 class Community(cobra.Model):
@@ -170,7 +170,7 @@ class Community(cobra.Model):
 
         if not (
             isinstance(taxonomy, pd.DataFrame)
-            and any(taxonomy.columns.isin(["id"] + _ranks))
+            and any(taxonomy.columns.isin(["id"] + RANKS))
         ):
             raise ValueError(
                 "`taxonomy` must be a pandas DataFrame with at least"
@@ -206,7 +206,7 @@ class Community(cobra.Model):
                 taxonomy["id"] = taxonomy[rank]
             keep_cols = [
                 r
-                for r in _ranks[0 : (_ranks.index(rank) + 1)]
+                for r in RANKS[0 : (RANKS.index(rank) + 1)]
                 if r in taxonomy.columns and r in manifest.columns
             ]
             manifest = manifest[keep_cols + ["file"]]

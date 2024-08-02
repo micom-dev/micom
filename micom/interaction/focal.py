@@ -1,7 +1,7 @@
 """Quantify metabolic interactions between taxa."""
 
-from collections import Counter
-from micom.workflows import GrowthResults, workflow
+from ..taxonomy import taxon_id
+from ..workflows import GrowthResults, workflow
 import pandas as pd
 from typing import List, Union
 
@@ -105,10 +105,11 @@ def interactions(
         The mapped interactions between the focal taxon and all other taxa.
     """
     if isinstance(taxa, str):
-        return _interact([results, taxa])
+        return _interact([results, taxon_id(taxa, results.growth_rates)])
     elif taxa is None:
         taxa = results.growth_rates.taxon.unique()
 
+    taxa = [taxon_id(t, results.growth_rates) for t in taxa]
     ints = pd.concat(
         workflow(
             _interact, [[results, t] for t in taxa], threads=threads, progress=progress

@@ -6,10 +6,26 @@ import pytest
 
 def test_focal(results):
     """Test single focal taxon."""
+    print(results.growth_rates.columns)
     ints = mi.interactions(results, taxa="s__Akkermansia_muciniphila", progress=False)
     assert all(ints.focal == "s__Akkermansia_muciniphila")
     assert ints.partner.nunique() > 10
     assert all(ints.flux > 0)
+
+def test_taxon_correction(results):
+    """Test taxon name correction."""
+    ints = mi.interactions(results, taxa="s__Akkermansia muciniphila", progress=False)
+    assert all(ints.focal == "s__Akkermansia_muciniphila")
+    assert ints.partner.nunique() > 10
+    assert all(ints.flux > 0)
+
+def test_wrong_taxa(results):
+    """Test incorrect taxa names."""
+    with pytest.raises(ValueError):
+        mi.interactions(results, taxa="s__Akkermansia_muciniphilos", progress=False)
+    with pytest.raises(ValueError):
+        mi.interactions(
+            results, taxa=["s__Akkermansia_muciniphila", "blub"], progress=False)
 
 def test_summary(results):
     """Test the the results summary."""

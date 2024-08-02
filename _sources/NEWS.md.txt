@@ -5,6 +5,15 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.36.2
+
+Limit logger default change to workflows only.
+
+Make some attempts to clean the taxon name in interactions.
+
+Workflows accepting per sample media will now raise an error if the medium is missing
+samples.
+
 ### 0.36.1
 
 Fixes a crash in the `minimal_media` workflow when growth rates are infeasible.

@@ -248,6 +248,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/algorithms/index.html">micom.algorithms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/annotation/index.html">micom.annotation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/community/index.html">micom.community</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/constants/index.html">micom.constants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/db/index.html">micom.db</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/deps/index.html">micom.deps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/duality/index.html">micom.duality</a></li>
@@ -303,10 +304,15 @@
           <h1>Source code for micom.workflows.core</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Makes it easier to run analyses on several samples in parallel.&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">abc</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">get_context</span>
 <span class="kn">from</span> <span class="nn">rich.progress</span> <span class="kn">import</span> <span class="n">track</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
+
+<div class="viewcode-block" id="logger">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/core/index.html#micom.workflows.core.logger">[docs]</a>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="workflow">
@@ -336,6 +342,7 @@
         <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`args` must have a length.&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">description</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Running&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s2">&quot;ERROR&quot;</span><span class="p">)</span>
 
     <span class="c1"># Don&#39;t generate overhead if single thread</span>
     <span class="k">if</span> <span class="n">threads</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -357,6 +364,8 @@
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="n">pool</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s2">&quot;WARNING&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">results</span></div>
 
 </pre></div>

@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="micom.util" href="../util/index.html" /><link rel="prev" title="micom.stats" href="../stats/index.html" />
+<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="micom.db" href="../db/index.html" /><link rel="prev" title="micom.community" href="../community/index.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2024.07.18 -->
-        <title>micom.taxonomy - version 0.36.1</title>
+        <title>micom.constants - version 0.36.1</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=613ab9ff" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
@@ -249,7 +249,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../algorithms/index.html">micom.algorithms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../annotation/index.html">micom.annotation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../community/index.html">micom.community</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../constants/index.html">micom.constants</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">micom.constants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/index.html">micom.db</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../deps/index.html">micom.deps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../duality/index.html">micom.duality</a></li>
@@ -262,7 +262,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../qiime_formats/index.html">micom.qiime_formats</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../solution/index.html">micom.solution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../stats/index.html">micom.stats</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">micom.taxonomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../taxonomy/index.html">micom.taxonomy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../util/index.html">micom.util</a></li>
 </ul>
 </li>
@@ -288,7 +288,7 @@
         </a>
         <div class="content-icon-container">
           <div class="view-this-page">
-  <a class="muted-link" href="../../../_sources/autoapi/micom/taxonomy/index.rst.txt" title="View this page">
+  <a class="muted-link" href="../../../_sources/autoapi/micom/constants/index.rst.txt" title="View this page">
     <svg><use href="#svg-eye"></use></svg>
     <span class="visually-hidden">View this page</span>
   </a>
@@ -308,28 +308,16 @@
           </label>
         </div>
         <article role="main" id="furo-main-content">
-          <section id="module-micom.taxonomy">
-<span id="micom-taxonomy"></span><h1>micom.taxonomy<a class="headerlink" href="#module-micom.taxonomy" title="Link to this heading">¶</a></h1>
-<p>Helpers to convert external data to a MICOM taxonomy.</p>
-<section id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+          <section id="module-micom.constants">
+<span id="micom-constants"></span><h1>micom.constants<a class="headerlink" href="#module-micom.constants" title="Link to this heading">¶</a></h1>
+<p>Constants used across the code base.</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.taxonomy.build_from_qiime" title="micom.taxonomy.build_from_qiime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_from_qiime</span></code></a>(→ pandas.DataFrame)</p></td>
-<td><p>Build the specification for the community models.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.taxonomy.qiime_to_micom" title="micom.taxonomy.qiime_to_micom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">qiime_to_micom</span></code></a>(feature_table, taxonomy[, collapse_on])</p></td>
-<td><p>Load a micom taxonomy from Qiime 2 data.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.taxonomy.rank_prefixes" title="micom.taxonomy.rank_prefixes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rank_prefixes</span></code></a>(→ pandas.Series)</p></td>
-<td><p>Get the used prefixes for taxonomic ranks.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.taxonomy.unify_rank_prefixes" title="micom.taxonomy.unify_rank_prefixes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unify_rank_prefixes</span></code></a>(→ pandas.DataFrame)</p></td>
-<td><p>Handle taxonomic rank prefixes in the taxonomy or database manifest.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.taxonomy.taxon_id" title="micom.taxonomy.taxon_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">taxon_id</span></code></a>(→ str)</p></td>
-<td><p>Find the ID for a taxon.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.constants.RANKS" title="micom.constants.RANKS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RANKS</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -337,91 +325,10 @@
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.taxonomy.build_from_qiime">
-<span class="sig-prename descclassname"><span class="pre">micom.taxonomy.</span></span><span class="sig-name descname"><span class="pre">build_from_qiime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abundance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxonomy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapse_on</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'genus'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trim_rank_prefix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../../../_modules/micom/taxonomy.html#build_from_qiime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.taxonomy.build_from_qiime" title="Link to this definition">¶</a></dt>
-<dd><p>Build the specification for the community models.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.taxonomy.qiime_to_micom">
-<span class="sig-prename descclassname"><span class="pre">micom.taxonomy.</span></span><span class="sig-name descname"><span class="pre">qiime_to_micom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feature_table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxonomy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapse_on</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'genus'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/taxonomy.html#qiime_to_micom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.taxonomy.qiime_to_micom" title="Link to this definition">¶</a></dt>
-<dd><p>Load a micom taxonomy from Qiime 2 data.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>feature_table</strong> (<em>str</em>) – Path to a Qiime 2 FeatureTable artifact.</p></li>
-<li><p><strong>taxonomy</strong> (<em>str</em>) – Path to a Qiime 2 FeatureData[Taxonomy] artifact.</p></li>
-<li><p><strong>collapse_on</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – The taxa ranks to collapse on. This will dictate how strict the database
-matching will be as well.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A micom taxonomy containing abundances and taxonomy calls in long
-format.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.taxonomy.rank_prefixes">
-<span class="sig-prename descclassname"><span class="pre">micom.taxonomy.</span></span><span class="sig-name descname"><span class="pre">rank_prefixes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.Series</span></span></span><a class="reference internal" href="../../../_modules/micom/taxonomy.html#rank_prefixes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.taxonomy.rank_prefixes" title="Link to this definition">¶</a></dt>
-<dd><p>Get the used prefixes for taxonomic ranks.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – A model database manifest.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The detected prefix for each taxonomic rank in the manifest.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pandas.Series</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.taxonomy.unify_rank_prefixes">
-<span class="sig-prename descclassname"><span class="pre">micom.taxonomy.</span></span><span class="sig-name descname"><span class="pre">unify_rank_prefixes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">taxonomy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manifest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../../../_modules/micom/taxonomy.html#unify_rank_prefixes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.taxonomy.unify_rank_prefixes" title="Link to this definition">¶</a></dt>
-<dd><p>Handle taxonomic rank prefixes in the taxonomy or database manifest.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>taxonomy</strong> (<em>pandas.DataFrame</em>) – A taxonomy table.</p></li>
-<li><p><strong>manifest</strong> (<em>pandas.DataFrame</em>) – A database manifest.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The taxonomy with adjusted taxa names consistent with the database.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>tuple of pandas.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="micom.taxonomy.taxon_id">
-<span class="sig-prename descclassname"><span class="pre">micom.taxonomy.</span></span><span class="sig-name descname"><span class="pre">taxon_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">term</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../../_modules/micom/taxonomy.html#taxon_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.taxonomy.taxon_id" title="Link to this definition">¶</a></dt>
-<dd><p>Find the ID for a taxon.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>term</strong> (<em>str</em>) – The search term.</p></li>
-<li><p><strong>rates</strong> (<em>pandas.Dataframe</em>) – A table of growth rates.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The ID of the found taxon. Will raise a ValueError if not found.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
+<dl class="py data">
+<dt class="sig sig-object py" id="micom.constants.RANKS">
+<span class="sig-prename descclassname"><span class="pre">micom.constants.</span></span><span class="sig-name descname"><span class="pre">RANKS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['kingdom',</span> <span class="pre">'phylum',</span> <span class="pre">'class',</span> <span class="pre">'order',</span> <span class="pre">'family',</span> <span class="pre">'genus',</span> <span class="pre">'species',</span> <span class="pre">'strain']</span></em><a class="reference internal" href="../../../_modules/micom/constants.html#RANKS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.constants.RANKS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </section>
 </section>
@@ -431,23 +338,23 @@ format.</p>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../util/index.html">
+          <a class="next-page" href="../db/index.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">micom.util</div>
+                <div class="title">micom.db</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="../stats/index.html">
+          <a class="prev-page" href="../community/index.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">micom.stats</div>
+                <div class="title">micom.community</div>
                 
               </div>
             </a>
@@ -481,14 +388,10 @@ format.</p>
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">micom.taxonomy</a><ul>
-<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#">micom.constants</a><ul>
+<li><a class="reference internal" href="#attributes">Attributes</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#micom.taxonomy.build_from_qiime"><code class="docutils literal notranslate"><span class="pre">build_from_qiime()</span></code></a></li>
-<li><a class="reference internal" href="#micom.taxonomy.qiime_to_micom"><code class="docutils literal notranslate"><span class="pre">qiime_to_micom()</span></code></a></li>
-<li><a class="reference internal" href="#micom.taxonomy.rank_prefixes"><code class="docutils literal notranslate"><span class="pre">rank_prefixes()</span></code></a></li>
-<li><a class="reference internal" href="#micom.taxonomy.unify_rank_prefixes"><code class="docutils literal notranslate"><span class="pre">unify_rank_prefixes()</span></code></a></li>
-<li><a class="reference internal" href="#micom.taxonomy.taxon_id"><code class="docutils literal notranslate"><span class="pre">taxon_id()</span></code></a></li>
+<li><a class="reference internal" href="#micom.constants.RANKS"><code class="docutils literal notranslate"><span class="pre">RANKS</span></code></a></li>
 </ul>
 </li>
 </ul>

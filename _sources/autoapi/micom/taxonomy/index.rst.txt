@@ -9,14 +9,6 @@ micom.taxonomy
 
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   micom.taxonomy.RANKS
-
-
 Functions
 ---------
 
@@ -26,14 +18,11 @@ Functions
    micom.taxonomy.qiime_to_micom
    micom.taxonomy.rank_prefixes
    micom.taxonomy.unify_rank_prefixes
+   micom.taxonomy.taxon_id
 
 
 Module Contents
 ---------------
-
-.. py:data:: RANKS
-   :value: ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species', 'strain']
-
 
 .. py:function:: build_from_qiime(abundance: pandas.DataFrame, taxonomy: pandas.Series, collapse_on: str = 'genus', trim_rank_prefix: bool = False) -> pandas.DataFrame
 
@@ -79,5 +68,18 @@ Module Contents
 
    :returns: The taxonomy with adjusted taxa names consistent with the database.
    :rtype: tuple of pandas.DataFrame
+
+
+.. py:function:: taxon_id(term: str, rates: pandas.DataFrame) -> str
+
+   Find the ID for a taxon.
+
+   :param term: The search term.
+   :type term: str
+   :param rates: A table of growth rates.
+   :type rates: pandas.Dataframe
+
+   :returns: The ID of the found taxon. Will raise a ValueError if not found.
+   :rtype: str
 
 

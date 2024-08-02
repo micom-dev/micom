@@ -248,6 +248,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/algorithms/index.html">micom.algorithms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/annotation/index.html">micom.annotation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/community/index.html">micom.community</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/constants/index.html">micom.constants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/db/index.html">micom.db</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/deps/index.html">micom.deps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../autoapi/micom/duality/index.html">micom.duality</a></li>
@@ -305,14 +306,20 @@
 
 <span class="kn">from</span> <span class="nn">cobra.io</span> <span class="kn">import</span> <span class="n">save_json_model</span>
 <span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
-<span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">micom.util</span> <span class="kn">import</span> <span class="n">join_models</span><span class="p">,</span> <span class="n">load_pickle</span><span class="p">,</span> <span class="n">_read_model</span>
-<span class="kn">from</span> <span class="nn">micom.community</span> <span class="kn">import</span> <span class="n">Community</span><span class="p">,</span> <span class="n">_ranks</span>
-<span class="kn">from</span> <span class="nn">micom.workflows.core</span> <span class="kn">import</span> <span class="n">workflow</span>
+<span class="kn">from</span> <span class="nn">..constants</span> <span class="kn">import</span> <span class="n">RANKS</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">join_models</span><span class="p">,</span> <span class="n">load_pickle</span><span class="p">,</span> <span class="n">_read_model</span>
+<span class="kn">from</span> <span class="nn">..community</span> <span class="kn">import</span> <span class="n">Community</span>
+<span class="kn">from</span> <span class="nn">..workflows.core</span> <span class="kn">import</span> <span class="n">workflow</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
 <span class="kn">import</span> <span class="nn">zipfile</span>
+
+<div class="viewcode-block" id="logger">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/build/index.html#micom.workflows.build.logger">[docs]</a>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="_reduce_group">
@@ -424,7 +431,7 @@
         <span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">_ranks</span><span class="p">)]</span>
+    <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">RANKS</span><span class="p">)]</span>
     <span class="n">taxonomy</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">+</span> <span class="s2">&quot;.pickle&quot;</span>
     <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;sample_id&quot;</span><span class="p">)</span>
     <span class="n">taxonomy</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_folder</span><span class="p">,</span> <span class="s2">&quot;manifest.csv&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>

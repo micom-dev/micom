@@ -9,6 +9,14 @@ micom.workflows.core
 
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.workflows.core.logger
+
+
 Functions
 ---------
 
@@ -19,6 +27,8 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:function:: workflow(func, args, threads=4, description=None, progress=True)
 

@@ -248,6 +248,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/algorithms/index.html">micom.algorithms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/annotation/index.html">micom.annotation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/community/index.html">micom.community</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/constants/index.html">micom.constants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/db/index.html">micom.db</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/deps/index.html">micom.deps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/duality/index.html">micom.duality</a></li>
@@ -309,8 +310,9 @@
 <span class="kn">import</span> <span class="nn">cobra.util.solver</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">optlang.symbolics</span> <span class="kn">import</span> <span class="n">Zero</span>
-<span class="kn">from</span> <span class="nn">micom.db</span> <span class="kn">import</span> <span class="n">load_zip_model_db</span><span class="p">,</span> <span class="n">load_manifest</span>
-<span class="kn">from</span> <span class="nn">micom.util</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">RANKS</span>
+<span class="kn">from</span> <span class="nn">.db</span> <span class="kn">import</span> <span class="n">load_zip_model_db</span><span class="p">,</span> <span class="n">load_manifest</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">load_model</span><span class="p">,</span>
     <span class="n">join_models</span><span class="p">,</span>
     <span class="n">add_var_from_expression</span><span class="p">,</span>
@@ -320,21 +322,20 @@
     <span class="n">COMPARTMENT_RE</span><span class="p">,</span>
     <span class="n">ex_metabolite</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">micom.optcom</span> <span class="kn">import</span> <span class="n">optcom</span><span class="p">,</span> <span class="n">solve</span>
 <span class="kn">from</span> <span class="nn">micom.problems</span> <span class="kn">import</span> <span class="n">cooperative_tradeoff</span><span class="p">,</span> <span class="n">knockout_taxa</span>
 <span class="kn">from</span> <span class="nn">micom.qiime_formats</span> <span class="kn">import</span> <span class="n">load_qiime_model_db</span>
 <span class="kn">from</span> <span class="nn">micom.taxonomy</span> <span class="kn">import</span> <span class="n">unify_rank_prefixes</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">rich.progress</span> <span class="kn">import</span> <span class="n">track</span>
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
 
-<div class="viewcode-block" id="_ranks">
-<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community._ranks">[docs]</a>
-<span class="n">_ranks</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kingdom&quot;</span><span class="p">,</span> <span class="s2">&quot;phylum&quot;</span><span class="p">,</span> <span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;order&quot;</span><span class="p">,</span> <span class="s2">&quot;family&quot;</span><span class="p">,</span> <span class="s2">&quot;genus&quot;</span><span class="p">,</span> <span class="s2">&quot;species&quot;</span><span class="p">,</span> <span class="s2">&quot;strain&quot;</span><span class="p">]</span></div>
-
-
 <span class="n">cobra</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">sbml</span><span class="o">.</span><span class="n">LOGGER</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s2">&quot;ERROR&quot;</span><span class="p">)</span>
 <span class="n">cobra</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s2">&quot;ERROR&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="logger">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.logger">[docs]</a>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
+
 
 
 <div class="viewcode-block" id="Community">
@@ -502,7 +503,7 @@
 
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
             <span class="nb">isinstance</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
-            <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">_ranks</span><span class="p">))</span>
+            <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">RANKS</span><span class="p">))</span>
         <span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;`taxonomy` must be a pandas DataFrame with at least&quot;</span>
@@ -541,7 +542,7 @@
                 <span class="n">taxonomy</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span>
             <span class="n">keep_cols</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">r</span>
-                <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">_ranks</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="p">(</span><span class="n">_ranks</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">rank</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+                <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">RANKS</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="p">(</span><span class="n">RANKS</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">rank</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
                 <span class="k">if</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">columns</span>
             <span class="p">]</span>
             <span class="n">manifest</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="n">keep_cols</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]]</span>

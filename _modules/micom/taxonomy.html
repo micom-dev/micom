@@ -248,6 +248,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/algorithms/index.html">micom.algorithms</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/annotation/index.html">micom.annotation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/community/index.html">micom.community</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/constants/index.html">micom.constants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/db/index.html">micom.db</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/deps/index.html">micom.deps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/duality/index.html">micom.duality</a></li>
@@ -303,17 +304,13 @@
           <h1>Source code for micom.taxonomy</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Helpers to convert external data to a MICOM taxonomy.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">micom.qiime_formats</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">RANKS</span>
+<span class="kn">from</span> <span class="nn">.qiime_formats</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">load_qiime_feature_table</span><span class="p">,</span>
     <span class="n">load_qiime_taxonomy</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-
-<div class="viewcode-block" id="RANKS">
-<a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.taxonomy.RANKS">[docs]</a>
-<span class="n">RANKS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kingdom&quot;</span><span class="p">,</span> <span class="s2">&quot;phylum&quot;</span><span class="p">,</span> <span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;order&quot;</span><span class="p">,</span> <span class="s2">&quot;family&quot;</span><span class="p">,</span> <span class="s2">&quot;genus&quot;</span><span class="p">,</span> <span class="s2">&quot;species&quot;</span><span class="p">,</span> <span class="s2">&quot;strain&quot;</span><span class="p">]</span></div>
-
+<span class="kn">import</span> <span class="nn">re</span>
 
 
 <div class="viewcode-block" id="build_from_qiime">
@@ -458,6 +455,37 @@
             <span class="n">taxonomy</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">db_prefixes</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">+</span> <span class="n">taxonomy</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">taxonomy</span></div>
+
+
+
+<div class="viewcode-block" id="taxon_id">
+<a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.taxonomy.taxon_id">[docs]</a>
+<span class="k">def</span> <span class="nf">taxon_id</span><span class="p">(</span><span class="n">term</span> <span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rates</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the ID for a taxon.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    term : str</span>
+<span class="sd">        The search term.</span>
+<span class="sd">    rates : pandas.Dataframe</span>
+<span class="sd">        A table of growth rates.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        The ID of the found taxon. Will raise a ValueError if not found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">rates</span><span class="o">.</span><span class="n">taxon</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">term</span>
+
+    <span class="n">term</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^A-Za-z0-9_]+&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">rates</span><span class="o">.</span><span class="n">taxon</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">term</span>
+
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;The (cleaned) taxon name </span><span class="si">{</span><span class="n">term</span><span class="si">}</span><span class="s2"> is not in the data set. &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;Possible taxa are: </span><span class="si">{</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rates</span><span class="o">.</span><span class="n">taxon</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="p">)</span></div>
 
 </pre></div>
         </article>

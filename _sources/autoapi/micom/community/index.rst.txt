@@ -14,7 +14,7 @@ Attributes
 
 .. autoapisummary::
 
-   micom.community._ranks
+   micom.community.logger
 
 
 Classes
@@ -28,9 +28,7 @@ Classes
 Module Contents
 ---------------
 
-.. py:data:: _ranks
-   :value: ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species', 'strain']
-
+.. py:data:: logger
 
 .. py:class:: Community(taxonomy, model_db=None, id=None, name=None, rel_threshold=1e-06, solver=None, progress=True, max_exchange=100, mass=1)
 

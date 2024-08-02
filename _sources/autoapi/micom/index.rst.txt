@@ -30,6 +30,7 @@ Submodules
    /autoapi/micom/algorithms/index
    /autoapi/micom/annotation/index
    /autoapi/micom/community/index
+   /autoapi/micom/constants/index
    /autoapi/micom/db/index
    /autoapi/micom/deps/index
    /autoapi/micom/duality/index

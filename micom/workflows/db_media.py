@@ -118,12 +118,12 @@ def check_db_medium(model_db, medium, threads=1):
     args = [(r["id"], r["file"], medium.flux) for _, r in manifest.iterrows()]
     results = workflow(_grow, args, threads)
     results = manifest.merge(pd.DataFrame.from_records(results), on="id")
-    manifest["can_grow"] = manifest.growth_rate.notna() & (manifest.growth_rate > 1e-6)
+    results["can_grow"] = results.growth_rate.notna() & (results.growth_rate > 1e-6)
 
     if compressed:
         tdir.cleanup()
 
-    return manifest
+    return results
 
 
 def complete_db_medium(

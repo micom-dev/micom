@@ -18,7 +18,7 @@ from tempfile import TemporaryDirectory
 
 def _grow(args):
     """Get the maximum growth rate under a given medium."""
-    file, med = args
+    mid, file, med = args
     mod = load_model(file)
     good = med[med.index.isin([r.id for r in mod.exchanges])]
     if len(good) == 0:
@@ -28,7 +28,7 @@ def _grow(args):
         )
     mod.medium = med[med.index.isin([r.id for r in mod.exchanges])]
     rate = mod.slim_optimize()
-    return rate
+    return {"id": mid, "growth_rate": rate}
 
 
 def _try_complete(args):
@@ -115,9 +115,9 @@ def check_db_medium(model_db, medium, threads=1):
         % (manifest.shape[0], rank, len(medium))
     )
 
-    args = [(f, medium.flux) for f in manifest.file]
+    args = [(r["id"], r["file"], medium.flux) for _, r in manifest.iterrows()]
     results = workflow(_grow, args, threads)
-    manifest["growth_rate"] = results
+    results = manifest.merge(pd.DataFrame.from_records(results), on="id")
     manifest["can_grow"] = manifest.growth_rate.notna() & (manifest.growth_rate > 1e-6)
 
     if compressed:

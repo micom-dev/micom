@@ -430,12 +430,12 @@
     <span class="n">args</span> <span class="o">=</span> <span class="p">[(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">],</span> <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()]</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_grow</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
-    <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;can_grow&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">growth_rate</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;can_grow&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">growth_rate</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
         <span class="n">tdir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
 
-    <span class="k">return</span> <span class="n">manifest</span></div>
+    <span class="k">return</span> <span class="n">results</span></div>
 
 
 

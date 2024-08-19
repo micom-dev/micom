@@ -5,6 +5,10 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.36.4
+
+Fix a bug in `check_db_medium` where the growth rate order was random.
+
 ### 0.36.3
 
 Require a newer optlang version to stay compatible with numpy 2.0.

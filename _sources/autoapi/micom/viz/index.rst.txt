@@ -38,9 +38,9 @@ Functions
 
    micom.viz.plot_exchanges_per_sample
    micom.viz.plot_exchanges_per_taxon
+   micom.viz.plot_growth
    micom.viz.plot_focal_interactions
    micom.viz.plot_mes
-   micom.viz.plot_association
    micom.viz.plot_tradeoff
 
 
@@ -135,6 +135,22 @@ Package Contents
    :rtype: Visualization
 
 
+.. py:function:: plot_growth(results, filename='growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
+
+   Plot the taxa growth rates.
+
+   :param results: The results returned by the `grow` workflow.
+   :type results: micom.workflows.GrowthResults
+   :param filename: The HTML file where the visualization will be saved.
+   :type filename: str
+   :param tolerance: Smallest growth rate that will be considered. Everything lower will be
+                     considered not growing.
+   :type tolerance: float
+
+   :returns: A MICOM visualization. Can be served with `viz.serve`.
+   :rtype: Visualization
+
+
 .. py:function:: plot_focal_interactions(results: micom.workflows.GrowthResults, taxon: str, filename: str = 'focal_interactions_%s.html' % datetime.now().strftime('%Y%m%d'), kind: str = 'mass') -> None
 
    Plot metabolic interactions between a focal taxa and all other taxa.
@@ -198,44 +214,6 @@ Package Contents
        Visualization
            A MICOM visualization. Can be served with `viz.serve`.
 
-
-
-.. py:function:: plot_association(results, phenotype, variable_type='binary', variable_name='phenotype', filename='association_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', fdr_threshold=0.05, threads=1, atol=1e-06)
-
-   Test for differential metabolite production.
-
-   This will check for associations of the `phenotype` with metabolite fluxes. Individual
-   tests are performed using non-parametric tests of the overall consumption or production
-   fluxes for each samples versus the phenotype.
-
-   To assess the the global association, this will fit L1-regularized linear models
-   with log-fluxes as features. Will use LASSO regression for a continuous
-   response and L1-regularized Logistic regression for a binary response.
-
-   :param results: The results returned by the `grow` workflow.
-   :type results: micom.workflows.GrowthResults
-   :param phenotype: The data to be fitted. Its index must correspond to `sample_id` in
-                     `exchanges`.
-   :type phenotype: pandas.Series
-   :param variable_type: The type of the variable.
-   :type variable_type: str of ["binary", "continuous"]
-   :param variable_name: A short description of the phenotype for instance "disease status".
-   :type variable_name: str
-   :param filename: The HTML file where the visualization will be saved.
-   :type filename: str
-   :param flux_type: Whether to fit using import or production fluxes.
-   :type flux_type: str of ["import", "production"]
-   :param threads: The number of threads to use.
-   :type threads: int
-   :param fdr_threshold: The false discovery rate cutoff to use (FDR-corrected p-value cutoff). Defaults
-                         to 0.05.
-   :type fdr_threshold: float
-   :param atol: Tolerance to consider a flux different from zero. Will default
-                to the solver tolerance.
-   :type atol: float
-
-   :returns: A MICOM visualization. Can be served with `viz.view`.
-   :rtype: Visualization
 
 
 .. py:function:: plot_tradeoff(tradeoff_rates, filename='tradeoff_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)

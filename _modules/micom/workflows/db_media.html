@@ -324,7 +324,7 @@
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._grow">[docs]</a>
 <span class="k">def</span> <span class="nf">_grow</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the maximum growth rate under a given medium.&quot;&quot;&quot;</span>
-    <span class="n">file</span><span class="p">,</span> <span class="n">med</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">mid</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">med</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="n">good</span> <span class="o">=</span> <span class="n">med</span><span class="p">[</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">exchanges</span><span class="p">])]</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">good</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -334,7 +334,7 @@
         <span class="p">)</span>
     <span class="n">mod</span><span class="o">.</span><span class="n">medium</span> <span class="o">=</span> <span class="n">med</span><span class="p">[</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">exchanges</span><span class="p">])]</span>
     <span class="n">rate</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">slim_optimize</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">rate</span></div>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">mid</span><span class="p">,</span> <span class="s2">&quot;growth_rate&quot;</span><span class="p">:</span> <span class="n">rate</span><span class="p">}</span></div>
 
 
 
@@ -427,9 +427,9 @@
         <span class="o">%</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rank</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">medium</span><span class="p">))</span>
     <span class="p">)</span>
 
-    <span class="n">args</span> <span class="o">=</span> <span class="p">[(</span><span class="n">f</span><span class="p">,</span> <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">file</span><span class="p">]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">],</span> <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()]</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_grow</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
-    <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
     <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;can_grow&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">growth_rate</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>

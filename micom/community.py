@@ -921,7 +921,13 @@ class Community(cobra.Model):
         """
         self.host_abundance = abundance
         id = re.sub(r"[^A-Za-z0-9_]+", "_")
-        self.host_obj = self.__add_model(model, id)
+        self.host_id == id
+        o = self.__add_model(model, id)
+        self.taxa.append(id)
+        taxa_obj = self.problem.Constraint(
+            o.expression, name="objective_" + id, lb=0.0
+        )
+        self.add_cons_vars([taxa_obj])
         self.host_compartment = f"{own_compartment}__{id}"
         self.__add_exchanges(
             reactions=model.reactions,

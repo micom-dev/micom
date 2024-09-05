@@ -24,7 +24,7 @@ import numpy as np
 from rich.progress import track
 
 
-def regularize_l2_norm(community, min_growth):
+def regularize_l2_norm(community, min_growth, host=False):
     """Add an objective to find the most "egoistic" solution.
 
     This adds an optimization objective finding a solution that maintains a
@@ -56,7 +56,10 @@ def regularize_l2_norm(community, min_growth):
     if context is not None:
         context(partial(reset_min_community_growth, community))
 
-    for sp in community.taxa:
+    taxa = set(community.taxa)
+    if community.host_id is not None and not host:
+        taxa.remove(community.host_id)
+    for sp in taxa:
         taxa_obj = community.constraints["objective_" + sp]
         ex = sum(v for v in taxa_obj.variables if (v.ub - v.lb) > 1e-6)
         if not isinstance(ex, int):
@@ -66,10 +69,9 @@ def regularize_l2_norm(community, min_growth):
     logger.info("finished adding tradeoff objective to %s" % community.id)
 
 
-def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rtol):
+def cooperative_tradeoff(community, min_growth, fraction, host, fluxes, pfba, atol, rtol):
     """Find the best tradeoff between community and individual growth."""
     with community as com:
-        solver = interface_to_str(community.problem)
         check_modification(community)
         min_growth = _format_min_growth(min_growth, community.taxa)
         _apply_min_growth(community, min_growth)
@@ -85,7 +87,7 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rt
             fraction = np.sort(fraction)[::-1]
 
         # Add needed variables etc.
-        regularize_l2_norm(com, 0.0)
+        regularize_l2_norm(com, 0.0, host)
         results = []
         for fr in fraction:
             com.variables.community_objective.lb = fr * min_growth

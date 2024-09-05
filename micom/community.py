@@ -154,6 +154,8 @@ class Community(cobra.Model):
         self.solver = solver
         self._rtol = rel_threshold
         self._modification = None
+        self.host_id = None
+        self.host_abundance = None
         self.mass = mass
         self.max_exchange = max_exchange
         self.__db_metrics = None
@@ -762,6 +764,7 @@ class Community(cobra.Model):
         self,
         min_growth=0.0,
         fraction=1.0,
+        host=False,
         fluxes=False,
         pfba=False,
         atol=None,
@@ -784,6 +787,8 @@ class Community(cobra.Model):
             The minum percentage of the community growth rate that has to be
             maintained. For instance 0.9 means maintain 90% of the maximal
             community growth rate. Defaults to 100%.
+        host : bool
+            Whether to include the host in the cooperative tradeoff FBA.
         fluxes : boolean, optional
             Whether to return the fluxes as well.
         pfba : boolean, optional
@@ -810,7 +815,7 @@ class Community(cobra.Model):
             rtol = self.solver.configuration.tolerances.feasibility
 
         return cooperative_tradeoff(
-            self, min_growth, fraction, fluxes, pfba, atol, rtol
+            self, min_growth, fraction, host, fluxes, pfba, atol, rtol
         )
 
     def knockout_taxa(

@@ -1,7 +1,8 @@
-"""Simple init file for mico."""
+"""Simple init file for micom."""
 
 from micom.community import Community
 from micom.deps import show_versions
+from micom.logger import logger
 from micom.util import load_pickle
 from micom import (
     algorithms,
@@ -32,6 +33,7 @@ __all__ = (
     "qiime_formats",
     "solution",
     "load_pickle",
+    "logger",
     "workflows",
     "show_versions",
 )

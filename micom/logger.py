@@ -3,9 +3,10 @@
 import logging
 from rich.logging import RichHandler
 
-FORMAT = "%(message)s"
-logging.basicConfig(
-    level="WARNING", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()]
-)
+formatter = logging.Formatter("%(message)s")
+handler = RichHandler(level=logging.WARNING, markup=True)
+handler.setFormatter(formatter)
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("micom")
+logger.addHandler(handler)
+

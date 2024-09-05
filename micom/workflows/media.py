@@ -91,7 +91,7 @@ def minimal_media(
     in the medium. The returned solution comes from the medium minimization problem and
     does not have to correspond to the cooperative tradeoff solution with the same medium.
 
-    Arguments
+    Parameters
     ---------
     manifest : pandas.DataFrame
         The manifest as returned by the `build` workflow.
@@ -219,7 +219,7 @@ def complete_community_medium(
     property of the simulation, because one needs to specify the community growth rate
     or growth rates for individual taxa.
 
-    Arguments
+    Parameters
     ---------
     manifest : pandas.DataFrame
         The manifest as returned by the `build` workflow.

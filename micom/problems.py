@@ -36,7 +36,7 @@ def regularize_l2_norm(community, min_growth):
     rate. In the linear case squares are substituted by absolute values
     (Manhattan distance).
 
-    Arguments
+    Parameters
     ---------
     community : micom.Community
         The community to modify.

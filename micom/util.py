@@ -154,7 +154,7 @@ def join_models(model_files, id=None):
 
     This requires all the models to use the same ID system.
 
-    Arguments
+    Parameters
     ----------
     model_files : list of strings
         The files to be joined.
@@ -229,7 +229,7 @@ def ex_metabolite(model, rid):
 def check_modification(community):
     """Check whether a community already carries a modification.
 
-    Arguments
+    Parameters
     ---------
     community : micom.Community
         The community class to check.
@@ -251,7 +251,7 @@ def check_modification(community):
 def _format_min_growth(min_growth, taxa):
     """Format min_growth into a pandas series.
 
-    Arguments
+    Parameters
     ---------
     min_growth : positive float or array-like object.
         The minimum growth rate for each individual in the community. Either

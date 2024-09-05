@@ -9,7 +9,7 @@ from .workflows import workflow
 def fdr_adjust(p):
     """Get FDR cutoffs for p-values with Benjamini-Hochberg.
 
-    Arguments
+    Parameters
     ---------
     p : list[float]
         The original p-values. Can not contain naNs.
@@ -100,7 +100,7 @@ def compare_groups(fluxes, metadata_column, groups=None, threads=1, progress=Tru
     Mann-Whitney test for two groups and a Kruskal-Wallis test for >2 groups.
     `q` are the FDR-corrected p-values (Benjamini-Hochberg correction).
 
-    Arguments
+    Parameters
     ---------
     fluxes : pandas.DataFrame
         A frame with net fluxes as returned by `production_rates` or
@@ -148,7 +148,7 @@ def correlate_fluxes(fluxes, metadata_column, threads=1, progress=True):
     This uses a non-parametric test by default (Spearman rank correlation). `q`
     are the FDR-corrected p-values (Benjamini-Hochberg correction).
 
-    Arguments
+    Parameters
     ---------
     fluxes : pandas.DataFrame
         A frame with net fluxes as returned by `production_rates` or

@@ -15,7 +15,7 @@ def workflow(func, args, threads=4, description=None, progress=True):
     This will analyze several samples in parallel. Includes a workaround for
     optlang memory leak.
 
-    Arguments
+    Parameters
     ---------
     func : function
         A function that takes a single argument (can be any object) and

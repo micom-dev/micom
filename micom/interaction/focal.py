@@ -37,7 +37,7 @@ def sample_interactions(
 ) -> pd.DataFrame:
     """Quantify interactions in a single sammple.
 
-    Arguments
+    Parameters
     ---------
     fluxes : pandas.DataFrame
         A table of exchange fluxes.
@@ -91,7 +91,7 @@ def interactions(
 ) -> pd.DataFrame:
     """Quantify interactions of a focal/reference taxon with other taxa.
 
-    Arguments
+    Parameters
     ---------
     results : GrowthResults
         The growth results to use.

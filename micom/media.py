@@ -23,7 +23,7 @@ def add_linear_obj(community, exchanges, weights):
 
         minimize sum w_i|r_i| for r_i in import_reactions
 
-    Arguments
+    Parameters
     ---------
     community : micom.Community
         The community to modify.
@@ -60,7 +60,7 @@ def add_mip_obj(community, exchanges):
 
         minimize size(R) where R part of import_reactions
 
-    Arguments
+    Parameters
     ---------
     community : micom.Community
         The community to modify.
@@ -150,7 +150,7 @@ def minimal_medium(
     be the medium requiring the smallest total import flux or the medium
     requiring the least components (ergo ingredients).
 
-    Arguments
+    Parameters
     ---------
     community : micom.Community
         The community to modify.
@@ -282,7 +282,7 @@ def complete_medium(
     provide a function `complete_db_medium` in `micom.workflows` that fixes a growth
     medium for an entire model database.
 
-    Arguments
+    Parameters
     ---------
     model : cobra.Model
         The model to use.

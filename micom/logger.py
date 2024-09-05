@@ -9,4 +9,3 @@ handler.setFormatter(formatter)
 
 logger = logging.getLogger("micom")
 logger.addHandler(handler)
-

@@ -39,7 +39,7 @@ def _derivatives(before, after):
 def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
     """Get the elasticity coefficients for a set of variables.
 
-    Arguments
+    Parameters
     ---------
     com : micom.Community
         The community for wrhich to calculate elasticities.
@@ -99,7 +99,7 @@ def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
 def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     """Get the elasticity coefficients for a set of variables.
 
-    Arguments
+    Parameters
     ---------
     com : micom.Community
         The community for which to calculate elasticities.
@@ -153,7 +153,7 @@ def elasticities(com, fraction=0.5, reactions=None, progress=True):
     response and exchange bounds (diet) and taxa abundances as
     effectors/parameters. Will use an arbitrary flux distribution as base.
 
-    Arguments
+    Parameters
     ---------
     com : micom.Community
         The community for wrhich to calculate elasticities.

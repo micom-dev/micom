@@ -28,7 +28,7 @@ def add_dualized_optcom(community, min_growth):
     This method will only find one arbitrary solution from the Pareto front.
     There may exist several other optimal solutions.
 
-    Arguments
+    Parameters
     ---------
     community : micom.Community
         The community to modify.
@@ -92,7 +92,7 @@ def add_moma_optcom(community, min_growth, linear=False):
               community_cost = sum |growth_rate - max_growth|
               if linear=True
 
-    Arguments
+    Parameters
     ---------
     community : micom.Community
         The community to modify.

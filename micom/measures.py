@@ -18,7 +18,7 @@ def production_rates(results):
     a phenotype than the net rates which are the excess productin rates, even in the
     absence of another consumer.
 
-    Arguments
+    Parameters
     ---------
     results : micom.GrowthResults
         A growth results as returned by grow.
@@ -55,7 +55,7 @@ def consumption_rates(results):
     The (transient) consumption rates reported here is the total flux of a metabolite
     imported/consumed by taxa in the community.
 
-    Arguments
+    Parameters
     ---------
     results : micom.GrowthResults
         A growth results as returned by grow.

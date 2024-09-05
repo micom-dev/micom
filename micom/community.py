@@ -155,6 +155,7 @@ class Community(cobra.Model):
         self._rtol = rel_threshold
         self._modification = None
         self.mass = mass
+        self.max_exchange = max_exchange
         self.__db_metrics = None
         adjust_solver_config(self.solver)
         taxonomy = taxonomy.copy()
@@ -253,32 +254,13 @@ class Community(cobra.Model):
                     model = load_model(row.file[0])
             else:
                 model = load_model(row.file)
-            suffix = "__" + idx.replace(" ", "_").strip()
             logger.info("converting IDs for {}".format(idx))
             external = cobra.medium.find_external_compartment(model)
             logger.info(
                 "Identified %s as the external compartment for %s. "
                 "If that is wrong you may be in trouble..." % (external, idx)
             )
-            for r in model.reactions:
-                r.global_id = clean_ids(r.id)
-                r.id = r.global_id + suffix
-                r.community_id = idx
-                # avoids https://github.com/opencobra/cobrapy/issues/926
-                r._compartments = None
-                # SBO terms may not be maintained
-                if "sbo" in r.annotation:
-                    del r.annotation["sbo"]
-            for m in model.metabolites:
-                m.global_id = clean_ids(m.id)
-                m.id = m.global_id + suffix
-                m.compartment += suffix
-                m.community_id = idx
-            logger.info("adding reactions for {} to community".format(idx))
-            self.add_reactions(model.reactions)
-            o = self.solver.interface.Objective.clone(
-                model.objective, model=self.solver
-            )
+            o = self.__add_model(model, idx)
             obj += o.expression * row.abundance
             self.taxa.append(idx)
             taxa_obj = self.problem.Constraint(
@@ -287,7 +269,7 @@ class Community(cobra.Model):
             self.add_cons_vars([taxa_obj])
             self.__add_exchanges(
                 model.reactions,
-                row,
+                row.abundance,
                 external_compartment=external,
                 internal_exchange=max_exchange,
             )
@@ -298,12 +280,38 @@ class Community(cobra.Model):
         com_obj = add_var_from_expression(self, "community_objective", obj, lb=0)
         self.objective = self.problem.Objective(com_obj, direction="max")
 
+    def __add_model(self, model, taxon_id):
+        """Add a new model to the community."""
+        suffix = "__" + taxon_id
+        for r in model.reactions:
+            r.global_id = clean_ids(r.id)
+            r.id = r.global_id + suffix
+            r.community_id = taxon_id
+            # avoids https://github.com/opencobra/cobrapy/issues/926
+            r._compartments = None
+            # SBO terms may not be maintained
+            if "sbo" in r.annotation:
+                del r.annotation["sbo"]
+        for m in model.metabolites:
+            m.global_id = clean_ids(m.id)
+            m.id = m.global_id + suffix
+            m.compartment += suffix
+            m.community_id = taxon_id
+        logger.info("adding reactions for %s to community" % taxon_id)
+        self.add_reactions(model.reactions)
+        o = self.solver.interface.Objective.clone(
+            model.objective, model=self.solver
+        )
+        return o
+
     def __add_exchanges(
         self,
         reactions,
-        info,
+        coef,
         external_compartment="e",
         internal_exchange=1000,
+        environment_id="m",
+        environment_name="medium"
     ):
         """Add exchange reactions for a new model."""
         for r in reactions:
@@ -347,27 +355,27 @@ class Community(cobra.Model):
                 "",
                 met.global_id,
             )
-            medium_id += "_m"
+            medium_id += f"_{environment_id}"
             if medium_id == met.id:
-                medium_id += "_medium"
+                medium_id += f"_{environment_name}"
             if medium_id not in self.metabolites:
                 # If metabolite does not exist in medium add it to the model
                 # and also add an exchange reaction for the medium
                 logger.info("adding metabolite %s to external medium" % medium_id)
                 medium_met = met.copy()
                 medium_met.id = medium_id
-                medium_met.compartment = "m"
+                medium_met.compartment = environment_id
                 medium_met.global_id = medium_id
-                medium_met.community_id = "medium"
+                medium_met.community_id = environment_name
                 ex_medium = cobra.Reaction(
                     id="EX_" + medium_met.id,
-                    name=medium_met.id + " medium exchange",
+                    name=f"{medium_met.id} {environment_name} exchange",
                     lower_bound=lb,
                     upper_bound=ub,
                 )
                 ex_medium.add_metabolites({medium_met: -1})
                 ex_medium.global_id = ex_medium.id
-                ex_medium.community_id = "medium"
+                ex_medium.community_id = environment_name
                 self.add_reactions([ex_medium])
             else:
                 logger.info(
@@ -378,7 +386,6 @@ class Community(cobra.Model):
                 ex_medium.lower_bound = min(lb, ex_medium.lower_bound)
                 ex_medium.upper_bound = max(ub, ex_medium.upper_bound)
 
-            coef = info.abundance
             r.add_metabolites({medium_met: coef if export else -coef})
             if export:
                 r.lower_bound = -internal_exchange
@@ -629,6 +636,11 @@ class Community(cobra.Model):
             for r in self.reactions
             if len(r.metabolites) == 2 and "m" in [m.compartment for m in r.metabolites]
         ]
+
+    @property
+    def host_exchanges(self):
+        """list: Return all host-side exchange reactions in the model."""
+        return cobra.medium.find_boundary_types(self, "exchange", "h")
 
     @property
     def medium(self):
@@ -887,3 +899,97 @@ class Community(cobra.Model):
             self.solver.configuration.qp_method = "auto"
         cobra.Model.solver.fset(self, s)
         adjust_solver_config(self.solver)
+
+    def add_host(self, model, id="host", shared_compartment="e", own_compartment="l", abundance=10):
+        """Add a host model to the community.
+
+        Parameters
+        ----------
+        model : cobra.Model
+            The host model to add to the community.
+        id : str
+            The ID for the host. Should not contain spaces or special characters, will
+            be adjusted otherwise.
+        shared_compartment : str
+            The id for the compartment that is shared with the microbes. For instance,
+            the luminal side for an intestinal cell.
+        own_compartment : str
+            The id for the compartment that is not shared with the microbes. The
+            "other side". For instance, the blood stream for intestinal cells.
+        abundance : float
+            The abundance of the host **relative to 1gDW** bacteria.
+        """
+        self.host_abundance = abundance
+        id = re.sub(r"[^A-Za-z0-9_]+", "_")
+        self.host_obj = self.__add_model(model, id)
+        self.host_compartment = f"{own_compartment}__{id}"
+        self.__add_exchanges(
+            reactions=model.reactions,
+            coef=abundance,
+            external_compartment=shared_compartment,
+            internal_exchange=self.max_exchange
+        )
+        self.__add_exchanges(
+            reactions=model.reactions,
+            coef=1,
+            external_compartment=own_compartment,
+            internal_exchange=1000,
+            environment_id="h",
+            environment_name="host"
+        )
+        self.solver.update()
+
+    @property
+    def host_medium(self):
+        """Return the medium for the host side."""
+        return {
+            rxn.id: rxn.lower_bound
+            for rxn in self.host_exchanges
+            if rxn.lower_bound < 0
+        }
+
+    @host_medium.setter
+    def host_medium(self, fluxes):
+        """Set the host medium.
+
+        Note
+        ----
+        This is assumed to be formulated in mmol/(gDW * h) where the gDW is 1gDW of
+        the host tissue.
+
+        Parameters
+        ----------
+        fluxes : dict or pd.Series
+            The new bounds to set for the host imports.
+        """
+        if isinstance(fluxes, pd.Series):
+            fluxes = fluxes.to_dict()
+
+        exids = set(r.id for r in self.host_exchanges)
+        rids = set(k for k in fluxes)
+        found = rids & exids
+        C_num = sum(
+            cobra.core.formula.Formula(ex_metabolite(self, rid).formula).elements.get(
+                "C", 0
+            )
+            for rid in found
+        )
+        not_found = rids - exids
+        if len(found) == 0:
+            raise ValueError(
+                "No ID from the medium could be found in the exchange reactions. "
+                "This means you probably have mismatched IDs..."
+            )
+        elif C_num == 0:
+            logger.warning(
+                "There does not seem to be any carbon source in your medium. "
+                "Please double-check your medium IDs in case this was not intended. "
+            )
+        if len(not_found) > 0:
+            logger.info(
+                "I could not find the following exchanges "
+                "in your model: %s" % ", ".join(not_found)
+            )
+        for ex in found:
+            ex.lower_bound = -abs(fluxes[ex.id])
+

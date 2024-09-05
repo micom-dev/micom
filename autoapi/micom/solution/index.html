@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="micom.stats" href="../stats/index.html" /><link rel="prev" title="micom.qiime_formats" href="../qiime_formats/index.html" />
 
     <!-- Generated with Sphinx 8.0.2 and Furo 2024.08.06 -->
-        <title>micom.solution - version 0.36.3</title>
+        <title>micom.solution - version 0.36.4</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
@@ -169,7 +169,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">version 0.36.3</div></a>
+      <a href="../../../index.html"><div class="brand">version 0.36.4</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -196,7 +196,7 @@
     <img class="sidebar-logo" src="../../../_static/micom.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">version 0.36.3</span>
+  <span class="sidebar-brand-text">version 0.36.4</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -394,7 +394,7 @@
 <p>An FBA solution for an entire community.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.objective_value">
-<span class="sig-name descname"><span class="pre">objective_value</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.objective_value" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">objective_value</span></span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution.objective_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution.objective_value" title="Link to this definition">¶</a></dt>
 <dd><p>The (optimal) value for the objective function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -429,7 +429,7 @@ one row for the external medium (without abundance and growth rate).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.status">
-<span class="sig-name descname"><span class="pre">status</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.status" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">status</span></span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution.status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution.status" title="Link to this definition">¶</a></dt>
 <dd><p>The solver status related to the solution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -451,7 +451,7 @@ one row for the external medium (without abundance and growth rate).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.fluxes">
-<span class="sig-name descname"><span class="pre">fluxes</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.fluxes" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fluxes</span></span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution.fluxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution.fluxes" title="Link to this definition">¶</a></dt>
 <dd><p>Contains the reaction fluxes (primal values of variables) stratified
 by compartment. Columns denote individual fluxes and rows denote
 compartments: one for every taxon plus one for the external medium.
@@ -465,7 +465,7 @@ Fluxes will be NA if the reaction does not exist in the organism.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.reduced_costs">
-<span class="sig-name descname"><span class="pre">reduced_costs</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.reduced_costs" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">reduced_costs</span></span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution.reduced_costs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution.reduced_costs" title="Link to this definition">¶</a></dt>
 <dd><p>Contains reaction reduced costs (dual values of variables) stratified
 by taxa. Columns denote individual fluxes and rows denote taxa.
 Reduced costs will be NA if the reaction does not exist in the
@@ -479,7 +479,7 @@ organism.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.solution.CommunitySolution.shadow_prices">
-<span class="sig-name descname"><span class="pre">shadow_prices</span></span><a class="headerlink" href="#micom.solution.CommunitySolution.shadow_prices" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">shadow_prices</span></span><a class="reference internal" href="../../../_modules/micom/solution.html#CommunitySolution.shadow_prices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.solution.CommunitySolution.shadow_prices" title="Link to this definition">¶</a></dt>
 <dd><p>Contains metabolite shadow prices (dual values of constraints)
 stratified by taxa. Columns denote individual metabolites and rows
 denote taxa. Shadow prices will be NA if the metabolite does not
@@ -693,7 +693,7 @@ ones).</p>
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=6f9c6c8a"></script>
+</div><script src="../../../_static/documentation_options.js?v=a415fc47"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>

@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="micom.data" href="data/index.html" /><link rel="prev" title="API Reference" href="../index.html" />
 
     <!-- Generated with Sphinx 8.0.2 and Furo 2024.08.06 -->
-        <title>micom - version 0.36.3</title>
+        <title>micom - version 0.36.4</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
@@ -169,7 +169,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">version 0.36.3</div></a>
+      <a href="../../index.html"><div class="brand">version 0.36.4</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -196,7 +196,7 @@
     <img class="sidebar-logo" src="../../_static/micom.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">version 0.36.3</span>
+  <span class="sidebar-brand-text">version 0.36.4</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -310,7 +310,7 @@
         <article role="main" id="furo-main-content">
           <section id="module-micom">
 <span id="micom"></span><h1>micom<a class="headerlink" href="#module-micom" title="Link to this heading">¶</a></h1>
-<p>Simple init file for mico.</p>
+<p>Simple init file for micom.</p>
 <section id="subpackages">
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
@@ -345,6 +345,18 @@
 <li class="toctree-l1"><a class="reference internal" href="taxonomy/index.html">micom.taxonomy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="util/index.html">micom.util</a></li>
 </ul>
+</div>
+</section>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="logger/index.html#module-micom.logger" title="micom.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
 <section id="classes">
@@ -403,7 +415,19 @@ compartment.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.Community.solver">
 <span class="sig-name descname"><span class="pre">solver</span></span><a class="headerlink" href="#micom.Community.solver" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the attached solver instance.</p>
+<p>The associated the solver object, which manages the interaction with
+the associated solver, e.g. glpk.</p>
+<p>This property is useful for accessing the optimization problem
+directly and to define additional non-metabolic constraints.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">cobra.io</span> <span class="kn">import</span> <span class="n">load_model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;textbook&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">expression</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mf">0.99</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="micom.Community._rtol">
@@ -444,6 +468,20 @@ compartment.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#micom.Community.id" title="Link to this definition">¶</a></dt>
+<dd><p>Get the Object id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="micom.Community.__taxonomy">
 <span class="sig-name descname"><span class="pre">__taxonomy</span></span><a class="headerlink" href="#micom.Community.__taxonomy" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -467,6 +505,17 @@ compartment.</p>
 <dt class="sig sig-object py" id="micom.Community.com_obj">
 <span class="sig-name descname"><span class="pre">com_obj</span></span><a class="headerlink" href="#micom.Community.com_obj" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="micom.Community.objective">
+<span class="sig-name descname"><span class="pre">objective</span></span><a class="headerlink" href="#micom.Community.objective" title="Link to this definition">¶</a></dt>
+<dd><p>Get the solver objective.</p>
+<p>With optlang, the objective is not limited to a simple linear summation of
+individual reaction fluxes, making the return value ambiguous.</p>
+<p>Henceforth, use <cite>cobra.util.solver.linear_reaction_coefficients</cite> to
+get a dictionary of reactions with their linear coefficients (empty
+if there are none).</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="micom.Community.__add_exchanges">
@@ -816,6 +865,11 @@ that knockout.</p>
 <span class="sig-prename descclassname"><span class="pre">micom.</span></span><span class="sig-name descname"><span class="pre">show_versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/micom/deps.html#show_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.show_versions" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py data">
+<dt class="sig sig-object py" id="micom.logger">
+<span class="sig-prename descclassname"><span class="pre">micom.</span></span><span class="sig-name descname"><span class="pre">logger</span></span><a class="reference internal" href="../../_modules/micom/logger.html#logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.logger" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.load_pickle">
 <span class="sig-prename descclassname"><span class="pre">micom.</span></span><span class="sig-name descname"><span class="pre">load_pickle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/micom/util.html#load_pickle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.load_pickle" title="Link to this definition">¶</a></dt>
@@ -894,6 +948,7 @@ that knockout.</p>
 <li><a class="reference internal" href="#">micom</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#attributes">Attributes</a></li>
 <li><a class="reference internal" href="#classes">Classes</a></li>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#package-contents">Package Contents</a><ul>
@@ -908,11 +963,13 @@ that knockout.</p>
 <li><a class="reference internal" href="#micom.Community.__db_metrics"><code class="docutils literal notranslate"><span class="pre">Community.__db_metrics</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.taxonomy"><code class="docutils literal notranslate"><span class="pre">Community.taxonomy</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.compressed"><code class="docutils literal notranslate"><span class="pre">Community.compressed</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.id"><code class="docutils literal notranslate"><span class="pre">Community.id</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.__taxonomy"><code class="docutils literal notranslate"><span class="pre">Community.__taxonomy</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.index"><code class="docutils literal notranslate"><span class="pre">Community.index</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.obj"><code class="docutils literal notranslate"><span class="pre">Community.obj</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.taxa"><code class="docutils literal notranslate"><span class="pre">Community.taxa</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.com_obj"><code class="docutils literal notranslate"><span class="pre">Community.com_obj</span></code></a></li>
+<li><a class="reference internal" href="#micom.Community.objective"><code class="docutils literal notranslate"><span class="pre">Community.objective</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.__add_exchanges"><code class="docutils literal notranslate"><span class="pre">Community.__add_exchanges()</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.__update_exchanges"><code class="docutils literal notranslate"><span class="pre">Community.__update_exchanges()</span></code></a></li>
 <li><a class="reference internal" href="#micom.Community.__update_community_objective"><code class="docutils literal notranslate"><span class="pre">Community.__update_community_objective()</span></code></a></li>
@@ -934,6 +991,7 @@ that knockout.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#micom.show_versions"><code class="docutils literal notranslate"><span class="pre">show_versions()</span></code></a></li>
+<li><a class="reference internal" href="#micom.logger"><code class="docutils literal notranslate"><span class="pre">logger</span></code></a></li>
 <li><a class="reference internal" href="#micom.load_pickle"><code class="docutils literal notranslate"><span class="pre">load_pickle()</span></code></a></li>
 </ul>
 </li>
@@ -948,7 +1006,7 @@ that knockout.</p>
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=6f9c6c8a"></script>
+</div><script src="../../_static/documentation_options.js?v=a415fc47"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>

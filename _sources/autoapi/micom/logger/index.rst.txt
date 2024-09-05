@@ -14,16 +14,17 @@ Attributes
 
 .. autoapisummary::
 
-   micom.logger.FORMAT
+   micom.logger.formatter
+   micom.logger.handler
    micom.logger.logger
 
 
 Module Contents
 ---------------
 
-.. py:data:: FORMAT
-   :value: '%(message)s'
+.. py:data:: formatter
 
+.. py:data:: handler
 
 .. py:data:: logger
 

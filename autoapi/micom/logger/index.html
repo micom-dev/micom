@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="micom.measures" href="../measures/index.html" /><link rel="prev" title="micom.elasticity" href="../elasticity/index.html" />
 
     <!-- Generated with Sphinx 8.0.2 and Furo 2024.08.06 -->
-        <title>micom.logger - version 0.36.3</title>
+        <title>micom.logger - version 0.36.4</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
@@ -169,7 +169,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">version 0.36.3</div></a>
+      <a href="../../../index.html"><div class="brand">version 0.36.4</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -196,7 +196,7 @@
     <img class="sidebar-logo" src="../../../_static/micom.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">version 0.36.3</span>
+  <span class="sidebar-brand-text">version 0.36.4</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -316,10 +316,13 @@
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.logger.FORMAT" title="micom.logger.FORMAT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FORMAT</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.logger.formatter" title="micom.logger.formatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">formatter</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.logger.logger" title="micom.logger.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.logger.handler" title="micom.logger.handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handler</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.logger.logger" title="micom.logger.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -329,8 +332,13 @@
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
 <dl class="py data">
-<dt class="sig sig-object py" id="micom.logger.FORMAT">
-<span class="sig-prename descclassname"><span class="pre">micom.logger.</span></span><span class="sig-name descname"><span class="pre">FORMAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'%(message)s'</span></em><a class="reference internal" href="../../../_modules/micom/logger.html#FORMAT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.logger.FORMAT" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="micom.logger.formatter">
+<span class="sig-prename descclassname"><span class="pre">micom.logger.</span></span><span class="sig-name descname"><span class="pre">formatter</span></span><a class="reference internal" href="../../../_modules/micom/logger.html#formatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.logger.formatter" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="micom.logger.handler">
+<span class="sig-prename descclassname"><span class="pre">micom.logger.</span></span><span class="sig-name descname"><span class="pre">handler</span></span><a class="reference internal" href="../../../_modules/micom/logger.html#handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.logger.handler" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py data">
@@ -399,7 +407,8 @@
 <li><a class="reference internal" href="#">micom.logger</a><ul>
 <li><a class="reference internal" href="#attributes">Attributes</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
-<li><a class="reference internal" href="#micom.logger.FORMAT"><code class="docutils literal notranslate"><span class="pre">FORMAT</span></code></a></li>
+<li><a class="reference internal" href="#micom.logger.formatter"><code class="docutils literal notranslate"><span class="pre">formatter</span></code></a></li>
+<li><a class="reference internal" href="#micom.logger.handler"><code class="docutils literal notranslate"><span class="pre">handler</span></code></a></li>
 <li><a class="reference internal" href="#micom.logger.logger"><code class="docutils literal notranslate"><span class="pre">logger</span></code></a></li>
 </ul>
 </li>
@@ -414,7 +423,7 @@
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=6f9c6c8a"></script>
+</div><script src="../../../_static/documentation_options.js?v=a415fc47"></script>
     <script src="../../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>

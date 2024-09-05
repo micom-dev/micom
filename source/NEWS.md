@@ -9,6 +9,9 @@ For information on how to use `micom` please refer to
 
 Fix a bug in `check_db_medium` where the growth rate order was random.
 
+Do not overwrite the handlers for the root logger anymore but attach the handler to
+a package logger instead.
+
 ### 0.36.3
 
 Require a newer optlang version to stay compatible with numpy 2.0.

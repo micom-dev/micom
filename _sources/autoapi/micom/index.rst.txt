@@ -5,7 +5,7 @@ micom
 
 .. autoapi-nested-parse::
 
-   Simple init file for mico.
+   Simple init file for micom.
 
 
 
@@ -45,6 +45,14 @@ Submodules
    /autoapi/micom/stats/index
    /autoapi/micom/taxonomy/index
    /autoapi/micom/util/index
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.logger
 
 
 Classes
@@ -97,6 +105,21 @@ Package Contents
 
    .. py:attribute:: solver
 
+      Get the attached solver instance.
+
+      The associated the solver object, which manages the interaction with
+      the associated solver, e.g. glpk.
+
+      This property is useful for accessing the optimization problem
+      directly and to define additional non-metabolic constraints.
+
+      .. rubric:: Examples
+
+      >>> from cobra.io import load_model
+      >>> model = load_model("textbook")
+      >>> new = model.problem.Constraint(model.objective.expression, lb=0.99)
+      >>> model.solver.add(new)
+
 
    .. py:attribute:: _rtol
 
@@ -127,6 +150,14 @@ Package Contents
 
 
 
+   .. py:attribute:: id
+
+      Get the Object id.
+
+      :returns: **id**
+      :rtype: str
+
+
    .. py:attribute:: __taxonomy
 
 
@@ -142,6 +173,18 @@ Package Contents
 
 
    .. py:attribute:: com_obj
+
+
+   .. py:attribute:: objective
+
+      Get the solver objective.
+
+      With optlang, the objective is not limited to a simple linear summation of
+      individual reaction fluxes, making the return value ambiguous.
+
+      Henceforth, use `cobra.util.solver.linear_reaction_coefficients` to
+      get a dictionary of reactions with their linear coefficients (empty
+      if there are none).
 
 
    .. py:method:: __add_exchanges(reactions, info, external_compartment='e', internal_exchange=1000)
@@ -432,6 +475,8 @@ Package Contents
 
 
 .. py:function:: show_versions()
+
+.. py:data:: logger
 
 .. py:function:: load_pickle(filename)
 

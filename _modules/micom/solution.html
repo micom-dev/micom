@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <!-- Generated with Sphinx 8.0.2 and Furo 2024.08.06 -->
-        <title>micom.solution - version 0.36.3</title>
+        <title>micom.solution - version 0.36.4</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
@@ -168,7 +168,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">version 0.36.3</div></a>
+      <a href="../../index.html"><div class="brand">version 0.36.4</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -195,7 +195,7 @@
     <img class="sidebar-logo" src="../../_static/micom.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">version 0.36.3</span>
+  <span class="sidebar-brand-text">version 0.36.4</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -397,12 +397,27 @@
 
 <div class="viewcode-block" id="CommunitySolution.mids">
 <a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution.mids">[docs]</a>
+<div class="viewcode-block" id="CommunitySolution.objective_value">
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution.objective_value">[docs]</a>
         <span class="n">mids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">m</span><span class="o">.</span><span class="n">global_id</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">community_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">metabolites</span><span class="p">])</span></div>
+</div>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">slim</span><span class="p">:</span>
-            <span class="n">var_primals</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">primal_values</span>
-            <span class="n">fluxes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
-                <span class="p">[</span><span class="n">var_primals</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">-</span> <span class="n">var_primals</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">reverse_id</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">],</span>
+<div class="viewcode-block" id="CommunitySolution.status">
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution.status">[docs]</a>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">slim</span><span class="p">:</span></div>
+
+<div class="viewcode-block" id="CommunitySolution.fluxes">
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution.fluxes">[docs]</a>
+            <span class="n">var_primals</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">primal_values</span></div>
+
+<div class="viewcode-block" id="CommunitySolution.reduced_costs">
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution.reduced_costs">[docs]</a>
+            <span class="n">fluxes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span></div>
+
+<div class="viewcode-block" id="CommunitySolution.shadow_prices">
+<a class="viewcode-back" href="../../autoapi/micom/solution/index.html#micom.solution.CommunitySolution.shadow_prices">[docs]</a>
+                <span class="p">[</span><span class="n">var_primals</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">-</span> <span class="n">var_primals</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">reverse_id</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">],</span></div>
+
                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fluxes&quot;</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="nb">super</span><span class="p">(</span><span class="n">CommunitySolution</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
@@ -680,7 +695,7 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=6f9c6c8a"></script>
+</div><script src="../../_static/documentation_options.js?v=a415fc47"></script>
     <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>

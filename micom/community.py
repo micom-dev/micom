@@ -453,17 +453,16 @@ class Community(cobra.Model):
         """
         logger.warning("`optimize_single` is deprecated and will be removed soon :(")
         if isinstance(id, str):
-            if id not in self.__taxonomy.index:
+            if id not in self.taxa:
                 raise ValueError(id + " not in taxonomy!")
-            info = self.__taxonomy.loc[id]
-        elif isinstance(id, int) and id >= 0 and id < len(self.__taxonomy):
-            info = self.__taxonomy.iloc[id]
+        elif isinstance(id, int) and id >= 0 and id < len(self.taxa):
+            info = self.taxa[id]
         else:
             raise ValueError("`id` must be an id or positive index!")
 
-        logger.info("optimizing for {}".format(info.name))
+        logger.info(f"optimizing for {id}.")
 
-        obj = self.constraints["objective_" + info.name]
+        obj = self.constraints["objective_" + id]
         with self as m:
             m.objective = obj.expression
             m.solver.optimize()
@@ -925,7 +924,7 @@ class Community(cobra.Model):
             The abundance of the host **relative to 1gDW** bacteria.
         """
         self.host_abundance = abundance
-        id = re.sub(r"[^A-Za-z0-9_]+", "_")
+        id = re.sub(r"[^A-Za-z0-9_]+", "_", id)
         self.host_id == id
         o = self.__add_model(model, id)
         self.taxa.append(id)
@@ -976,7 +975,8 @@ class Community(cobra.Model):
         if isinstance(fluxes, pd.Series):
             fluxes = fluxes.to_dict()
 
-        exids = set(r.id for r in self.host_exchanges)
+        exs = self.host_exchanges
+        exids = set(r.id for r in exs)
         rids = set(k for k in fluxes)
         found = rids & exids
         C_num = sum(
@@ -986,7 +986,7 @@ class Community(cobra.Model):
             for rid in found
         )
         not_found = rids - exids
-        if len(found) == 0:
+        if len(fluxes) >0 and len(found) == 0:
             raise ValueError(
                 "No ID from the medium could be found in the exchange reactions. "
                 "This means you probably have mismatched IDs..."
@@ -1001,6 +1001,9 @@ class Community(cobra.Model):
                 "I could not find the following exchanges "
                 "in your model: %s" % ", ".join(not_found)
             )
-        for ex in found:
-            ex.lower_bound = -abs(fluxes[ex.id])
+        for ex in exs:
+            if ex.id in found:
+                ex.lower_bound = -abs(fluxes[ex.id])
+            else:
+                ex.lower_bound = 0.0
 

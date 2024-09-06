@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version1/core" xmlns:fbc="http://www.sbml.org/sbml/level3/version1/fbc/version2" sboTerm="SBO:0000624" level="3" version="1" fbc:required="false">
+  <model id="toy_host" fbc:strict="true">
+    <listOfUnitDefinitions>
+      <unitDefinition id="mmol_per_gDW_per_hr">
+        <listOfUnits>
+          <unit kind="mole" exponent="1" scale="-3" multiplier="1"/>
+          <unit kind="gram" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="3600"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfCompartments>
+      <compartment id="c" constant="true"/>
+      <compartment id="e" constant="true"/>
+      <compartment id="l" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species metaid="meta_M_atp_c" id="M_atp_c" name="ATP" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-4" fbc:chemicalFormula="C10H12N5O13P3">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_M_atp_c">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="https://identifiers.org/bigg.metabolite/atp"/>
+                  <rdf:li rdf:resource="https://identifiers.org/biocyc/ATP"/>
+                  <rdf:li rdf:resource="https://identifiers.org/cas/56-65-5"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:40938"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:15422"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:57299"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:13236"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:10789"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:30616"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:22249"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:10841"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:2359"/>
+                  <rdf:li rdf:resource="https://identifiers.org/hmdb/HMDB00538"/>
+                  <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C00002"/>
+                  <rdf:li rdf:resource="https://identifiers.org/kegg.drug/D08646"/>
+                  <rdf:li rdf:resource="https://identifiers.org/pubchem.substance/3304"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_190078"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_113592"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_113593"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_114570"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_29358"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_389573"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_139836"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_211579"/>
+                  <rdf:li rdf:resource="https://identifiers.org/seed.compound/cpd00002"/>
+                  <rdf:li rdf:resource="https://identifiers.org/unipathway.compound/UPC00002"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+      <species metaid="meta_M_accoa_c" id="M_accoa_c" name="Acetyl-CoA" compartment="c" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-4" fbc:chemicalFormula="C23H34N7O17P3S">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_M_accoa_c">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="https://identifiers.org/bigg.metabolite/accoa"/>
+                  <rdf:li rdf:resource="https://identifiers.org/biocyc/ACETYL-COA"/>
+                  <rdf:li rdf:resource="https://identifiers.org/cas/72-89-9"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:13712"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:22192"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:40470"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:2408"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:57288"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:15351"/>
+                  <rdf:li rdf:resource="https://identifiers.org/hmdb/HMDB01206"/>
+                  <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C00024"/>
+                  <rdf:li rdf:resource="https://identifiers.org/lipidmaps/LMFA07050029"/>
+                  <rdf:li rdf:resource="https://identifiers.org/lipidmaps/LMFA07050000"/>
+                  <rdf:li rdf:resource="https://identifiers.org/pubchem.substance/3326"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_113559"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_727753"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_113560"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_353123"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_76183"/>
+                  <rdf:li rdf:resource="https://identifiers.org/seed.compound/cpd00022"/>
+                  <rdf:li rdf:resource="https://identifiers.org/unipathway.compound/UPC00024"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+      <species metaid="meta_M_glc__D_e" id="M_glc__D_e" name="D-Glucose" compartment="e" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0" fbc:chemicalFormula="C6H12O6">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_M_glc__D_e">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="https://identifiers.org/bigg.metabolite/glc__D"/>
+                  <rdf:li rdf:resource="https://identifiers.org/cas/50-99-7"/>
+                  <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C00031"/>
+                  <rdf:li rdf:resource="https://identifiers.org/pubchem.substance/3333"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+      <species metaid="meta_M_o2_e" id="M_o2_e" name="O2" compartment="e" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0" fbc:chemicalFormula="O2">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_M_o2_e">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="https://identifiers.org/bigg.metabolite/o2"/>
+                  <rdf:li rdf:resource="https://identifiers.org/biocyc/OXYGEN-MOLECULE"/>
+                  <rdf:li rdf:resource="https://identifiers.org/cas/7782-44-7"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:44742"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:27140"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:15379"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:25366"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:26689"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:30491"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:13416"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:29793"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:23833"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:7860"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:10745"/>
+                  <rdf:li rdf:resource="https://identifiers.org/hmdb/HMDB01377"/>
+                  <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C00007"/>
+                  <rdf:li rdf:resource="https://identifiers.org/kegg.drug/D00003"/>
+                  <rdf:li rdf:resource="https://identifiers.org/pubchem.substance/3309"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_113534"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_29368"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_113535"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_1236709"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_113533"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_189461"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_113685"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_352327"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_351593"/>
+                  <rdf:li rdf:resource="https://identifiers.org/seed.compound/cpd00532"/>
+                  <rdf:li rdf:resource="https://identifiers.org/unipathway.compound/UPC00007"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+      <species metaid="meta_M_co2_e" id="M_co2_e" name="CO2" compartment="e" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="0" fbc:chemicalFormula="CO2">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_M_co2_e">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="https://identifiers.org/bigg.metabolite/co2"/>
+                  <rdf:li rdf:resource="https://identifiers.org/biocyc/CARBON-DIOXIDE"/>
+                  <rdf:li rdf:resource="https://identifiers.org/cas/124-38-9"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:48829"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:16526"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:13284"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:13285"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:13282"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:13283"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:23011"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:3283"/>
+                  <rdf:li rdf:resource="https://identifiers.org/hmdb/HMDB01967"/>
+                  <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C00011"/>
+                  <rdf:li rdf:resource="https://identifiers.org/kegg.drug/D00004"/>
+                  <rdf:li rdf:resource="https://identifiers.org/pubchem.substance/3313"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_159751"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_159942"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_1237009"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_29376"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_113528"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_389536"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_189480"/>
+                  <rdf:li rdf:resource="https://identifiers.org/seed.compound/cpd00011"/>
+                  <rdf:li rdf:resource="https://identifiers.org/unipathway.compound/UPC00011"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+      <species metaid="meta_M_ac_l" id="M_ac_l" name="Acetate" compartment="l" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false" fbc:charge="-1" fbc:chemicalFormula="C2H3O2">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_M_ac_l">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="https://identifiers.org/bigg.metabolite/ac"/>
+                  <rdf:li rdf:resource="https://identifiers.org/biocyc/ACET"/>
+                  <rdf:li rdf:resource="https://identifiers.org/cas/71-50-1"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:62947"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:62964"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:32029"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:22165"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:3310"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:2387"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:62984"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:63879"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:32138"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:15366"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:13704"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:63078"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:30089"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:40480"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:22169"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:40486"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:59199"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:63045"/>
+                  <rdf:li rdf:resource="https://identifiers.org/chebi/CHEBI:32954"/>
+                  <rdf:li rdf:resource="https://identifiers.org/hmdb/HMDB00042"/>
+                  <rdf:li rdf:resource="https://identifiers.org/kegg.compound/C00033"/>
+                  <rdf:li rdf:resource="https://identifiers.org/kegg.drug/D00010"/>
+                  <rdf:li rdf:resource="https://identifiers.org/lipidmaps/LMFA01010000"/>
+                  <rdf:li rdf:resource="https://identifiers.org/lipidmaps/LMFA01010002"/>
+                  <rdf:li rdf:resource="https://identifiers.org/pubchem.substance/3335"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_113539"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_2022890"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_29416"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_1524044"/>
+                  <rdf:li rdf:resource="https://identifiers.org/reactome/REACT_390305"/>
+                  <rdf:li rdf:resource="https://identifiers.org/seed.compound/cpd00029"/>
+                  <rdf:li rdf:resource="https://identifiers.org/unipathway.compound/UPC00033"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+      </species>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter sboTerm="SBO:0000626" id="cobra_default_lb" value="-1000" constant="true"/>
+      <parameter sboTerm="SBO:0000626" id="cobra_default_ub" value="1000" constant="true"/>
+      <parameter sboTerm="SBO:0000626" id="cobra_0_bound" value="0" constant="true"/>
+      <parameter sboTerm="SBO:0000626" id="minus_inf" value="-INF" constant="true"/>
+      <parameter sboTerm="SBO:0000626" id="plus_inf" value="INF" constant="true"/>
+      <parameter sboTerm="SBO:0000625" id="R_EX_ac_l_lower_bound" value="-10" units="mmol_per_gDW_per_hr" constant="true"/>
+      <parameter sboTerm="SBO:0000625" id="R_EX_glc__D_e_lower_bound" value="-10" units="mmol_per_gDW_per_hr" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction metaid="meta_R_EX_o2_e" sboTerm="SBO:0000627" id="R_EX_o2_e" name="O2 exchange" reversible="true" fast="false" fbc:lowerFluxBound="cobra_default_lb" fbc:upperFluxBound="cobra_default_ub">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_R_EX_o2_e">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="https://identifiers.org/bigg.reaction/o2"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="M_o2_e" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction id="R_GLYC" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_glc__D_e" stoichiometry="1" constant="true"/>
+          <speciesReference species="M_o2_e" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_atp_c" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_TCA" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_accoa_c" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_atp_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction id="R_biomass" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_atp_c" stoichiometry="20.7" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction id="R_EX_ac_l" reversible="true" fast="false" fbc:lowerFluxBound="R_EX_ac_l_lower_bound" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_ac_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+      <reaction id="R_ACT" reversible="false" fast="false" fbc:lowerFluxBound="cobra_0_bound" fbc:upperFluxBound="cobra_default_ub">
+        <listOfReactants>
+          <speciesReference species="M_ac_l" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="M_accoa_c" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+      </reaction>
+      <reaction metaid="meta_R_EX_glc__D_e" sboTerm="SBO:0000627" id="R_EX_glc__D_e" name="D-Glucose exchange" reversible="true" fast="false" fbc:lowerFluxBound="R_EX_glc__D_e_lower_bound" fbc:upperFluxBound="cobra_default_ub">
+        <annotation>
+          <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:vCard="http://www.w3.org/2001/vcard-rdf/3.0#" xmlns:vCard4="http://www.w3.org/2006/vcard/ns#" xmlns:bqbiol="http://biomodels.net/biology-qualifiers/" xmlns:bqmodel="http://biomodels.net/model-qualifiers/">
+            <rdf:Description rdf:about="#meta_R_EX_glc__D_e">
+              <bqbiol:is>
+                <rdf:Bag>
+                  <rdf:li rdf:resource="https://identifiers.org/bigg.reaction/glc"/>
+                </rdf:Bag>
+              </bqbiol:is>
+            </rdf:Description>
+          </rdf:RDF>
+        </annotation>
+        <listOfReactants>
+          <speciesReference species="M_glc__D_e" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+      </reaction>
+    </listOfReactions>
+    <fbc:listOfObjectives fbc:activeObjective="obj">
+      <fbc:objective fbc:id="obj" fbc:type="maximize">
+        <fbc:listOfFluxObjectives>
+          <fbc:fluxObjective fbc:reaction="R_biomass" fbc:coefficient="1"/>
+        </fbc:listOfFluxObjectives>
+      </fbc:objective>
+    </fbc:listOfObjectives>
+  </model>
+</sbml>

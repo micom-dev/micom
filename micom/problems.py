@@ -88,6 +88,7 @@ def cooperative_tradeoff(community, min_growth, fraction, host, fluxes, pfba, at
 
         # Add needed variables etc.
         regularize_l2_norm(com, 0.0, host)
+
         results = []
         for fr in fraction:
             com.variables.community_objective.lb = fr * min_growth

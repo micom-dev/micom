@@ -115,7 +115,7 @@ class CommunitySolution(Solution):
             }
         )
         self.members.index.name = "compartments"
-        self.growth_rate = sum(community.abundances * gcs)
+        self.growth_rate = community.variables.community_objective.primal
 
     def _repr_html_(self):
         if self.status in good:

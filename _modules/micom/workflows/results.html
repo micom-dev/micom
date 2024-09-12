@@ -481,7 +481,7 @@
 
 <div class="viewcode-block" id="combine_results">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/results/index.html#micom.workflows.combine_results">[docs]</a>
-<span class="k">def</span> <span class="nf">combine_results</span><span class="p">(</span><span class="n">it</span> <span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="n">GrowthResults</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">GrowthResults</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">combine_results</span><span class="p">(</span><span class="n">it</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="n">GrowthResults</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">GrowthResults</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Combine several GrowthResults.</span>
 
 <span class="sd">    Arguments</span>
@@ -494,7 +494,7 @@
 <span class="sd">    GrowthResults</span>
 <span class="sd">        The merged results.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">,</span> <span class="n">it</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">it</span><span class="p">)</span></div>
 
 </pre></div>
         </article>

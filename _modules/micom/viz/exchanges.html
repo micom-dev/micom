@@ -307,6 +307,7 @@
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span> <span class="nn">scipy.cluster.hierarchy</span> <span class="kn">import</span> <span class="n">linkage</span><span class="p">,</span> <span class="n">leaves_list</span>
 <span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">micom.workflows.results</span> <span class="kn">import</span> <span class="n">GrowthResults</span>
 <span class="kn">from</span> <span class="nn">micom.viz.core</span> <span class="kn">import</span> <span class="n">Visualization</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
@@ -315,10 +316,10 @@
 <div class="viewcode-block" id="plot_exchanges_per_sample">
 <a class="viewcode-back" href="../../../autoapi/micom/viz/index.html#micom.viz.exchanges.plot_exchanges_per_sample">[docs]</a>
 <span class="k">def</span> <span class="nf">plot_exchanges_per_sample</span><span class="p">(</span>
-    <span class="n">results</span><span class="p">,</span>
-    <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;sample_exchanges_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
-    <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;import&quot;</span><span class="p">,</span>
-    <span class="n">cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">results</span><span class="p">:</span> <span class="n">GrowthResults</span><span class="p">,</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sample_exchanges_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
+    <span class="n">direction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;import&quot;</span><span class="p">,</span>
+    <span class="n">cluster</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the per sample exchange fluxes.</span>
 
@@ -382,10 +383,11 @@
 <div class="viewcode-block" id="plot_exchanges_per_taxon">
 <a class="viewcode-back" href="../../../autoapi/micom/viz/index.html#micom.viz.exchanges.plot_exchanges_per_taxon">[docs]</a>
 <span class="k">def</span> <span class="nf">plot_exchanges_per_taxon</span><span class="p">(</span>
-    <span class="n">results</span><span class="p">,</span>
-    <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;taxon_exchanges_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
-    <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;import&quot;</span><span class="p">,</span>
-    <span class="n">use_total_flux</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">results</span><span class="p">:</span> <span class="n">GrowthResults</span><span class="p">,</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;taxon_exchanges_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
+    <span class="n">direction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;import&quot;</span><span class="p">,</span>
+    <span class="n">groups</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">use_total_flux</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">tsne_args</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the exchange fluxes per taxon.</span>
@@ -398,6 +400,10 @@
 <span class="sd">        The HTML file where the visualization will be saved.</span>
 <span class="sd">    direction : str either &quot;import&quot; or &quot;export&quot;</span>
 <span class="sd">        The direction of fluxes to plot.</span>
+<span class="sd">    groups : pandas.Series</span>
+<span class="sd">        Additional metadata to color exchanges. The index must correspond to the</span>
+<span class="sd">        `sample_id` in the results and values must be categorical. The `.name` attribute</span>
+<span class="sd">        will be used to name the groups. If not provided will color by taxon.</span>
 <span class="sd">    use_total_fluxes : bool</span>
 <span class="sd">        Whether to use fluxes normalized to 1gDW of bacteria or the total flux.</span>
 <span class="sd">    tsne_args : dict</span>
@@ -440,9 +446,18 @@
     <span class="n">reduced</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
         <span class="n">reduced</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">mat</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;TSNE 1&quot;</span><span class="p">,</span> <span class="s2">&quot;TSNE 2&quot;</span><span class="p">]</span>
     <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">groups</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;bool&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Groups need to be categorical.&quot;</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;group&quot;</span> <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">reduced</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="n">reduced</span><span class="o">.</span><span class="n">sample_id</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;taxon&quot;</span>
+
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;reduced&quot;</span><span class="p">:</span> <span class="n">reduced</span><span class="p">}</span>
     <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;reduced.html&quot;</span><span class="p">)</span>
-    <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">reduced</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">reduced</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">viz</span></div>
 

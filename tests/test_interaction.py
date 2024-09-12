@@ -4,6 +4,7 @@ from .fixtures import results, growth_data
 import micom.interaction as mi
 import pytest
 
+
 def test_focal(results):
     """Test single focal taxon."""
     print(results.growth_rates.columns)
@@ -12,6 +13,7 @@ def test_focal(results):
     assert ints.partner.nunique() > 10
     assert all(ints.flux > 0)
 
+
 def test_taxon_correction(results):
     """Test taxon name correction."""
     ints = mi.interactions(results, taxa="s__Akkermansia muciniphila", progress=False)
@@ -19,13 +21,16 @@ def test_taxon_correction(results):
     assert ints.partner.nunique() > 10
     assert all(ints.flux > 0)
 
+
 def test_wrong_taxa(results):
     """Test incorrect taxa names."""
     with pytest.raises(ValueError):
         mi.interactions(results, taxa="s__Akkermansia_muciniphilos", progress=False)
     with pytest.raises(ValueError):
         mi.interactions(
-            results, taxa=["s__Akkermansia_muciniphila", "blub"], progress=False)
+            results, taxa=["s__Akkermansia_muciniphila", "blub"], progress=False
+        )
+
 
 def test_summary(results):
     """Test the the results summary."""
@@ -36,6 +41,7 @@ def test_summary(results):
     for cl in ["provided", "received", "co-consumed"]:
         assert cl in summ["class"].unique()
     assert all(summ.groupby(["sample_id", "focal", "partner"]).flux.count() <= 3)
+
 
 def test_all_interactions(growth_data):
     """Test all vs all."""
@@ -48,6 +54,7 @@ def test_all_interactions(growth_data):
     assert summ.partner.nunique() == 3
     for col in ["mass_flux", "flux", "C_flux", "N_flux", "n_ints"]:
         assert col in summ.columns
+
 
 def test_mes(results):
     """Test MES score."""

@@ -142,7 +142,7 @@ def load_results(path):
     return GrowthResults.load(path)
 
 
-def combine_results(it : typing.Iterable[GrowthResults]) -> GrowthResults:
+def combine_results(it: typing.Iterable[GrowthResults]) -> GrowthResults:
     """Combine several GrowthResults.
 
     Arguments
@@ -155,4 +155,4 @@ def combine_results(it : typing.Iterable[GrowthResults]) -> GrowthResults:
     GrowthResults
         The merged results.
     """
-    return reduce(lambda x, y: x+y, it)
+    return reduce(lambda x, y: x + y, it)

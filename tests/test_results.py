@@ -4,6 +4,7 @@ from micom.workflows.results import GrowthResults
 from .fixtures import community
 import pytest
 
+
 def test_conversion(community):
     sol = community.cooperative_tradeoff(fraction=0.5, fluxes=False)
     with pytest.raises(ValueError):
@@ -16,6 +17,7 @@ def test_conversion(community):
     assert "glc__D_m" in results.exchanges.metabolite.values
     assert hasattr(results, "annotations")
     assert "glc__D_m" in results.annotations.metabolite.values
+
 
 def test_add(community):
     sol = community.cooperative_tradeoff(fraction=0.5, fluxes=True)

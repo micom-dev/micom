@@ -142,7 +142,7 @@ def unify_rank_prefixes(taxonomy: pd.DataFrame, manifest: pd.DataFrame) -> pd.Da
     return taxonomy
 
 
-def taxon_id(term : str, rates : pd.DataFrame) -> str:
+def taxon_id(term: str, rates: pd.DataFrame) -> str:
     """Find the ID for a taxon.
 
     Arguments

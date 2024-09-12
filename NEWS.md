@@ -5,6 +5,13 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.37.0
+
+**Visualizations**
+
+`plot_exchanges_per_taxon` and `plot_growth` now allow to color points by arbitrary
+(categorical) metadata similar to `plot_mes`.
+
 ### 0.36.4
 
 Fix a bug in `check_db_medium` where the growth rate order was random.

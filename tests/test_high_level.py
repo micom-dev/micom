@@ -10,7 +10,7 @@ from micom.workflows import (
     complete_community_medium,
     save_results,
     load_results,
-    GrowthResults
+    GrowthResults,
 )
 from micom.logger import logger
 from micom.qiime_formats import load_qiime_medium, load_qiime_manifest
@@ -103,29 +103,31 @@ def test_media_no_summary(tmp_path):
     assert "flux" in media.columns
     assert "reaction" in media.columns
 
+
 def test_media_solution(tmp_path):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0)
-    media, res = minimal_media(built, str(tmp_path), growth=0.5, summarize=False, solution=True)
+    media, res = minimal_media(
+        built, str(tmp_path), growth=0.5, summarize=False, solution=True
+    )
     assert media.shape[0] > 3 * built.shape[0]
     assert "flux" in media.columns
     assert "reaction" in media.columns
     assert isinstance(res, GrowthResults)
     assert res.growth_rates.shape[0] == 12
 
+
 @pytest.mark.parametrize("w", [None, "mass", "C"])
 def test_media_weights(tmp_path, w):
     data = md.test_data()
     built = build(data, db, str(tmp_path), cutoff=0)
     media = minimal_media(
-        built,
-        str(tmp_path),
-        community_growth=0.5,
-        weights=w,
-        summarize=True)
+        built, str(tmp_path), community_growth=0.5, weights=w, summarize=True
+    )
     assert media.shape[0] > 3
     assert "flux" in media.columns
     assert "reaction" in media.columns
+
 
 def test_complete_community_medium(tmp_path):
     data = md.test_data()

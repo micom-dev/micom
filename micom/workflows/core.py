@@ -8,6 +8,7 @@ import warnings
 
 logger = logging.getLogger(__name__)
 
+
 def workflow(func, args, threads=4, description=None, progress=True):
     """Run analyses for several samples in parallel.
 

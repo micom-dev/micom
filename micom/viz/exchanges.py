@@ -3,16 +3,17 @@
 from datetime import datetime
 from scipy.cluster.hierarchy import linkage, leaves_list
 from micom.logger import logger
+from micom.workflows.results import GrowthResults
 from micom.viz.core import Visualization
 import pandas as pd
 from sklearn.manifold import TSNE
 
 
 def plot_exchanges_per_sample(
-    results,
-    filename="sample_exchanges_%s.html" % datetime.now().strftime("%Y%m%d"),
-    direction="import",
-    cluster=True,
+    results: GrowthResults,
+    filename: str = "sample_exchanges_%s.html" % datetime.now().strftime("%Y%m%d"),
+    direction: str = "import",
+    cluster: bool = True,
 ) -> None:
     """Plot the per sample exchange fluxes.
 
@@ -73,10 +74,11 @@ def plot_exchanges_per_sample(
 
 
 def plot_exchanges_per_taxon(
-    results,
-    filename="taxon_exchanges_%s.html" % datetime.now().strftime("%Y%m%d"),
-    direction="import",
-    use_total_flux=False,
+    results: GrowthResults,
+    filename: str = "taxon_exchanges_%s.html" % datetime.now().strftime("%Y%m%d"),
+    direction: str = "import",
+    groups: pd.Series = None,
+    use_total_flux: bool = False,
     **tsne_args,
 ) -> None:
     """Plot the exchange fluxes per taxon.
@@ -89,6 +91,10 @@ def plot_exchanges_per_taxon(
         The HTML file where the visualization will be saved.
     direction : str either "import" or "export"
         The direction of fluxes to plot.
+    groups : pandas.Series
+        Additional metadata to color exchanges. The index must correspond to the
+        `sample_id` in the results and values must be categorical. The `.name` attribute
+        will be used to name the groups. If not provided will color by taxon.
     use_total_fluxes : bool
         Whether to use fluxes normalized to 1gDW of bacteria or the total flux.
     tsne_args : dict
@@ -131,8 +137,17 @@ def plot_exchanges_per_taxon(
     reduced = pd.DataFrame(
         reduced, index=mat.index, columns=["TSNE 1", "TSNE 2"]
     ).reset_index()
+
+    if groups is not None:
+        if groups.dtype not in ["object", "category", "bool"]:
+            raise ValueError("Groups need to be categorical.")
+        name = "group" if groups.name is None else groups.name
+        reduced[name] = groups[reduced.sample_id].values
+    else:
+        name = "taxon"
+
     data = {"reduced": reduced}
     viz = Visualization(filename, data, "reduced.html")
-    viz.save(data=reduced.to_json(orient="records"), width=600, height=500)
+    viz.save(data=reduced.to_json(orient="records"), color=name, width=600, height=500)
 
     return viz

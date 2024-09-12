@@ -16,7 +16,7 @@ def test_community_objective(community):
     y = community.optimize(fluxes=True)
     assert isinstance(x, CommunitySolution)
     assert np.allclose(x.growth_rate, 0.873922)
-    assert np.allclose(x.members.growth_rate.dropna().sum(), 4*0.873922)
+    assert np.allclose(x.members.growth_rate.dropna().sum(), 4 * 0.873922)
     assert isinstance(y, CommunitySolution)
     assert y.fluxes.shape[0] == 5
 

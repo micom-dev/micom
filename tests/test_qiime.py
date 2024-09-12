@@ -9,6 +9,7 @@ from pytest import mark, raises, approx
 db, medium = test_db, test_medium
 models = path.join(this_dir, "data", "build.qza")
 
+
 def test_qiime_db(tmp_path):
     meta = qf.metadata(db)
     assert "uuid" in meta
@@ -17,14 +18,17 @@ def test_qiime_db(tmp_path):
     assert manifest.shape[0] == 4
     assert all(path.exists(f) for f in manifest.file)
 
+
 @mark.parametrize("arti", [db, models])
 def test_good_manifest(arti):
     manifest = qf.load_qiime_manifest(arti)
     assert "file" in manifest.columns
 
+
 def test_bad_manifest():
     with raises(ValueError):
         manifest = qf.load_qiime_manifest(medium)
+
 
 def test_qiime_medium():
     m = qf.load_qiime_medium(medium)

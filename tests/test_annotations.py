@@ -63,6 +63,7 @@ def test_annotations_micom_exchanges(community):
         for col in ["molecular_weight", "C_number", "N_number", "kegg.compound"]
     )
 
+
 def test_annotations_multiple_exchanges(community):
     mod = community
     ex_copy = mod.exchanges[0].copy()

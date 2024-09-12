@@ -13,11 +13,7 @@ medium["global_id"] = medium["reaction"].replace("_m$", "_e", regex=True)
 def test_complete_strict():
     pruned = medium.iloc[0:2]
     manifest, fixed = complete_db_medium(
-        db,
-        growth=0.85,
-        medium=pruned,
-        strict=pruned.global_id,
-        max_added_import=20
+        db, growth=0.85, medium=pruned, strict=pruned.global_id, max_added_import=20
     )
     assert fixed.shape[0] > 2
     assert manifest.can_grow.all()
@@ -27,10 +23,7 @@ def test_complete_strict():
 
 def test_complete_non_strict():
     manifest, fixed = complete_db_medium(
-        db,
-        growth=0.95,
-        medium=medium,
-        max_added_import=20
+        db, growth=0.95, medium=medium, max_added_import=20
     )
     assert fixed.shape[0] > 2
     assert manifest.added.mean() > 0
@@ -45,7 +38,7 @@ def test_complete_weighted():
         medium=pruned,
         strict=pruned.global_id,
         max_added_import=20,
-        weights="mass"
+        weights="mass",
     )
     assert fixed.shape[0] > 2
     assert manifest.can_grow.all()

@@ -84,7 +84,7 @@
               selection: "pts",
               field: "{{ color }}",
               type: "nominal",
-              legend: null
+              {% if color == "taxon" %}legend: null{% endif %}
             },
             value: "lightgrey"
           },

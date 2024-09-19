@@ -1,0 +1,8 @@
+metadata: /path/to/sample_metadata.csv
+abundances: /path/to/long_otu_table.csv
+taxonomy_data: None
+agora: agora103_genus.qza
+medium: western_diet_gut_agora.qza
+cutoff: 0.01
+tradeoff: None
+container: "docker://ghcr.io/vdblab/micom:0.37.0"

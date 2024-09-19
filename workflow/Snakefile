@@ -1,0 +1,180 @@
+import os
+import sys
+
+
+from micom.workflows import build
+from micom import Community
+import micom.qiime_formats as qf
+from micom.qiime_formats import load_qiime_medium
+from micom.workflows import build
+from micom import Community
+from micom.workflows import tradeoff
+import seaborn as sns
+import pandas as pd
+
+
+configfile: os.path.join(workflow.basedir, "../config/config.yaml")
+
+data = pd.read_csv(config["abundances"])
+for col in ["sample_id", "id", "genus", "abundance"]:
+    assert col in data.columns, f"{col} must be a column name"
+
+metadata = pd.read_csv(config["metadata"])
+assert "sample_id" in metadata.columns, "sample_id must be a column name"
+if "testn" in config:
+    metadata = metadata.head(config["testn"])
+
+
+agora_taxa = qf.load_qiime_manifest(config["agora"])
+agora_genera = agora_taxa.genus
+#print(agora_genera)
+ambig_genera_df = data[~data.genus.isin(agora_genera)].groupby("id")["abundance"].agg(["median", "mean", "max"]).sort_values("mean", ascending=False)
+
+ambig_genera_df.to_csv("unmatchable_genera.csv")
+
+# TODO: take these from an external file:
+# here I'm picking the best match based on GTDB
+# https://raw.githubusercontent.com/biobakery/MetaPhlAn/master/metaphlan/utils/mpa_vJun23_CHOCOPhlAnSGB_202403_SGB2GTDB.tsv
+replacements = {
+    'Clostridia_unclassified': 'Clostridium',
+    'Candidatus_Cibiobacter': 'Faecalibacterium', # no good solution, its either Ruminococcicae or Faecalibacterium  https://www.sciencedirect.com/science/article/pii/S0092867419300017
+    'Lachnospiraceae_unclassified':'unclassified Lachnospiraceae genus',
+    'Fusicatenibacter':'unclassified Lachnospiraceae genus',
+    'Ruminococcaceae_unclassified': 'unclassified Ruminococcaceae genus',
+    'Gemmiger': 'unclassified Ruminococcaceae genus', # bummer
+    'GGB9633': 'unclassified Ruminococcaceae genus',
+'GGB3293': 'Clostridium',
+   'Ruthenibacterium': 'unclassified Ruminococcaceae genus',
+'Clostridiaceae_unclassified':  'Clostridium',
+  'GGB3256': 'unclassified Ruminococcaceae genus', # Acutalibacteraceae
+    # no good match for Evtepia
+    "Faecalimonas":'unclassified Lachnospiraceae genus',
+    # No good match for f__Ruminococcaceae|g__GGB9699. | o__Oscillospirales
+    # no good match for "|g__Eggerthellaceae_unclassified"
+    # no good match for Eisenbergiella
+}
+for k,v in replacements.items():
+    tochange = data["genus"] == k
+    data.loc[tochange, 'genus'] = v
+
+assert config["stage"] in ["tradeoff", "grow"], "stage must either be tradeoff or grow"
+
+if config["stage"] == "tradeoff":
+    targets = "tradeoff.csv"
+else:
+    targets = "growth.zip"
+
+rule all:
+    input:
+        expand("models/{sample}.pickle", sample = metadata.sample_id),
+        targets
+
+
+
+rule build:
+    input:
+        agora_file=config["agora"],
+    output:
+        outf="models/{sample}.pickle",
+        out_manifest = "manifests/{sample}.csv"
+    threads: 2
+    params:
+        cutoff=config["cutoff"]
+    run:
+        thisdata = data[data.sample_id == wildcards.sample]
+        print(thisdata.shape)
+        manifest_osqp = build(
+            thisdata,
+            input.agora_file,
+            os.path.dirname(output.outf),
+            solver="osqp",
+            cutoff=params.cutoff,
+            threads=2)
+        manifest_osqp.to_csv(output.out_manifest, index=False)
+
+
+
+rule merge_minifests:
+    input:
+        infiles = expand("manifests/{sample}.csv", sample = metadata.sample_id)
+    output:
+        outf = "manifest.csv"
+    run:
+        manifest = pd.concat((pd.read_csv(f) for f in input.infiles), ignore_index=True)
+        manifest.to_csv(output.outf, index=False)
+
+rule get_tradeoff:
+    input:
+        manifest = "manifests/{sample}.csv",
+        model = "models/{sample}.pickle",
+        medium = config["medium"]
+    output:
+        outf = "tradeoffs/{sample}.csv"
+    threads: 2
+    resources:
+        runtime=4 * 60,
+    run:
+        medium = load_qiime_medium(input.medium)
+        manifest = pd.read_csv(input.manifest)
+        tradeoff_results = tradeoff(
+            manifest,
+            os.path.dirname(input.model),
+            medium,
+            threads=2
+        )
+        tradeoff_results.to_csv(output.outf, index=False)
+
+use rule merge_minifests as merge_tradeoffs with:
+    input:
+        infiles = expand("tradeoffs/{sample}.csv", sample = metadata.sample_id)
+    output:
+        outf = "tradeoff.csv"
+
+rule grow_sample:
+    input:
+        manifest = "manifests/{sample}.csv",
+        model = "models/{sample}.pickle",
+        medium = config["medium"]
+    output:
+        growth="growth/{sample}.zip"
+    params:
+        tradeoff = config["tradeoff"]
+    threads: 4
+    run:
+        growth = grow(
+            data[data.sample_id == wildcards.sample],
+            os.path.dirname(input.model),
+            tradeoff=params.tradeoff,
+            threads=threads,
+            presolve=True)
+        save_results(growth, output.growth)
+
+def merge_gr(gra, grb):
+    from copy import deepcopy
+    new = deepcopy(gra)
+    _exchanges = pd.concat(gra.exchanges, grb.exchanges, ignore_index=True)
+    _growth_rates =  pd.concat(gra.exchanges, grb.exchanges, ignore_index=True)
+    new.exchanges = _exchanges
+    new.growth_rates = _growth_rates
+    return(new)
+
+
+rule merge_growth:
+    input:
+        infiles = expand("growths/{sample}.zip", sample= data.sample_id.unique())
+    output:
+        growth = "growth.zip"
+    run:
+        growth = load_results(infiles[0])
+        for i in infiles[2: len(infiles)]:
+            print(i)
+            growthb = load_results(infiles[i])
+            merge_gr(growth, growthb)
+        save_results(growth, output.growth)
+
+# rule plot_found_abundance_fraction:
+#     input:
+#         manifest
+
+#         sns.boxplot(data=manifest_osqp, x="found_abundance_fraction", y="cancer")
+# sns.swarmplot(data=manifest_osqp, x="found_abundance_fraction", y="cancer")

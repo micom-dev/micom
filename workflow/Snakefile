@@ -2,13 +2,11 @@ import os
 import sys
 
 
-from micom.workflows import build
 from micom import Community
 import micom.qiime_formats as qf
 from micom.qiime_formats import load_qiime_medium
-from micom.workflows import build
+from micom.workflows import grow, save_results, build, tradeoff, load_results
 from micom import Community
-from micom.workflows import tradeoff
 import seaborn as sns
 import pandas as pd
 
@@ -60,8 +58,12 @@ for k,v in replacements.items():
 assert config["stage"] in ["tradeoff", "grow"], "stage must either be tradeoff or grow"
 
 if config["stage"] == "tradeoff":
-    targets = "tradeoff.csv"
+    targets = [
+        "tradeoff.csv",
+        "tradeoff.html",
+        ]
 else:
+    assert config["tradeoff"] is not None, "Must set tradeoff config value"
     targets = "growth.zip"
 
 rule all:
@@ -130,6 +132,16 @@ use rule merge_minifests as merge_tradeoffs with:
     output:
         outf = "tradeoff.csv"
 
+rule plot_tradeoff:
+    input:
+        inf = "tradeoff.csv"
+    output:
+        html = "tradeoff.html"
+    run:
+        from micom.viz import plot_tradeoff
+        tradeoff = pd.read_csv(input.inf)
+        plot_tradeoff(tradeoff, filename=output.html,  tolerance=1e-06)
+
 rule grow_sample:
     input:
         manifest = "manifests/{sample}.csv",
@@ -141,9 +153,12 @@ rule grow_sample:
         tradeoff = config["tradeoff"]
     threads: 4
     run:
+        medium = load_qiime_medium(input.medium)
+        manifest = pd.read_csv(input.manifest)
         growth = grow(
-            data[data.sample_id == wildcards.sample],
+            manifest,
             os.path.dirname(input.model),
+            medium,
             tradeoff=params.tradeoff,
             threads=threads,
             presolve=True)
@@ -152,8 +167,8 @@ rule grow_sample:
 def merge_gr(gra, grb):
     from copy import deepcopy
     new = deepcopy(gra)
-    _exchanges = pd.concat(gra.exchanges, grb.exchanges, ignore_index=True)
-    _growth_rates =  pd.concat(gra.exchanges, grb.exchanges, ignore_index=True)
+    _exchanges = pd.concat([gra.exchanges, grb.exchanges], ignore_index=True)
+    _growth_rates =  pd.concat([gra.exchanges, grb.exchanges], ignore_index=True)
     new.exchanges = _exchanges
     new.growth_rates = _growth_rates
     return(new)
@@ -161,14 +176,14 @@ def merge_gr(gra, grb):
 
 rule merge_growth:
     input:
-        infiles = expand("growths/{sample}.zip", sample= data.sample_id.unique())
+        infiles = expand("growth/{sample}.zip", sample= metadata.sample_id)
     output:
         growth = "growth.zip"
     run:
-        growth = load_results(infiles[0])
-        for i in infiles[2: len(infiles)]:
+        growth = load_results(input.infiles[0])
+        for i in range(2, len(input.infiles)):
             print(i)
-            growthb = load_results(infiles[i])
+            growthb = load_results(input.infiles[i])
             merge_gr(growth, growthb)
         save_results(growth, output.growth)
 

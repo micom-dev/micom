@@ -114,7 +114,7 @@ rule get_tradeoff:
         outf = "tradeoffs/{sample}.csv"
     threads: 2
     resources:
-        runtime=4 * 60,
+        runtime=8 * 60,
     run:
         medium = load_qiime_medium(input.medium)
         manifest = pd.read_csv(input.manifest)

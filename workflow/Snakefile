@@ -17,43 +17,25 @@ data = pd.read_csv(config["abundances"])
 for col in ["sample_id", "id", "genus", "abundance"]:
     assert col in data.columns, f"{col} must be a column name"
 
-metadata = pd.read_csv(config["metadata"])
-assert "sample_id" in metadata.columns, "sample_id must be a column name"
+
+metadata = pd.DataFrame(data.sample_id.unique(), columns=["sample_id"])
 if "testn" in config:
     metadata = metadata.head(config["testn"])
 
 
 agora_taxa = qf.load_qiime_manifest(config["agora"])
 agora_genera = agora_taxa.genus
-#print(agora_genera)
-ambig_genera_df = data[~data.genus.isin(agora_genera)].groupby("id")["abundance"].agg(["median", "mean", "max"]).sort_values("mean", ascending=False)
+ambig_genera_df = data[~data.genus.isin(agora_genera)].groupby("genus")["abundance"].agg(["median", "mean", "max"]).sort_values("mean", ascending=False)
 
 ambig_genera_df.to_csv("unmatchable_genera.csv")
 
-# TODO: take these from an external file:
-# here I'm picking the best match based on GTDB
-# https://raw.githubusercontent.com/biobakery/MetaPhlAn/master/metaphlan/utils/mpa_vJun23_CHOCOPhlAnSGB_202403_SGB2GTDB.tsv
-replacements = {
-    'Clostridia_unclassified': 'Clostridium',
-    'Candidatus_Cibiobacter': 'Faecalibacterium', # no good solution, its either Ruminococcicae or Faecalibacterium  https://www.sciencedirect.com/science/article/pii/S0092867419300017
-    'Lachnospiraceae_unclassified':'unclassified Lachnospiraceae genus',
-    'Fusicatenibacter':'unclassified Lachnospiraceae genus',
-    'Ruminococcaceae_unclassified': 'unclassified Ruminococcaceae genus',
-    'Gemmiger': 'unclassified Ruminococcaceae genus', # bummer
-    'GGB9633': 'unclassified Ruminococcaceae genus',
-'GGB3293': 'Clostridium',
-   'Ruthenibacterium': 'unclassified Ruminococcaceae genus',
-'Clostridiaceae_unclassified':  'Clostridium',
-  'GGB3256': 'unclassified Ruminococcaceae genus', # Acutalibacteraceae
-    # no good match for Evtepia
-    "Faecalimonas":'unclassified Lachnospiraceae genus',
-    # No good match for f__Ruminococcaceae|g__GGB9699. | o__Oscillospirales
-    # no good match for "|g__Eggerthellaceae_unclassified"
-    # no good match for Eisenbergiella
-}
-for k,v in replacements.items():
-    tochange = data["genus"] == k
-    data.loc[tochange, 'genus'] = v
+if "taxakey" in config:
+    replacementsdf = pd.read_csv(config["taxakey"], usecols=['A', 'B'])
+    replacements = dict(zip(replacementsdf.A, replacementsdf.B))
+    print(replacements)
+    for k,v in replacements.items():
+        tochange = data["genus"] == k
+        data.loc[tochange, 'genus'] = v
 
 assert config["stage"] in ["tradeoff", "grow"], "stage must either be tradeoff or grow"
 
@@ -114,7 +96,7 @@ rule get_tradeoff:
         outf = "tradeoffs/{sample}.csv"
     threads: 2
     resources:
-        runtime=8 * 60,
+        runtime=lambda wc, attempt: 24 * 60 * attempt,
     run:
         medium = load_qiime_medium(input.medium)
         manifest = pd.read_csv(input.manifest)
@@ -122,7 +104,7 @@ rule get_tradeoff:
             manifest,
             os.path.dirname(input.model),
             medium,
-            threads=2
+            threads=threads
         )
         tradeoff_results.to_csv(output.outf, index=False)
 
@@ -152,6 +134,8 @@ rule grow_sample:
     params:
         tradeoff = config["tradeoff"]
     threads: 4
+    resources:
+        runtime=lambda wc, attempt: 4 * 60 * attempt,
     run:
         medium = load_qiime_medium(input.medium)
         manifest = pd.read_csv(input.manifest)

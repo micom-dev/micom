@@ -50,6 +50,7 @@ else:
 
 rule all:
     input:
+        "manifest.csv",
         expand("models/{sample}.pickle", sample = metadata.sample_id),
         targets
 

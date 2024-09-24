@@ -83,6 +83,7 @@ rule merge_minifests:
         infiles = expand("manifests/{sample}.csv", sample = metadata.sample_id)
     output:
         outf = "manifest.csv"
+
     run:
         manifest = pd.concat((pd.read_csv(f) for f in input.infiles), ignore_index=True)
         manifest.to_csv(output.outf, index=False)
@@ -170,10 +171,3 @@ rule merge_growth:
             growthb = load_results(input.infiles[i])
             merge_gr(growth, growthb)
         save_results(growth, output.growth)
-
-# rule plot_found_abundance_fraction:
-#     input:
-#         manifest
-
-#         sns.boxplot(data=manifest_osqp, x="found_abundance_fraction", y="cancer")
-# sns.swarmplot(data=manifest_osqp, x="found_abundance_fraction", y="cancer")

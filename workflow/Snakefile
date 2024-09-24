@@ -154,7 +154,7 @@ def merge_gr(gra, grb):
     from copy import deepcopy
     new = deepcopy(gra)
     _exchanges = pd.concat([gra.exchanges, grb.exchanges], ignore_index=True)
-    _growth_rates =  pd.concat([gra.exchanges, grb.exchanges], ignore_index=True)
+    _growth_rates =  pd.concat([gra.growth_rates, grb.growth_rates], ignore_index=True)
     new.exchanges = _exchanges
     new.growth_rates = _growth_rates
     return(new)
@@ -170,5 +170,6 @@ rule merge_growth:
         for i in range(2, len(input.infiles)):
             print(i)
             growthb = load_results(input.infiles[i])
-            merge_gr(growth, growthb)
+            growth = merge_gr(growth, growthb)
+            print(growth.growth_rates.shape)
         save_results(growth, output.growth)

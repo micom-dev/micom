@@ -26,7 +26,7 @@ This workflow requires three files:
 First, run the workflow with the `--dry-run` flag to prevent snakemake from submitting any jobs.  This will run the logic to match up the genera you provided with those present in the pre-formated AGORA model.  Genera not able to matched will be written to `unmatchable_genera.csv` in your output directory. In cases of naming mismatches, create a csv file containing your and AGORA's genus names as columns `A` and `B`, and supply in the next step.
 
 ```
-snakemake --config stage=tradeoff  abundances=$PWD/data.csv agora=$PWD/resources/agora103_genus.qza medium=$PWD/resources/western_diet_gut_agora.qza  --directory $PWD/results/  --dry-run
+snakemake --config stage=tradeoff  abundances=$PWD/data.csv agora=$PWD/agora103_genus.qza medium=$PWD/western_diet_gut.qza  --directory $PWD/results/  --dry-run
 ```
 
 ## Step 1: Identifying an optimal tradeoff
@@ -34,7 +34,7 @@ snakemake --config stage=tradeoff  abundances=$PWD/data.csv agora=$PWD/resources
 We will utilize Snakemake config arguments to first submit jobs calculating the optimal tradeoff parameter for each sample.  The config can be modified to set the appropriate taxa abundance cutoff.
 
 ```
-snakemake --config stage=tradeoff cutoff=0.05  abundances=$PWD/data.csv agora=$PWD/resources/agora103_genus.qza medium=$PWD/resources/western_diet_gut_agora.qza  --directory $PWD/results/
+snakemake --config stage=tradeoff cutoff=0.05  abundances=$PWD/data.csv agora=$PWD/agora103_genus.qza medium=$PWD/western_diet_gut.qza  --directory $PWD/results/
 ```
 
 
@@ -42,7 +42,7 @@ snakemake --config stage=tradeoff cutoff=0.05  abundances=$PWD/data.csv agora=$P
 Having decided on the tradeoff value based on the visualizations in `results/tradeoff.html`, you can now submit the growth jobs! This is done by changing the `stage` config argument, setting the `tradeoff` argument, and re-using the same output `--directory`.
 
 ```
-snakemake --config stage=grow tradeoff=0.6 cutoff=0.05 abundances=$PWD/data.csv agora=$PWD/resources/agora103_genus.qza medium=$PWD/resources/western_diet_gut_agora.qza  --directory $PWD/results/
+snakemake --config stage=grow tradeoff=0.6 cutoff=0.05 abundances=$PWD/data.csv agora=$PWD/agora103_genus.qza medium=$PWD/western_diet_gut.qza  --directory $PWD/results/
 ```
 
 ## Step 3: Analysis

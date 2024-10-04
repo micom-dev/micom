@@ -14,8 +14,9 @@ import pandas as pd
 configfile: os.path.join(workflow.basedir, "../config/config.yaml")
 
 data = pd.read_csv(config["abundances"])
-for col in ["sample_id", "id", "genus", "abundance"]:
+for col in ["sample_id",  "genus", "abundance"]:
     assert col in data.columns, f"{col} must be a column name"
+data = thisdata[data.abundance > 0]
 
 
 metadata = pd.DataFrame(data.sample_id.unique(), columns=["sample_id"])
@@ -28,6 +29,7 @@ agora_genera = agora_taxa.genus
 ambig_genera_df = data[~data.genus.isin(agora_genera)].groupby("genus")["abundance"].agg(["median", "mean", "max"]).sort_values("mean", ascending=False)
 
 ambig_genera_df.to_csv("unmatchable_genera.csv")
+agora_taxa.genus.to_csv("available_genera.csv")
 
 if "taxakey" in config:
     replacementsdf = pd.read_csv(config["taxakey"], usecols=['A', 'B'])
@@ -36,6 +38,18 @@ if "taxakey" in config:
     for k,v in replacements.items():
         tochange = data["genus"] == k
         data.loc[tochange, 'genus'] = v
+    # after replacing, we need to resum by genus to avoid duplicates
+    data = data.groupby(['sample_id', 'genus'])['abundance'].sum().reset_index()
+
+
+# check for samples with no evaluable taxa
+for sample in data.sample_id.unique():
+    _data = data[data.sample_id == sample]
+    _data = _data[_data.genus.isin(agora_genera)]
+    if _data.shape[0] == 0:
+        raise ValueError(f"sample {sample} has no evaluable genera")
+# remove non-agora taxa
+data = data[data.genus.isin(agora_genera)]
 
 assert config["stage"] in ["tradeoff", "grow"], "stage must either be tradeoff or grow"
 
@@ -66,15 +80,16 @@ rule build:
     params:
         cutoff=config["cutoff"]
     run:
+        from micom.logger import logger
+        logger.setLevel("INFO")
         thisdata = data[data.sample_id == wildcards.sample]
-        print(thisdata.shape)
         manifest_osqp = build(
             thisdata,
             input.agora_file,
             os.path.dirname(output.outf),
             solver="osqp",
             cutoff=params.cutoff,
-            threads=2)
+            threads=1)
         manifest_osqp.to_csv(output.out_manifest, index=False)
 
 

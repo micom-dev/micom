@@ -16,7 +16,7 @@ configfile: os.path.join(workflow.basedir, "../config/config.yaml")
 data = pd.read_csv(config["abundances"])
 for col in ["sample_id",  "genus", "abundance"]:
     assert col in data.columns, f"{col} must be a column name"
-data = thisdata[data.abundance > 0]
+data = data[data.abundance > 0]
 
 
 metadata = pd.DataFrame(data.sample_id.unique(), columns=["sample_id"])

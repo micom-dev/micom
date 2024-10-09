@@ -20,6 +20,13 @@ data = data[data.abundance > 0]
 
 
 metadata = pd.DataFrame(data.sample_id.unique(), columns=["sample_id"])
+if "ignore_samples" in config:
+    if config["stage"] == "grow":
+        print("Are you sure you want to exclude samples from the grow stage?")
+    for sample in config["ignore_samples"]:
+        print("dropping sample")
+        metadata = metadata[metadata.sample_id != sample]
+
 if "testn" in config:
     metadata = metadata.head(config["testn"])
 

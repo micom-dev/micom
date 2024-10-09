@@ -177,8 +177,10 @@ def merge_gr(gra, grb):
     new = deepcopy(gra)
     _exchanges = pd.concat([gra.exchanges, grb.exchanges], ignore_index=True)
     _growth_rates =  pd.concat([gra.growth_rates, grb.growth_rates], ignore_index=True)
+    _annotations =  pd.concat([gra.annotations, grb.annotations], ignore_index=True).drop_duplicates().reset_index(drop=True)
     new.exchanges = _exchanges
     new.growth_rates = _growth_rates
+    new.annotations = _annotations
     return(new)
 
 

@@ -121,24 +121,10 @@ Module Contents
       :type: pandas.Series
 
 
-   .. py:attribute:: rids
-
-
-   .. py:attribute:: mids
-
-
-   .. py:attribute:: gcs
-
-
    .. py:attribute:: strategy
 
 
    .. py:attribute:: members
-
-
-   .. py:attribute:: name
-      :value: 'compartments'
-
 
 
    .. py:attribute:: growth_rate

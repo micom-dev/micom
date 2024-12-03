@@ -308,6 +308,7 @@ def adjust_solver_config(solver):
     solver.configuration.tolerances.feasibility = 1e-6
     solver.configuration.presolve = True
     if interface == "cplex":
+        solver.configuration.presolve = False
         solver.configuration.lp_method = "barrier"
         solver.configuration.qp_method = "barrier"
         solver.problem.parameters.threads.set(1)
@@ -319,7 +320,7 @@ def adjust_solver_config(solver):
         solver.problem.Params.BarIterLimit = 2000
         solver.problem.Params.CrossoverBasis = 1
         solver.problem.Params.ScaleFlag = 2
-        solver.problem.Params.NumericFocus = 1
+        solver.problem.Params.NumericFocus = 2
         solver.problem.Params.Threads = 1
         solver.problem.Params.LogToConsole = 0
     if interface == "hybrid":

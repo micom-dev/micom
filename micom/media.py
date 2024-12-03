@@ -184,7 +184,7 @@ def minimal_medium(
     atol : float
         Absolute tolerance for the growth rates. If None will use the solver tolerance.
     rtol : float
-        Relative tolerqance for the growth rates. If None will use the solver tolerance.
+        Relative tolerance for the growth rates. If None will use the solver tolerance.
 
 
     Returns

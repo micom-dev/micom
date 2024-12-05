@@ -7,8 +7,9 @@ Welcome
 -------
 
 `MICOM` is a Python package for metabolic modeling of microbial
-communities currently developed in the
-`Gibbons Lab <https://gibbons.systemsbiology.org>`_ at the `Institute for Systems
+communities currently developed in the `Diener Lab <https://dienerlab.com>`_ at the 
+`Medical University of Graz <https://medunigraz.at>`_. Previous development took place in
+the `Gibbons Lab <https://gibbons.systemsbiology.org>`_ at the `Institute for Systems
 Biology <https://systemsbiology.org>`_ and the
 `Human Systems Biology Group <https://resendislab.github.io>`_ of
 Prof. Osbaldo Resendis Antonio at the `National Institute of Genomic
@@ -18,7 +19,7 @@ Medicine Mexico <https://inmegen.gob.mx>`_.
 COBRA models and manages exchange fluxes between individuals and individuals
 with the environment. It explicitly accounts for different abundances of
 individuals in the community and can thus incorporate data from biomass quantification,
-cytometry, ampliconsequencing, or metagenomic shotgun sequencing.
+cytometry, amplicon sequencing, or metagenomic shotgun sequencing.
 
 It identifies a relevant flux space by incorporating an ecological model for the trade-off
 between individual taxa growth and community-wide growth that shows good agreement with

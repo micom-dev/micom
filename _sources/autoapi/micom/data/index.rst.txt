@@ -29,6 +29,8 @@ Package Contents
 ----------------
 
 .. py:data:: agora
+   :value: None
+
 
 .. py:function:: test_taxonomy(n=4)
 

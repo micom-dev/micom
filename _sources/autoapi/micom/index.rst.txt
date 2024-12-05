@@ -81,6 +81,8 @@ Package Contents
 
 
    .. py:attribute:: solver
+      :value: None
+
 
       Get the attached solver instance.
 
@@ -99,6 +101,8 @@ Package Contents
 
 
    .. py:attribute:: _rtol
+      :value: 1e-06
+
 
 
    .. py:attribute:: _modification
@@ -107,6 +111,8 @@ Package Contents
 
 
    .. py:attribute:: mass
+      :value: 1
+
 
 
    .. py:attribute:: __db_metrics

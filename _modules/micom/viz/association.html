@@ -6,7 +6,7 @@
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
         <title>micom.viz.association - version 0.37.0</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -304,27 +304,27 @@
           <h1>Source code for micom.viz.association</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Visualization for phenotype prediction.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">micom.viz</span> <span class="kn">import</span> <span class="n">Visualization</span>
-<span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">micom.measures</span> <span class="kn">import</span> <span class="n">production_rates</span><span class="p">,</span> <span class="n">consumption_rates</span>
-<span class="kn">from</span> <span class="nn">micom</span> <span class="kn">import</span> <span class="n">stats</span>
-<span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">pandas.api.types</span> <span class="kn">import</span> <span class="n">is_numeric_dtype</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">micom.viz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Visualization</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">micom.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">micom.measures</span><span class="w"> </span><span class="kn">import</span> <span class="n">production_rates</span><span class="p">,</span> <span class="n">consumption_rates</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">micom</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pandas.api.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_numeric_dtype</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">cross_val_predict</span><span class="p">,</span>
     <span class="n">cross_val_score</span><span class="p">,</span>
     <span class="n">LeaveOneOut</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">LogisticRegressionCV</span><span class="p">,</span>
     <span class="n">LassoCV</span><span class="p">,</span>
     <span class="n">LogisticRegression</span><span class="p">,</span>
     <span class="n">Lasso</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
 
 <div class="viewcode-block" id="PANDAS_VERSION">
 <a class="viewcode-back" href="../../../autoapi/micom/viz/association/index.html#micom.viz.association.PANDAS_VERSION">[docs]</a>
@@ -334,7 +334,7 @@
 
 <div class="viewcode-block" id="plot_association">
 <a class="viewcode-back" href="../../../autoapi/micom/viz/index.html#micom.viz.association.plot_association">[docs]</a>
-<span class="k">def</span> <span class="nf">plot_association</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_association</span><span class="p">(</span>
     <span class="n">results</span><span class="p">,</span>
     <span class="n">phenotype</span><span class="p">,</span>
     <span class="n">variable_type</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>

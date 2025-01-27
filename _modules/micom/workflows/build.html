@@ -6,7 +6,7 @@
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
         <title>micom.workflows.build - version 0.37.0</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -304,17 +304,17 @@
           <h1>Source code for micom.workflows.build</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Worflow to build models for several samples.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">cobra.io</span> <span class="kn">import</span> <span class="n">save_json_model</span>
-<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
-<span class="kn">from</span> <span class="nn">..constants</span> <span class="kn">import</span> <span class="n">RANKS</span>
-<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">join_models</span><span class="p">,</span> <span class="n">load_pickle</span><span class="p">,</span> <span class="n">_read_model</span>
-<span class="kn">from</span> <span class="nn">..community</span> <span class="kn">import</span> <span class="n">Community</span>
-<span class="kn">from</span> <span class="nn">..workflows.core</span> <span class="kn">import</span> <span class="n">workflow</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
-<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cobra.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">save_json_model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">glob</span><span class="w"> </span><span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">RANKS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..util</span><span class="w"> </span><span class="kn">import</span> <span class="n">join_models</span><span class="p">,</span> <span class="n">load_pickle</span><span class="p">,</span> <span class="n">_read_model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..community</span><span class="w"> </span><span class="kn">import</span> <span class="n">Community</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..workflows.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">workflow</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tempfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">TemporaryDirectory</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
 
 <div class="viewcode-block" id="logger">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/build/index.html#micom.workflows.build.logger">[docs]</a>
@@ -324,7 +324,7 @@
 
 <div class="viewcode-block" id="_reduce_group">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/build/index.html#micom.workflows.build._reduce_group">[docs]</a>
-<span class="k">def</span> <span class="nf">_reduce_group</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_reduce_group</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="n">keep</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
     <span class="n">new</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:][</span><span class="n">keep</span><span class="p">]</span>
     <span class="k">if</span> <span class="s2">&quot;file&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
@@ -335,7 +335,7 @@
 
 <div class="viewcode-block" id="build_and_save">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/build/index.html#micom.workflows.build.build_and_save">[docs]</a>
-<span class="k">def</span> <span class="nf">build_and_save</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_and_save</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a single community model.&quot;&quot;&quot;</span>
     <span class="n">s</span><span class="p">,</span> <span class="n">tax</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">solver</span> <span class="o">=</span> <span class="n">args</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">out</span><span class="p">):</span>
@@ -356,7 +356,7 @@
 
 <div class="viewcode-block" id="build">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.build.build">[docs]</a>
-<span class="k">def</span> <span class="nf">build</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">build</span><span class="p">(</span>
     <span class="n">taxonomy</span><span class="p">,</span>
     <span class="n">model_db</span><span class="p">,</span>
     <span class="n">out_folder</span><span class="p">,</span>
@@ -458,7 +458,7 @@
 
 <div class="viewcode-block" id="_summarize_models">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/build/index.html#micom.workflows.build._summarize_models">[docs]</a>
-<span class="k">def</span> <span class="nf">_summarize_models</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_summarize_models</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
     <span class="n">tid</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">new_path</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">files</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -471,7 +471,7 @@
 
 <div class="viewcode-block" id="build_database">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.build.build_database">[docs]</a>
-<span class="k">def</span> <span class="nf">build_database</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_database</span><span class="p">(</span>
     <span class="n">manifest</span><span class="p">,</span>
     <span class="n">out_path</span><span class="p">,</span>
     <span class="n">rank</span><span class="o">=</span><span class="s2">&quot;genus&quot;</span><span class="p">,</span>

@@ -6,7 +6,7 @@
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
         <title>micom.optcom - version 0.37.0</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -304,21 +304,21 @@
           <h1>Source code for micom.optcom</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Implements optimization and model problems.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">micom.duality</span> <span class="kn">import</span> <span class="n">fast_dual</span>
-<span class="kn">from</span> <span class="nn">micom.util</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">micom.duality</span><span class="w"> </span><span class="kn">import</span> <span class="n">fast_dual</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">micom.util</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">_format_min_growth</span><span class="p">,</span>
     <span class="n">_apply_min_growth</span><span class="p">,</span>
     <span class="n">check_modification</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">micom.logger</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">micom.solution</span> <span class="kn">import</span> <span class="n">solve</span>
-<span class="kn">from</span> <span class="nn">optlang.symbolics</span> <span class="kn">import</span> <span class="n">Zero</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">micom.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">micom.solution</span><span class="w"> </span><span class="kn">import</span> <span class="n">solve</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">optlang.symbolics</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zero</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
 
 
 <div class="viewcode-block" id="add_dualized_optcom">
 <a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom.add_dualized_optcom">[docs]</a>
-<span class="k">def</span> <span class="nf">add_dualized_optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_dualized_optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add dual Optcom variables and constraints to a community.</span>
 
 <span class="sd">    Uses the original formulation of OptCom and solves the following</span>
@@ -386,7 +386,7 @@
 
 <div class="viewcode-block" id="add_moma_optcom">
 <a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom.add_moma_optcom">[docs]</a>
-<span class="k">def</span> <span class="nf">add_moma_optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">linear</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_moma_optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">linear</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a dualized MOMA version of OptCom.</span>
 
 <span class="sd">    Solves a MOMA (minimization of metabolic adjustment) formulation of OptCom</span>
@@ -462,7 +462,7 @@
 
 <div class="viewcode-block" id="optcom">
 <a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom.optcom">[docs]</a>
-<span class="k">def</span> <span class="nf">optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Run OptCom for the community.</span>
 
 <span class="sd">    OptCom methods are a group of optimization procedures to find community</span>

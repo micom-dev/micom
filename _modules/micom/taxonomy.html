@@ -6,7 +6,7 @@
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
         <title>micom.taxonomy - version 0.37.0</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -304,18 +304,18 @@
           <h1>Source code for micom.taxonomy</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Helpers to convert external data to a MICOM taxonomy.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">.constants</span> <span class="kn">import</span> <span class="n">RANKS</span>
-<span class="kn">from</span> <span class="nn">.qiime_formats</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">RANKS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.qiime_formats</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">load_qiime_feature_table</span><span class="p">,</span>
     <span class="n">load_qiime_taxonomy</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 
 
 <div class="viewcode-block" id="build_from_qiime">
 <a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.taxonomy.build_from_qiime">[docs]</a>
-<span class="k">def</span> <span class="nf">build_from_qiime</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_from_qiime</span><span class="p">(</span>
     <span class="n">abundance</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
     <span class="n">taxonomy</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
     <span class="n">collapse_on</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;genus&quot;</span><span class="p">,</span>
@@ -372,7 +372,7 @@
 
 <div class="viewcode-block" id="qiime_to_micom">
 <a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.taxonomy.qiime_to_micom">[docs]</a>
-<span class="k">def</span> <span class="nf">qiime_to_micom</span><span class="p">(</span><span class="n">feature_table</span><span class="p">,</span> <span class="n">taxonomy</span><span class="p">,</span> <span class="n">collapse_on</span><span class="o">=</span><span class="s2">&quot;genus&quot;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">qiime_to_micom</span><span class="p">(</span><span class="n">feature_table</span><span class="p">,</span> <span class="n">taxonomy</span><span class="p">,</span> <span class="n">collapse_on</span><span class="o">=</span><span class="s2">&quot;genus&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a micom taxonomy from Qiime 2 data.</span>
 
 <span class="sd">    Parameters</span>
@@ -400,7 +400,7 @@
 
 <div class="viewcode-block" id="rank_prefixes">
 <a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.taxonomy.rank_prefixes">[docs]</a>
-<span class="k">def</span> <span class="nf">rank_prefixes</span><span class="p">(</span><span class="n">manifest</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rank_prefixes</span><span class="p">(</span><span class="n">manifest</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the used prefixes for taxonomic ranks.</span>
 
 <span class="sd">    Arguments</span>
@@ -424,7 +424,7 @@
 
 <div class="viewcode-block" id="unify_rank_prefixes">
 <a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.taxonomy.unify_rank_prefixes">[docs]</a>
-<span class="k">def</span> <span class="nf">unify_rank_prefixes</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">unify_rank_prefixes</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Handle taxonomic rank prefixes in the taxonomy or database manifest.</span>
 
 <span class="sd">    Arguments</span>
@@ -460,7 +460,7 @@
 
 <div class="viewcode-block" id="taxon_id">
 <a class="viewcode-back" href="../../autoapi/micom/taxonomy/index.html#micom.taxonomy.taxon_id">[docs]</a>
-<span class="k">def</span> <span class="nf">taxon_id</span><span class="p">(</span><span class="n">term</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rates</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">taxon_id</span><span class="p">(</span><span class="n">term</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">rates</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the ID for a taxon.</span>
 
 <span class="sd">    Arguments</span>

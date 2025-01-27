@@ -6,7 +6,7 @@
 
     <!-- Generated with Sphinx 8.1.3 and Furo 2024.08.06 -->
         <title>micom.annotation - version 0.37.0</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
     <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
@@ -304,14 +304,14 @@
           <h1>Source code for micom.annotation</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Helper to annotate metabolites and species.&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">cobra.core.formula</span> <span class="kn">import</span> <span class="n">Formula</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cobra.core.formula</span><span class="w"> </span><span class="kn">import</span> <span class="n">Formula</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
 
 <div class="viewcode-block" id="flatten">
 <a class="viewcode-back" href="../../autoapi/micom/annotation/index.html#micom.annotation.flatten">[docs]</a>
-<span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">flatten</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Flatten a dictionary into strings.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
 
@@ -319,7 +319,7 @@
 
 <div class="viewcode-block" id="annotate">
 <a class="viewcode-back" href="../../autoapi/micom/annotation/index.html#micom.annotation.annotate">[docs]</a>
-<span class="k">def</span> <span class="nf">annotate</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">community</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">annotate</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">community</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Annotate a list of entities.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;reaction&quot;</span><span class="p">:</span>
         <span class="n">elems</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">reactions</span>
@@ -357,7 +357,7 @@
 
 <div class="viewcode-block" id="annotate_metabolites_from_exchanges">
 <a class="viewcode-back" href="../../autoapi/micom/annotation/index.html#micom.annotation.annotate_metabolites_from_exchanges">[docs]</a>
-<span class="k">def</span> <span class="nf">annotate_metabolites_from_exchanges</span><span class="p">(</span><span class="n">com</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">annotate_metabolites_from_exchanges</span><span class="p">(</span><span class="n">com</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Annotate exchange reactions by their metabolite.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">reactions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;global_id&quot;</span><span class="p">):</span>
         <span class="n">exs</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">internal_exchanges</span> <span class="o">+</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span>

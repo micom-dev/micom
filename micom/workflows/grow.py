@@ -23,7 +23,7 @@ ARGS = {
 
 
 def _growth(args):
-    p, tradeoff, medium, weights, strategy, host, atol, rtol, presolve = args
+    p, tradeoff, medium, weights, strategy, atol, rtol, presolve = args
     com = load_pickle(p)
 
     if atol is None:
@@ -57,7 +57,6 @@ def _growth(args):
     args["atol"] = atol
     args["rtol"] = rtol
     args["fraction"] = tradeoff
-    args["host"] = host
     try:
         sol = com.cooperative_tradeoff(**args)
         rates = sol.members
@@ -108,7 +107,6 @@ def grow(
     model_folder,
     medium,
     tradeoff,
-    host=False,
     threads=1,
     weights=None,
     strategy="minimal imports",
@@ -138,8 +136,6 @@ def grow(
         A tradeoff value. Can be chosen by running the `tradeoff` workflow or
         by experince. Tradeoff values of 0.5 for metagenomcis data and 0.3 for
         16S data seem to work well.
-    host : bool
-        Whether to include the host in the optimization.
     threads : int >=1
         The number of parallel workers to use when building models. As a
         rule of thumb you will need around 1GB of RAM for each thread.
@@ -187,7 +183,6 @@ def grow(
             medium.flux[medium.sample_id == s],
             weights,
             strategy,
-            host,
             atol,
             rtol,
             presolve,

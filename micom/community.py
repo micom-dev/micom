@@ -422,7 +422,7 @@ class Community(cobra.Model):
                 continue
             ab = self.__taxonomy.loc[sp, "abundance"]
             taxa_obj = self.variables["objective_" + sp]
-            com_obj += ab * taxa_obj.expression
+            com_obj += ab * taxa_obj
         const = self.problem.Constraint(
             (v - com_obj).expand(),
             lb=0,

@@ -4,6 +4,7 @@ import cobra.io as io
 from cobra.util.context import get_context
 from cobra.util.solver import interface_to_str, linear_reaction_coefficients
 from cobra import Reaction
+from collections.abc import Iterable
 import os.path as path
 from functools import partial
 import pickle
@@ -273,9 +274,13 @@ def _format_min_growth(min_growth, taxa):
             raise ValueError(
                 "The index of min_growth does not match the taxa IDs."
             )
-    elif isinstance(min_growth, (list, tuple)):
+    elif isinstance(min_growth, Iterable):
         if len(min_growth) == len(taxa):
             min_growth = pd.Series(min_growth, taxa)
+        else:
+            raise ValueError(
+                "If min_growth is an iterable it needs one entry for each taxon."
+            )
     else:
         raise ValueError("min_growth has to be a float, dict, Series, or array-like object.")
     return min_growth

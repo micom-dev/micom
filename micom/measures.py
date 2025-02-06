@@ -32,7 +32,7 @@ def production_rates(results):
     fluxes = results.exchanges
     pos = fluxes[(fluxes.direction == "export") & (fluxes.taxon != "medium")]
     if pos["sample_id"].nunique() > 1:
-        groups = ("sample_id", "metabolite")
+        groups = ["sample_id", "metabolite"]
     else:
         groups = "metabolite"
 
@@ -74,7 +74,7 @@ def consumption_rates(results):
     fluxes = results.exchanges
     neg = fluxes[(fluxes.direction == "import") & (fluxes.taxon != "medium")]
     if neg["sample_id"].nunique() > 1:
-        groups = ("sample_id", "metabolite")
+        groups = ["sample_id", "metabolite"]
     else:
         groups = "metabolite"
 

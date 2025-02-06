@@ -7,6 +7,7 @@ import cobra.util.solver
 import pandas as pd
 from optlang.symbolics import Zero
 from .constants import RANKS
+from .coupling import add_coupling, add_resource_constraint
 from .db import load_zip_model_db, load_manifest
 from .util import (
     load_model,
@@ -263,18 +264,22 @@ class Community(cobra.Model):
                 "If that is wrong you may be in trouble..." % (external, idx)
             )
             o = self.__add_model(model, idx)
-            obj += o.expression * row.abundance
-            self.taxa.append(idx)
-            taxa_obj = self.problem.Constraint(
-                o.expression, name="objective_" + idx, lb=0.0
+            taxa_var = self.problem.Variable(f"objective_{idx}", lb=0, ub=None)
+            taxa_const = self.problem.Constraint(
+                o.expression - taxa_var,
+                name=f"objective_constraint_{idx}",
+                lb=0.0,
+                ub=0.0,
             )
-            self.add_cons_vars([taxa_obj])
+            self.add_cons_vars([taxa_var, taxa_const])
             self.__add_exchanges(
                 model.reactions,
                 row.abundance,
                 external_compartment=external,
                 internal_exchange=max_exchange,
             )
+            obj += taxa_var * row.abundance
+            self.taxa.append(idx)
             self.solver.update()  # to avoid dangling refs due to lazy add
 
         if compressed:
@@ -301,9 +306,7 @@ class Community(cobra.Model):
             m.community_id = taxon_id
         logger.info("adding reactions for %s to community" % taxon_id)
         self.add_reactions(model.reactions)
-        o = self.solver.interface.Objective.clone(
-            model.objective, model=self.solver
-        )
+        o = self.solver.interface.Objective.clone(model.objective, model=self.solver)
         return o
 
     def __add_exchanges(
@@ -313,7 +316,7 @@ class Community(cobra.Model):
         external_compartment="e",
         internal_exchange=1000,
         environment_id="m",
-        environment_name="medium"
+        environment_name="medium",
     ):
         """Add exchange reactions for a new model."""
         for r in reactions:
@@ -415,8 +418,10 @@ class Community(cobra.Model):
         self.remove_cons_vars([const])
         com_obj = Zero
         for sp in self.taxa:
+            if sp == self.host_id:
+                continue
             ab = self.__taxonomy.loc[sp, "abundance"]
-            taxa_obj = self.constraints["objective_" + sp]
+            taxa_obj = self.variables["objective_" + sp]
             com_obj += ab * taxa_obj.expression
         const = self.problem.Constraint(
             (v - com_obj).expand(),
@@ -462,9 +467,9 @@ class Community(cobra.Model):
 
         logger.info(f"optimizing for {id}.")
 
-        obj = self.constraints["objective_" + id]
+        obj = self.variables["objective_" + id]
         with self as m:
-            m.objective = obj.expression
+            m.objective = obj
             m.solver.optimize()
             return m.objective.value
 
@@ -509,9 +514,6 @@ class Community(cobra.Model):
 
         Parameters
         ----------
-        slim : boolean, optional
-            Whether to return a slim solution which does not contain fluxes,
-            just growth rates.
         raise_error : boolean, optional
             Should an error be raised if the solution is not optimal. Defaults
             to False which will either return a solution with a non-optimal
@@ -550,6 +552,44 @@ class Community(cobra.Model):
             )
         return solution
 
+    def optimize_host(
+        self, fluxes=False, pfba=False, raise_error=False, atol=None, rtol=None
+    ):
+        """Maximize the host maintenance or growth rate.
+
+        Parameters
+        ----------
+        raise_error : boolean, optional
+            Should an error be raised if the solution is not optimal. Defaults
+            to False which will either return a solution with a non-optimal
+            status or None if optimization fails.
+        fluxes : boolean, optional
+            Whether to return the fluxes as well.
+        pfba : boolean, optional
+            Whether to obtain fluxes by parsimonious FBA rather than
+            "classical" FBA. This is highly recommended.
+        atol : float
+            Absolute tolerance for the growth rates. If None will use the solver
+            tolerance.
+        rtol : float
+            Relative tolerqance for the growth rates. If None will use the
+            solver tolerance.
+
+        Returns
+        -------
+        micom.CommunitySolution
+            The solution after optimization or None if there is no optimum.
+
+        """
+        if self.host_id is None:
+            raise ValueError("No host has been added to the model.")
+
+        with self:
+            self.objective = self.variables["objective_" + self.host_id]
+            return self.optimize(
+                fluxes=fluxes, pfba=pfba, raise_error=raise_error, atol=atol, rtol=rtol
+            )
+
     @property
     def abundances(self):
         """pandas.Series: The normalized abundances.
@@ -557,7 +597,10 @@ class Community(cobra.Model):
         Setting this attribute will also trigger the appropriate updates in
         the exchange fluxes and the community objective.
         """
-        return self.__taxonomy.abundance
+        ab = self.__taxonomy.abundance.copy()
+        if self.host_id is not None:
+            ab[self.host_id] = self.host_abundance
+        return ab
 
     @abundances.setter
     def abundances(self, value):
@@ -636,6 +679,19 @@ class Community(cobra.Model):
             r
             for r in self.reactions
             if len(r.metabolites) == 2 and "m" in [m.compartment for m in r.metabolites]
+        ]
+
+    @property
+    def internal_reactions(self):
+        """list: Return all internal reactions.
+
+        Internal reactions are reactions that only involve metabolites from the
+        inside of the organism and are not demands or sinks.
+        """
+        return [
+            r
+            for r in self.reactions
+            if len(r.compartments) == 1 and len(r.metabolites) > 1
         ]
 
     @property
@@ -763,7 +819,6 @@ class Community(cobra.Model):
         self,
         min_growth=0.0,
         fraction=1.0,
-        host=False,
         fluxes=False,
         pfba=False,
         atol=None,
@@ -786,8 +841,6 @@ class Community(cobra.Model):
             The minum percentage of the community growth rate that has to be
             maintained. For instance 0.9 means maintain 90% of the maximal
             community growth rate. Defaults to 100%.
-        host : bool
-            Whether to include the host in the cooperative tradeoff FBA.
         fluxes : boolean, optional
             Whether to return the fluxes as well.
         pfba : boolean, optional
@@ -814,7 +867,7 @@ class Community(cobra.Model):
             rtol = self.solver.configuration.tolerances.feasibility
 
         return cooperative_tradeoff(
-            self, min_growth, fraction, host, fluxes, pfba, atol, rtol
+            self, min_growth, fraction, fluxes, pfba, atol, rtol
         )
 
     def knockout_taxa(
@@ -904,12 +957,19 @@ class Community(cobra.Model):
         cobra.Model.solver.fset(self, s)
         adjust_solver_config(self.solver)
 
-    def add_host(self, model, id="host", shared_compartment="e", own_compartment="l", abundance=10):
+    def add_host(
+        self,
+        model,
+        id="host",
+        shared_compartment="l",
+        own_compartment="e",
+        abundance=1,
+    ):
         """Add a host model to the community.
 
         Parameters
         ----------
-        model : cobra.Model
+        model : str or cobra.Model
             The host model to add to the community.
         id : str
             The ID for the host. Should not contain spaces or special characters, will
@@ -923,22 +983,28 @@ class Community(cobra.Model):
         abundance : float
             The abundance of the host **relative to 1gDW** bacteria.
         """
+        if isinstance(model, str):
+            model = load_model(model)
+        else:
+            model = model.copy()
         self.host_abundance = abundance
         id = re.sub(r"[^A-Za-z0-9_]+", "_", id)
         self.host_id = id
         o = self.__add_model(model, id)
         self.taxa.append(id)
-        taxa_obj = self.problem.Constraint(
-            o.expression, name="objective_" + id, lb=0.0
+        taxa_obj = self.problem.Variable(f"objective_{id}", lb=0, ub=None)
+        taxa_const = self.problem.Constraint(
+            o.expression - taxa_obj, name="objective_constraint_" + id, lb=0.0, ub=0.0
         )
         max_exchange = getattr(self, "max_exchange", 100)
-        self.add_cons_vars([taxa_obj])
+        self.add_cons_vars([taxa_obj, taxa_const])
         self.host_compartment = f"{own_compartment}__{id}"
+
         self.__add_exchanges(
             reactions=model.reactions,
             coef=abundance,
             external_compartment=shared_compartment,
-            internal_exchange=max_exchange
+            internal_exchange=max_exchange,
         )
         self.__add_exchanges(
             reactions=model.reactions,
@@ -946,7 +1012,7 @@ class Community(cobra.Model):
             external_compartment=own_compartment,
             internal_exchange=1000,
             environment_id="h",
-            environment_name="host"
+            environment_name="host",
         )
         self.solver.update()
 
@@ -987,7 +1053,7 @@ class Community(cobra.Model):
             for rid in found
         )
         not_found = rids - exids
-        if len(fluxes) >0 and len(found) == 0:
+        if len(fluxes) > 0 and len(found) == 0:
             raise ValueError(
                 "No ID from the medium could be found in the exchange reactions. "
                 "This means you probably have mismatched IDs..."
@@ -1008,3 +1074,77 @@ class Community(cobra.Model):
             else:
                 ex.lower_bound = 0.0
 
+    def add_coupling_constraints(
+        self,
+        strategy="resource coupling",
+        include_exchanges=False,
+        constraint=400,
+        lower=0.0,
+    ):
+        """Add enzyme resource constraints.
+
+        This will add constraints to the model that couple the enzyme usage to the growth rate
+        or keep it constant. This is useful to model the fact that enzyme usage is proportional
+        to the growth rate in many cases. The following strategie are available:
+
+        resource constraint: The total enzyme usage is constrained to be below a certain threshold.
+        $$\sum_{i} |v_i| \leq \text{constraint}$$
+
+        resource coupling: The total enzyme usage is constrained by the growth rate.
+        $$\sum_{i} |v_i| \leq \text{constraint} * \mu$$
+
+        enzyme coupling: Individual enzyme usage is constrained by the growth rate except for a small maintenance flux.
+        $$|v_i| \leq \text{constraint} * \mu + \text{lower$$
+
+        Parameters
+        ----------
+        strategy : str
+            The type of coupling to add. One of "resource constraint", "resource coupling",
+            or "enzyme coupling". Defaults to "resource coupling".
+        include_exchanges : bool
+            Whether to include exchange reactions in the resource constraints.
+        constraint : float
+            The constraint on the total enzyme usage in mmol/gDW or mmol/gDW/h.
+        lower : float
+            A small lower bound for the enzyme usage. Only used for coupled enzyme usages.
+            Can be used to model a small maintenance flux for enzymes. Defaults to no maintenance flux.
+
+        Returns
+        -------
+        Nothing. Will add constraints to the model inplace.
+
+        """
+        candidates = self.internal_reactions
+        if include_exchanges:
+            candidates += self.internal_exchanges
+        n_rxns = 0
+        if "resource" in strategy:
+            coupled = "coupling" in strategy
+            logger.info("adding resource constraints for %d taxa" % len(self.taxa))
+            for taxon in self.taxa:
+                obj = self.variables["objective_" + taxon]
+                exclude = self.constraints[f"objective_constraint_{taxon}"].variables
+                rxns = [r for r in candidates if r.community_id == taxon]
+                add_resource_constraint(
+                    self,
+                    rxns,
+                    obj,
+                    constraint,
+                    lower,
+                    coupled,
+                    f"resource_constraint__{taxon}",
+                    exclude,
+                )
+                n_rxns += len(rxns)
+            logger.info(
+                "added %d constraints for %d reactions" % (len(self.taxa), n_rxns)
+            )
+        elif strategy == "enzyme coupling":
+            logger.info("adding enzyme constraints for %d taxa" % len(self.taxa))
+            for taxon in self.taxa:
+                obj = self.variables["objective_" + taxon]
+                exclude = self.constraints[f"objective_constraint_{taxon}"].variables
+                rxns = [r for r in candidates if r.community_id == taxon]
+                add_coupling(self, rxns, obj, constraint, lower, exclude)
+                n_rxns += len(rxns)
+            logger.info("added %d constraints" % n_rxns)

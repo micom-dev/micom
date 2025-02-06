@@ -48,16 +48,16 @@ def add_dualized_optcom(community, min_growth):
     old_obj = community.objective
     community.objective = Zero
     for sp in community.taxa:
-        taxa_obj = community.constraints["objective_" + sp]
-        community.objective += taxa_obj.expression
+        taxa_obj = community.variables["objective_" + sp]
+        community.objective += taxa_obj
 
     _apply_min_growth(community, min_growth)
     dual_coefs = fast_dual(community)
 
     logger.info("adding expressions for %d taxa" % len(community.taxa))
     for sp in community.taxa:
-        primal_const = community.constraints["objective_" + sp]
-        coefs = primal_const.get_linear_coefficients(primal_const.variables)
+        primal_var = community.variables["objective_" + sp]
+        coefs = {primal_var: 1.0}
         coefs.update(
             {
                 dual_var: -coef
@@ -130,8 +130,8 @@ def add_moma_optcom(community, min_growth, linear=False):
     for sp in community.taxa:
         v = prob.Variable("gc_constant_" + sp, lb=max_gcs[sp], ub=max_gcs[sp])
         community.add_cons_vars([v])
-        taxa_obj = community.constraints["objective_" + sp]
-        ex = v - taxa_obj.expression
+        taxa_obj = community.variables["objective_" + sp]
+        ex = v - taxa_obj
         if not linear:
             ex = ex**2
         obj_expr += ex.expand()

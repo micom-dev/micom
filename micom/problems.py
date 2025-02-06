@@ -60,16 +60,14 @@ def regularize_l2_norm(community, min_growth, host=False):
     if community.host_id is not None and not host:
         taxa.remove(community.host_id)
     for sp in taxa:
-        taxa_obj = community.constraints["objective_" + sp]
-        ex = sum(v for v in taxa_obj.variables if (v.ub - v.lb) > 1e-6)
-        if not isinstance(ex, int):
-            l2 += (community.scale * (ex**2)).expand()
+        taxa_obj = community.variables["objective_" + sp]
+        l2 += (community.scale * (taxa_obj**2)).expand()
     community.objective = -l2
     community.modification = "l2 regularization"
     logger.info("finished adding tradeoff objective to %s" % community.id)
 
 
-def cooperative_tradeoff(community, min_growth, fraction, host, fluxes, pfba, atol, rtol):
+def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rtol):
     """Find the best tradeoff between community and individual growth."""
     with community as com:
         check_modification(community)
@@ -87,14 +85,14 @@ def cooperative_tradeoff(community, min_growth, fraction, host, fluxes, pfba, at
             fraction = np.sort(fraction)[::-1]
 
         # Add needed variables etc.
-        regularize_l2_norm(com, 0.0, host)
+        regularize_l2_norm(com, 0.0, host=community.host_id is not None)
 
         results = []
         for fr in fraction:
             com.variables.community_objective.lb = fr * min_growth
             com.variables.community_objective.ub = min_growth
             sol = solve(community, fluxes=fluxes, pfba=pfba, atol=atol, rtol=rtol)
-            if not pfba and sol.status != OPTIMAL:
+            if not pfba and com.solver.status != OPTIMAL:
                 sol = crossover(com, sol, fluxes=fluxes)
             results.append((fr, sol))
         if len(results) == 1:

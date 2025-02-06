@@ -265,15 +265,20 @@ def _format_min_growth(min_growth, taxa):
         A pandas Series mapping each individual to its minimum growth rate.
 
     """
-    try:
-        min_growth = float(min_growth)
-    except (TypeError, ValueError):
-        if len(min_growth) != len(taxa):
+    if isinstance(min_growth, (float, int)):
+        min_growth = pd.Series(float(min_growth), taxa)
+    elif isinstance(min_growth, (dict, pd.Series)):
+        min_growth = pd.Series(min_growth)
+        if any(idx not in taxa for idx in min_growth.index):
             raise ValueError(
-                "min_growth must be single value or an array-like "
-                "object with an entry for each taxon in the model."
+                "The index of min_growth does not match the taxa IDs."
             )
-    return pd.Series(min_growth, taxa)
+    elif isinstance(min_growth, (list, tuple)):
+        if len(min_growth) == len(taxa):
+            min_growth = pd.Series(min_growth, taxa)
+    else:
+        raise ValueError("min_growth has to be a float, dict, Series, or array-like object.")
+    return min_growth
 
 
 def _apply_min_growth(community, min_growth, atol=1e-6, rtol=1e-6):
@@ -282,15 +287,17 @@ def _apply_min_growth(community, min_growth, atol=1e-6, rtol=1e-6):
     Will integrate with the context.
     """
     context = get_context(community)
+    if isinstance(min_growth, dict):
+        min_growth = pd.Series(min_growth)
 
     def reset(taxon, lb):
         logger.info("resetting growth rate constraint for %s" % taxon)
-        community.constraints["objective_" + taxon].ub = None
-        community.constraints["objective_" + taxon].lb = lb
+        community.variables["objective_" + taxon].ub = None
+        community.variables["objective_" + taxon].lb = lb
 
-    for sp in community.taxa:
+    for sp in min_growth.index:
         logger.info("setting growth rate constraint for %s" % sp)
-        obj = community.constraints["objective_" + sp]
+        obj = community.variables["objective_" + sp]
         if context:
             context(partial(reset, sp, obj.lb))
         obj.lb = (1.0 - rtol) * min_growth[sp] - atol
@@ -330,7 +337,7 @@ def adjust_solver_config(solver):
         solver.problem.settings["presolve"] = "auto"
 
 
-def reset_min_community_growth(com):
+def reset_min_community_growth(com, host=False):
     """Reset the lower bound for the community growth."""
     com.variables.community_objective.lb = 0.0
     com.variables.community_objective.ub = None

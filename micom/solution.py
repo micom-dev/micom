@@ -101,7 +101,8 @@ class CommunitySolution(Solution):
             )
         gcs = pd.Series(dtype="float64")
         for sp in community.taxa:
-            gcs[sp] = community.constraints["objective_" + sp].primal
+            gcs[sp] = community.variables["objective_" + sp].primal
+
         # Workaround for an optlang bug (PR #120)
         if interface_to_str(community.problem) == "gurobi":
             gcs = gcs.abs()
@@ -116,22 +117,28 @@ class CommunitySolution(Solution):
         )
         self.members.index.name = "compartments"
         self.growth_rate = community.variables.community_objective.primal
+        self.host_rate = None
+        if community.host_id is not None:
+            self.host_rate = max(
+                0, community.variables["objective_" + community.host_id].primal)
 
     def _repr_html_(self):
         if self.status in good:
-            with pd.option_context("display.max_rows", 10):
-                html = (
-                    "<strong>community growth:</strong> {:.3f}"
-                    "<br><strong>status:</strong> {}"
-                    "<br><strong>taxa:</strong>{}".format(
-                        sum(
-                            self.members.abundance.dropna()
-                            * self.members.growth_rate.dropna()
-                        ),
-                        self.status,
-                        self.members._repr_html_(),
+            if self.host_rate is not None:
+                with pd.option_context("display.max_rows", 10):
+                    html = (
+                        f"<strong>community growth:</strong> {self.growth_rate:.3f}"
+                        f"<br><strong>host maintenance/growth:</strong> {self.host_rate:.3f}"
+                        f"<br><strong>status:</strong> {self.status}"
+                        f"<br><strong>taxa:</strong>{self.members._repr_html_()}"
                     )
-                )
+            else:
+                with pd.option_context("display.max_rows", 10):
+                    html = (
+                        f"<strong>community growth:</strong> {self.growth_rate:.3f}"
+                        f"<br><strong>status:</strong> {self.status}"
+                        f"<br><strong>taxa:</strong>{self.members._repr_html_()}"
+                    )
         else:
             html = "<strong>{}</strong> solution :(".format(self.status)
         return html
@@ -139,10 +146,11 @@ class CommunitySolution(Solution):
     def __repr__(self):
         """Convert CommunitySolution instance to string representation."""
         if self.status not in good:
-            return "<CommunitySolution {0:s} at 0x{1:x}>".format(self.status, id(self))
-        return "<CommunitySolution {0:.3f} at 0x{1:x}>".format(
-            self.growth_rate, id(self)
-        )
+            return f"<CommunitySolution {self.status} at 0x{id(self):x}>"
+        if self.host_rate is not None:
+            return f"<CommunitySolution {self.growth_rate:.3f} [host: {self.host_rate:.3f}] at 0x{id(self):x}>"
+        return f"<CommunitySolution {self.growth_rate:.3f} at 0x{id(self):x}>"
+
 
 
 def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
@@ -163,7 +171,7 @@ def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
     """
     # Fix all growth rates
     rates = {
-        sp: community.constraints["objective_" + sp].primal for sp in community.taxa
+        sp: community.variables["objective_" + sp].primal for sp in community.taxa
     }
     _apply_min_growth(community, rates, atol, rtol)
 
@@ -249,8 +257,8 @@ def crossover(community, sol, fluxes=False):
         com.variables.community_objective.ub = com_growth + 1e-6
         com.objective = com.scale * com.variables.community_objective
         for sp in com.taxa:
-            const = com.constraints["objective_" + sp]
-            const.ub = max(const.lb, gcs[sp])
+            v = com.variables["objective_" + sp]
+            v.ub = max(v.lb, gcs[sp])
         logger.info("finding closest feasible solution")
         s = com.optimize()
         if s is None:
@@ -259,7 +267,7 @@ def crossover(community, sol, fluxes=False):
         if s is not None:
             s = CommunitySolution(com, slim=not fluxes)
         for sp in com.taxa:
-            com.constraints["objective_" + sp].ub = None
+            com.variables["objective_" + sp].ub = None
     if s is None:
         raise OptimizationError(
             "crossover could not converge (status = %s)." % community.solver.status

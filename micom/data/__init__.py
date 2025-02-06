@@ -1,20 +1,16 @@
 """Submodule including some common data sets."""
 
+from cobra.io import read_sbml_model
 from ..workflows import load_results
 from os.path import split, join
 from numpy.random import randint
 import pandas as pd
-import pickle
 
 __all__ = ("agora", "test_taxonomy")
 this_dir, _ = split(__file__)
 
-agora = pd.read_csv(join(this_dir, "agora.csv"))
-agora["file"] = agora["id"] + ".xml"
-
 test_db = join(this_dir, "artifacts", "species_models.qza")
 test_medium = join(this_dir, "artifacts", "medium.qza")
-
 
 def test_taxonomy(n=4):
     """Create a simple test taxonomy.
@@ -95,3 +91,14 @@ def test_tradeoff():
         Growth rates for varying tradeoff values.
     """
     return pd.read_csv(join(this_dir, "artifacts", "crc_tradeoff.csv"), index_col=0)
+
+
+def test_host():
+    """Return a host model for the example data set.
+
+    Returns
+    -------
+    cobra.Model
+        The host model.
+    """
+    return read_sbml_model(join(this_dir, "toy_host.xml"))

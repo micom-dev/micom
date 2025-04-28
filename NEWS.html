@@ -314,30 +314,34 @@
 <p>For information on how to use <code class="docutils literal notranslate"><span class="pre">micom</span></code> please refer to
 <a class="reference external" href="https://micom-dev.github.io/micom">the documentation</a>.</p>
 <section id="id1">
-<h2>0.37.0<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<h2>0.37.1<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<p>Pins the OSQP version to a range compatible with optlang.</p>
+</section>
+<section id="id2">
+<h2>0.37.0<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
 <p><strong>Visualizations</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_taxon</span></code> and <code class="docutils literal notranslate"><span class="pre">plot_growth</span></code> now allow to color points by arbitrary
 (categorical) metadata similar to <code class="docutils literal notranslate"><span class="pre">plot_mes</span></code>.</p>
 </section>
-<section id="id2">
-<h2>0.36.4<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<section id="id3">
+<h2>0.36.4<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
 <p>Fix a bug in <code class="docutils literal notranslate"><span class="pre">check_db_medium</span></code> where the growth rate order was random.</p>
 <p>Do not overwrite the handlers for the root logger anymore but attach the handler to
 a package logger instead.</p>
 </section>
-<section id="id3">
-<h2>0.36.3<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<section id="id4">
+<h2>0.36.3<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h2>
 <p>Require a newer optlang version to stay compatible with numpy 2.0.</p>
 </section>
-<section id="id4">
-<h2>0.36.2<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h2>
+<section id="id5">
+<h2>0.36.2<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h2>
 <p>Limit logger default change to workflows only.</p>
 <p>Make some attempts to clean the taxon name in interactions.</p>
 <p>Workflows accepting per sample media will now raise an error if the medium is missing
 samples.</p>
 </section>
-<section id="id5">
-<h2>0.36.1<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h2>
+<section id="id6">
+<h2>0.36.1<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
 <p>Fixes a crash in the <code class="docutils literal notranslate"><span class="pre">minimal_media</span></code> workflow when growth rates are infeasible.</p>
 <p>Changed the default log level to ERROR to avoid message spamming in the workflows. This
 can be re-enabled with:</p>
@@ -346,8 +350,8 @@ can be re-enabled with:</p>
 </pre></div>
 </div>
 </section>
-<section id="id6">
-<h2>0.36.0<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
+<section id="id7">
+<h2>0.36.0<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h2>
 <p><strong>Minimal media workflow</strong></p>
 <p>The minimal media workflow is now more flexible and supports all options of the
 <code class="docutils literal notranslate"><span class="pre">minimal_media</span></code> base function including:</p>
@@ -371,8 +375,8 @@ and to make it more clear what is happening.</p>
 <p>Updated optlang version for better numpy support.</p>
 <p>Fix a bug where <code class="docutils literal notranslate"><span class="pre">minimal_medium(manifest,</span> <span class="pre">...,</span> <span class="pre">summarize=False)</span></code> would crash.</p>
 </section>
-<section id="id7">
-<h2>0.35.0<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h2>
+<section id="id8">
+<h2>0.35.0<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">plot_fit</span></code> got renamed to <code class="docutils literal notranslate"><span class="pre">plot_association</span></code> and will not use LASSO coefficients anymore
 as a proxy for univariate associations. Instead univariate non-parametric tests are
 run for each metabolite. This should be more stable and avoid issues with low reproducibility
@@ -389,25 +393,25 @@ did usually not lead to an improvement or convergence.</p>
 <p>Switch the the start method for multiprocessing to “spawn” which should improve
 stability for workflows.</p>
 </section>
-<section id="id8">
-<h2>0.34.1<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h2>
+<section id="id9">
+<h2>0.34.1<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h2>
 <p>Fix a typo in the hybrid settings.</p>
 </section>
-<section id="id9">
-<h2>0.34.0<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h2>
+<section id="id10">
+<h2>0.34.0<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h2>
 <p>Better default settings for the hybrid solver.</p>
 <p>Fixes an issue with taxonomy tables with species rank and without if column.</p>
 </section>
-<section id="id10">
-<h2>0.33.2<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h2>
+<section id="id11">
+<h2>0.33.2<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h2>
 <p>Fixes yet another annotation bug with AGORA2 due to duplicated exchanges.</p>
 </section>
-<section id="id11">
-<h2>0.33.1<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h2>
+<section id="id12">
+<h2>0.33.1<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h2>
 <p>Fixes the rank prefix trimming when setting it to False in Qiime2 imports.</p>
 </section>
-<section id="id12">
-<h2>0.33.0<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h2>
+<section id="id13">
+<h2>0.33.0<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h2>
 <p>Replaces the default OSQP solver with a new hybrid solver using OSQP for QPs and HIGHS
 for everything else which improves the accuracy by several orders of magnitude. Note the new
 <a class="reference external" href="https://micom-dev.github.io/micom/installing.html">installation instructions for solvers</a>.</p>
@@ -417,162 +421,162 @@ compatibility with Qiime2 and GTDB.</p>
 <p>New solver is now tested automatically on all platforms.</p>
 <p>Small bugfixes and updates.</p>
 </section>
-<section id="id13">
-<h2>0.32.5<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h2>
+<section id="id14">
+<h2>0.32.5<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h2>
 <p>Backports the visualizers to be compatible with scikit-learn 0.24.1 to avoid some issues
 with Qiime2.</p>
 <p>Re-enables the Qiime model loading test in the CI.</p>
 </section>
-<section id="id14">
-<h2>0.32.4<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h2>
+<section id="id15">
+<h2>0.32.4<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h2>
 <p>Fixes a bug where model annotation tables could not be generated if there were multiple
 exchange reactions for a single metabolite. This made MICOM not work with AGORA2 in some
 instances.</p>
 <p>Now checks for demand reactions and in database construction as well.</p>
 </section>
-<section id="id15">
-<h2>0.32.3<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h2>
+<section id="id16">
+<h2>0.32.3<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h2>
 <p>Bump the required cobra version to avoid numpy version errors.</p>
 </section>
-<section id="id16">
-<h2>0.32.1 - 0.32.2<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h2>
+<section id="id17">
+<h2>0.32.1 - 0.32.2<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h2>
 <p>Adjustments to solver settings and lost of improvements to Gurobi that make it much
 faster.</p>
 </section>
-<section id="id17">
-<h2>0.32.0<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h2>
+<section id="id18">
+<h2>0.32.0<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h2>
 <p>Helper functions to save results were added.</p>
 </section>
-<section id="id18">
-<h2>0.31.7<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h2>
+<section id="id19">
+<h2>0.31.7<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h2>
 <p>Fixed a bug where minimal_medium would maximize with OSQP instead of minimize.</p>
 </section>
-<section id="id19">
-<h2>0.31.6<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h2>
+<section id="id20">
+<h2>0.31.6<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h2>
 <p>More adjustments to OSQP.</p>
 </section>
-<section id="id20">
-<h2>0.31.5<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h2>
+<section id="id21">
+<h2>0.31.5<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h2>
 <p>Fix a bug in the stabilization term used for OSQP. Try to avoid fragmentation warning.</p>
 </section>
-<section id="id21">
-<h2>0.31.4<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h2>
+<section id="id22">
+<h2>0.31.4<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h2>
 <p>Fix regression in T-SNE.</p>
 </section>
-<section id="id22">
-<h2>0.31.2 - 0.31.3<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h2>
+<section id="id23">
+<h2>0.31.2 - 0.31.3<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h2>
 <p>Some more fixes to the media completion.</p>
 </section>
-<section id="id23">
-<h2>0.31.1<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h2>
+<section id="id24">
+<h2>0.31.1<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h2>
 <p>Show added flux as fraction of total in <code class="docutils literal notranslate"><span class="pre">complete_db_medium</span></code>.</p>
 </section>
-<section id="id24">
-<h2>0.31.0<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h2>
+<section id="id25">
+<h2>0.31.0<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h2>
 <p>The medium completion functions now have a flag that allows adding additional flux
 to components already in the candidate medium. The default is now changed to that
 new non-strict mode which makes it much easier and more efficient to complete media.
 In that case the <code class="docutils literal notranslate"><span class="pre">max_added_import</span></code> amount now specifies the maximum flux added on top
 the limit specified in the candidate medium.</p>
 </section>
-<section id="id25">
-<h2>0.30.5<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h2>
+<section id="id26">
+<h2>0.30.5<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h2>
 <p>Fixed a bug where T-SNE would complain in low sample numbers.</p>
 </section>
-<section id="id26">
-<h2>0.30.3 - 0.30.4<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h2>
+<section id="id27">
+<h2>0.30.3 - 0.30.4<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h2>
 <p>Those were fixes to deployment and dependencies only.</p>
 </section>
-<section id="id27">
-<h2>0.30.2<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h2>
+<section id="id28">
+<h2>0.30.2<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h2>
 <p>Avoids a bug in COBRAPY that can yield to huge serialized versions of the models.</p>
 </section>
-<section id="id28">
-<h2>0.30.1<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h2>
+<section id="id29">
+<h2>0.30.1<a class="headerlink" href="#id29" title="Link to this heading">¶</a></h2>
 <p>Fix compatibility with Python 3.7.</p>
 </section>
-<section id="id29">
-<h2>0.30.0<a class="headerlink" href="#id29" title="Link to this heading">¶</a></h2>
+<section id="id30">
+<h2>0.30.0<a class="headerlink" href="#id30" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">build</span></code> will now detect existing models in the output folder and skip them. This now
 allows to resume interrupted builds. Explicit rebuild requires you to delete the
 folder now.</p>
 </section>
-<section id="id30">
-<h2>0.29.6<a class="headerlink" href="#id30" title="Link to this heading">¶</a></h2>
+<section id="id31">
+<h2>0.29.6<a class="headerlink" href="#id31" title="Link to this heading">¶</a></h2>
 <p>Fixes a bug where using more than 1 thread for workflows would not return results
 in some cases.</p>
 </section>
-<section id="id31">
-<h2>0.29.5<a class="headerlink" href="#id31" title="Link to this heading">¶</a></h2>
+<section id="id32">
+<h2>0.29.5<a class="headerlink" href="#id32" title="Link to this heading">¶</a></h2>
 <p>Fixed some dependency errors on older Python versions.</p>
 </section>
-<section id="id32">
-<h2>0.29.4<a class="headerlink" href="#id32" title="Link to this heading">¶</a></h2>
+<section id="id33">
+<h2>0.29.4<a class="headerlink" href="#id33" title="Link to this heading">¶</a></h2>
 <p>Port tests to cobrapy 0.25 and above. Fix an import error in workflows.core.</p>
 </section>
-<section id="id33">
-<h2>0.29.3<a class="headerlink" href="#id33" title="Link to this heading">¶</a></h2>
+<section id="id34">
+<h2>0.29.3<a class="headerlink" href="#id34" title="Link to this heading">¶</a></h2>
 <p>Suppresses some warning in annotations from cobrapy.</p>
 </section>
-<section id="id34">
-<h2>0.29.2<a class="headerlink" href="#id34" title="Link to this heading">¶</a></h2>
+<section id="id35">
+<h2>0.29.2<a class="headerlink" href="#id35" title="Link to this heading">¶</a></h2>
 <p>Fixes some CI and build issues.</p>
 </section>
-<section id="id35">
-<h2>0.29.0<a class="headerlink" href="#id35" title="Link to this heading">¶</a></h2>
+<section id="id36">
+<h2>0.29.0<a class="headerlink" href="#id36" title="Link to this heading">¶</a></h2>
 <p>Renames the <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> arguments to <code class="docutils literal notranslate"><span class="pre">threads</span></code> across the code base for consistency and
 updates the arguments for <code class="docutils literal notranslate"><span class="pre">workflow</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">workflow</span></code> now does not spawn a process for single-threaded runs, reducing overhead.</p>
 <p>Fixes an issue where <code class="docutils literal notranslate"><span class="pre">workflow</span></code> would deadlock with pytest-cov.</p>
 </section>
-<section id="id36">
-<h2>0.28.1<a class="headerlink" href="#id36" title="Link to this heading">¶</a></h2>
+<section id="id37">
+<h2>0.28.1<a class="headerlink" href="#id37" title="Link to this heading">¶</a></h2>
 <p>Fixes an issue where an accumulation in warnings in spawned processes trips up
 jupyter.</p>
 </section>
-<section id="id37">
-<h2>0.28.0<a class="headerlink" href="#id37" title="Link to this heading">¶</a></h2>
+<section id="id38">
+<h2>0.28.0<a class="headerlink" href="#id38" title="Link to this heading">¶</a></h2>
 <p>Fixes a deployment issue with the previous build.</p>
 </section>
-<section id="id38">
-<h2>0.27.0<a class="headerlink" href="#id38" title="Link to this heading">¶</a></h2>
+<section id="id39">
+<h2>0.27.0<a class="headerlink" href="#id39" title="Link to this heading">¶</a></h2>
 <p>Annotations now include the molecular weight, number of carbon atoms, and the number of
 nitrogen atoms for each compound.</p>
 </section>
-<section id="id39">
-<h2>0.26.0<a class="headerlink" href="#id39" title="Link to this heading">¶</a></h2>
+<section id="id40">
+<h2>0.26.0<a class="headerlink" href="#id40" title="Link to this heading">¶</a></h2>
 <p>Now adjusts active demands to be optional. This was an issue with some models
 in AGORA that had forced biotin demands. This effectively prohibits zero growth
 rates and is problematic for MICOM.</p>
 <p>Fix the logger for multiprocessing.</p>
 </section>
-<section id="id40">
-<h2>0.25.1<a class="headerlink" href="#id40" title="Link to this heading">¶</a></h2>
+<section id="id41">
+<h2>0.25.1<a class="headerlink" href="#id41" title="Link to this heading">¶</a></h2>
 <p>Handle CARVEME models better in <code class="docutils literal notranslate"><span class="pre">workflows.complete_medium</span></code>.</p>
 <p>Workflows now have a deterministic return error (same order as inputs).</p>
 </section>
-<section id="id41">
-<h2>0.25.0<a class="headerlink" href="#id41" title="Link to this heading">¶</a></h2>
+<section id="id42">
+<h2>0.25.0<a class="headerlink" href="#id42" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">build_database</span></code> now allows to set the compression algorithm and level.</p>
 </section>
-<section id="id42">
-<h2>0.24.1<a class="headerlink" href="#id42" title="Link to this heading">¶</a></h2>
+<section id="id43">
+<h2>0.24.1<a class="headerlink" href="#id43" title="Link to this heading">¶</a></h2>
 <p>Fixed settings to get better convergence behavior with OSQP.</p>
 </section>
-<section id="id43">
-<h2>0.24.0<a class="headerlink" href="#id43" title="Link to this heading">¶</a></h2>
+<section id="id44">
+<h2>0.24.0<a class="headerlink" href="#id44" title="Link to this heading">¶</a></h2>
 <p>MICOM now works with OSQP and works out of the box without a commercial QP solver. See
 the <a class="reference external" href="#">installation docs</a> for more information.</p>
 </section>
-<section id="id44">
-<h2>0.23.1<a class="headerlink" href="#id44" title="Link to this heading">¶</a></h2>
+<section id="id45">
+<h2>0.23.1<a class="headerlink" href="#id45" title="Link to this heading">¶</a></h2>
 <p>The sample heatmap in <code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_sample</span></code> is now automatically rotated when
 there are mores samples than reactions.</p>
 <p>media workflows will use presolving by default since those are often numerically
 problematic.</p>
 </section>
-<section id="id45">
-<h2>0.23.0<a class="headerlink" href="#id45" title="Link to this heading">¶</a></h2>
+<section id="id46">
+<h2>0.23.0<a class="headerlink" href="#id46" title="Link to this heading">¶</a></h2>
 <p>Fix the signature and add deprecation warnings for optimize_* methods.</p>
 <p><code class="docutils literal notranslate"><span class="pre">plot_exchanges_per_taxon</span></code> will now use normalized fluxes (per 1 gDW for each taxon)
 which allows better comparability. The old behavior can be enabled with
@@ -580,50 +584,50 @@ which allows better comparability. The old behavior can be enabled with
 <p>Avoid negative growth rate constraints in <code class="docutils literal notranslate"><span class="pre">_apply_min_growth</span></code>.</p>
 <p>Can now enable presolving/scaling in <code class="docutils literal notranslate"><span class="pre">grow</span></code> and <code class="docutils literal notranslate"><span class="pre">tradeoff</span></code>.</p>
 </section>
-<section id="id46">
-<h2>0.22.7<a class="headerlink" href="#id46" title="Link to this heading">¶</a></h2>
+<section id="id47">
+<h2>0.22.7<a class="headerlink" href="#id47" title="Link to this heading">¶</a></h2>
 <p>Fix some warnings from pandas.</p>
 <p>Avoid a crash in <code class="docutils literal notranslate"><span class="pre">reularize_l2_norm</span></code> when all reactions for a taxon have been fixed to
 zero.</p>
 <p>Raise a better error if the minimal medium optimization fails in grow.</p>
 <p>Use the right tolerance when setting atol and rtol automatically.</p>
 </section>
-<section id="id47">
-<h2>0.22.6<a class="headerlink" href="#id47" title="Link to this heading">¶</a></h2>
+<section id="id48">
+<h2>0.22.6<a class="headerlink" href="#id48" title="Link to this heading">¶</a></h2>
 <p>Fixed an error in <code class="docutils literal notranslate"><span class="pre">micom.workflows.build</span></code> if build was run without a model database
 but with a <code class="docutils literal notranslate"><span class="pre">file</span></code> column in the taxonomy.</p>
 </section>
-<section id="id48">
-<h2>0.22.5<a class="headerlink" href="#id48" title="Link to this heading">¶</a></h2>
+<section id="id49">
+<h2>0.22.5<a class="headerlink" href="#id49" title="Link to this heading">¶</a></h2>
 <p>Fixed missing data files.</p>
 </section>
-<section id="id49">
-<h2>0.22.4<a class="headerlink" href="#id49" title="Link to this heading">¶</a></h2>
+<section id="id50">
+<h2>0.22.4<a class="headerlink" href="#id50" title="Link to this heading">¶</a></h2>
 <p>Improves version compatibility with cobrapy and QIIME 2.</p>
 </section>
-<section id="id50">
-<h2>0.22.3<a class="headerlink" href="#id50" title="Link to this heading">¶</a></h2>
+<section id="id51">
+<h2>0.22.3<a class="headerlink" href="#id51" title="Link to this heading">¶</a></h2>
 <p>Fixed a bug where incorrectly labeled biomass demand reactions were treated like an
 exchange.</p>
 </section>
-<section id="id51">
-<h2>0.22.2<a class="headerlink" href="#id51" title="Link to this heading">¶</a></h2>
+<section id="id52">
+<h2>0.22.2<a class="headerlink" href="#id52" title="Link to this heading">¶</a></h2>
 <p>Lowered the required version for pandas to re-enable compatibility with Python 3.6.</p>
 <p>Docs are now built on all pushes.</p>
 </section>
-<section id="id52">
-<h2>0.22.1<a class="headerlink" href="#id52" title="Link to this heading">¶</a></h2>
+<section id="id53">
+<h2>0.22.1<a class="headerlink" href="#id53" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">atol</span></code> and <code class="docutils literal notranslate"><span class="pre">rtol</span></code> are now consistently exposed.</p>
 <p>Remove six dependency.</p>
 </section>
-<section id="id53">
-<h2>0.22.0<a class="headerlink" href="#id53" title="Link to this heading">¶</a></h2>
+<section id="id54">
+<h2>0.22.0<a class="headerlink" href="#id54" title="Link to this heading">¶</a></h2>
 <p>Got a bit smarter in cleaning up compartment suffixes. This fixes the odd “_e_m” suffix
 in CARVEME-derived models. This will change the names of exchange reactions compared
 to version 0.21.x.</p>
 </section>
-<section id="id54">
-<h2>0.21.0<a class="headerlink" href="#id54" title="Link to this heading">¶</a></h2>
+<section id="id55">
+<h2>0.21.0<a class="headerlink" href="#id55" title="Link to this heading">¶</a></h2>
 <p>Stabilize minimal_medium a bit more.</p>
 <p>The strategy to calculate fluxes in the grow workflow can now be set with the
 <code class="docutils literal notranslate"><span class="pre">strategy</span></code> argument. For instance, you can now get fluxes via parsimonious FBA instead of
@@ -631,8 +635,8 @@ assuming minimal imports.</p>
 <p>Fixed a bug where minimal media classification with <code class="docutils literal notranslate"><span class="pre">weights=&quot;mass&quot;</span></code> would fail due to
 invalid elements in the formula (for instance “X”).</p>
 </section>
-<section id="id55">
-<h2>0.20.0<a class="headerlink" href="#id55" title="Link to this heading">¶</a></h2>
+<section id="id56">
+<h2>0.20.0<a class="headerlink" href="#id56" title="Link to this heading">¶</a></h2>
 <p>This version brings new functionality to design growth media from a skeleton medium.
 This also allows for a quicker verification of media against the model databases.</p>
 <p>Added workflows:</p>
@@ -644,16 +648,16 @@ This also allows for a quicker verification of media against the model databases
 github.com/micom-dev/media. In particular, we finally provide the often requested growth
 medium for the carveME database.</p>
 </section>
-<section id="id56">
-<h2>0.19.0<a class="headerlink" href="#id56" title="Link to this heading">¶</a></h2>
+<section id="id57">
+<h2>0.19.0<a class="headerlink" href="#id57" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> now accepts weighting the fluxes bei molecular weight or
 any elemental content. For instance, you can now calculate a minimal medium that
 minimizes carbon import for instance. The used <code class="docutils literal notranslate"><span class="pre">weigths</span></code> argument propagates
 to any workflow using this function including <code class="docutils literal notranslate"><span class="pre">complete_medium</span></code>, <code class="docutils literal notranslate"><span class="pre">fix_medium</span></code>
 and <code class="docutils literal notranslate"><span class="pre">grow</span></code>.</p>
 </section>
-<section id="id57">
-<h2>0.1.0 - 0.18.0<a class="headerlink" href="#id57" title="Link to this heading">¶</a></h2>
+<section id="id58">
+<h2>0.1.0 - 0.18.0<a class="headerlink" href="#id58" title="Link to this heading">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">minimal_medium</span></code> now has an option to return all fluxes along with the
 import and export fluxes. Useful if you want to check what every individual
 taxa consumes.</p>
@@ -724,63 +728,64 @@ from an incomplete interior point optimization.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">News and release notes for MICOM</a><ul>
-<li><a class="reference internal" href="#id1">0.37.0</a></li>
-<li><a class="reference internal" href="#id2">0.36.4</a></li>
-<li><a class="reference internal" href="#id3">0.36.3</a></li>
-<li><a class="reference internal" href="#id4">0.36.2</a></li>
-<li><a class="reference internal" href="#id5">0.36.1</a></li>
-<li><a class="reference internal" href="#id6">0.36.0</a></li>
-<li><a class="reference internal" href="#id7">0.35.0</a></li>
-<li><a class="reference internal" href="#id8">0.34.1</a></li>
-<li><a class="reference internal" href="#id9">0.34.0</a></li>
-<li><a class="reference internal" href="#id10">0.33.2</a></li>
-<li><a class="reference internal" href="#id11">0.33.1</a></li>
-<li><a class="reference internal" href="#id12">0.33.0</a></li>
-<li><a class="reference internal" href="#id13">0.32.5</a></li>
-<li><a class="reference internal" href="#id14">0.32.4</a></li>
-<li><a class="reference internal" href="#id15">0.32.3</a></li>
-<li><a class="reference internal" href="#id16">0.32.1 - 0.32.2</a></li>
-<li><a class="reference internal" href="#id17">0.32.0</a></li>
-<li><a class="reference internal" href="#id18">0.31.7</a></li>
-<li><a class="reference internal" href="#id19">0.31.6</a></li>
-<li><a class="reference internal" href="#id20">0.31.5</a></li>
-<li><a class="reference internal" href="#id21">0.31.4</a></li>
-<li><a class="reference internal" href="#id22">0.31.2 - 0.31.3</a></li>
-<li><a class="reference internal" href="#id23">0.31.1</a></li>
-<li><a class="reference internal" href="#id24">0.31.0</a></li>
-<li><a class="reference internal" href="#id25">0.30.5</a></li>
-<li><a class="reference internal" href="#id26">0.30.3 - 0.30.4</a></li>
-<li><a class="reference internal" href="#id27">0.30.2</a></li>
-<li><a class="reference internal" href="#id28">0.30.1</a></li>
-<li><a class="reference internal" href="#id29">0.30.0</a></li>
-<li><a class="reference internal" href="#id30">0.29.6</a></li>
-<li><a class="reference internal" href="#id31">0.29.5</a></li>
-<li><a class="reference internal" href="#id32">0.29.4</a></li>
-<li><a class="reference internal" href="#id33">0.29.3</a></li>
-<li><a class="reference internal" href="#id34">0.29.2</a></li>
-<li><a class="reference internal" href="#id35">0.29.0</a></li>
-<li><a class="reference internal" href="#id36">0.28.1</a></li>
-<li><a class="reference internal" href="#id37">0.28.0</a></li>
-<li><a class="reference internal" href="#id38">0.27.0</a></li>
-<li><a class="reference internal" href="#id39">0.26.0</a></li>
-<li><a class="reference internal" href="#id40">0.25.1</a></li>
-<li><a class="reference internal" href="#id41">0.25.0</a></li>
-<li><a class="reference internal" href="#id42">0.24.1</a></li>
-<li><a class="reference internal" href="#id43">0.24.0</a></li>
-<li><a class="reference internal" href="#id44">0.23.1</a></li>
-<li><a class="reference internal" href="#id45">0.23.0</a></li>
-<li><a class="reference internal" href="#id46">0.22.7</a></li>
-<li><a class="reference internal" href="#id47">0.22.6</a></li>
-<li><a class="reference internal" href="#id48">0.22.5</a></li>
-<li><a class="reference internal" href="#id49">0.22.4</a></li>
-<li><a class="reference internal" href="#id50">0.22.3</a></li>
-<li><a class="reference internal" href="#id51">0.22.2</a></li>
-<li><a class="reference internal" href="#id52">0.22.1</a></li>
-<li><a class="reference internal" href="#id53">0.22.0</a></li>
-<li><a class="reference internal" href="#id54">0.21.0</a></li>
-<li><a class="reference internal" href="#id55">0.20.0</a></li>
-<li><a class="reference internal" href="#id56">0.19.0</a></li>
-<li><a class="reference internal" href="#id57">0.1.0 - 0.18.0</a></li>
+<li><a class="reference internal" href="#id1">0.37.1</a></li>
+<li><a class="reference internal" href="#id2">0.37.0</a></li>
+<li><a class="reference internal" href="#id3">0.36.4</a></li>
+<li><a class="reference internal" href="#id4">0.36.3</a></li>
+<li><a class="reference internal" href="#id5">0.36.2</a></li>
+<li><a class="reference internal" href="#id6">0.36.1</a></li>
+<li><a class="reference internal" href="#id7">0.36.0</a></li>
+<li><a class="reference internal" href="#id8">0.35.0</a></li>
+<li><a class="reference internal" href="#id9">0.34.1</a></li>
+<li><a class="reference internal" href="#id10">0.34.0</a></li>
+<li><a class="reference internal" href="#id11">0.33.2</a></li>
+<li><a class="reference internal" href="#id12">0.33.1</a></li>
+<li><a class="reference internal" href="#id13">0.33.0</a></li>
+<li><a class="reference internal" href="#id14">0.32.5</a></li>
+<li><a class="reference internal" href="#id15">0.32.4</a></li>
+<li><a class="reference internal" href="#id16">0.32.3</a></li>
+<li><a class="reference internal" href="#id17">0.32.1 - 0.32.2</a></li>
+<li><a class="reference internal" href="#id18">0.32.0</a></li>
+<li><a class="reference internal" href="#id19">0.31.7</a></li>
+<li><a class="reference internal" href="#id20">0.31.6</a></li>
+<li><a class="reference internal" href="#id21">0.31.5</a></li>
+<li><a class="reference internal" href="#id22">0.31.4</a></li>
+<li><a class="reference internal" href="#id23">0.31.2 - 0.31.3</a></li>
+<li><a class="reference internal" href="#id24">0.31.1</a></li>
+<li><a class="reference internal" href="#id25">0.31.0</a></li>
+<li><a class="reference internal" href="#id26">0.30.5</a></li>
+<li><a class="reference internal" href="#id27">0.30.3 - 0.30.4</a></li>
+<li><a class="reference internal" href="#id28">0.30.2</a></li>
+<li><a class="reference internal" href="#id29">0.30.1</a></li>
+<li><a class="reference internal" href="#id30">0.30.0</a></li>
+<li><a class="reference internal" href="#id31">0.29.6</a></li>
+<li><a class="reference internal" href="#id32">0.29.5</a></li>
+<li><a class="reference internal" href="#id33">0.29.4</a></li>
+<li><a class="reference internal" href="#id34">0.29.3</a></li>
+<li><a class="reference internal" href="#id35">0.29.2</a></li>
+<li><a class="reference internal" href="#id36">0.29.0</a></li>
+<li><a class="reference internal" href="#id37">0.28.1</a></li>
+<li><a class="reference internal" href="#id38">0.28.0</a></li>
+<li><a class="reference internal" href="#id39">0.27.0</a></li>
+<li><a class="reference internal" href="#id40">0.26.0</a></li>
+<li><a class="reference internal" href="#id41">0.25.1</a></li>
+<li><a class="reference internal" href="#id42">0.25.0</a></li>
+<li><a class="reference internal" href="#id43">0.24.1</a></li>
+<li><a class="reference internal" href="#id44">0.24.0</a></li>
+<li><a class="reference internal" href="#id45">0.23.1</a></li>
+<li><a class="reference internal" href="#id46">0.23.0</a></li>
+<li><a class="reference internal" href="#id47">0.22.7</a></li>
+<li><a class="reference internal" href="#id48">0.22.6</a></li>
+<li><a class="reference internal" href="#id49">0.22.5</a></li>
+<li><a class="reference internal" href="#id50">0.22.4</a></li>
+<li><a class="reference internal" href="#id51">0.22.3</a></li>
+<li><a class="reference internal" href="#id52">0.22.2</a></li>
+<li><a class="reference internal" href="#id53">0.22.1</a></li>
+<li><a class="reference internal" href="#id54">0.22.0</a></li>
+<li><a class="reference internal" href="#id55">0.21.0</a></li>
+<li><a class="reference internal" href="#id56">0.20.0</a></li>
+<li><a class="reference internal" href="#id57">0.19.0</a></li>
+<li><a class="reference internal" href="#id58">0.1.0 - 0.18.0</a></li>
 </ul>
 </li>
 </ul>

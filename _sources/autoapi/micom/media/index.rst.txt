@@ -108,7 +108,7 @@ Module Contents
    :type weights: str
    :param atol: Absolute tolerance for the growth rates. If None will use the solver tolerance.
    :type atol: float
-   :param rtol: Relative tolerqance for the growth rates. If None will use the solver tolerance.
+   :param rtol: Relative tolerance for the growth rates. If None will use the solver tolerance.
    :type rtol: float
 
    :returns: A series {rid: flux} giving the import flux for each required import

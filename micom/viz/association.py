@@ -22,8 +22,6 @@ from sklearn.linear_model import (
 )
 from sklearn.preprocessing import StandardScaler
 
-PANDAS_VERSION = tuple(int(x) for x in pd.__version__.split("."))
-
 
 def plot_association(
     results,
@@ -103,10 +101,8 @@ def plot_association(
     fluxes = exchanges.pivot_table(
         index="sample_id", columns="metabolite", values="flux", fill_value=atol
     )
-    if PANDAS_VERSION >= (2, 1, 0):
-        fluxes = fluxes.map(np.log)
-    else:
-        fluxes = fluxes.applymap(np.log)
+    fluxes = fluxes.map(np.log)
+
     meta = phenotype[fluxes.index]
     stds = fluxes.std(axis=1)
     bad = stds < atol

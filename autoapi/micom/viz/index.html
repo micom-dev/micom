@@ -356,10 +356,7 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_mes" title="micom.viz.plot_mes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_mes</span></code></a>(.strftime, groups, prevalence)</p></td>
 <td><p>Plot metabolic interactions between a focal taxa and all other taxa.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_association" title="micom.viz.plot_association"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_association</span></code></a>(results, phenotype[, variable_type, ...])</p></td>
-<td><p>Test for differential metabolite production.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.viz.plot_tradeoff" title="micom.viz.plot_tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_tradeoff</span></code></a>(tradeoff_rates[, filename, tolerance])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.viz.plot_tradeoff" title="micom.viz.plot_tradeoff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_tradeoff</span></code></a>(tradeoff_rates[, filename, tolerance])</p></td>
 <td><p>Plot diagnostics for varying tradeoff values.</p></td>
 </tr>
 </tbody>
@@ -584,42 +581,6 @@ filter which is only used for visualization.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="micom.viz.plot_association">
-<span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_association</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phenotype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'binary'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'phenotype'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'association_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flux_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'production'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fdr_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/association.html#plot_association"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_association" title="Link to this definition">¶</a></dt>
-<dd><p>Test for differential metabolite production.</p>
-<p>This will check for associations of the <cite>phenotype</cite> with metabolite fluxes. Individual
-tests are performed using non-parametric tests of the overall consumption or production
-fluxes for each samples versus the phenotype.</p>
-<p>To assess the the global association, this will fit L1-regularized linear models
-with log-fluxes as features. Will use LASSO regression for a continuous
-response and L1-regularized Logistic regression for a binary response.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>results</strong> (<a class="reference internal" href="../workflows/index.html#micom.workflows.GrowthResults" title="micom.workflows.GrowthResults"><em>micom.workflows.GrowthResults</em></a>) – The results returned by the <cite>grow</cite> workflow.</p></li>
-<li><p><strong>phenotype</strong> (<em>pandas.Series</em>) – The data to be fitted. Its index must correspond to <cite>sample_id</cite> in
-<cite>exchanges</cite>.</p></li>
-<li><p><strong>variable_type</strong> (<em>str</em><em> of </em><em>[</em><em>&quot;binary&quot;</em><em>, </em><em>&quot;continuous&quot;</em><em>]</em>) – The type of the variable.</p></li>
-<li><p><strong>variable_name</strong> (<em>str</em>) – A short description of the phenotype for instance “disease status”.</p></li>
-<li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
-<li><p><strong>flux_type</strong> (<em>str</em><em> of </em><em>[</em><em>&quot;import&quot;</em><em>, </em><em>&quot;production&quot;</em><em>]</em>) – Whether to fit using import or production fluxes.</p></li>
-<li><p><strong>threads</strong> (<em>int</em>) – The number of threads to use.</p></li>
-<li><p><strong>fdr_threshold</strong> (<em>float</em>) – The false discovery rate cutoff to use (FDR-corrected p-value cutoff). Defaults
-to 0.05.</p></li>
-<li><p><strong>atol</strong> (<em>float</em>) – Tolerance to consider a flux different from zero. Will default
-to the solver tolerance.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A MICOM visualization. Can be served with <cite>viz.view</cite>.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="micom.viz.plot_tradeoff">
 <span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_tradeoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tradeoff_rates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tradeoff_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tolerance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/viz/tradeoff.html#plot_tradeoff"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_tradeoff" title="Link to this definition">¶</a></dt>
 <dd><p>Plot diagnostics for varying tradeoff values.</p>
@@ -720,7 +681,6 @@ considered not growing.</p></li>
 <li><a class="reference internal" href="#micom.viz.plot_growth"><code class="docutils literal notranslate"><span class="pre">plot_growth()</span></code></a></li>
 <li><a class="reference internal" href="#micom.viz.plot_focal_interactions"><code class="docutils literal notranslate"><span class="pre">plot_focal_interactions()</span></code></a></li>
 <li><a class="reference internal" href="#micom.viz.plot_mes"><code class="docutils literal notranslate"><span class="pre">plot_mes()</span></code></a></li>
-<li><a class="reference internal" href="#micom.viz.plot_association"><code class="docutils literal notranslate"><span class="pre">plot_association()</span></code></a></li>
 <li><a class="reference internal" href="#micom.viz.plot_tradeoff"><code class="docutils literal notranslate"><span class="pre">plot_tradeoff()</span></code></a></li>
 </ul>
 </li>

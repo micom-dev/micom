@@ -311,6 +311,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">uuid</span><span class="w"> </span><span class="kn">import</span> <span class="n">uuid4</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.parse</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlparse</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">urlreq</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
@@ -514,7 +515,7 @@
     <span class="k">if</span> <span class="nb">id</span><span class="p">:</span>
         <span class="n">model</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
     <span class="n">biomass</span> <span class="o">=</span> <span class="n">Reaction</span><span class="p">(</span>
-        <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;micom_combined_biomass&quot;</span><span class="p">,</span>
+        <span class="nb">id</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;micom_combined_biomass_</span><span class="si">{</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;combined biomass reaction from model joining&quot;</span><span class="p">,</span>
         <span class="n">subsystem</span><span class="o">=</span><span class="s2">&quot;biomass production&quot;</span><span class="p">,</span>
         <span class="n">lower_bound</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
@@ -524,9 +525,6 @@
     <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">coef</span> <span class="ow">in</span> <span class="n">coefs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">biomass</span> <span class="o">+=</span> <span class="n">r</span> <span class="o">*</span> <span class="p">(</span><span class="n">coef</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
     <span class="n">rids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">reactions</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;micom_combined_biomass&quot;</span> <span class="ow">in</span> <span class="n">rids</span><span class="p">:</span>
-        <span class="n">model</span><span class="o">.</span><span class="n">remove_reactions</span><span class="p">([</span><span class="n">model</span><span class="o">.</span><span class="n">reactions</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="s2">&quot;micom_combined_biomass&quot;</span><span class="p">)])</span>
-    <span class="n">rids</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;micom_combined_biomass&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">model_files</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
         <span class="n">other</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
         <span class="n">new</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">other</span><span class="o">.</span><span class="n">reactions</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rids</span><span class="p">]</span>

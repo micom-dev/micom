@@ -7,6 +7,7 @@ from cobra import Reaction
 import os.path as path
 from functools import partial
 import pickle
+from uuid import uuid4
 from urllib.parse import urlparse
 import urllib.request as urlreq
 import tempfile
@@ -172,7 +173,7 @@ def join_models(model_files, id=None):
     if id:
         model.id = id
     biomass = Reaction(
-        id="micom_combined_biomass",
+        id=f"micom_combined_biomass_{uuid4().hex[0:8]}",
         name="combined biomass reaction from model joining",
         subsystem="biomass production",
         lower_bound=0,
@@ -182,9 +183,6 @@ def join_models(model_files, id=None):
     for r, coef in coefs.items():
         biomass += r * (coef / n)
     rids = set(r.id for r in model.reactions)
-    if "micom_combined_biomass" in rids:
-        model.remove_reactions([model.reactions.get_by_id("micom_combined_biomass")])
-    rids.add("micom_combined_biomass")
     for filepath in model_files[1:]:
         other = load_model(filepath)
         new = [r.id for r in other.reactions if r.id not in rids]

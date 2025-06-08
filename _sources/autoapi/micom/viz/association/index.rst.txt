@@ -9,14 +9,6 @@ micom.viz.association
 
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   micom.viz.association.PANDAS_VERSION
-
-
 Functions
 ---------
 
@@ -27,8 +19,6 @@ Functions
 
 Module Contents
 ---------------
-
-.. py:data:: PANDAS_VERSION
 
 .. py:function:: plot_association(results, phenotype, variable_type='binary', variable_name='phenotype', filename='association_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', fdr_threshold=0.05, threads=1, atol=1e-06)
 

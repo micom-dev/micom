@@ -1,0 +1,67 @@
+micom.measures
+==============
+
+.. py:module:: micom.measures
+
+.. autoapi-nested-parse::
+
+   Measures calculated based on fluxes.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.measures.production_rates
+   micom.measures.consumption_rates
+
+
+Module Contents
+---------------
+
+.. py:function:: production_rates(results)
+
+   Calculate the production rates for a set of metabolites.
+
+   .. note::
+
+      Production rates are not net fluxes but the flux of a particular metabolite
+      into the external environment independent whether it is taken up by another
+      taxon. The net rates can be obtained directly by inspecting the exchange fluxes
+      in the "medium" compartment.
+      The (transient) production rates reported here are the fluxes other surrounding
+      cells/consumers would have access to. Thus, they are often more interesting for
+      a phenotype than the net rates which are the excess productin rates, even in the
+      absence of another consumer.
+
+   :param results: A growth results as returned by grow.
+   :type results: micom.GrowthResults
+
+   :returns: A new flux DataFrame containing the intermediate production rates for each
+             metabolite.
+   :rtype: pandas.DataFrame
+
+
+.. py:function:: consumption_rates(results)
+
+   Calculate the production rates for a set of metabolites.
+
+   .. note::
+
+      Consumption rates are not net fluxes but the total consumption of a particular
+      metabolite by all taxa in the community independent whether it is secreted again.
+      The net rates can be obtained directly by inspecting the exchange fluxes
+      in the "medium" compartment.
+      The (transient) consumption rates reported here is the total flux of a metabolite
+      imported/consumed by taxa in the community.
+
+   :param results: A growth results as returned by grow.
+   :type results: micom.GrowthResults
+
+   :returns: A new flux DataFrame containing the intermediate production rates for each
+             metabolite.
+   :rtype: pandas.DataFrame
+
+

@@ -1,0 +1,56 @@
+micom.duality
+=============
+
+.. py:module:: micom.duality
+
+.. autoapi-nested-parse::
+
+   Implements a fast dual formulation.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.duality.fast_dual
+
+
+Module Contents
+---------------
+
+.. py:function:: fast_dual(model, prefix='dual_')
+
+   Add dual formulation to the problem.
+
+   A mathematical optimization problem can be viewed as a primal and a dual
+   problem. If the primal problem is a minimization problem the dual is a
+   maximization problem, and the optimal value of the dual is a lower bound of
+   the optimal value of the primal. For linear problems, strong duality holds,
+   which means that the optimal values of the primal and dual are equal
+   (duality gap = 0). This functions takes an optlang Model representing a
+   primal linear problem
+   and returns a new Model representing the dual optimization problem. The
+   provided model must have a linear objective, linear constraints and only
+   continuous variables. Furthermore, the problem must be in standard form,
+   i.e. all variables should be non-negative. Both minimization and
+   maximization problems are allowed.
+
+   .. attribute:: model
+
+      The model to be dualized.
+
+      :type: cobra.Model
+
+   .. attribute:: prefix
+
+      The string that will be prepended to all variable and constraint names
+      in the returned dual problem.
+
+      :type: str
+
+   :returns: The coefficients for the new dual objective.
+   :rtype: dict
+
+

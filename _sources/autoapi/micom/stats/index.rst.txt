@@ -1,0 +1,90 @@
+micom.stats
+===========
+
+.. py:module:: micom.stats
+
+.. autoapi-nested-parse::
+
+   Data warngling and statistics for MICOM.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.stats.fdr_adjust
+   micom.stats._run_test
+   micom.stats._run_corr
+   micom.stats.compare_groups
+   micom.stats.correlate_fluxes
+
+
+Module Contents
+---------------
+
+.. py:function:: fdr_adjust(p)
+
+   Get FDR cutoffs for p-values with Benjamini-Hochberg.
+
+   :param p: The original p-values. Can not contain naNs.
+   :type p: list[float]
+
+   :returns: * *A numpy array of FDR cutoffs (q-values). This is commonly known as "adjusted"*
+             * *p-values.*
+
+
+.. py:function:: _run_test(args)
+
+.. py:function:: _run_corr(args)
+
+.. py:function:: compare_groups(fluxes, metadata_column, groups=None, threads=1, progress=True)
+
+   Compare fluxes form different sample groups.
+
+   .. note::
+
+      This uses a non-parametric test by default. By default it will use a
+      Mann-Whitney test for two groups and a Kruskal-Wallis test for >2 groups.
+      `q` are the FDR-corrected p-values (Benjamini-Hochberg correction).
+
+   :param fluxes: A frame with net fluxes as returned by `production_rates` or
+                  `consumption_rates`.
+   :type fluxes: pandas.DataFrame
+   :param metatdata_column: The column of the DataFrame denoting the groups.
+   :type metatdata_column: str
+   :param groups: Specify a subset of groups you want to compare or define the order (1st will
+                  be the reference group). If None will use the groups as they appear in
+                  the DataFrame.
+   :type groups: list[str] or None
+   :param threads: How many threads to use to run tests in parallel.
+   :type threads: int
+   :param progress: Whether to show a progress bar.
+   :type progress: bool
+
+   :rtype: Returns the metabolite with their respective test statistics.
+
+
+.. py:function:: correlate_fluxes(fluxes, metadata_column, threads=1, progress=True)
+
+   Correlate fluxes with a continuous covariate.
+
+   .. note::
+
+      This uses a non-parametric test by default (Spearman rank correlation). `q`
+      are the FDR-corrected p-values (Benjamini-Hochberg correction).
+
+   :param fluxes: A frame with net fluxes as returned by `production_rates` or
+                  `consumption_rates`.
+   :type fluxes: pandas.DataFrame
+   :param metatdata_column: The column of the DataFrame denoting the covariate.
+   :type metatdata_column: str
+   :param threads: How many threads to use to run tests in parallel.
+   :type threads: int
+   :param progress: Whether to show a progress bar.
+   :type progress: bool
+
+   :rtype: Returns the metabolite with their respective test statistics.
+
+

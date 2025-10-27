@@ -1,0 +1,26 @@
+micom.constants
+===============
+
+.. py:module:: micom.constants
+
+.. autoapi-nested-parse::
+
+   Constants used across the code base.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.constants.RANKS
+
+
+Module Contents
+---------------
+
+.. py:data:: RANKS
+   :value: ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species', 'strain']
+
+

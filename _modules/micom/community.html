@@ -1,0 +1,1310 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
+        <link rel="prefetch" href="../../_static/micom.png" as="image">
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.09.25 -->
+        <title>micom.community - version 0.37.1</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  --font-stack: Open Sans, Liberation Sans, sans-serif, Arial;
+  --font-stack--monospace: Fira Sans Mono, Inconsolata, monospace, Courier;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">version 0.37.1</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/micom.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">version 0.37.1</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../logic.html">Strategies used by MICOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installing.html">Installing MICOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../high_level.html">MICOM workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../interactions.html">Interactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../viz.html">Visualizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflows.html">Writing your own workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../community.html">Single Model API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../growth_fluxes.html">Growth rates and fluxes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../media.html">Growth media</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../taxa_knockouts.html">Knockouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../elasticities.html">Intervention studies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials and Courses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../NEWS.html">Release Notes</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../autoapi/index.html">API Reference</a><input aria-label="Toggle navigation of API Reference" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../autoapi/micom/index.html">micom</a><input aria-label="Toggle navigation of micom" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/algorithms/index.html">micom.algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/annotation/index.html">micom.annotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/community/index.html">micom.community</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/constants/index.html">micom.constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/data/index.html">micom.data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/db/index.html">micom.db</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/deps/index.html">micom.deps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/duality/index.html">micom.duality</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/elasticity/index.html">micom.elasticity</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../autoapi/micom/interaction/index.html">micom.interaction</a><input aria-label="Toggle navigation of micom.interaction" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/interaction/focal/index.html">micom.interaction.focal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/interaction/scores/index.html">micom.interaction.scores</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/interaction/summary/index.html">micom.interaction.summary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/logger/index.html">micom.logger</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/measures/index.html">micom.measures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/media/index.html">micom.media</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/optcom/index.html">micom.optcom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/problems/index.html">micom.problems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/qiime_formats/index.html">micom.qiime_formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/solution/index.html">micom.solution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/stats/index.html">micom.stats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/taxonomy/index.html">micom.taxonomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../autoapi/micom/util/index.html">micom.util</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../autoapi/micom/viz/index.html">micom.viz</a><input aria-label="Toggle navigation of micom.viz" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/viz/association/index.html">micom.viz.association</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/viz/core/index.html">micom.viz.core</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/viz/exchanges/index.html">micom.viz.exchanges</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/viz/growth/index.html">micom.viz.growth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/viz/interactions/index.html">micom.viz.interactions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/viz/tradeoff/index.html">micom.viz.tradeoff</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../autoapi/micom/workflows/index.html">micom.workflows</a><input aria-label="Toggle navigation of micom.workflows" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/workflows/build/index.html">micom.workflows.build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/workflows/core/index.html">micom.workflows.core</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/workflows/db_media/index.html">micom.workflows.db_media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/workflows/grow/index.html">micom.workflows.grow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/workflows/media/index.html">micom.workflows.media</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/workflows/results/index.html">micom.workflows.results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../autoapi/micom/workflows/tradeoff/index.html">micom.workflows.tradeoff</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for micom.community</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;A class representing a microbial or tissue community.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cobra</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cobra.util.solver</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">optlang.symbolics</span><span class="w"> </span><span class="kn">import</span> <span class="n">Zero</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">RANKS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_zip_model_db</span><span class="p">,</span> <span class="n">load_manifest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.util</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">load_model</span><span class="p">,</span>
+    <span class="n">join_models</span><span class="p">,</span>
+    <span class="n">add_var_from_expression</span><span class="p">,</span>
+    <span class="n">adjust_solver_config</span><span class="p">,</span>
+    <span class="n">clean_ids</span><span class="p">,</span>
+    <span class="n">compartment_id</span><span class="p">,</span>
+    <span class="n">COMPARTMENT_RE</span><span class="p">,</span>
+    <span class="n">ex_metabolite</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">micom.optcom</span><span class="w"> </span><span class="kn">import</span> <span class="n">optcom</span><span class="p">,</span> <span class="n">solve</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">micom.problems</span><span class="w"> </span><span class="kn">import</span> <span class="n">cooperative_tradeoff</span><span class="p">,</span> <span class="n">knockout_taxa</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">micom.qiime_formats</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_qiime_model_db</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">micom.taxonomy</span><span class="w"> </span><span class="kn">import</span> <span class="n">unify_rank_prefixes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.progress</span><span class="w"> </span><span class="kn">import</span> <span class="n">track</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tempfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">TemporaryDirectory</span>
+
+<span class="n">cobra</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">sbml</span><span class="o">.</span><span class="n">LOGGER</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s2">&quot;ERROR&quot;</span><span class="p">)</span>
+<span class="n">cobra</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s2">&quot;ERROR&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="logger">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.logger">[docs]</a>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Community">
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Community</span><span class="p">(</span><span class="n">cobra</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A community of models.</span>
+
+<span class="sd">    This class represents a community of individual models. It was designed for</span>
+<span class="sd">    microbial communities but may also be used for multi-tissue or tissue-cell</span>
+<span class="sd">    mixture models as long as all individuals exist within a single enclosing</span>
+<span class="sd">    compartment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">taxonomy</span><span class="p">,</span>
+        <span class="n">model_db</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">rel_threshold</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>
+        <span class="n">solver</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">max_exchange</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">mass</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a new community object.</span>
+
+<span class="sd">        `micom` builds a community from a taxonomy which may simply be a list</span>
+<span class="sd">        of model files in its simplest form. Usually, the taxonomy will contain</span>
+<span class="sd">        additional information such as annotations for the individuals (for</span>
+<span class="sd">        instance phylum, organims or species) and abundances.</span>
+
+<span class="sd">        The recommended way to build a micom model is to supply a</span>
+<span class="sd">        quantification of taxa (called &quot;taxonomy&quot; here) which specifies the</span>
+<span class="sd">        taxonomic ranks for a taxon and its abundance, and a model database</span>
+<span class="sd">        for a specific rank (for instance &quot;genus&quot;). MICOM will match the</span>
+<span class="sd">        ranks from your taxonomy to the model database and assemble the</span>
+<span class="sd">        community models from that. You will also get information about the</span>
+<span class="sd">        construction process by calling `Community.build_metrics`.</span>
+
+<span class="sd">        The most customizable way only takes a single table where summarization</span>
+<span class="sd">        and matching to the reference database has already occured. In this</span>
+<span class="sd">        case you will also provide paths to model files for each taxon. This is</span>
+<span class="sd">        the &quot;old&quot; way but may still be applicable if you want to use a custom</span>
+<span class="sd">        database or want full control of matching your data to reference</span>
+<span class="sd">        models.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        `micom` will automatically add exchange fluxes and and a community</span>
+<span class="sd">        objective maximizing the overall growth rate of the community.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        taxonomy : pandas.DataFrame</span>
+<span class="sd">            The taxonomy used for building the model. Must have at least the</span>
+<span class="sd">            column &quot;id&quot; or a column specifying a taxonomic rank.</span>
+<span class="sd">            If no model database is specified in the next argument</span>
+<span class="sd">            it furthermore requires a column &quot;file&quot; which specifies a filepath</span>
+<span class="sd">            for each model. Valid file extensions are &quot;.pickle&quot;, &quot;.xml&quot;,</span>
+<span class="sd">            &quot;.xml.gz&quot; and &quot;.json&quot;. If a model database is specified this must</span>
+<span class="sd">            contain at least a column with the same name as the rank used in</span>
+<span class="sd">            the model database. Thus, for a genus-level database you will need</span>
+<span class="sd">            a column `genus`. Additional taxa ranks can also be specified and</span>
+<span class="sd">            will be used to be more stringent in taxa matching.</span>
+<span class="sd">            Finally, the taxonomy should contain a column `abundance`. It will</span>
+<span class="sd">            be used to quantify each individual in the community. If absent,</span>
+<span class="sd">            MICOM will assume all individuals are present in the same amount.</span>
+<span class="sd">        model_db : str</span>
+<span class="sd">            A pre-built model database. If ending in `.qza` must be a Qiime 2</span>
+<span class="sd">            artifact of type `MetabolicModels[JSON]`. Can also be a folder,</span>
+<span class="sd">            zip (must end in `.zip`) file or None if the taxonomy contains a</span>
+<span class="sd">            column `file`.</span>
+<span class="sd">        id : str, optional</span>
+<span class="sd">            The ID for the community. Should only contain letters and numbers,</span>
+<span class="sd">            otherwise it will be formatted as such.</span>
+<span class="sd">        name : str, optional</span>
+<span class="sd">            The name for the community.</span>
+<span class="sd">        rel_threshold : float &lt; 1, optional</span>
+<span class="sd">            The relative abundance threshold that will be used. Describes the</span>
+<span class="sd">            smallest relative amount of an individual that will be considered</span>
+<span class="sd">            non-zero. All individuals with a smaller relative amount will be</span>
+<span class="sd">            omitted.</span>
+<span class="sd">        solver : str, optional</span>
+<span class="sd">            Which solver to use. Will default to cplex if available which is</span>
+<span class="sd">            better suited for large problems.</span>
+<span class="sd">        progress : bool, optional</span>
+<span class="sd">            Show a progress bar.</span>
+<span class="sd">        max_exchange : positive float, optional</span>
+<span class="sd">            During model constructions exchange reactions are duplicated into</span>
+<span class="sd">            internal and external exchange reactions. This specifies the new</span>
+<span class="sd">            import flux bound for the *internal* exchange reaction. Import</span>
+<span class="sd">            rates for the exchanges between the medium and outside are still</span>
+<span class="sd">            mantained.</span>
+<span class="sd">        mass : positive float, optional</span>
+<span class="sd">            The total mass of the community in gDW. Used to adjust import</span>
+<span class="sd">            fluxes which are assumed to be given as mmol/gDW*h for the</span>
+<span class="sd">            entire community. As a consequence all import fluxes will be</span>
+<span class="sd">            divided by that number.</span>
+
+<span class="sd">        Attributes</span>
+<span class="sd">        ----------</span>
+<span class="sd">        taxa : list</span>
+<span class="sd">            A list of taxa IDs in the community.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Community</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;building new micom model </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">solver</span><span class="p">:</span>
+            <span class="n">solver</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">s</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;cplex&quot;</span><span class="p">,</span> <span class="s2">&quot;gurobi&quot;</span><span class="p">,</span> <span class="s2">&quot;hybrid&quot;</span><span class="p">,</span> <span class="s2">&quot;glpk&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">cobra</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">solvers</span>
+            <span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;using the </span><span class="si">%s</span><span class="s2"> solver.&quot;</span> <span class="o">%</span> <span class="n">solver</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">solver</span> <span class="o">==</span> <span class="s2">&quot;glpk&quot;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;No QP solver found, will use GLPK. A lot of functionality &quot;</span>
+                <span class="s2">&quot;in MICOM will require a QP solver :/&quot;</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">lp_method</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">qp_method</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">presolve</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="viewcode-block" id="Community.solver">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.solver">[docs]</a>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver</span> <span class="o">=</span> <span class="n">solver</span></div>
+
+<div class="viewcode-block" id="Community._rtol">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community._rtol">[docs]</a>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rtol</span> <span class="o">=</span> <span class="n">rel_threshold</span></div>
+
+<div class="viewcode-block" id="Community._modification">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community._modification">[docs]</a>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modification</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Community.mass">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.mass">[docs]</a>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">mass</span></div>
+
+<div class="viewcode-block" id="Community.__db_metrics">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.__db_metrics">[docs]</a>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__db_metrics</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+        <span class="n">adjust_solver_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="p">)</span>
+        <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="s2">&quot;abundance&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">taxonomy</span><span class="p">[</span><span class="s2">&quot;abundance&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">taxonomy</span><span class="o">.</span><span class="n">abundance</span> <span class="o">/=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">abundance</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> individuals with abundances below threshold&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">abundance</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rtol</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="p">[</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">abundance</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rtol</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">RANKS</span><span class="p">))</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;`taxonomy` must be a pandas DataFrame with at least&quot;</span>
+                <span class="s2">&quot; a column `id` or a rank :(&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">model_db</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;file&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;If no model database is specified you need to pass &quot;</span>
+                <span class="s2">&quot;file names for models in a `file` column as well.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">compressed</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">model_db</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">compressed</span> <span class="o">=</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
+                <span class="n">tdir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;file&quot;</span> <span class="ow">in</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;The table includes a `file` column even though a model database &quot;</span>
+                    <span class="s2">&quot;is used. Will ignore it and use the model database instead.&quot;</span>
+                <span class="p">)</span>
+                <span class="k">del</span> <span class="n">taxonomy</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">):</span>
+                <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_qiime_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">):</span>
+                <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_zip_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_manifest</span><span class="p">(</span><span class="n">model_db</span><span class="p">)</span>
+            <span class="n">rank</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;summary_rank&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">rank</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing the column `</span><span class="si">%s</span><span class="s2">` from the taxonomy.&quot;</span> <span class="o">%</span> <span class="n">rank</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;id&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">taxonomy</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span>
+            <span class="n">keep_cols</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">r</span>
+                <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">RANKS</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="p">(</span><span class="n">RANKS</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">rank</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+                <span class="k">if</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">columns</span>
+            <span class="p">]</span>
+            <span class="n">manifest</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="n">keep_cols</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]]</span>
+            <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">unify_rank_prefixes</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">,</span> <span class="n">manifest</span><span class="p">)</span>
+            <span class="n">merged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">,</span> <span class="n">manifest</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">keep_cols</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__db_metrics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;found_taxa&quot;</span><span class="p">:</span> <span class="n">merged</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s2">&quot;total_taxa&quot;</span><span class="p">:</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s2">&quot;found_fraction&quot;</span><span class="p">:</span> <span class="n">merged</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s2">&quot;found_abundance_fraction&quot;</span><span class="p">:</span> <span class="n">merged</span><span class="o">.</span><span class="n">abundance</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Matched </span><span class="si">%g%%</span><span class="s2"> of total abundance in model DB.&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="mf">100.0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">__db_metrics</span><span class="p">[</span><span class="s2">&quot;found_abundance_fraction&quot;</span><span class="p">])</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__db_metrics</span><span class="p">[</span><span class="s2">&quot;found_abundance_fraction&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;Less than 50</span><span class="si">%%</span><span class="s2"> of the abundance could be matched to the &quot;</span>
+                    <span class="s2">&quot;model database. Model `</span><span class="si">%s</span><span class="s2">` may not be representative &quot;</span>
+                    <span class="s2">&quot;of the sample&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span>
+                <span class="p">)</span>
+            <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">merged</span>
+            <span class="n">taxonomy</span><span class="p">[</span><span class="s2">&quot;abundance&quot;</span><span class="p">]</span> <span class="o">/=</span> <span class="n">taxonomy</span><span class="p">[</span><span class="s2">&quot;abundance&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="n">taxonomy</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^A-Za-z0-9_]+&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Community.__taxonomy">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.__taxonomy">[docs]</a>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span> <span class="o">=</span> <span class="n">taxonomy</span></div>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">id</span>
+
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">Zero</span>
+<div class="viewcode-block" id="Community.taxa">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.taxa">[docs]</a>
+        <span class="bp">self</span><span class="o">.</span><span class="n">taxa</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Building&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">progress</span> <span class="k">else</span> <span class="n">index</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">file</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">model</span> <span class="o">=</span> <span class="n">join_models</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;joined </span><span class="si">{}</span><span class="s2"> models&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">file</span><span class="p">)))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">file</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+            <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;__&quot;</span> <span class="o">+</span> <span class="n">idx</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;converting IDs for </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
+            <span class="n">external</span> <span class="o">=</span> <span class="n">cobra</span><span class="o">.</span><span class="n">medium</span><span class="o">.</span><span class="n">find_external_compartment</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Identified </span><span class="si">%s</span><span class="s2"> as the external compartment for </span><span class="si">%s</span><span class="s2">. &quot;</span>
+                <span class="s2">&quot;If that is wrong you may be in trouble...&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">external</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">reactions</span><span class="p">:</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">global_id</span> <span class="o">=</span> <span class="n">clean_ids</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">global_id</span> <span class="o">+</span> <span class="n">suffix</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">community_id</span> <span class="o">=</span> <span class="n">idx</span>
+                <span class="c1"># avoids https://github.com/opencobra/cobrapy/issues/926</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">_compartments</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="c1"># SBO terms may not be maintained</span>
+                <span class="k">if</span> <span class="s2">&quot;sbo&quot;</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">annotation</span><span class="p">:</span>
+                    <span class="k">del</span> <span class="n">r</span><span class="o">.</span><span class="n">annotation</span><span class="p">[</span><span class="s2">&quot;sbo&quot;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">metabolites</span><span class="p">:</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">global_id</span> <span class="o">=</span> <span class="n">clean_ids</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">global_id</span> <span class="o">+</span> <span class="n">suffix</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">compartment</span> <span class="o">+=</span> <span class="n">suffix</span>
+                <span class="n">m</span><span class="o">.</span><span class="n">community_id</span> <span class="o">=</span> <span class="n">idx</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;adding reactions for </span><span class="si">{}</span><span class="s2"> to community&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_reactions</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">reactions</span><span class="p">)</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">Objective</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">objective</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">solver</span>
+            <span class="p">)</span>
+            <span class="n">obj</span> <span class="o">+=</span> <span class="n">o</span><span class="o">.</span><span class="n">expression</span> <span class="o">*</span> <span class="n">row</span><span class="o">.</span><span class="n">abundance</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">taxa</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+            <span class="n">taxa_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span>
+                <span class="n">o</span><span class="o">.</span><span class="n">expression</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">idx</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mf">0.0</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_cons_vars</span><span class="p">([</span><span class="n">taxa_obj</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__add_exchanges</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">reactions</span><span class="p">,</span>
+                <span class="n">row</span><span class="p">,</span>
+                <span class="n">external_compartment</span><span class="o">=</span><span class="n">external</span><span class="p">,</span>
+                <span class="n">internal_exchange</span><span class="o">=</span><span class="n">max_exchange</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>  <span class="c1"># to avoid dangling refs due to lazy add</span>
+
+        <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
+            <span class="n">tdir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+        <span class="n">com_obj</span> <span class="o">=</span> <span class="n">add_var_from_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;community_objective&quot;</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="viewcode-block" id="Community.objective">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.objective">[docs]</a>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Objective</span><span class="p">(</span><span class="n">com_obj</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;max&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Community.__add_exchanges">
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.__add_exchanges">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__add_exchanges</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">reactions</span><span class="p">,</span>
+        <span class="n">info</span><span class="p">,</span>
+        <span class="n">external_compartment</span><span class="o">=</span><span class="s2">&quot;e&quot;</span><span class="p">,</span>
+        <span class="n">internal_exchange</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add exchange reactions for a new model.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">reactions</span><span class="p">:</span>
+            <span class="c1"># Some sanity checks for whether the reaction is an exchange</span>
+            <span class="n">ex</span> <span class="o">=</span> <span class="n">external_compartment</span> <span class="o">+</span> <span class="s2">&quot;__&quot;</span> <span class="o">+</span> <span class="n">r</span><span class="o">.</span><span class="n">community_id</span>
+            <span class="c1"># Some AGORA models label the biomass demand as exchange</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">bm</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">bm</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;biomass&quot;</span><span class="p">,</span> <span class="s2">&quot;bm&quot;</span><span class="p">]):</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;EX_&quot;</span><span class="p">,</span> <span class="s2">&quot;DM_&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">cobra</span><span class="o">.</span><span class="n">medium</span><span class="o">.</span><span class="n">is_boundary_type</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="s2">&quot;exchange&quot;</span><span class="p">,</span> <span class="n">ex</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;ex&quot;</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s2">&quot;Reaction </span><span class="si">%s</span><span class="s2"> seems to be an exchange &quot;</span> <span class="o">%</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span>
+                    <span class="o">+</span> <span class="s2">&quot;reaction but its ID does not start with &#39;EX_&#39;...&quot;</span>
+                <span class="p">)</span>
+
+            <span class="n">export</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">reactants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">export</span><span class="p">:</span>
+                <span class="n">lb</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">lower_bound</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">mass</span>
+                <span class="n">ub</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">upper_bound</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="n">r</span><span class="o">.</span><span class="n">upper_bound</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">mass</span>
+                <span class="n">ub</span> <span class="o">=</span> <span class="o">-</span><span class="n">r</span><span class="o">.</span><span class="n">lower_bound</span>
+            <span class="k">if</span> <span class="n">lb</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="ow">and</span> <span class="n">lb</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mf">1e-6</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;lower bound for </span><span class="si">%r</span><span class="s2"> below numerical accuracy &quot;</span>
+                    <span class="s2">&quot;-&gt; adjusting to stabilize model.&quot;</span>
+                <span class="p">)</span>
+                <span class="n">lb</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1e-6</span>
+            <span class="k">if</span> <span class="n">ub</span> <span class="o">&gt;</span> <span class="mf">0.0</span> <span class="ow">and</span> <span class="n">ub</span> <span class="o">&lt;</span> <span class="mf">1e-6</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;upper bound for </span><span class="si">%r</span><span class="s2"> below numerical accuracy &quot;</span>
+                    <span class="s2">&quot;-&gt; adjusting to stabilize model.&quot;</span>
+                <span class="p">)</span>
+                <span class="n">ub</span> <span class="o">=</span> <span class="mf">1e-6</span>
+            <span class="n">met</span> <span class="o">=</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">reactants</span> <span class="o">+</span> <span class="n">r</span><span class="o">.</span><span class="n">products</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">old_compartment</span> <span class="o">=</span> <span class="n">compartment_id</span><span class="p">(</span><span class="n">met</span><span class="p">)</span>
+            <span class="n">medium_id</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+                <span class="n">COMPARTMENT_RE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">old_compartment</span><span class="p">,</span> <span class="n">old_compartment</span><span class="p">),</span>
+                <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">met</span><span class="o">.</span><span class="n">global_id</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">medium_id</span> <span class="o">+=</span> <span class="s2">&quot;_m&quot;</span>
+            <span class="k">if</span> <span class="n">medium_id</span> <span class="o">==</span> <span class="n">met</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+                <span class="n">medium_id</span> <span class="o">+=</span> <span class="s2">&quot;_medium&quot;</span>
+            <span class="k">if</span> <span class="n">medium_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metabolites</span><span class="p">:</span>
+                <span class="c1"># If metabolite does not exist in medium add it to the model</span>
+                <span class="c1"># and also add an exchange reaction for the medium</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;adding metabolite </span><span class="si">%s</span><span class="s2"> to external medium&quot;</span> <span class="o">%</span> <span class="n">medium_id</span><span class="p">)</span>
+                <span class="n">medium_met</span> <span class="o">=</span> <span class="n">met</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">medium_met</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">medium_id</span>
+                <span class="n">medium_met</span><span class="o">.</span><span class="n">compartment</span> <span class="o">=</span> <span class="s2">&quot;m&quot;</span>
+                <span class="n">medium_met</span><span class="o">.</span><span class="n">global_id</span> <span class="o">=</span> <span class="n">medium_id</span>
+                <span class="n">medium_met</span><span class="o">.</span><span class="n">community_id</span> <span class="o">=</span> <span class="s2">&quot;medium&quot;</span>
+                <span class="n">ex_medium</span> <span class="o">=</span> <span class="n">cobra</span><span class="o">.</span><span class="n">Reaction</span><span class="p">(</span>
+                    <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;EX_&quot;</span> <span class="o">+</span> <span class="n">medium_met</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">medium_met</span><span class="o">.</span><span class="n">id</span> <span class="o">+</span> <span class="s2">&quot; medium exchange&quot;</span><span class="p">,</span>
+                    <span class="n">lower_bound</span><span class="o">=</span><span class="n">lb</span><span class="p">,</span>
+                    <span class="n">upper_bound</span><span class="o">=</span><span class="n">ub</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">ex_medium</span><span class="o">.</span><span class="n">add_metabolites</span><span class="p">({</span><span class="n">medium_met</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span>
+                <span class="n">ex_medium</span><span class="o">.</span><span class="n">global_id</span> <span class="o">=</span> <span class="n">ex_medium</span><span class="o">.</span><span class="n">id</span>
+                <span class="n">ex_medium</span><span class="o">.</span><span class="n">community_id</span> <span class="o">=</span> <span class="s2">&quot;medium&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_reactions</span><span class="p">([</span><span class="n">ex_medium</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="s2">&quot;updating import rate for external metabolite </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">medium_id</span>
+                <span class="p">)</span>
+                <span class="n">medium_met</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">metabolites</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">medium_id</span><span class="p">)</span>
+                <span class="n">ex_medium</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reactions</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="s2">&quot;EX_&quot;</span> <span class="o">+</span> <span class="n">medium_met</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+                <span class="n">ex_medium</span><span class="o">.</span><span class="n">lower_bound</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">lb</span><span class="p">,</span> <span class="n">ex_medium</span><span class="o">.</span><span class="n">lower_bound</span><span class="p">)</span>
+                <span class="n">ex_medium</span><span class="o">.</span><span class="n">upper_bound</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">ub</span><span class="p">,</span> <span class="n">ex_medium</span><span class="o">.</span><span class="n">upper_bound</span><span class="p">)</span>
+
+            <span class="n">coef</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">abundance</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">add_metabolites</span><span class="p">({</span><span class="n">medium_met</span><span class="p">:</span> <span class="n">coef</span> <span class="k">if</span> <span class="n">export</span> <span class="k">else</span> <span class="o">-</span><span class="n">coef</span><span class="p">})</span>
+            <span class="k">if</span> <span class="n">export</span><span class="p">:</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">lower_bound</span> <span class="o">=</span> <span class="o">-</span><span class="n">internal_exchange</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">upper_bound</span> <span class="o">=</span> <span class="n">internal_exchange</span></div>
+
+
+<div class="viewcode-block" id="Community.__update_exchanges">
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.__update_exchanges">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__update_exchanges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update exchanges.&quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;updating exchange reactions for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">met</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">metabolites</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">compartment</span> <span class="o">==</span> <span class="s2">&quot;m&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">met</span><span class="o">.</span><span class="n">reactions</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">boundary</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">coef</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">community_id</span><span class="p">,</span> <span class="s2">&quot;abundance&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">met</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">products</span><span class="p">:</span>
+                    <span class="n">r</span><span class="o">.</span><span class="n">add_metabolites</span><span class="p">({</span><span class="n">met</span><span class="p">:</span> <span class="n">coef</span><span class="p">},</span> <span class="n">combine</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">r</span><span class="o">.</span><span class="n">add_metabolites</span><span class="p">({</span><span class="n">met</span><span class="p">:</span> <span class="o">-</span><span class="n">coef</span><span class="p">},</span> <span class="n">combine</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Community.__update_community_objective">
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.__update_community_objective">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__update_community_objective</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update the community objective.&quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;updating the community objective for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span>
+        <span class="n">const</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">community_objective_equality</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remove_cons_vars</span><span class="p">([</span><span class="n">const</span><span class="p">])</span>
+        <span class="n">com_obj</span> <span class="o">=</span> <span class="n">Zero</span>
+        <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">taxa</span><span class="p">:</span>
+            <span class="n">ab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sp</span><span class="p">,</span> <span class="s2">&quot;abundance&quot;</span><span class="p">]</span>
+            <span class="n">taxa_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
+            <span class="n">com_obj</span> <span class="o">+=</span> <span class="n">ab</span> <span class="o">*</span> <span class="n">taxa_obj</span><span class="o">.</span><span class="n">expression</span>
+        <span class="n">const</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">v</span> <span class="o">-</span> <span class="n">com_obj</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(),</span>
+            <span class="n">lb</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">ub</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;community_objective_equality&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_cons_vars</span><span class="p">([</span><span class="n">const</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="Community.optimize_single">
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.optimize_single">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">optimize_single</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Optimize growth rate for one individual.</span>
+
+<span class="sd">        `optimize_single` will calculate the maximal growth rate for one</span>
+<span class="sd">        individual member of the community.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This might well mean that growth rates for all other individuals are</span>
+<span class="sd">        low since the individual may use up all available resources.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        id : str</span>
+<span class="sd">            The ID of the individual to be optimized.</span>
+<span class="sd">        fluxes : boolean, optional</span>
+<span class="sd">            Whether to return all fluxes. Defaults to just returning the</span>
+<span class="sd">            maximal growth rate.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            The maximal growth rate for the given taxa.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;`optimize_single` is deprecated and will be removed soon :(&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">id</span> <span class="o">+</span> <span class="s2">&quot; not in taxonomy!&quot;</span><span class="p">)</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">id</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">id</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="p">):</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`id` must be an id or positive index!&quot;</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;optimizing for </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">info</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">with</span> <span class="bp">self</span> <span class="k">as</span> <span class="n">m</span><span class="p">:</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">expression</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">objective</span><span class="o">.</span><span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="Community.optimize_all">
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.optimize_all">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">optimize_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return solutions for individually optimizing each model.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This might well mean that growth rates for all other individuals are</span>
+<span class="sd">        low since the individual may use up all available resources. As a</span>
+<span class="sd">        consequence the reported growth rates may usually never be obtained</span>
+<span class="sd">        all at once.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        progress : boolean, optional</span>
+<span class="sd">            Whether to show a progress bar.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pandas.Series</span>
+<span class="sd">            The maximal growth rate for each taxa.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;`optimize_all` is deprecated and will be removed soon :(&quot;</span><span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">index</span>
+        <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Optimizing&quot;</span><span class="p">)</span>
+
+        <span class="n">individual</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">optimize_single</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">individual</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Community.optimize">
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.optimize">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">optimize</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">raise_error</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Optimize the model using flux balance analysis.</span>
+
+<span class="sd">        This is the primary accessor for optimization in MICOM and should be used</span>
+<span class="sd">        for all optimizations. Different from cobrapy this will *not* return the full</span>
+<span class="sd">        solution by default but only growth rates which is much quicker. You can</span>
+<span class="sd">        request a full solution by setting the `fluxes` and `pFBA` arguments.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        slim : boolean, optional</span>
+<span class="sd">            Whether to return a slim solution which does not contain fluxes,</span>
+<span class="sd">            just growth rates.</span>
+<span class="sd">        raise_error : boolean, optional</span>
+<span class="sd">            Should an error be raised if the solution is not optimal. Defaults</span>
+<span class="sd">            to False which will either return a solution with a non-optimal</span>
+<span class="sd">            status or None if optimization fails.</span>
+<span class="sd">        fluxes : boolean, optional</span>
+<span class="sd">            Whether to return the fluxes as well.</span>
+<span class="sd">        pfba : boolean, optional</span>
+<span class="sd">            Whether to obtain fluxes by parsimonious FBA rather than</span>
+<span class="sd">            &quot;classical&quot; FBA. This is highly recommended.</span>
+<span class="sd">        atol : float</span>
+<span class="sd">            Absolute tolerance for the growth rates. If None will use the solver</span>
+<span class="sd">            tolerance.</span>
+<span class="sd">        rtol : float</span>
+<span class="sd">            Relative tolerqance for the growth rates. If None will use the</span>
+<span class="sd">            solver tolerance.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        micom.CommunitySolution</span>
+<span class="sd">            The solution after optimization or None if there is no optimum.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">atol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">atol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
+        <span class="k">if</span> <span class="n">rtol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rtol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
+
+        <span class="k">with</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">solution</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="n">fluxes</span><span class="o">=</span><span class="n">fluxes</span><span class="p">,</span>
+                <span class="n">pfba</span><span class="o">=</span><span class="n">pfba</span><span class="p">,</span>
+                <span class="n">raise_error</span><span class="o">=</span><span class="n">raise_error</span><span class="p">,</span>
+                <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
+                <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">solution</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Community.abundances">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.abundances">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">abundances</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;pandas.Series: The normalized abundances.</span>
+
+<span class="sd">        Setting this attribute will also trigger the appropriate updates in</span>
+<span class="sd">        the exchange fluxes and the community objective.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">abundance</span></div>
+
+
+    <span class="nd">@abundances</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">abundances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_abundance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Community.set_abundance">
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.set_abundance">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_abundance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Change abundances for one or more taxa.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        value : array-like object</span>
+<span class="sd">            The new abundances. Must contain one value for each taxon. Can</span>
+<span class="sd">            be a named object like a pandas Series.</span>
+<span class="sd">        normalize : boolean, optional</span>
+<span class="sd">            Whether to normalize the abundances to a total of 1.0. Many things</span>
+<span class="sd">            in micom asssume that this is always the case. Only change this</span>
+<span class="sd">            if you know what you are doing :O</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">abundance</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;value must be an iterable with an entry for &quot;</span> <span class="s2">&quot;each taxa/tissue&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;setting new abundances for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">ab</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">abundance</span>
+        <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">abundance</span> <span class="o">/=</span> <span class="n">ab</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+            <span class="n">small</span> <span class="o">=</span> <span class="n">ab</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rtol</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;adjusting abundances for </span><span class="si">%s</span><span class="s2"> to </span><span class="si">%g</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">small</span><span class="p">]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rtol</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">small</span><span class="p">,</span> <span class="s2">&quot;abundance&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rtol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__update_exchanges</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__update_community_objective</span><span class="p">()</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Community.taxonomy">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.taxonomy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">taxonomy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;pandas.DataFrame: The taxonomy used within the model.</span>
+
+<span class="sd">        This attribute only returns a copy.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__taxonomy</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Community.modification">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.modification">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">modification</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;str: Denotes modifications to the model currently applied.</span>
+
+<span class="sd">        Will be None if the community is unmodified.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modification</span></div>
+
+
+    <span class="nd">@modification</span><span class="o">.</span><span class="n">setter</span>
+    <span class="nd">@cobra</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">resettable</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">modification</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mod</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modification</span> <span class="o">=</span> <span class="n">mod</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Community.exchanges">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.exchanges">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">exchanges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list: Return all exchange reactions in the model.</span>
+
+<span class="sd">        Uses several heuristics based on the reaction name and compartments</span>
+<span class="sd">        to exclude reactions that are *not* exchange reactions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cobra</span><span class="o">.</span><span class="n">medium</span><span class="o">.</span><span class="n">find_boundary_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;exchange&quot;</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Community.internal_exchanges">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.internal_exchanges">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">internal_exchanges</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;list: Return all internal exchanges.</span>
+
+<span class="sd">        Internal exchanges are exchanges between individual taxa and the medium.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">r</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reactions</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">metabolites</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="s2">&quot;m&quot;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">compartment</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">metabolites</span><span class="p">]</span>
+        <span class="p">]</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Community.medium">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.medium">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">medium</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the medium.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">medium</span></div>
+
+
+    <span class="nd">@medium</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">medium</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the medium for the community.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fluxes : dict or pandas.Series</span>
+<span class="sd">            The largest allowed import flux for the component. Index or key must be a</span>
+<span class="sd">            reaction ID and the flux should be positive.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="n">fluxes</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+
+        <span class="n">exids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">exchanges</span><span class="p">)</span>
+        <span class="n">rids</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">fluxes</span><span class="p">)</span>
+        <span class="n">found</span> <span class="o">=</span> <span class="n">rids</span> <span class="o">&amp;</span> <span class="n">exids</span>
+        <span class="n">C_num</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
+            <span class="n">cobra</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">formula</span><span class="o">.</span><span class="n">Formula</span><span class="p">(</span><span class="n">ex_metabolite</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rid</span><span class="p">)</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="mi">0</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">rid</span> <span class="ow">in</span> <span class="n">found</span>
+        <span class="p">)</span>
+        <span class="n">not_found</span> <span class="o">=</span> <span class="n">rids</span> <span class="o">-</span> <span class="n">exids</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">found</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;No ID from the medium could be found in the exchange reactions. &quot;</span>
+                <span class="s2">&quot;This means you probably have mismatched IDs...&quot;</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">C_num</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;There does not seem to be any carbon source in your medium. &quot;</span>
+                <span class="s2">&quot;Please double-check your medium IDs. &quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">not_found</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;I could not find the following exchanges &quot;</span>
+                <span class="s2">&quot;in your model: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">not_found</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Community</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span><span class="o">.</span><span class="n">medium</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="p">{</span><span class="n">rid</span><span class="p">:</span> <span class="n">fluxes</span><span class="p">[</span><span class="n">rid</span><span class="p">]</span> <span class="k">for</span> <span class="n">rid</span> <span class="ow">in</span> <span class="n">found</span><span class="p">}</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Community.build_metrics">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.build_metrics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;pd.Series: Returns general metrics for database matching.</span>
+
+<span class="sd">        Only available when built using a model database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__db_metrics</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__db_metrics</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Metrics are only available for models build using a model &quot;</span>
+                <span class="s2">&quot;database :(&quot;</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Community.optcom">
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.optcom">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">optcom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;lagrangian&quot;</span><span class="p">,</span> <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pfba</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run OptCom for the community.</span>
+
+<span class="sd">        OptCom methods are a group of optimization procedures to find community</span>
+<span class="sd">        solutions that provide a tradeoff between the cooperative community</span>
+<span class="sd">        growth and the egoistic growth of each individual [#c1]_. `micom`</span>
+<span class="sd">        provides several strategies that can be used to find optimal solutions:</span>
+
+<span class="sd">        - &quot;moma&quot;: Minimization of metabolic adjustment. Simultaneously</span>
+<span class="sd">          optimizes the community objective (maximize) and the cooperativity</span>
+<span class="sd">          cost (minimize). This method finds an exact maximum but doubles the</span>
+<span class="sd">          number of required variables, thus being slow.</span>
+<span class="sd">        - &quot;lmoma&quot;: The same as &quot;moma&quot; only with a linear</span>
+<span class="sd">          representation of the cooperativity cost (absolute value).</span>
+<span class="sd">        - &quot;original&quot;: Solves the multi-objective problem described in [#c1]_.</span>
+<span class="sd">          Here, the community growth rate is maximized simultanously with all</span>
+<span class="sd">          individual growth rates. Note that there are usually many</span>
+<span class="sd">          Pareto-optimal solutions to this problem and the method will only</span>
+<span class="sd">          give one solution. This is also the slowest method.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        community : micom.Community</span>
+<span class="sd">            The community to optimize.</span>
+<span class="sd">        strategy : str</span>
+<span class="sd">            The strategy used to solve the OptCom formulation. Defaults to</span>
+<span class="sd">            &quot;lagrangian&quot; which gives a decent tradeoff between speed and</span>
+<span class="sd">            correctness.</span>
+<span class="sd">        min_growth : float or array-like</span>
+<span class="sd">            The minimal growth rate required for each individual. May be a</span>
+<span class="sd">            single value or an array-like object with the same length as there</span>
+<span class="sd">            are individuals.</span>
+<span class="sd">        fluxes : boolean</span>
+<span class="sd">            Whether to return the fluxes as well.</span>
+<span class="sd">        pfba : boolean</span>
+<span class="sd">            Whether to obtain fluxes by parsimonious FBA rather than</span>
+<span class="sd">            &quot;classical&quot; FBA.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        micom.CommunitySolution</span>
+<span class="sd">            The solution of the optimization. If fluxes==False will only</span>
+<span class="sd">            contain the objective value, community growth rate and individual</span>
+<span class="sd">            growth rates.</span>
+
+<span class="sd">        References</span>
+<span class="sd">        ----------</span>
+<span class="sd">        .. [#c1] OptCom: a multi-level optimization framework for the metabolic</span>
+<span class="sd">           modeling and analysis of microbial communities.</span>
+<span class="sd">           Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.</span>
+<span class="sd">           doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">optcom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Community.cooperative_tradeoff">
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.cooperative_tradeoff">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cooperative_tradeoff</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">min_growth</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">fraction</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">fluxes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pfba</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Find the best tradeoff between community and individual growth.</span>
+
+<span class="sd">        Finds the set of growth rates which maintian a particular community</span>
+<span class="sd">        growth and spread up growth across all taxa as much as possible.</span>
+<span class="sd">        This is done by minimizing the L2 norm of the growth rates with a</span>
+<span class="sd">        minimal community growth.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        min_growth : float or array-like, optional</span>
+<span class="sd">            The minimal growth rate required for each individual. May be a</span>
+<span class="sd">            single value or an array-like object with the same length as there</span>
+<span class="sd">            are individuals.</span>
+<span class="sd">        fraction : float or list of floats in [0, 1]</span>
+<span class="sd">            The minum percentage of the community growth rate that has to be</span>
+<span class="sd">            maintained. For instance 0.9 means maintain 90% of the maximal</span>
+<span class="sd">            community growth rate. Defaults to 100%.</span>
+<span class="sd">        fluxes : boolean, optional</span>
+<span class="sd">            Whether to return the fluxes as well.</span>
+<span class="sd">        pfba : boolean, optional</span>
+<span class="sd">            Whether to obtain fluxes by parsimonious FBA rather than</span>
+<span class="sd">            &quot;classical&quot; FBA. This is highly recommended.</span>
+<span class="sd">        atol : float</span>
+<span class="sd">            Absolute tolerance for the growth rates. If None will use the solver</span>
+<span class="sd">            tolerance.</span>
+<span class="sd">        rtol : float</span>
+<span class="sd">            Relative tolerqance for the growth rates. If None will use the</span>
+<span class="sd">            solver tolerance.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        micom.CommunitySolution or pd.Series of solutions</span>
+<span class="sd">            The solution of the optimization. If fluxes==False will only</span>
+<span class="sd">            contain the objective value, community growth rate and individual</span>
+<span class="sd">            growth rates. If more than one fraction value is given will return</span>
+<span class="sd">            a pandas Series of solutions with the fractions as indices.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">atol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">atol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
+        <span class="k">if</span> <span class="n">rtol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rtol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
+
+        <span class="k">return</span> <span class="n">cooperative_tradeoff</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Community.knockout_taxa">
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.knockout_taxa">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">knockout_taxa</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">taxa</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fraction</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;change&quot;</span><span class="p">,</span>
+        <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">diag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sequentially knowckout a list of taxa in the model.</span>
+
+<span class="sd">        This uses cooperative tradeoff as optimization criterion in order to</span>
+<span class="sd">        get unqiue solutions for individual growth rates. Requires a QP</span>
+<span class="sd">        solver to work.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        taxa : str or list of strs</span>
+<span class="sd">            Names of taxa to be knocked out.</span>
+<span class="sd">        fraction : float in [0, 1], optional</span>
+<span class="sd">            Percentage of the maximum community growth rate that has to be</span>
+<span class="sd">            maintained. Defaults to 100%.</span>
+<span class="sd">        method : str, optional</span>
+<span class="sd">            One of &quot;raw&quot;, &quot;change&quot; or &quot;relative change&quot; that dictates whether</span>
+<span class="sd">            to return the new growth rate (raw), the change in growth rate</span>
+<span class="sd">            new - old or the relative change ([new - old] / old).</span>
+<span class="sd">        progress : bool, optional</span>
+<span class="sd">            Whether to show a progress bar. On by default.</span>
+<span class="sd">        diag : bool, optional</span>
+<span class="sd">            Whether the diagonal should contain values as well. If False will</span>
+<span class="sd">            be filled with NaNs.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pandas.DataFrame</span>
+<span class="sd">            A data frame with one row for each knockout and growth rates in the</span>
+<span class="sd">            columns. Here the row name indicates which taxon has been knocked</span>
+<span class="sd">            out and the columns contain the growth changes for all taxa in</span>
+<span class="sd">            that knockout.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">taxa</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">taxa</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">taxa</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">taxa</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">taxa</span> <span class="o">=</span> <span class="p">[</span><span class="n">taxa</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">sp</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">taxa</span> <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">taxa</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;At least one of the arguments is not a taxon &quot;</span> <span class="s2">&quot;in the community.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;raw&quot;</span><span class="p">,</span> <span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="s2">&quot;relative change&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;`method` must be one of &#39;raw&#39;, &#39;change&#39;, &quot;</span> <span class="s2">&quot;or &#39;relative change&#39;.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">knockout_taxa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taxa</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span> <span class="n">diag</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="Community.scale">
+<a class="viewcode-back" href="../../autoapi/micom/community/index.html#micom.community.Community.scale">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">scale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a scale to improve numerical properties.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;cplex&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mf">1000.0</span>
+        <span class="k">return</span> <span class="mf">1.0</span></div>
+
+
+<div class="viewcode-block" id="Community.to_pickle">
+<a class="viewcode-back" href="../../autoapi/micom/index.html#micom.community.Community.to_pickle">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_pickle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save a community in serialized form.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            Where to save the pickled community.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Nothing</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out</span><span class="p">:</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">HIGHEST_PROTOCOL</span><span class="p">)</span></div>
+
+
+    <span class="nd">@cobra</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the solver.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="s2">&quot;lp_method&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">lp_method</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="p">,</span> <span class="s2">&quot;qp_method&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">qp_method</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span>
+        <span class="n">cobra</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">fset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+        <span class="n">adjust_solver_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="p">)</span></div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2017-2024, Christian Diener
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=8dc928a0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

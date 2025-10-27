@@ -1,0 +1,98 @@
+micom.viz.interactions
+======================
+
+.. py:module:: micom.viz.interactions
+
+.. autoapi-nested-parse::
+
+   Visualizations for interactions.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.viz.interactions.UNITS
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.viz.interactions.plot_focal_interactions
+   micom.viz.interactions.plot_mes
+
+
+Module Contents
+---------------
+
+.. py:data:: UNITS
+
+.. py:function:: plot_focal_interactions(results: micom.workflows.GrowthResults, taxon: str, filename: str = 'focal_interactions_%s.html' % datetime.now().strftime('%Y%m%d'), kind: str = 'mass') -> None
+
+   Plot metabolic interactions between a focal taxa and all other taxa.
+
+   This will visualize metabolic interaction between a taxon of interest (focal taxon)
+   and all other taxa across all samples.
+
+   :param results: The results returned by the `grow` workflow.
+   :type results: micom.workflows.GrowthResults
+   :param taxon: The focal taxon to use as a reference. Must be one of the taxa appearing
+                 in `results.growth_rates.taxon`.
+   :type taxon: str
+   :param filename: The HTML file where the visualization will be saved.
+   :type filename: str
+   :param kind: Which kind of flux to use. Either
+                - "flux": molar flux of a metabolite
+                - "mass" (default): the mass flux (flux normalized by molecular weight)
+                - "C": carbon flux
+                - "N": nitrogen flux
+   :type kind: str
+
+   :returns: A MICOM visualization. Can be served with `viz.serve`.
+   :rtype: Visualization
+
+
+.. py:function:: plot_mes(results: micom.workflows.GrowthResults, filename: str = 'mes_%s.html' % datetime.now().strftime('%Y%m%d'), groups: pandas.Series = None, prevalence: float = 0.5) -> None
+
+   Plot metabolic interactions between a focal taxa and all other taxa.
+
+       This will plot the metabolic exchange score across samples and metabolites.
+       The metabolic exchange score (MES) is defined as the geometric mean of the
+       number of producers and consumers for a given metabolite in a sample.
+
+       $$
+       MES = 2\cdot
+   rac{|p||c|}{|p| + |c|}
+       $$
+
+       Parameters
+       ----------
+       results : micom.workflows.GrowthResults
+           The results returned by the `grow` workflow.
+       filename : str
+           The HTML file where the visualization will be saved.
+       groups : pandas.Series
+           Additional metadata to stratify MES score. The index must correspond to the
+           `sample_id` in the results and values must be categorical. The `.name` attribute
+           will be used to name the groups.
+       prevalence : float in [0, 1]
+           In what proportion of samples the metabolite has to have a non-zero MES to
+           be shown on the plots. Can be used to show only very commonly exchanged
+           metabolites.
+
+       Notes
+       -----
+       The CSV files will always include all MES scores independent of the prevalence
+       filter which is only used for visualization.
+
+       Returns
+       -------
+       Visualization
+           A MICOM visualization. Can be served with `viz.serve`.
+
+
+

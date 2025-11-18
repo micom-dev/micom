@@ -312,7 +312,6 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
 
 
-
 <div class="viewcode-block" id="_reduce_group">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/build/index.html#micom.workflows.build._reduce_group">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">_reduce_group</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
@@ -329,6 +328,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">build_and_save</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a single community model.&quot;&quot;&quot;</span>
     <span class="n">s</span><span class="p">,</span> <span class="n">tax</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">solver</span> <span class="o">=</span> <span class="n">args</span>
+
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">out</span><span class="p">):</span>
         <span class="n">com</span> <span class="o">=</span> <span class="n">load_pickle</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -407,6 +407,14 @@
             <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_folder</span><span class="p">)</span>
+    <span class="n">sample_abundances</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;sample_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">abundance</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">sample_abundances</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">bad</span> <span class="o">=</span> <span class="n">sample_abundances</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">sample_abundances</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;The following samples sum to a zero abundance and will be excluded: &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bad</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="p">[</span><span class="o">~</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">bad</span><span class="p">)]</span>
 
     <span class="n">samples</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
     <span class="n">out_path</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="n">s</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_folder</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="s2">&quot;.pickle&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">})</span>
@@ -425,6 +433,25 @@
     <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">RANKS</span><span class="p">)]</span>
     <span class="n">taxonomy</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">+</span> <span class="s2">&quot;.pickle&quot;</span>
     <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">taxonomy</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;sample_id&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">found_taxa</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">missing</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">sample_id</span><span class="p">[</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">found_taxa</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;The following samples had no taxon matches in the model &quot;</span>
+            <span class="s2">&quot;database and will be excluded. &quot;</span>
+            <span class="s2">&quot;We recommend to verify that the taxon names and &quot;</span>
+            <span class="s2">&quot;ranks match the database and version. &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Missing samples: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="si">}</span><span class="s2"> .&quot;</span>
+        <span class="p">)</span>
+        <span class="n">taxonomy</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="p">[</span><span class="n">taxonomy</span><span class="o">.</span><span class="n">found_taxa</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">frac</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">found_abundance_fraction</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">((</span><span class="n">frac</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">frac</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">)):</span>
+        <span class="n">low</span> <span class="o">=</span> <span class="n">taxonomy</span><span class="o">.</span><span class="n">sample_id</span><span class="p">[(</span><span class="n">frac</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">frac</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">)]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;Less than 50</span><span class="si">%%</span><span class="s2"> of the abundance could be matched to the &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;model database for these samples: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">low</span><span class="p">)</span><span class="si">}</span><span class="s2"> .&quot;</span>
+        <span class="p">)</span>
+
     <span class="n">taxonomy</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_folder</span><span class="p">,</span> <span class="s2">&quot;manifest.csv&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">taxonomy</span></div>
 

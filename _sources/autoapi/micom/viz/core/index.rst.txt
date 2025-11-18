@@ -14,6 +14,7 @@ Attributes
 
 .. autoapisummary::
 
+   micom.viz.core.logger
    micom.viz.core.env
 
 
@@ -27,6 +28,8 @@ Classes
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:data:: env
 

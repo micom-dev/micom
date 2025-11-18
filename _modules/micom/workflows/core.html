@@ -295,6 +295,8 @@
           <h1>Source code for micom.workflows.core</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Makes it easier to run analyses on several samples in parallel.&quot;&quot;&quot;</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">..logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">micom_console</span>
+
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">abc</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_context</span>
@@ -340,7 +342,9 @@
     <span class="k">if</span> <span class="n">threads</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">it</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
-            <span class="n">it</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">)</span>
+            <span class="n">it</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span>
+                <span class="n">it</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">console</span><span class="o">=</span><span class="n">micom_console</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
 
     <span class="c1"># We don&#39;t use the context  manager because of</span>
@@ -351,7 +355,9 @@
             <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
             <span class="n">it</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">imap_unordered</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
-                <span class="n">it</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Running&quot;</span><span class="p">)</span>
+                <span class="n">it</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span>
+                    <span class="n">it</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">),</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Running&quot;</span><span class="p">,</span> <span class="n">console</span><span class="o">=</span><span class="n">micom_console</span>
+                <span class="p">)</span>
             <span class="n">results</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">pool</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>

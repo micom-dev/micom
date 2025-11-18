@@ -9,6 +9,14 @@ micom.media
 
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.media.logger
+
+
 Functions
 ---------
 
@@ -24,6 +32,8 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:function:: add_linear_obj(community, exchanges, weights)
 

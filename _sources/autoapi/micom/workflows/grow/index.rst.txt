@@ -14,6 +14,7 @@ Attributes
 
 .. autoapisummary::
 
+   micom.workflows.grow.logger
    micom.workflows.grow.DIRECTION
    micom.workflows.grow.ARGS
 
@@ -29,6 +30,8 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:data:: DIRECTION
 

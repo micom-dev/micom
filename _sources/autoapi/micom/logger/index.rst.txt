@@ -14,17 +14,17 @@ Attributes
 
 .. autoapisummary::
 
+   micom.logger.micom_console
    micom.logger.formatter
    micom.logger.handler
-   micom.logger.logger
 
 
 Module Contents
 ---------------
 
+.. py:data:: micom_console
+
 .. py:data:: formatter
 
 .. py:data:: handler
-
-.. py:data:: logger
 

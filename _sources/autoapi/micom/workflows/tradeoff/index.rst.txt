@@ -9,6 +9,14 @@ micom.workflows.tradeoff
 
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.workflows.tradeoff.logger
+
+
 Functions
 ---------
 
@@ -20,6 +28,8 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:function:: _tradeoff(args)
 

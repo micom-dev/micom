@@ -9,6 +9,14 @@ micom.workflows.db_media
 
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.workflows.db_media.logger
+
+
 Functions
 ---------
 
@@ -24,6 +32,8 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:function:: _grow(args)
 

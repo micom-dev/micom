@@ -9,6 +9,14 @@ micom.algorithms
 
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.algorithms.logger
+
+
 Functions
 ---------
 
@@ -22,6 +30,8 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:function:: jaccard(inclusion)
 

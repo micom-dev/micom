@@ -39,14 +39,6 @@ Submodules
    /autoapi/micom/workflows/index
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   micom.logger
-
-
 Classes
 -------
 
@@ -444,8 +436,6 @@ Package Contents
 
 
 .. py:function:: show_versions()
-
-.. py:data:: logger
 
 .. py:function:: load_pickle(filename)
 

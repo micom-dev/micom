@@ -9,6 +9,14 @@ micom.problems
 
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.problems.logger
+
+
 Functions
 ---------
 
@@ -21,6 +29,8 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:function:: regularize_l2_norm(community, min_growth)
 

@@ -297,7 +297,7 @@
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.viz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Visualization</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">micom.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.measures</span><span class="w"> </span><span class="kn">import</span> <span class="n">production_rates</span><span class="p">,</span> <span class="n">consumption_rates</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -316,6 +316,10 @@
     <span class="n">Lasso</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+
+<div class="viewcode-block" id="logger">
+<a class="viewcode-back" href="../../../autoapi/micom/viz/association/index.html#micom.viz.association.logger">[docs]</a>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="plot_association">
@@ -371,11 +375,11 @@
 <span class="sd">        A MICOM visualization. Can be served with `viz.view`.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">exchanges</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">exchanges</span>
     <span class="k">if</span> <span class="n">flux_type</span> <span class="o">==</span> <span class="s2">&quot;import&quot;</span><span class="p">:</span>
         <span class="n">exchanges</span> <span class="o">=</span> <span class="n">consumption_rates</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">exchanges</span> <span class="o">=</span> <span class="n">production_rates</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="n">exchanges</span> <span class="o">=</span> <span class="n">exchanges</span><span class="p">[</span><span class="n">exchanges</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">phenotype</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span>
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span> <span class="o">&gt;</span> <span class="n">atol</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;None of the fluxes passed the tolerance threshold :(&quot;</span><span class="p">)</span>

@@ -302,13 +302,18 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.workflows.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">workflow</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.workflows.media</span><span class="w"> </span><span class="kn">import</span> <span class="n">process_medium</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">micom.media</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mm</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">micom.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.solution</span><span class="w"> </span><span class="kn">import</span> <span class="n">OptimizationError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_model</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.qiime_formats</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_qiime_model_db</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">rich</span><span class="w"> </span><span class="kn">import</span> <span class="nb">print</span> <span class="k">as</span> <span class="n">rprint</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">tempfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">TemporaryDirectory</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+
+<div class="viewcode-block" id="logger">
+<a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media.logger">[docs]</a>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="_grow">

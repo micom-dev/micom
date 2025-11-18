@@ -14,6 +14,7 @@ Attributes
 
 .. autoapisummary::
 
+   micom.optcom.logger
    micom.optcom._methods
 
 
@@ -29,6 +30,8 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:function:: add_dualized_optcom(community, min_growth)
 

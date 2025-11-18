@@ -9,6 +9,14 @@ micom.viz.exchanges
 
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.viz.exchanges.logger
+
+
 Functions
 ---------
 
@@ -20,6 +28,8 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:function:: plot_exchanges_per_sample(results: micom.workflows.results.GrowthResults, filename: str = 'sample_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction: str = 'import', cluster: bool = True) -> None
 

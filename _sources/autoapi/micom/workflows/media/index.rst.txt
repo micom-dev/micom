@@ -14,6 +14,7 @@ Attributes
 
 .. autoapisummary::
 
+   micom.workflows.media.logger
    micom.workflows.media.DIRECTION
 
 
@@ -31,6 +32,8 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:data:: DIRECTION
 

@@ -9,6 +9,14 @@ micom.duality
 
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.duality.logger
+
+
 Functions
 ---------
 
@@ -19,6 +27,8 @@ Functions
 
 Module Contents
 ---------------
+
+.. py:data:: logger
 
 .. py:function:: fast_dual(model, prefix='dual_')
 

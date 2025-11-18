@@ -2,7 +2,6 @@
 
 from micom.community import Community
 from micom.deps import show_versions
-from micom.logger import logger
 from micom.util import load_pickle
 from micom import (
     algorithms,
@@ -29,6 +28,7 @@ __all__ = (
     "data",
     "duality",
     "elasticity",
+    "interaction",
     "media",
     "qiime_formats",
     "solution",

@@ -14,8 +14,9 @@ import tempfile
 from shutil import rmtree
 import pandas as pd
 import re
-from micom.logger import logger
+import logging
 
+logger = logging.getLogger(__name__)
 
 _read_funcs = {
     ".xml": io.read_sbml_model,

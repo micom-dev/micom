@@ -12,13 +12,16 @@ from micom.workflows import (
     load_results,
     GrowthResults,
 )
-from micom.logger import logger
 from micom.qiime_formats import load_qiime_medium, load_qiime_manifest
 from micom.solution import OptimizationError
 import pytest
+import logging
+
+logger = logging.getLogger(__name__)
 
 medium = load_qiime_medium(md.test_medium)
 db = md.test_db
+
 
 
 def test_db(tmp_path):

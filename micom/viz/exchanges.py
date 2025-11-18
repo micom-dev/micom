@@ -2,11 +2,13 @@
 
 from datetime import datetime
 from scipy.cluster.hierarchy import linkage, leaves_list
-from micom.logger import logger
 from micom.workflows.results import GrowthResults
 from micom.viz.core import Visualization
 import pandas as pd
 from sklearn.manifold import TSNE
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def plot_exchanges_per_sample(

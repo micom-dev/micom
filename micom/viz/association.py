@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from micom.viz import Visualization
-from micom.logger import logger
+import logging
 from micom.measures import production_rates, consumption_rates
 from micom import stats
 import json
@@ -22,6 +22,7 @@ from sklearn.linear_model import (
 )
 from sklearn.preprocessing import StandardScaler
 
+logger = logging.getLogger(__name__)
 
 def plot_association(
     results,
@@ -74,11 +75,11 @@ def plot_association(
         A MICOM visualization. Can be served with `viz.view`.
 
     """
-    exchanges = results.exchanges
     if flux_type == "import":
         exchanges = consumption_rates(results)
     else:
         exchanges = production_rates(results)
+    exchanges = exchanges[exchanges.sample_id.isin(phenotype.index)]
     exchanges = exchanges.loc[exchanges.flux > atol]
     if exchanges.shape[1] < 1:
         raise ValueError("None of the fluxes passed the tolerance threshold :(")

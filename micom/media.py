@@ -2,6 +2,7 @@
 
 from cobra.core.formula import Formula, elements_and_molecular_weights
 from optlang.symbolics import Zero
+import logging
 import numpy as np
 import pandas as pd
 from micom import Community
@@ -10,10 +11,10 @@ from micom.util import (
     _apply_min_growth,
     check_modification,
 )
-from micom.logger import logger
 from micom.solution import OptimizationError
 import warnings
 
+logger = logging.getLogger(__name__)
 
 def add_linear_obj(community, exchanges, weights):
     """Add a linear version of a minimal medium to the community.

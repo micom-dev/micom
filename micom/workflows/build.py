@@ -14,7 +14,6 @@ import zipfile
 
 logger = logging.getLogger(__name__)
 
-
 def _reduce_group(df):
     keep = df.columns[df.nunique() == 1]
     new = df.iloc[0, :][keep]
@@ -26,6 +25,7 @@ def _reduce_group(df):
 def build_and_save(args):
     """Build a single community model."""
     s, tax, db, out, cutoff, solver = args
+
     if os.path.exists(out):
         com = load_pickle(out)
     else:
@@ -101,6 +101,14 @@ def build(
             )
     else:
         os.makedirs(out_folder)
+    sample_abundances = taxonomy.groupby("sample_id").abundance.sum()
+    if any(sample_abundances == 0):
+        bad = sample_abundances.index[sample_abundances == 0]
+        logger.warning(
+            "The following samples sum to a zero abundance and will be excluded: "
+            f"{', '.join(bad)}"
+        )
+        taxonomy = taxonomy[~taxonomy.sample_id.isin(bad)]
 
     samples = taxonomy.sample_id.unique()
     out_path = pd.Series({s: os.path.join(out_folder, s + ".pickle") for s in samples})
@@ -119,6 +127,25 @@ def build(
     taxonomy = taxonomy.loc[:, ~taxonomy.columns.isin(RANKS)]
     taxonomy["file"] = taxonomy.sample_id + ".pickle"
     taxonomy = pd.merge(taxonomy, metrics, on="sample_id")
+
+    if any(taxonomy.found_taxa == 0):
+        missing = taxonomy.sample_id[taxonomy.found_taxa == 0]
+        logger.warning(
+            "The following samples had no taxon matches in the model "
+            "database and will be excluded. "
+            "We recommend to verify that the taxon names and "
+            "ranks match the database and version. "
+            f"Missing samples: {', '.join(missing)} ."
+        )
+        taxonomy = taxonomy[taxonomy.found_taxa > 0]
+    frac = taxonomy.found_abundance_fraction
+    if any((frac > 0) & (frac < 0.5)):
+        low = taxonomy.sample_id[(frac > 0) & (frac < 0.5)]
+        logger.warning(
+            "Less than 50%% of the abundance could be matched to the "
+            f"model database for these samples: {', '.join(low)} ."
+        )
+
     taxonomy.to_csv(os.path.join(out_folder, "manifest.csv"), index=False)
     return taxonomy
 

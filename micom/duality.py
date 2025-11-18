@@ -1,7 +1,9 @@
 """Implements a fast dual formulation."""
 
 from sympy.core.singleton import S
-from micom.logger import logger
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def fast_dual(model, prefix="dual_"):

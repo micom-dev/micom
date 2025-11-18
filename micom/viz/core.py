@@ -1,9 +1,11 @@
 """Core objects for visualization."""
 
-from micom.logger import logger
 from os import path
 from jinja2 import Environment, PackageLoader, select_autoescape
 import webbrowser
+import logging
+
+logger = logging.getLogger(__name__)
 
 env = Environment(
     loader=PackageLoader("micom", "data/templates"),

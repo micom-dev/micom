@@ -2,13 +2,14 @@
 
 from cobra.util.solver import OptimizationError
 from micom import load_pickle
-from micom.logger import logger
 from micom.workflows.core import workflow
 from micom.workflows.media import process_medium
 import numpy as np
 from os import path
 import pandas as pd
+import logging
 
+logger = logging.getLogger(__name__)
 
 def _tradeoff(args):
     p, tradeoffs, medium, atol, rtol, presolve = args
@@ -40,7 +41,7 @@ def _tradeoff(args):
     try:
         sol = com.cooperative_tradeoff(fraction=tradeoffs)
     except Exception:
-        logger.warning(
+        logger.info(
             "Sample %s could not be optimized with cooperative tradeoff (%s)."
             % (com.id, com.solver.status),
         )
@@ -118,4 +119,10 @@ def tradeoff(
             "a more permissive solver tolerance."
         )
     results = pd.concat(results)
+    if any(r is None for r in results):
+        missing = set(samples) - set(results.sample_id)
+        raise OptimizationError(
+            "Some numerical optimizations failed. The following samples could"
+            f"not be solved: {', '.join(missing)}."
+        )
     return results

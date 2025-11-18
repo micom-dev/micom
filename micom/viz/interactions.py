@@ -3,11 +3,14 @@
 from datetime import datetime
 import json
 from micom.interaction import interactions, summarize_interactions, MES
-from micom.logger import logger
 from micom.workflows import GrowthResults
 from micom.viz.core import Visualization
 import pandas as pd
 import re
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 UNITS = {
     "flux": "mmol/[gDW·h]",

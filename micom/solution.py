@@ -1,5 +1,6 @@
 """A community solution object."""
 
+import logging
 import numpy as np
 import pandas as pd
 from collections import Counter
@@ -16,10 +17,10 @@ from functools import partial
 from cobra.exceptions import OptimizationError
 from cobra.core import Solution
 from cobra.util import interface_to_str, get_context
-from micom.logger import logger
 from micom.util import reset_min_community_growth, _apply_min_growth
 from swiglpk import glp_adv_basis
 
+logger = logging.getLogger(__name__)
 
 good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL, ITERATION_LIMIT]
 """Solver states that permit returning the solution."""
@@ -203,7 +204,7 @@ def solve(community, fluxes=True, pfba=True, raise_error=False, atol=1e-6, rtol=
         else:
             sol = CommunitySolution(community, slim=True)
         return sol
-    logger.warning("solver encountered an error %s" % status)
+    logger.info("solver encountered an error %s" % status)
     return None
 
 

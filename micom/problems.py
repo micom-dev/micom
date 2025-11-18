@@ -8,7 +8,7 @@ from micom.util import (
     get_context,
     reset_min_community_growth,
 )
-from micom.logger import logger
+import logging
 from micom.solution import (
     solve,
     crossover,
@@ -23,6 +23,7 @@ import pandas as pd
 import numpy as np
 from rich.progress import track
 
+logger = logging.getLogger(__name__)
 
 def regularize_l2_norm(community, min_growth):
     """Add an objective to find the most "egoistic" solution.

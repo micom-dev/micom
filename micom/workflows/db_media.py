@@ -7,7 +7,6 @@ from micom.db import load_zip_model_db, load_manifest
 from micom.workflows.core import workflow
 from micom.workflows.media import process_medium
 import micom.media as mm
-from micom.logger import logger
 from micom.solution import OptimizationError
 from micom.util import load_model
 from micom.qiime_formats import load_qiime_model_db
@@ -15,6 +14,9 @@ import re
 from rich import print as rprint
 from tempfile import TemporaryDirectory
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 def _grow(args):
     """Get the maximum growth rate under a given medium."""

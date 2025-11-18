@@ -5,6 +5,15 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.38.0
+
+`build()` will now show a single summarized warning if samples have less than 50%
+of their abundance matched in the model database. Samples with no matches at all will
+be reported separately and removed from the manifest as those can not be used as an
+input to `grow()`.
+
+Made sure that progress bars are no longer spammed with logging messages in between.
+
 ### 0.37.1
 
 Pins the OSQP version to a range compatible with optlang.

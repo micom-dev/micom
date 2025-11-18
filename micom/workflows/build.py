@@ -101,6 +101,8 @@ def build(
             )
     else:
         os.makedirs(out_folder)
+
+    # Several checks if the taxonomy table makes sense
     sample_abundances = taxonomy.groupby("sample_id").abundance.sum()
     if any(sample_abundances == 0):
         bad = sample_abundances.index[sample_abundances == 0]
@@ -109,6 +111,12 @@ def build(
             f"{', '.join(bad)}"
         )
         taxonomy = taxonomy[~taxonomy.sample_id.isin(bad)]
+    if "file" in taxonomy.columns and model_db is not None:
+        logger.warning(
+            "The table includes a `file` column even though a model database "
+            "is used. Will ignore it and use the model database instead."
+        )
+        del taxonomy["file"]
 
     samples = taxonomy.sample_id.unique()
     out_path = pd.Series({s: os.path.join(out_folder, s + ".pickle") for s in samples})

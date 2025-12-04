@@ -153,7 +153,7 @@ Module Contents
    current objective. This one will work with any objective (even non-linear
    ones).
 
-   .. seealso:: :obj:`pfba`
+   .. seealso:: :py:obj:`pfba`
 
    :param community: The community to add the objective to.
    :type community: micom.Community

@@ -5,6 +5,11 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.39.0
+
+`compare_groups` and `correlate_fluxes` now accept a `fillna` parameter to fill in missing
+fluxes.
+
 ### 0.38.0
 
 `build()` will now show a single summarized warning if samples have less than 50%

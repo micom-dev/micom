@@ -316,10 +316,13 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#micom.stats._run_corr" title="micom.stats._run_corr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_run_corr</span></code></a>(args)</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#micom.stats.compare_groups" title="micom.stats.compare_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compare_groups</span></code></a>(fluxes, metadata_column[, groups, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.stats.fill_missing_fluxes" title="micom.stats.fill_missing_fluxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill_missing_fluxes</span></code></a>(fluxes[, index_vars, fill])</p></td>
+<td><p>Fills missing fluxes with a replacement.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#micom.stats.compare_groups" title="micom.stats.compare_groups"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compare_groups</span></code></a>(fluxes, metadata_column[, groups, ...])</p></td>
 <td><p>Compare fluxes form different sample groups.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#micom.stats.correlate_fluxes" title="micom.stats.correlate_fluxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correlate_fluxes</span></code></a>(fluxes, metadata_column[, threads, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#micom.stats.correlate_fluxes" title="micom.stats.correlate_fluxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correlate_fluxes</span></code></a>(fluxes, metadata_column[, fillna, ...])</p></td>
 <td><p>Correlate fluxes with a continuous covariate.</p></td>
 </tr>
 </tbody>
@@ -357,8 +360,14 @@
 <dd></dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="micom.stats.fill_missing_fluxes">
+<span class="sig-prename descclassname"><span class="pre">micom.stats.</span></span><span class="sig-name descname"><span class="pre">fill_missing_fluxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fluxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['sample_id']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/stats.html#fill_missing_fluxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.stats.fill_missing_fluxes" title="Link to this definition">¶</a></dt>
+<dd><p>Fills missing fluxes with a replacement.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="micom.stats.compare_groups">
-<span class="sig-prename descclassname"><span class="pre">micom.stats.</span></span><span class="sig-name descname"><span class="pre">compare_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fluxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/stats.html#compare_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.stats.compare_groups" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.stats.</span></span><span class="sig-name descname"><span class="pre">compare_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fluxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fillna</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/stats.html#compare_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.stats.compare_groups" title="Link to this definition">¶</a></dt>
 <dd><p>Compare fluxes form different sample groups.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -375,6 +384,8 @@ Mann-Whitney test for two groups and a Kruskal-Wallis test for &gt;2 groups.
 <li><p><strong>groups</strong> (<em>list</em><em>[</em><em>str</em><em>] or </em><em>None</em>) – Specify a subset of groups you want to compare or define the order (1st will
 be the reference group). If None will use the groups as they appear in
 the DataFrame.</p></li>
+<li><p><strong>fillna</strong> (<em>float</em><em> or </em><em>None</em>) – Value to fill in for missing flux values (zero fluxes). Default is to drop
+samples with missing values.</p></li>
 <li><p><strong>threads</strong> (<em>int</em>) – How many threads to use to run tests in parallel.</p></li>
 <li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
 </ul>
@@ -387,7 +398,7 @@ the DataFrame.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.stats.correlate_fluxes">
-<span class="sig-prename descclassname"><span class="pre">micom.stats.</span></span><span class="sig-name descname"><span class="pre">correlate_fluxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fluxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/stats.html#correlate_fluxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.stats.correlate_fluxes" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.stats.</span></span><span class="sig-name descname"><span class="pre">correlate_fluxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fluxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fillna</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/micom/stats.html#correlate_fluxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.stats.correlate_fluxes" title="Link to this definition">¶</a></dt>
 <dd><p>Correlate fluxes with a continuous covariate.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -400,6 +411,8 @@ are the FDR-corrected p-values (Benjamini-Hochberg correction).</p>
 <li><p><strong>fluxes</strong> (<em>pandas.DataFrame</em>) – A frame with net fluxes as returned by <cite>production_rates</cite> or
 <cite>consumption_rates</cite>.</p></li>
 <li><p><strong>metatdata_column</strong> (<em>str</em>) – The column of the DataFrame denoting the covariate.</p></li>
+<li><p><strong>fillna</strong> (<em>float</em><em> or </em><em>None</em>) – Value to fill in for missing flux values (zero fluxes). Default is to drop
+samples with missing values.</p></li>
 <li><p><strong>threads</strong> (<em>int</em>) – How many threads to use to run tests in parallel.</p></li>
 <li><p><strong>progress</strong> (<em>bool</em>) – Whether to show a progress bar.</p></li>
 </ul>
@@ -474,6 +487,7 @@ are the FDR-corrected p-values (Benjamini-Hochberg correction).</p>
 <li><a class="reference internal" href="#micom.stats.fdr_adjust"><code class="docutils literal notranslate"><span class="pre">fdr_adjust()</span></code></a></li>
 <li><a class="reference internal" href="#micom.stats._run_test"><code class="docutils literal notranslate"><span class="pre">_run_test()</span></code></a></li>
 <li><a class="reference internal" href="#micom.stats._run_corr"><code class="docutils literal notranslate"><span class="pre">_run_corr()</span></code></a></li>
+<li><a class="reference internal" href="#micom.stats.fill_missing_fluxes"><code class="docutils literal notranslate"><span class="pre">fill_missing_fluxes()</span></code></a></li>
 <li><a class="reference internal" href="#micom.stats.compare_groups"><code class="docutils literal notranslate"><span class="pre">compare_groups()</span></code></a></li>
 <li><a class="reference internal" href="#micom.stats.correlate_fluxes"><code class="docutils literal notranslate"><span class="pre">correlate_fluxes()</span></code></a></li>
 </ul>

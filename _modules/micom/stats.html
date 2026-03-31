@@ -395,9 +395,25 @@
 
 
 
+<div class="viewcode-block" id="fill_missing_fluxes">
+<a class="viewcode-back" href="../../autoapi/micom/stats/index.html#micom.stats.fill_missing_fluxes">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">fill_missing_fluxes</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">index_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fills missing fluxes with a replacement.&quot;&quot;&quot;</span>
+    <span class="n">piv</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">index_vars</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill</span>
+    <span class="p">)</span>
+    <span class="n">fluxes</span> <span class="o">=</span> <span class="n">piv</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+        <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fluxes</span></div>
+
+
+
 <div class="viewcode-block" id="compare_groups">
 <a class="viewcode-back" href="../../autoapi/micom/stats/index.html#micom.stats.compare_groups">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">compare_groups</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">compare_groups</span><span class="p">(</span>
+    <span class="n">fluxes</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fillna</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compare fluxes form different sample groups.</span>
 
 <span class="sd">    Note</span>
@@ -417,6 +433,9 @@
 <span class="sd">        Specify a subset of groups you want to compare or define the order (1st will</span>
 <span class="sd">        be the reference group). If None will use the groups as they appear in</span>
 <span class="sd">        the DataFrame.</span>
+<span class="sd">    fillna : float or None</span>
+<span class="sd">        Value to fill in for missing flux values (zero fluxes). Default is to drop</span>
+<span class="sd">        samples with missing values.</span>
 <span class="sd">    threads : int</span>
 <span class="sd">        How many threads to use to run tests in parallel.</span>
 <span class="sd">    progress : bool</span>
@@ -430,6 +449,17 @@
         <span class="n">fluxes</span> <span class="o">=</span> <span class="n">fluxes</span><span class="p">[</span><span class="n">fluxes</span><span class="p">[</span><span class="n">metadata_column</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">groups</span><span class="p">)]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">groups</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">fluxes</span><span class="p">[</span><span class="n">metadata_column</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">fillna</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">piv</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+            <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">],</span>
+            <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span>
+            <span class="n">fill_value</span><span class="o">=</span><span class="n">fillna</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">fluxes</span> <span class="o">=</span> <span class="n">piv</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+            <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
     <span class="n">met_data</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">(</span><span class="n">fluxes</span><span class="p">[</span><span class="n">fluxes</span><span class="o">.</span><span class="n">metabolite</span> <span class="o">==</span> <span class="n">m</span><span class="p">],</span> <span class="n">metadata_column</span><span class="p">,</span> <span class="n">groups</span><span class="p">)</span>
@@ -449,7 +479,7 @@
 
 <div class="viewcode-block" id="correlate_fluxes">
 <a class="viewcode-back" href="../../autoapi/micom/stats/index.html#micom.stats.correlate_fluxes">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">correlate_fluxes</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">correlate_fluxes</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">,</span> <span class="n">fillna</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Correlate fluxes with a continuous covariate.</span>
 
 <span class="sd">    Note</span>
@@ -464,6 +494,9 @@
 <span class="sd">        `consumption_rates`.</span>
 <span class="sd">    metatdata_column : str</span>
 <span class="sd">        The column of the DataFrame denoting the covariate.</span>
+<span class="sd">    fillna : float or None</span>
+<span class="sd">        Value to fill in for missing flux values (zero fluxes). Default is to drop</span>
+<span class="sd">        samples with missing values.</span>
 <span class="sd">    threads : int</span>
 <span class="sd">        How many threads to use to run tests in parallel.</span>
 <span class="sd">    progress : bool</span>
@@ -473,6 +506,17 @@
 <span class="sd">    -------</span>
 <span class="sd">    Returns the metabolite with their respective test statistics.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">fillna</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">piv</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+            <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">],</span>
+            <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span>
+            <span class="n">fill_value</span><span class="o">=</span><span class="n">fillna</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">fluxes</span> <span class="o">=</span> <span class="n">piv</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+            <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
     <span class="n">met_data</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">(</span><span class="n">fluxes</span><span class="p">[</span><span class="n">fluxes</span><span class="o">.</span><span class="n">metabolite</span> <span class="o">==</span> <span class="n">m</span><span class="p">],</span> <span class="n">metadata_column</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">metabolite</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>

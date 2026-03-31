@@ -17,6 +17,7 @@ Functions
    micom.stats.fdr_adjust
    micom.stats._run_test
    micom.stats._run_corr
+   micom.stats.fill_missing_fluxes
    micom.stats.compare_groups
    micom.stats.correlate_fluxes
 
@@ -39,7 +40,12 @@ Module Contents
 
 .. py:function:: _run_corr(args)
 
-.. py:function:: compare_groups(fluxes, metadata_column, groups=None, threads=1, progress=True)
+.. py:function:: fill_missing_fluxes(fluxes, index_vars=['sample_id'], fill=1e-06)
+
+   Fills missing fluxes with a replacement.
+
+
+.. py:function:: compare_groups(fluxes, metadata_column, groups=None, fillna=None, threads=1, progress=True)
 
    Compare fluxes form different sample groups.
 
@@ -58,6 +64,9 @@ Module Contents
                   be the reference group). If None will use the groups as they appear in
                   the DataFrame.
    :type groups: list[str] or None
+   :param fillna: Value to fill in for missing flux values (zero fluxes). Default is to drop
+                  samples with missing values.
+   :type fillna: float or None
    :param threads: How many threads to use to run tests in parallel.
    :type threads: int
    :param progress: Whether to show a progress bar.
@@ -66,7 +75,7 @@ Module Contents
    :rtype: Returns the metabolite with their respective test statistics.
 
 
-.. py:function:: correlate_fluxes(fluxes, metadata_column, threads=1, progress=True)
+.. py:function:: correlate_fluxes(fluxes, metadata_column, fillna=None, threads=1, progress=True)
 
    Correlate fluxes with a continuous covariate.
 
@@ -80,6 +89,9 @@ Module Contents
    :type fluxes: pandas.DataFrame
    :param metatdata_column: The column of the DataFrame denoting the covariate.
    :type metatdata_column: str
+   :param fillna: Value to fill in for missing flux values (zero fluxes). Default is to drop
+                  samples with missing values.
+   :type fillna: float or None
    :param threads: How many threads to use to run tests in parallel.
    :type threads: int
    :param progress: Whether to show a progress bar.

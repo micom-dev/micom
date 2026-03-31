@@ -10,8 +10,6 @@ For information on how to use `micom` please refer to
 `compare_groups` and `correlate_fluxes` now accept a `fillna` parameter to fill in missing
 fluxes.
 
-### 0.38.0
-
 `build()` will now show a single summarized warning if samples have less than 50%
 of their abundance matched in the model database. Samples with no matches at all will
 be reported separately and removed from the manifest as those can not be used as an

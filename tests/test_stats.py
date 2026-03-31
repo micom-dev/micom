@@ -55,6 +55,10 @@ def make_correlated_fluxes(n=10):
     )
     return dfs
 
+def thin_out(df, fraction=0.05):
+    """Remove some random flux values."""
+    return df.sample(frac=1-fraction, random_state=42)
+
 
 def test_comparison_binary():
     data = make_grouped_fluxes()
@@ -83,6 +87,40 @@ def test_comparison_many():
 def test_correlation():
     data = make_correlated_fluxes()
     tests = ms.correlate_fluxes(data, "time", progress=False)
+    assert "metabolite_1" in tests[tests.p < 0.01].metabolite.values
+    assert "metabolite_2" in tests[tests.p < 0.01].metabolite.values
+    assert "metabolite_3" in tests[tests.p > 0.01].metabolite.values
+    assert "metabolite_4" in tests[tests.p > 0.01].metabolite.values
+    assert "covariate" in tests.columns
+    assert (tests.covariate == "time").all()
+
+def test_comparison_binary_fill():
+    data = thin_out(make_grouped_fluxes())
+    tests = ms.compare_groups(
+        data, "group", groups=["group_1", "group_3"], fillna=100, progress=False
+    )
+    assert "metabolite_1" in tests[tests.p < 0.01].metabolite.values
+    assert "metabolite_2" in tests[tests.p < 0.01].metabolite.values
+    assert "metabolite_3" in tests[tests.p > 0.01].metabolite.values
+    assert "metabolite_4" in tests[tests.p > 0.01].metabolite.values
+    assert "log_fold_change" in tests.columns
+    assert "comparison" in tests.columns
+
+
+def test_comparison_many_fill():
+    data = thin_out(make_grouped_fluxes())
+    tests = ms.compare_groups(data, "group", fillna=100, progress=False)
+    assert "metabolite_1" in tests[tests.p < 0.01].metabolite.values
+    assert "metabolite_2" in tests[tests.p < 0.01].metabolite.values
+    assert "metabolite_3" in tests[tests.p > 0.01].metabolite.values
+    assert "metabolite_4" in tests[tests.p > 0.01].metabolite.values
+    assert "log_mean_std" in tests.columns
+    assert "covariate" in tests.columns
+
+
+def test_correlation_fill():
+    data = thin_out(make_correlated_fluxes())
+    tests = ms.correlate_fluxes(data, "time", fillna=100, progress=False)
     assert "metabolite_1" in tests[tests.p < 0.01].metabolite.values
     assert "metabolite_2" in tests[tests.p < 0.01].metabolite.values
     assert "metabolite_3" in tests[tests.p > 0.01].metabolite.values

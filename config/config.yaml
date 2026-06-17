@@ -1,0 +1,5 @@
+abundances: /path/to/long_otu_table.csv
+agora: agora103_genus.qza
+medium: western_diet_gut_agora.qza
+cutoff: 0.01
+tradeoff: null

@@ -38,10 +38,10 @@ Functions
 
    micom.viz.plot_exchanges_per_sample
    micom.viz.plot_exchanges_per_taxon
+   micom.viz.plot_growth
    micom.viz.plot_focal_interactions
    micom.viz.plot_mes
    micom.viz.plot_association
-   micom.viz.plot_tradeoff
 
 
 Package Contents
@@ -134,6 +134,26 @@ Package Contents
    :type use_total_fluxes: bool
    :param tsne_args: Additional arguments passed to TSNE.
    :type tsne_args: dict
+
+   :returns: A MICOM visualization. Can be served with `viz.serve`.
+   :rtype: Visualization
+
+
+.. py:function:: plot_growth(results: micom.workflows.results.GrowthResults, filename: str = 'growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), groups: pandas.Series = None, tolerance: float = 1e-06) -> None
+
+   Plot the taxa growth rates.
+
+   :param results: The results returned by the `grow` workflow.
+   :type results: micom.workflows.GrowthResults
+   :param filename: The HTML file where the visualization will be saved.
+   :type filename: str
+   :param groups: Additional metadata to color points. The index must correspond to the
+                  `sample_id` in the results and values must be categorical. The `.name` attribute
+                  will be used to name the groups. If not provided will color by taxon.
+   :type groups: pandas.Series
+   :param tolerance: Smallest growth rate that will be considered. Everything lower will be
+                     considered not growing.
+   :type tolerance: float
 
    :returns: A MICOM visualization. Can be served with `viz.serve`.
    :rtype: Visualization
@@ -239,22 +259,6 @@ Package Contents
    :type atol: float
 
    :returns: A MICOM visualization. Can be served with `viz.view`.
-   :rtype: Visualization
-
-
-.. py:function:: plot_tradeoff(tradeoff_rates, filename='tradeoff_%s.html' % datetime.now().strftime('%Y%m%d'), tolerance=1e-06)
-
-   Plot diagnostics for varying tradeoff values.
-
-   :param tradeoff_rates: The growth rates returned by the `tradeoff` workflow.
-   :type tradeoff_rates: pandas.DataFrame
-   :param filename: The HTML file where the visualization will be saved.
-   :type filename: str
-   :param tolerance: Smallest growth rate that will be considered. Everything lower will be
-                     considered not growing.
-   :type tolerance: float
-
-   :returns: A MICOM visualization. Can be served with `viz.serve`.
    :rtype: Visualization
 
 

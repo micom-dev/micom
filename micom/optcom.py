@@ -164,7 +164,7 @@ def optcom(community, strategy, min_growth, fluxes, pfba):
     - "lmoma": The same as "moma" only with a linear
       representation of the cooperativity cost (absolute value).
     - "original": Solves the multi-objective problem described in [#p1]_.
-      Here, the community growth rate is maximized simultanously with all
+      Here, the community growth rate is maximized simultaneously with all
       individual growth rates. Note that there are usually many
       Pareto-optimal solutions to this problem and the method will only
       give one solution. This is also the slowest method.

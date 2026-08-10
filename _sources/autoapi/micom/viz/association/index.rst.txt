@@ -30,7 +30,7 @@ Module Contents
 
 .. py:data:: logger
 
-.. py:function:: plot_association(results, phenotype, variable_type='binary', variable_name='phenotype', filename='association_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', fdr_threshold=0.05, threads=1, atol=1e-06)
+.. py:function:: plot_association(results, phenotype, variable_type='binary', variable_name='phenotype', filename='association_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', fillna=None, fdr_threshold=0.05, threads=1, atol=1e-06)
 
    Test for differential metabolite production.
 
@@ -55,6 +55,9 @@ Module Contents
    :type filename: str
    :param flux_type: Whether to fit using import or production fluxes.
    :type flux_type: str of ["import", "production"]
+   :param fillna: Value to fill in for missing flux values (zero fluxes). Default is to drop
+                  samples with missing values.
+   :type fillna: float or None
    :param threads: The number of threads to use.
    :type threads: int
    :param fdr_threshold: The false discovery rate cutoff to use (FDR-corrected p-value cutoff). Defaults

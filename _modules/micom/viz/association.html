@@ -322,8 +322,9 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
 
 
+
 <div class="viewcode-block" id="plot_association">
-<a class="viewcode-back" href="../../../autoapi/micom/viz/association/index.html#micom.viz.association.plot_association">[docs]</a>
+<a class="viewcode-back" href="../../../autoapi/micom/viz/index.html#micom.viz.association.plot_association">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_association</span><span class="p">(</span>
     <span class="n">results</span><span class="p">,</span>
     <span class="n">phenotype</span><span class="p">,</span>
@@ -331,6 +332,7 @@
     <span class="n">variable_name</span><span class="o">=</span><span class="s2">&quot;phenotype&quot;</span><span class="p">,</span>
     <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;association_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
     <span class="n">flux_type</span><span class="o">=</span><span class="s2">&quot;production&quot;</span><span class="p">,</span>
+    <span class="n">fillna</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">fdr_threshold</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
     <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>
@@ -360,6 +362,9 @@
 <span class="sd">        The HTML file where the visualization will be saved.</span>
 <span class="sd">    flux_type : str of [&quot;import&quot;, &quot;production&quot;]</span>
 <span class="sd">        Whether to fit using import or production fluxes.</span>
+<span class="sd">    fillna : float or None</span>
+<span class="sd">        Value to fill in for missing flux values (zero fluxes). Default is to drop</span>
+<span class="sd">        samples with missing values.</span>
 <span class="sd">    threads : int</span>
 <span class="sd">        The number of threads to use.</span>
 <span class="sd">    fdr_threshold : float</span>
@@ -430,7 +435,11 @@
         <span class="n">fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scaled</span><span class="p">,</span> <span class="n">meta</span><span class="p">)</span>
         <span class="n">score</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">scaled</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">meta</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">tests</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">compare_groups</span><span class="p">(</span>
-            <span class="n">exchanges</span><span class="p">,</span> <span class="n">metadata_column</span><span class="o">=</span><span class="n">variable_name</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">False</span>
+            <span class="n">exchanges</span><span class="p">,</span>
+            <span class="n">metadata_column</span><span class="o">=</span><span class="n">variable_name</span><span class="p">,</span>
+            <span class="n">fillna</span><span class="o">=</span><span class="n">fillna</span><span class="p">,</span>
+            <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span>
+            <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">statistic_name</span> <span class="o">=</span> <span class="s2">&quot;log fold-change&quot;</span>
         <span class="n">tests</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;log_fold_change&quot;</span><span class="p">:</span> <span class="s2">&quot;statistic&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -441,7 +450,11 @@
         <span class="n">fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scaled</span><span class="p">,</span> <span class="n">meta</span><span class="p">)</span>
         <span class="n">score</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">scaled</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">meta</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">tests</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">correlate_fluxes</span><span class="p">(</span>
-            <span class="n">exchanges</span><span class="p">,</span> <span class="n">metadata_column</span><span class="o">=</span><span class="n">variable_name</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">False</span>
+            <span class="n">exchanges</span><span class="p">,</span>
+            <span class="n">metadata_column</span><span class="o">=</span><span class="n">variable_name</span><span class="p">,</span>
+            <span class="n">fillna</span><span class="o">=</span><span class="n">fillna</span><span class="p">,</span>
+            <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span>
+            <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">statistic_name</span> <span class="o">=</span> <span class="s2">&quot;Spearman ρ&quot;</span>
         <span class="n">tests</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;spearman_rho&quot;</span><span class="p">:</span> <span class="s2">&quot;statistic&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

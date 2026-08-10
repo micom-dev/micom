@@ -5,6 +5,14 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+### 0.39.1
+
+The `fillna` parameter is now also exposed in `plot_association`.
+
+MICOM now supports Python 3.14.
+
+Fix a rendering bug in the docs for the MES formula.
+
 ### 0.39.0
 
 `compare_groups` and `correlate_fluxes` now accept a `fillna` parameter to fill in missing

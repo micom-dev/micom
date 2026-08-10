@@ -188,40 +188,34 @@ Package Contents
 
    Plot metabolic interactions between a focal taxa and all other taxa.
 
-       This will plot the metabolic exchange score across samples and metabolites.
-       The metabolic exchange score (MES) is defined as the geometric mean of the
-       number of producers and consumers for a given metabolite in a sample.
+   This will plot the metabolic exchange score across samples and metabolites.
+   The metabolic exchange score (MES) is defined as the geometric mean of the
+   number of producers and consumers for a given metabolite in a sample.
 
-       $$
-       MES = 2\cdot
-   rac{|p||c|}{|p| + |c|}
-       $$
+   $$
+   MES = 2\cdot\frac{|p||c|}{|p| + |c|}
+   $$
 
-       Parameters
-       ----------
-       results : micom.workflows.GrowthResults
-           The results returned by the `grow` workflow.
-       filename : str
-           The HTML file where the visualization will be saved.
-       groups : pandas.Series
-           Additional metadata to stratify MES score. The index must correspond to the
-           `sample_id` in the results and values must be categorical. The `.name` attribute
-           will be used to name the groups.
-       prevalence : float in [0, 1]
-           In what proportion of samples the metabolite has to have a non-zero MES to
-           be shown on the plots. Can be used to show only very commonly exchanged
-           metabolites.
+   :param results: The results returned by the `grow` workflow.
+   :type results: micom.workflows.GrowthResults
+   :param filename: The HTML file where the visualization will be saved.
+   :type filename: str
+   :param groups: Additional metadata to stratify MES score. The index must correspond to the
+                  `sample_id` in the results and values must be categorical. The `.name` attribute
+                  will be used to name the groups.
+   :type groups: pandas.Series
+   :param prevalence: In what proportion of samples the metabolite has to have a non-zero MES to
+                      be shown on the plots. Can be used to show only very commonly exchanged
+                      metabolites.
+   :type prevalence: float in [0, 1]
 
-       Notes
-       -----
-       The CSV files will always include all MES scores independent of the prevalence
-       filter which is only used for visualization.
+   .. rubric:: Notes
 
-       Returns
-       -------
-       Visualization
-           A MICOM visualization. Can be served with `viz.serve`.
+   The CSV files will always include all MES scores independent of the prevalence
+   filter which is only used for visualization.
 
+   :returns: A MICOM visualization. Can be served with `viz.serve`.
+   :rtype: Visualization
 
 
 .. py:function:: plot_association(results, phenotype, variable_type='binary', variable_name='phenotype', filename='association_%s.html' % datetime.now().strftime('%Y%m%d'), flux_type='production', fillna=None, fdr_threshold=0.05, threads=1, atol=1e-06)

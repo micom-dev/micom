@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../../../genindex.html"><link rel="search" title="Search" href="../../../search.html"><link rel="next" title="micom.viz.association" href="association/index.html"><link rel="prev" title="micom.util" href="../util/index.html">
         <link rel="prefetch" href="../../../_static/micom.png" as="image">
 
-    <!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 -->
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>micom.viz - version 0.39.0</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
@@ -538,35 +538,35 @@ in <cite>results.growth_rates.taxon</cite>.</p></li>
 <dt class="sig sig-object py" id="micom.viz.plot_mes">
 <span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_mes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../workflows/index.html#micom.workflows.GrowthResults" title="micom.workflows.GrowthResults"><span class="pre">micom.workflows.GrowthResults</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mes_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prevalence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/micom/viz/interactions.html#plot_mes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_mes" title="Link to this definition">¶</a></dt>
 <dd><p>Plot metabolic interactions between a focal taxa and all other taxa.</p>
-<blockquote>
-<div><p>This will plot the metabolic exchange score across samples and metabolites.
+<p>This will plot the metabolic exchange score across samples and metabolites.
 The metabolic exchange score (MES) is defined as the geometric mean of the
 number of producers and consumers for a given metabolite in a sample.</p>
 <p>$$
-MES = 2cdot</p>
-</div></blockquote>
-<dl>
-<dt>rac{<a href="#id3"><span class="problematic" id="id4">|p||c|</span></a>}{<a href="#id5"><span class="problematic" id="id6">|p|</span></a> + <a href="#id7"><span class="problematic" id="id8">|c|</span></a>}</dt><dd><p>$$</p>
-<dl class="simple">
-<dt>results<span class="classifier">micom.workflows.GrowthResults</span></dt><dd><p>The results returned by the <cite>grow</cite> workflow.</p>
-</dd>
-<dt>filename<span class="classifier">str</span></dt><dd><p>The HTML file where the visualization will be saved.</p>
-</dd>
-<dt>groups<span class="classifier">pandas.Series</span></dt><dd><p>Additional metadata to stratify MES score. The index must correspond to the
+MES = 2cdotfrac{<a href="#id3"><span class="problematic" id="id4">|p||c|</span></a>}{<a href="#id5"><span class="problematic" id="id6">|p|</span></a> + <a href="#id7"><span class="problematic" id="id8">|c|</span></a>}
+$$</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results</strong> (<a class="reference internal" href="../workflows/index.html#micom.workflows.GrowthResults" title="micom.workflows.GrowthResults"><em>micom.workflows.GrowthResults</em></a>) – The results returned by the <cite>grow</cite> workflow.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The HTML file where the visualization will be saved.</p></li>
+<li><p><strong>groups</strong> (<em>pandas.Series</em>) – Additional metadata to stratify MES score. The index must correspond to the
 <cite>sample_id</cite> in the results and values must be categorical. The <cite>.name</cite> attribute
-will be used to name the groups.</p>
-</dd>
-<dt>prevalence<span class="classifier">float in [0, 1]</span></dt><dd><p>In what proportion of samples the metabolite has to have a non-zero MES to
+will be used to name the groups.</p></li>
+<li><p><strong>prevalence</strong> (<em>float in</em><em> [</em><em>0</em><em>, </em><em>1</em><em>]</em>) – In what proportion of samples the metabolite has to have a non-zero MES to
 be shown on the plots. Can be used to show only very commonly exchanged
-metabolites.</p>
+metabolites.</p></li>
+</ul>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
 <p>The CSV files will always include all MES scores independent of the prevalence
 filter which is only used for visualization.</p>
-<dl class="simple">
-<dt>Visualization</dt><dd><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A MICOM visualization. Can be served with <cite>viz.serve</cite>.</p>
 </dd>
-</dl>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#micom.viz.Visualization" title="micom.viz.Visualization">Visualization</a></p>
 </dd>
 </dl>
 </dd></dl>

@@ -88,7 +88,7 @@ def plot_mes(
     number of producers and consumers for a given metabolite in a sample.
 
     $$
-    MES = 2\cdot\frac{|p||c|}{|p| + |c|}
+    MES = 2\\cdot\\frac{|p||c|}{|p| + |c|}
     $$
 
     Parameters

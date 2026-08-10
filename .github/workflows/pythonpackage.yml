@@ -46,7 +46,7 @@ jobs:
         pip install pytest pytest-cov
         pytest --cov=micom --cov-report=xml tests
     - name: Upload to codecov
-      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.14'
       uses: codecov/codecov-action@v7.0.0
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

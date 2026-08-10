@@ -18,6 +18,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def _grow(args):
     """Get the maximum growth rate under a given medium."""
     mid, file, med = args

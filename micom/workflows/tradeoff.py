@@ -11,6 +11,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def _tradeoff(args):
     p, tradeoffs, medium, atol, rtol, presolve = args
 

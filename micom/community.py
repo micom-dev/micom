@@ -30,6 +30,7 @@ cobra.io.sbml.LOGGER.setLevel("ERROR")
 cobra.util.solver.logger.setLevel("ERROR")
 logger = logging.getLogger(__name__)
 
+
 class Community(cobra.Model):
     """A community of models.
 

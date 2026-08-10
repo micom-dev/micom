@@ -17,7 +17,6 @@ from micom import (
     interaction,
 )
 
-
 __all__ = (
     "Community",
     "algorithms",

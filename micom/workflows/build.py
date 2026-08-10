@@ -14,6 +14,7 @@ import zipfile
 
 logger = logging.getLogger(__name__)
 
+
 def _reduce_group(df):
     keep = df.columns[df.nunique() == 1]
     new = df.iloc[0, :][keep]

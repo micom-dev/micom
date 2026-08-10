@@ -16,6 +16,7 @@ import warnings
 
 logger = logging.getLogger(__name__)
 
+
 def add_linear_obj(community, exchanges, weights):
     """Add a linear version of a minimal medium to the community.
 

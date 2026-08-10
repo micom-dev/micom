@@ -9,6 +9,4 @@ formatter = logging.Formatter("%(message)s")
 handler = RichHandler(level=logging.WARNING, markup=True, console=micom_console)
 handler.setFormatter(formatter)
 
-logging.basicConfig(
-    level="WARNING", format="%(message)s", handlers=[handler]
-)
+logging.basicConfig(level="WARNING", format="%(message)s", handlers=[handler])

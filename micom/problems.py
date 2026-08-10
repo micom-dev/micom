@@ -25,6 +25,7 @@ from rich.progress import track
 
 logger = logging.getLogger(__name__)
 
+
 def regularize_l2_norm(community, min_growth):
     """Add an objective to find the most "egoistic" solution.
 

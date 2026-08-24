@@ -13,7 +13,6 @@ from micom.problems import regularize_l2_norm
 from micom.solution import optimize_with_fraction
 from rich.progress import track
 
-
 STEP = 0.1
 
 

@@ -6,10 +6,12 @@ from micom.util import (
     _apply_min_growth,
     check_modification,
 )
-from micom.logger import logger
 from micom.solution import solve
 from optlang.symbolics import Zero
 from functools import partial
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def add_dualized_optcom(community, min_growth):

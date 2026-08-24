@@ -1,9 +1,11 @@
 """Implements additional analysis algorithms for communities."""
 
+import logging
 import pandas as pd
 import numpy as np
 from micom.util import load_model
-from micom.logger import logger
+
+logger = logging.getLogger(__name__)
 
 
 def jaccard(inclusion):

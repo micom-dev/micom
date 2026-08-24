@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from micom.viz import Visualization
-from micom.logger import logger
+import logging
 from micom.measures import production_rates, consumption_rates
 from micom import stats
 import json
@@ -22,7 +22,7 @@ from sklearn.linear_model import (
 )
 from sklearn.preprocessing import StandardScaler
 
-PANDAS_VERSION = tuple(int(x) for x in pd.__version__.split("."))
+logger = logging.getLogger(__name__)
 
 
 def plot_association(
@@ -32,6 +32,7 @@ def plot_association(
     variable_name="phenotype",
     filename="association_%s.html" % datetime.now().strftime("%Y%m%d"),
     flux_type="production",
+    fillna=None,
     fdr_threshold=0.05,
     threads=1,
     atol=1e-6,
@@ -61,6 +62,9 @@ def plot_association(
         The HTML file where the visualization will be saved.
     flux_type : str of ["import", "production"]
         Whether to fit using import or production fluxes.
+    fillna : float or None
+        Value to fill in for missing flux values (zero fluxes). Default is to drop
+        samples with missing values.
     threads : int
         The number of threads to use.
     fdr_threshold : float
@@ -76,11 +80,11 @@ def plot_association(
         A MICOM visualization. Can be served with `viz.view`.
 
     """
-    exchanges = results.exchanges
     if flux_type == "import":
         exchanges = consumption_rates(results)
     else:
         exchanges = production_rates(results)
+    exchanges = exchanges[exchanges.sample_id.isin(phenotype.index)]
     exchanges = exchanges.loc[exchanges.flux > atol]
     if exchanges.shape[1] < 1:
         raise ValueError("None of the fluxes passed the tolerance threshold :(")
@@ -103,10 +107,8 @@ def plot_association(
     fluxes = exchanges.pivot_table(
         index="sample_id", columns="metabolite", values="flux", fill_value=atol
     )
-    if PANDAS_VERSION >= (2, 1, 0):
-        fluxes = fluxes.map(np.log)
-    else:
-        fluxes = fluxes.applymap(np.log)
+    fluxes = fluxes.map(np.log)
+
     meta = phenotype[fluxes.index]
     stds = fluxes.std(axis=1)
     bad = stds < atol
@@ -133,7 +135,11 @@ def plot_association(
         fit = model.fit(scaled, meta)
         score = cross_val_score(model, X=scaled, y=meta, cv=2)
         tests = stats.compare_groups(
-            exchanges, metadata_column=variable_name, threads=threads, progress=False
+            exchanges,
+            metadata_column=variable_name,
+            fillna=fillna,
+            threads=threads,
+            progress=False,
         )
         statistic_name = "log fold-change"
         tests.rename(columns={"log_fold_change": "statistic"}, inplace=True)
@@ -144,7 +150,11 @@ def plot_association(
         fit = model.fit(scaled, meta)
         score = cross_val_score(model, X=scaled, y=meta, cv=2)
         tests = stats.correlate_fluxes(
-            exchanges, metadata_column=variable_name, threads=threads, progress=False
+            exchanges,
+            metadata_column=variable_name,
+            fillna=fillna,
+            threads=threads,
+            progress=False,
         )
         statistic_name = "Spearman ρ"
         tests.rename(columns={"spearman_rho": "statistic"}, inplace=True)

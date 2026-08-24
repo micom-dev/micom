@@ -2,7 +2,6 @@
 
 from micom.community import Community
 from micom.deps import show_versions
-from micom.logger import logger
 from micom.util import load_pickle
 from micom import (
     algorithms,
@@ -18,7 +17,6 @@ from micom import (
     interaction,
 )
 
-
 __all__ = (
     "Community",
     "algorithms",
@@ -29,6 +27,7 @@ __all__ = (
     "data",
     "duality",
     "elasticity",
+    "interaction",
     "media",
     "qiime_formats",
     "solution",
@@ -38,4 +37,4 @@ __all__ = (
     "show_versions",
 )
 
-__version__ = "0.37.0"
+__version__ = "0.39.1"

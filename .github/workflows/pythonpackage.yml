@@ -15,21 +15,21 @@ jobs:
   test:
     strategy:
       matrix:
-        os: ["ubuntu-latest", "windows-latest", "macos-13"]
-        python-version: ["3.9", "3.11"]
+        os: ["ubuntu-latest", "windows-latest", "macos-latest"]
+        python-version: ["3.10", "3.14"]
     runs-on: "${{matrix.os}}"
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5.3.0
+      uses: actions/setup-python@v7.0.0
       with:
         python-version: ${{ matrix.python-version }}
         cache: 'pip'
     - name: Install additional dependencies
       run: |
         python -m pip install --upgrade pip cryptography
-        pip install wheel numpy Cython biom-format
+        pip install wheel numpy Cython biom-format hopsy
     - name: Install MICOM
       run: pip install -e .
     - name: install CPLEX
@@ -44,10 +44,10 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest pytest-cov
-        pytest --cov=micom --cov-report=xml
+        pytest --cov=micom --cov-report=xml tests
     - name: Upload to codecov
-      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11'
-      uses: codecov/codecov-action@v5.3.1
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.14'
+      uses: codecov/codecov-action@v7.0.0
       env:
         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
@@ -58,9 +58,9 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Set up Python
-        uses: actions/setup-python@v5.3.0
+        uses: actions/setup-python@v7.0.0
         with:
           python-version: '3.8'
       - name: Install dependencies
@@ -74,7 +74,7 @@ jobs:
         run: |
           python setup.py sdist bdist_wheel
           twine upload dist/*
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: python-packages
           path: dist/*

@@ -91,7 +91,20 @@ def _run_corr(args):
     )
 
 
-def compare_groups(fluxes, metadata_column, groups=None, threads=1, progress=True):
+def fill_missing_fluxes(fluxes, index_vars=["sample_id"], fill=1e-6):
+    """Fills missing fluxes with a replacement."""
+    piv = fluxes.pivot_table(
+        index=index_vars, columns="metabolite", values="flux", fill_value=fill
+    )
+    fluxes = piv.melt(
+        var_name="metabolite", value_name="flux", ignore_index=False
+    ).reset_index()
+    return fluxes
+
+
+def compare_groups(
+    fluxes, metadata_column, groups=None, fillna=None, threads=1, progress=True
+):
     """Compare fluxes form different sample groups.
 
     Note
@@ -111,6 +124,9 @@ def compare_groups(fluxes, metadata_column, groups=None, threads=1, progress=Tru
         Specify a subset of groups you want to compare or define the order (1st will
         be the reference group). If None will use the groups as they appear in
         the DataFrame.
+    fillna : float or None
+        Value to fill in for missing flux values (zero fluxes). Default is to drop
+        samples with missing values.
     threads : int
         How many threads to use to run tests in parallel.
     progress : bool
@@ -124,6 +140,17 @@ def compare_groups(fluxes, metadata_column, groups=None, threads=1, progress=Tru
         fluxes = fluxes[fluxes[metadata_column].isin(groups)]
     else:
         groups = np.unique(fluxes[metadata_column])
+
+    if fillna is not None:
+        piv = fluxes.pivot_table(
+            index=["sample_id", metadata_column],
+            columns="metabolite",
+            values="flux",
+            fill_value=fillna,
+        )
+        fluxes = piv.melt(
+            var_name="metabolite", value_name="flux", ignore_index=False
+        ).reset_index()
 
     met_data = [
         (fluxes[fluxes.metabolite == m], metadata_column, groups)
@@ -140,7 +167,7 @@ def compare_groups(fluxes, metadata_column, groups=None, threads=1, progress=Tru
     return res
 
 
-def correlate_fluxes(fluxes, metadata_column, threads=1, progress=True):
+def correlate_fluxes(fluxes, metadata_column, fillna=None, threads=1, progress=True):
     """Correlate fluxes with a continuous covariate.
 
     Note
@@ -155,6 +182,9 @@ def correlate_fluxes(fluxes, metadata_column, threads=1, progress=True):
         `consumption_rates`.
     metatdata_column : str
         The column of the DataFrame denoting the covariate.
+    fillna : float or None
+        Value to fill in for missing flux values (zero fluxes). Default is to drop
+        samples with missing values.
     threads : int
         How many threads to use to run tests in parallel.
     progress : bool
@@ -164,6 +194,17 @@ def correlate_fluxes(fluxes, metadata_column, threads=1, progress=True):
     -------
     Returns the metabolite with their respective test statistics.
     """
+    if fillna is not None:
+        piv = fluxes.pivot_table(
+            index=["sample_id", metadata_column],
+            columns="metabolite",
+            values="flux",
+            fill_value=fillna,
+        )
+        fluxes = piv.melt(
+            var_name="metabolite", value_name="flux", ignore_index=False
+        ).reset_index()
+
     met_data = [
         (fluxes[fluxes.metabolite == m], metadata_column)
         for m in fluxes.metabolite.unique()

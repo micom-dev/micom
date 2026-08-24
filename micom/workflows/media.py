@@ -6,8 +6,10 @@ from micom import load_pickle
 from micom.workflows.core import workflow
 from micom.workflows.results import GrowthResults, combine_results
 import micom.media as mm
-from micom.logger import logger
 from micom.solution import OptimizationError
+import logging
+
+logger = logging.getLogger(__name__)
 
 DIRECTION = pd.Series(["import", "export"], index=[0, 1])
 

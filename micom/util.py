@@ -8,14 +8,16 @@ from collections.abc import Iterable
 import os.path as path
 from functools import partial
 import pickle
+from uuid import uuid4
 from urllib.parse import urlparse
 import urllib.request as urlreq
 import tempfile
 from shutil import rmtree
 import pandas as pd
 import re
-from micom.logger import logger
+import logging
 
+logger = logging.getLogger(__name__)
 
 _read_funcs = {
     ".xml": io.read_sbml_model,
@@ -173,7 +175,7 @@ def join_models(model_files, id=None):
     if id:
         model.id = id
     biomass = Reaction(
-        id="micom_combined_biomass",
+        id=f"micom_combined_biomass_{uuid4().hex[0:8]}",
         name="combined biomass reaction from model joining",
         subsystem="biomass production",
         lower_bound=0,

@@ -1,5 +1,7 @@
 """Makes it easier to run analyses on several samples in parallel."""
 
+from ..logger import micom_console
+
 import logging
 from collections import abc
 from multiprocessing import get_context
@@ -40,7 +42,9 @@ def workflow(func, args, threads=4, description=None, progress=True):
     if threads == 1:
         it = map(func, args)
         if progress:
-            it = track(it, total=len(args), description=description)
+            it = track(
+                it, total=len(args), description=description, console=micom_console
+            )
         return list(it)
 
     # We don't use the context  manager because of
@@ -51,7 +55,9 @@ def workflow(func, args, threads=4, description=None, progress=True):
             warnings.simplefilter("ignore")
             it = pool.imap_unordered(func, args)
             if progress:
-                it = track(it, total=len(args), description="Running")
+                it = track(
+                    it, total=len(args), description="Running", console=micom_console
+                )
             results = list(it)
     finally:
         pool.close()

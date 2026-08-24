@@ -117,7 +117,7 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     before = _get_fluxes(sol, reactions)
     dfs = []
 
-    abundance = com.abundances.copy()
+    abundance = com.microbial_abundances.copy()
     taxa = abundance.index
 
     if progress:

@@ -45,6 +45,7 @@ class Community(cobra.Model):
         self,
         taxonomy,
         model_db=None,
+        host_db=None,
         id=None,
         name=None,
         rel_threshold=1e-6,
@@ -101,6 +102,8 @@ class Community(cobra.Model):
             artifact of type `MetabolicModels[JSON]`. Can also be a folder,
             zip (must end in `.zip`) file or None if the taxonomy contains a
             column `file`.
+        host_db : dict id: file, optional
+            A dictionary containing the host model information.
         id : str, optional
             The ID for the community. Should only contain letters and numbers,
             otherwise it will be formatted as such.
@@ -149,14 +152,17 @@ class Community(cobra.Model):
                 "No QP solver found, will use GLPK. A lot of functionality "
                 "in MICOM will require a QP solver :/"
             )
+
+        # Those are set here to allow solver switching
+        # those options should be allowed by all interfaces
         self.solver.configuration.lp_method = "auto"
         self.solver.configuration.qp_method = "auto"
         self.solver.configuration.presolve = False
+
         self.solver = solver
         self._rtol = rel_threshold
         self._modification = None
-        self.host_id = None
-        self.host_abundance = None
+        self.host = list()
         self.mass = mass
         self.max_exchange = max_exchange
         self.__db_metrics = None
@@ -164,6 +170,19 @@ class Community(cobra.Model):
         taxonomy = taxonomy.copy()
         if "abundance" not in taxonomy.columns:
             taxonomy["abundance"] = 1
+        if "is_host" in taxonomy.columns and taxonomy["is_host"].any():
+            host = taxonomy[taxonomy.is_host].copy()
+            taxonomy = taxonomy[~taxonomy.is_host].copy()
+            host.abundance /= taxonomy.abundance.sum()
+            if host_db is None:
+                if "file" not in host.columns:
+                    raise ValueError(
+                        "If no host database is specified you need to pass "
+                        "file names for host models in a `file` column as well."
+                    )
+                host_db = host.set_index("id")["file"].to_dict()
+        else:
+            host = None
         taxonomy.abundance /= taxonomy.abundance.sum()
         logger.info(
             "{} individuals with abundances below threshold".format(
@@ -287,6 +306,12 @@ class Community(cobra.Model):
         com_obj = add_var_from_expression(self, "community_objective", obj, lb=0)
         self.objective = self.problem.Objective(com_obj, direction="max")
 
+        if host is not None:
+            host.id = host.id.str.replace(r"[^A-Za-z0-9_]+", "_", regex=True)
+            self.__host = host
+            self.__host.index = self.__host.id
+            self.add_host(self.__host, host_db)
+
     def __add_model(self, model, taxon_id):
         """Add a new model to the community."""
         suffix = "__" + taxon_id
@@ -397,14 +422,23 @@ class Community(cobra.Model):
             else:
                 r.upper_bound = internal_exchange
 
-    def __update_exchanges(self):
+    def __update_exchanges(self, compartment="m"):
         """Update exchanges."""
         logger.info("updating exchange reactions for %s" % self.id)
-        for met in self.metabolites.query(lambda x: x.compartment == "m"):
+        if compartment == "m":
+            ab = self.__taxonomy.abundance
+            scale = 1
+        elif compartment == "h":
+            ab = self.__host.abundance
+            scale = 1.0 / self.__host.abundance.sum()
+        else:
+            return
+
+        for met in self.metabolites.query(lambda x: x.compartment == compartment):
             for r in met.reactions:
                 if r.boundary:
                     continue
-                coef = self.__taxonomy.loc[r.community_id, "abundance"]
+                coef = ab[r.community_id] * scale
                 if met in r.products:
                     r.add_metabolites({met: coef}, combine=False)
                 else:
@@ -418,8 +452,6 @@ class Community(cobra.Model):
         self.remove_cons_vars([const])
         com_obj = Zero
         for sp in self.taxa:
-            if sp == self.host_id:
-                continue
             ab = self.__taxonomy.loc[sp, "abundance"]
             taxa_obj = self.variables["objective_" + sp]
             com_obj += ab * taxa_obj
@@ -577,56 +609,60 @@ class Community(cobra.Model):
 
         Returns
         -------
-        micom.CommunitySolution
-            The solution after optimization or None if there is no optimum.
+        dict of str: micom.CommunitySolution
+            The solution after optimization for each host tissue or None if there is no optimum.
 
         """
-        if self.host_id is None:
+        if len(self.host) == 0:
             raise ValueError("No host has been added to the model.")
 
-        with self:
-            self.objective = self.variables["objective_" + self.host_id]
-            return self.optimize(
-                fluxes=fluxes, pfba=pfba, raise_error=raise_error, atol=atol, rtol=rtol
-            )
+        solutions = {}
+        for hid in self.host:
+            with self:
+                self.objective = self.variables["objective_" + hid]
+                solutions[hid] = self.optimize(
+                    fluxes=fluxes, pfba=pfba, raise_error=raise_error, atol=atol, rtol=rtol
+                )
+        return solutions
 
     @property
-    def abundances(self):
+    def microbial_abundances(self):
         """pandas.Series: The normalized abundances.
 
         Setting this attribute will also trigger the appropriate updates in
         the exchange fluxes and the community objective.
         """
         ab = self.__taxonomy.abundance.copy()
-        if self.host_id is not None:
-            ab[self.host_id] = self.host_abundance
         return ab
 
-    @abundances.setter
-    def abundances(self, value):
-        self.set_abundance(value, normalize=True)
+    @microbial_abundances.setter
+    def microbial_abundances(self, value):
+        self.set_microbial_abundance(value, normalize=True)
 
-    def set_abundance(self, value, normalize=True):
-        """Change abundances for one or more taxa.
+    def set_microbial_abundance(self, value, normalize=True):
+        """Change abundances for one or more microbial taxa.
 
         Parameters
         ----------
-        value : array-like object
-            The new abundances. Must contain one value for each taxon. Can
-            be a named object like a pandas Series.
+        value : pandas.Series
+            The new abundances. Indices must me taxon IDs.
         normalize : boolean, optional
-            Whether to normalize the abundances to a total of 1.0. Many things
+            Whether to normalize the *microbial* abundances to a total of 1.0. Many things
             in micom asssume that this is always the case. Only change this
             if you know what you are doing :O
+            Host abundances are adjusted relative to this.
         """
-        try:
-            self.__taxonomy.abundance = value
-        except Exception:
+        if not isinstance(value, pd.Series):
+            raise TypeError("`value` must be a pandas Series with entries for taxa.")
+
+        bad = set(value.index) - set(self.microbial_abundances.index)
+        if len(bad) > 0:
             raise ValueError(
-                "value must be an iterable with an entry for " "each taxa/tissue"
+                "The following taxa are not in the community: %s" % ", ".join(bad)
             )
 
         logger.info("setting new abundances for %s" % self.id)
+        self.__taxonomy.loc[value.index, "abundance"] = value
         ab = self.__taxonomy.abundance
         if normalize:
             self.__taxonomy.abundance /= ab.sum()
@@ -636,8 +672,57 @@ class Community(cobra.Model):
                 % (str(self.__taxonomy.index[small]), self._rtol)
             )
             self.__taxonomy.loc[small, "abundance"] = self._rtol
-        self.__update_exchanges()
+        self.__update_exchanges(compartment="m")
         self.__update_community_objective()
+
+    @property
+    def host_abundances(self):
+        """pandas.Series: The host abundances normalized to 1gDW of microbial biomass.
+
+        Setting this attribute will also trigger the appropriate updates in
+        the exchange fluxes and the community objective.
+        """
+        ab = self.__host.abundance.copy()
+        return ab
+
+    @host_abundances.setter
+    def host_abundances(self, value):
+        self.set_host_abundance(value, normalize=True)
+
+    def set_host_abundance(self, value, normalize=True):
+        """Change abundances for one or more host tissues.
+
+        Parameters
+        ----------
+        value : pandas.Series
+            The new abundances. Indices must me host IDs.
+        normalize : boolean, optional
+            Whether to normalize the *microbial* abundances to a total of 1.0. Many things
+            in micom asssume that this is always the case. Only change this
+            if you know what you are doing :O
+            Host abundances are adjusted relative to this.
+        """
+        if not isinstance(value, pd.Series):
+            raise TypeError("`value` must be a pandas Series with entries for host IDs.")
+
+        bad = set(value.index) - set(self.host_abundances.index)
+        if len(bad) > 0:
+            raise ValueError(
+                "The following host tissues are not in the community: %s" % ", ".join(bad)
+            )
+
+        logger.info("setting new abundances for %s" % self.id)
+        self.__taxonomy.loc[value.index, "abundance"] = value
+        ab = self.__taxonomy.abundance
+        if normalize:
+            self.__taxonomy.abundance /= ab.sum()
+            small = ab < self._rtol
+            logger.info(
+                "adjusting abundances for %s to %g"
+                % (str(self.__taxonomy.index[small]), self._rtol)
+            )
+            self.__taxonomy.loc[small, "abundance"] = self._rtol
+        self.__update_exchanges(compartment="h")
 
     @property
     def taxonomy(self):
@@ -878,7 +963,7 @@ class Community(cobra.Model):
         progress=True,
         diag=True,
     ):
-        """Sequentially knowckout a list of taxa in the model.
+        """Sequentially knockout a list of taxa in the model.
 
         This uses cooperative tradeoff as optimization criterion in order to
         get unqiue solutions for individual growth rates. Requires a QP
@@ -959,11 +1044,10 @@ class Community(cobra.Model):
 
     def add_host(
         self,
-        model,
-        id="host",
-        shared_compartment="l",
-        own_compartment="e",
-        abundance=1,
+        table : pd.DataFrame,
+        host_db : dict[str, str],
+        shared_compartment : str = "l",
+        own_compartment : str = "e",
     ):
         """Add a host model to the community.
 
@@ -971,9 +1055,10 @@ class Community(cobra.Model):
         ----------
         model : str or cobra.Model
             The host model to add to the community.
-        id : str
-            The ID for the host. Should not contain spaces or special characters, will
-            be adjusted otherwise.
+        table : pandas.DataFrame
+            A DataFrame containing the columns "id" and "abundance" and additional
+            columns such as taxonomic ranks and or "file" denoting the location of the
+            model.
         shared_compartment : str
             The id for the compartment that is shared with the microbes. For instance,
             the luminal side for an intestinal cell.
@@ -983,38 +1068,36 @@ class Community(cobra.Model):
         abundance : float
             The abundance of the host **relative to 1gDW** bacteria.
         """
-        if isinstance(model, str):
-            model = load_model(model)
-        else:
-            model = model.copy()
-        self.host_abundance = abundance
-        id = re.sub(r"[^A-Za-z0-9_]+", "_", id)
-        self.host_id = id
-        o = self.__add_model(model, id)
-        self.taxa.append(id)
-        taxa_obj = self.problem.Variable(f"objective_{id}", lb=0, ub=None)
-        taxa_const = self.problem.Constraint(
-            o.expression - taxa_obj, name="objective_constraint_" + id, lb=0.0, ub=0.0
-        )
-        max_exchange = getattr(self, "max_exchange", 100)
-        self.add_cons_vars([taxa_obj, taxa_const])
-        self.host_compartment = f"{own_compartment}__{id}"
+        total = table.abundance.sum()
+        for _, row in table.iterrows():
+            if row.id not in host_db:
+                raise ValueError(f"Host id `{row.id}` is missing in the host models.")
+            model = load_model(host_db[row.id])
+            o = self.__add_model(model, row.id)
+            self.host.append(row.id)
+            taxa_obj = self.problem.Variable(f"objective_{row.id}", lb=0, ub=None)
+            taxa_const = self.problem.Constraint(
+                o.expression - taxa_obj, name="objective_constraint_" + row.id, lb=0.0, ub=0.0
+            )
+            max_exchange = getattr(self, "max_exchange", 100)
+            self.add_cons_vars([taxa_obj, taxa_const])
+            self.host_compartment = f"{own_compartment}__{id}"
 
-        self.__add_exchanges(
-            reactions=model.reactions,
-            coef=abundance,
-            external_compartment=shared_compartment,
-            internal_exchange=max_exchange,
-        )
-        self.__add_exchanges(
-            reactions=model.reactions,
-            coef=1,
-            external_compartment=own_compartment,
-            internal_exchange=1000,
-            environment_id="h",
-            environment_name="host",
-        )
-        self.solver.update()
+            self.__add_exchanges(
+                reactions=model.reactions,
+                coef=row.abundance,
+                external_compartment=shared_compartment,
+                internal_exchange=max_exchange,
+            )
+            self.__add_exchanges(
+                reactions=model.reactions,
+                coef=row.abundance / total,
+                external_compartment=own_compartment,
+                internal_exchange=max_exchange,
+                environment_id="h",
+                environment_name="host",
+            )
+            self.solver.update()
 
     @property
     def host_medium(self):
@@ -1032,7 +1115,7 @@ class Community(cobra.Model):
         Note
         ----
         This is assumed to be formulated in mmol/(gDW * h) where the gDW is 1gDW of
-        the host tissue.
+        the total host tissue.
 
         Parameters
         ----------
@@ -1076,6 +1159,7 @@ class Community(cobra.Model):
 
     def add_coupling_constraints(
         self,
+        ids=None,
         strategy="resource coupling",
         include_exchanges=False,
         constraint=400,
@@ -1088,19 +1172,23 @@ class Community(cobra.Model):
         to the growth rate in many cases. The following strategie are available:
 
         resource constraint: The total enzyme usage is constrained to be below a certain threshold.
-        $$\sum_{i} |v_i| \leq \text{constraint}$$
+
+        .. math:: \sum_{i} |v_i| \leq \text{constraint}
 
         resource coupling: The total enzyme usage is constrained by the growth rate.
-        $$\sum_{i} |v_i| \leq \text{constraint} * \mu$$
+
+        .. math:: \sum_{i} |v_i| \leq \text{constraint} * \mu
 
         enzyme coupling: Individual enzyme usage is constrained by the growth rate except for a small maintenance flux.
-        $$|v_i| \leq \text{constraint} * \mu + \text{lower$$
+        .. math:: |v_i| \leq \text{constraint} * \mu + \text{lower}
 
         Parameters
         ----------
         strategy : str
             The type of coupling to add. One of "resource constraint", "resource coupling",
             or "enzyme coupling". Defaults to "resource coupling".
+        ids : list of str, optional
+            The taxa or host tissues to add the constraints for. If None will add constraints for all taxa and host tissues.
         include_exchanges : bool
             Whether to include exchange reactions in the resource constraints.
         constraint : float
@@ -1114,14 +1202,16 @@ class Community(cobra.Model):
         Nothing. Will add constraints to the model inplace.
 
         """
+        if ids is None:
+            ids = self.taxa + self.host
         candidates = self.internal_reactions
         if include_exchanges:
             candidates += self.internal_exchanges
         n_rxns = 0
         if "resource" in strategy:
             coupled = "coupling" in strategy
-            logger.info("adding resource constraints for %d taxa" % len(self.taxa))
-            for taxon in self.taxa:
+            logger.info("adding resource constraints for %d models" % len(ids))
+            for taxon in ids:
                 obj = self.variables["objective_" + taxon]
                 exclude = self.constraints[f"objective_constraint_{taxon}"].variables
                 rxns = [r for r in candidates if r.community_id == taxon]

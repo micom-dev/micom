@@ -12,13 +12,15 @@ this_dir, _ = split(__file__)
 test_db = join(this_dir, "artifacts", "species_models.qza")
 test_medium = join(this_dir, "artifacts", "medium.qza")
 
-def test_taxonomy(n=4):
+def test_taxonomy(n=4, host=False):
     """Create a simple test taxonomy.
 
     Parameters
     ----------
     n : positive int
         How many species to include.
+    host : bool
+        Whether to include a host in the taxonomy.
 
     Returns
     -------
@@ -34,10 +36,22 @@ def test_taxonomy(n=4):
     taxa["reactions"] = 95
     taxa["metabolites"] = 72
     taxa["file"] = ecoli_file
+    if host:
+        taxa["is_host"] = False
+        table = pd.DataFrame(
+            {
+                "id": ["human"],
+                "genus": ["Homo"],
+                "species": ["Homo sapiens"],
+                "is_host": [True],
+                "file": [join(this_dir, "toy_host.xml")]
+            }
+        )
+        taxa = pd.concat([taxa, table], ignore_index=True)
     return taxa
 
 
-def test_data(n_samples=4, uses_db=True):
+def test_data(n_samples=4, uses_db=True, host=False):
     """Create a simple test data set.
 
     Parameters
@@ -46,6 +60,8 @@ def test_data(n_samples=4, uses_db=True):
         How many samples to include.
     uses_db : bool
         Whether the data is used with a model database.
+    host : bool
+        Whether to include a host in the taxonomy.
 
     Returns
     -------
@@ -54,7 +70,7 @@ def test_data(n_samples=4, uses_db=True):
 
     """
     samples = ["sample_%d" % i for i in range(1, n_samples + 1)]
-    data = [test_taxonomy() for s in samples]
+    data = [test_taxonomy(host=host) for s in samples]
     for i, d in enumerate(data):
         d["sample_id"] = samples[i]
         d["species"] += " " + d.index.astype("str")

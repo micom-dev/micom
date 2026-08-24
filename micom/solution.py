@@ -110,7 +110,7 @@ class CommunitySolution(Solution):
         self.strategy = community.modification
         self.members = pd.DataFrame(
             {
-                "abundance": community.abundances,
+                "abundance": community.microbial_abundances,
                 "growth_rate": gcs,
                 "reactions": pd.Series(Counter(rids[:, 1])),
                 "metabolites": pd.Series(Counter(mids[:, 1])),
@@ -118,10 +118,13 @@ class CommunitySolution(Solution):
         )
         self.members.index.name = "compartments"
         self.growth_rate = community.variables.community_objective.primal
-        self.host_rate = None
-        if community.host_id is not None:
-            self.host_rate = max(
-                0, community.variables["objective_" + community.host_id].primal)
+        self.host_rates = None
+        if len(community.host) > 0:
+            self.host_rates = pd.Series()
+            for hid in community.host:
+                self.host_rates[hid] = max(
+                    0, community.variables["objective_" + hid].primal
+                )
 
     def _repr_html_(self):
         if self.status in good:

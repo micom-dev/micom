@@ -44,11 +44,9 @@ def regularize_l2_norm(community, min_growth, host=False):
         The community to modify.
     min_growth : positive float
         The minimal community growth rate that has to be mantained.
-    linear : boolean
-        Whether to use a non-linear (sum of squares) or linear version of the
-        cooperativity cost. If set to False requires a QP-capable solver.
-    max_gcs : None or dict
-        The precomputed maximum individual growth rates.
+    host : bool
+        Whether to include the host in the objective. If True, the host will be
+        treated like any other community member.
 
     """
     logger.info("adding L2 norm to %s" % community.id)
@@ -59,8 +57,8 @@ def regularize_l2_norm(community, min_growth, host=False):
         context(partial(reset_min_community_growth, community))
 
     taxa = set(community.taxa)
-    if community.host_id is not None and not host:
-        taxa.remove(community.host_id)
+    if host and len(community.host) > 0:
+        taxa += set(community.host)
     for sp in taxa:
         taxa_obj = community.variables["objective_" + sp]
         l2 += (community.scale * (taxa_obj**2)).expand()
@@ -69,7 +67,7 @@ def regularize_l2_norm(community, min_growth, host=False):
     logger.info("finished adding tradeoff objective to %s" % community.id)
 
 
-def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rtol):
+def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rtol, host=False):
     """Find the best tradeoff between community and individual growth."""
     with community as com:
         check_modification(community)
@@ -87,7 +85,7 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rt
             fraction = np.sort(fraction)[::-1]
 
         # Add needed variables etc.
-        regularize_l2_norm(com, 0.0, host=community.host_id is not None)
+        regularize_l2_norm(com, 0.0, host=host)
 
         results = []
         for fr in fraction:

@@ -125,11 +125,11 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     for sp in taxa:
         old = abundance[sp]
         abundance.loc[sp] *= np.exp(STEP)
-        com.set_abundance(abundance, normalize=False)
+        com.set_microbial_abundance(abundance, normalize=False)
         sol = optimize_with_fraction(com, fraction, growth_rate, True)
         after = _get_fluxes(sol, reactions)
         abundance.loc[sp] = old
-        com.set_abundance(abundance, normalize=False)
+        com.set_microbial_abundance(abundance, normalize=False)
         deriv, dirs = _derivatives(before, after)
         res = pd.DataFrame(
             {

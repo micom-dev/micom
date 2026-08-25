@@ -273,9 +273,7 @@ def _format_min_growth(min_growth, taxa):
     elif isinstance(min_growth, (dict, pd.Series)):
         min_growth = pd.Series(min_growth)
         if any(idx not in taxa for idx in min_growth.index):
-            raise ValueError(
-                "The index of min_growth does not match the taxa IDs."
-            )
+            raise ValueError("The index of min_growth does not match the taxa IDs.")
     elif isinstance(min_growth, Iterable):
         if len(min_growth) == len(taxa):
             min_growth = pd.Series(min_growth, taxa)
@@ -284,7 +282,9 @@ def _format_min_growth(min_growth, taxa):
                 "If min_growth is an iterable it needs one entry for each taxon."
             )
     else:
-        raise ValueError("min_growth has to be a float, dict, Series, or array-like object.")
+        raise ValueError(
+            "min_growth has to be a float, dict, Series, or array-like object."
+        )
     return min_growth
 
 

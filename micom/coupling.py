@@ -5,7 +5,14 @@ from optlang.symbolics import Zero
 from uuid import uuid4
 
 
-def add_coupling(model, reactions, objective_variable, coupling=400, lower=0.0, exclude_variables=None):
+def add_coupling(
+    model,
+    reactions,
+    objective_variable,
+    coupling=400,
+    lower=0.0,
+    exclude_variables=None,
+):
     """Adds coupling constraints to a model.
 
     Note that this will add a lot of constraints which can be slow for large models.
@@ -41,7 +48,9 @@ def add_coupling(model, reactions, objective_variable, coupling=400, lower=0.0, 
             name="coupling_" + v.name,
         )
         model.add_cons_vars([const_fwd])
-        model.constraints[const_fwd.name].set_linear_coefficients({objective_variable: -coupling, v: 1.0})
+        model.constraints[const_fwd.name].set_linear_coefficients(
+            {objective_variable: -coupling, v: 1.0}
+        )
         if reaction.reversibility:
             v = reaction.reverse_variable
             if v in exclude_variables:
@@ -53,7 +62,9 @@ def add_coupling(model, reactions, objective_variable, coupling=400, lower=0.0, 
                 name="coupling_" + v.name,
             )
             model.add_cons_vars([const_rev])
-            model.constraints[const_rev.name].set_linear_coefficients({objective_variable: -coupling, v: 1.0})
+            model.constraints[const_rev.name].set_linear_coefficients(
+                {objective_variable: -coupling, v: 1.0}
+            )
     model.solver.update()
 
 

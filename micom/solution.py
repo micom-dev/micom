@@ -156,7 +156,6 @@ class CommunitySolution(Solution):
         return f"<CommunitySolution {self.growth_rate:.3f} at 0x{id(self):x}>"
 
 
-
 def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
     """Add pFBA objective.
 
@@ -174,9 +173,7 @@ def add_pfba_objective(community, atol=1e-6, rtol=1e-6):
         The community to add the objective to.
     """
     # Fix all growth rates
-    rates = {
-        sp: community.variables["objective_" + sp].primal for sp in community.taxa
-    }
+    rates = {sp: community.variables["objective_" + sp].primal for sp in community.taxa}
     _apply_min_growth(community, rates, atol, rtol)
 
     if community.solver.objective.name == "_pfba_objective":

@@ -67,7 +67,9 @@ def regularize_l2_norm(community, min_growth, host=False):
     logger.info("finished adding tradeoff objective to %s" % community.id)
 
 
-def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rtol, host=False):
+def cooperative_tradeoff(
+    community, min_growth, fraction, fluxes, pfba, atol, rtol, host=False
+):
     """Find the best tradeoff between community and individual growth."""
     with community as com:
         check_modification(community)

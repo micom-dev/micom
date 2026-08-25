@@ -12,6 +12,7 @@ this_dir, _ = split(__file__)
 test_db = join(this_dir, "artifacts", "species_models.qza")
 test_medium = join(this_dir, "artifacts", "medium.qza")
 
+
 def test_taxonomy(n=4, host=False):
     """Create a simple test taxonomy.
 
@@ -44,7 +45,7 @@ def test_taxonomy(n=4, host=False):
                 "genus": ["Homo"],
                 "species": ["Homo sapiens"],
                 "is_host": [True],
-                "file": [join(this_dir, "toy_host.xml")]
+                "file": [join(this_dir, "toy_host.xml")],
             }
         )
         taxa = pd.concat([taxa, table], ignore_index=True)

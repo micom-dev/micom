@@ -621,7 +621,11 @@ class Community(cobra.Model):
             with self:
                 self.objective = self.variables["objective_" + hid]
                 solutions[hid] = self.optimize(
-                    fluxes=fluxes, pfba=pfba, raise_error=raise_error, atol=atol, rtol=rtol
+                    fluxes=fluxes,
+                    pfba=pfba,
+                    raise_error=raise_error,
+                    atol=atol,
+                    rtol=rtol,
                 )
         return solutions
 
@@ -703,12 +707,15 @@ class Community(cobra.Model):
             Host abundances are adjusted relative to this.
         """
         if not isinstance(value, pd.Series):
-            raise TypeError("`value` must be a pandas Series with entries for host IDs.")
+            raise TypeError(
+                "`value` must be a pandas Series with entries for host IDs."
+            )
 
         bad = set(value.index) - set(self.host_abundances.index)
         if len(bad) > 0:
             raise ValueError(
-                "The following host tissues are not in the community: %s" % ", ".join(bad)
+                "The following host tissues are not in the community: %s"
+                % ", ".join(bad)
             )
 
         logger.info("setting new abundances for %s" % self.id)
@@ -1044,10 +1051,10 @@ class Community(cobra.Model):
 
     def add_host(
         self,
-        table : pd.DataFrame,
-        host_db : dict[str, str],
-        shared_compartment : str = "l",
-        own_compartment : str = "e",
+        table: pd.DataFrame,
+        host_db: dict[str, str],
+        shared_compartment: str = "l",
+        own_compartment: str = "e",
     ):
         """Add a host model to the community.
 
@@ -1077,7 +1084,10 @@ class Community(cobra.Model):
             self.host.append(row.id)
             taxa_obj = self.problem.Variable(f"objective_{row.id}", lb=0, ub=None)
             taxa_const = self.problem.Constraint(
-                o.expression - taxa_obj, name="objective_constraint_" + row.id, lb=0.0, ub=0.0
+                o.expression - taxa_obj,
+                name="objective_constraint_" + row.id,
+                lb=0.0,
+                ub=0.0,
             )
             max_exchange = getattr(self, "max_exchange", 100)
             self.add_cons_vars([taxa_obj, taxa_const])

@@ -104,7 +104,7 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
         The community for which to calculate elasticities.
     variables : list of optlang.Variable
         The variables for which to calculate the elasticities. All of these
-        must have non-zero primal vaues in the previous solution.
+        must have non-zero primal values in the previous solution.
 
     Returns
     -------

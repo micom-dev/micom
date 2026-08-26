@@ -1,7 +1,7 @@
 """Performs growth and exchange analysis for several models."""
 
 from cobra.util.solver import interface_to_str, OptimizationError
-from . import load_pickle
+from ..util import load_pickle
 from ..annotation import annotate_metabolites_from_exchanges
 from ..media import minimal_medium
 from os import path

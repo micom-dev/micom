@@ -1,7 +1,6 @@
 """Worflow to build models for several samples."""
 
 from cobra.io import save_json_model
-from ..constants import RANKS
 from ..util import join_models, load_pickle, _read_model
 from ..community import Community
 from .core import workflow

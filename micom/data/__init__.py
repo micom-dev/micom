@@ -1,7 +1,7 @@
 """Submodule including some common data sets."""
 
 from cobra.io import read_sbml_model
-from ..workflows import load_results
+from ..batch import load_results
 from os.path import split, join
 from numpy.random import randint
 import pandas as pd

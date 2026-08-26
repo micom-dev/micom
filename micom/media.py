@@ -5,7 +5,6 @@ from optlang.symbolics import Zero
 import logging
 import numpy as np
 import pandas as pd
-from micom import Community
 from micom.util import (
     _format_min_growth,
     _apply_min_growth,

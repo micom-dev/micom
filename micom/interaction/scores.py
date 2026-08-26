@@ -2,7 +2,7 @@
 
 from collections import Counter
 import pandas as pd
-from micom.workflows import GrowthResults
+from ..batch import GrowthResults
 
 
 def _mes(df: pd.DataFrame) -> float:

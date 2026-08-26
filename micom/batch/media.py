@@ -1,7 +1,7 @@
 """Example workflows for micom."""
 
 import pandas as pd
-from . import load_pickle
+from ..util import load_pickle
 from .results import GrowthResults
 from ..media import minimal_medium, complete_medium
 import logging

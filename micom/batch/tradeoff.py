@@ -1,6 +1,6 @@
 """Workflow to run cooperative tradeoff with various tradeoff values."""
 
-from . import load_pickle
+from ..util import load_pickle
 import numpy as np
 import pandas as pd
 import logging

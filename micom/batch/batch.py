@@ -1,22 +1,13 @@
 """Manage a batch of community models and the corresponding steps and configuration."""
 
 from pathlib import Path
-import httpx
 import pandas as pd
 import logging
 import numpy as np
-from rich.progress import (
-    Progress,
-    BarColumn,
-    DownloadColumn,
-    TextColumn,
-    TransferSpeedColumn,
-    TimeRemainingColumn,
-)
-from urllib.parse import urlparse
 
-from .configuration import Configuration
 from ..constants import RANKS
+from ..db import get_database
+from .configuration import Configuration
 from .core import workflow
 from .build import build_and_save, _reduce_group
 from .media import _fix_medium, _medium, process_medium
@@ -26,6 +17,7 @@ from .tradeoff import _tradeoff
 from ..solution import OptimizationError
 
 logger = logging.getLogger(__name__)
+
 
 class Batch(object):
     """Manage a batch of community models and the corresponding steps and configuration."""
@@ -91,8 +83,8 @@ class Batch(object):
         if (lowest_rank_counts > 1).any():
             raise ValueError(
                 f"Found duplicate entries for single samples for '{lowest_rank}' in the taxonomy."
-                 " Each sample should have only one collapsed abundance for the lowest rank/ID."
-                 " Please check your taxonomy file."
+                " Each sample should have only one collapsed abundance for the lowest rank/ID."
+                " Please check your taxonomy file."
             )
 
         # Check if each lowest rank appears only once in the taxonomy
@@ -116,56 +108,10 @@ class Batch(object):
 
         return True
 
-    def get_database(self, url: str) -> Path:
-        """Download the databases specified in the configuration.
-
-        Parameters
-        ----------
-        url : str
-            The URL of the database to download or a locally downloaded database.
-
-        Returns
-        -------
-        Path
-            The path to the downloaded database.
-
-        """
-
-        progress = Progress(
-            TextColumn("{task.fields[database]}", justify="right"),
-            BarColumn(bar_width=None),
-            "[progress.percentage]{task.percentage:>3.1f}%",
-            DownloadColumn(),
-            TransferSpeedColumn(),
-            TimeRemainingColumn(),
-        )
-
-        url = urlparse(self.config.dbs["microbial"])
-        if url.scheme == "default" and url.netloc:
-            dl = f"https://zenodo.org/records/7739096/files/{url.netloc}?download=1"
-            loc = self.config.databases["download-location"] / url.netloc
-        else:
-            return Path(self.config.dbs["microbial"])
-
-        with progress, httpx.stream(
-            method="GET",
-            url=dl,
-            follow_redirects=True,
-        ) as response, open(loc, "wb") as data:
-            response.raise_for_status()
-            task_id = self._progress.add_task(
-                description="download model database",
-                database=url.netloc,
-            )
-            for chunk in response.iter_bytes():
-                data.write(chunk)
-                self._progress.update(task_id=task_id, advance=len(chunk))
-
-        return loc
 
     def build(
-        self : Batch,
-        out_folder : Path,
+        self: Batch,
+        out_folder: Path,
     ) -> pd.DataFrame:
         """Build a series of community models.
 
@@ -178,12 +124,6 @@ class Batch(object):
             The built models and a manifest file will be written to this
             folder. Will skip existing models if the folder already exists, contains models,
             *and* if config.build["force-rebuild"] is False.
-        model_db : str
-            A pre-built model database. If ending in `.qza` must be a Qiime 2
-            artifact of type `MetabolicModels[JSON]`. Can also be a folder,
-            zip (must end in `.zip`) file or None if the taxonomy contains a
-            column `file`. Can also be a URL to any of the above.
-            If None, the model database specified in the configuration will be used.
 
         Returns
         -------
@@ -193,9 +133,7 @@ class Batch(object):
 
         """
         if out_folder.exists():
-            existing = [
-                s.split(".pickle")[0] for s in glob(out_folder / "*.pickle")
-            ]
+            existing = [s.name.split(".pickle")[0] for s in out_folder.glob("*.pickle")]
             if (len(existing) > 0) and (not self.config.build["force-rebuild"]):
                 logger.warning(
                     f"Found existing models for {len(existing)} samples. Will skip those. "
@@ -215,17 +153,28 @@ class Batch(object):
                 f"{', '.join(bad)}"
             )
             taxonomy = tax[~tax.sample_id.isin(bad)]
-        if "file" in taxonomy.columns and conf.model_db is not None:
-            logger.warning(
-                "The table includes a `file` column even though a model database "
-                "is used. Will ignore it and use the model database instead."
-            )
-            del tax["file"]
+        if self.config.model_db is not None:
+            if "file" in taxonomy.columns:
+                logger.warning(
+                    "The table includes a `file` column even though a model database "
+                    "is used. Will ignore it and use the model database instead. "
+                    "If you want to use the `file` column please set `conf.model_db = None`."
+                )
+                del tax["file"]
+            db = get_database(conf.model_db, Path(conf.dbs["download-location"]))
+
 
         samples = tax.sample_id.unique()
         out_path = pd.Series({s: out_folder / (s + ".pickle") for s in samples})
         args = [
-            [s, tax[tax.sample_id == s], conf.model_db, out_path[s], conf.tolerance, conf.solver]
+            [
+                s,
+                tax[tax.sample_id == s],
+                db,
+                out_path[s],
+                conf.tolerance,
+                conf.solver,
+            ]
             for s in samples
         ]
         res = workflow(build_and_save, args, conf.threads)
@@ -240,7 +189,7 @@ class Batch(object):
         manifest["file"] = manifest.sample_id + ".pickle"
         manifest = pd.merge(manifest, metrics, on="sample_id")
 
-        if conf.model_db is not None:
+        if db is not None:
             if any(manifest.found_taxa == 0):
                 missing = manifest.sample_id[manifest.found_taxa == 0]
                 logger.warning(
@@ -264,8 +213,7 @@ class Batch(object):
         self.out_folder = out_folder
         return manifest
 
-
-    def grow(self : Batch) -> GrowthResults:
+    def grow(self: Batch) -> GrowthResults:
         """Simulate growth for a set of community models.
 
         Note
@@ -293,8 +241,7 @@ class Batch(object):
         man = self.build_manifest
         samples = man.sample_id.unique()
         paths = {
-            s: self.out_folder / man[man.sample_id == s].file.iloc[0]
-            for s in samples
+            s: self.out_folder / man[man.sample_id == s].file.iloc[0] for s in samples
         }
         medium = process_medium(medium, samples)
         args = [
@@ -328,7 +275,9 @@ class Batch(object):
             value_name="flux",
         ).dropna(subset=["flux"])
         abundance = growth[["taxon", "sample_id", "abundance"]]
-        exchanges = pd.merge(exchanges, abundance, on=["taxon", "sample_id"], how="outer")
+        exchanges = pd.merge(
+            exchanges, abundance, on=["taxon", "sample_id"], how="outer"
+        )
         anns = pd.concat(
             r["annotations"] for r in results if r is not None
         ).drop_duplicates(subset=["reaction"])
@@ -342,8 +291,8 @@ class Batch(object):
         return self.results
 
     def tradeoff(
-        self : Batch,
-        tradeoffs : np.array = np.arange(0.1, 1.0 + 1e-6, 0.1),
+        self: Batch,
+        tradeoffs: np.array = np.arange(0.1, 1.0 + 1e-6, 0.1),
     ) -> pd.DataFrame:
         """Run growth rate predictions for varying tradeoff values.
 
@@ -368,8 +317,7 @@ class Batch(object):
 
         samples = man.sample_id.unique()
         paths = {
-            s: self.out_folder / man[man.sample_id == s].file.iloc[0]
-            for s in samples
+            s: self.out_folder / man[man.sample_id == s].file.iloc[0] for s in samples
         }
         if any(t < 0.0 or t > 1.0 for t in tradeoffs):
             raise ValueError("tradeoff values must between 0 and 1 :(")
@@ -398,13 +346,12 @@ class Batch(object):
 
         return results
 
-
     def minimal_medium(
-        self : Batch,
+        self: Batch,
         community_growth: float = 0.1,
         taxa_growth: float = 0.001,
-        minimize : str = "mass",
-        summarize : bool = True,
+        minimize: str = "mass",
+        summarize: bool = True,
     ) -> pd.DataFrame:
         """Calculate the minimal medium for a set of community models.
 
@@ -482,9 +429,8 @@ class Batch(object):
 
         return medium
 
-
     def complete_medium(
-        self : Batch,
+        self: Batch,
         community_growth: float = 0.1,
         taxa_growth: float = 0.001,
         minimize: str = "mass",
@@ -532,8 +478,7 @@ class Batch(object):
 
         samples = man.sample_id.unique()
         paths = {
-            s: self.out_folder / man[man.sample_id == s].file.iloc[0]
-            for s in samples
+            s: self.out_folder / man[man.sample_id == s].file.iloc[0] for s in samples
         }
         medium = process_medium(medium, samples)
         if medium.flux[medium.flux < 1e-6].any():
@@ -552,7 +497,12 @@ class Batch(object):
             ]
             for s, p in paths.items()
         ]
-        res = workflow(_fix_medium, args, threads=self.config.threads, description="Augmenting media")
+        res = workflow(
+            _fix_medium,
+            args,
+            threads=self.config.threads,
+            description="Augmenting media",
+        )
         if all(r is None for r in res):
             raise OptimizationError(
                 "All optimizations failed. You may need to increase `max_import` "
@@ -566,7 +516,6 @@ class Batch(object):
                 .reset_index()
             )
         return final
-
 
     def is_built(self) -> bool:
         """Check if the batch has been built.

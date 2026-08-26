@@ -1,7 +1,7 @@
 """Quantify metabolic interactions between taxa."""
 
 from ..taxonomy import taxon_id
-from ..workflows import GrowthResults, workflow
+from ..batch import GrowthResults, workflow
 import pandas as pd
 from typing import List, Union
 

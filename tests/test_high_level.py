@@ -1,7 +1,7 @@
 """Test the high level API."""
 
 import micom.data as md
-from micom.workflows import (
+from micom.batch import (
     build_database,
     build,
     grow,

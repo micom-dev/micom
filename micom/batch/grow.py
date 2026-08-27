@@ -3,6 +3,7 @@
 from cobra.util.solver import interface_to_str, OptimizationError
 from ..util import load_pickle
 from ..annotation import annotate_metabolites_from_exchanges
+from ..constants import DIRECTION, ARGS
 from ..media import minimal_medium
 from os import path
 import pandas as pd

@@ -23,13 +23,18 @@ def _reduce_group(df):
 
 def build_and_save(args):
     """Build a single community model."""
-    s, tax, db, out, cutoff, solver = args
+    s, tax, db, out, config = args
 
-    if os.path.exists(out):
+    if out.exists() and not config.build.force_rebuild:
         com = load_pickle(out)
     else:
         com = Community(
-            tax, model_db=db, id=s, progress=False, rel_threshold=cutoff, solver=solver
+            tax,
+            model_db=str(db),
+            id=s,
+            progress=False,
+            rel_threshold=config.build.cutoff,
+            solver=config.solver,
         )
         com.to_pickle(out)
     if db is None:
@@ -123,7 +128,12 @@ def build_database(
             "not exist at the specified path: %s" % meta.file[bad]
         )
 
-    meta = meta.groupby(rank).apply(_reduce_group).reset_index(drop=True)
+    meta = (
+        meta.groupby(rank)
+        .apply(_reduce_group, include_groups=False)
+        .reset_index(level=0)
+        .reset_index(drop=True)
+    )
     logger.info("Building %d models on rank `%s`." % (meta.shape[0], rank))
     meta.index = meta[rank].str.replace("[^\\w\\_]", "_", regex=True)
     meta["id"] = meta.index

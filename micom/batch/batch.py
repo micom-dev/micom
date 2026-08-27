@@ -4,8 +4,9 @@ from pathlib import Path
 import pandas as pd
 import logging
 import numpy as np
+from typing import Union, Self
 
-from ..constants import RANKS
+from ..constants import RANKS, DIRECTION
 from ..db import get_database
 from .configuration import Configuration
 from .core import workflow
@@ -15,6 +16,7 @@ from .grow import _growth
 from .results import GrowthResults
 from .tradeoff import _tradeoff
 from ..solution import OptimizationError
+from ..util import pathify
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +49,7 @@ class Batch(object):
         self.medium = medium
         self.config = config
 
-    def check_taxonomy(self, taxonomy: pd.DataFrame) -> bool:
+    def check_taxonomy(self: Self, taxonomy: pd.DataFrame) -> bool:
         """Check if the taxonomy is valid.
 
         Parameters
@@ -108,10 +110,10 @@ class Batch(object):
 
         return True
 
-
+    @pathify
     def build(
-        self: Batch,
-        out_folder: Path,
+        self: Self,
+        out_folder: Union[Path, str],
     ) -> pd.DataFrame:
         """Build a series of community models.
 
@@ -123,7 +125,7 @@ class Batch(object):
         out_folder : str
             The built models and a manifest file will be written to this
             folder. Will skip existing models if the folder already exists, contains models,
-            *and* if config.build["force-rebuild"] is False.
+            *and* if config.build.force_rebuild is False.
 
         Returns
         -------
@@ -134,10 +136,10 @@ class Batch(object):
         """
         if out_folder.exists():
             existing = [s.name.split(".pickle")[0] for s in out_folder.glob("*.pickle")]
-            if (len(existing) > 0) and (not self.config.build["force-rebuild"]):
+            if (len(existing) > 0) and (not self.config.build.force_rebuild):
                 logger.warning(
                     f"Found existing models for {len(existing)} samples. Will skip those. "
-                    "set `config.build['force-rebuild'] = True` to rebuild all models."
+                    "set `config.build.force_rebuild = True` to rebuild all models."
                 )
         else:
             out_folder.mkdir(parents=True)
@@ -152,36 +154,32 @@ class Batch(object):
                 "The following samples sum to a zero abundance and will be excluded: "
                 f"{', '.join(bad)}"
             )
-            taxonomy = tax[~tax.sample_id.isin(bad)]
-        if self.config.model_db is not None:
-            if "file" in taxonomy.columns:
+            tax = tax[~tax.sample_id.isin(bad)]
+        if self.config.dbs.microbial is not None:
+            if "file" in tax.columns:
                 logger.warning(
                     "The table includes a `file` column even though a model database "
                     "is used. Will ignore it and use the model database instead. "
-                    "If you want to use the `file` column please set `conf.model_db = None`."
+                    "If you want to use the `file` column please set `conf.dbs.microbial = None`."
                 )
                 del tax["file"]
-            db = get_database(conf.model_db, Path(conf.dbs["download-location"]))
-
+            db = get_database(conf.dbs.microbial, Path(conf.dbs.download_location))
 
         samples = tax.sample_id.unique()
         out_path = pd.Series({s: out_folder / (s + ".pickle") for s in samples})
-        args = [
-            [
-                s,
-                tax[tax.sample_id == s],
-                db,
-                out_path[s],
-                conf.tolerance,
-                conf.solver,
-            ]
-            for s in samples
-        ]
-        res = workflow(build_and_save, args, conf.threads)
+        args = [[s, tax[tax.sample_id == s], db, out_path[s], conf] for s in samples]
+        res = workflow(
+            build_and_save,
+            args,
+            conf.threads,
+            description="Assembling models",
+            progress=conf.progress,
+        )
         metrics = pd.concat(res)
         manifest = (
-            taxonomy.groupby("sample_id")
-            .apply(_reduce_group)
+            tax.groupby("sample_id")
+            .apply(_reduce_group, include_groups=False)
+            .reset_index(level=0)
             .dropna(axis=1)
             .reset_index(drop=True)
         )
@@ -213,7 +211,7 @@ class Batch(object):
         self.out_folder = out_folder
         return manifest
 
-    def grow(self: Batch) -> GrowthResults:
+    def grow(self: Self) -> GrowthResults:
         """Simulate growth for a set of community models.
 
         Note
@@ -234,8 +232,13 @@ class Batch(object):
                 "The batch has not been built yet. Please run `Batch.build()` first."
             )
 
-        strategy = self.config.simulation["strategy"]
-        weights = self.config.media["weights"]
+        if self.config.simulation.strategy == "SteadyCom":
+            raise NotImplementedError(
+                "SteadyCom is not yet implemented in the batch workflow. Please use `config.simulation.strategy = 'ctFBA'` for now."
+            )
+
+        flux_method = self.config.simulation.flux_method
+        weights = self.config.media.weights
         medium = self.medium
         tradeoff = self.config.tradeoff
         man = self.build_manifest
@@ -250,14 +253,20 @@ class Batch(object):
                 tradeoff,
                 medium.flux[medium.sample_id == s],
                 weights,
-                strategy,
+                flux_method,
                 None,
                 None,
                 False,
             ]
             for s, p in paths.items()
         ]
-        results = workflow(_growth, args, self.config.threads)
+        results = workflow(
+            _growth,
+            args,
+            self.config.threads,
+            description="Simulating growth",
+            progress=self.config.progress,
+        )
         if all([r is None for r in results]):
             raise OptimizationError(
                 "All numerical optimizations failed. This indicates a problem "
@@ -291,7 +300,7 @@ class Batch(object):
         return self.results
 
     def tradeoff(
-        self: Batch,
+        self: Self,
         tradeoffs: np.array = np.arange(0.1, 1.0 + 1e-6, 0.1),
     ) -> pd.DataFrame:
         """Run growth rate predictions for varying tradeoff values.
@@ -321,12 +330,18 @@ class Batch(object):
         }
         if any(t < 0.0 or t > 1.0 for t in tradeoffs):
             raise ValueError("tradeoff values must between 0 and 1 :(")
-        medium = process_medium(medium, samples)
+        medium = process_medium(self.medium, samples)
         args = [
             [p, tradeoffs, medium.flux[medium.sample_id == s], None, None, False]
             for s, p in paths.items()
         ]
-        results = workflow(_tradeoff, args, self.config.threads)
+        results = workflow(
+            _tradeoff,
+            args,
+            self.config.threads,
+            description="Testing tradeoffs",
+            progress=self.config.progress,
+        )
         if all(r is None for r in results):
             raise OptimizationError(
                 "All numerical optimizations failed. This indicates a problem "
@@ -347,7 +362,7 @@ class Batch(object):
         return results
 
     def minimal_medium(
-        self: Batch,
+        self: Self,
         community_growth: float = 0.1,
         taxa_growth: float = 0.001,
         minimize: str = "mass",
@@ -404,13 +419,20 @@ class Batch(object):
                 s,
                 self.out_folder / man[man.sample_id == s].file.iloc[0],
                 community_growth,
+                taxa_growth,
                 True if minimize == "components" else False,
                 medium.flux[medium.sample_id == s],
                 minimize if minimize not in ["components", "flux"] else None,
             )
             for s in samples
         ]
-        results = workflow(_medium, args, self.config.threads)
+        results = workflow(
+            _medium,
+            args,
+            self.config.threads,
+            description="Finding minimal media",
+            progress=self.config.progress,
+        )
         if all(r is None for r in results):
             raise OptimizationError(
                 "Could not find a growth medium that allows the specified "
@@ -430,11 +452,12 @@ class Batch(object):
         return medium
 
     def complete_medium(
-        self: Batch,
+        self: Self,
         community_growth: float = 0.1,
         taxa_growth: float = 0.001,
         minimize: str = "mass",
         summarize: bool = True,
+        medium: pd.DataFrame = None,
     ) -> pd.DataFrame:
         """Augment a growth medium so a community or specific taxa can grow on it.
 
@@ -462,6 +485,8 @@ class Batch(object):
         summarize: boolean
             Whether to summarize the medium across all samples. If False will
             return a medium for each sample (sample-specific medium).
+        medium: pd.DataFrame
+            The medium to augment. If None will use the batch medium.
 
         Returns
         -------
@@ -474,6 +499,8 @@ class Batch(object):
             raise ValueError(
                 "The batch has not been built yet. Please run `Batch.build()` first."
             )
+        if medium is None:
+            medium = self.medium
         man = self.build_manifest
 
         samples = man.sample_id.unique()
@@ -490,7 +517,7 @@ class Batch(object):
                 p,
                 community_growth,
                 taxa_growth,
-                self.config.media["max_import"],
+                self.config.media.max_import,
                 True if minimize == "components" else False,
                 medium.flux[medium.sample_id == s],
                 minimize if minimize not in ["components", "flux"] else None,
@@ -502,6 +529,7 @@ class Batch(object):
             args,
             threads=self.config.threads,
             description="Augmenting media",
+            progress=self.config.progress,
         )
         if all(r is None for r in res):
             raise OptimizationError(
@@ -517,7 +545,7 @@ class Batch(object):
             )
         return final
 
-    def is_built(self) -> bool:
+    def is_built(self: Self) -> bool:
         """Check if the batch has been built.
 
         Returns
@@ -529,7 +557,7 @@ class Batch(object):
         check = (
             self.build_manifest is not None
             and self.out_folder is not None
-            and self.self.out_folder.exists()
+            and self.out_folder.exists()
         )
         return check
 

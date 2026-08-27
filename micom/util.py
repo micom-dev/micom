@@ -6,7 +6,7 @@ from cobra.util.solver import interface_to_str, linear_reaction_coefficients
 from cobra import Reaction
 from collections.abc import Iterable
 import os.path as path
-from functools import partial
+from functools import partial, wraps
 import pickle
 from uuid import uuid4
 from urllib.parse import urlparse
@@ -16,6 +16,11 @@ from shutil import rmtree
 import pandas as pd
 import re
 import logging
+from pathlib import Path
+from os import PathLike
+import inspect
+import typing
+import types
 
 logger = logging.getLogger(__name__)
 
@@ -348,3 +353,37 @@ def reset_min_community_growth(com, host=False):
     """Reset the lower bound for the community growth."""
     com.variables.community_objective.lb = 0.0
     com.variables.community_objective.ub = None
+
+
+def pathify(func):
+    """Decorator that automatically converts arguments hinted as Path or PathLike
+    (including Unions) into pathlib.Path objects before calling the function."""
+
+    sig = inspect.signature(func)
+    type_hints = typing.get_type_hints(func)
+
+    def is_path_hint(hint):
+        if hint is None:
+            return False
+        origin = typing.get_origin(hint)
+        if origin is typing.Union or origin is types.UnionType:
+            return any(is_path_hint(arg) for arg in typing.get_args(hint))
+        try:
+            return hint is Path or issubclass(hint, PathLike)
+        except TypeError:
+            return False
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        bound_args = sig.bind(*args, **kwargs)
+        bound_args.apply_defaults()
+
+        for name, value in bound_args.arguments.items():
+            hint = type_hints.get(name)
+            if hint and is_path_hint(hint):
+                if isinstance(value, (str, bytes, PathLike)):
+                    bound_args.arguments[name] = Path(value)
+
+        return func(*bound_args.args, **bound_args.kwargs)
+
+    return wrapper

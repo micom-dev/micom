@@ -4,11 +4,13 @@ from __future__ import annotations
 from functools import reduce
 from dataclasses import dataclass
 import pandas as pd
-import typing
+from pathlib import Path
+from typing import Union, TYPE_CHECKING, Self
 from zipfile import ZipFile
 from ..annotation import annotate_metabolites_from_exchanges
+from ..util import pathify
 
-if typing.TYPE_CHECKING:
+if TYPE_CHECKING:
     from ..community import Community
     from ..solution import CommunitySolution
 
@@ -21,7 +23,8 @@ class GrowthResults:
     exchanges: pd.DataFrame
     annotations: pd.DataFrame
 
-    def save(self, path: str):
+    @pathify
+    def save(self: Self, path: Union[Path, str]):
         """Save growth results to a file.
 
         This will write all tables as CSV into a single ZIP file.
@@ -36,7 +39,8 @@ class GrowthResults:
                 getattr(self, attr).to_csv(zippy.open(f"{attr}.csv", "w"), index=False)
 
     @staticmethod
-    def load(path: str) -> GrowthResults:
+    @pathify
+    def load(path: Union[Path, str]) -> Self:
         """Load growth results from a file.
 
         Parameters
@@ -56,7 +60,7 @@ class GrowthResults:
                 tables.append(tab)
         return GrowthResults(*tables)
 
-    def __add__(self, other: GrowthResults) -> GrowthResults:
+    def __add__(self, other: Self) -> Self:
         """Combine two GrowthResults objects.
 
         Parameters
@@ -78,7 +82,7 @@ class GrowthResults:
         return GrowthResults(rates, exs, anns)
 
     @staticmethod
-    def from_solution(sol: CommunitySolution, com: Community) -> GrowthResults:
+    def from_solution(sol: CommunitySolution, com: Community) -> Self:
         """Convert a solution to growth results."""
         if sol.fluxes is None:
             raise ValueError("Solution needs to contain fluxes to be converted.")
@@ -111,7 +115,8 @@ class GrowthResults:
         return GrowthResults(rates, exchanges, anns)
 
 
-def save_results(results: GrowthResults, path: str):
+@pathify
+def save_results(results: Self, path: Union[Path, str]):
     """Save growth results to a file.
 
     This will write all tables as CSV into a single ZIP file.
@@ -120,18 +125,19 @@ def save_results(results: GrowthResults, path: str):
     ---------
     results : GrowthResults
         The results as returned from `grow`.
-    path : str
+    path : Union[Path, str]
         A filepath for the generated file. Should end in `.zip`.
     """
     results.save(path)
 
 
-def load_results(path):
+@pathify
+def load_results(path: Union[Path, str]) -> Self:
     """Load growth results from a file.
 
     Parameters
     ---------
-    path : str
+    path : Union[Path, str]
         Path to saved `GrowthResults`.
 
     Returns
@@ -142,7 +148,7 @@ def load_results(path):
     return GrowthResults.load(path)
 
 
-def combine_results(it: typing.Iterable[GrowthResults]) -> GrowthResults:
+def combine_results(it: typing.Iterable[GrowthResults]) -> Self:
     """Combine several GrowthResults.
 
     Parameters

@@ -28,7 +28,7 @@ def workflow(func, args, threads=4, description=None, progress=True):
     threads : positive int
         How many samples to analyze in parallel at once.
     description : str
-        The dewscription shown in front of the progress bar.
+        The description shown in front of the progress bar.
     progress : bool
         Whether to show a progress bar.
     """

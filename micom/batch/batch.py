@@ -4,7 +4,7 @@ from pathlib import Path
 import pandas as pd
 import logging
 import numpy as np
-from typing import Union, Self
+from typing import Any, Union, Self
 
 from ..constants import RANKS, DIRECTION
 from ..db import get_database
@@ -16,7 +16,8 @@ from .grow import _growth
 from .results import GrowthResults
 from .tradeoff import _tradeoff
 from ..solution import OptimizationError
-from ..util import pathify
+from ..types import check_medium, pathify, check_taxonomy
+from ..qiime_formats import load_qiime_medium
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +28,7 @@ class Batch(object):
     def __init__(
         self,
         taxonomy: pd.DataFrame,
-        medium: pd.DataFrame = None,
+        medium: Union[pd.DataFrame, str, Path] = None,
         config: Configuration = Configuration(),
     ) -> None:
         """Initialize the batch with a configuration.
@@ -36,6 +37,9 @@ class Batch(object):
         ----------
         taxonomy : pd.DataFrame
             The taxonomy of the community models.
+        medium : Union[pd.DataFrame, str, Path]
+            The growth medium to use for the batch. Can be a DataFrame, a path to a CSV file,
+            a path to a QZA file or a download URL.
         config : Configuration
             The configuration object.
 
@@ -44,71 +48,80 @@ class Batch(object):
         self.results = None
         self.tradeoffs = None
         self.out_folder = None
-        self.check_taxonomy(taxonomy)
-        self.taxonomy = taxonomy
+        check_taxonomy(taxonomy)
+        self._taxonomy = taxonomy
         self.medium = medium
         self.config = config
 
-    def check_taxonomy(self: Self, taxonomy: pd.DataFrame) -> bool:
-        """Check if the taxonomy is valid.
-
-        Parameters
-        ----------
-        taxonomy : pd.DataFrame
-            The taxonomy of the community models.
+    @property
+    def taxonomy(self: Self) -> pd.DataFrame:
+        """Get the taxonomy of the batch.
 
         Returns
         -------
-        bool
-            True if the taxonomy is valid, False otherwise.
+        pd.DataFrame
+            The taxonomy of the community models.
 
         """
-        found = taxonomy.columns.isin(["id"] + RANKS)
-        if not all([x in taxonomy.columns for x in ["abundance", "sample_id"]]):
-            raise ValueError(
-                f"Taxonomy must contain columns 'abundance' and 'sample_id'"
+        return self._taxonomy.copy()
+
+    @taxonomy.setter
+    def taxonomy(self: Self, taxonomy: Any) -> None:
+        """Set the taxonomy of the batch.
+
+        This is not allowed after initialization. Please create a new Batch object instead.
+
+        Parameters
+        ----------
+        taxonomy : Any
+            The taxonomy of the community models.
+
+        """
+        raise AttributeError(
+            "The taxonomy cannot be changed after initialization."
+            " Please create a new Batch object instead."
+        )
+
+    @property
+    def medium(self: Self) -> pd.DataFrame:
+        """Get the growth medium for the batch.
+
+        Returns
+        -------
+        pd.DataFrame
+            The growth medium to use for the batch. Should contain columns
+            `reaction`, `flux`, and `sample_id`. If `sample_id` is not present,
+            the same medium will be used for all samples.
+
+        """
+        return self._medium
+
+    @medium.setter
+    def medium(self: Self, medium: Union[pd.DataFrame, str, Path]) -> None:
+        """Set the growth medium for the batch.
+
+        Parameters
+        ----------
+        medium : pd.DataFrame
+            The growth medium to use for the batch. Should contain columns
+            `reaction`, `flux`, and `sample_id`. If `sample_id` is not present,
+            the same medium will be used for all samples.
+
+        """
+        if not isinstance(medium, pd.DataFrame):
+            path = get_database(
+                medium, Path(self.config.dbs.download_location), what="media"
             )
-        if found.sum() == 0:
-            raise ValueError(
-                f"Taxonomy must contain at least one column from: {", ".join(RANKS)}"
-            )
-
-        if "id" in taxonomy.columns:
-            lowest_rank = "id"
-        else:
-            lowest_rank = [r for r in RANKS if r in taxonomy.columns][-1]
-
-        # Check for some common mistakes
-
-        # Check for duplicate entries for single samples
-        lowest_rank_counts = taxonomy.groupby("sample_id")[lowest_rank].value_counts()
-        if (lowest_rank_counts > 1).any():
-            raise ValueError(
-                f"Found duplicate entries for single samples for '{lowest_rank}' in the taxonomy."
-                " Each sample should have only one collapsed abundance for the lowest rank/ID."
-                " Please check your taxonomy file."
-            )
-
-        # Check if each lowest rank appears only once in the taxonomy
-        lowest_rank_counts = taxonomy[lowest_rank].value_counts()
-        s_counts = taxonomy.sample_id.nunique()
-        if (s_counts > 1) & (lowest_rank_counts == 1).all():
-            logger.warning(
-                f"Each '{lowest_rank}' appears only once in the taxonomy."
-                " Note that taxa names and IDs should be unique for each *organism* in the community, not for each sample."
-                " This might be okay if your samples do not share any taxa, but it is worth checking your taxonomy file."
-            )
-
-        # Check for zero abundance samples
-        zero_abundance_samples = taxonomy.groupby("sample_id")["abundance"].sum()
-        zero_abundance_samples = zero_abundance_samples[zero_abundance_samples == 0]
-        if len(zero_abundance_samples) > 0:
-            raise ValueError(
-                f"Found {len(zero_abundance_samples)} samples with zero abundances: "
-                ", ".join(zero_abundance_samples.index)
-            )
-
-        return True
+            if medium.suffix == ".qza":
+                medium = load_qiime_medium(path)
+            elif medium.suffix == ".csv":
+                medium = pd.read_csv(path)
+            else:
+                raise ValueError(
+                    "If the medium is a path, it must be a CSV or QZA file."
+                )
+        check_medium(medium)
+        self._medium = medium
 
     @pathify
     def build(
@@ -230,6 +243,11 @@ class Batch(object):
         if not self.is_built():
             raise ValueError(
                 "The batch has not been built yet. Please run `Batch.build()` first."
+            )
+
+        if self.medium is None:
+            raise ValueError(
+                "No medium has been specified. Please set `batch.medium` to a valid medium first."
             )
 
         if self.config.simulation.strategy == "SteadyCom":

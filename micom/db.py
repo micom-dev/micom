@@ -15,7 +15,7 @@ from pathlib import Path
 import os
 from os import path
 from zipfile import ZipFile
-from .constants import DB_URL
+from .constants import DB_URL, MEDIA_URL
 
 
 def load_manifest(folder):
@@ -44,7 +44,7 @@ def load_zip_model_db(artifact, extract_path):
     return manifest
 
 
-def get_database(url: str, out: Path) -> Path:
+def get_database(url: str, out: Path, what: str = "taxa") -> Path:
     """Get a database from several locations.
 
     If the database is a local file it will be used directly. If it is a URL it will be downloaded to the specified location.
@@ -55,6 +55,8 @@ def get_database(url: str, out: Path) -> Path:
         The URL of the database to download or a locally downloaded database.
     out : Path
         The path to the folder where the database should be downloaded.
+    what : str
+        The type of database to download.
 
     Returns
     -------
@@ -66,7 +68,7 @@ def get_database(url: str, out: Path) -> Path:
     if url is None:
         return None
 
-    out.mkdir(parents=True, exist_ok=True)
+    base = DB_URL if what == "taxa" else MEDIA_URL
 
     progress = Progress(
         TextColumn("{task.fields[database]}", justify="right"),
@@ -79,7 +81,7 @@ def get_database(url: str, out: Path) -> Path:
 
     up = urlparse(url)
     if up.scheme == "default" and up.netloc:
-        dl = DB_URL % up.netloc
+        dl = base % up.netloc
         loc = out / up.netloc
     elif (up.scheme in ["http", "https"]) and up.netloc:
         dl = url
@@ -88,6 +90,8 @@ def get_database(url: str, out: Path) -> Path:
         return Path(up.netloc)
     else:
         return Path(url)
+
+    out.mkdir(parents=True, exist_ok=True)
 
     with (
         progress,

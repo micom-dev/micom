@@ -6,21 +6,18 @@ from cobra.util.solver import interface_to_str, linear_reaction_coefficients
 from cobra import Reaction
 from collections.abc import Iterable
 import os.path as path
-from functools import partial, wraps
+from functools import partial
 import pickle
 from uuid import uuid4
 from urllib.parse import urlparse
 import urllib.request as urlreq
 import tempfile
 from shutil import rmtree
+from pathlib import Path
 import pandas as pd
 import re
 import logging
-from pathlib import Path
-from os import PathLike
-import inspect
-import typing
-import types
+from typing import Union
 
 logger = logging.getLogger(__name__)
 
@@ -62,11 +59,10 @@ def download_model(url, folder="."):
     return dest
 
 
-def _read_model(file):
+def _read_model(file: Path):
     """Read a model from a local file."""
-    _, ext = path.splitext(file)
-    read_func = _read_funcs[ext]
-    model = read_func(file)
+    read_func = _read_funcs[file.suffix]
+    model = read_func(str(file))
     adjusted = fix_demands(model)
     if len(adjusted) > 0:
         logger.warning(
@@ -77,29 +73,31 @@ def _read_model(file):
     return model
 
 
-def load_model(filepath):
+def load_model(filepath: Union[str, Path]):
     """Load a cobra model from several file types."""
     logger.info("reading model from {}".format(filepath))
-    parsed = urlparse(filepath)
-    if parsed.scheme and parsed.netloc:
-        tmpdir = tempfile.mkdtemp()
-        logger.info("created temporary directory {}".format(tmpdir))
-        filepath = download_model(filepath, folder=tmpdir)
-        model = _read_model(filepath)
-        rmtree(tmpdir)
-        logger.info("deleted temporary directory {}".format(tmpdir))
-    else:
-        model = _read_model(filepath)
+    if isinstance(filepath, str):
+        parsed = urlparse(filepath)
+        if parsed.scheme and parsed.netloc:
+            tmpdir = tempfile.mkdtemp()
+            logger.info("created temporary directory {}".format(tmpdir))
+            filepath = download_model(filepath, folder=tmpdir)
+            model = _read_model(Path(filepath))
+            rmtree(tmpdir)
+            logger.info("deleted temporary directory {}".format(tmpdir))
+            return model
+
+    model = _read_model(filepath)
     return model
 
 
-def load_pickle(filename):
+def load_pickle(filename: Union[str, Path]):
     """Load a community model from a pickled version.
 
     Parameters
     ----------
-    filename : str
-        The file the community is stored in.
+    filename : str or Path
+        The path to the file containing the pickled community model.
 
     Returns
     -------
@@ -353,37 +351,3 @@ def reset_min_community_growth(com, host=False):
     """Reset the lower bound for the community growth."""
     com.variables.community_objective.lb = 0.0
     com.variables.community_objective.ub = None
-
-
-def pathify(func):
-    """Decorator that automatically converts arguments hinted as Path or PathLike
-    (including Unions) into pathlib.Path objects before calling the function."""
-
-    sig = inspect.signature(func)
-    type_hints = typing.get_type_hints(func)
-
-    def is_path_hint(hint):
-        if hint is None:
-            return False
-        origin = typing.get_origin(hint)
-        if origin is typing.Union or origin is types.UnionType:
-            return any(is_path_hint(arg) for arg in typing.get_args(hint))
-        try:
-            return hint is Path or issubclass(hint, PathLike)
-        except TypeError:
-            return False
-
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        bound_args = sig.bind(*args, **kwargs)
-        bound_args.apply_defaults()
-
-        for name, value in bound_args.arguments.items():
-            hint = type_hints.get(name)
-            if hint and is_path_hint(hint):
-                if isinstance(value, (str, bytes, PathLike)):
-                    bound_args.arguments[name] = Path(value)
-
-        return func(*bound_args.args, **bound_args.kwargs)
-
-    return wrapper

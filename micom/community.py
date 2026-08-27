@@ -9,6 +9,7 @@ from optlang.symbolics import Zero
 from .constants import RANKS
 from .coupling import add_coupling, add_resource_constraint
 from .db import load_zip_model_db, load_manifest
+from .types import check_taxonomy, pathify
 from .util import (
     load_model,
     join_models,
@@ -26,6 +27,7 @@ from micom.taxonomy import unify_rank_prefixes
 import logging
 from rich.progress import track
 from tempfile import TemporaryDirectory
+from typing import Union, Self, Path, Dict
 
 cobra.io.sbml.LOGGER.setLevel("ERROR")
 cobra.util.solver.logger.setLevel("ERROR")
@@ -41,18 +43,19 @@ class Community(cobra.Model):
     compartment.
     """
 
+    @pathify
     def __init__(
-        self,
-        taxonomy,
-        model_db=None,
-        host_db=None,
-        id=None,
-        name=None,
-        rel_threshold=1e-6,
-        solver=None,
-        progress=True,
-        max_exchange=100,
-        mass=1,
+        self: Self,
+        taxonomy: pd.DataFrame,
+        model_db: Union[str, Path] = None,
+        host_db: Dict[str, Path] = None,
+        id: str = None,
+        name: str = None,
+        rel_threshold: float = 1e-6,
+        solver: str = None,
+        progress: bool = True,
+        max_exchange: float = 100.0,
+        mass: float = 1.0,
     ):
         """Create a new community object.
 
@@ -167,6 +170,8 @@ class Community(cobra.Model):
         self.max_exchange = max_exchange
         self.__db_metrics = None
         adjust_solver_config(self.solver)
+
+        check_taxonomy(taxonomy)
         taxonomy = taxonomy.copy()
         if "abundance" not in taxonomy.columns:
             taxonomy["abundance"] = 1
@@ -1023,7 +1028,8 @@ class Community(cobra.Model):
             return 1000.0
         return 1.0
 
-    def to_pickle(self, filename):
+    @pathify
+    def to_pickle(self: Self, filename: Union[str, Path]) -> None:
         """Save a community in serialized form.
 
         Parameters
@@ -1052,7 +1058,7 @@ class Community(cobra.Model):
     def add_host(
         self,
         table: pd.DataFrame,
-        host_db: dict[str, str],
+        host_db: Dict[str, Path],
         shared_compartment: str = "l",
         own_compartment: str = "e",
     ):

@@ -12,7 +12,23 @@ DIRECTION = pd.Series(["import", "export"], index=[0, 1])
 
 
 def process_medium(medium, samples):
-    """Prepare a medium for simulation."""
+    """Prepare a medium for simulation.
+
+    This will set the index to the reaction ID and convert it to a sample-wise medium if it is not already.
+
+    Parameters
+    ----------
+    medium : pd.DataFrame
+        The medium to process. Should have columns `reaction`, `flux`, and optionally `sample_id`.
+    samples : list of str
+        The sample IDs to include in the medium.
+
+    Returns
+    -------
+    pd.DataFrame
+        The processed medium with columns `reaction`, `flux`, and `sample_id`.
+
+    """
     medium.index = medium.reaction
     if "sample_id" not in medium.columns:
         meds = []

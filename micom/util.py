@@ -86,7 +86,8 @@ def load_model(filepath: Union[str, Path]):
             rmtree(tmpdir)
             logger.info("deleted temporary directory {}".format(tmpdir))
             return model
-
+    if not isinstance(filepath, Path):
+        filepath = Path(filepath)
     model = _read_model(filepath)
     return model
 

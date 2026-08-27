@@ -20,14 +20,15 @@ from .util import (
     COMPARTMENT_RE,
     ex_metabolite,
 )
-from micom.optcom import optcom, solve
-from micom.problems import cooperative_tradeoff, knockout_taxa
-from micom.qiime_formats import load_qiime_model_db
-from micom.taxonomy import unify_rank_prefixes
+from .optcom import optcom, solve
+from .problems import cooperative_tradeoff, knockout_taxa
+from .qiime_formats import load_qiime_model_db
+from .taxonomy import unify_rank_prefixes
 import logging
+from pathlib import Path
 from rich.progress import track
 from tempfile import TemporaryDirectory
-from typing import Union, Self, Path, Dict
+from typing import Union, Self, Dict
 
 cobra.io.sbml.LOGGER.setLevel("ERROR")
 cobra.util.solver.logger.setLevel("ERROR")
@@ -212,7 +213,7 @@ class Community(cobra.Model):
 
         compressed = False
         if model_db is not None:
-            compressed = model_db.endswith(".qza") or model_db.endswith(".zip")
+            compressed = model_db.suffix in (".qza", ".zip")
             if compressed:
                 tdir = TemporaryDirectory(prefix="micom_")
             if "file" in taxonomy.columns:
@@ -221,9 +222,9 @@ class Community(cobra.Model):
                     "is used. Will ignore it and use the model database instead."
                 )
                 del taxonomy["file"]
-            if model_db.endswith(".qza"):
+            if model_db.suffix == ".qza":
                 manifest = load_qiime_model_db(model_db, tdir.name)
-            elif model_db.endswith(".zip"):
+            elif model_db.suffix == ".zip":
                 manifest = load_zip_model_db(model_db, tdir.name)
             else:
                 manifest = load_manifest(model_db)

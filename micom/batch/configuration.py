@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field
 from typing import Any, Optional, Union, Self, Literal, Dict
 import json
 
-from ..util import pathify
+from ..types import pathify
 
 symbols = {
     "simulation": "📊",

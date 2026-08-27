@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Union, TYPE_CHECKING, Self
 from zipfile import ZipFile
 from ..annotation import annotate_metabolites_from_exchanges
-from ..util import pathify
+from ..types import pathify
 
 if TYPE_CHECKING:
     from ..community import Community

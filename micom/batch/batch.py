@@ -29,6 +29,7 @@ class Batch(object):
         self,
         taxonomy: pd.DataFrame,
         medium: Union[pd.DataFrame, str, Path] = None,
+        model_db: Union[str, Path] = None,
         config: Configuration = Configuration(),
     ) -> None:
         """Initialize the batch with a configuration.
@@ -40,8 +41,16 @@ class Batch(object):
         medium : Union[pd.DataFrame, str, Path]
             The growth medium to use for the batch. Can be a DataFrame, a path to a CSV file,
             a path to a QZA file or a download URL.
+        model_db : Union[str, Path]
+            The database of models to use for the batch. Can be a path to a database file or a download URL.
+            If None it will use the DB from the configuration, if this is None as well it will use the 'file' column in the taxonomy table.
         config : Configuration
             The configuration object.
+
+        Note
+        ----
+        If model_db is passed this will update the value in the configuration object.
+        If you want to use the DB from the configuration please set model_db to None.
 
         """
         self.build_manifest = None
@@ -50,8 +59,9 @@ class Batch(object):
         self.out_folder = None
         check_taxonomy(taxonomy)
         self._taxonomy = taxonomy
-        self.medium = medium
         self.config = config
+        self.config.dbs.microbial = model_db if isinstance(model_db, str) else Path(model_db)
+        self.medium = medium
 
     @property
     def taxonomy(self: Self) -> pd.DataFrame:
@@ -112,9 +122,9 @@ class Batch(object):
             path = get_database(
                 medium, Path(self.config.dbs.download_location), what="media"
             )
-            if medium.suffix == ".qza":
+            if path.suffix == ".qza":
                 medium = load_qiime_medium(path)
-            elif medium.suffix == ".csv":
+            elif path.suffix == ".csv":
                 medium = pd.read_csv(path)
             else:
                 raise ValueError(
@@ -602,3 +612,92 @@ class Batch(object):
         """
 
         return self.tradeoffs is not None
+
+    def __repr__(self: Self) -> str:
+        """Return a string representation of the batch.
+
+        Returns
+        -------
+        str
+            A string representation of the batch.
+
+        """
+        lr = [r for r in RANKS if r in self.taxonomy.columns][-1]
+        n_samples = len(self.taxonomy.sample_id.unique())
+        n_taxa = self.taxonomy[lr].nunique()
+        return f"<Batch {n_samples} samples x {n_taxa} taxa at 0x{id(self):x}>"
+
+    def __str__(self: Self) -> str:
+        """Return a string representation of the batch.
+
+        Returns
+        -------
+        str
+            A string representation of the batch.
+
+        """
+        lr = [r for r in RANKS if r in self.taxonomy.columns][-1]
+        n_samples = len(self.taxonomy.sample_id.unique())
+        n_taxa = self.taxonomy[lr].nunique()
+
+        check = lambda x: "✅" if x else "❌"
+        s = "*Batch*\n"
+        s += f"{n_samples} samples\t{n_taxa} taxa\n"
+        s += f"Model DB\t{check(self.config.dbs.microbial is not None)}"
+        if self.config.dbs.microbial is not None:
+            s += f"\t{Path(self.config.dbs.microbial).name}"
+        s += f"\nmedium   \t{check(self.medium is not None)}"
+        if self.medium is not None:
+            s += f"\t{self.medium.reaction.nunique()} components"
+        s += f"\nbuild   \t{check(self.is_built())}"
+        if self.is_built():
+            frac = self.build_manifest.found_abundance_fraction + 100.0
+            s += f"\tfound {frac.mean():.2f} ± {frac.std():.2f}% of abundance"
+        s += f"\nsimulated\t{check(self.has_results())}"
+        if self.has_results():
+            rates = self.results.growth_rates.growth_rate
+            s += f"\tμᵢ = {rates.mean():.2f} ± {rates.std():.2f} 1/h"
+        s += f"\ntradeoffs\t{check(self.has_tradeoffs())}"
+        if self.has_tradeoffs():
+            frac = self.tradeoffs.groupby("tradeoff").growth_rate.apply(lambda x: (x > 1e-6).mean()) * 100.0
+            s += f"\tgrowing fraction: {frac.min():.2f} - {frac.max():.2f}%"
+        s+= "\n"
+        return s
+
+    def _repr_html_(self: Self) -> str:
+        """Return an HTML representation of the batch.
+
+        Returns
+        -------
+        str
+            An HTML representation of the batch.
+
+        """
+        lr = [r for r in RANKS if r in self.taxonomy.columns][-1]
+        n_samples = len(self.taxonomy.sample_id.unique())
+        n_taxa = self.taxonomy[lr].nunique()
+
+        check = lambda x: "✅" if x else "❌"
+        s = "<strong>Batch </strong>\n"
+        s += "<table>\n"
+        s += f"<tr><td>{n_samples} samples</td><td>{n_taxa} taxa</td></tr>\n"
+        s += f"<tr><td>Model DB</td><td>{check(self.config.dbs.microbial is not None)}</td>"
+        if self.config.dbs.microbial is not None:
+            s += f"<td>({Path(self.config.dbs.microbial).name})</td></tr>\n"
+        s += f"<tr><td>medium</td><td>{check(self.medium is not None)}</td>"
+        if self.medium is not None:
+            s += f"<td>{self.medium.reaction.nunique()} components</td></tr>\n"
+        s += f"<tr><td>build</td><td>{check(self.is_built())}</td>\n"
+        if self.is_built():
+            frac = self.build_manifest.found_abundance_fraction + 100.0
+            s += f"<td>found {frac.mean():.2f} ± {frac.std():.2f}% of abundance</td></tr>\n"
+        s += f"<tr><td>simulated</td><td>{check(self.has_results())}</td>"
+        if self.has_results():
+            rates = self.results.growth_rates.growth_rate
+            s += f"<td>μᵢ = {rates.mean():.2f} ± {rates.std():.2f} 1/h</td></tr>\n"
+        s += f"<tr><td>tradeoffs</td><td>{check(self.has_tradeoffs())}</td>\n"
+        if self.has_tradeoffs():
+            frac = self.tradeoffs.groupby("tradeoff").growth_rate.apply(lambda x: (x > 1e-6).mean()) * 100.0
+            s += f"<td>growing fraction: {frac.min():.2f} - {frac.max():.2f}%</td></tr>\n"
+        s += "</table>\n"
+        return s

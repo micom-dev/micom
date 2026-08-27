@@ -14,6 +14,7 @@ import pandas as pd
 from pathlib import Path
 import os
 from os import path
+from typing import Union
 from zipfile import ZipFile
 from .constants import DB_URL, MEDIA_URL
 
@@ -44,7 +45,7 @@ def load_zip_model_db(artifact, extract_path):
     return manifest
 
 
-def get_database(url: str, out: Path, what: str = "taxa") -> Path:
+def get_database(url: Union[str, Path], out: Path, what: str = "taxa") -> Path:
     """Get a database from several locations.
 
     If the database is a local file it will be used directly. If it is a URL it will be downloaded to the specified location.
@@ -67,6 +68,8 @@ def get_database(url: str, out: Path, what: str = "taxa") -> Path:
 
     if url is None:
         return None
+    elif isinstance(url, Path):
+        return str(url)
 
     base = DB_URL if what == "taxa" else MEDIA_URL
 

@@ -28,6 +28,15 @@ def test_load_model():
     assert len(model.metabolites) == 72
 
 
+def test_load_sbml_extension(tmp_path):
+    fpath = str(tmp_path / "test.sbml")
+    model = read_sbml_model(micom.data.test_taxonomy().file[0])
+    cobra.io.write_sbml_model(model, fpath)
+    model = util.load_model(fpath)
+    assert len(model.reactions) == 95
+    assert len(model.metabolites) == 72
+
+
 def test_serialization(tmpdir):
     row = tax.loc[0]
     util.serialize_models([row.file], str(tmpdir))

@@ -24,6 +24,7 @@ _read_funcs = {
     ".mat": io.load_matlab_model,
     ".json": io.load_json_model,
     ".pickle": lambda fn: pickle.load(open(fn, "rb")),
+    ".sbml": io.read_sbml_model,
 }
 
 COMPARTMENT_RE = "(_{}$)|([^a-zA-Z0-9 :]{}[^a-zA-Z0-9 :]$)"

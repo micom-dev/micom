@@ -398,7 +398,7 @@ taxonomy
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom import Community
 
 com = Community(taxonomy)
-print(&quot;Build a community with a total of {} reactions.&quot;.format(len(com.reactions)))
+print("Build a community with a total of {} reactions.".format(len(com.reactions)))
 </pre></div>
 </div>
 </div>
@@ -529,7 +529,7 @@ Build a community with a total of 400 reactions.
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.data import agora
 
 tax = agora.copy()
-tax.file = &quot;models/&quot; + tax.file  # assuming you have downloaded the AGORA models to the &quot;models&quot; folder
+tax.file = "models/" + tax.file  # assuming you have downloaded the AGORA models to the "models" folder
 tax.head()
 </pre></div>
 </div>
@@ -738,7 +738,7 @@ Wall time: 776 ms
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%time com.to_pickle(&quot;community.pickle&quot;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>%time com.to_pickle("community.pickle")
 </pre></div>
 </div>
 </div>
@@ -756,7 +756,7 @@ Wall time: 81.4 ms
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom import load_pickle
-%time com = load_pickle(&quot;community.pickle&quot;)
+%time com = load_pickle("community.pickle")
 </pre></div>
 </div>
 </div>

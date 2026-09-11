@@ -555,7 +555,7 @@ the mapping with the database more stringent. For instance, here we provided a c
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.data import test_db
 from micom.workflows import build
 
-manifest = build(data, out_folder=&quot;models&quot;, model_db=test_db, cutoff=0.0001, threads=2)
+manifest = build(data, out_folder="models", model_db=test_db, cutoff=0.0001, threads=2)
 </pre></div>
 </div>
 </div>
@@ -675,7 +675,7 @@ is matched. A value of 1.0 would be perfect but is usually hard to achieve. Valu
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom import load_pickle
 
-com = load_pickle(&quot;models/sample_1.pickle&quot;)
+com = load_pickle("models/sample_1.pickle")
 print(len(com.reactions))
 </pre></div>
 </div>
@@ -777,7 +777,7 @@ medium
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.workflows import grow
 
-res = grow(manifest, model_folder=&quot;models&quot;, medium=medium, tradeoff=0.5, threads=2)
+res = grow(manifest, model_folder="models", medium=medium, tradeoff=0.5, threads=2)
 </pre></div>
 </div>
 </div>
@@ -808,7 +808,7 @@ rates is the largest tradeoff that allows the majority of the bacteria to grow. 
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.workflows import tradeoff
 
-tradeoff_rates = tradeoff(manifest, model_folder=&quot;models&quot;, medium=medium, threads=2)
+tradeoff_rates = tradeoff(manifest, model_folder="models", medium=medium, threads=2)
 tradeoff_rates.head()
 </pre></div>
 </div>
@@ -929,7 +929,7 @@ tradeoff_rates.head()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tradeoff_rates.groupby(&quot;tradeoff&quot;).apply(
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>tradeoff_rates.groupby("tradeoff").apply(
     lambda df: (df.growth_rate &gt; 1e-6).sum()).reset_index()
 </pre></div>
 </div>
@@ -1029,7 +1029,7 @@ database.</p>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import pandas as pd
 
-candidate_medium = pd.DataFrame({&quot;reaction&quot;: [&quot;EX_glc__D_m&quot;, &quot;EX_o2_m&quot;], &quot;flux&quot;: [10, 20]})
+candidate_medium = pd.DataFrame({"reaction": ["EX_glc__D_m", "EX_o2_m"], "flux": [10, 20]})
 candidate_medium
 </pre></div>
 </div>
@@ -1083,7 +1083,7 @@ candidate_medium
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.workflows import complete_community_medium
 
-medium = complete_community_medium(manifest, model_folder=&quot;models&quot;, medium=candidate_medium,
+medium = complete_community_medium(manifest, model_folder="models", medium=candidate_medium,
                     community_growth=0.1, min_growth=0.01,
                     max_import=10, threads=2)
 medium

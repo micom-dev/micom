@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.workflows.grow</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Performs growth and exchange analysis for several models.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Performs growth and exchange analysis for several models."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">cobra.util.solver</span><span class="w"> </span><span class="kn">import</span> <span class="n">interface_to_str</span><span class="p">,</span> <span class="n">OptimizationError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_pickle</span>
@@ -312,18 +312,18 @@
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span></div>
 
 
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">PerformanceWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">PerformanceWarning</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DIRECTION">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/grow/index.html#micom.workflows.grow.DIRECTION">[docs]</a>
-<span class="n">DIRECTION</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">&quot;import&quot;</span><span class="p">,</span> <span class="s2">&quot;export&quot;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span></div>
+<span class="n">DIRECTION</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">"import"</span><span class="p">,</span> <span class="s2">"export"</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="ARGS">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/grow/index.html#micom.workflows.grow.ARGS">[docs]</a>
 <span class="n">ARGS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;none&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;fluxes&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;pfba&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
-    <span class="s2">&quot;minimal imports&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;fluxes&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;pfba&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
-    <span class="s2">&quot;pFBA&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;fluxes&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;pfba&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s2">"none"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"fluxes"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"pfba"</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+    <span class="s2">"minimal imports"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"fluxes"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"pfba"</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+    <span class="s2">"pFBA"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"fluxes"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">"pfba"</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
 <span class="p">}</span></div>
 
 
@@ -343,18 +343,18 @@
         <span class="c1"># and there is an auto setting that we want to respect</span>
         <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">presolve</span> <span class="o">=</span> <span class="n">presolve</span>
 
-    <span class="k">if</span> <span class="s2">&quot;glpk&quot;</span> <span class="ow">in</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">"glpk"</span> <span class="ow">in</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">interface</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;Community models were not built with a QP-capable solver. &quot;</span>
-            <span class="s2">&quot;This means that you did not install CPLEX or Gurobi. &quot;</span>
-            <span class="s2">&quot;If you did install one of the two please file a bug report &quot;</span>
-            <span class="s2">&quot;at https://github.com/micom-dev/micom/issues.&quot;</span>
+            <span class="s2">"Community models were not built with a QP-capable solver. "</span>
+            <span class="s2">"This means that you did not install CPLEX or Gurobi. "</span>
+            <span class="s2">"If you did install one of the two please file a bug report "</span>
+            <span class="s2">"at https://github.com/micom-dev/micom/issues."</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
     <span class="n">ex_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span><span class="p">]</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/</span><span class="si">%d</span><span class="s2"> import reactions found in model.&quot;</span><span class="p">,</span>
+        <span class="s2">"</span><span class="si">%d</span><span class="s2">/</span><span class="si">%d</span><span class="s2"> import reactions found in model."</span><span class="p">,</span>
         <span class="n">medium</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">ex_ids</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
         <span class="nb">len</span><span class="p">(</span><span class="n">medium</span><span class="p">),</span>
     <span class="p">)</span>
@@ -362,31 +362,31 @@
 
     <span class="c1"># Get growth rates</span>
     <span class="n">args</span> <span class="o">=</span> <span class="n">ARGS</span><span class="p">[</span><span class="n">strategy</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">args</span><span class="p">[</span><span class="s2">&quot;atol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">atol</span>
-    <span class="n">args</span><span class="p">[</span><span class="s2">&quot;rtol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rtol</span>
-    <span class="n">args</span><span class="p">[</span><span class="s2">&quot;fraction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tradeoff</span>
+    <span class="n">args</span><span class="p">[</span><span class="s2">"atol"</span><span class="p">]</span> <span class="o">=</span> <span class="n">atol</span>
+    <span class="n">args</span><span class="p">[</span><span class="s2">"rtol"</span><span class="p">]</span> <span class="o">=</span> <span class="n">rtol</span>
+    <span class="n">args</span><span class="p">[</span><span class="s2">"fraction"</span><span class="p">]</span> <span class="o">=</span> <span class="n">tradeoff</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">sol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">cooperative_tradeoff</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
         <span class="n">rates</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">members</span>
-        <span class="n">rates</span><span class="p">[</span><span class="s2">&quot;taxon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">index</span>
-        <span class="n">rates</span><span class="p">[</span><span class="s2">&quot;tradeoff&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tradeoff</span>
-        <span class="n">rates</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">rates</span><span class="p">[</span><span class="s2">"taxon"</span><span class="p">]</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">rates</span><span class="p">[</span><span class="s2">"tradeoff"</span><span class="p">]</span> <span class="o">=</span> <span class="n">tradeoff</span>
+        <span class="n">rates</span><span class="p">[</span><span class="s2">"sample_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;Could not solve cooperative tradeoff for </span><span class="si">%s</span><span class="s2">. &quot;</span>
-            <span class="s2">&quot;This can often be fixed by enabling `presolve`, choosing more &quot;</span>
-            <span class="s2">&quot;permissive atol and rtol arguments, or by checking that medium &quot;</span>
-            <span class="s2">&quot;fluxes are &gt; atol.&quot;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
+            <span class="s2">"Could not solve cooperative tradeoff for </span><span class="si">%s</span><span class="s2">. "</span>
+            <span class="s2">"This can often be fixed by enabling `presolve`, choosing more "</span>
+            <span class="s2">"permissive atol and rtol arguments, or by checking that medium "</span>
+            <span class="s2">"fluxes are &gt; atol."</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
 
-    <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s2">&quot;minimal imports&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">strategy</span> <span class="o">==</span> <span class="s2">"minimal imports"</span><span class="p">:</span>
         <span class="c1"># Get the minimal medium and the solution at the same time</span>
         <span class="n">med</span> <span class="o">=</span> <span class="n">minimal_medium</span><span class="p">(</span>
             <span class="n">com</span><span class="p">,</span>
             <span class="n">exchanges</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">community_growth</span><span class="o">=</span><span class="n">sol</span><span class="o">.</span><span class="n">growth_rate</span><span class="p">,</span>
-            <span class="n">min_growth</span><span class="o">=</span><span class="n">rates</span><span class="o">.</span><span class="n">growth_rate</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;medium&quot;</span><span class="p">),</span>
+            <span class="n">min_growth</span><span class="o">=</span><span class="n">rates</span><span class="o">.</span><span class="n">growth_rate</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">"medium"</span><span class="p">),</span>
             <span class="n">solution</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
             <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">,</span>
@@ -394,20 +394,20 @@
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">med</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s2">&quot;The minimal medium optimization failed for </span><span class="si">%s</span><span class="s2">. &quot;</span>
-                <span class="s2">&quot;This can often be fixed by enabling `presolve`, choosing more &quot;</span>
-                <span class="s2">&quot;permissive atol and rtol arguments, or by checking that medium &quot;</span>
-                <span class="s2">&quot;fluxes are &gt; atol.&quot;</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
+                <span class="s2">"The minimal medium optimization failed for </span><span class="si">%s</span><span class="s2">. "</span>
+                <span class="s2">"This can often be fixed by enabling `presolve`, choosing more "</span>
+                <span class="s2">"permissive atol and rtol arguments, or by checking that medium "</span>
+                <span class="s2">"fluxes are &gt; atol."</span> <span class="o">%</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">sol</span> <span class="o">=</span> <span class="n">med</span><span class="p">[</span><span class="s2">&quot;solution&quot;</span><span class="p">]</span>
+        <span class="n">sol</span> <span class="o">=</span> <span class="n">med</span><span class="p">[</span><span class="s2">"solution"</span><span class="p">]</span>
 
     <span class="n">exs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">({</span><span class="n">r</span><span class="o">.</span><span class="n">global_id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">internal_exchanges</span> <span class="o">+</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span><span class="p">})</span>
     <span class="n">fluxes</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">exs</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">fluxes</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
-    <span class="n">fluxes</span><span class="p">[</span><span class="s2">&quot;tolerance&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">atol</span>
+    <span class="n">fluxes</span><span class="p">[</span><span class="s2">"sample_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">fluxes</span><span class="p">[</span><span class="s2">"tolerance"</span><span class="p">]</span> <span class="o">=</span> <span class="n">atol</span>
     <span class="n">anns</span> <span class="o">=</span> <span class="n">annotate_metabolites_from_exchanges</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;growth&quot;</span><span class="p">:</span> <span class="n">rates</span><span class="p">,</span> <span class="s2">&quot;exchanges&quot;</span><span class="p">:</span> <span class="n">fluxes</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">:</span> <span class="n">anns</span><span class="p">}</span></div>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"growth"</span><span class="p">:</span> <span class="n">rates</span><span class="p">,</span> <span class="s2">"exchanges"</span><span class="p">:</span> <span class="n">fluxes</span><span class="p">,</span> <span class="s2">"annotations"</span><span class="p">:</span> <span class="n">anns</span><span class="p">}</span></div>
 
 
 
@@ -420,12 +420,12 @@
     <span class="n">tradeoff</span><span class="p">,</span>
     <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;minimal imports&quot;</span><span class="p">,</span>
+    <span class="n">strategy</span><span class="o">=</span><span class="s2">"minimal imports"</span><span class="p">,</span>
     <span class="n">atol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">presolve</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulate growth for a set of community models.</span>
+<span class="w">    </span><span class="sd">"""Simulate growth for a set of community models.</span>
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
@@ -441,7 +441,7 @@
 <span class="sd">    model_folder : str</span>
 <span class="sd">        The folder in which to find the files mentioned in the manifest.</span>
 <span class="sd">    medium : pandas.DataFrame</span>
-<span class="sd">        A growth medium. Must have columns &quot;reaction&quot; and &quot;flux&quot; denoting</span>
+<span class="sd">        A growth medium. Must have columns "reaction" and "flux" denoting</span>
 <span class="sd">        exchange reactions and their respective maximum flux.</span>
 <span class="sd">    tradeoff : float in (0.0, 1.0]</span>
 <span class="sd">        A tradeoff value. Can be chosen by running the `tradeoff` workflow or</span>
@@ -451,15 +451,15 @@
 <span class="sd">        The number of parallel workers to use when building models. As a</span>
 <span class="sd">        rule of thumb you will need around 1GB of RAM for each thread.</span>
 <span class="sd">    strategy : str</span>
-<span class="sd">        Computational strategy used to reduce the flux space. Default &quot;minimal imports&quot;</span>
+<span class="sd">        Computational strategy used to reduce the flux space. Default "minimal imports"</span>
 <span class="sd">        uses the solution with the smallest total import flux from the environment,</span>
-<span class="sd">        &quot;pFBA&quot; uses parsimonious FBA, and &quot;none&quot; returns an arbitrary</span>
+<span class="sd">        "pFBA" uses parsimonious FBA, and "none" returns an arbitrary</span>
 <span class="sd">        feasible flux distribution.</span>
 <span class="sd">    weights : str</span>
 <span class="sd">        Only used during the calculaton of the minimal import rates.</span>
-<span class="sd">        Will scale the fluxes by a weight factor. Can either be &quot;mass&quot; which will</span>
+<span class="sd">        Will scale the fluxes by a weight factor. Can either be "mass" which will</span>
 <span class="sd">        scale by molecular mass, a single element which will scale by</span>
-<span class="sd">        the elemental content (for instance &quot;C&quot; to scale by carbon content).</span>
+<span class="sd">        the elemental content (for instance "C" to scale by carbon content).</span>
 <span class="sd">        If None every metabolite will receive the same weight.</span>
 <span class="sd">        Will be ignored if `minimize_components` is True.</span>
 <span class="sd">    atol : float</span>
@@ -475,11 +475,11 @@
 <span class="sd">    GrowthResults</span>
 <span class="sd">        A named tuple containing the growth rates and exchange fluxes for all</span>
 <span class="sd">        samples/models.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">strategy</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ARGS</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;`</span><span class="si">%s</span><span class="s2">` is not a valid strategy. Must be one of </span><span class="si">%s</span><span class="s2">!&quot;</span>
-            <span class="o">%</span> <span class="p">(</span><span class="n">strategy</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ARGS</span><span class="p">))</span>
+            <span class="s2">"`</span><span class="si">%s</span><span class="s2">` is not a valid strategy. Must be one of </span><span class="si">%s</span><span class="s2">!"</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">strategy</span><span class="p">,</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ARGS</span><span class="p">))</span>
         <span class="p">)</span>
     <span class="n">samples</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
     <span class="n">paths</span> <span class="o">=</span> <span class="p">{</span>
@@ -503,28 +503,28 @@
     <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_growth</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="n">r</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]):</span>
         <span class="k">raise</span> <span class="n">OptimizationError</span><span class="p">(</span>
-            <span class="s2">&quot;All numerical optimizations failed. This indicates a problem &quot;</span>
-            <span class="s2">&quot;with the solver or numerical instabilities. Check that you have &quot;</span>
-            <span class="s2">&quot;CPLEX or Gurobi installed. You may also increase the abundance &quot;</span>
-            <span class="s2">&quot;cutoff to create simpler models.&quot;</span>
+            <span class="s2">"All numerical optimizations failed. This indicates a problem "</span>
+            <span class="s2">"with the solver or numerical instabilities. Check that you have "</span>
+            <span class="s2">"CPLEX or Gurobi installed. You may also increase the abundance "</span>
+            <span class="s2">"cutoff to create simpler models."</span>
         <span class="p">)</span>
-    <span class="n">growth</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;growth&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">growth</span> <span class="o">=</span> <span class="n">growth</span><span class="p">[</span><span class="n">growth</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">&quot;medium&quot;</span><span class="p">]</span>
-    <span class="n">exchanges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;exchanges&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">exchanges</span><span class="p">[</span><span class="s2">&quot;taxon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">growth</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"growth"</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">growth</span> <span class="o">=</span> <span class="n">growth</span><span class="p">[</span><span class="n">growth</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">"medium"</span><span class="p">]</span>
+    <span class="n">exchanges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">"exchanges"</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">exchanges</span><span class="p">[</span><span class="s2">"taxon"</span><span class="p">]</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
-        <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;taxon&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="s2">&quot;tolerance&quot;</span><span class="p">],</span>
-        <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">,</span>
-        <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">])</span>
-    <span class="n">abundance</span> <span class="o">=</span> <span class="n">growth</span><span class="p">[[</span><span class="s2">&quot;taxon&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="s2">&quot;abundance&quot;</span><span class="p">]]</span>
-    <span class="n">exchanges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">exchanges</span><span class="p">,</span> <span class="n">abundance</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;taxon&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_id&quot;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span>
+        <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"taxon"</span><span class="p">,</span> <span class="s2">"sample_id"</span><span class="p">,</span> <span class="s2">"tolerance"</span><span class="p">],</span>
+        <span class="n">var_name</span><span class="o">=</span><span class="s2">"reaction"</span><span class="p">,</span>
+        <span class="n">value_name</span><span class="o">=</span><span class="s2">"flux"</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"flux"</span><span class="p">])</span>
+    <span class="n">abundance</span> <span class="o">=</span> <span class="n">growth</span><span class="p">[[</span><span class="s2">"taxon"</span><span class="p">,</span> <span class="s2">"sample_id"</span><span class="p">,</span> <span class="s2">"abundance"</span><span class="p">]]</span>
+    <span class="n">exchanges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">exchanges</span><span class="p">,</span> <span class="n">abundance</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">"taxon"</span><span class="p">,</span> <span class="s2">"sample_id"</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">"outer"</span><span class="p">)</span>
     <span class="n">anns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
-        <span class="n">r</span><span class="p">[</span><span class="s2">&quot;annotations&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-    <span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reaction&quot;</span><span class="p">])</span>
+        <span class="n">r</span><span class="p">[</span><span class="s2">"annotations"</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"reaction"</span><span class="p">])</span>
     <span class="n">anns</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">anns</span><span class="o">.</span><span class="n">reaction</span>
-    <span class="n">exchanges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">exchanges</span><span class="p">,</span> <span class="n">anns</span><span class="p">[[</span><span class="s2">&quot;metabolite&quot;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
-    <span class="n">exchanges</span><span class="p">[</span><span class="s2">&quot;direction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">DIRECTION</span><span class="p">[(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">exchanges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">exchanges</span><span class="p">,</span> <span class="n">anns</span><span class="p">[[</span><span class="s2">"metabolite"</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">"reaction"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+    <span class="n">exchanges</span><span class="p">[</span><span class="s2">"direction"</span><span class="p">]</span> <span class="o">=</span> <span class="n">DIRECTION</span><span class="p">[(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)]</span><span class="o">.</span><span class="n">values</span>
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">exchanges</span><span class="p">[</span><span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">tolerance</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">GrowthResults</span><span class="p">(</span><span class="n">growth</span><span class="p">,</span> <span class="n">exchanges</span><span class="p">,</span> <span class="n">anns</span><span class="p">)</span></div>

@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.data</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Submodule including some common data sets.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Submodule including some common data sets."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">..workflows</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_results</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">split</span><span class="p">,</span> <span class="n">join</span>
@@ -301,23 +301,23 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;agora&quot;</span><span class="p">,</span> <span class="s2">&quot;test_taxonomy&quot;</span><span class="p">)</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"agora"</span><span class="p">,</span> <span class="s2">"test_taxonomy"</span><span class="p">)</span>
 <span class="n">this_dir</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
 
 <div class="viewcode-block" id="agora">
 <a class="viewcode-back" href="../../autoapi/micom/data/index.html#micom.data.agora">[docs]</a>
-<span class="n">agora</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">&quot;agora.csv&quot;</span><span class="p">))</span></div>
+<span class="n">agora</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">"agora.csv"</span><span class="p">))</span></div>
 
-<span class="n">agora</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">agora</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.xml&quot;</span>
+<span class="n">agora</span><span class="p">[</span><span class="s2">"file"</span><span class="p">]</span> <span class="o">=</span> <span class="n">agora</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="o">+</span> <span class="s2">".xml"</span>
 
-<span class="n">test_db</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">&quot;artifacts&quot;</span><span class="p">,</span> <span class="s2">&quot;species_models.qza&quot;</span><span class="p">)</span>
-<span class="n">test_medium</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">&quot;artifacts&quot;</span><span class="p">,</span> <span class="s2">&quot;medium.qza&quot;</span><span class="p">)</span>
+<span class="n">test_db</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">"artifacts"</span><span class="p">,</span> <span class="s2">"species_models.qza"</span><span class="p">)</span>
+<span class="n">test_medium</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">"artifacts"</span><span class="p">,</span> <span class="s2">"medium.qza"</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="test_taxonomy">
 <a class="viewcode-back" href="../../micom.data.html#micom.data.test_taxonomy">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">test_taxonomy</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a simple test taxonomy.</span>
+<span class="w">    </span><span class="sd">"""Create a simple test taxonomy.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -329,21 +329,21 @@
 <span class="sd">    pandas.DataFrame</span>
 <span class="sd">        Taxonomy specification for a.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">ecoli_file</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">&quot;e_coli_core.xml.gz&quot;</span><span class="p">)</span>
-    <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Escherichia_coli_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-    <span class="n">taxa</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">ids</span><span class="p">})</span>
-    <span class="n">taxa</span><span class="p">[</span><span class="s2">&quot;genus&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Escherichia&quot;</span>
-    <span class="n">taxa</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Escherichia coli&quot;</span>
-    <span class="n">taxa</span><span class="p">[</span><span class="s2">&quot;reactions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">95</span>
-    <span class="n">taxa</span><span class="p">[</span><span class="s2">&quot;metabolites&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">72</span>
-    <span class="n">taxa</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ecoli_file</span>
+<span class="sd">    """</span>
+    <span class="n">ecoli_file</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">"e_coli_core.xml.gz"</span><span class="p">)</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Escherichia_coli_</span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="n">taxa</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"id"</span><span class="p">:</span> <span class="n">ids</span><span class="p">})</span>
+    <span class="n">taxa</span><span class="p">[</span><span class="s2">"genus"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Escherichia"</span>
+    <span class="n">taxa</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Escherichia coli"</span>
+    <span class="n">taxa</span><span class="p">[</span><span class="s2">"reactions"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">95</span>
+    <span class="n">taxa</span><span class="p">[</span><span class="s2">"metabolites"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">72</span>
+    <span class="n">taxa</span><span class="p">[</span><span class="s2">"file"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ecoli_file</span>
     <span class="k">return</span> <span class="n">taxa</span></div>
 
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_data</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">uses_db</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a simple test data set.</span>
+<span class="w">    </span><span class="sd">"""Create a simple test data set.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -357,21 +357,21 @@
 <span class="sd">    pandas.DataFrame</span>
 <span class="sd">        Taxonomy specification for the example data.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">samples</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sample_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_samples</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="sd">    """</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"sample_</span><span class="si">%d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_samples</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">test_taxonomy</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">d</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;str&quot;</span><span class="p">)</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">"sample_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">"species"</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">" "</span> <span class="o">+</span> <span class="n">d</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">"str"</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;abundance&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">"abundance"</span><span class="p">]</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">uses_db</span><span class="p">:</span>
-        <span class="k">del</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span>
+        <span class="k">del</span> <span class="n">data</span><span class="p">[</span><span class="s2">"file"</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">data</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_results</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return growth results for a realistic example data sets.</span>
+<span class="w">    </span><span class="sd">"""Return growth results for a realistic example data sets.</span>
 
 <span class="sd">    This will give you access to the results as produced by the community tutorial</span>
 <span class="sd">    at https://github.com/micom-dev/q2-micom/tree/main/docs.</span>
@@ -380,12 +380,12 @@
 <span class="sd">    -------</span>
 <span class="sd">    GrowthResults</span>
 <span class="sd">        The results for running the `grow` workflow with a tradeoff of 0.8.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">load_results</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">&quot;artifacts&quot;</span><span class="p">,</span> <span class="s2">&quot;results.zip&quot;</span><span class="p">))</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">load_results</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">"artifacts"</span><span class="p">,</span> <span class="s2">"results.zip"</span><span class="p">))</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_tradeoff</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return tradeoff results for a realistic example data set.</span>
+<span class="w">    </span><span class="sd">"""Return tradeoff results for a realistic example data set.</span>
 
 <span class="sd">    This will give you access to the tradeoffs as produced by the community tutorial</span>
 <span class="sd">    at https://github.com/micom-dev/q2-micom/tree/main/docs.</span>
@@ -394,8 +394,8 @@
 <span class="sd">    -------</span>
 <span class="sd">    pandas.DataFrame</span>
 <span class="sd">        Growth rates for varying tradeoff values.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">&quot;artifacts&quot;</span><span class="p">,</span> <span class="s2">&quot;crc_tradeoff.csv&quot;</span><span class="p">),</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">this_dir</span><span class="p">,</span> <span class="s2">"artifacts"</span><span class="p">,</span> <span class="s2">"crc_tradeoff.csv"</span><span class="p">),</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
         </article>
       </div>

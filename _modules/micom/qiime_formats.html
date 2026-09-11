@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.qiime_formats</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Provides support for Qiime formats.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Provides support for Qiime formats."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_pickle</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
@@ -310,9 +310,9 @@
 <div class="viewcode-block" id="_has_manifest">
 <a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats._has_manifest">[docs]</a>
 <span class="n">_has_manifest</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;CommunityModels[Pickle]&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;MetabolicModels[JSON]&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;MetabolicModels[SBML]&quot;</span><span class="p">,</span>
+    <span class="s2">"CommunityModels[Pickle]"</span><span class="p">,</span>
+    <span class="s2">"MetabolicModels[JSON]"</span><span class="p">,</span>
+    <span class="s2">"MetabolicModels[SBML]"</span><span class="p">,</span>
 <span class="p">]</span></div>
 
 
@@ -320,12 +320,12 @@
 <div class="viewcode-block" id="metadata">
 <a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.metadata">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">metadata</span><span class="p">(</span><span class="n">artifact</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read metadata from a Qiime 2 artifact.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Read metadata from a Qiime 2 artifact."""</span>
     <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">:</span>
         <span class="n">files</span> <span class="o">=</span> <span class="n">zf</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>
-        <span class="n">meta</span> <span class="o">=</span> <span class="p">[</span><span class="n">fi</span> <span class="k">for</span> <span class="n">fi</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="s2">&quot;metadata.yaml&quot;</span> <span class="ow">in</span> <span class="n">fi</span> <span class="ow">and</span> <span class="s2">&quot;provenance&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fi</span><span class="p">]</span>
+        <span class="n">meta</span> <span class="o">=</span> <span class="p">[</span><span class="n">fi</span> <span class="k">for</span> <span class="n">fi</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="s2">"metadata.yaml"</span> <span class="ow">in</span> <span class="n">fi</span> <span class="ow">and</span> <span class="s2">"provenance"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">fi</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not a valid Qiime 2 artifact :(&quot;</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> is not a valid Qiime 2 artifact :("</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">zf</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">meta</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">as</span> <span class="n">mf</span><span class="p">:</span>
             <span class="n">meta</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mf</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">meta</span></div>
@@ -335,17 +335,17 @@
 <div class="viewcode-block" id="load_qiime_model_db">
 <a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.load_qiime_model_db">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_qiime_model_db</span><span class="p">(</span><span class="n">artifact</span><span class="p">,</span> <span class="n">extract_path</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare a model database for use.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Prepare a model database for use."""</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">extract_path</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">extract_path</span><span class="p">)</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;MetabolicModels[JSON]&quot;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not a q2-micom model database :(&quot;</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
-    <span class="n">uuid</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">"MetabolicModels[JSON]"</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> is not a q2-micom model database :("</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
+    <span class="n">uuid</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"uuid"</span><span class="p">]</span>
     <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">:</span>
         <span class="n">zf</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">extract_path</span><span class="p">)</span>
-    <span class="n">manifest</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">extract_path</span><span class="p">,</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;manifest.csv&quot;</span><span class="p">))</span>
-    <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">extract_path</span><span class="p">,</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">file</span><span class="p">]</span>
+    <span class="n">manifest</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">extract_path</span><span class="p">,</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">,</span> <span class="s2">"manifest.csv"</span><span class="p">))</span>
+    <span class="n">manifest</span><span class="p">[</span><span class="s2">"file"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">extract_path</span><span class="p">,</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">file</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">manifest</span></div>
 
 
@@ -353,14 +353,14 @@
 <div class="viewcode-block" id="load_qiime_manifest">
 <a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.load_qiime_manifest">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_qiime_manifest</span><span class="p">(</span><span class="n">artifact</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Prepare community models for use.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Prepare community models for use."""</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_has_manifest</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not a supported q2-micom artifact :(&quot;</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
-    <span class="n">uuid</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
-    <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">,</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
-        <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">uuid</span> <span class="o">+</span> <span class="s2">&quot;/data/manifest.csv&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">))</span>
-        <span class="n">manifest</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">),</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;manifest.csv&quot;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_has_manifest</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> is not a supported q2-micom artifact :("</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
+    <span class="n">uuid</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"uuid"</span><span class="p">]</span>
+    <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">,</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"micom_"</span><span class="p">)</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
+        <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">uuid</span> <span class="o">+</span> <span class="s2">"/data/manifest.csv"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">))</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">),</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">,</span> <span class="s2">"manifest.csv"</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">manifest</span></div>
 
 
@@ -368,22 +368,22 @@
 <div class="viewcode-block" id="load_qiime_model">
 <a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.load_qiime_model">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_qiime_model</span><span class="p">(</span><span class="n">artifact</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a model from a Qiime 2 artifact.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Load a model from a Qiime 2 artifact."""</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;CommunityModels[Pickle]&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">"CommunityModels[Pickle]"</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not a q2-micom community model collection :(&quot;</span> <span class="o">%</span> <span class="n">artifact</span>
+            <span class="s2">"</span><span class="si">%s</span><span class="s2"> is not a q2-micom community model collection :("</span> <span class="o">%</span> <span class="n">artifact</span>
         <span class="p">)</span>
-    <span class="n">uuid</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
-    <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">,</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
+    <span class="n">uuid</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"uuid"</span><span class="p">]</span>
+    <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">,</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"micom_"</span><span class="p">)</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/data/</span><span class="si">%s</span><span class="s2">.pickle&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">uuid</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">))</span>
+            <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">/data/</span><span class="si">%s</span><span class="s2">.pickle"</span> <span class="o">%</span> <span class="p">(</span><span class="n">uuid</span><span class="p">,</span> <span class="nb">id</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Could not extract model with ID `</span><span class="si">%s</span><span class="s2">` :(. &quot;</span>
-                <span class="s2">&quot;Are you sure the ID is valid?&quot;</span> <span class="o">%</span> <span class="nb">id</span>
+                <span class="s2">"Could not extract model with ID `</span><span class="si">%s</span><span class="s2">` :(. "</span>
+                <span class="s2">"Are you sure the ID is valid?"</span> <span class="o">%</span> <span class="nb">id</span>
             <span class="p">)</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">load_pickle</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">),</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">.pickle&quot;</span> <span class="o">%</span> <span class="nb">id</span><span class="p">))</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">load_pickle</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">),</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">,</span> <span class="s2">"</span><span class="si">%s</span><span class="s2">.pickle"</span> <span class="o">%</span> <span class="nb">id</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">model</span></div>
 
 
@@ -391,14 +391,14 @@
 <div class="viewcode-block" id="load_qiime_medium">
 <a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.load_qiime_medium">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_qiime_medium</span><span class="p">(</span><span class="n">artifact</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a growth medium/diet from a Qiime 2 artifact.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Load a growth medium/diet from a Qiime 2 artifact."""</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;MicomMedium[&quot;</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not a q2-micom medium :(&quot;</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
-    <span class="n">uuid</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
-    <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">,</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
-        <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">uuid</span> <span class="o">+</span> <span class="s2">&quot;/data/medium.csv&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">))</span>
-        <span class="n">medium</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">),</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;medium.csv&quot;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"MicomMedium["</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> is not a q2-micom medium :("</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
+    <span class="n">uuid</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"uuid"</span><span class="p">]</span>
+    <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">,</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"micom_"</span><span class="p">)</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
+        <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">uuid</span> <span class="o">+</span> <span class="s2">"/data/medium.csv"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">))</span>
+        <span class="n">medium</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">),</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">,</span> <span class="s2">"medium.csv"</span><span class="p">))</span>
     <span class="n">medium</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">medium</span><span class="o">.</span><span class="n">reaction</span>
     <span class="k">return</span> <span class="n">medium</span></div>
 
@@ -407,22 +407,22 @@
 <div class="viewcode-block" id="load_qiime_feature_table">
 <a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.load_qiime_feature_table">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_qiime_feature_table</span><span class="p">(</span><span class="n">artifact</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a feature table from a Qiime 2 artifact.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Load a feature table from a Qiime 2 artifact."""</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">biom</span>
     <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-            <span class="s2">&quot;Reading Qiime 2 FeatureTables requires the `biom-format` package.&quot;</span>
-            <span class="s2">&quot;You can install it with:</span><span class="se">\n</span><span class="s2"> pip install numpy Cython</span><span class="se">\n</span><span class="s2">&quot;</span>
-            <span class="s2">&quot;pip install biom-format&quot;</span>
+            <span class="s2">"Reading Qiime 2 FeatureTables requires the `biom-format` package."</span>
+            <span class="s2">"You can install it with:</span><span class="se">\n</span><span class="s2"> pip install numpy Cython</span><span class="se">\n</span><span class="s2">"</span>
+            <span class="s2">"pip install biom-format"</span>
         <span class="p">)</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;FeatureTable[&quot;</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not a Qiime 2 FeatureTable :(&quot;</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
-    <span class="n">uuid</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
-    <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">,</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
-        <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">uuid</span> <span class="o">+</span> <span class="s2">&quot;/data/feature-table.biom&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">))</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="n">biom</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">),</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;feature-table.biom&quot;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"FeatureTable["</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> is not a Qiime 2 FeatureTable :("</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
+    <span class="n">uuid</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"uuid"</span><span class="p">]</span>
+    <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">,</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"micom_"</span><span class="p">)</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
+        <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">uuid</span> <span class="o">+</span> <span class="s2">"/data/feature-table.biom"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">))</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">biom</span><span class="o">.</span><span class="n">load_table</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">),</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">,</span> <span class="s2">"feature-table.biom"</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">table</span></div>
 
 
@@ -430,16 +430,16 @@
 <div class="viewcode-block" id="load_qiime_taxonomy">
 <a class="viewcode-back" href="../../autoapi/micom/qiime_formats/index.html#micom.qiime_formats.load_qiime_taxonomy">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_qiime_taxonomy</span><span class="p">(</span><span class="n">artifact</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load taxonomy feature data from a Qiime 2 artifact.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Load taxonomy feature data from a Qiime 2 artifact."""</span>
     <span class="n">meta</span> <span class="o">=</span> <span class="n">metadata</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;FeatureData[Taxonomy]&quot;</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not a Qiime 2 FeatureData object :(&quot;</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
-    <span class="n">uuid</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span>
-    <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">,</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
-        <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">uuid</span> <span class="o">+</span> <span class="s2">&quot;/data/taxonomy.tsv&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"FeatureData[Taxonomy]"</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> is not a Qiime 2 FeatureData object :("</span> <span class="o">%</span> <span class="n">artifact</span><span class="p">)</span>
+    <span class="n">uuid</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="s2">"uuid"</span><span class="p">]</span>
+    <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">artifact</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">,</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"micom_"</span><span class="p">)</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
+        <span class="n">zf</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="n">uuid</span> <span class="o">+</span> <span class="s2">"/data/taxonomy.tsv"</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">))</span>
         <span class="n">taxa</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-            <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">),</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;taxonomy.tsv&quot;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span>
-        <span class="p">)[</span><span class="s2">&quot;Taxon&quot;</span><span class="p">]</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">td</span><span class="p">),</span> <span class="n">uuid</span><span class="p">,</span> <span class="s2">"data"</span><span class="p">,</span> <span class="s2">"taxonomy.tsv"</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span>
+        <span class="p">)[</span><span class="s2">"Taxon"</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">taxa</span></div>
 
 </pre></div>

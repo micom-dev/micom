@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.viz.exchanges</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Visualization for exchanges.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Visualization for exchanges."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.cluster.hierarchy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linkage</span><span class="p">,</span> <span class="n">leaves_list</span>
@@ -313,11 +313,11 @@
 <a class="viewcode-back" href="../../../autoapi/micom/viz/index.html#micom.viz.exchanges.plot_exchanges_per_sample">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_exchanges_per_sample</span><span class="p">(</span>
     <span class="n">results</span><span class="p">:</span> <span class="n">GrowthResults</span><span class="p">,</span>
-    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sample_exchanges_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
-    <span class="n">direction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;import&quot;</span><span class="p">,</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"sample_exchanges_</span><span class="si">%s</span><span class="s2">.html"</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y%m</span><span class="si">%d</span><span class="s2">"</span><span class="p">),</span>
+    <span class="n">direction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"import"</span><span class="p">,</span>
     <span class="n">cluster</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the per sample exchange fluxes.</span>
+<span class="w">    </span><span class="sd">"""Plot the per sample exchange fluxes.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -325,7 +325,7 @@
 <span class="sd">        The results returned by the `grow` workflow.</span>
 <span class="sd">    filename : str</span>
 <span class="sd">        The HTML file where the visualization will be saved.</span>
-<span class="sd">    direction : str either &quot;import&quot; or &quot;export&quot;</span>
+<span class="sd">    direction : str either "import" or "export"</span>
 <span class="sd">        The direction of fluxes to plot.</span>
 <span class="sd">    cluster : bool</span>
 <span class="sd">        Whether to reorder samples so that samples with similar exchange</span>
@@ -335,39 +335,39 @@
 <span class="sd">    -------</span>
 <span class="sd">    Visualization</span>
 <span class="sd">        A MICOM visualization. Can be served with `viz.serve`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">exchanges</span>
-    <span class="n">anns</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">)</span>
+    <span class="n">anns</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">)</span>
     <span class="n">anns</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">anns</span><span class="o">.</span><span class="n">metabolite</span>
     <span class="n">tol</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">tolerance</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">direction</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;import&quot;</span><span class="p">,</span> <span class="s2">&quot;export&quot;</span><span class="p">]:</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not a valid flux direction. Must be `import` or `export`.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">direction</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"import"</span><span class="p">,</span> <span class="s2">"export"</span><span class="p">]:</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Not a valid flux direction. Must be `import` or `export`."</span><span class="p">)</span>
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">exchanges</span><span class="p">[</span>
-        <span class="p">(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">taxon</span> <span class="o">==</span> <span class="s2">&quot;medium&quot;</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">taxon</span> <span class="o">==</span> <span class="s2">"medium"</span><span class="p">)</span>
         <span class="o">&amp;</span> <span class="p">(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">direction</span><span class="p">)</span>
         <span class="o">&amp;</span> <span class="p">(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">)</span>
     <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
     <span class="n">mat</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
-        <span class="n">values</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">tol</span>
+        <span class="n">values</span><span class="o">=</span><span class="s2">"flux"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"sample_id"</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">tol</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">cluster</span><span class="p">:</span>
-        <span class="n">sample_order</span> <span class="o">=</span> <span class="n">leaves_list</span><span class="p">(</span><span class="n">linkage</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;average&quot;</span><span class="p">))</span>
+        <span class="n">sample_order</span> <span class="o">=</span> <span class="n">leaves_list</span><span class="p">(</span><span class="n">linkage</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"average"</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">sample_order</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">reaction_order</span> <span class="o">=</span> <span class="n">leaves_list</span><span class="p">(</span><span class="n">linkage</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;average&quot;</span><span class="p">))</span>
+    <span class="n">reaction_order</span> <span class="o">=</span> <span class="n">leaves_list</span><span class="p">(</span><span class="n">linkage</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">"average"</span><span class="p">))</span>
     <span class="n">mat</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">reaction_order</span><span class="p">,</span> <span class="n">sample_order</span><span class="p">]</span>
 
-    <span class="n">mat</span><span class="p">[</span><span class="s2">&quot;metabolite&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">index</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">)</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">anns</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">metabolite</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;exchange_fluxes&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span>
-    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;sample_heatmap.html&quot;</span><span class="p">)</span>
+    <span class="n">mat</span><span class="p">[</span><span class="s2">"metabolite"</span><span class="p">]</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">id_vars</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">"sample_id"</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">"flux"</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">"description"</span><span class="p">]</span> <span class="o">=</span> <span class="n">anns</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">metabolite</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"exchange_fluxes"</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">"sample_heatmap.html"</span><span class="p">)</span>
     <span class="n">long</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span> <span class="k">if</span> <span class="n">long</span> <span class="k">else</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
     <span class="n">height</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span> <span class="k">if</span> <span class="n">long</span> <span class="k">else</span> <span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span>
     <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
-        <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;exchange_fluxes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">"exchange_fluxes"</span><span class="p">]</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"records"</span><span class="p">),</span>
         <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span>
         <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
         <span class="n">long</span><span class="o">=</span><span class="n">long</span><span class="p">,</span>
@@ -380,13 +380,13 @@
 <a class="viewcode-back" href="../../../autoapi/micom/viz/index.html#micom.viz.exchanges.plot_exchanges_per_taxon">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_exchanges_per_taxon</span><span class="p">(</span>
     <span class="n">results</span><span class="p">:</span> <span class="n">GrowthResults</span><span class="p">,</span>
-    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;taxon_exchanges_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
-    <span class="n">direction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;import&quot;</span><span class="p">,</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"taxon_exchanges_</span><span class="si">%s</span><span class="s2">.html"</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y%m</span><span class="si">%d</span><span class="s2">"</span><span class="p">),</span>
+    <span class="n">direction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"import"</span><span class="p">,</span>
     <span class="n">groups</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">use_total_flux</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">tsne_args</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the exchange fluxes per taxon.</span>
+<span class="w">    </span><span class="sd">"""Plot the exchange fluxes per taxon.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -394,7 +394,7 @@
 <span class="sd">        The exchanges returned by the `grow` workflow.</span>
 <span class="sd">    filename : str</span>
 <span class="sd">        The HTML file where the visualization will be saved.</span>
-<span class="sd">    direction : str either &quot;import&quot; or &quot;export&quot;</span>
+<span class="sd">    direction : str either "import" or "export"</span>
 <span class="sd">        The direction of fluxes to plot.</span>
 <span class="sd">    groups : pandas.Series</span>
 <span class="sd">        Additional metadata to color exchanges. The index must correspond to the</span>
@@ -410,50 +410,50 @@
 <span class="sd">    Visualization</span>
 <span class="sd">        A MICOM visualization. Can be served with `viz.serve`.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">exchanges</span>
 
-    <span class="k">if</span> <span class="n">direction</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;import&quot;</span><span class="p">,</span> <span class="s2">&quot;export&quot;</span><span class="p">]:</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not a valid flux direction. Must be `import` or `export`.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">direction</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"import"</span><span class="p">,</span> <span class="s2">"export"</span><span class="p">]:</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Not a valid flux direction. Must be `import` or `export`."</span><span class="p">)</span>
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">exchanges</span><span class="p">[</span>
-        <span class="p">(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">&quot;medium&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">direction</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">"medium"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="n">direction</span><span class="p">)</span>
     <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">use_total_flux</span><span class="p">:</span>
-        <span class="n">exchanges</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">*</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">abundance</span>
+        <span class="n">exchanges</span><span class="p">[</span><span class="s2">"flux"</span><span class="p">]</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">*</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">abundance</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">exchanges</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+        <span class="n">exchanges</span><span class="p">[</span><span class="s2">"flux"</span><span class="p">]</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
     <span class="n">mat</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
-        <span class="n">values</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span>
-        <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="s2">&quot;taxon&quot;</span><span class="p">],</span>
-        <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">,</span>
+        <span class="n">values</span><span class="o">=</span><span class="s2">"flux"</span><span class="p">,</span>
+        <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"sample_id"</span><span class="p">,</span> <span class="s2">"taxon"</span><span class="p">],</span>
+        <span class="n">columns</span><span class="o">=</span><span class="s2">"reaction"</span><span class="p">,</span>
         <span class="n">fill_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="n">n</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
-    <span class="k">if</span> <span class="s2">&quot;init&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tsne_args</span><span class="p">:</span>
-        <span class="n">tsne_args</span><span class="p">[</span><span class="s2">&quot;init&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;pca&quot;</span>
-    <span class="k">if</span> <span class="s2">&quot;learning_rate&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tsne_args</span><span class="p">:</span>
-        <span class="n">tsne_args</span><span class="p">[</span><span class="s2">&quot;learning_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">200.0</span>
-    <span class="k">if</span> <span class="s2">&quot;perplexity&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tsne_args</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">30</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not enough samples. Adjusting T-SNE perplexity to </span><span class="si">{</span><span class="n">n</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
-        <span class="n">tsne_args</span><span class="p">[</span><span class="s2">&quot;perplexity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="s2">"init"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tsne_args</span><span class="p">:</span>
+        <span class="n">tsne_args</span><span class="p">[</span><span class="s2">"init"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"pca"</span>
+    <span class="k">if</span> <span class="s2">"learning_rate"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tsne_args</span><span class="p">:</span>
+        <span class="n">tsne_args</span><span class="p">[</span><span class="s2">"learning_rate"</span><span class="p">]</span> <span class="o">=</span> <span class="mf">200.0</span>
+    <span class="k">if</span> <span class="s2">"perplexity"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tsne_args</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Not enough samples. Adjusting T-SNE perplexity to </span><span class="si">{</span><span class="n">n</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+        <span class="n">tsne_args</span><span class="p">[</span><span class="s2">"perplexity"</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">2</span>
 
     <span class="n">reduced</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="o">**</span><span class="n">tsne_args</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
     <span class="n">reduced</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
-        <span class="n">reduced</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">mat</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;TSNE 1&quot;</span><span class="p">,</span> <span class="s2">&quot;TSNE 2&quot;</span><span class="p">]</span>
+        <span class="n">reduced</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">mat</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"TSNE 1"</span><span class="p">,</span> <span class="s2">"TSNE 2"</span><span class="p">]</span>
     <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="n">groups</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;bool&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Groups need to be categorical.&quot;</span><span class="p">)</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;group&quot;</span> <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"object"</span><span class="p">,</span> <span class="s2">"category"</span><span class="p">,</span> <span class="s2">"bool"</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Groups need to be categorical."</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">"group"</span> <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span>
         <span class="n">reduced</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="n">reduced</span><span class="o">.</span><span class="n">sample_id</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;taxon&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">"taxon"</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;reduced&quot;</span><span class="p">:</span> <span class="n">reduced</span><span class="p">}</span>
-    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;reduced.html&quot;</span><span class="p">)</span>
-    <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">reduced</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"reduced"</span><span class="p">:</span> <span class="n">reduced</span><span class="p">}</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">"reduced.html"</span><span class="p">)</span>
+    <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">reduced</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"records"</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">viz</span></div>
 

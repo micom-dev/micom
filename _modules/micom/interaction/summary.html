@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.interaction.summary</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Functions to summarize interactions over all metabolites.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Functions to summarize interactions over all metabolites."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
@@ -301,15 +301,15 @@
 <div class="viewcode-block" id="_summarize">
 <a class="viewcode-back" href="../../../autoapi/micom/interaction/summary/index.html#micom.interaction._summarize">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">_summarize</span><span class="p">(</span><span class="n">ints</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Summarize the overall interactions.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">ints</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+<span class="w">    </span><span class="sd">"""Summarize the overall interactions."""</span>
+    <span class="k">return</span> <span class="n">ints</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"class"</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
         <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s2">&quot;flux&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
-                <span class="s2">&quot;mass_flux&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">flux</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">molecular_weight</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e-3</span><span class="p">,</span>
-                <span class="s2">&quot;C_flux&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">flux</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">C_number</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
-                <span class="s2">&quot;N_flux&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">flux</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">N_number</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
-                <span class="s2">&quot;n_ints&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">metabolite</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span>
+                <span class="s2">"flux"</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+                <span class="s2">"mass_flux"</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">flux</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">molecular_weight</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1e-3</span><span class="p">,</span>
+                <span class="s2">"C_flux"</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">flux</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">C_number</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+                <span class="s2">"N_flux"</span><span class="p">:</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">flux</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">N_number</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
+                <span class="s2">"n_ints"</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">metabolite</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span>
             <span class="p">},</span>
             <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
         <span class="p">)</span>
@@ -320,7 +320,7 @@
 <div class="viewcode-block" id="summarize_interactions">
 <a class="viewcode-back" href="../../../autoapi/micom/interaction/summary/index.html#micom.interaction.summarize_interactions">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">summarize_interactions</span><span class="p">(</span><span class="n">ints</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Summarize interactions to key quantities.</span>
+<span class="w">    </span><span class="sd">"""Summarize interactions to key quantities.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -333,12 +333,12 @@
 <span class="sd">        The summarized interactions contaning the total flux, mass flux, carbon flux,</span>
 <span class="sd">        nitrogen flux and number of interactions between any pair of taxa in that</span>
 <span class="sd">        sample.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="p">(</span>
-        <span class="n">ints</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="s2">&quot;focal&quot;</span><span class="p">,</span> <span class="s2">&quot;partner&quot;</span><span class="p">])</span>
+        <span class="n">ints</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"sample_id"</span><span class="p">,</span> <span class="s2">"focal"</span><span class="p">,</span> <span class="s2">"partner"</span><span class="p">])</span>
         <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_summarize</span><span class="p">)</span>
         <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-        <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;level_4&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">"level_4"</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="p">)</span></div>
 
 </pre></div>

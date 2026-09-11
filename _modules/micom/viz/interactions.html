@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.viz.interactions</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Visualizations for interactions.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Visualizations for interactions."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -313,10 +313,10 @@
 <div class="viewcode-block" id="UNITS">
 <a class="viewcode-back" href="../../../autoapi/micom/viz/interactions/index.html#micom.viz.UNITS">[docs]</a>
 <span class="n">UNITS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;flux&quot;</span><span class="p">:</span> <span class="s2">&quot;mmol/[gDW·h]&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;mass&quot;</span><span class="p">:</span> <span class="s2">&quot;g/[gDW·h]&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="s2">&quot;C/[gDW·h]&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;N&quot;</span><span class="p">:</span> <span class="s2">&quot;N/[gDW·h]&quot;</span><span class="p">,</span>
+    <span class="s2">"flux"</span><span class="p">:</span> <span class="s2">"mmol/[gDW·h]"</span><span class="p">,</span>
+    <span class="s2">"mass"</span><span class="p">:</span> <span class="s2">"g/[gDW·h]"</span><span class="p">,</span>
+    <span class="s2">"C"</span><span class="p">:</span> <span class="s2">"C/[gDW·h]"</span><span class="p">,</span>
+    <span class="s2">"N"</span><span class="p">:</span> <span class="s2">"N/[gDW·h]"</span><span class="p">,</span>
 <span class="p">}</span></div>
 
 
@@ -326,10 +326,10 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_focal_interactions</span><span class="p">(</span>
     <span class="n">results</span><span class="p">:</span> <span class="n">GrowthResults</span><span class="p">,</span>
     <span class="n">taxon</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;focal_interactions_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
-    <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mass&quot;</span><span class="p">,</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"focal_interactions_</span><span class="si">%s</span><span class="s2">.html"</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y%m</span><span class="si">%d</span><span class="s2">"</span><span class="p">),</span>
+    <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"mass"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot metabolic interactions between a focal taxa and all other taxa.</span>
+<span class="w">    </span><span class="sd">"""Plot metabolic interactions between a focal taxa and all other taxa.</span>
 
 <span class="sd">    This will visualize metabolic interaction between a taxon of interest (focal taxon)</span>
 <span class="sd">    and all other taxa across all samples.</span>
@@ -345,34 +345,34 @@
 <span class="sd">        The HTML file where the visualization will be saved.</span>
 <span class="sd">    kind : str</span>
 <span class="sd">        Which kind of flux to use. Either</span>
-<span class="sd">        - &quot;flux&quot;: molar flux of a metabolite</span>
-<span class="sd">        - &quot;mass&quot; (default): the mass flux (flux normalized by molecular weight)</span>
-<span class="sd">        - &quot;C&quot;: carbon flux</span>
-<span class="sd">        - &quot;N&quot;: nitrogen flux</span>
+<span class="sd">        - "flux": molar flux of a metabolite</span>
+<span class="sd">        - "mass" (default): the mass flux (flux normalized by molecular weight)</span>
+<span class="sd">        - "C": carbon flux</span>
+<span class="sd">        - "N": nitrogen flux</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    Visualization</span>
 <span class="sd">        A MICOM visualization. Can be served with `viz.serve`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">kind</span> <span class="ow">in</span> <span class="n">UNITS</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Not a supported flux type. Please choose one of </span><span class="si">{</span><span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">UNITS</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="sa">f</span><span class="s2">"Not a supported flux type. Please choose one of </span><span class="si">{</span><span class="s1">','</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">UNITS</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span>
         <span class="p">)</span>
     <span class="n">ints</span> <span class="o">=</span> <span class="n">interactions</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">taxon</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">n_taxa</span> <span class="o">=</span> <span class="n">ints</span><span class="o">.</span><span class="n">partner</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
     <span class="n">n_mets</span> <span class="o">=</span> <span class="n">ints</span><span class="o">.</span><span class="n">metabolite</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;interactions&quot;</span><span class="p">:</span> <span class="n">ints</span><span class="p">}</span>
-    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;focal_interactions.html&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"interactions"</span><span class="p">:</span> <span class="n">ints</span><span class="p">}</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">"focal_interactions.html"</span><span class="p">)</span>
     <span class="n">summ</span> <span class="o">=</span> <span class="n">summarize_interactions</span><span class="p">(</span><span class="n">ints</span><span class="p">)</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;summary&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summ</span>
-    <span class="n">summ</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">summ</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span> <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;flux&quot;</span> <span class="k">else</span> <span class="n">kind</span> <span class="o">+</span> <span class="s2">&quot;_flux&quot;</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">"summary"</span><span class="p">]</span> <span class="o">=</span> <span class="n">summ</span>
+    <span class="n">summ</span><span class="p">[</span><span class="s2">"flux"</span><span class="p">]</span> <span class="o">=</span> <span class="n">summ</span><span class="p">[</span><span class="s2">"flux"</span> <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">"flux"</span> <span class="k">else</span> <span class="n">kind</span> <span class="o">+</span> <span class="s2">"_flux"</span><span class="p">]</span>
     <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
-        <span class="n">summary</span><span class="o">=</span><span class="n">summ</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span>
-        <span class="n">interactions</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;interactions&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span>
+        <span class="n">summary</span><span class="o">=</span><span class="n">summ</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"records"</span><span class="p">),</span>
+        <span class="n">interactions</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">"interactions"</span><span class="p">]</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"records"</span><span class="p">),</span>
         <span class="n">n_taxa</span><span class="o">=</span><span class="n">n_taxa</span><span class="p">,</span>
         <span class="n">n_mets</span><span class="o">=</span><span class="n">n_mets</span><span class="p">,</span>
-        <span class="n">taxon</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\w__&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">taxon</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">),</span>
+        <span class="n">taxon</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\w__"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="n">taxon</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"_"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">),</span>
         <span class="n">unit</span><span class="o">=</span><span class="n">UNITS</span><span class="p">[</span><span class="n">kind</span><span class="p">],</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">viz</span></div>
@@ -383,11 +383,11 @@
 <a class="viewcode-back" href="../../../autoapi/micom/viz/interactions/index.html#micom.viz.plot_mes">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_mes</span><span class="p">(</span>
     <span class="n">results</span><span class="p">:</span> <span class="n">GrowthResults</span><span class="p">,</span>
-    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mes_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"mes_</span><span class="si">%s</span><span class="s2">.html"</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y%m</span><span class="si">%d</span><span class="s2">"</span><span class="p">),</span>
     <span class="n">groups</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">prevalence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot metabolic interactions between a focal taxa and all other taxa.</span>
+<span class="w">    </span><span class="sd">"""Plot metabolic interactions between a focal taxa and all other taxa.</span>
 
 <span class="sd">    This will plot the metabolic exchange score across samples and metabolites.</span>
 <span class="sd">    The metabolic exchange score (MES) is defined as the geometric mean of the</span>
@@ -421,7 +421,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    Visualization</span>
 <span class="sd">        A MICOM visualization. Can be served with `viz.serve`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">tol</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">exchanges</span><span class="o">.</span><span class="n">tolerance</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
     <span class="n">raw</span> <span class="o">=</span> <span class="n">MES</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">tol</span><span class="p">)</span>
     <span class="n">scores</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="n">raw</span><span class="o">.</span><span class="n">MES</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
@@ -430,21 +430,21 @@
     <span class="n">scores</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">scores</span><span class="o">.</span><span class="n">metabolite</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">prev</span><span class="p">)]</span>
 
     <span class="k">if</span> <span class="n">groups</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;bool&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Groups need to be categorical.&quot;</span><span class="p">)</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;group&quot;</span> <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"object"</span><span class="p">,</span> <span class="s2">"category"</span><span class="p">,</span> <span class="s2">"bool"</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Groups need to be categorical."</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">"group"</span> <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span>
         <span class="n">scores</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="n">scores</span><span class="o">.</span><span class="n">sample_id</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;group&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;group&quot;</span>
+        <span class="n">scores</span><span class="p">[</span><span class="s2">"group"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"all"</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">"group"</span>
     <span class="n">n_mets</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">metabolite</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;scores&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">}</span>
-    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;scores.html&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"scores"</span><span class="p">:</span> <span class="n">raw</span><span class="p">}</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">"scores.html"</span><span class="p">)</span>
     <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
-        <span class="n">scores</span><span class="o">=</span><span class="n">scores</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span>
+        <span class="n">scores</span><span class="o">=</span><span class="n">scores</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"records"</span><span class="p">),</span>
         <span class="n">n_mets</span><span class="o">=</span><span class="n">n_mets</span><span class="p">,</span>
-        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Metabolic Exchange Score (MES)&quot;</span><span class="p">,</span>
-        <span class="n">col_name</span><span class="o">=</span><span class="s2">&quot;MES&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">"Metabolic Exchange Score (MES)"</span><span class="p">,</span>
+        <span class="n">col_name</span><span class="o">=</span><span class="s2">"MES"</span><span class="p">,</span>
         <span class="n">cat</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">viz</span></div>

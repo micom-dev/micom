@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.interaction.scores</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Various interaction scores.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Various interaction scores."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -303,17 +303,17 @@
 <div class="viewcode-block" id="_mes">
 <a class="viewcode-back" href="../../../autoapi/micom/interaction/scores/index.html#micom.interaction._mes">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">_mes</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper to calculate the MES score.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Helper to calculate the MES score."""</span>
     <span class="n">cn</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">direction</span><span class="p">)</span>
-    <span class="n">p</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">cn</span><span class="p">[</span><span class="s2">&quot;export&quot;</span><span class="p">],</span> <span class="n">cn</span><span class="p">[</span><span class="s2">&quot;import&quot;</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">c</span> <span class="o">/</span> <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">c</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;MES&quot;</span><span class="p">])</span></div>
+    <span class="n">p</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">cn</span><span class="p">[</span><span class="s2">"export"</span><span class="p">],</span> <span class="n">cn</span><span class="p">[</span><span class="s2">"import"</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">c</span> <span class="o">/</span> <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">c</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"MES"</span><span class="p">])</span></div>
 
 
 
 <div class="viewcode-block" id="MES">
 <a class="viewcode-back" href="../../../autoapi/micom/interaction/scores/index.html#micom.interaction.MES">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">MES</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n">GrowthResults</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the Metabolic Exchange Score (MES) for each metabolite.</span>
+<span class="w">    </span><span class="sd">"""Calculate the Metabolic Exchange Score (MES) for each metabolite.</span>
 
 <span class="sd">    MES is the harmonic mean of producers and consumers for a chosen metabolite</span>
 <span class="sd">    in one sample. High values indicate a large prevalence of cross-feeding for the</span>
@@ -338,17 +338,17 @@
 <span class="sd">    .. [1] Marcelino, V.R., et al.</span>
 <span class="sd">           Disease-specific loss of microbial cross-feeding interactions in the human gut</span>
 <span class="sd">           Nat Commun 14, 6546 (2023). https://doi.org/10.1038/s41467-023-42112-w</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">cutoff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">cutoff</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">exchanges</span><span class="o">.</span><span class="n">tolerance</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">fluxes</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">exchanges</span><span class="p">[</span>
-        <span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">cutoff</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">exchanges</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">&quot;medium&quot;</span><span class="p">)</span>
+        <span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">cutoff</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">exchanges</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">"medium"</span><span class="p">)</span>
     <span class="p">]</span>
-    <span class="n">mes</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_mes</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">mes</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"metabolite"</span><span class="p">,</span> <span class="s2">"sample_id"</span><span class="p">])</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_mes</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
     <span class="n">mes</span> <span class="o">=</span> <span class="n">mes</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-        <span class="n">results</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;metabolite&quot;</span><span class="p">]),</span>
-        <span class="n">on</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span>
-        <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">,</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"metabolite"</span><span class="p">]),</span>
+        <span class="n">on</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">,</span>
+        <span class="n">how</span><span class="o">=</span><span class="s2">"inner"</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">mes</span></div>
 

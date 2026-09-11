@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.workflows.db_media</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Test growth media for a model database.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Test growth media for a model database."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">cobra.medium</span><span class="w"> </span><span class="kn">import</span> <span class="n">find_external_compartment</span>
@@ -320,29 +320,29 @@
 <div class="viewcode-block" id="_grow">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._grow">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">_grow</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the maximum growth rate under a given medium.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get the maximum growth rate under a given medium."""</span>
     <span class="n">mid</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">med</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="n">good</span> <span class="o">=</span> <span class="n">med</span><span class="p">[</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">exchanges</span><span class="p">])]</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">good</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-            <span class="s2">&quot;Could not find any reactions from the medium in `</span><span class="si">%s</span><span class="s2">`. &quot;</span>
-            <span class="s2">&quot;Maybe a mismatch in IDs?&quot;</span>
+            <span class="s2">"Could not find any reactions from the medium in `</span><span class="si">%s</span><span class="s2">`. "</span>
+            <span class="s2">"Maybe a mismatch in IDs?"</span>
         <span class="p">)</span>
     <span class="n">mod</span><span class="o">.</span><span class="n">medium</span> <span class="o">=</span> <span class="n">med</span><span class="p">[</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">exchanges</span><span class="p">])]</span>
     <span class="n">rate</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">slim_optimize</span><span class="p">()</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">mid</span><span class="p">,</span> <span class="s2">&quot;growth_rate&quot;</span><span class="p">:</span> <span class="n">rate</span><span class="p">}</span></div>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"id"</span><span class="p">:</span> <span class="n">mid</span><span class="p">,</span> <span class="s2">"growth_rate"</span><span class="p">:</span> <span class="n">rate</span><span class="p">}</span></div>
 
 
 
 <div class="viewcode-block" id="_try_complete">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._try_complete">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">_try_complete</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Try to complete the medium for a model.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Try to complete the medium for a model."""</span>
     <span class="n">file</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">growth</span><span class="p">,</span> <span class="n">max_import</span><span class="p">,</span> <span class="n">mip</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">strict</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
     <span class="n">exc</span> <span class="o">=</span> <span class="n">find_external_compartment</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">exc</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;C_&quot;</span><span class="p">):</span>  <span class="c1"># for CARVEME models</span>
+    <span class="k">if</span> <span class="n">exc</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"C_"</span><span class="p">):</span>  <span class="c1"># for CARVEME models</span>
         <span class="n">exc</span> <span class="o">=</span> <span class="n">exc</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">fixed</span> <span class="o">=</span> <span class="n">mm</span><span class="o">.</span><span class="n">complete_medium</span><span class="p">(</span>
@@ -358,19 +358,19 @@
         <span class="n">added_flux</span> <span class="o">=</span> <span class="n">fixed</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">-</span> <span class="n">med</span><span class="p">[</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">fixed</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
         <span class="n">can_grow</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="s2">&quot;Could grow `</span><span class="si">%s</span><span class="s2">` by adding </span><span class="si">%d</span><span class="s2"> imports&quot;</span>
-            <span class="s2">&quot;and </span><span class="si">%g</span><span class="s2"> additional .flux&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">added</span><span class="p">,</span> <span class="n">added_flux</span><span class="p">)</span>
+            <span class="s2">"Could grow `</span><span class="si">%s</span><span class="s2">` by adding </span><span class="si">%d</span><span class="s2"> imports"</span>
+            <span class="s2">"and </span><span class="si">%g</span><span class="s2"> additional .flux"</span> <span class="o">%</span> <span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">added</span><span class="p">,</span> <span class="n">added_flux</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="k">except</span> <span class="n">OptimizationError</span><span class="p">:</span>
-        <span class="n">fixed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-        <span class="n">added</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
-        <span class="n">added_flux</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">)</span>
+        <span class="n">fixed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">"nan"</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">med</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">added</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"nan"</span><span class="p">)</span>
+        <span class="n">added_flux</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">"nan"</span><span class="p">)</span>
         <span class="n">can_grow</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Could not grow `</span><span class="si">%s</span><span class="s2">`.&quot;</span> <span class="o">%</span> <span class="n">file</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Could not grow `</span><span class="si">%s</span><span class="s2">`."</span> <span class="o">%</span> <span class="n">file</span><span class="p">)</span>
     <span class="n">fixed</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
-            <span class="s2">&quot;(_</span><span class="si">{}</span><span class="s2">$)|([^a-zA-Z0-9 :]</span><span class="si">{}</span><span class="s2">[^a-zA-Z0-9 :]$)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="n">exc</span><span class="p">),</span>
-            <span class="s2">&quot;_m&quot;</span><span class="p">,</span>
+            <span class="s2">"(_</span><span class="si">{}</span><span class="s2">$)|([^a-zA-Z0-9 :]</span><span class="si">{}</span><span class="s2">[^a-zA-Z0-9 :]$)"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">exc</span><span class="p">,</span> <span class="n">exc</span><span class="p">),</span>
+            <span class="s2">"_m"</span><span class="p">,</span>
             <span class="n">rid</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">for</span> <span class="n">rid</span> <span class="ow">in</span> <span class="n">fixed</span><span class="o">.</span><span class="n">index</span>
@@ -383,7 +383,7 @@
 <div class="viewcode-block" id="check_db_medium">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/index.html#micom.workflows.db_media.check_db_medium">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">check_db_medium</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">medium</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Complete a growth medium for all models in a database.</span>
+<span class="w">    </span><span class="sd">"""Complete a growth medium for all models in a database.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -393,7 +393,7 @@
 <span class="sd">        zip (must end in `.zip`) file or None if the taxonomy contains a</span>
 <span class="sd">        column `file`.</span>
 <span class="sd">    medium : pd.DataFrame</span>
-<span class="sd">        A growth medium. Must have columns &quot;reaction&quot; and &quot;flux&quot; denoting</span>
+<span class="sd">        A growth medium. Must have columns "reaction" and "flux" denoting</span>
 <span class="sd">        exchange reactions and their respective maximum flux. Can not be sample</span>
 <span class="sd">        specific.</span>
 <span class="sd">    threads : int &gt;=1</span>
@@ -406,28 +406,28 @@
 <span class="sd">        Returns an annotated manifest file with a column `can_grow` that tells you</span>
 <span class="sd">        whether the model can grow on the (fixed) medium, and a column `growth_rate`</span>
 <span class="sd">        that gives the growth rate.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">medium</span> <span class="o">=</span> <span class="n">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;dummy&quot;</span><span class="p">])</span>
+<span class="sd">    """</span>
+    <span class="n">medium</span> <span class="o">=</span> <span class="n">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="p">[</span><span class="s2">"dummy"</span><span class="p">])</span>
     <span class="n">medium</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">medium</span><span class="o">.</span><span class="n">global_id</span>
-    <span class="n">compressed</span> <span class="o">=</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">)</span>
+    <span class="n">compressed</span> <span class="o">=</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".qza"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".zip"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
-        <span class="n">tdir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">):</span>
+        <span class="n">tdir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"micom_"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".qza"</span><span class="p">):</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_qiime_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">):</span>
+    <span class="k">elif</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".zip"</span><span class="p">):</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_zip_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_manifest</span><span class="p">(</span><span class="n">model_db</span><span class="p">)</span>
-    <span class="n">rank</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;summary_rank&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rank</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">"summary_rank"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">rprint</span><span class="p">(</span>
-        <span class="s2">&quot;Checking </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">-level models on a medium with </span><span class="si">%d</span><span class="s2"> components.&quot;</span>
+        <span class="s2">"Checking </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">-level models on a medium with </span><span class="si">%d</span><span class="s2"> components."</span>
         <span class="o">%</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rank</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">medium</span><span class="p">))</span>
     <span class="p">)</span>
 
-    <span class="n">args</span> <span class="o">=</span> <span class="p">[(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;file&quot;</span><span class="p">],</span> <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()]</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">[(</span><span class="n">r</span><span class="p">[</span><span class="s2">"id"</span><span class="p">],</span> <span class="n">r</span><span class="p">[</span><span class="s2">"file"</span><span class="p">],</span> <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()]</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_grow</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
-    <span class="n">results</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
-    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;can_grow&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">growth_rate</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">results</span><span class="p">),</span> <span class="n">on</span><span class="o">=</span><span class="s2">"id"</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s2">"can_grow"</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">growth_rate</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
         <span class="n">tdir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
@@ -448,7 +448,7 @@
     <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">strict</span><span class="o">=</span><span class="nb">list</span><span class="p">(),</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Complete a growth medium for all models in a database.</span>
+<span class="w">    </span><span class="sd">"""Complete a growth medium for all models in a database.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -458,7 +458,7 @@
 <span class="sd">        zip (must end in `.zip`) file or None if the taxonomy contains a</span>
 <span class="sd">        column `file`.</span>
 <span class="sd">    medium : pd.DataFrame</span>
-<span class="sd">        A growth medium. Must have columns &quot;reaction&quot; and &quot;flux&quot; denoting</span>
+<span class="sd">        A growth medium. Must have columns "reaction" and "flux" denoting</span>
 <span class="sd">        exchange reactions and their respective maximum flux. Can not be sample</span>
 <span class="sd">        specific.</span>
 <span class="sd">    growth : positive float or pandas.Series</span>
@@ -473,9 +473,9 @@
 <span class="sd">        import flux. Might be more intuitive if set to True but may also be</span>
 <span class="sd">        slow to calculate.</span>
 <span class="sd">    weights : str</span>
-<span class="sd">        Will scale the fluxes by a weight factor. Can either be &quot;mass&quot; which will</span>
+<span class="sd">        Will scale the fluxes by a weight factor. Can either be "mass" which will</span>
 <span class="sd">        scale by molecular mass, a single element which will scale by</span>
-<span class="sd">        the elemental content (for instance &quot;C&quot; to scale by carbon content).</span>
+<span class="sd">        the elemental content (for instance "C" to scale by carbon content).</span>
 <span class="sd">        If None every metabolite will receive the same weight.</span>
 <span class="sd">        Will be ignored if `minimize_components` is True.</span>
 <span class="sd">    threads : int &gt;=1</span>
@@ -495,22 +495,22 @@
 <span class="sd">        Returns an annotated manifest file with a column `can_grow` that tells you</span>
 <span class="sd">        whether the model can grow on the (fixed) medium, and a column `added` that</span>
 <span class="sd">        gives the number of added imports apart from the ones in the medium.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">medium</span> <span class="o">=</span> <span class="n">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;dummy&quot;</span><span class="p">])</span>
+<span class="sd">    """</span>
+    <span class="n">medium</span> <span class="o">=</span> <span class="n">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="p">[</span><span class="s2">"dummy"</span><span class="p">])</span>
     <span class="n">medium</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">medium</span><span class="o">.</span><span class="n">global_id</span>
-    <span class="n">compressed</span> <span class="o">=</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">)</span>
+    <span class="n">compressed</span> <span class="o">=</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".qza"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".zip"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
-        <span class="n">tdir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">):</span>
+        <span class="n">tdir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"micom_"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".qza"</span><span class="p">):</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_qiime_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">):</span>
+    <span class="k">elif</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".zip"</span><span class="p">):</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_zip_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_manifest</span><span class="p">(</span><span class="n">model_db</span><span class="p">)</span>
-    <span class="n">rank</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;summary_rank&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rank</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">"summary_rank"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">rprint</span><span class="p">(</span>
-        <span class="s2">&quot;Completing </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">-level models on a medium with </span><span class="si">%d</span><span class="s2"> components&quot;</span>
-        <span class="s2">&quot; ([red]</span><span class="si">%d</span><span class="s2"> strict[/red]).&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rank</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">medium</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">strict</span><span class="p">))</span>
+        <span class="s2">"Completing </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">-level models on a medium with </span><span class="si">%d</span><span class="s2"> components"</span>
+        <span class="s2">" ([red]</span><span class="si">%d</span><span class="s2"> strict[/red])."</span> <span class="o">%</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rank</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">medium</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">strict</span><span class="p">))</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">growth</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
         <span class="n">growth</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">growth</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">manifest</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
@@ -518,7 +518,7 @@
     <span class="n">manifest</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">id</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">(</span>
-            <span class="n">manifest</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;file&quot;</span><span class="p">],</span>
+            <span class="n">manifest</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s2">"file"</span><span class="p">],</span>
             <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">,</span>
             <span class="n">growth</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
             <span class="n">max_added_import</span><span class="p">,</span>
@@ -529,9 +529,9 @@
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">manifest</span><span class="o">.</span><span class="n">index</span>
     <span class="p">]</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_try_complete</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
-    <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;can_grow&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
-    <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;added&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
-    <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;added_flux&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+    <span class="n">manifest</span><span class="p">[</span><span class="s2">"can_grow"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+    <span class="n">manifest</span><span class="p">[</span><span class="s2">"added"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
+    <span class="n">manifest</span><span class="p">[</span><span class="s2">"added_flux"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span>
     <span class="n">imports</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">([</span><span class="n">r</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">])</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
     <span class="n">imports</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">id</span>
 
@@ -544,8 +544,8 @@
         <span class="n">imports</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
     <span class="p">)</span>
     <span class="n">rprint</span><span class="p">(</span>
-        <span class="s2">&quot;Obtained growth for </span><span class="si">%d</span><span class="s2"> models adding additional&quot;</span>
-        <span class="s2">&quot; flux of </span><span class="si">%.2f</span><span class="s2">/</span><span class="si">%.2f</span><span class="s2"> on average.&quot;</span> <span class="o">%</span> <span class="n">metrics</span>
+        <span class="s2">"Obtained growth for </span><span class="si">%d</span><span class="s2"> models adding additional"</span>
+        <span class="s2">" flux of </span><span class="si">%.2f</span><span class="s2">/</span><span class="si">%.2f</span><span class="s2"> on average."</span> <span class="o">%</span> <span class="n">metrics</span>
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">imports</span><span class="p">)</span></div>
@@ -555,7 +555,7 @@
 <div class="viewcode-block" id="_annotate">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/db_media/index.html#micom.workflows.db_media._annotate">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">_annotate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get annotation for a model.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Get annotation for a model."""</span>
     <span class="n">mod</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">annotate_metabolites_from_exchanges</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span></div>
 
@@ -567,7 +567,7 @@
     <span class="n">model_db</span><span class="p">,</span>
     <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get metabolite annotations from a model DB.</span>
+<span class="w">    </span><span class="sd">"""Get metabolite annotations from a model DB.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -584,24 +584,24 @@
 <span class="sd">    -------</span>
 <span class="sd">    pd.DataFrame</span>
 <span class="sd">        Annotations for all exchanged metabolites.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">compressed</span> <span class="o">=</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">compressed</span> <span class="o">=</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".qza"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".zip"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
-        <span class="n">tdir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;micom_&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.qza&quot;</span><span class="p">):</span>
+        <span class="n">tdir</span> <span class="o">=</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"micom_"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".qza"</span><span class="p">):</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_qiime_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.zip&quot;</span><span class="p">):</span>
+    <span class="k">elif</span> <span class="n">model_db</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".zip"</span><span class="p">):</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_zip_model_db</span><span class="p">(</span><span class="n">model_db</span><span class="p">,</span> <span class="n">tdir</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">load_manifest</span><span class="p">(</span><span class="n">model_db</span><span class="p">)</span>
-    <span class="n">rank</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">&quot;summary_rank&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rank</span> <span class="o">=</span> <span class="n">manifest</span><span class="p">[</span><span class="s2">"summary_rank"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="s2">&quot;Getting annotations from </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">-level models .&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rank</span><span class="p">)</span>
+        <span class="s2">"Getting annotations from </span><span class="si">%d</span><span class="s2"> </span><span class="si">%s</span><span class="s2">-level models ."</span> <span class="o">%</span> <span class="p">(</span><span class="n">manifest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">rank</span><span class="p">)</span>
     <span class="p">)</span>
 
     <span class="n">args</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_annotate</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
-    <span class="n">anns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reaction&quot;</span><span class="p">])</span>
+    <span class="n">anns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"reaction"</span><span class="p">])</span>
 
     <span class="k">if</span> <span class="n">compressed</span><span class="p">:</span>
         <span class="n">tdir</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>

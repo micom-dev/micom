@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.workflows.tradeoff</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Workflow to run cooperative tradeoff with various tradeoff values.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Workflow to run cooperative tradeoff with various tradeoff values."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">cobra.util.solver</span><span class="w"> </span><span class="kn">import</span> <span class="n">OptimizationError</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_pickle</span>
@@ -318,7 +318,7 @@
     <span class="n">com</span> <span class="o">=</span> <span class="n">load_pickle</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
     <span class="n">ex_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span><span class="p">]</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/</span><span class="si">%d</span><span class="s2"> import reactions found in model.&quot;</span><span class="p">,</span>
+        <span class="s2">"</span><span class="si">%d</span><span class="s2">/</span><span class="si">%d</span><span class="s2"> import reactions found in model."</span><span class="p">,</span>
         <span class="n">medium</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">ex_ids</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
         <span class="nb">len</span><span class="p">(</span><span class="n">medium</span><span class="p">),</span>
     <span class="p">)</span>
@@ -329,13 +329,13 @@
         <span class="n">sol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-            <span class="s2">&quot;Sample </span><span class="si">%s</span><span class="s2"> could not be optimized (</span><span class="si">%s</span><span class="s2">).&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span><span class="p">),</span>
+            <span class="s2">"Sample </span><span class="si">%s</span><span class="s2"> could not be optimized (</span><span class="si">%s</span><span class="s2">)."</span> <span class="o">%</span> <span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">rates</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">members</span>
-    <span class="n">rates</span><span class="p">[</span><span class="s2">&quot;taxon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">index</span>
-    <span class="n">rates</span><span class="p">[</span><span class="s2">&quot;tradeoff&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-    <span class="n">rates</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">rates</span><span class="p">[</span><span class="s2">"taxon"</span><span class="p">]</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">rates</span><span class="p">[</span><span class="s2">"tradeoff"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">rates</span><span class="p">[</span><span class="s2">"sample_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
     <span class="n">df</span> <span class="o">=</span> <span class="p">[</span><span class="n">rates</span><span class="p">]</span>
 
     <span class="c1"># Get growth rates</span>
@@ -343,18 +343,18 @@
         <span class="n">sol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">cooperative_tradeoff</span><span class="p">(</span><span class="n">fraction</span><span class="o">=</span><span class="n">tradeoffs</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-            <span class="s2">&quot;Sample </span><span class="si">%s</span><span class="s2"> could not be optimized with cooperative tradeoff (</span><span class="si">%s</span><span class="s2">).&quot;</span>
+            <span class="s2">"Sample </span><span class="si">%s</span><span class="s2"> could not be optimized with cooperative tradeoff (</span><span class="si">%s</span><span class="s2">)."</span>
             <span class="o">%</span> <span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">status</span><span class="p">),</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sol</span><span class="o">.</span><span class="n">solution</span><span class="p">):</span>
         <span class="n">rates</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">members</span>
-        <span class="n">rates</span><span class="p">[</span><span class="s2">&quot;taxon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">index</span>
-        <span class="n">rates</span><span class="p">[</span><span class="s2">&quot;tradeoff&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">tradeoff</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">rates</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">rates</span><span class="p">[</span><span class="s2">"taxon"</span><span class="p">]</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">rates</span><span class="p">[</span><span class="s2">"tradeoff"</span><span class="p">]</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">tradeoff</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">rates</span><span class="p">[</span><span class="s2">"sample_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
         <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rates</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">&quot;medium&quot;</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">"medium"</span><span class="p">]</span></div>
 
 
 
@@ -370,7 +370,7 @@
     <span class="n">rtol</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">presolve</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run growth rate predictions for varying tradeoff values.</span>
+<span class="w">    </span><span class="sd">"""Run growth rate predictions for varying tradeoff values.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -379,12 +379,12 @@
 <span class="sd">    model_folder : str</span>
 <span class="sd">        The folder in which to find the files mentioned in the manifest.</span>
 <span class="sd">    medium : pandas.DataFrame</span>
-<span class="sd">        A growth medium. Must have columns &quot;reaction&quot; and &quot;flux&quot; denoting</span>
+<span class="sd">        A growth medium. Must have columns "reaction" and "flux" denoting</span>
 <span class="sd">        exchnage reactions and their respective maximum flux.</span>
 <span class="sd">    tradeoffs : array of floats in (0.0, 1.0]</span>
 <span class="sd">        An array of tradeoff vaues to be tested. One simulation without</span>
 <span class="sd">        a tradeoff (no cooperative tradeoff) will always be run additionally</span>
-<span class="sd">        and will have a tradeoff of &quot;NaN&quot;.</span>
+<span class="sd">        and will have a tradeoff of "NaN".</span>
 <span class="sd">    threads : int &gt;=1</span>
 <span class="sd">        The number of parallel workers to use when building models. As a</span>
 <span class="sd">        rule of thumb you will need around 1GB of RAM for each thread.</span>
@@ -400,14 +400,14 @@
 <span class="sd">    -------</span>
 <span class="sd">    pandas.DataFrame</span>
 <span class="sd">        The predicted growth rates.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">samples</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
     <span class="n">paths</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">s</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_folder</span><span class="p">,</span> <span class="n">manifest</span><span class="p">[</span><span class="n">manifest</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">samples</span>
     <span class="p">}</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">t</span> <span class="o">&lt;</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">t</span> <span class="o">&gt;</span> <span class="mf">1.0</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tradeoffs</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;tradeoff values must between 0 and 1 :(&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"tradeoff values must between 0 and 1 :("</span><span class="p">)</span>
     <span class="n">medium</span> <span class="o">=</span> <span class="n">process_medium</span><span class="p">(</span><span class="n">medium</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">[</span><span class="n">p</span><span class="p">,</span> <span class="n">tradeoffs</span><span class="p">,</span> <span class="n">medium</span><span class="o">.</span><span class="n">flux</span><span class="p">[</span><span class="n">medium</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">s</span><span class="p">],</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="p">,</span> <span class="n">presolve</span><span class="p">]</span>
@@ -416,18 +416,18 @@
     <span class="n">results</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_tradeoff</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">threads</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">r</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">):</span>
         <span class="k">raise</span> <span class="n">OptimizationError</span><span class="p">(</span>
-            <span class="s2">&quot;All numerical optimizations failed. This indicates a problem &quot;</span>
-            <span class="s2">&quot;with the solver or numerical instabilities. Check that you have &quot;</span>
-            <span class="s2">&quot;CPLEX or Gurobi installed. You may also increase the abundance &quot;</span>
-            <span class="s2">&quot;cutoff in `qiime micom build` to create simpler models or choose &quot;</span>
-            <span class="s2">&quot;a more permissive solver tolerance.&quot;</span>
+            <span class="s2">"All numerical optimizations failed. This indicates a problem "</span>
+            <span class="s2">"with the solver or numerical instabilities. Check that you have "</span>
+            <span class="s2">"CPLEX or Gurobi installed. You may also increase the abundance "</span>
+            <span class="s2">"cutoff in `qiime micom build` to create simpler models or choose "</span>
+            <span class="s2">"a more permissive solver tolerance."</span>
         <span class="p">)</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">r</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">):</span>
         <span class="n">missing</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">sample_id</span><span class="p">)</span>
         <span class="k">raise</span> <span class="n">OptimizationError</span><span class="p">(</span>
-            <span class="s2">&quot;Some numerical optimizations failed. The following samples could&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot;not be solved: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="s2">"Some numerical optimizations failed. The following samples could"</span>
+            <span class="sa">f</span><span class="s2">"not be solved: </span><span class="si">{</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="si">}</span><span class="s2">."</span>
         <span class="p">)</span>
     <span class="k">return</span> <span class="n">results</span></div>
 

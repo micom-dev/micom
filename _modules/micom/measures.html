@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.measures</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Measures calculated based on fluxes.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Measures calculated based on fluxes."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -302,14 +302,14 @@
 <div class="viewcode-block" id="production_rates">
 <a class="viewcode-back" href="../../autoapi/micom/measures/index.html#micom.measures.production_rates">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">production_rates</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the production rates for a set of metabolites.</span>
+<span class="w">    </span><span class="sd">"""Calculate the production rates for a set of metabolites.</span>
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
 <span class="sd">    Production rates are not net fluxes but the flux of a particular metabolite</span>
 <span class="sd">    into the external environment independent whether it is taken up by another</span>
 <span class="sd">    taxon. The net rates can be obtained directly by inspecting the exchange fluxes</span>
-<span class="sd">    in the &quot;medium&quot; compartment.</span>
+<span class="sd">    in the "medium" compartment.</span>
 <span class="sd">    The (transient) production rates reported here are the fluxes other surrounding</span>
 <span class="sd">    cells/consumers would have access to. Thus, they are often more interesting for</span>
 <span class="sd">    a phenotype than the net rates which are the excess productin rates, even in the</span>
@@ -325,18 +325,18 @@
 <span class="sd">    pandas.DataFrame</span>
 <span class="sd">        A new flux DataFrame containing the intermediate production rates for each</span>
 <span class="sd">        metabolite.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">fluxes</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">exchanges</span>
-    <span class="n">pos</span> <span class="o">=</span> <span class="n">fluxes</span><span class="p">[(</span><span class="n">fluxes</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">&quot;export&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">fluxes</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">&quot;medium&quot;</span><span class="p">)]</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">fluxes</span><span class="p">[(</span><span class="n">fluxes</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">"export"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">fluxes</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">"medium"</span><span class="p">)]</span>
     <span class="n">rates</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">pos</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="s2">&quot;metabolite&quot;</span><span class="p">])</span>
-        <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s2">&quot;flux&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">abundance</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">())}))</span>
+        <span class="n">pos</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"sample_id"</span><span class="p">,</span> <span class="s2">"metabolite"</span><span class="p">])</span>
+        <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s2">"flux"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">abundance</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">())}))</span>
         <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
     <span class="p">)</span>
     <span class="n">anns</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span>
-        <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;metabolite&quot;</span><span class="p">]</span>
+        <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"metabolite"</span><span class="p">]</span>
     <span class="p">)</span>
-    <span class="n">rates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">rates</span><span class="p">,</span> <span class="n">anns</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">)</span>
+    <span class="n">rates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">rates</span><span class="p">,</span> <span class="n">anns</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">rates</span></div>
 
 
@@ -344,14 +344,14 @@
 <div class="viewcode-block" id="consumption_rates">
 <a class="viewcode-back" href="../../autoapi/micom/measures/index.html#micom.measures.consumption_rates">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">consumption_rates</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the production rates for a set of metabolites.</span>
+<span class="w">    </span><span class="sd">"""Calculate the production rates for a set of metabolites.</span>
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
 <span class="sd">    Consumption rates are not net fluxes but the total consumption of a particular</span>
 <span class="sd">    metabolite by all taxa in the community independent whether it is secreted again.</span>
 <span class="sd">    The net rates can be obtained directly by inspecting the exchange fluxes</span>
-<span class="sd">    in the &quot;medium&quot; compartment.</span>
+<span class="sd">    in the "medium" compartment.</span>
 <span class="sd">    The (transient) consumption rates reported here is the total flux of a metabolite</span>
 <span class="sd">    imported/consumed by taxa in the community.</span>
 
@@ -365,18 +365,18 @@
 <span class="sd">    pandas.DataFrame</span>
 <span class="sd">        A new flux DataFrame containing the intermediate production rates for each</span>
 <span class="sd">        metabolite.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">fluxes</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">exchanges</span>
-    <span class="n">neg</span> <span class="o">=</span> <span class="n">fluxes</span><span class="p">[(</span><span class="n">fluxes</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">&quot;import&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">fluxes</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">&quot;medium&quot;</span><span class="p">)]</span>
+    <span class="n">neg</span> <span class="o">=</span> <span class="n">fluxes</span><span class="p">[(</span><span class="n">fluxes</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">"import"</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">fluxes</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">"medium"</span><span class="p">)]</span>
     <span class="n">rates</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">neg</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="s2">&quot;metabolite&quot;</span><span class="p">])</span>
-        <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s2">&quot;flux&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">abundance</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">())}))</span>
+        <span class="n">neg</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"sample_id"</span><span class="p">,</span> <span class="s2">"metabolite"</span><span class="p">])</span>
+        <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s2">"flux"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">abundance</span> <span class="o">*</span> <span class="n">df</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">())}))</span>
         <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
     <span class="p">)</span>
     <span class="n">rates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
         <span class="n">rates</span><span class="p">,</span>
-        <span class="n">results</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;metabolite&quot;</span><span class="p">]),</span>
-        <span class="n">on</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"metabolite"</span><span class="p">]),</span>
+        <span class="n">on</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">rates</span></div>
 

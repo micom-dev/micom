@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.viz.tradeoff</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Visualizations for tradeoff analysis.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Visualizations for tradeoff analysis."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.viz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Visualization</span>
@@ -302,13 +302,13 @@
 
 
 <div class="viewcode-block" id="plot_tradeoff">
-<a class="viewcode-back" href="../../../autoapi/micom/viz/tradeoff/index.html#micom.viz.tradeoff.plot_tradeoff">[docs]</a>
+<a class="viewcode-back" href="../../../autoapi/micom/viz/tradeoff/index.html#micom.viz.plot_tradeoff">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_tradeoff</span><span class="p">(</span>
     <span class="n">tradeoff_rates</span><span class="p">,</span>
-    <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;tradeoff_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
+    <span class="n">filename</span><span class="o">=</span><span class="s2">"tradeoff_</span><span class="si">%s</span><span class="s2">.html"</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y%m</span><span class="si">%d</span><span class="s2">"</span><span class="p">),</span>
     <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot diagnostics for varying tradeoff values.</span>
+<span class="w">    </span><span class="sd">"""Plot diagnostics for varying tradeoff values.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -325,25 +325,25 @@
 <span class="sd">    Visualization</span>
 <span class="sd">        A MICOM visualization. Can be served with `viz.serve`.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">rates</span> <span class="o">=</span> <span class="n">tradeoff_rates</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;tradeoff&quot;</span><span class="p">:</span> <span class="n">rates</span><span class="p">}</span>
-    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;tradeoff.html&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"tradeoff"</span><span class="p">:</span> <span class="n">rates</span><span class="p">}</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">"tradeoff.html"</span><span class="p">)</span>
     <span class="n">growth</span> <span class="o">=</span> <span class="n">rates</span><span class="p">[</span>
-        <span class="p">[</span><span class="s2">&quot;taxon&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="s2">&quot;abundance&quot;</span><span class="p">,</span> <span class="s2">&quot;tradeoff&quot;</span><span class="p">,</span> <span class="s2">&quot;growth_rate&quot;</span><span class="p">]</span>
+        <span class="p">[</span><span class="s2">"taxon"</span><span class="p">,</span> <span class="s2">"sample_id"</span><span class="p">,</span> <span class="s2">"abundance"</span><span class="p">,</span> <span class="s2">"tradeoff"</span><span class="p">,</span> <span class="s2">"growth_rate"</span><span class="p">]</span>
     <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">growth</span><span class="o">.</span><span class="n">tradeoff</span> <span class="o">=</span> <span class="n">growth</span><span class="o">.</span><span class="n">tradeoff</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
-    <span class="n">growth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">growth</span><span class="o">.</span><span class="n">tradeoff</span> <span class="o">==</span> <span class="s2">&quot;nan&quot;</span><span class="p">,</span> <span class="s2">&quot;tradeoff&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span>
-    <span class="n">growth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">growth</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&lt;</span> <span class="n">tolerance</span><span class="p">,</span> <span class="s2">&quot;growth_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tolerance</span>
-    <span class="n">growth</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;log_growth_rate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">growth</span><span class="o">.</span><span class="n">growth_rate</span><span class="p">)</span>
+    <span class="n">growth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">growth</span><span class="o">.</span><span class="n">tradeoff</span> <span class="o">==</span> <span class="s2">"nan"</span><span class="p">,</span> <span class="s2">"tradeoff"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"none"</span>
+    <span class="n">growth</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">growth</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&lt;</span> <span class="n">tolerance</span><span class="p">,</span> <span class="s2">"growth_rate"</span><span class="p">]</span> <span class="o">=</span> <span class="n">tolerance</span>
+    <span class="n">growth</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">"log_growth_rate"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">growth</span><span class="o">.</span><span class="n">growth_rate</span><span class="p">)</span>
     <span class="n">tradeoff</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">growth</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">&quot;tradeoff&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_id&quot;</span><span class="p">])</span>
+        <span class="n">growth</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"tradeoff"</span><span class="p">,</span> <span class="s2">"sample_id"</span><span class="p">])</span>
         <span class="o">.</span><span class="n">apply</span><span class="p">(</span>
             <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
                 <span class="p">{</span>
-                    <span class="s2">&quot;n_taxa&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                    <span class="s2">&quot;n_growing&quot;</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&gt;</span> <span class="n">tolerance</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                    <span class="s2">&quot;fraction_growing&quot;</span><span class="p">:</span> <span class="p">(</span>
+                    <span class="s2">"n_taxa"</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s2">"n_growing"</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&gt;</span> <span class="n">tolerance</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="s2">"fraction_growing"</span><span class="p">:</span> <span class="p">(</span>
                         <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&gt;</span> <span class="n">tolerance</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="p">),</span>
                 <span class="p">}</span>
@@ -352,8 +352,8 @@
         <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
     <span class="p">)</span>
     <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
-        <span class="n">growth</span><span class="o">=</span><span class="n">growth</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span>
-        <span class="n">tradeoff</span><span class="o">=</span><span class="n">tradeoff</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span>
+        <span class="n">growth</span><span class="o">=</span><span class="n">growth</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"records"</span><span class="p">),</span>
+        <span class="n">tradeoff</span><span class="o">=</span><span class="n">tradeoff</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"records"</span><span class="p">),</span>
         <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">growth</span><span class="o">.</span><span class="n">log_growth_rate</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">growth</span><span class="o">.</span><span class="n">log_growth_rate</span><span class="o">.</span><span class="n">max</span><span class="p">()],</span>
         <span class="n">width</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
         <span class="n">height</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>

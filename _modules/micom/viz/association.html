@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.viz.association</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Visualization for phenotype prediction.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Visualization for phenotype prediction."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.viz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Visualization</span>
@@ -328,16 +328,16 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_association</span><span class="p">(</span>
     <span class="n">results</span><span class="p">,</span>
     <span class="n">phenotype</span><span class="p">,</span>
-    <span class="n">variable_type</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
-    <span class="n">variable_name</span><span class="o">=</span><span class="s2">&quot;phenotype&quot;</span><span class="p">,</span>
-    <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;association_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
-    <span class="n">flux_type</span><span class="o">=</span><span class="s2">&quot;production&quot;</span><span class="p">,</span>
+    <span class="n">variable_type</span><span class="o">=</span><span class="s2">"binary"</span><span class="p">,</span>
+    <span class="n">variable_name</span><span class="o">=</span><span class="s2">"phenotype"</span><span class="p">,</span>
+    <span class="n">filename</span><span class="o">=</span><span class="s2">"association_</span><span class="si">%s</span><span class="s2">.html"</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y%m</span><span class="si">%d</span><span class="s2">"</span><span class="p">),</span>
+    <span class="n">flux_type</span><span class="o">=</span><span class="s2">"production"</span><span class="p">,</span>
     <span class="n">fillna</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">fdr_threshold</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
     <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">atol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test for differential metabolite production.</span>
+<span class="w">    </span><span class="sd">"""Test for differential metabolite production.</span>
 
 <span class="sd">    This will check for associations of the `phenotype` with metabolite fluxes. Individual</span>
 <span class="sd">    tests are performed using non-parametric tests of the overall consumption or production</span>
@@ -354,13 +354,13 @@
 <span class="sd">    phenotype : pandas.Series</span>
 <span class="sd">        The data to be fitted. Its index must correspond to `sample_id` in</span>
 <span class="sd">        `exchanges`.</span>
-<span class="sd">    variable_type : str of [&quot;binary&quot;, &quot;continuous&quot;]</span>
+<span class="sd">    variable_type : str of ["binary", "continuous"]</span>
 <span class="sd">        The type of the variable.</span>
 <span class="sd">    variable_name : str</span>
-<span class="sd">        A short description of the phenotype for instance &quot;disease status&quot;.</span>
+<span class="sd">        A short description of the phenotype for instance "disease status".</span>
 <span class="sd">    filename : str</span>
 <span class="sd">        The HTML file where the visualization will be saved.</span>
-<span class="sd">    flux_type : str of [&quot;import&quot;, &quot;production&quot;]</span>
+<span class="sd">    flux_type : str of ["import", "production"]</span>
 <span class="sd">        Whether to fit using import or production fluxes.</span>
 <span class="sd">    fillna : float or None</span>
 <span class="sd">        Value to fill in for missing flux values (zero fluxes). Default is to drop</span>
@@ -379,33 +379,33 @@
 <span class="sd">    Visualization</span>
 <span class="sd">        A MICOM visualization. Can be served with `viz.view`.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">flux_type</span> <span class="o">==</span> <span class="s2">&quot;import&quot;</span><span class="p">:</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">flux_type</span> <span class="o">==</span> <span class="s2">"import"</span><span class="p">:</span>
         <span class="n">exchanges</span> <span class="o">=</span> <span class="n">consumption_rates</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">exchanges</span> <span class="o">=</span> <span class="n">production_rates</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">exchanges</span><span class="p">[</span><span class="n">exchanges</span><span class="o">.</span><span class="n">sample_id</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">phenotype</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span>
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span> <span class="o">&gt;</span> <span class="n">atol</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;None of the fluxes passed the tolerance threshold :(&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">variable_type</span> <span class="o">==</span> <span class="s2">&quot;binary&quot;</span> <span class="ow">and</span> <span class="n">phenotype</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"None of the fluxes passed the tolerance threshold :("</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">variable_type</span> <span class="o">==</span> <span class="s2">"binary"</span> <span class="ow">and</span> <span class="n">phenotype</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Binary variables must have exactly two unique values, yours &quot;</span>
-            <span class="s2">&quot;has: </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">phenotype</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+            <span class="s2">"Binary variables must have exactly two unique values, yours "</span>
+            <span class="s2">"has: </span><span class="si">%s</span><span class="s2">."</span> <span class="o">%</span> <span class="s2">", "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">phenotype</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
         <span class="p">)</span>
-    <span class="k">elif</span> <span class="n">variable_type</span> <span class="o">==</span> <span class="s2">&quot;continuous&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">phenotype</span><span class="p">):</span>
+    <span class="k">elif</span> <span class="n">variable_type</span> <span class="o">==</span> <span class="s2">"continuous"</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">is_numeric_dtype</span><span class="p">(</span><span class="n">phenotype</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Continuous variables must have a numeric type, but yours is&quot;</span>
-            <span class="s2">&quot; of type `</span><span class="si">%s</span><span class="s2">`.&quot;</span> <span class="o">%</span> <span class="n">phenotype</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="s2">"Continuous variables must have a numeric type, but yours is"</span>
+            <span class="s2">" of type `</span><span class="si">%s</span><span class="s2">`."</span> <span class="o">%</span> <span class="n">phenotype</span><span class="o">.</span><span class="n">dtype</span>
         <span class="p">)</span>
-    <span class="k">elif</span> <span class="n">variable_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span> <span class="s2">&quot;continuous&quot;</span><span class="p">]:</span>
+    <span class="k">elif</span> <span class="n">variable_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"binary"</span><span class="p">,</span> <span class="s2">"continuous"</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;Unsupported variable type. Must be either `binary` or &quot;</span> <span class="s2">&quot;`continuous`.&quot;</span>
+            <span class="s2">"Unsupported variable type. Must be either `binary` or "</span> <span class="s2">"`continuous`."</span>
         <span class="p">)</span>
     <span class="n">exchanges</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">variable_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">phenotype</span><span class="p">[</span><span class="n">exchanges</span><span class="o">.</span><span class="n">sample_id</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 
     <span class="n">fluxes</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
-        <span class="n">index</span><span class="o">=</span><span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">atol</span>
+        <span class="n">index</span><span class="o">=</span><span class="s2">"sample_id"</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"flux"</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">atol</span>
     <span class="p">)</span>
     <span class="n">fluxes</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">)</span>
 
@@ -413,22 +413,22 @@
     <span class="n">stds</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">bad</span> <span class="o">=</span> <span class="n">stds</span> <span class="o">&lt;</span> <span class="n">atol</span>
     <span class="k">if</span> <span class="n">bad</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Removing </span><span class="si">%d</span><span class="s2"> fluxes due to zero variance.&quot;</span> <span class="o">%</span> <span class="n">bad</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Removing </span><span class="si">%d</span><span class="s2"> fluxes due to zero variance."</span> <span class="o">%</span> <span class="n">bad</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
         <span class="n">fluxes</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="n">bad</span><span class="p">]</span>
     <span class="n">scaled</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">fluxes</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">variable_type</span> <span class="o">==</span> <span class="s2">&quot;binary&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">variable_type</span> <span class="o">==</span> <span class="s2">"binary"</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span>
-            <span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;l1&quot;</span><span class="p">,</span>
-            <span class="n">scoring</span><span class="o">=</span><span class="s2">&quot;accuracy&quot;</span><span class="p">,</span>
-            <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">,</span>
+            <span class="n">penalty</span><span class="o">=</span><span class="s2">"l1"</span><span class="p">,</span>
+            <span class="n">scoring</span><span class="o">=</span><span class="s2">"accuracy"</span><span class="p">,</span>
+            <span class="n">solver</span><span class="o">=</span><span class="s2">"liblinear"</span><span class="p">,</span>
             <span class="n">cv</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="n">Cs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)),</span>
             <span class="n">max_iter</span><span class="o">=</span><span class="mi">50000</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scaled</span><span class="p">,</span> <span class="n">meta</span><span class="p">)</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span>
-            <span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;l1&quot;</span><span class="p">,</span>
-            <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">,</span>
+            <span class="n">penalty</span><span class="o">=</span><span class="s2">"l1"</span><span class="p">,</span>
+            <span class="n">solver</span><span class="o">=</span><span class="s2">"liblinear"</span><span class="p">,</span>
             <span class="n">C</span><span class="o">=</span><span class="n">fit</span><span class="o">.</span><span class="n">C_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
             <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
         <span class="p">)</span>
@@ -441,8 +441,8 @@
             <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span>
             <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">statistic_name</span> <span class="o">=</span> <span class="s2">&quot;log fold-change&quot;</span>
-        <span class="n">tests</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;log_fold_change&quot;</span><span class="p">:</span> <span class="s2">&quot;statistic&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">statistic_name</span> <span class="o">=</span> <span class="s2">"log fold-change"</span>
+        <span class="n">tests</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"log_fold_change"</span><span class="p">:</span> <span class="s2">"statistic"</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">LassoCV</span><span class="p">(</span><span class="n">cv</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">50000</span><span class="p">)</span>
         <span class="n">fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scaled</span><span class="p">,</span> <span class="n">meta</span><span class="p">)</span>
@@ -456,27 +456,27 @@
             <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span>
             <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">statistic_name</span> <span class="o">=</span> <span class="s2">&quot;Spearman ρ&quot;</span>
-        <span class="n">tests</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;spearman_rho&quot;</span><span class="p">:</span> <span class="s2">&quot;statistic&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">statistic_name</span> <span class="o">=</span> <span class="s2">"Spearman ρ"</span>
+        <span class="n">tests</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"spearman_rho"</span><span class="p">:</span> <span class="s2">"statistic"</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">score</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">score</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">score</span><span class="p">)]</span>
     <span class="n">score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">scaled</span><span class="p">,</span> <span class="n">meta</span><span class="p">))</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fluxes&quot;</span><span class="p">:</span> <span class="n">exchanges</span><span class="p">,</span> <span class="s2">&quot;tests&quot;</span><span class="p">:</span> <span class="n">tests</span><span class="p">}</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"fluxes"</span><span class="p">:</span> <span class="n">exchanges</span><span class="p">,</span> <span class="s2">"tests"</span><span class="p">:</span> <span class="n">tests</span><span class="p">}</span>
     <span class="n">significant</span> <span class="o">=</span> <span class="n">tests</span><span class="p">[</span><span class="n">tests</span><span class="o">.</span><span class="n">q</span> <span class="o">&lt;</span> <span class="n">fdr_threshold</span><span class="p">]</span>
     <span class="n">predicted</span> <span class="o">=</span> <span class="n">cross_val_predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">scaled</span><span class="p">,</span> <span class="n">meta</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">LeaveOneOut</span><span class="p">())</span>
-    <span class="n">fitted</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;real&quot;</span><span class="p">:</span> <span class="n">meta</span><span class="p">,</span> <span class="s2">&quot;predicted&quot;</span><span class="p">:</span> <span class="n">predicted</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">fitted</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"real"</span><span class="p">:</span> <span class="n">meta</span><span class="p">,</span> <span class="s2">"predicted"</span><span class="p">:</span> <span class="n">predicted</span><span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">meta</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 
     <span class="n">exchanges</span> <span class="o">=</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
         <span class="n">exchanges</span><span class="o">.</span><span class="n">metabolite</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">significant</span><span class="o">.</span><span class="n">metabolite</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
     <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">exchanges</span><span class="p">[</span><span class="n">variable_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">meta</span><span class="p">[</span><span class="n">exchanges</span><span class="o">.</span><span class="n">sample_id</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">var_type</span> <span class="o">=</span> <span class="s2">&quot;nominal&quot;</span> <span class="k">if</span> <span class="n">variable_type</span> <span class="o">==</span> <span class="s2">&quot;binary&quot;</span> <span class="k">else</span> <span class="s2">&quot;quantitative&quot;</span>
-    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;tests.html&quot;</span><span class="p">)</span>
+    <span class="n">var_type</span> <span class="o">=</span> <span class="s2">"nominal"</span> <span class="k">if</span> <span class="n">variable_type</span> <span class="o">==</span> <span class="s2">"binary"</span> <span class="k">else</span> <span class="s2">"quantitative"</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">"tests.html"</span><span class="p">)</span>
 
     <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span>
-        <span class="n">fitted</span><span class="o">=</span><span class="n">fitted</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span>
-        <span class="n">tests</span><span class="o">=</span><span class="n">significant</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span>
-        <span class="n">exchanges</span><span class="o">=</span><span class="n">exchanges</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span>
+        <span class="n">fitted</span><span class="o">=</span><span class="n">fitted</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"records"</span><span class="p">),</span>
+        <span class="n">tests</span><span class="o">=</span><span class="n">significant</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"records"</span><span class="p">),</span>
+        <span class="n">exchanges</span><span class="o">=</span><span class="n">exchanges</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"records"</span><span class="p">),</span>
         <span class="n">metabolites</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">([</span><span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">significant</span><span class="o">.</span><span class="n">metabolite</span><span class="o">.</span><span class="n">tolist</span><span class="p">()),</span>
         <span class="n">variable</span><span class="o">=</span><span class="n">variable_name</span><span class="p">,</span>
         <span class="n">statistic</span><span class="o">=</span><span class="n">statistic_name</span><span class="p">,</span>

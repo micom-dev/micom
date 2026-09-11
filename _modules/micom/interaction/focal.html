@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.interaction.focal</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Quantify metabolic interactions between taxa.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Quantify metabolic interactions between taxa."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">..taxonomy</span><span class="w"> </span><span class="kn">import</span> <span class="n">taxon_id</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">..workflows</span><span class="w"> </span><span class="kn">import</span> <span class="n">GrowthResults</span><span class="p">,</span> <span class="n">workflow</span>
@@ -306,24 +306,24 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">_metabolite_interaction</span><span class="p">(</span>
     <span class="n">fluxes</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">taxon</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">partner</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Checks if and how taxa interact.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Checks if and how taxa interact."""</span>
     <span class="n">tol</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">tolerance</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
     <span class="n">f</span> <span class="o">=</span> <span class="n">fluxes</span><span class="p">[(</span><span class="n">fluxes</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">*</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">abundance</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">tol</span><span class="p">]</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">&quot;export&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">"export"</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
         <span class="k">return</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">&quot;import&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">int_type</span> <span class="o">=</span> <span class="s2">&quot;co-consumed&quot;</span>
-    <span class="k">elif</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">taxon</span> <span class="o">==</span> <span class="n">taxon</span><span class="p">,</span> <span class="s2">&quot;direction&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;export&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-        <span class="n">int_type</span> <span class="o">=</span> <span class="s2">&quot;provided&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">"import"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">int_type</span> <span class="o">=</span> <span class="s2">"co-consumed"</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">taxon</span> <span class="o">==</span> <span class="n">taxon</span><span class="p">,</span> <span class="s2">"direction"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"export"</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+        <span class="n">int_type</span> <span class="o">=</span> <span class="s2">"provided"</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">int_type</span> <span class="o">=</span> <span class="s2">&quot;received&quot;</span>
+        <span class="n">int_type</span> <span class="o">=</span> <span class="s2">"received"</span>
 
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
         <span class="p">{</span>
-            <span class="s2">&quot;focal&quot;</span><span class="p">:</span> <span class="n">taxon</span><span class="p">,</span>
-            <span class="s2">&quot;partner&quot;</span><span class="p">:</span> <span class="n">partner</span><span class="p">,</span>
-            <span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="n">int_type</span><span class="p">,</span>
-            <span class="s2">&quot;flux&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">*</span> <span class="n">f</span><span class="o">.</span><span class="n">abundance</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+            <span class="s2">"focal"</span><span class="p">:</span> <span class="n">taxon</span><span class="p">,</span>
+            <span class="s2">"partner"</span><span class="p">:</span> <span class="n">partner</span><span class="p">,</span>
+            <span class="s2">"class"</span><span class="p">:</span> <span class="n">int_type</span><span class="p">,</span>
+            <span class="s2">"flux"</span><span class="p">:</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">*</span> <span class="n">f</span><span class="o">.</span><span class="n">abundance</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
         <span class="p">},</span>
         <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
     <span class="p">)</span></div>
@@ -335,7 +335,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">sample_interactions</span><span class="p">(</span>
     <span class="n">fluxes</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">sample_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">taxon</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Quantify interactions in a single sammple.</span>
+<span class="w">    </span><span class="sd">"""Quantify interactions in a single sammple.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -350,20 +350,20 @@
 <span class="sd">    -------</span>
 <span class="sd">    pandas.DataFrame</span>
 <span class="sd">        The mapped interactions between the focal taxon and all other taxa.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">ex</span> <span class="o">=</span> <span class="n">fluxes</span><span class="p">[</span><span class="n">fluxes</span><span class="o">.</span><span class="n">sample_id</span> <span class="o">==</span> <span class="n">sample_id</span><span class="p">]</span>
     <span class="n">partners</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">taxon</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
-    <span class="n">partners</span> <span class="o">=</span> <span class="n">partners</span><span class="p">[(</span><span class="n">partners</span> <span class="o">!=</span> <span class="n">taxon</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">partners</span> <span class="o">!=</span> <span class="s2">&quot;medium&quot;</span><span class="p">)]</span>
+    <span class="n">partners</span> <span class="o">=</span> <span class="n">partners</span><span class="p">[(</span><span class="n">partners</span> <span class="o">!=</span> <span class="n">taxon</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">partners</span> <span class="o">!=</span> <span class="s2">"medium"</span><span class="p">)]</span>
     <span class="n">ints</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">partners</span><span class="p">:</span>
         <span class="n">fluxes</span> <span class="o">=</span> <span class="n">ex</span><span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">taxon</span><span class="o">.</span><span class="n">isin</span><span class="p">((</span><span class="n">taxon</span><span class="p">,</span> <span class="n">p</span><span class="p">))]</span>
         <span class="n">ints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="n">fluxes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;metabolite&quot;</span><span class="p">)</span>
+            <span class="n">fluxes</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"metabolite"</span><span class="p">)</span>
             <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">_metabolite_interaction</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">taxon</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
             <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
         <span class="p">)</span>
     <span class="n">ints</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ints</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">])</span>
-    <span class="n">ints</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample_id</span>
+    <span class="n">ints</span><span class="p">[</span><span class="s2">"sample_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample_id</span>
     <span class="k">return</span> <span class="n">ints</span></div>
 
 
@@ -371,16 +371,16 @@
 <div class="viewcode-block" id="_interact">
 <a class="viewcode-back" href="../../../autoapi/micom/interaction/focal/index.html#micom.interaction.focal._interact">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">_interact</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Quantify interactions of a focal taxon with other taxa.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Quantify interactions of a focal taxon with other taxa."""</span>
     <span class="n">results</span><span class="p">,</span> <span class="n">taxon</span> <span class="o">=</span> <span class="n">args</span>
-    <span class="n">ex</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">exchanges</span><span class="p">[</span><span class="n">results</span><span class="o">.</span><span class="n">exchanges</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">&quot;medium&quot;</span><span class="p">]</span>
+    <span class="n">ex</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">exchanges</span><span class="p">[</span><span class="n">results</span><span class="o">.</span><span class="n">exchanges</span><span class="o">.</span><span class="n">taxon</span> <span class="o">!=</span> <span class="s2">"medium"</span><span class="p">]</span>
 
     <span class="n">ints</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">ex</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;sample_id&quot;</span><span class="p">)</span>
+        <span class="n">ex</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"sample_id"</span><span class="p">)</span>
         <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">sample_interactions</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">taxon</span><span class="p">))</span>
         <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;level_1&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">annotations</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">"level_1"</span><span class="p">,</span> <span class="s2">"index"</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s2">"ignore"</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">annotations</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">)</span>
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">ints</span></div>
@@ -395,7 +395,7 @@
     <span class="n">threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Quantify interactions of a focal/reference taxon with other taxa.</span>
+<span class="w">    </span><span class="sd">"""Quantify interactions of a focal/reference taxon with other taxa.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -409,7 +409,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    pandas.DataFrame</span>
 <span class="sd">        The mapped interactions between the focal taxon and all other taxa.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">taxa</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_interact</span><span class="p">([</span><span class="n">results</span><span class="p">,</span> <span class="n">taxon_id</span><span class="p">(</span><span class="n">taxa</span><span class="p">,</span> <span class="n">results</span><span class="o">.</span><span class="n">growth_rates</span><span class="p">)])</span>
     <span class="k">elif</span> <span class="n">taxa</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

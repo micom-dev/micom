@@ -325,7 +325,7 @@ tradeoff = mmd.test_tradeoff()
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.viz import plot_tradeoff
 
-pl = plot_tradeoff(tradeoff, filename=&quot;tradeoff.html&quot;)
+pl = plot_tradeoff(tradeoff, filename="tradeoff.html")
 </pre></div>
 </div>
 </div>
@@ -376,7 +376,7 @@ dict_keys([&#39;tradeoff&#39;])
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.viz import plot_growth
 
-pl = plot_growth(results, filename=&quot;growth_rates.html&quot;)
+pl = plot_growth(results, filename="growth_rates.html")
 </pre></div>
 </div>
 </div>
@@ -392,7 +392,7 @@ pl = plot_growth(results, filename=&quot;growth_rates.html&quot;)
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.viz import plot_exchanges_per_sample
 
-pl = plot_exchanges_per_sample(results, filename=&quot;consumption.html&quot;)
+pl = plot_exchanges_per_sample(results, filename="consumption.html")
 </pre></div>
 </div>
 </div>
@@ -409,7 +409,7 @@ consumption preferences.</p>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.viz import plot_exchanges_per_taxon
 
-pl = plot_exchanges_per_taxon(results, filename=&quot;niche.html&quot;)
+pl = plot_exchanges_per_taxon(results, filename="niche.html")
 </pre></div>
 </div>
 </div>
@@ -446,15 +446,15 @@ import numpy as np
 import pandas as pd
 
 prod = production_rates(results)
-propionate = prod.loc[prod.metabolite == &quot;ppa[e]&quot;, &quot;flux&quot;]
+propionate = prod.loc[prod.metabolite == "ppa[e]", "flux"]
 propionate.index = prod.sample_id.unique()
 high_propionate = propionate &gt; np.median(propionate)
 
 pl = plot_association(
     results,
     phenotype=high_propionate,
-    variable_type=&quot;binary&quot;,
-    filename=&quot;association.html&quot;,
+    variable_type="binary",
+    filename="association.html",
     fdr_threshold=0.5,
 )
 </pre></div>
@@ -473,7 +473,7 @@ pl = plot_association(
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.viz import plot_focal_interactions
 
-pl = plot_focal_interactions(results, taxon=&quot;s__Akkermansia_muciniphila&quot;)
+pl = plot_focal_interactions(results, taxon="s__Akkermansia_muciniphila")
 </pre></div>
 </div>
 </div>
@@ -494,12 +494,12 @@ pl = plot_focal_interactions(results, taxon=&quot;s__Akkermansia_muciniphila&quo
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from micom.viz import plot_mes
 
 groups = pd.Series(
-    5 * [&quot;a&quot;] + 5 * [&quot;b&quot;],
+    5 * ["a"] + 5 * ["b"],
     index=results.growth_rates.sample_id.unique(),
-    name=&quot;random&quot;
+    name="random"
 )
 
-pl = plot_mes(results, groups=groups, filename=&quot;mes.html&quot;)
+pl = plot_mes(results, groups=groups, filename="mes.html")
 </pre></div>
 </div>
 </div>

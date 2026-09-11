@@ -377,7 +377,7 @@ dtype: float64
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sol = com.cooperative_tradeoff()
-rates = sol.members.growth_rate.drop(&quot;medium&quot;)  # extracellular medium has no growth rate
+rates = sol.members.growth_rate.drop("medium")  # extracellular medium has no growth rate
 med = minimal_medium(com, sol.growth_rate, min_growth=rates)
 med
 </pre></div>

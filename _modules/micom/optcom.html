@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.optcom</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Implements optimization and model problems.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Implements optimization and model problems."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.duality</span><span class="w"> </span><span class="kn">import</span> <span class="n">fast_dual</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.util</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -315,7 +315,7 @@
 <div class="viewcode-block" id="add_dualized_optcom">
 <a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom.add_dualized_optcom">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">add_dualized_optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add dual Optcom variables and constraints to a community.</span>
+<span class="w">    </span><span class="sd">"""Add dual Optcom variables and constraints to a community.</span>
 
 <span class="sd">    Uses the original formulation of OptCom and solves the following</span>
 <span class="sd">    multi-objective problem::</span>
@@ -338,8 +338,8 @@
 <span class="sd">        The minimum growth rate for each individual in the community. Either</span>
 <span class="sd">        a single value applied to all individuals or one value for each.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;adding dual optcom to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"adding dual optcom to </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
     <span class="n">check_modification</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
     <span class="n">min_growth</span> <span class="o">=</span> <span class="n">_format_min_growth</span><span class="p">(</span><span class="n">min_growth</span><span class="p">,</span> <span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">)</span>
 
@@ -350,15 +350,15 @@
     <span class="n">old_obj</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">objective</span>
     <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">Zero</span>
     <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">:</span>
-        <span class="n">taxa_obj</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
+        <span class="n">taxa_obj</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">"objective_"</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
         <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">+=</span> <span class="n">taxa_obj</span><span class="o">.</span><span class="n">expression</span>
 
     <span class="n">_apply_min_growth</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">)</span>
     <span class="n">dual_coefs</span> <span class="o">=</span> <span class="n">fast_dual</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;adding expressions for </span><span class="si">%d</span><span class="s2"> taxa&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"adding expressions for </span><span class="si">%d</span><span class="s2"> taxa"</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">:</span>
-        <span class="n">primal_const</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
+        <span class="n">primal_const</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">"objective_"</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
         <span class="n">coefs</span> <span class="o">=</span> <span class="n">primal_const</span><span class="o">.</span><span class="n">get_linear_coefficients</span><span class="p">(</span><span class="n">primal_const</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
         <span class="n">coefs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="p">{</span>
@@ -368,22 +368,22 @@
             <span class="p">}</span>
         <span class="p">)</span>
         <span class="n">obj_constraint</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span>
-            <span class="n">Zero</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;optcom_suboptimality_&quot;</span> <span class="o">+</span> <span class="n">sp</span>
+            <span class="n">Zero</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"optcom_suboptimality_"</span> <span class="o">+</span> <span class="n">sp</span>
         <span class="p">)</span>
         <span class="n">community</span><span class="o">.</span><span class="n">add_cons_vars</span><span class="p">([</span><span class="n">obj_constraint</span><span class="p">])</span>
         <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
         <span class="n">obj_constraint</span><span class="o">.</span><span class="n">set_linear_coefficients</span><span class="p">(</span><span class="n">coefs</span><span class="p">)</span>
 
     <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">old_obj</span>
-    <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="o">=</span> <span class="s2">&quot;dual optcom&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;finished adding dual optcom to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
+    <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="o">=</span> <span class="s2">"dual optcom"</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"finished adding dual optcom to </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="add_moma_optcom">
 <a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom.add_moma_optcom">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">add_moma_optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">linear</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a dualized MOMA version of OptCom.</span>
+<span class="w">    </span><span class="sd">"""Add a dualized MOMA version of OptCom.</span>
 
 <span class="sd">    Solves a MOMA (minimization of metabolic adjustment) formulation of OptCom</span>
 <span class="sd">    given by::</span>
@@ -408,10 +408,10 @@
 <span class="sd">        Whether to use a non-linear (sum of squares) or linear version of the</span>
 <span class="sd">        cooperativity cost. If set to False requires a QP-capable solver.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="s2">&quot;adding dual </span><span class="si">%s</span><span class="s2"> moma to </span><span class="si">%s</span><span class="s2">&quot;</span>
-        <span class="o">%</span> <span class="p">(</span><span class="s2">&quot;linear&quot;</span> <span class="k">if</span> <span class="n">linear</span> <span class="k">else</span> <span class="s2">&quot;quadratic&quot;</span><span class="p">,</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="s2">"adding dual </span><span class="si">%s</span><span class="s2"> moma to </span><span class="si">%s</span><span class="s2">"</span>
+        <span class="o">%</span> <span class="p">(</span><span class="s2">"linear"</span> <span class="k">if</span> <span class="n">linear</span> <span class="k">else</span> <span class="s2">"quadratic"</span><span class="p">,</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
     <span class="p">)</span>
     <span class="n">check_modification</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
     <span class="n">min_growth</span> <span class="o">=</span> <span class="n">_format_min_growth</span><span class="p">(</span><span class="n">min_growth</span><span class="p">,</span> <span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">)</span>
@@ -426,32 +426,32 @@
     <span class="n">_apply_min_growth</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">)</span>
     <span class="n">dual_coefs</span> <span class="o">=</span> <span class="n">fast_dual</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
     <span class="n">coefs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">v</span><span class="p">:</span> <span class="o">-</span><span class="n">coef</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">coef</span> <span class="ow">in</span> <span class="n">dual_coefs</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
-    <span class="n">obj_constraint</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">Zero</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;optcom_suboptimality&quot;</span><span class="p">)</span>
+    <span class="n">obj_constraint</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">Constraint</span><span class="p">(</span><span class="n">Zero</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"optcom_suboptimality"</span><span class="p">)</span>
     <span class="n">community</span><span class="o">.</span><span class="n">add_cons_vars</span><span class="p">([</span><span class="n">obj_constraint</span><span class="p">])</span>
     <span class="n">community</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
     <span class="n">obj_constraint</span><span class="o">.</span><span class="n">set_linear_coefficients</span><span class="p">(</span><span class="n">coefs</span><span class="p">)</span>
     <span class="n">obj_expr</span> <span class="o">=</span> <span class="n">Zero</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;adding expressions for </span><span class="si">%d</span><span class="s2"> taxa&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"adding expressions for </span><span class="si">%d</span><span class="s2"> taxa"</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">:</span>
-        <span class="n">v</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;gc_constant_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">max_gcs</span><span class="p">[</span><span class="n">sp</span><span class="p">],</span> <span class="n">ub</span><span class="o">=</span><span class="n">max_gcs</span><span class="p">[</span><span class="n">sp</span><span class="p">])</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="s2">"gc_constant_"</span> <span class="o">+</span> <span class="n">sp</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="n">max_gcs</span><span class="p">[</span><span class="n">sp</span><span class="p">],</span> <span class="n">ub</span><span class="o">=</span><span class="n">max_gcs</span><span class="p">[</span><span class="n">sp</span><span class="p">])</span>
         <span class="n">community</span><span class="o">.</span><span class="n">add_cons_vars</span><span class="p">([</span><span class="n">v</span><span class="p">])</span>
-        <span class="n">taxa_obj</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
+        <span class="n">taxa_obj</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">"objective_"</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
         <span class="n">ex</span> <span class="o">=</span> <span class="n">v</span> <span class="o">-</span> <span class="n">taxa_obj</span><span class="o">.</span><span class="n">expression</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">linear</span><span class="p">:</span>
             <span class="n">ex</span> <span class="o">=</span> <span class="n">ex</span><span class="o">**</span><span class="mi">2</span>
         <span class="n">obj_expr</span> <span class="o">+=</span> <span class="n">ex</span><span class="o">.</span><span class="n">expand</span><span class="p">()</span>
-    <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">Objective</span><span class="p">(</span><span class="n">obj_expr</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;min&quot;</span><span class="p">)</span>
-    <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="o">=</span> <span class="s2">&quot;moma optcom&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;finished dual moma to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
+    <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">prob</span><span class="o">.</span><span class="n">Objective</span><span class="p">(</span><span class="n">obj_expr</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"min"</span><span class="p">)</span>
+    <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="o">=</span> <span class="s2">"moma optcom"</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"finished dual moma to </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="_methods">
 <a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom._methods">[docs]</a>
 <span class="n">_methods</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;original&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">add_dualized_optcom</span><span class="p">],</span>
-    <span class="s2">&quot;moma&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">add_moma_optcom</span><span class="p">],</span>
-    <span class="s2">&quot;lmoma&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">partial</span><span class="p">(</span><span class="n">add_moma_optcom</span><span class="p">,</span> <span class="n">linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)],</span>
+    <span class="s2">"original"</span><span class="p">:</span> <span class="p">[</span><span class="n">add_dualized_optcom</span><span class="p">],</span>
+    <span class="s2">"moma"</span><span class="p">:</span> <span class="p">[</span><span class="n">add_moma_optcom</span><span class="p">],</span>
+    <span class="s2">"lmoma"</span><span class="p">:</span> <span class="p">[</span><span class="n">partial</span><span class="p">(</span><span class="n">add_moma_optcom</span><span class="p">,</span> <span class="n">linear</span><span class="o">=</span><span class="kc">True</span><span class="p">)],</span>
 <span class="p">}</span></div>
 
 
@@ -459,20 +459,20 @@
 <div class="viewcode-block" id="optcom">
 <a class="viewcode-back" href="../../autoapi/micom/optcom/index.html#micom.optcom.optcom">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">optcom</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">strategy</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run OptCom for the community.</span>
+<span class="w">    </span><span class="sd">"""Run OptCom for the community.</span>
 
 <span class="sd">    OptCom methods are a group of optimization procedures to find community</span>
 <span class="sd">    solutions that provide a tradeoff between the cooperative community</span>
 <span class="sd">    growth and the egoistic growth of each individual [#p1]_. `micom`</span>
 <span class="sd">    provides several strategies that can be used to find optimal solutions:</span>
 
-<span class="sd">    - &quot;moma&quot;: Minimization of metabolic adjustment. Simultaneously</span>
+<span class="sd">    - "moma": Minimization of metabolic adjustment. Simultaneously</span>
 <span class="sd">      optimizes the community objective (maximize) and the cooperativity</span>
 <span class="sd">      cost (minimize). This method finds an exact maximum but doubles the</span>
 <span class="sd">      number of required variables, thus being slow.</span>
-<span class="sd">    - &quot;lmoma&quot;: The same as &quot;moma&quot; only with a linear</span>
+<span class="sd">    - "lmoma": The same as "moma" only with a linear</span>
 <span class="sd">      representation of the cooperativity cost (absolute value).</span>
-<span class="sd">    - &quot;original&quot;: Solves the multi-objective problem described in [#p1]_.</span>
+<span class="sd">    - "original": Solves the multi-objective problem described in [#p1]_.</span>
 <span class="sd">      Here, the community growth rate is maximized simultanously with all</span>
 <span class="sd">      individual growth rates. Note that there are usually many</span>
 <span class="sd">      Pareto-optimal solutions to this problem and the method will only</span>
@@ -484,7 +484,7 @@
 <span class="sd">        The community to optimize.</span>
 <span class="sd">    strategy : str</span>
 <span class="sd">        The strategy used to solve the OptCom formulation. Defaults to</span>
-<span class="sd">        &quot;lagrangian&quot; which gives a decent tradeoff between speed and</span>
+<span class="sd">        "lagrangian" which gives a decent tradeoff between speed and</span>
 <span class="sd">        correctness.</span>
 <span class="sd">    min_growth : float or array-like</span>
 <span class="sd">        The minimal growth rate required for each individual. May be a</span>
@@ -494,7 +494,7 @@
 <span class="sd">        Whether to return the fluxes as well.</span>
 <span class="sd">    pfba : boolean</span>
 <span class="sd">        Whether to obtain fluxes by parsimonious FBA rather than</span>
-<span class="sd">        &quot;classical&quot; FBA.</span>
+<span class="sd">        "classical" FBA.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -509,9 +509,9 @@
 <span class="sd">       Zomorrodi AR, Maranas CD. PLoS Comput Biol. 2012 Feb;8(2):e1002363.</span>
 <span class="sd">       doi: 10.1371/journal.pcbi.1002363, PMID: 22319433</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">strategy</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_methods</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;strategy must be one of </span><span class="si">{}</span><span class="s2">!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_methods</span><span class="p">)))</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"strategy must be one of </span><span class="si">{}</span><span class="s2">!"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_methods</span><span class="p">)))</span>
     <span class="n">funcs</span> <span class="o">=</span> <span class="n">_methods</span><span class="p">[</span><span class="n">strategy</span><span class="p">]</span>
 
     <span class="k">with</span> <span class="n">community</span> <span class="k">as</span> <span class="n">com</span><span class="p">:</span>

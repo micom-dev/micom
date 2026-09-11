@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.stats</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Data warngling and statistics for MICOM.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Data warngling and statistics for MICOM."""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -304,7 +304,7 @@
 <div class="viewcode-block" id="fdr_adjust">
 <a class="viewcode-back" href="../../autoapi/micom/stats/index.html#micom.stats.fdr_adjust">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">fdr_adjust</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get FDR cutoffs for p-values with Benjamini-Hochberg.</span>
+<span class="w">    </span><span class="sd">"""Get FDR cutoffs for p-values with Benjamini-Hochberg.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -313,12 +313,12 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    A numpy array of FDR cutoffs (q-values). This is commonly known as &quot;adjusted&quot;</span>
+<span class="sd">    A numpy array of FDR cutoffs (q-values). This is commonly known as "adjusted"</span>
 <span class="sd">    p-values.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`p` can not contain NAs. Please filter those before.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"`p` can not contain NAs. Please filter those before."</span><span class="p">)</span>
     <span class="n">order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">p</span><span class="p">)</span>
     <span class="n">reverse_order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
@@ -347,10 +347,10 @@
 
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s2">&quot;metabolite&quot;</span><span class="p">:</span> <span class="n">met</span><span class="p">,</span>
-                <span class="s2">&quot;log_fold_change&quot;</span><span class="p">:</span> <span class="n">lfc</span><span class="p">,</span>
-                <span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span>
-                <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="s2">"metabolite"</span><span class="p">:</span> <span class="n">met</span><span class="p">,</span>
+                <span class="s2">"log_fold_change"</span><span class="p">:</span> <span class="n">lfc</span><span class="p">,</span>
+                <span class="s2">"p"</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span>
+                <span class="s2">"n"</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
             <span class="p">},</span>
             <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
         <span class="p">)</span>
@@ -364,10 +364,10 @@
 
         <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s2">&quot;metabolite&quot;</span><span class="p">:</span> <span class="n">met</span><span class="p">,</span>
-                <span class="s2">&quot;log_mean_std&quot;</span><span class="p">:</span> <span class="n">lstd</span><span class="p">,</span>
-                <span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span>
-                <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="s2">"metabolite"</span><span class="p">:</span> <span class="n">met</span><span class="p">,</span>
+                <span class="s2">"log_mean_std"</span><span class="p">:</span> <span class="n">lstd</span><span class="p">,</span>
+                <span class="s2">"p"</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span>
+                <span class="s2">"n"</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
             <span class="p">},</span>
             <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
         <span class="p">)</span></div>
@@ -380,15 +380,15 @@
     <span class="n">df</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">met</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">metabolite</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">rho</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+        <span class="n">rho</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"flux"</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
         <span class="n">rho</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
         <span class="p">{</span>
-            <span class="s2">&quot;metabolite&quot;</span><span class="p">:</span> <span class="n">met</span><span class="p">,</span>
-            <span class="s2">&quot;spearman_rho&quot;</span><span class="p">:</span> <span class="n">rho</span><span class="p">,</span>
-            <span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span>
-            <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="s2">"metabolite"</span><span class="p">:</span> <span class="n">met</span><span class="p">,</span>
+            <span class="s2">"spearman_rho"</span><span class="p">:</span> <span class="n">rho</span><span class="p">,</span>
+            <span class="s2">"p"</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span>
+            <span class="s2">"n"</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
         <span class="p">},</span>
         <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
     <span class="p">)</span></div>
@@ -397,13 +397,13 @@
 
 <div class="viewcode-block" id="fill_missing_fluxes">
 <a class="viewcode-back" href="../../autoapi/micom/stats/index.html#micom.stats.fill_missing_fluxes">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">fill_missing_fluxes</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">index_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fills missing fluxes with a replacement.&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fill_missing_fluxes</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">index_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"sample_id"</span><span class="p">],</span> <span class="n">fill</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Fills missing fluxes with a replacement."""</span>
     <span class="n">piv</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
-        <span class="n">index</span><span class="o">=</span><span class="n">index_vars</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">index_vars</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">"flux"</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill</span>
     <span class="p">)</span>
     <span class="n">fluxes</span> <span class="o">=</span> <span class="n">piv</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
-        <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span>
+        <span class="n">var_name</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">"flux"</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">fluxes</span></div>
 
@@ -414,7 +414,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">compare_groups</span><span class="p">(</span>
     <span class="n">fluxes</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fillna</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compare fluxes form different sample groups.</span>
+<span class="w">    </span><span class="sd">"""Compare fluxes form different sample groups.</span>
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
@@ -444,7 +444,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    Returns the metabolite with their respective test statistics.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">groups</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">fluxes</span> <span class="o">=</span> <span class="n">fluxes</span><span class="p">[</span><span class="n">fluxes</span><span class="p">[</span><span class="n">metadata_column</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">groups</span><span class="p">)]</span>
     <span class="k">else</span><span class="p">:</span>
@@ -452,13 +452,13 @@
 
     <span class="k">if</span> <span class="n">fillna</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">piv</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
-            <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">],</span>
-            <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span>
-            <span class="n">values</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"sample_id"</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">],</span>
+            <span class="n">columns</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="s2">"flux"</span><span class="p">,</span>
             <span class="n">fill_value</span><span class="o">=</span><span class="n">fillna</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">fluxes</span> <span class="o">=</span> <span class="n">piv</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
-            <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span>
+            <span class="n">var_name</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">"flux"</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span>
         <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
     <span class="n">met_data</span> <span class="o">=</span> <span class="p">[</span>
@@ -468,11 +468,11 @@
     <span class="n">res</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_run_test</span><span class="p">,</span> <span class="n">met_data</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">)</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">res</span><span class="p">[</span><span class="s2">&quot;comparison&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">groups</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> vs. </span><span class="si">{</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">res</span><span class="p">[</span><span class="s2">"comparison"</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">groups</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> vs. </span><span class="si">{</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">res</span><span class="p">[</span><span class="s2">&quot;covariate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata_column</span>
-    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-    <span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fdr_adjust</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">&quot;p&quot;</span><span class="p">])</span>
+        <span class="n">res</span><span class="p">[</span><span class="s2">"covariate"</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata_column</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">"q"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">"q"</span><span class="p">]</span> <span class="o">=</span> <span class="n">fdr_adjust</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">"p"</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">res</span></div>
 
 
@@ -480,7 +480,7 @@
 <div class="viewcode-block" id="correlate_fluxes">
 <a class="viewcode-back" href="../../autoapi/micom/stats/index.html#micom.stats.correlate_fluxes">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">correlate_fluxes</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">,</span> <span class="n">fillna</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Correlate fluxes with a continuous covariate.</span>
+<span class="w">    </span><span class="sd">"""Correlate fluxes with a continuous covariate.</span>
 
 <span class="sd">    Note</span>
 <span class="sd">    ----</span>
@@ -505,16 +505,16 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    Returns the metabolite with their respective test statistics.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">fillna</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">piv</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
-            <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">],</span>
-            <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span>
-            <span class="n">values</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span>
+            <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">"sample_id"</span><span class="p">,</span> <span class="n">metadata_column</span><span class="p">],</span>
+            <span class="n">columns</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">,</span>
+            <span class="n">values</span><span class="o">=</span><span class="s2">"flux"</span><span class="p">,</span>
             <span class="n">fill_value</span><span class="o">=</span><span class="n">fillna</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">fluxes</span> <span class="o">=</span> <span class="n">piv</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
-            <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;metabolite&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span>
+            <span class="n">var_name</span><span class="o">=</span><span class="s2">"metabolite"</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">"flux"</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">False</span>
         <span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
     <span class="n">met_data</span> <span class="o">=</span> <span class="p">[</span>
@@ -523,9 +523,9 @@
     <span class="p">]</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">workflow</span><span class="p">(</span><span class="n">_run_corr</span><span class="p">,</span> <span class="n">met_data</span><span class="p">,</span> <span class="n">threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="n">progress</span><span class="p">)</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
-    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;covariate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata_column</span>
-    <span class="n">res</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-    <span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fdr_adjust</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">&quot;p&quot;</span><span class="p">])</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">"covariate"</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata_column</span>
+    <span class="n">res</span><span class="p">[</span><span class="s2">"q"</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">"q"</span><span class="p">]</span> <span class="o">=</span> <span class="n">fdr_adjust</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">notnull</span><span class="p">(),</span> <span class="s2">"p"</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">res</span></div>
 
 </pre></div>

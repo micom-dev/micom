@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.problems</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Implements tradeoff optimization between community and egoistic growth.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Implements tradeoff optimization between community and egoistic growth."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">cobra.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">interface_to_str</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.util</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
@@ -327,7 +327,7 @@
 <div class="viewcode-block" id="regularize_l2_norm">
 <a class="viewcode-back" href="../../autoapi/micom/problems/index.html#micom.problems.regularize_l2_norm">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">regularize_l2_norm</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add an objective to find the most &quot;egoistic&quot; solution.</span>
+<span class="w">    </span><span class="sd">"""Add an objective to find the most "egoistic" solution.</span>
 
 <span class="sd">    This adds an optimization objective finding a solution that maintains a</span>
 <span class="sd">    (sub-)optimal community growth rate but is the closest solution to the</span>
@@ -350,8 +350,8 @@
 <span class="sd">    max_gcs : None or dict</span>
 <span class="sd">        The precomputed maximum individual growth rates.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;adding L2 norm to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="sd">    """</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"adding L2 norm to </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
     <span class="n">l2</span> <span class="o">=</span> <span class="n">Zero</span>
     <span class="n">community</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span><span class="o">.</span><span class="n">lb</span> <span class="o">=</span> <span class="n">min_growth</span>
     <span class="n">context</span> <span class="o">=</span> <span class="n">get_context</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
@@ -359,20 +359,20 @@
         <span class="n">context</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">reset_min_community_growth</span><span class="p">,</span> <span class="n">community</span><span class="p">))</span>
 
     <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">community</span><span class="o">.</span><span class="n">taxa</span><span class="p">:</span>
-        <span class="n">taxa_obj</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;objective_&quot;</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
+        <span class="n">taxa_obj</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">"objective_"</span> <span class="o">+</span> <span class="n">sp</span><span class="p">]</span>
         <span class="n">ex</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">taxa_obj</span><span class="o">.</span><span class="n">variables</span> <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">ub</span> <span class="o">-</span> <span class="n">v</span><span class="o">.</span><span class="n">lb</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">l2</span> <span class="o">+=</span> <span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">ex</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">expand</span><span class="p">()</span>
     <span class="n">community</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="o">-</span><span class="n">l2</span>
-    <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="o">=</span> <span class="s2">&quot;l2 regularization&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;finished adding tradeoff objective to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
+    <span class="n">community</span><span class="o">.</span><span class="n">modification</span> <span class="o">=</span> <span class="s2">"l2 regularization"</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"finished adding tradeoff objective to </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">community</span><span class="o">.</span><span class="n">id</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="cooperative_tradeoff">
 <a class="viewcode-back" href="../../autoapi/micom/problems/index.html#micom.problems.cooperative_tradeoff">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">cooperative_tradeoff</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">min_growth</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">fluxes</span><span class="p">,</span> <span class="n">pfba</span><span class="p">,</span> <span class="n">atol</span><span class="p">,</span> <span class="n">rtol</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the best tradeoff between community and individual growth.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Find the best tradeoff between community and individual growth."""</span>
     <span class="k">with</span> <span class="n">community</span> <span class="k">as</span> <span class="n">com</span><span class="p">:</span>
         <span class="n">solver</span> <span class="o">=</span> <span class="n">interface_to_str</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">problem</span><span class="p">)</span>
         <span class="n">check_modification</span><span class="p">(</span><span class="n">community</span><span class="p">)</span>
@@ -381,7 +381,7 @@
 
         <span class="n">com</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">scale</span> <span class="o">*</span> <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span>
         <span class="n">min_growth</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">optimize_with_retry</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;could not get community growth rate.&quot;</span><span class="p">)</span>
+            <span class="n">optimize_with_retry</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">"could not get community growth rate."</span><span class="p">)</span>
             <span class="o">/</span> <span class="n">com</span><span class="o">.</span><span class="n">scale</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fraction</span><span class="p">,</span> <span class="n">Sized</span><span class="p">):</span>
@@ -401,14 +401,14 @@
             <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">fr</span><span class="p">,</span> <span class="n">sol</span><span class="p">))</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;tradeoff&quot;</span><span class="p">,</span> <span class="s2">&quot;solution&quot;</span><span class="p">])</span></div>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"tradeoff"</span><span class="p">,</span> <span class="s2">"solution"</span><span class="p">])</span></div>
 
 
 
 <div class="viewcode-block" id="knockout_taxa">
 <a class="viewcode-back" href="../../autoapi/micom/problems/index.html#micom.problems.knockout_taxa">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">knockout_taxa</span><span class="p">(</span><span class="n">community</span><span class="p">,</span> <span class="n">taxa</span><span class="p">,</span> <span class="n">fraction</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span> <span class="n">diag</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Knockout a taxon from the community.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Knockout a taxon from the community."""</span>
     <span class="k">with</span> <span class="n">community</span> <span class="k">as</span> <span class="n">com</span><span class="p">:</span>
         <span class="n">check_modification</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
         <span class="n">min_growth</span> <span class="o">=</span> <span class="n">_format_min_growth</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">com</span><span class="o">.</span><span class="n">taxa</span><span class="p">)</span>
@@ -416,30 +416,30 @@
 
         <span class="n">com</span><span class="o">.</span><span class="n">objective</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">scale</span> <span class="o">*</span> <span class="n">com</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">community_objective</span>
         <span class="n">community_min_growth</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">optimize_with_retry</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="s2">&quot;could not get community growth rate.&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">com</span><span class="o">.</span><span class="n">scale</span>
+            <span class="n">optimize_with_retry</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="s2">"could not get community growth rate."</span><span class="p">)</span> <span class="o">/</span> <span class="n">com</span><span class="o">.</span><span class="n">scale</span>
         <span class="p">)</span>
         <span class="n">regularize_l2_norm</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span> <span class="o">*</span> <span class="n">community_min_growth</span><span class="p">)</span>
-        <span class="n">old</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">]</span>
+        <span class="n">old</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="s2">"growth_rate"</span><span class="p">]</span>
         <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="nb">iter</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span><span class="n">taxa</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Knockouts&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">progress</span> <span class="k">else</span> <span class="n">taxa</span>
+        <span class="nb">iter</span> <span class="o">=</span> <span class="n">track</span><span class="p">(</span><span class="n">taxa</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Knockouts"</span><span class="p">)</span> <span class="k">if</span> <span class="n">progress</span> <span class="k">else</span> <span class="n">taxa</span>
         <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">com</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;getting growth rates for </span><span class="si">%s</span><span class="s2"> knockout.&quot;</span> <span class="o">%</span> <span class="n">sp</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"getting growth rates for </span><span class="si">%s</span><span class="s2"> knockout."</span> <span class="o">%</span> <span class="n">sp</span><span class="p">)</span>
                 <span class="p">[</span>
                     <span class="n">r</span><span class="o">.</span><span class="n">knock_out</span><span class="p">()</span>
                     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">reactions</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ri</span><span class="p">:</span> <span class="n">ri</span><span class="o">.</span><span class="n">community_id</span> <span class="o">==</span> <span class="n">sp</span><span class="p">)</span>
                 <span class="p">]</span>
 
                 <span class="n">sol</span> <span class="o">=</span> <span class="n">optimize_with_fraction</span><span class="p">(</span><span class="n">com</span><span class="p">,</span> <span class="n">fraction</span><span class="p">)</span>
-                <span class="n">new</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="s2">&quot;growth_rate&quot;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="s2">&quot;change&quot;</span> <span class="ow">in</span> <span class="n">method</span><span class="p">:</span>
+                <span class="n">new</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="s2">"growth_rate"</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s2">"change"</span> <span class="ow">in</span> <span class="n">method</span><span class="p">:</span>
                     <span class="n">new</span> <span class="o">=</span> <span class="n">new</span> <span class="o">-</span> <span class="n">old</span>
-                <span class="k">if</span> <span class="s2">&quot;relative&quot;</span> <span class="ow">in</span> <span class="n">method</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">"relative"</span> <span class="ow">in</span> <span class="n">method</span><span class="p">:</span>
                     <span class="n">new</span> <span class="o">/=</span> <span class="n">old</span>
                 <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new</span><span class="p">)</span>
 
-        <span class="n">ko</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">taxa</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;medium&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ko</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">taxa</span><span class="p">)</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">"medium"</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">ko</span> <span class="o">=</span> <span class="n">ko</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ko</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(),</span> <span class="n">ko</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">diag</span><span class="p">:</span>
             <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">ko</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">)</span>

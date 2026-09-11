@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.workflows.results</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;A class for tracking results for growth simulations.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""A class for tracking results for growth simulations."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduce</span>
@@ -309,7 +309,7 @@
 
 <div class="viewcode-block" id="DIRECTION">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/results/index.html#micom.workflows.DIRECTION">[docs]</a>
-<span class="n">DIRECTION</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">&quot;import&quot;</span><span class="p">,</span> <span class="s2">&quot;export&quot;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span></div>
+<span class="n">DIRECTION</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="s2">"import"</span><span class="p">,</span> <span class="s2">"export"</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span></div>
 
 
 
@@ -333,7 +333,7 @@
 <div class="viewcode-block" id="GrowthResults.save">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/results/index.html#micom.workflows.GrowthResults.save">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save growth results to a file.</span>
+<span class="w">        </span><span class="sd">"""Save growth results to a file.</span>
 
 <span class="sd">        This will write all tables as CSV into a single ZIP file.</span>
 
@@ -341,17 +341,17 @@
 <span class="sd">        ---------</span>
 <span class="sd">        path : str</span>
 <span class="sd">            A filepath for the generated file. Should end in `.zip`.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zippy</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;growth_rates&quot;</span><span class="p">,</span> <span class="s2">&quot;exchanges&quot;</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">]:</span>
-                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">zippy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+<span class="sd">        """</span>
+        <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">zippy</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"growth_rates"</span><span class="p">,</span> <span class="s2">"exchanges"</span><span class="p">,</span> <span class="s2">"annotations"</span><span class="p">]:</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">zippy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s2">.csv"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="GrowthResults.load">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/results/index.html#micom.workflows.GrowthResults.load">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GrowthResults</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load growth results from a file.</span>
+<span class="w">        </span><span class="sd">"""Load growth results from a file.</span>
 
 <span class="sd">        Arguments</span>
 <span class="sd">        ---------</span>
@@ -362,11 +362,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        GrowthResults</span>
 <span class="sd">            The loaded growth results.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">tables</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zippy</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;growth_rates&quot;</span><span class="p">,</span> <span class="s2">&quot;exchanges&quot;</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">]:</span>
-                <span class="n">tab</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">zippy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">))</span>
+        <span class="k">with</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">zippy</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"growth_rates"</span><span class="p">,</span> <span class="s2">"exchanges"</span><span class="p">,</span> <span class="s2">"annotations"</span><span class="p">]:</span>
+                <span class="n">tab</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">zippy</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s2">.csv"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">))</span>
                 <span class="n">tables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tab</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">GrowthResults</span><span class="p">(</span><span class="o">*</span><span class="n">tables</span><span class="p">)</span></div>
 
@@ -374,7 +374,7 @@
 <div class="viewcode-block" id="GrowthResults.__add__">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/results/index.html#micom.workflows.GrowthResults.__add__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">GrowthResults</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GrowthResults</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Combine two GrowthResults objects.</span>
+<span class="w">        </span><span class="sd">"""Combine two GrowthResults objects.</span>
 
 <span class="sd">        Arguments</span>
 <span class="sd">        ---------</span>
@@ -385,11 +385,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        GrowthResult</span>
 <span class="sd">            A merged growth result containing data from both.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">rates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">growth_rates</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">growth_rates</span><span class="p">])</span>
         <span class="n">exs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">exchanges</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">exchanges</span><span class="p">])</span>
         <span class="n">anns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">annotations</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">annotations</span><span class="p">])</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span>
-            <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reaction&quot;</span><span class="p">]</span>
+            <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"reaction"</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="n">anns</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">anns</span><span class="o">.</span><span class="n">reaction</span>
         <span class="k">return</span> <span class="n">GrowthResults</span><span class="p">(</span><span class="n">rates</span><span class="p">,</span> <span class="n">exs</span><span class="p">,</span> <span class="n">anns</span><span class="p">)</span></div>
@@ -399,34 +399,34 @@
 <div class="viewcode-block" id="GrowthResults.from_solution">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/results/index.html#micom.workflows.GrowthResults.from_solution">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">from_solution</span><span class="p">(</span><span class="n">sol</span><span class="p">:</span> <span class="n">CommunitySolution</span><span class="p">,</span> <span class="n">com</span><span class="p">:</span> <span class="n">Community</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">GrowthResults</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a solution to growth results.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Convert a solution to growth results."""</span>
         <span class="k">if</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Solution needs to contain fluxes to be converted.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Solution needs to contain fluxes to be converted."</span><span class="p">)</span>
         <span class="n">tol</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">configuration</span><span class="o">.</span><span class="n">tolerances</span><span class="o">.</span><span class="n">feasibility</span>
 
         <span class="c1"># Get the main objects</span>
-        <span class="n">rates</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;medium&quot;</span><span class="p">)</span>
-        <span class="n">rates</span><span class="p">[</span><span class="s2">&quot;taxon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">index</span>
-        <span class="n">rates</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">rates</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">members</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">"medium"</span><span class="p">)</span>
+        <span class="n">rates</span><span class="p">[</span><span class="s2">"taxon"</span><span class="p">]</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">rates</span><span class="p">[</span><span class="s2">"sample_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
         <span class="n">exs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">({</span><span class="n">r</span><span class="o">.</span><span class="n">global_id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">com</span><span class="o">.</span><span class="n">internal_exchanges</span> <span class="o">+</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span><span class="p">})</span>
         <span class="n">fluxes</span> <span class="o">=</span> <span class="n">sol</span><span class="o">.</span><span class="n">fluxes</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">exs</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">fluxes</span><span class="p">[</span><span class="s2">&quot;sample_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
-        <span class="n">fluxes</span><span class="p">[</span><span class="s2">&quot;tolerance&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tol</span>
-        <span class="n">fluxes</span><span class="p">[</span><span class="s2">&quot;taxon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">fluxes</span><span class="p">[</span><span class="s2">"sample_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">fluxes</span><span class="p">[</span><span class="s2">"tolerance"</span><span class="p">]</span> <span class="o">=</span> <span class="n">tol</span>
+        <span class="n">fluxes</span><span class="p">[</span><span class="s2">"taxon"</span><span class="p">]</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
         <span class="n">anns</span> <span class="o">=</span> <span class="n">annotate_metabolites_from_exchanges</span><span class="p">(</span><span class="n">com</span><span class="p">)</span>
-        <span class="n">anns</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reaction&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">anns</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"reaction"</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># Cast data into the expected format</span>
         <span class="n">fluxes</span> <span class="o">=</span> <span class="n">fluxes</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
-            <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;taxon&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="s2">&quot;tolerance&quot;</span><span class="p">],</span>
-            <span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">,</span>
-            <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;flux&quot;</span><span class="p">,</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">])</span>
-        <span class="n">abundance</span> <span class="o">=</span> <span class="n">rates</span><span class="p">[[</span><span class="s2">&quot;taxon&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="s2">&quot;abundance&quot;</span><span class="p">]]</span>
-        <span class="n">exchanges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">abundance</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;taxon&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_id&quot;</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;outer&quot;</span><span class="p">)</span>
+            <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s2">"taxon"</span><span class="p">,</span> <span class="s2">"sample_id"</span><span class="p">,</span> <span class="s2">"tolerance"</span><span class="p">],</span>
+            <span class="n">var_name</span><span class="o">=</span><span class="s2">"reaction"</span><span class="p">,</span>
+            <span class="n">value_name</span><span class="o">=</span><span class="s2">"flux"</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"flux"</span><span class="p">])</span>
+        <span class="n">abundance</span> <span class="o">=</span> <span class="n">rates</span><span class="p">[[</span><span class="s2">"taxon"</span><span class="p">,</span> <span class="s2">"sample_id"</span><span class="p">,</span> <span class="s2">"abundance"</span><span class="p">]]</span>
+        <span class="n">exchanges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fluxes</span><span class="p">,</span> <span class="n">abundance</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s2">"taxon"</span><span class="p">,</span> <span class="s2">"sample_id"</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s2">"outer"</span><span class="p">)</span>
         <span class="n">anns</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">anns</span><span class="o">.</span><span class="n">reaction</span>
-        <span class="n">exchanges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">exchanges</span><span class="p">,</span> <span class="n">anns</span><span class="p">[[</span><span class="s2">&quot;metabolite&quot;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
-        <span class="n">exchanges</span><span class="p">[</span><span class="s2">&quot;direction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">DIRECTION</span><span class="p">[(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">exchanges</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">exchanges</span><span class="p">,</span> <span class="n">anns</span><span class="p">[[</span><span class="s2">"metabolite"</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">"reaction"</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+        <span class="n">exchanges</span><span class="p">[</span><span class="s2">"direction"</span><span class="p">]</span> <span class="o">=</span> <span class="n">DIRECTION</span><span class="p">[(</span><span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)]</span><span class="o">.</span><span class="n">values</span>
         <span class="n">exchanges</span> <span class="o">=</span> <span class="n">exchanges</span><span class="p">[</span><span class="n">exchanges</span><span class="o">.</span><span class="n">flux</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">exchanges</span><span class="o">.</span><span class="n">tolerance</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">GrowthResults</span><span class="p">(</span><span class="n">rates</span><span class="p">,</span> <span class="n">exchanges</span><span class="p">,</span> <span class="n">anns</span><span class="p">)</span></div>
 </div>
@@ -436,7 +436,7 @@
 <div class="viewcode-block" id="save_results">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/results/index.html#micom.workflows.save_results">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">save_results</span><span class="p">(</span><span class="n">results</span><span class="p">:</span> <span class="n">GrowthResults</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save growth results to a file.</span>
+<span class="w">    </span><span class="sd">"""Save growth results to a file.</span>
 
 <span class="sd">    This will write all tables as CSV into a single ZIP file.</span>
 
@@ -446,7 +446,7 @@
 <span class="sd">        The results as returned from `grow`.</span>
 <span class="sd">    path : str</span>
 <span class="sd">        A filepath for the generated file. Should end in `.zip`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">results</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
 
@@ -454,7 +454,7 @@
 <div class="viewcode-block" id="load_results">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/results/index.html#micom.workflows.load_results">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_results</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load growth results from a file.</span>
+<span class="w">    </span><span class="sd">"""Load growth results from a file.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -465,7 +465,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    GrowthResults</span>
 <span class="sd">        The saved GrowthResults.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">GrowthResults</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
 
@@ -473,7 +473,7 @@
 <div class="viewcode-block" id="combine_results">
 <a class="viewcode-back" href="../../../autoapi/micom/workflows/results/index.html#micom.workflows.combine_results">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">combine_results</span><span class="p">(</span><span class="n">it</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Iterable</span><span class="p">[</span><span class="n">GrowthResults</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">GrowthResults</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Combine several GrowthResults.</span>
+<span class="w">    </span><span class="sd">"""Combine several GrowthResults.</span>
 
 <span class="sd">    Arguments</span>
 <span class="sd">    ---------</span>
@@ -484,7 +484,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    GrowthResults</span>
 <span class="sd">        The merged results.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">it</span><span class="p">)</span></div>
 
 </pre></div>

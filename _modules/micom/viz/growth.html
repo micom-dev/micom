@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.viz.growth</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Visualization for growth rates.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Visualization for growth rates."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">micom.viz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Visualization</span>
@@ -302,14 +302,14 @@
 
 
 <div class="viewcode-block" id="plot_growth">
-<a class="viewcode-back" href="../../../autoapi/micom/viz/index.html#micom.viz.growth.plot_growth">[docs]</a>
+<a class="viewcode-back" href="../../../autoapi/micom/viz/growth/index.html#micom.viz.growth.plot_growth">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_growth</span><span class="p">(</span>
     <span class="n">results</span><span class="p">:</span> <span class="n">GrowthResults</span><span class="p">,</span>
-    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;growth_rates_</span><span class="si">%s</span><span class="s2">.html&quot;</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"growth_rates_</span><span class="si">%s</span><span class="s2">.html"</span> <span class="o">%</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">"%Y%m</span><span class="si">%d</span><span class="s2">"</span><span class="p">),</span>
     <span class="n">groups</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the taxa growth rates.</span>
+<span class="w">    </span><span class="sd">"""Plot the taxa growth rates.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -329,24 +329,24 @@
 <span class="sd">    -------</span>
 <span class="sd">    Visualization</span>
 <span class="sd">        A MICOM visualization. Can be served with `viz.serve`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">rates</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">growth_rates</span>
     <span class="n">rates</span> <span class="o">=</span> <span class="n">rates</span><span class="p">[</span><span class="n">rates</span><span class="o">.</span><span class="n">growth_rate</span> <span class="o">&gt;</span> <span class="n">tolerance</span><span class="p">][</span>
-        <span class="p">[</span><span class="s2">&quot;taxon&quot;</span><span class="p">,</span> <span class="s2">&quot;sample_id&quot;</span><span class="p">,</span> <span class="s2">&quot;abundance&quot;</span><span class="p">,</span> <span class="s2">&quot;growth_rate&quot;</span><span class="p">]</span>
+        <span class="p">[</span><span class="s2">"taxon"</span><span class="p">,</span> <span class="s2">"sample_id"</span><span class="p">,</span> <span class="s2">"abundance"</span><span class="p">,</span> <span class="s2">"growth_rate"</span><span class="p">]</span>
     <span class="p">]</span>
 
     <span class="k">if</span> <span class="n">groups</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;bool&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Groups need to be categorical.&quot;</span><span class="p">)</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;group&quot;</span> <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"object"</span><span class="p">,</span> <span class="s2">"category"</span><span class="p">,</span> <span class="s2">"bool"</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Groups need to be categorical."</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">"group"</span> <span class="k">if</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">groups</span><span class="o">.</span><span class="n">name</span>
         <span class="n">rates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="n">rates</span><span class="o">.</span><span class="n">sample_id</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;taxon&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">"taxon"</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;growth_rates&quot;</span><span class="p">:</span> <span class="n">rates</span><span class="p">}</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"growth_rates"</span><span class="p">:</span> <span class="n">rates</span><span class="p">}</span>
     <span class="n">n_taxa</span> <span class="o">=</span> <span class="n">rates</span><span class="o">.</span><span class="n">taxon</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span>
-    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;growth.html&quot;</span><span class="p">)</span>
-    <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">rates</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">&quot;records&quot;</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">n_taxa</span><span class="o">=</span><span class="n">n_taxa</span><span class="p">)</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">"growth.html"</span><span class="p">)</span>
+    <span class="n">viz</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">rates</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">orient</span><span class="o">=</span><span class="s2">"records"</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">n_taxa</span><span class="o">=</span><span class="n">n_taxa</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">viz</span></div>
 

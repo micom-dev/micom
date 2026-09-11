@@ -293,7 +293,7 @@
         </div>
         <article role="main" id="furo-main-content">
           <h1>Source code for micom.annotation</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Helper to annotate metabolites and species.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Helper to annotate metabolites and species."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">cobra.core.formula</span><span class="w"> </span><span class="kn">import</span> <span class="n">Formula</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
@@ -303,28 +303,28 @@
 <div class="viewcode-block" id="flatten">
 <a class="viewcode-back" href="../../autoapi/micom/annotation/index.html#micom.annotation.flatten">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">flatten</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Flatten a dictionary into strings.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Flatten a dictionary into strings."""</span>
     <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
 
 
 
 <div class="viewcode-block" id="annotate">
 <a class="viewcode-back" href="../../autoapi/micom/annotation/index.html#micom.annotation.annotate">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">annotate</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">community</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;reaction&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Annotate a list of entities.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;reaction&quot;</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">annotate</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">community</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">"reaction"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Annotate a list of entities."""</span>
+    <span class="k">if</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">"reaction"</span><span class="p">:</span>
         <span class="n">elems</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">reactions</span>
-    <span class="k">elif</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;metabolite&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">"metabolite"</span><span class="p">:</span>
         <span class="n">elems</span> <span class="o">=</span> <span class="n">community</span><span class="o">.</span><span class="n">metabolites</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid value for `what` :(&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Invalid value for `what` :("</span><span class="p">)</span>
 
     <span class="n">objs</span> <span class="o">=</span> <span class="n">elems</span><span class="o">.</span><span class="n">get_by_any</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
-    <span class="n">attr</span> <span class="o">=</span> <span class="s2">&quot;global_id&quot;</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">reactions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;global_id&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;id&quot;</span>
+    <span class="n">attr</span> <span class="o">=</span> <span class="s2">"global_id"</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">community</span><span class="o">.</span><span class="n">reactions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"global_id"</span><span class="p">)</span> <span class="k">else</span> <span class="s2">"id"</span>
 
-    <span class="k">if</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;reaction&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">"reaction"</span><span class="p">:</span>
         <span class="n">anns</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="n">what</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">flatten</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">annotation</span><span class="p">)})</span>
+            <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="n">what</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="s2">"name"</span><span class="p">:</span> <span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">flatten</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">annotation</span><span class="p">)})</span>
             <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">objs</span>
         <span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
@@ -332,10 +332,10 @@
             <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span>
                 <span class="p">{</span>
                     <span class="n">what</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
-                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                    <span class="s2">&quot;molecular_weight&quot;</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
-                    <span class="s2">&quot;C_number&quot;</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-                    <span class="s2">&quot;N_number&quot;</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="s2">"molecular_weight"</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
+                    <span class="s2">"C_number"</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"C"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="s2">"N_number"</span><span class="p">:</span> <span class="n">Formula</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">formula</span><span class="p">)</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"N"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                     <span class="o">**</span><span class="n">flatten</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">annotation</span><span class="p">),</span>
                 <span class="p">}</span>
             <span class="p">)</span>
@@ -349,28 +349,28 @@
 <div class="viewcode-block" id="annotate_metabolites_from_exchanges">
 <a class="viewcode-back" href="../../autoapi/micom/annotation/index.html#micom.annotation.annotate_metabolites_from_exchanges">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">annotate_metabolites_from_exchanges</span><span class="p">(</span><span class="n">com</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Annotate exchange reactions by their metabolite.&quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">reactions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;global_id&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Annotate exchange reactions by their metabolite."""</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">com</span><span class="o">.</span><span class="n">reactions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"global_id"</span><span class="p">):</span>
         <span class="n">exs</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">internal_exchanges</span> <span class="o">+</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span>
-        <span class="n">attr</span> <span class="o">=</span> <span class="s2">&quot;global_id&quot;</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="s2">"global_id"</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">exs</span> <span class="o">=</span> <span class="n">com</span><span class="o">.</span><span class="n">exchanges</span>
-        <span class="n">attr</span> <span class="o">=</span> <span class="s2">&quot;id&quot;</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="s2">"id"</span>
     <span class="n">mets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span>
         <span class="p">[</span>
             <span class="p">{</span>
-                <span class="s2">&quot;object&quot;</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">reactants</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                <span class="s2">&quot;metabolite&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">reactants</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">attr</span><span class="p">),</span>
-                <span class="s2">&quot;reaction&quot;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
+                <span class="s2">"object"</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">reactants</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="s2">"metabolite"</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">reactants</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">attr</span><span class="p">),</span>
+                <span class="s2">"reaction"</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span>
             <span class="p">}</span>
             <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">exs</span>
         <span class="p">]</span>
     <span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
     <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
-        <span class="n">anns</span> <span class="o">=</span> <span class="n">annotate</span><span class="p">(</span><span class="n">mets</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">com</span><span class="p">,</span> <span class="s2">&quot;metabolite&quot;</span><span class="p">)</span>
-    <span class="n">anns</span><span class="p">[</span><span class="s2">&quot;reaction&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mets</span><span class="o">.</span><span class="n">reaction</span><span class="o">.</span><span class="n">values</span>
-    <span class="k">return</span> <span class="n">anns</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;reaction&quot;</span><span class="p">])</span></div>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
+        <span class="n">anns</span> <span class="o">=</span> <span class="n">annotate</span><span class="p">(</span><span class="n">mets</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">com</span><span class="p">,</span> <span class="s2">"metabolite"</span><span class="p">)</span>
+    <span class="n">anns</span><span class="p">[</span><span class="s2">"reaction"</span><span class="p">]</span> <span class="o">=</span> <span class="n">mets</span><span class="o">.</span><span class="n">reaction</span><span class="o">.</span><span class="n">values</span>
+    <span class="k">return</span> <span class="n">anns</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">"reaction"</span><span class="p">])</span></div>
 
 </pre></div>
         </article>

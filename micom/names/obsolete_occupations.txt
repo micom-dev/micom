@@ -1,0 +1,328 @@
+Alchemist
+Alewife
+Alnager
+Armourer (chain mail)
+Armourer (plate armour)
+Ash burner
+Baby farmer
+Between maid
+Body snatcher
+Boiler fireman
+Bowyers and fletchers
+Brakeman
+Breaker boy
+Broomsquire
+Buggy whip maker
+Burler
+Canaller
+Candlestick maker
+Carriage barker
+Carter
+Castrato
+Cavalryman
+Chainmaker
+Charcoal burner
+Chiffonier
+Chimney sweep
+Coachman
+Coal-whipper
+Cobbler
+Coffee sniffer
+Colporteur
+Computer
+Cooper
+Cordwainer
+Costermonger
+Crossing sweeper
+Currier
+Daguerreotypist
+Dairyman
+Data entry clerk
+Day laborer
+Dead-house keeper
+Deal porter
+Digger
+Doffer
+Dog whipper
+Donkey puncher
+Drayman
+Drover
+Dustman
+Elevator operator
+Executioner
+Expressman
+Factor
+Farrier
+Fendersmith
+Fifer
+Fireplug
+Flagger
+Flatman
+Fletcher
+Footman
+Foundryman
+Fuller
+Furnaceman
+Galley slave
+Gandy dancer
+Gas-man
+Gauger
+Glimmer man
+Gong farmer
+Grinder
+Groom of the Stool
+Haberdasher
+Hansom cab driver
+Harpooner
+Hayward
+Hedge-priest
+Higgler
+Hobbler
+Hogg-reeve
+Hooper
+Hornbook maker
+Hostler
+Huckster
+Human computer
+Ice cutter
+Iceman
+Indentured servant
+Ink maker
+Ironmonger
+Jack-tar
+Jailer
+Joiner
+Journeyman
+Knacker
+Knocker-up
+Lamplighter
+Laundress
+Lector
+Leech collector
+Lighterman
+Line operator
+Linotype operator
+Log driver
+Lumper
+Maltster
+Manciple
+Mandoline maker
+Manure collector
+Match girl
+Mercer
+Messenger
+Milkman
+Milliner
+Mudlark
+Muleskinner
+Musket maker
+Night soil man
+Niter-burner
+Nominalist
+Oilman
+Ostler
+Outrider
+Packman
+Page
+Panel doctor
+Parish beadle
+Pastry cook
+Patent medicine salesperson
+Paviour
+Peddler
+Peruker
+Peterman
+Phrenologist
+Physiognomist
+Pickler
+Picul-bearer
+Pieman
+Pig-face man
+Pinsetter
+Plowman
+Plowwright
+Plumber
+Poddler
+Point guard
+Poleman
+Pollard
+Pomeranian
+Pond-keeper
+Poormaster
+Port-reeve
+Porter
+Postilion
+Pot-boy
+Potter
+Poundkeeper
+Powder monkey
+Press-gang
+Printer
+Procurator
+Puddler
+Puntman
+Purser
+Quarryman
+Quill driver
+Rag-and-bone man
+Raker
+Rat-catcher
+Reader
+Reeve
+Relief stamper
+Resurrectionist
+Rider
+Rigger
+River pilot
+Roadman
+Roper
+Roustabout
+Saddler
+Salter
+Sandman
+Scavenger
+Schoolmaster
+Scrivener
+Scullery maid
+Seamstress
+Searcher
+Secretary
+Seedman
+Sergeant
+Servant
+Sexton
+Sharecropper
+Shearing-man
+Shearman
+Shipwright
+Shoeing smith
+Shoemaker
+Shopkeeper
+Shoveler
+Shuttlemaker
+Silk-throwster
+Silver-beater
+Skinner
+Slater
+Slaver
+Slopseller
+Smelter
+Smith
+Snow-shoveler
+Snuffer
+Soaper
+Soda jerk
+Soldier
+Soot-boy
+Soutane-maker
+Spicer
+Spinner
+Spokeshave maker
+Spooner
+Stableman
+Stageman
+Stallman
+Starcher
+Stationer
+Steamboat pilot
+Steeplejack
+Stevedore
+Steward
+Stoker
+Stonecutter
+Stonemason
+Stove-pipe man
+Street crier
+Street merchant
+Street sweeper
+Stringer
+Suck-smith
+Sugar-baker
+Supercargo
+Surgeon
+Surveyor
+Sweep
+Swineherd
+Switchman
+Tailor
+Tallow-chandler
+Tanner
+Tapper
+Tar
+Taverner
+Taxidermist
+Teamster
+Telegrapher
+Telephonist
+Tenter
+Thatcher
+Thill-horse
+Tide-waiter
+Tideman
+Tiler
+Timber-merchant
+Tinker
+Tinsmith
+Tithe-collector
+Tobogganist
+Top-man
+Tosher
+Town crier
+Toyman
+Tranter
+Trapper
+Treadmill operator
+Triggerman
+Trimmer
+Truckman
+Truss-maker
+Tub-man
+Tucker
+Turner
+Turnkey
+Typesetter
+Typist
+Umpire
+Undertaker
+Upholsterer
+Ushers
+Valet
+Varnisher
+Vicar
+Victualer
+Vinegar-maker
+Vintner
+Vocalist
+Waggoner
+Wainwright
+Waiter
+Waitress
+Waller
+Warden
+Warder
+Warehouseman
+Warp-dresser
+Water-carrier
+Waterman
+Wax-chandler
+Weaver
+Web-spinner
+Weigh-master
+Well-sinker
+Wharfinger
+Wheelwright
+Wherryman
+Whipping boy
+Whitesmith
+Wick-dipper
+Wigmaker
+Wind-millwright
+Wind-minder
+Wood-cutter
+Wood-rigger
+Wool-comber
+Wool-sorter
+Wool-winder
+Workman
+Wright
+Yeoman

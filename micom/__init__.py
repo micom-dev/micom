@@ -16,10 +16,12 @@ from . import (
     solution,
     batch,
     interaction,
+    names,
 )
 
 __all__ = (
     "Community",
+    "batch",
     "Batch",
     "Configuration",
     "algorithms",
@@ -32,6 +34,7 @@ __all__ = (
     "interaction",
     "media",
     "qiime_formats",
+    "names",
     "solution",
     "load_pickle",
     "logger",

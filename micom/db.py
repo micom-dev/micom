@@ -69,7 +69,7 @@ def get_database(url: Union[str, Path], out: Path, what: str = "taxa") -> Path:
     if url is None:
         return None
     elif isinstance(url, Path):
-        return str(url)
+        return url
 
     base = DB_URL if what == "taxa" else MEDIA_URL
 

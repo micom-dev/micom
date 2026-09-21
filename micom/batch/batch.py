@@ -15,6 +15,7 @@ from .media import _fix_medium, _medium, process_medium
 from .grow import _growth
 from .results import GrowthResults
 from .tradeoff import _tradeoff
+from ..names import generate_random_name
 from ..solution import OptimizationError
 from ..types import check_medium, pathify, check_taxonomy
 from ..qiime_formats import load_qiime_medium
@@ -31,6 +32,7 @@ class Batch(object):
         medium: Union[pd.DataFrame, str, Path] = None,
         model_db: Union[str, Path] = None,
         config: Configuration = Configuration(),
+        name: str = None,
     ) -> None:
         """Initialize the batch with a configuration.
 
@@ -46,6 +48,8 @@ class Batch(object):
             If None it will use the DB from the configuration, if this is None as well it will use the 'file' column in the taxonomy table.
         config : Configuration
             The configuration object.
+        name : str
+            The name of the batch. If None a random name will be generated.
 
         Note
         ----
@@ -60,8 +64,10 @@ class Batch(object):
         check_taxonomy(taxonomy)
         self._taxonomy = taxonomy
         self.config = config
-        self.config.dbs.microbial = model_db if isinstance(model_db, str) else Path(model_db)
+        if model_db is not None:
+            self.config.dbs.microbial = model_db if isinstance(model_db, str) else Path(model_db)
         self.medium = medium
+        self.name = name if name is not None else generate_random_name()
 
     @property
     def taxonomy(self: Self) -> pd.DataFrame:
@@ -268,7 +274,7 @@ class Batch(object):
         flux_method = self.config.simulation.flux_method
         weights = self.config.media.weights
         medium = self.medium
-        tradeoff = self.config.tradeoff
+        tradeoff = self.config.simulation.tradeoff
         man = self.build_manifest
         samples = man.sample_id.unique()
         paths = {
@@ -470,7 +476,7 @@ class Batch(object):
             logger.error(
                 "For some samples I could not find a medium that fulfills "
                 "the growth rate requirements. Returning media only for the "
-                "succesful samples."
+                "successful samples."
             )
         medium = pd.concat(r["medium"] for r in results if r is not None)
         if summarize:
@@ -625,7 +631,7 @@ class Batch(object):
         lr = [r for r in RANKS if r in self.taxonomy.columns][-1]
         n_samples = len(self.taxonomy.sample_id.unique())
         n_taxa = self.taxonomy[lr].nunique()
-        return f"<Batch {n_samples} samples x {n_taxa} taxa at 0x{id(self):x}>"
+        return f"<Batch {self.name}: {n_samples} samples x {n_taxa} taxa at 0x{id(self):x}>"
 
     def __str__(self: Self) -> str:
         """Return a string representation of the batch.
@@ -641,17 +647,17 @@ class Batch(object):
         n_taxa = self.taxonomy[lr].nunique()
 
         check = lambda x: "✅" if x else "❌"
-        s = "*Batch*\n"
+        s = f"*Batch [{self.name}]*\n"
         s += f"{n_samples} samples\t{n_taxa} taxa\n"
-        s += f"Model DB\t{check(self.config.dbs.microbial is not None)}"
+        s += f"model DB\t{check(self.config.dbs.microbial is not None)}"
         if self.config.dbs.microbial is not None:
             s += f"\t{Path(self.config.dbs.microbial).name}"
         s += f"\nmedium   \t{check(self.medium is not None)}"
         if self.medium is not None:
-            s += f"\t{self.medium.reaction.nunique()} components"
+            s += f"\t{self.medium.reaction.nunique()} compounds, total flux = {self.medium.flux.sum():.2f} mmol/(gDW·h)"
         s += f"\nbuild   \t{check(self.is_built())}"
         if self.is_built():
-            frac = self.build_manifest.found_abundance_fraction + 100.0
+            frac = self.build_manifest.found_abundance_fraction * 100.0
             s += f"\tfound {frac.mean():.2f} ± {frac.std():.2f}% of abundance"
         s += f"\nsimulated\t{check(self.has_results())}"
         if self.has_results():
@@ -678,18 +684,18 @@ class Batch(object):
         n_taxa = self.taxonomy[lr].nunique()
 
         check = lambda x: "✅" if x else "❌"
-        s = "<strong>Batch </strong>\n"
+        s = f"<strong>Batch</strong> [<i>{self.name}</i>]\n"
         s += "<table>\n"
         s += f"<tr><td>{n_samples} samples</td><td>{n_taxa} taxa</td></tr>\n"
-        s += f"<tr><td>Model DB</td><td>{check(self.config.dbs.microbial is not None)}</td>"
+        s += f"<tr><td>model DB</td><td>{check(self.config.dbs.microbial is not None)}</td>"
         if self.config.dbs.microbial is not None:
-            s += f"<td>({Path(self.config.dbs.microbial).name})</td></tr>\n"
+            s += f"<td>{Path(self.config.dbs.microbial).name}</td></tr>\n"
         s += f"<tr><td>medium</td><td>{check(self.medium is not None)}</td>"
         if self.medium is not None:
-            s += f"<td>{self.medium.reaction.nunique()} components</td></tr>\n"
+            s += f"<td>{self.medium.reaction.nunique()} compounds, total flux = {self.medium.flux.sum():.2f} mmol/(gDW·h)</td></tr>\n"
         s += f"<tr><td>build</td><td>{check(self.is_built())}</td>\n"
         if self.is_built():
-            frac = self.build_manifest.found_abundance_fraction + 100.0
+            frac = self.build_manifest.found_abundance_fraction * 100.0
             s += f"<td>found {frac.mean():.2f} ± {frac.std():.2f}% of abundance</td></tr>\n"
         s += f"<tr><td>simulated</td><td>{check(self.has_results())}</td>"
         if self.has_results():

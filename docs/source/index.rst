@@ -35,7 +35,7 @@ Please cite this article when referencing MICOM.
 
 To get an idea which assumptions and strategies MICOM uses we recommend
 to start with some background on the :doc:`methods <logic>`. The easiest way to
-use MICOM is using the :doc:`workflow API <high_level>`.
+use MICOM is using :doc:`MICOM Batch <high_level>`.
 
 Contents
 --------
@@ -46,12 +46,13 @@ Contents
    Strategies used by MICOM <logic>
    Installing MICOM <installing>
 
-   MICOM workflows <high_level>
+   Getting started <high_level>
+   Configuration <configuration>
    Interactions <interactions>
    Visualizations <viz>
    Writing your own workflows <workflows>
 
-   Single Model API <community>
+   Single Model (CobraPy) API <community>
    Growth rates and fluxes <growth_fluxes>
    Growth media <media>
    Knockouts <taxa_knockouts>

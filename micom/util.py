@@ -4,6 +4,7 @@ import cobra.io as io
 from cobra.util.context import get_context
 from cobra.util.solver import interface_to_str, linear_reaction_coefficients
 from cobra import Reaction
+from collections.abc import Iterable
 import os.path as path
 from functools import partial
 import pickle
@@ -157,7 +158,7 @@ def join_models(model_files, id=None):
 
     This requires all the models to use the same ID system.
 
-    Arguments
+    Parameters
     ----------
     model_files : list of strings
         The files to be joined.
@@ -232,7 +233,7 @@ def ex_metabolite(model, rid):
 def check_modification(community):
     """Check whether a community already carries a modification.
 
-    Arguments
+    Parameters
     ---------
     community : micom.Community
         The community class to check.
@@ -254,7 +255,7 @@ def check_modification(community):
 def _format_min_growth(min_growth, taxa):
     """Format min_growth into a pandas series.
 
-    Arguments
+    Parameters
     ---------
     min_growth : positive float or array-like object.
         The minimum growth rate for each individual in the community. Either
@@ -268,15 +269,24 @@ def _format_min_growth(min_growth, taxa):
         A pandas Series mapping each individual to its minimum growth rate.
 
     """
-    try:
-        min_growth = float(min_growth)
-    except (TypeError, ValueError):
-        if len(min_growth) != len(taxa):
+    if isinstance(min_growth, (float, int)):
+        min_growth = pd.Series(float(min_growth), taxa)
+    elif isinstance(min_growth, (dict, pd.Series)):
+        min_growth = pd.Series(min_growth)
+        if any(idx not in taxa for idx in min_growth.index):
+            raise ValueError("The index of min_growth does not match the taxa IDs.")
+    elif isinstance(min_growth, Iterable):
+        if len(min_growth) == len(taxa):
+            min_growth = pd.Series(min_growth, taxa)
+        else:
             raise ValueError(
-                "min_growth must be single value or an array-like "
-                "object with an entry for each taxon in the model."
+                "If min_growth is an iterable it needs one entry for each taxon."
             )
-    return pd.Series(min_growth, taxa)
+    else:
+        raise ValueError(
+            "min_growth has to be a float, dict, Series, or array-like object."
+        )
+    return min_growth
 
 
 def _apply_min_growth(community, min_growth, atol=1e-6, rtol=1e-6):
@@ -285,15 +295,17 @@ def _apply_min_growth(community, min_growth, atol=1e-6, rtol=1e-6):
     Will integrate with the context.
     """
     context = get_context(community)
+    if isinstance(min_growth, dict):
+        min_growth = pd.Series(min_growth)
 
     def reset(taxon, lb):
         logger.info("resetting growth rate constraint for %s" % taxon)
-        community.constraints["objective_" + taxon].ub = None
-        community.constraints["objective_" + taxon].lb = lb
+        community.variables["objective_" + taxon].ub = None
+        community.variables["objective_" + taxon].lb = lb
 
-    for sp in community.taxa:
+    for sp in min_growth.index:
         logger.info("setting growth rate constraint for %s" % sp)
-        obj = community.constraints["objective_" + sp]
+        obj = community.variables["objective_" + sp]
         if context:
             context(partial(reset, sp, obj.lb))
         obj.lb = (1.0 - rtol) * min_growth[sp] - atol
@@ -333,7 +345,7 @@ def adjust_solver_config(solver):
         solver.problem.settings["presolve"] = "auto"
 
 
-def reset_min_community_growth(com):
+def reset_min_community_growth(com, host=False):
     """Reset the lower bound for the community growth."""
     com.variables.community_objective.lb = 0.0
     com.variables.community_objective.ub = None

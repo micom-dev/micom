@@ -26,7 +26,7 @@ from rich.progress import track
 logger = logging.getLogger(__name__)
 
 
-def regularize_l2_norm(community, min_growth):
+def regularize_l2_norm(community, min_growth, host=False):
     """Add an objective to find the most "egoistic" solution.
 
     This adds an optimization objective finding a solution that maintains a
@@ -38,17 +38,15 @@ def regularize_l2_norm(community, min_growth):
     rate. In the linear case squares are substituted by absolute values
     (Manhattan distance).
 
-    Arguments
+    Parameters
     ---------
     community : micom.Community
         The community to modify.
     min_growth : positive float
         The minimal community growth rate that has to be mantained.
-    linear : boolean
-        Whether to use a non-linear (sum of squares) or linear version of the
-        cooperativity cost. If set to False requires a QP-capable solver.
-    max_gcs : None or dict
-        The precomputed maximum individual growth rates.
+    host : bool
+        Whether to include the host in the objective. If True, the host will be
+        treated like any other community member.
 
     """
     logger.info("adding L2 norm to %s" % community.id)
@@ -58,20 +56,22 @@ def regularize_l2_norm(community, min_growth):
     if context is not None:
         context(partial(reset_min_community_growth, community))
 
-    for sp in community.taxa:
-        taxa_obj = community.constraints["objective_" + sp]
-        ex = sum(v for v in taxa_obj.variables if (v.ub - v.lb) > 1e-6)
-        if not isinstance(ex, int):
-            l2 += (community.scale * (ex**2)).expand()
+    taxa = set(community.taxa)
+    if host and len(community.host) > 0:
+        taxa += set(community.host)
+    for sp in taxa:
+        taxa_obj = community.variables["objective_" + sp]
+        l2 += (community.scale * (taxa_obj**2)).expand()
     community.objective = -l2
     community.modification = "l2 regularization"
     logger.info("finished adding tradeoff objective to %s" % community.id)
 
 
-def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rtol):
+def cooperative_tradeoff(
+    community, min_growth, fraction, fluxes, pfba, atol, rtol, host=False
+):
     """Find the best tradeoff between community and individual growth."""
     with community as com:
-        solver = interface_to_str(community.problem)
         check_modification(community)
         min_growth = _format_min_growth(min_growth, community.taxa)
         _apply_min_growth(community, min_growth)
@@ -87,13 +87,14 @@ def cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rt
             fraction = np.sort(fraction)[::-1]
 
         # Add needed variables etc.
-        regularize_l2_norm(com, 0.0)
+        regularize_l2_norm(com, 0.0, host=host)
+
         results = []
         for fr in fraction:
             com.variables.community_objective.lb = fr * min_growth
             com.variables.community_objective.ub = min_growth
             sol = solve(community, fluxes=fluxes, pfba=pfba, atol=atol, rtol=rtol)
-            if not pfba and sol.status != OPTIMAL:
+            if not pfba and com.solver.status != OPTIMAL:
                 sol = crossover(com, sol, fluxes=fluxes)
             results.append((fr, sol))
         if len(results) == 1:

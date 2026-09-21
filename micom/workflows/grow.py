@@ -65,12 +65,12 @@ def _growth(args):
         rates["taxon"] = rates.index
         rates["tradeoff"] = tradeoff
         rates["sample_id"] = com.id
-    except Exception:
+    except Exception as e:
         logger.error(
             "Could not solve cooperative tradeoff for %s. "
             "This can often be fixed by enabling `presolve`, choosing more "
             "permissive atol and rtol arguments, or by checking that medium "
-            "fluxes are > atol." % com.id
+            "fluxes are > atol.\nAdditional context: %s" % (com.id, e)
         )
         return None
 

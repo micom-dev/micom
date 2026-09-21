@@ -18,6 +18,12 @@ def community():
 
 
 @pytest.fixture
+def community_with_host():
+    """A simple community containing 4 species."""
+    return micom.Community(micom.data.test_taxonomy(host=True), progress=False)
+
+
+@pytest.fixture
 def results():
     """A more complex results example."""
     res = md.test_results()

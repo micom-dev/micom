@@ -16,7 +16,7 @@ def test_qiime_community():
     tax["abundance"] = [1, 2, 3, 4]
     del tax["file"]
     com = mm.Community(tax, db, progress=False)
-    assert len(com.abundances) == 4
+    assert len(com.microbial_abundances) == 4
     m = com.build_metrics
     assert m[0] == 4
     assert m[1] == 4

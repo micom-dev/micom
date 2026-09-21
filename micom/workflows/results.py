@@ -26,7 +26,7 @@ class GrowthResults:
 
         This will write all tables as CSV into a single ZIP file.
 
-        Arguments
+        Parameters
         ---------
         path : str
             A filepath for the generated file. Should end in `.zip`.
@@ -39,7 +39,7 @@ class GrowthResults:
     def load(path: str) -> GrowthResults:
         """Load growth results from a file.
 
-        Arguments
+        Parameters
         ---------
         path : str
             Path to saved `GrowthResults`.
@@ -59,7 +59,7 @@ class GrowthResults:
     def __add__(self, other: GrowthResults) -> GrowthResults:
         """Combine two GrowthResults objects.
 
-        Arguments
+        Parameters
         ---------
         other : GrowthResults
             The other result to merge with the current one.
@@ -116,7 +116,7 @@ def save_results(results: GrowthResults, path: str):
 
     This will write all tables as CSV into a single ZIP file.
 
-    Arguments
+    Parameters
     ---------
     results : GrowthResults
         The results as returned from `grow`.
@@ -129,7 +129,7 @@ def save_results(results: GrowthResults, path: str):
 def load_results(path):
     """Load growth results from a file.
 
-    Arguments
+    Parameters
     ---------
     path : str
         Path to saved `GrowthResults`.
@@ -145,7 +145,7 @@ def load_results(path):
 def combine_results(it: typing.Iterable[GrowthResults]) -> GrowthResults:
     """Combine several GrowthResults.
 
-    Arguments
+    Parameters
     ---------
     it : Iterable of GrowthResults
         The growth results to combine.

@@ -91,7 +91,7 @@ def qiime_to_micom(feature_table, taxonomy, collapse_on="genus"):
 def rank_prefixes(manifest: pd.DataFrame) -> pd.Series:
     """Get the used prefixes for taxonomic ranks.
 
-    Arguments
+    Parameters
     ---------
     manifest : pandas.DataFrame
         A model database manifest.
@@ -112,7 +112,7 @@ def rank_prefixes(manifest: pd.DataFrame) -> pd.Series:
 def unify_rank_prefixes(taxonomy: pd.DataFrame, manifest: pd.DataFrame) -> pd.DataFrame:
     """Handle taxonomic rank prefixes in the taxonomy or database manifest.
 
-    Arguments
+    Parameters
     ---------
     taxonomy : pandas.DataFrame
         A taxonomy table.
@@ -145,7 +145,7 @@ def unify_rank_prefixes(taxonomy: pd.DataFrame, manifest: pd.DataFrame) -> pd.Da
 def taxon_id(term: str, rates: pd.DataFrame) -> str:
     """Find the ID for a taxon.
 
-    Arguments
+    Parameters
     ---------
     term : str
         The search term.

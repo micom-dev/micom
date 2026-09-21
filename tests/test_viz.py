@@ -10,10 +10,9 @@ import random
 
 def random_groups(res):
     """Create some random groups for samples."""
-    sids = res.growth_rates.sample_id.unique()
     groups = pd.Series(
-        random.choices(["a", "b"], k=len(sids)),
-        index=sids,
+        random.choices(["a", "b"], k=4),
+        index=res.growth_rates.sample_id.unique(),
         name="random",
     )
     return groups

@@ -20,7 +20,7 @@ def MES(results: GrowthResults, cutoff: float = None) -> pd.DataFrame:
     particular metabolite. A value of zero indicates an absence of cross-feeding for
     the particular metabolite.
 
-    Arguments
+    Parameters
     ---------
     results : GrowthResults
         The growth results to use.

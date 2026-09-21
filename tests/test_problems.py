@@ -16,7 +16,7 @@ class TestOptcom:
         assert np.allclose(sol.growth_rate, 0.873922)
         assert np.allclose(sol.members.growth_rate.dropna().sum(), 4 * 0.873922)
 
-    @pytest.mark.parametrize("f", [0, 0.25, "0.5", [0, 0.2, 0.4, 0], np.ones(4) * 0.7])
+    @pytest.mark.parametrize("f", [0, 0.25, [0, 0.2, 0.4, 0], np.ones(4) * 0.7])
     def test_good_mingrowth(self, community, f):
         community.solver = "glpk"
         sol = community.optcom(strategy="lmoma", min_growth=f)
@@ -44,5 +44,5 @@ class TestOptcom:
         community.reactions.EX_glc__D_m.lower_bound = -5
         sol = community.optcom(strategy="lmoma", fluxes=True)
         imports = sol["EX_glc__D_e"][0:4]
-        total_influx = community.abundances.dot(imports)
+        total_influx = community.microbial_abundances.dot(imports)
         assert np.allclose(total_influx, -5)

@@ -4,6 +4,8 @@ from .fixtures import community
 from micom import Community, load_pickle
 from micom.data import test_taxonomy
 import numpy as np
+import pandas as pd
+import pytest
 
 
 def test_construction():
@@ -24,12 +26,16 @@ def test_abundance_cutoff():
 
 
 def test_abundances(community):
-    assert np.allclose(community.abundances, np.ones(4) / 4)
+    assert np.allclose(community.microbial_abundances, np.ones(4) / 4)
 
     ab = np.array([1.0, 2.0, 1e-8, 3.0])
+    series = pd.Series(ab, index=community.taxa)
     expected = np.array([1.0 / 6, 2.0 / 6, 1e-6, 3.0 / 6])
-    community.abundances = ab
-    assert np.allclose(community.abundances, expected)
+    community.microbial_abundances = series
+    assert np.allclose(community.microbial_abundances, expected)
+
+    with pytest.raises(TypeError):
+        community.microbial_abundances = ab
 
 
 def test_exchanges(community):

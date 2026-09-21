@@ -79,7 +79,7 @@ def _try_complete(args):
 def check_db_medium(model_db, medium, threads=1):
     """Complete a growth medium for all models in a database.
 
-    Arguments
+    Parameters
     ---------
     model_db : str
         A pre-built model database. If ending in `.qza` must be a Qiime 2
@@ -141,7 +141,7 @@ def complete_db_medium(
 ):
     """Complete a growth medium for all models in a database.
 
-    Arguments
+    Parameters
     ---------
     model_db : str
         A pre-built model database. If ending in `.qza` must be a Qiime 2
@@ -254,7 +254,7 @@ def db_annotations(
 ):
     """Get metabolite annotations from a model DB.
 
-    Arguments
+    Parameters
     ---------
     model_db : str
         A pre-built model database. If ending in `.qza` must be a Qiime 2

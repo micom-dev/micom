@@ -7,7 +7,7 @@ import micom
 import micom.util as util
 from .fixtures import community
 
-URL = "http://bigg.ucsd.edu/static/models/e_coli_core.xml.gz"
+URL = "https://bigg.ucsd.edu/static/models/e_coli_core.xml.gz"
 tax = micom.data.test_taxonomy()
 
 

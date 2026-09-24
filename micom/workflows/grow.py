@@ -97,7 +97,7 @@ def _growth(args):
         sol = med["solution"]
 
     exs = list({r.global_id for r in com.internal_exchanges + com.exchanges})
-    fluxes = sol.fluxes.loc[:, exs].copy()
+    fluxes = sol.exchange_fluxes
     fluxes["sample_id"] = com.id
     fluxes["tolerance"] = atol
     anns = annotate_metabolites_from_exchanges(com)
@@ -202,14 +202,7 @@ def grow(
     growth = pd.concat(r["growth"] for r in results if r is not None)
     growth = growth[growth.taxon != "medium"]
     exchanges = pd.concat(r["exchanges"] for r in results if r is not None)
-    exchanges["taxon"] = exchanges.index.values
-    exchanges = exchanges.melt(
-        id_vars=["taxon", "sample_id", "tolerance"],
-        var_name="reaction",
-        value_name="flux",
-    ).dropna(subset=["flux"])
-    abundance = growth[["taxon", "sample_id", "abundance"]]
-    exchanges = pd.merge(exchanges, abundance, on=["taxon", "sample_id"], how="outer")
+
     anns = pd.concat(
         r["annotations"] for r in results if r is not None
     ).drop_duplicates(subset=["reaction"])

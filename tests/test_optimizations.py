@@ -18,7 +18,8 @@ def test_community_objective(community):
     assert np.allclose(x.growth_rate, 0.873922)
     assert np.allclose(x.members.growth_rate.dropna().sum(), 4 * 0.873922)
     assert isinstance(y, CommunitySolution)
-    assert y.fluxes.shape[0] == 5
+    assert len(y.fluxes) == len(community.reactions)
+    assert y.exchange_fluxes.taxon.nunique() == 4 + 1
 
 
 def test_individual_objective(community):

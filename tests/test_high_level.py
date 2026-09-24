@@ -23,7 +23,6 @@ medium = load_qiime_medium(md.test_medium)
 db = md.test_db
 
 
-
 def test_db(tmp_path):
     manifest = load_qiime_manifest(db)
     tax = md.test_taxonomy()

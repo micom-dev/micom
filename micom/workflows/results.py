@@ -88,25 +88,14 @@ class GrowthResults:
         rates = sol.members.drop("medium")
         rates["taxon"] = rates.index
         rates["sample_id"] = com.id
-        exs = list({r.global_id for r in com.internal_exchanges + com.exchanges})
-        fluxes = sol.fluxes.loc[:, exs].copy()
+        fluxes = sol.exchange_fluxes
         fluxes["sample_id"] = com.id
         fluxes["tolerance"] = tol
-        fluxes["taxon"] = fluxes.index.values
         anns = annotate_metabolites_from_exchanges(com)
         anns.drop_duplicates(subset=["reaction"], inplace=True)
 
-        # Cast data into the expected format
-        fluxes = fluxes.melt(
-            id_vars=["taxon", "sample_id", "tolerance"],
-            var_name="reaction",
-            value_name="flux",
-        ).dropna(subset=["flux"])
-        abundance = rates[["taxon", "sample_id", "abundance"]]
-        exchanges = pd.merge(fluxes, abundance, on=["taxon", "sample_id"], how="outer")
         anns.index = anns.reaction
-        exchanges = pd.merge(exchanges, anns[["metabolite"]], on="reaction", how="left")
-        exchanges["direction"] = DIRECTION[(exchanges.flux > 0.0).astype(int)].values
+        exchanges = pd.merge(fluxes, anns[["metabolite"]], on="reaction", how="left")
         exchanges = exchanges[exchanges.flux.abs() > exchanges.tolerance]
         return GrowthResults(rates, exchanges, anns)
 

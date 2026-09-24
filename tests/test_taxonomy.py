@@ -3,7 +3,6 @@
 from micom.data import test_taxonomy
 import micom.taxonomy as mt
 
-
 no_prefix = test_taxonomy()
 with_prefix = no_prefix.copy()
 with_prefix["genus"] = "g__" + with_prefix["genus"]

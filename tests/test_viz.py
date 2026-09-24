@@ -87,16 +87,25 @@ def test_association(growth_data, tmp_path):
             growth_data, meta, variable_type="dog", filename=str(tmp_path / "viz.html")
         )
 
+
 def test_association_fillna(growth_data, tmp_path):
     meta = pd.Series([0, 0, 1, 1], index=growth_data.growth_rates.sample_id.unique())
     v = viz.plot_association(
-        growth_data, meta, fillna=1e-6, filename=str(tmp_path / "viz.html"), fdr_threshold=0.5
+        growth_data,
+        meta,
+        fillna=1e-6,
+        filename=str(tmp_path / "viz.html"),
+        fdr_threshold=0.5,
     )
     check_viz(v)
 
     with pytest.raises(ValueError):
         v = viz.plot_association(
-            growth_data, meta, fillna=1e-6, variable_type="dog", filename=str(tmp_path / "viz.html")
+            growth_data,
+            meta,
+            fillna=1e-6,
+            variable_type="dog",
+            filename=str(tmp_path / "viz.html"),
         )
 
 

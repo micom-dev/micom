@@ -2,6 +2,7 @@ from .fixtures import community
 import micom.problems as probs
 import numpy as np
 import pytest
+import pandas as pd
 
 # Only test linear ones
 strategies = ["original", "lmoma"]
@@ -43,6 +44,7 @@ class TestOptcom:
         community.solver = "glpk"
         community.reactions.EX_glc__D_m.lower_bound = -5
         sol = community.optcom(strategy="lmoma", fluxes=True)
-        imports = sol["EX_glc__D_e"][0:4]
-        total_influx = community.abundances.dot(imports)
+        ex = sol.exchange_fluxes
+        imports = ex[ex.reaction == "EX_glc__D_e"]
+        total_influx = sum(imports.flux * imports.abundance)
         assert np.allclose(total_influx, -5)

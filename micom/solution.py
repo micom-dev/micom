@@ -27,13 +27,16 @@ good = [OPTIMAL, NUMERIC, FEASIBLE, SUBOPTIMAL, ITERATION_LIMIT]
 
 DIRECTION = pd.Series(["import", "export"], index=[0, 1])
 
+DIRECTION = {True: "export", False: "import"}
+"""Specifies the direction of an exchange."""
 
-def _group_taxa(values, ids, taxa, what="reaction"):
-    """Format a list of values by id and taxa."""
-    df = pd.DataFrame({values.name: values, what: ids, "compartment": taxa})
-    df = df.pivot(index="compartment", columns=what, values=values.name)
-    df.name = values.name
-    return df
+
+def _flip_direction(fluxes, directions):
+    """Assign the flow direction of the reactions based on the flux."""
+    flipper = pd.Series({"import": "export", "export": "import"})
+    dirs = directions.copy()
+    dirs[fluxes < 0.0] = flipper[dirs].values
+    return dirs
 
 
 class CommunitySolution(Solution):
@@ -82,13 +85,16 @@ class CommunitySolution(Solution):
         if not slim:
             var_primals = community.solver.primal_values
             fluxes = pd.Series(
-                [var_primals[r.id] - var_primals[r.reverse_id] for r in reactions],
+                {
+                    r.id: var_primals[r.id] - var_primals[r.reverse_id]
+                    for r in reactions
+                },
                 name="fluxes",
             )
             super(CommunitySolution, self).__init__(
                 community.solver.objective.value,
                 community.solver.status,
-                _group_taxa(fluxes, rids[:, 0], rids[:, 1]),
+                fluxes,
                 None,
                 None,
             )
@@ -117,6 +123,65 @@ class CommunitySolution(Solution):
         )
         self.members.index.name = "compartments"
         self.growth_rate = sum(community.abundances * gcs)
+        # Save estimated accuracy for osqp
+        if interface_to_str(community.problem) == "osqp":
+            self.primal_residual = community.solver.problem.info.pri_res
+            self.dual_residual = community.solver.problem.info.dua_res
+
+        # Save information needed to stratify fluxes
+        self.tolerance = community.solver.configuration.tolerances.feasibility
+        self.rxn_names = pd.Series({r.global_id: r.name for r in community.reactions})
+        self.ids = pd.DataFrame.from_records(
+            rids, index=[r.id for r in reactions], columns=["reaction", "taxon"]
+        )
+        self.directions = pd.Series(
+            {
+                r.id: DIRECTION[len(r.reactants) > 0]
+                for r in community.exchanges + community.internal_exchanges
+            }
+        )
+
+    @property
+    def exchange_fluxes(self):
+        """Get the exchange fluxes for the current solution.
+
+        Returns
+        -------
+        pandas.DataFrame
+            A dataframe containing the reaction ID, description, taxon, flux,
+            direction and MICOM ID for all exchange reactions in the model. Exchange
+            reaction from and into the environment/medium have an assigned taxon of
+            "medium".
+        """
+        df = self.fluxes[self.directions.index].to_frame("flux")
+        df["micom_id"] = df.index
+        df["reaction"] = self.ids.loc[df.index, "reaction"]
+        df["name"] = self.rxn_names[df.reaction].values
+        df["taxon"] = self.ids.loc[df.index, "taxon"]
+        df["direction"] = _flip_direction(df["flux"], self.directions[df.index])
+        df["abundance"] = self.members.loc[df.taxon, "abundance"].values
+        df.reset_index(drop=True, inplace=True)
+        return df[["reaction", "name", "taxon", "flux", "direction", "abundance", "micom_id"]]
+
+    @property
+    def internal_fluxes(self):
+        """Get all fluxes for reaction within individual taxa.
+
+        Returns
+        -------
+        pandas.DataFrame
+            A dataframe containing the reaction ID, description, taxon, flux,
+            and MICOM ID for all reactions inside each taxon. This *excludes* all
+            exchange reactions.
+        """
+        df = self.fluxes.to_frame("flux")
+        df["micom_id"] = df.index
+        df["reaction"] = self.ids.loc[df.index, "reaction"]
+        df["name"] = self.rxn_names[df.reaction].values
+        df["taxon"] = self.ids.loc[df.index, "taxon"]
+        df["abundance"] = self.members.loc[df.taxon, "abundance"].values
+        df.reset_index(drop=True, inplace=True)
+        return df[["reaction", "name", "taxon", "flux", "abundance", "micom_id"]]
 
     def _repr_html_(self):
         if self.status in good:

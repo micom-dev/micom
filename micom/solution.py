@@ -132,7 +132,7 @@ class CommunitySolution(Solution):
                 with pd.option_context("display.max_rows", 10):
                     html = (
                         f"<strong>community growth:</strong> {self.growth_rate:.3f}"
-                        f"<br><strong>host maintenance/growth:</strong> {self.host_rate:.3f}"
+                        f"<br><strong>host maintenance/growth:</strong> {self.host_rates.mean():.3f}"
                         f"<br><strong>status:</strong> {self.status}"
                         f"<br><strong>taxa:</strong>{self.members._repr_html_()}"
                     )
@@ -151,8 +151,8 @@ class CommunitySolution(Solution):
         """Convert CommunitySolution instance to string representation."""
         if self.status not in good:
             return f"<CommunitySolution {self.status} at 0x{id(self):x}>"
-        if self.host_rate is not None:
-            return f"<CommunitySolution {self.growth_rate:.3f} [host: {self.host_rate:.3f}] at 0x{id(self):x}>"
+        if self.host_rates is not None:
+            return f"<CommunitySolution {self.growth_rate:.3f} [host: {self.host_rates.mean():.3f}] at 0x{id(self):x}>"
         return f"<CommunitySolution {self.growth_rate:.3f} at 0x{id(self):x}>"
 
 

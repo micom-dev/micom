@@ -1,6 +1,5 @@
 """Test the stats helpers."""
 
-from multiprocessing.sharedctypes import Value
 import micom.stats as ms
 import numpy as np
 import pandas as pd

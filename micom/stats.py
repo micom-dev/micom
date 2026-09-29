@@ -3,7 +3,7 @@
 import numpy as np
 import pandas as pd
 from scipy.stats import mannwhitneyu, kruskal, spearmanr, pearsonr
-from .workflows import workflow
+from .batch import workflow
 
 
 def fdr_adjust(p):

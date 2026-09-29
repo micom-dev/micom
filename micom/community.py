@@ -9,7 +9,7 @@ from optlang.symbolics import Zero
 from .constants import RANKS
 from .coupling import add_coupling, add_resource_constraint
 from .db import load_zip_model_db, load_manifest
-from .types import check_taxonomy, pathify
+from .types import pathify
 from .util import (
     load_model,
     join_models,
@@ -172,7 +172,6 @@ class Community(cobra.Model):
         self.__db_metrics = None
         adjust_solver_config(self.solver)
 
-        check_taxonomy(taxonomy)
         taxonomy = taxonomy.copy()
         if "abundance" not in taxonomy.columns:
             taxonomy["abundance"] = 1
@@ -725,16 +724,16 @@ class Community(cobra.Model):
             )
 
         logger.info("setting new abundances for %s" % self.id)
-        self.__taxonomy.loc[value.index, "abundance"] = value
-        ab = self.__taxonomy.abundance
+        self.__host.loc[value.index, "abundance"] = value
+        ab = self.__host.abundance
         if normalize:
-            self.__taxonomy.abundance /= ab.sum()
+            self.__host.abundance /= ab.sum()
             small = ab < self._rtol
             logger.info(
                 "adjusting abundances for %s to %g"
-                % (str(self.__taxonomy.index[small]), self._rtol)
+                % (str(self.__host.index[small]), self._rtol)
             )
-            self.__taxonomy.loc[small, "abundance"] = self._rtol
+            self.__host.loc[small, "abundance"] = self._rtol
         self.__update_exchanges(compartment="h")
 
     @property

@@ -44,18 +44,31 @@ def check_viz(v):
 
 
 @pytest.fixture
-def growth_data(tmp_path):
+def batch(tmp_path):
     """Generate some growth simulation data."""
-    batch = Batch(md.test_data(), medium=medium, model_db=md.test_db, progress=False)
+    batch = Batch(md.test_data(), medium=medium, model_db=md.test_db)
+    return batch
+
+@pytest.fixture
+def batch_built(tmp_path):
+    """Generate some growth simulation data."""
+    batch = Batch(md.test_data(), medium=medium, model_db=md.test_db)
+    batch.build(str(tmp_path))
+    return batch
+
+@pytest.fixture
+def batch_grown(tmp_path):
+    """Generate some growth simulation data."""
+    batch = Batch(md.test_data(), medium=medium, model_db=md.test_db)
     batch.build(str(tmp_path))
     batch.grow()
     return batch
 
 
 @pytest.fixture
-def tradeoff_data(tmp_path):
+def batch_tradeoff(tmp_path):
     """Generate some growth simulation data."""
-    data = md.test_data()
-    batch = Batch(md.test_data(), medium=medium, model_db=md.test_db, progress=False)
+    batch = Batch(md.test_data(), medium=medium, model_db=md.test_db)
+    batch.build(str(tmp_path))
     batch.tradeoff()
     return batch

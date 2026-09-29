@@ -80,6 +80,7 @@ def sample_interactions(
         return None
 
     merged["focal"] = taxon
+    merged["flux"] = merged["flux"].abs()
 
     return (
         merged[["focal", "partner", "metabolite", "class", "flux", "sample_id"]]

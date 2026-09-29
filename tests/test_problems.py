@@ -43,6 +43,6 @@ class TestOptcom:
         community.solver = "glpk"
         community.reactions.EX_glc__D_m.lower_bound = -5
         sol = community.optcom(strategy="lmoma", fluxes=True)
-        imports = sol["EX_glc__D_e"][0:4]
+        imports = sol["EX_glc__D_e"][1:5]
         total_influx = community.microbial_abundances.dot(imports)
         assert np.allclose(total_influx, -5)

@@ -3,11 +3,13 @@
 from cobra.io import save_json_model
 from ..util import join_models, load_pickle, _read_model
 from ..community import Community
+from ..types import pathify
 from .core import workflow
 import logging
-from pathlib import Path
 import pandas as pd
+from pathlib import Path
 from tempfile import TemporaryDirectory
+from typing import Union
 import zipfile
 
 logger = logging.getLogger(__name__)
@@ -30,7 +32,7 @@ def build_and_save(args):
     else:
         com = Community(
             tax,
-            model_db=str(db),
+            model_db=str(db) if db is not None else None,
             id=s,
             progress=False,
             rel_threshold=config.build.cutoff,
@@ -68,15 +70,15 @@ def _summarize_models(args):
         mod = _read_model(files[0])
     save_json_model(mod, new_path)
 
-
+@pathify
 def build_database(
-    manifest,
-    out_path,
-    rank="genus",
-    threads=1,
-    compress=None,
-    compresslevel=6,
-    progress=True,
+    manifest: pd.DataFrame,
+    out_path: Union[Path, str],
+    rank: str = "genus",
+    threads: int = 1,
+    compress: str = None,
+    compresslevel: int = 6,
+    progress: bool = True,
 ):
     """Create a model database from a set of SBML files.
 
@@ -93,7 +95,7 @@ def build_database(
         Must contain the columns "file", "kingdom", "phylum", "class",
         "order", "family", "genus", and "species". May contain additional
         columns.
-    out_path : str
+    out_path : Path
         The directory or zip file where the joined models will be written.
     threads : int >=1
         The number of parallel workers to use when building models. As a
@@ -121,7 +123,7 @@ def build_database(
             "Metadata File needs to have the following "
             "columns %s." % ", ".join(REQ_FIELDS)
         )
-    bad = meta.file.apply(lambda x: not os.path.exists(x))
+    bad = meta.file.apply(lambda x: not Path(x).exists())
     if any(bad):
         raise ValueError(
             "The following models are in the manifest but do "
@@ -140,7 +142,7 @@ def build_database(
     meta["summary_rank"] = rank
 
     # compress is ignored if outpath does not end with ".zip"
-    if out_path.endswith(".zip"):
+    if out_path.suffix == ".zip":
         # Explicitly check compression level
         if compresslevel not in range(1, 10):
             raise ValueError("compresslevel parameter must be an int between 1 and 9")
@@ -162,28 +164,28 @@ def build_database(
         # Store model database as zipfile
         with TemporaryDirectory(prefix="micom_") as tdir:
             args = [
-                (tid, row, os.path.join(tdir, "%s.json" % tid))
+                (tid, row, Path(tdir) / ("%s.json" % tid))
                 for tid, row in meta.iterrows()
             ]
             workflow(_summarize_models, args, threads, progress=progress)
             meta.file = meta.index + ".json"
-            meta.to_csv(os.path.join(tdir, "manifest.csv"), index=False)
+            meta.to_csv(Path(tdir) / "manifest.csv", index=False)
             with zipfile.ZipFile(
                 out_path,
                 mode="w",
                 compression=compressopt,
                 compresslevel=compresslevel,
             ) as zf:
-                [zf.write(a[2], os.path.basename(a[2])) for a in args]
-                zf.write(os.path.join(tdir, "manifest.csv"), "manifest.csv")
+                [zf.write(a[2], a[2].name) for a in args]
+                zf.write(Path(tdir) / "manifest.csv", "manifest.csv")
     else:
-        os.makedirs(out_path, exist_ok=True)
+        out_path.mkdir(parents=True, exist_ok=True)
         args = [
-            (tid, row, os.path.join(out_path, "%s.json" % tid))
+            (tid, row, out_path / ("%s.json" % tid))
             for tid, row in meta.iterrows()
         ]
         workflow(_summarize_models, args, threads)
         meta.file = meta.index + ".json"
-        meta.to_csv(os.path.join(out_path, "manifest.csv"), index=False)
+        meta.to_csv(out_path / "manifest.csv", index=False)
 
     return meta

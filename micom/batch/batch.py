@@ -193,6 +193,8 @@ class Batch(object):
                 )
                 del tax["file"]
             db = get_database(conf.dbs.microbial, Path(conf.dbs.download_location))
+        else:
+            db = None
 
         samples = tax.sample_id.unique()
         out_path = pd.Series({s: out_folder / (s + ".pickle") for s in samples})
@@ -256,7 +258,7 @@ class Batch(object):
             A named tuple containing the growth rates and exchange fluxes for all
             samples/models.
         """
-        if not self.is_built():
+        if not self.is_built:
             raise ValueError(
                 "The batch has not been built yet. Please run `Batch.build()` first."
             )
@@ -352,7 +354,7 @@ class Batch(object):
             The predicted growth rates.
 
         """
-        if not self.is_built():
+        if not self.is_built:
             raise ValueError(
                 "The batch has not been built yet. Please run `Batch.build()` first."
             )
@@ -441,7 +443,7 @@ class Batch(object):
             that all communities can grow in it.
 
         """
-        if not self.is_built():
+        if not self.is_built:
             raise ValueError(
                 "The batch has not been built yet. Please run `Batch.build()` first."
             )
@@ -455,8 +457,8 @@ class Batch(object):
                 community_growth,
                 taxa_growth,
                 True if minimize == "components" else False,
-                medium.flux[medium.sample_id == s],
                 minimize if minimize not in ["components", "flux"] else None,
+                False,
             )
             for s in samples
         ]
@@ -529,7 +531,7 @@ class Batch(object):
             that all members of the community can grow in it.
 
         """
-        if not self.is_built():
+        if not self.is_built:
             raise ValueError(
                 "The batch has not been built yet. Please run `Batch.build()` first."
             )
@@ -579,6 +581,7 @@ class Batch(object):
             )
         return final
 
+    @property
     def is_built(self: Self) -> bool:
         """Check if the batch has been built.
 
@@ -595,7 +598,8 @@ class Batch(object):
         )
         return check
 
-    def has_results(self) -> bool:
+    @property
+    def has_results(self: Self) -> bool:
         """Check if the batch has results.
 
         Returns
@@ -607,7 +611,8 @@ class Batch(object):
 
         return self.results is not None
 
-    def has_tradeoffs(self) -> bool:
+    @property
+    def has_tradeoffs(self: Self) -> bool:
         """Check if the batch has tradeoff results.
 
         Returns
@@ -655,16 +660,16 @@ class Batch(object):
         s += f"\nmedium   \t{check(self.medium is not None)}"
         if self.medium is not None:
             s += f"\t{self.medium.reaction.nunique()} compounds, total flux = {self.medium.flux.sum():.2f} mmol/(gDW·h)"
-        s += f"\nbuild   \t{check(self.is_built())}"
-        if self.is_built():
+        s += f"\nbuild   \t{check(self.is_built)}"
+        if self.is_built:
             frac = self.build_manifest.found_abundance_fraction * 100.0
             s += f"\tfound {frac.mean():.2f} ± {frac.std():.2f}% of abundance"
-        s += f"\nsimulated\t{check(self.has_results())}"
-        if self.has_results():
+        s += f"\nsimulated\t{check(self.has_results)}"
+        if self.has_results:
             rates = self.results.growth_rates.growth_rate
             s += f"\tμᵢ = {rates.mean():.2f} ± {rates.std():.2f} 1/h"
-        s += f"\ntradeoffs\t{check(self.has_tradeoffs())}"
-        if self.has_tradeoffs():
+        s += f"\ntradeoffs\t{check(self.has_tradeoffs)}"
+        if self.has_tradeoffs:
             frac = self.tradeoffs.groupby("tradeoff").growth_rate.apply(lambda x: (x > 1e-6).mean()) * 100.0
             s += f"\tgrowing fraction: {frac.min():.2f} - {frac.max():.2f}%"
         s+= "\n"
@@ -693,16 +698,16 @@ class Batch(object):
         s += f"<tr><td>medium</td><td>{check(self.medium is not None)}</td>"
         if self.medium is not None:
             s += f"<td>{self.medium.reaction.nunique()} compounds, total flux = {self.medium.flux.sum():.2f} mmol/(gDW·h)</td></tr>\n"
-        s += f"<tr><td>build</td><td>{check(self.is_built())}</td>\n"
-        if self.is_built():
+        s += f"<tr><td>build</td><td>{check(self.is_built)}</td>\n"
+        if self.is_built:
             frac = self.build_manifest.found_abundance_fraction * 100.0
             s += f"<td>found {frac.mean():.2f} ± {frac.std():.2f}% of abundance</td></tr>\n"
-        s += f"<tr><td>simulated</td><td>{check(self.has_results())}</td>"
-        if self.has_results():
+        s += f"<tr><td>simulated</td><td>{check(self.has_results)}</td>"
+        if self.has_results:
             rates = self.results.growth_rates.growth_rate
             s += f"<td>μᵢ = {rates.mean():.2f} ± {rates.std():.2f} 1/h</td></tr>\n"
-        s += f"<tr><td>tradeoffs</td><td>{check(self.has_tradeoffs())}</td>\n"
-        if self.has_tradeoffs():
+        s += f"<tr><td>tradeoffs</td><td>{check(self.has_tradeoffs)}</td>\n"
+        if self.has_tradeoffs:
             frac = self.tradeoffs.groupby("tradeoff").growth_rate.apply(lambda x: (x > 1e-6).mean()) * 100.0
             s += f"<td>growing fraction: {frac.min():.2f} - {frac.max():.2f}%</td></tr>\n"
         s += "</table>\n"

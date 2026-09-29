@@ -63,7 +63,7 @@ class BuildConfig(BaseModel, validate_assignment=True):
 class DBConfig(BaseModel, validate_assignment=True):
     """Parameters for the model databases."""
 
-    microbial: Union[Path, str] = "default://agora201_refseq216_species_1.qza"
+    microbial: Optional[Union[Path, str]] = "default://agora201_refseq216_species_1.qza"
     """The path to the microbial model database. Can be a local path or a URL."""
     host: Optional[Dict[str, Path]] = None
     """The host database. Currently a dictionary of host_id -> host_model_path. If None, no host model will be used."""
@@ -174,7 +174,8 @@ class Configuration(BaseModel, validate_assignment=True):
             config_dict = yaml.load(f)
         return cls(**config_dict)
 
-    def __repr__(self: Self) -> str:
+
+    def __str__(self: Self) -> str:
         """Return a string representation of the configuration.
 
         Returns
@@ -192,17 +193,6 @@ class Configuration(BaseModel, validate_assignment=True):
             else:
                 s += f"  {symbols.get(key, '├')} {key}: {value}\n"
         return s
-
-    def __str__(self: Self) -> str:
-        """Return a string representation of the configuration.
-
-        Returns
-        -------
-        str
-            String representation of the configuration.
-
-        """
-        return self.__repr__()
 
     def _repr_html_(self: Self) -> str:
         """Return an HTML representation of the configuration.

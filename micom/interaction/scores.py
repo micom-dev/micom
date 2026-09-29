@@ -12,6 +12,53 @@ def _mes(df: pd.DataFrame) -> float:
     return pd.Series(2.0 * p * c / (p + c), index=["MES"])
 
 
+def basic(results: GrowthResults, cutoff: float = None) -> pd.DataFrame:
+    """Calculate basic exchange statistics for each metabolite and sample.
+
+    Parameters
+    ----------
+    results : GrowthResults
+        The growth results to use.
+    cutoff : float
+        The smallest flux to consider. Defaults to the solver tolerance.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Producer and consumer counts and abundance-weighted consumption and
+        production fluxes for each metabolite and sample, including annotations.
+    """
+    if cutoff is None:
+        cutoff = results.exchanges.tolerance.max()
+    fluxes = results.exchanges[
+        (results.exchanges.flux.abs() > cutoff) & (results.exchanges.taxon != "medium")
+    ].copy()
+    groups = ["metabolite", "sample_id"]
+    fluxes["weighted_flux"] = fluxes.abundance * fluxes.flux.abs()
+
+    counts = fluxes.pivot_table(
+        index=groups,
+        columns="direction",
+        values="taxon",
+        aggfunc="nunique",
+        fill_value=0,
+    ).reindex(columns=["export", "import"], fill_value=0.0)
+    counts.columns = ["producers", "consumers"]
+
+    rates = fluxes.pivot_table(
+        index=groups,
+        columns="direction",
+        values="weighted_flux",
+        aggfunc="sum",
+        fill_value=0,
+    ).reindex(columns=["import", "export"], fill_value=0.0)
+    rates.columns = ["consumption_flux", "production_flux"]
+
+    scores = counts.join(rates).reset_index()
+    annotations = results.annotations.drop_duplicates(subset=["metabolite"])
+    return scores.merge(annotations, on="metabolite", how="inner")
+
+
 def MES(results: GrowthResults, cutoff: float = None) -> pd.DataFrame:
     """Calculate the Metabolic Exchange Score (MES) for each metabolite.
 

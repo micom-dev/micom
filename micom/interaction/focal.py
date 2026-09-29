@@ -2,6 +2,7 @@
 
 from ..taxonomy import taxon_id
 from ..batch import GrowthResults, workflow
+import numpy as np
 import pandas as pd
 from typing import List, Union
 
@@ -32,39 +33,58 @@ def _metabolite_interaction(
     )
 
 
+import numpy as np
+
 def sample_interactions(
-    fluxes: pd.DataFrame, sample_id: str, taxon: str
+    fluxes: pd.DataFrame, taxon: str
 ) -> pd.DataFrame:
-    """Quantify interactions in a single sammple.
+    """Quantify interactions in a single sample (high-performance)."""
+    # Add scale column to indicate direction of flux relative to focal taxon
+    df = fluxes.copy()
+    df["scale"] = np.where(df["direction"] == "import", -1, 1)
 
-    Parameters
-    ---------
-    fluxes : pandas.DataFrame
-        A table of exchange fluxes.
-    sample_id : str
-        The sample id to use.
-    taxon : str
-        The focal taxon to use.
+    # Extract focal taxon data across all samples
+    focal = df[df["taxon"] == taxon]
+    if focal.empty:
+        return None
 
-    Returns
-    -------
-    pandas.DataFrame
-        The mapped interactions between the focal taxon and all other taxa.
-    """
-    ex = fluxes[fluxes.sample_id == sample_id]
-    partners = pd.Series(ex.taxon.unique())
-    partners = partners[(partners != taxon) & (partners != "medium")]
-    ints = []
-    for p in partners:
-        fluxes = ex[ex.taxon.isin((taxon, p))]
-        ints.append(
-            fluxes.groupby("metabolite")
-            .apply(lambda df: _metabolite_interaction(df, taxon, p))
-            .reset_index()
-        )
-    ints = pd.concat([i for i in ints if i is not None])
-    ints["sample_id"] = sample_id
-    return ints
+    focal_side = focal[["sample_id", "metabolite", "scale"]].rename(
+        columns={"scale": "focal_scale"}
+    )
+
+    # Extract partner data across all samples (excluding focal and medium)
+    partners = df[(df["taxon"] != taxon) & (df["taxon"] != "medium")]
+    if partners.empty:
+        return None
+
+    partner_side = partners[["sample_id", "metabolite", "taxon", "flux", "scale"]].rename(
+        columns={"taxon": "partner"}
+    )
+    partner_side.loc
+
+    # Add the focal scale to the partner flux
+    merged = pd.merge(focal_side, partner_side, on=["sample_id", "metabolite"])
+    if merged.empty:
+        return None
+
+    conditions = [
+        (merged["scale"] < 0) & (merged["focal_scale"] < 0),
+        (merged["scale"] < 0) & (merged["focal_scale"] > 0),
+        (merged["scale"] > 0) & (merged["focal_scale"] < 0),
+    ]
+    choices = ["co-consumed", "provided", "received"]
+
+    merged["class"] = np.select(conditions, choices, default="none")
+    merged = merged[merged["class"] != "none"]
+    if merged.empty:
+        return None
+
+    merged["focal"] = taxon
+
+    return (
+        merged[["focal", "partner", "metabolite", "class", "flux", "sample_id"]]
+        .reset_index(drop=True)
+    )
 
 
 def _interact(args: List) -> pd.DataFrame:
@@ -73,11 +93,8 @@ def _interact(args: List) -> pd.DataFrame:
     ex = results.exchanges[results.exchanges.taxon != "medium"]
 
     ints = (
-        ex.groupby("sample_id")
-        .apply(lambda df: sample_interactions(df, df.name, taxon))
-        .reset_index(drop=True)
-        .drop(["level_1", "index"], axis=1, errors="ignore")
-        .merge(results.annotations, on="metabolite")
+        sample_interactions(ex, taxon)
+        .merge(results.annotations.drop_duplicates(subset="metabolite"), on="metabolite")
     )
 
     return ints

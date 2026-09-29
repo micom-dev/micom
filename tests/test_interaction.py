@@ -45,7 +45,7 @@ def test_summary(results):
 
 def test_all_interactions(growth_data):
     """Test all vs all."""
-    ints = mi.interactions(growth_data, taxa=None, progress=False)
+    ints = mi.interactions(growth_data.results, taxa=None, progress=False)
     summ = mi.summarize_interactions(ints)
     assert ints.focal.nunique() == 3
     assert ints.partner.nunique() == 3
@@ -62,3 +62,25 @@ def test_mes(results):
     assert "MES" in mes.columns
     assert "metabolite" in mes.columns
     assert all(mes.MES >= 0)
+
+
+def test_basic(results):
+    """Test basic producer, consumer, and flux statistics."""
+    basic = mi.basic(results)
+    row = basic.iloc[0]
+    exchanges = results.exchanges[
+        (results.exchanges.metabolite == row.metabolite)
+        & (results.exchanges.sample_id == row.sample_id)
+        & (results.exchanges.taxon != "medium")
+    ]
+    producers = exchanges[exchanges.direction == "export"]
+    consumers = exchanges[exchanges.direction == "import"]
+
+    assert row.producers == producers.taxon.nunique()
+    assert row.consumers == consumers.taxon.nunique()
+    assert row.consumption_flux == pytest.approx(
+        (consumers.abundance * consumers.flux.abs()).sum()
+    )
+    assert row.production_flux == pytest.approx(
+        (producers.abundance * producers.flux.abs()).sum()
+    )

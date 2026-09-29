@@ -2,7 +2,7 @@
 
 import micom
 import micom.data as md
-from micom.workflows import build, grow, tradeoff
+from micom.batch import Batch
 import os.path as path
 import pytest
 import pandas as pd
@@ -46,16 +46,16 @@ def check_viz(v):
 @pytest.fixture
 def growth_data(tmp_path):
     """Generate some growth simulation data."""
-    data = md.test_data()
-    built = build(data, md.test_db, str(tmp_path), cutoff=0)
-    grown = grow(built, str(tmp_path), medium, 0.5)
-    return grown
+    batch = Batch(md.test_data(), medium=medium, model_db=md.test_db, progress=False)
+    batch.build(str(tmp_path))
+    batch.grow()
+    return batch
 
 
 @pytest.fixture
 def tradeoff_data(tmp_path):
     """Generate some growth simulation data."""
     data = md.test_data()
-    built = build(data, md.test_db, str(tmp_path), cutoff=0)
-    rates = tradeoff(built, str(tmp_path), medium)
-    return rates
+    batch = Batch(md.test_data(), medium=medium, model_db=md.test_db, progress=False)
+    batch.tradeoff()
+    return batch

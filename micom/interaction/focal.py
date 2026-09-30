@@ -4,40 +4,35 @@ from ..taxonomy import taxon_id
 from ..batch import GrowthResults, workflow
 import numpy as np
 import pandas as pd
+import numpy as np
 from typing import List, Union
 
 
-def _metabolite_interaction(
-    fluxes: pd.DataFrame, taxon: str, partner: str
-) -> pd.DataFrame:
-    """Checks if and how taxa interact."""
-    tol = fluxes.tolerance.max()
-    f = fluxes[(fluxes.flux.abs() * fluxes.abundance) > tol]
-    if (f.shape[0] < 2) or (f.direction == "export").all():
-        return None
-    if (f.direction == "import").sum() == 2:
-        int_type = "co-consumed"
-    elif (f.loc[f.taxon == taxon, "direction"] == "export").all():
-        int_type = "provided"
-    else:
-        int_type = "received"
-
-    return pd.DataFrame(
-        {
-            "focal": taxon,
-            "partner": partner,
-            "class": int_type,
-            "flux": (f.flux.abs() * f.abundance).min(),
-        },
-        index=[0],
-    )
-
-
-import numpy as np
-
-
 def sample_interactions(fluxes: pd.DataFrame, taxon: str) -> pd.DataFrame:
-    """Quantify interactions in a single sample (high-performance)."""
+    """Quantify interactions in a single sample.
+
+    This attempts to quantify the interactions of a focal taxon with other taxa in a single sample. It does so by comparing the direction
+    of fluxes of the focal taxon with those of other taxa.
+
+    The interaction is classified as follows:
+
+    - co-consumed: both the focal taxon and the partner taxon are consuming the same metabolite (both have import fluxes).
+    - provided: the focal taxon is producing a metabolite that the partner taxon is consuming (focal has export flux, partner has import flux).
+    - received: the focal taxon is consuming a metabolite that the partner taxon is producing (focal has import flux, partner has export flux).
+
+
+    Parameters
+    ----------
+    fluxes : pd.DataFrame
+        The fluxes of a single sample.
+    taxon : str
+        The focal taxon to quantify interactions for.
+
+    Returns
+    -------
+    pd.DataFrame or None
+        A dataframe with the interactions of the focal taxon with other taxa in the sample. If there are no interactions, returns None.
+    """
     # Add scale column to indicate direction of flux relative to focal taxon
     df = fluxes.copy()
     df["scale"] = np.where(df["direction"] == "import", -1, 1)
@@ -50,6 +45,7 @@ def sample_interactions(fluxes: pd.DataFrame, taxon: str) -> pd.DataFrame:
     focal_side = focal[["sample_id", "metabolite", "scale"]].rename(
         columns={"scale": "focal_scale"}
     )
+    focal_side["focal_flux"] = focal["flux"].abs() * focal["abundance"]
 
     # Extract partner data across all samples (excluding focal and medium)
     partners = df[(df["taxon"] != taxon) & (df["taxon"] != "medium")]
@@ -57,9 +53,9 @@ def sample_interactions(fluxes: pd.DataFrame, taxon: str) -> pd.DataFrame:
         return None
 
     partner_side = partners[
-        ["sample_id", "metabolite", "taxon", "flux", "scale"]
+        ["sample_id", "metabolite", "taxon", "scale"]
     ].rename(columns={"taxon": "partner"})
-    partner_side.loc
+    partner_side["partner_flux"] = partners["flux"].abs() * partners["abundance"]
 
     # Add the focal scale to the partner flux
     merged = pd.merge(focal_side, partner_side, on=["sample_id", "metabolite"])
@@ -79,7 +75,7 @@ def sample_interactions(fluxes: pd.DataFrame, taxon: str) -> pd.DataFrame:
         return None
 
     merged["focal"] = taxon
-    merged["flux"] = merged["flux"].abs()
+    merged["flux"] = merged[["focal_flux", "partner_flux"]].min(axis=1)
 
     return merged[
         ["focal", "partner", "metabolite", "class", "flux", "sample_id"]
@@ -106,6 +102,12 @@ def interactions(
 ) -> pd.DataFrame:
     """Quantify interactions of a focal/reference taxon with other taxa.
 
+    This parallelizes across taxa. Samples are not parallelized, as sample interactions can be vectorized quite well.
+
+    Note
+    ----
+    The function will attempt to resolve taxa names to taxon IDs. If a taxon name cannot be resolved, a ValueError will be raised.
+
     Parameters
     ---------
     results : GrowthResults
@@ -118,6 +120,11 @@ def interactions(
     -------
     pandas.DataFrame
         The mapped interactions between the focal taxon and all other taxa.
+
+    Raises
+    ------
+    ValueError
+        If a taxon name cannot be resolved to a taxon ID.
     """
     if isinstance(taxa, str):
         return _interact([results, taxon_id(taxa, results.growth_rates)])

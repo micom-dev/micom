@@ -111,7 +111,7 @@ def test_batch_not_built_errors(batch):
         batch.complete_medium()
 
 
-def test_batch_state_and_representations(batch):
+def test_batch_state_and_representations_incomplete(batch):
     assert not batch.is_built
     assert not batch.has_results
     assert not batch.has_tradeoffs
@@ -120,6 +120,22 @@ def test_batch_state_and_representations(batch):
     assert "<table>" in batch._repr_html_()
     with pytest.raises(AttributeError, match="cannot be changed"):
         batch.taxonomy = batch.taxonomy
+
+def test_batch_state_and_representations_complete(batch_built):
+    batch_built.grow()
+    batch_built.tradeoff()
+    assert batch_built.is_built
+    assert batch_built.has_results
+    assert batch_built.has_tradeoffs
+    assert "Batch" in repr(batch_built)
+    assert "samples" in str(batch_built)
+    assert "μᵢ" in str(batch_built)
+    assert "μᵢ" in batch_built._repr_html_()
+    assert "<table>" in batch_built._repr_html_()
+    assert "growing fraction" in batch_built._repr_html_()
+    assert "growing fraction" in str(batch_built)
+    with pytest.raises(AttributeError, match="cannot be changed"):
+        batch_built.taxonomy = batch_built.taxonomy
 
 
 @pytest.mark.parametrize("tradeoffs", [[-0.1], [1.1]])

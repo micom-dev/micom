@@ -37,3 +37,19 @@ def test_host_medium():
 
     with pytest.raises(ValueError):
         com.host_medium = {"EX_glc__D_e": -10, "EX_o2_e": -10}
+
+def test_host_optimization():
+    """Test that the host model is included in the optimization."""
+    com = mm.Community(mm.data.test_taxonomy(host=True), progress=False)
+    com.host_medium = {"EX_o2_h": -10}
+    sols = com.optimize_host()
+    assert "human" in sols
+    assert all(s.host_rates.sum() > 0 for s in sols.values())
+
+def test_host_repr():
+    """Test that the host model is included in the repr."""
+    com = mm.Community(mm.data.test_taxonomy(host=True), progress=False)
+    com.host_medium = {"EX_o2_h": -10}
+    sol = com.optimize_host()["human"]
+    assert "host" in repr(sol)
+    assert "host maintenance" in sol._repr_html_()

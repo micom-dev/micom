@@ -128,7 +128,7 @@ class CommunitySolution(Solution):
 
     def _repr_html_(self):
         if self.status in good:
-            if self.host_rate is not None:
+            if self.host_rates is not None:
                 with pd.option_context("display.max_rows", 10):
                     html = (
                         f"<strong>community growth:</strong> {self.growth_rate:.3f}"

@@ -5,6 +5,7 @@ import micom as mm
 import micom.batch as mb
 import micom.db as mdb
 from os import path, environ
+from pathlib import Path
 from pytest import approx, mark, raises
 
 db = mm.data.test_db

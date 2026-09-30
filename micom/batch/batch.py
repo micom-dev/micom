@@ -68,6 +68,7 @@ class Batch(object):
             self.config.dbs.microbial = (
                 model_db if isinstance(model_db, str) else Path(model_db)
             )
+        check_medium(medium)
         self.medium = medium
         self.name = name if name is not None else generate_random_name()
 

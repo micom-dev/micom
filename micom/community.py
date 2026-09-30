@@ -9,7 +9,7 @@ from optlang.symbolics import Zero
 from .constants import RANKS
 from .coupling import add_coupling, add_resource_constraint
 from .db import load_zip_model_db, load_manifest
-from .types import pathify
+from .types import check_taxonomy, pathify
 from .util import (
     load_model,
     join_models,
@@ -171,6 +171,8 @@ class Community(cobra.Model):
         self.max_exchange = max_exchange
         self.__db_metrics = None
         adjust_solver_config(self.solver)
+
+        check_taxonomy(taxonomy, samples=False)
 
         taxonomy = taxonomy.copy()
         if "abundance" not in taxonomy.columns:
@@ -1145,23 +1147,14 @@ class Community(cobra.Model):
         exids = set(r.id for r in exs)
         rids = set(k for k in fluxes)
         found = rids & exids
-        C_num = sum(
-            cobra.core.formula.Formula(ex_metabolite(self, rid).formula).elements.get(
-                "C", 0
-            )
-            for rid in found
-        )
         not_found = rids - exids
+
         if len(fluxes) > 0 and len(found) == 0:
             raise ValueError(
                 "No ID from the medium could be found in the exchange reactions. "
                 "This means you probably have mismatched IDs..."
             )
-        elif C_num == 0:
-            logger.warning(
-                "There does not seem to be any carbon source in your medium. "
-                "Please double-check your medium IDs in case this was not intended. "
-            )
+
         if len(not_found) > 0:
             logger.info(
                 "I could not find the following exchanges "

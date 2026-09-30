@@ -38,7 +38,7 @@ def test_taxonomy(n=4, host=False):
     taxa["reactions"] = 95
     taxa["metabolites"] = 72
     taxa["file"] = ecoli_file
-    taxa["abundance"] = 1/n
+    taxa["abundance"] = 1 / n
     if host:
         taxa["is_host"] = False
         table = pd.DataFrame(

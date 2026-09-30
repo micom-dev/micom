@@ -65,7 +65,9 @@ class Batch(object):
         self._taxonomy = taxonomy
         self.config = config
         if model_db is not None:
-            self.config.dbs.microbial = model_db if isinstance(model_db, str) else Path(model_db)
+            self.config.dbs.microbial = (
+                model_db if isinstance(model_db, str) else Path(model_db)
+            )
         self.medium = medium
         self.name = name if name is not None else generate_random_name()
 
@@ -670,9 +672,14 @@ class Batch(object):
             s += f"\tμᵢ = {rates.mean():.2f} ± {rates.std():.2f} 1/h"
         s += f"\ntradeoffs\t{check(self.has_tradeoffs)}"
         if self.has_tradeoffs:
-            frac = self.tradeoffs.groupby("tradeoff").growth_rate.apply(lambda x: (x > 1e-6).mean()) * 100.0
+            frac = (
+                self.tradeoffs.groupby("tradeoff").growth_rate.apply(
+                    lambda x: (x > 1e-6).mean()
+                )
+                * 100.0
+            )
             s += f"\tgrowing fraction: {frac.min():.2f} - {frac.max():.2f}%"
-        s+= "\n"
+        s += "\n"
         return s
 
     def _repr_html_(self: Self) -> str:
@@ -708,7 +715,12 @@ class Batch(object):
             s += f"<td>μᵢ = {rates.mean():.2f} ± {rates.std():.2f} 1/h</td></tr>\n"
         s += f"<tr><td>tradeoffs</td><td>{check(self.has_tradeoffs)}</td>\n"
         if self.has_tradeoffs:
-            frac = self.tradeoffs.groupby("tradeoff").growth_rate.apply(lambda x: (x > 1e-6).mean()) * 100.0
+            frac = (
+                self.tradeoffs.groupby("tradeoff").growth_rate.apply(
+                    lambda x: (x > 1e-6).mean()
+                )
+                * 100.0
+            )
             s += f"<td>growing fraction: {frac.min():.2f} - {frac.max():.2f}%</td></tr>\n"
         s += "</table>\n"
         return s

@@ -5,7 +5,7 @@ from functools import reduce
 from dataclasses import dataclass
 import pandas as pd
 from pathlib import Path
-from typing import Union, TYPE_CHECKING, Self
+from typing import Union, TYPE_CHECKING, Self, Iterable
 from zipfile import ZipFile
 from ..annotation import annotate_metabolites_from_exchanges
 from ..types import pathify
@@ -148,7 +148,7 @@ def load_results(path: Union[Path, str]) -> Self:
     return GrowthResults.load(path)
 
 
-def combine_results(it: typing.Iterable[GrowthResults]) -> Self:
+def combine_results(it: Iterable[GrowthResults]) -> Self:
     """Combine several GrowthResults.
 
     Parameters

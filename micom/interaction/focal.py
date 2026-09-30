@@ -35,9 +35,8 @@ def _metabolite_interaction(
 
 import numpy as np
 
-def sample_interactions(
-    fluxes: pd.DataFrame, taxon: str
-) -> pd.DataFrame:
+
+def sample_interactions(fluxes: pd.DataFrame, taxon: str) -> pd.DataFrame:
     """Quantify interactions in a single sample (high-performance)."""
     # Add scale column to indicate direction of flux relative to focal taxon
     df = fluxes.copy()
@@ -57,9 +56,9 @@ def sample_interactions(
     if partners.empty:
         return None
 
-    partner_side = partners[["sample_id", "metabolite", "taxon", "flux", "scale"]].rename(
-        columns={"taxon": "partner"}
-    )
+    partner_side = partners[
+        ["sample_id", "metabolite", "taxon", "flux", "scale"]
+    ].rename(columns={"taxon": "partner"})
     partner_side.loc
 
     # Add the focal scale to the partner flux
@@ -82,10 +81,9 @@ def sample_interactions(
     merged["focal"] = taxon
     merged["flux"] = merged["flux"].abs()
 
-    return (
-        merged[["focal", "partner", "metabolite", "class", "flux", "sample_id"]]
-        .reset_index(drop=True)
-    )
+    return merged[
+        ["focal", "partner", "metabolite", "class", "flux", "sample_id"]
+    ].reset_index(drop=True)
 
 
 def _interact(args: List) -> pd.DataFrame:
@@ -93,9 +91,8 @@ def _interact(args: List) -> pd.DataFrame:
     results, taxon = args
     ex = results.exchanges[results.exchanges.taxon != "medium"]
 
-    ints = (
-        sample_interactions(ex, taxon)
-        .merge(results.annotations.drop_duplicates(subset="metabolite"), on="metabolite")
+    ints = sample_interactions(ex, taxon).merge(
+        results.annotations.drop_duplicates(subset="metabolite"), on="metabolite"
     )
 
     return ints

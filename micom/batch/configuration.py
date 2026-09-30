@@ -174,7 +174,6 @@ class Configuration(BaseModel, validate_assignment=True):
             config_dict = yaml.load(f)
         return cls(**config_dict)
 
-
     def __str__(self: Self) -> str:
         """Return a string representation of the configuration.
 

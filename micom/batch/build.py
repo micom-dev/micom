@@ -70,6 +70,7 @@ def _summarize_models(args):
         mod = _read_model(files[0])
     save_json_model(mod, new_path)
 
+
 @pathify
 def build_database(
     manifest: pd.DataFrame,
@@ -181,8 +182,7 @@ def build_database(
     else:
         out_path.mkdir(parents=True, exist_ok=True)
         args = [
-            (tid, row, out_path / ("%s.json" % tid))
-            for tid, row in meta.iterrows()
+            (tid, row, out_path / ("%s.json" % tid)) for tid, row in meta.iterrows()
         ]
         workflow(_summarize_models, args, threads)
         meta.file = meta.index + ".json"

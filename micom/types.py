@@ -128,7 +128,7 @@ def check_taxonomy(taxonomy: pd.DataFrame, samples: bool = True) -> None:
         raise ValueError(f"Taxonomy must contain columns 'abundance' and 'sample_id'")
     if found.sum() == 0:
         raise ValueError(
-            f"Taxonomy must contain at least one column from: {", ".join(RANKS)}"
+            f"Taxonomy must contain at least one column from: {'', ''.join(RANKS)}"
         )
 
     if samples:

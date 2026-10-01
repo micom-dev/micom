@@ -1,9 +1,10 @@
 """Simple init file for micom."""
 
-from micom.community import Community
-from micom.deps import show_versions
-from micom.util import load_pickle
-from micom import (
+from .batch import Batch, Configuration
+from .community import Community
+from .deps import show_versions
+from .util import load_pickle
+from . import (
     algorithms,
     problems,
     util,
@@ -13,16 +14,19 @@ from micom import (
     media,
     qiime_formats,
     solution,
-    workflows,
+    batch,
     interaction,
+    names,
 )
 
 __all__ = (
     "Community",
+    "batch",
+    "Batch",
+    "Configuration",
     "algorithms",
     "db",
     "problems",
-    "optcom",
     "util",
     "data",
     "duality",
@@ -30,6 +34,7 @@ __all__ = (
     "interaction",
     "media",
     "qiime_formats",
+    "names",
     "solution",
     "load_pickle",
     "logger",

@@ -1,8 +1,8 @@
 """Visualization for growth rates."""
 
 from datetime import datetime
-from micom.viz import Visualization
-from micom.workflows.results import GrowthResults
+from .core import Visualization
+from ..batch import GrowthResults
 import pandas as pd
 
 

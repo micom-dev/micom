@@ -22,7 +22,7 @@ def _summarize(ints: pd.DataFrame) -> pd.DataFrame:
 def summarize_interactions(ints: pd.DataFrame) -> pd.DataFrame:
     """Summarize interactions to key quantities.
 
-    Arguments
+    Parameters
     ---------
     ints : pandas.DataFrame
         The interactions for individual metabolites calculated before.

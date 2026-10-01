@@ -38,7 +38,7 @@ def _derivatives(before, after):
 def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
     """Get the elasticity coefficients for a set of variables.
 
-    Arguments
+    Parameters
     ---------
     com : micom.Community
         The community for wrhich to calculate elasticities.
@@ -98,13 +98,13 @@ def elasticities_by_medium(com, reactions, fraction, growth_rate, progress):
 def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     """Get the elasticity coefficients for a set of variables.
 
-    Arguments
+    Parameters
     ---------
     com : micom.Community
         The community for which to calculate elasticities.
     variables : list of optlang.Variable
         The variables for which to calculate the elasticities. All of these
-        must have non-zero primal vaues in the previous solution.
+        must have non-zero primal values in the previous solution.
 
     Returns
     -------
@@ -117,7 +117,7 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     before = _get_fluxes(sol, reactions)
     dfs = []
 
-    abundance = com.abundances.copy()
+    abundance = com.microbial_abundances.copy()
     taxa = abundance.index
 
     if progress:
@@ -125,11 +125,11 @@ def elasticities_by_abundance(com, reactions, fraction, growth_rate, progress):
     for sp in taxa:
         old = abundance[sp]
         abundance.loc[sp] *= np.exp(STEP)
-        com.set_abundance(abundance, normalize=False)
+        com.set_microbial_abundance(abundance, normalize=False)
         sol = optimize_with_fraction(com, fraction, growth_rate, True)
         after = _get_fluxes(sol, reactions)
         abundance.loc[sp] = old
-        com.set_abundance(abundance, normalize=False)
+        com.set_microbial_abundance(abundance, normalize=False)
         deriv, dirs = _derivatives(before, after)
         res = pd.DataFrame(
             {
@@ -152,7 +152,7 @@ def elasticities(com, fraction=0.5, reactions=None, progress=True):
     response and exchange bounds (diet) and taxa abundances as
     effectors/parameters. Will use an arbitrary flux distribution as base.
 
-    Arguments
+    Parameters
     ---------
     com : micom.Community
         The community for wrhich to calculate elasticities.

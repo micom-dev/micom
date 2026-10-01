@@ -1,6 +1,5 @@
 """Test model db creation."""
 
-from .fixtures import this_dir
 import micom as mm
 import micom.batch as mb
 import micom.db as mdb

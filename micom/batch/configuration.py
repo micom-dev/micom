@@ -45,9 +45,9 @@ class CouplingConfig(BaseModel, validate_assignment=True):
     """The strategy to use for flux coupling. Can be one of "resource constraint", "resource coupling", or "enzyme coupling"."""
     include_exchanges: bool = True
     """Whether to include the exchange reactions in the coupling."""
-    constraint: float = 400.0
+    constraint: float = 1000.0
     """The constraint to use for the coupling. Its interpretation depends on the strategy used."""
-    lower: float = 0.0
+    lower: float = 1e-6
     """A small lower bound for the enzyme usage. Only used for coupled enzyme usages."""
 
 

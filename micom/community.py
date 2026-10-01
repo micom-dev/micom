@@ -1171,8 +1171,8 @@ class Community(cobra.Model):
         ids=None,
         strategy="resource coupling",
         include_exchanges=False,
-        constraint=400,
-        lower=0.0,
+        constraint=1000.0,
+        lower=1e-6,
     ):
         """Add enzyme resource constraints.
 
@@ -1180,16 +1180,31 @@ class Community(cobra.Model):
         or keep it constant. This is useful to model the fact that enzyme usage is proportional
         to the growth rate in many cases. The following strategie are available:
 
-        resource constraint: The total enzyme usage is constrained to be below a certain threshold.
+        resource constraint: The total flux is constrained to be below a certain threshold.
 
         .. math:: \sum_{i} |v_i| \leq \text{constraint}
 
-        resource coupling: The total enzyme usage is constrained by the growth rate.
+        This is also known as resource allocation constraint [#c1]_.
+
+        resource coupling: The total flux is constrained proportionally to the growth rate.
 
         .. math:: \sum_{i} |v_i| \leq \text{constraint} * \mu
 
         enzyme coupling: Individual enzyme usage is constrained by the growth rate except for a small maintenance flux.
+
         .. math:: |v_i| \leq \text{constraint} * \mu + \text{lower}
+
+        This is the most commonly used version in the literature [#c2]_ but requires adding an additional constraint for each
+        reaction which can be slow for large communities.
+
+        Note
+        ----
+
+        Usually one does not include exchanges in the resource constraints since they are not limited by enzyme availability (often passive transport).
+        However, this can be changed by setting `include_exchanges` to True.
+
+        The default value is based on Figure 6 of [#c1]_ which shows that for microbial communities a resource allocation constraint of 50 for a fixed
+        gowth rate of 0.05 yields the largest alpha diversity. This corresponds to a constraint of 1000 for a growth rate of 1.0.
 
         Parameters
         ----------
@@ -1209,6 +1224,13 @@ class Community(cobra.Model):
         Returns
         -------
         Nothing. Will add constraints to the model inplace.
+
+        References
+        ----------
+        .. [#c1] Kim M, Sung J, Chia N. Resource-allocation constraint governs structure and function of
+           microbial communities in metabolic modeling. Metab Eng. 2022;70: 12–22. doi:10.1016/j.ymben.2021.12.011
+        .. [#c2] Burgard AP, Nikolaev EV, Schilling CH, Maranas CD. Flux coupling analysis of genome-scale
+           metabolic network reconstructions. Genome Res. 2004;14: 301–312. doi:10.1101/gr.1926504
 
         """
         if ids is None:

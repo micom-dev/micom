@@ -35,7 +35,7 @@ Please cite this article when referencing MICOM.
 
 To get an idea which assumptions and strategies MICOM uses we recommend
 to start with some background on the :doc:`methods <logic>`. The easiest way to
-use MICOM is using :doc:`MICOM Batch <high_level>`.
+use MICOM is using :doc:`MICOM Batch <batch>`.
 
 Contents
 --------
@@ -46,17 +46,29 @@ Contents
    Strategies used by MICOM <logic>
    Installing MICOM <installing>
 
-   Getting started <high_level>
+.. toctree::
+   :maxdepth: 2
+   :caption: Batch API
+
+   Getting started <batch>
    Configuration <configuration>
    Interactions <interactions>
    Visualizations <viz>
    Writing your own workflows <workflows>
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Single Model API
 
    Single Model (CobraPy) API <community>
    Growth rates and fluxes <growth_fluxes>
    Growth media <media>
    Knockouts <taxa_knockouts>
    Intervention studies <elasticities>
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Resources
 
    Tutorials and Courses <tutorials>
    Release Notes <NEWS>

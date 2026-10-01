@@ -23,17 +23,8 @@ ARGS = {
 
 
 def _growth(args):
-    p, tradeoff, medium, weights, strategy, atol, rtol, presolve = args
+    p, tradeoff, medium, conf = args
     com = load_pickle(p)
-
-    if atol is None:
-        atol = com.solver.configuration.tolerances.feasibility
-    if rtol is None:
-        rtol = com.solver.configuration.tolerances.feasibility
-    if presolve:
-        # looks stupid but that here is to respect the preset
-        # and there is an auto setting that we want to respect
-        com.solver.configuration.presolve = presolve
 
     if "glpk" in interface_to_str(com.solver.interface):
         logger.error(
@@ -52,10 +43,20 @@ def _growth(args):
     )
     com.medium = medium[medium.index.isin(ex_ids)]
 
+    # Add coupling or resource constraints if requested
+    if conf.coupling.enabled:
+        com.add_coupling_constraints(
+            ids=None,
+            strategy=conf.coupling.strategy,
+            include_exchanges=conf.coupling.include_exchanges,
+            constraint=conf.coupling.constraint,
+            lower=conf.coupling.lower,
+        )
+
     # Get growth rates
-    args = ARGS[strategy].copy()
-    args["atol"] = atol
-    args["rtol"] = rtol
+    args = ARGS[conf.simulation.flux_method].copy()
+    args["atol"] = conf.tolerance
+    args["rtol"] = conf.tolerance
     args["fraction"] = tradeoff
     try:
         sol = com.cooperative_tradeoff(**args)
@@ -72,7 +73,7 @@ def _growth(args):
         )
         return None
 
-    if strategy == "minimal imports":
+    if conf.simulation.flux_method == "minimal imports":
         # Get the minimal medium and the solution at the same time
         med = minimal_medium(
             com,
@@ -80,9 +81,9 @@ def _growth(args):
             community_growth=sol.growth_rate,
             min_growth=rates.growth_rate.drop("medium"),
             solution=True,
-            weights=weights,
-            atol=atol,
-            rtol=rtol,
+            weights=conf.media.weights,
+            atol=conf.tolerance,
+            rtol=conf.tolerance,
         )
         if med is None:
             logger.error(
@@ -97,6 +98,6 @@ def _growth(args):
     exs = list({r.global_id for r in com.internal_exchanges + com.exchanges})
     fluxes = sol.fluxes.loc[:, exs].copy()
     fluxes["sample_id"] = com.id
-    fluxes["tolerance"] = atol
+    fluxes["tolerance"] = conf.tolerance
     anns = annotate_metabolites_from_exchanges(com)
     return {"growth": rates, "exchanges": fluxes, "annotations": anns}

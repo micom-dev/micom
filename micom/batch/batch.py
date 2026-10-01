@@ -290,11 +290,7 @@ class Batch(object):
                 p,
                 tradeoff,
                 medium.flux[medium.sample_id == s],
-                weights,
-                flux_method,
-                None,
-                None,
-                False,
+                self.config,
             ]
             for s, p in paths.items()
         ]

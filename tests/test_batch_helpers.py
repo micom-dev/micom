@@ -8,6 +8,7 @@ import pytest
 import micom.batch.grow as grow
 import micom.batch.media as media
 import micom.batch.tradeoff as tradeoff
+from micom.batch.configuration import Configuration
 
 
 def test_process_medium_duplicates_and_deduplicates():
@@ -108,11 +109,20 @@ def _fake_solver(interface="cplex"):
     )
 
 
+def _growth_config(flux_method="none"):
+    return Configuration(
+        coupling={"enabled": False},
+        simulation={"flux_method": flux_method},
+    )
+
+
 def test_growth_rejects_glpk(monkeypatch):
     community = SimpleNamespace(solver=_fake_solver("glpk"))
     monkeypatch.setattr(grow, "load_pickle", lambda _: community)
     monkeypatch.setattr(grow, "interface_to_str", lambda _: "glpk_interface")
-    assert grow._growth(("model", 0.5, pd.Series(dtype=float), None, "none", None, None, False)) is None
+    assert grow._growth(
+        ("model", 0.5, pd.Series(dtype=float), _growth_config())
+    ) is None
 
 
 def test_growth_tradeoff_failure(monkeypatch):
@@ -127,7 +137,9 @@ def test_growth_tradeoff_failure(monkeypatch):
     )
     monkeypatch.setattr(grow, "load_pickle", lambda _: community)
     monkeypatch.setattr(grow, "interface_to_str", lambda _: "cplex_interface")
-    assert grow._growth(("model", 0.5, pd.Series({"EX_a": 1.0}), None, "none", None, None, False)) is None
+    assert grow._growth(
+        ("model", 0.5, pd.Series({"EX_a": 1.0}), _growth_config())
+    ) is None
 
 
 def test_growth_success(monkeypatch):
@@ -153,7 +165,7 @@ def test_growth_success(monkeypatch):
     )
 
     result = grow._growth(
-        ("model", 0.5, pd.Series({"EX_a": 1.0}), None, "none", None, None, False)
+        ("model", 0.5, pd.Series({"EX_a": 1.0}), _growth_config())
     )
     assert result["growth"].sample_id.tolist() == ["sample"]
     assert result["exchanges"].loc["taxon", "sample_id"] == "sample"
@@ -175,7 +187,12 @@ def test_growth_minimal_import_failure(monkeypatch):
     monkeypatch.setattr(grow, "minimal_medium", lambda *args, **kwargs: None)
 
     assert grow._growth(
-        ("model", 0.5, pd.Series({"EX_a": 1.0}), None, "minimal imports", None, None, False)
+        (
+            "model",
+            0.5,
+            pd.Series({"EX_a": 1.0}),
+            _growth_config("minimal imports"),
+        )
     ) is None
 
 

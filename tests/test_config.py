@@ -6,6 +6,7 @@ import pytest
 
 from micom.batch import Configuration
 
+
 def test_config():
     """Test the configuration interface."""
     conf = Configuration()
@@ -21,6 +22,7 @@ def test_simulation_config():
 
     with pytest.raises(ValueError):
         conf.simulation.flux_method = "invalid"
+
 
 def test_dbs_config():
     """Test the dbs configuration interface."""

@@ -30,6 +30,7 @@ def test_add(community):
     assert combined.exchanges.shape[0] == 2 * r1.exchanges.shape[0]
     assert combined.annotations.shape == r1.annotations.shape
 
+
 def test_results_saving(batch_grown, tmp_path):
     results_file = tmp_path / "test.zip"
     batch_grown.results.save(results_file)

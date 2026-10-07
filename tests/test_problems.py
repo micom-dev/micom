@@ -8,7 +8,6 @@ strategies = ["original", "lmoma"]
 
 
 class TestOptcom:
-
     @pytest.mark.parametrize("strategy", strategies)
     def test_is_consistent(self, community, strategy):
         community.solver = "glpk"

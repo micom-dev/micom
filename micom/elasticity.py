@@ -27,7 +27,7 @@ def _derivatives(before, after):
     before_signs = np.sign(before)
     after_signs = np.sign(after)
     if any(np.abs(before_signs - after_signs) > 2):
-        ValueError("Some of the fluxes changed sign. " "Can't compute elasticities :(")
+        ValueError("Some of the fluxes changed sign. Can't compute elasticities :(")
     direction = np.repeat("zero", len(before)).astype("<U8")
     direction[(before > 1e-6) | (after > 1e-6)] = "forward"
     direction[(before < -1e-6) | (after < -1e-6)] = "reverse"

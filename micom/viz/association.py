@@ -100,7 +100,7 @@ def plot_association(
         )
     elif variable_type not in ["binary", "continuous"]:
         raise ValueError(
-            "Unsupported variable type. Must be either `binary` or " "`continuous`."
+            "Unsupported variable type. Must be either `binary` or `continuous`."
         )
     exchanges.loc[:, variable_name] = phenotype[exchanges.sample_id].values
 

@@ -15,6 +15,7 @@ def _mark_built(batch, tmp_path):
     )
     batch.out_folder = tmp_path
 
+
 def test_build(batch, tmp_path, caplog):
     batch.build(str(tmp_path))
     manifest = batch.build_manifest
@@ -86,15 +87,18 @@ def test_media_weights(batch_built, w):
 
 def test_complete_community_medium(batch_built):
     bad_medium = batch_built.medium.iloc[0:2, :]
-    fixed = batch_built.complete_medium(community_growth=0.5, taxa_growth=0.001, medium=bad_medium)
+    fixed = batch_built.complete_medium(
+        community_growth=0.5, taxa_growth=0.001, medium=bad_medium
+    )
     assert fixed.shape[0] > 3
     assert "description" in fixed.columns
 
 
-
 def test_complete_community_medium_no_summary(batch_built):
     bad_medium = batch_built.medium.iloc[0:2, :]
-    fixed = batch_built.complete_medium(community_growth=0.5, taxa_growth=0.001, medium=bad_medium, summarize=False)
+    fixed = batch_built.complete_medium(
+        community_growth=0.5, taxa_growth=0.001, medium=bad_medium, summarize=False
+    )
     assert fixed.shape[0] > 12
     assert "description" in fixed.columns
     assert "sample_id" in fixed.columns
@@ -120,6 +124,7 @@ def test_batch_state_and_representations_incomplete(batch):
     assert "<table>" in batch._repr_html_()
     with pytest.raises(AttributeError, match="cannot be changed"):
         batch.taxonomy = batch.taxonomy
+
 
 def test_batch_state_and_representations_complete(batch_built):
     batch_built.grow()

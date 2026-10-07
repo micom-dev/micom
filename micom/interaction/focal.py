@@ -52,9 +52,9 @@ def sample_interactions(fluxes: pd.DataFrame, taxon: str) -> pd.DataFrame:
     if partners.empty:
         return None
 
-    partner_side = partners[
-        ["sample_id", "metabolite", "taxon", "scale"]
-    ].rename(columns={"taxon": "partner"})
+    partner_side = partners[["sample_id", "metabolite", "taxon", "scale"]].rename(
+        columns={"taxon": "partner"}
+    )
     partner_side["partner_flux"] = partners["flux"].abs() * partners["abundance"]
 
     # Add the focal scale to the partner flux

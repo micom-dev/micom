@@ -49,12 +49,14 @@ def batch(tmp_path):
     batch = Batch(md.test_data(), medium=medium, model_db=md.test_db)
     return batch
 
+
 @pytest.fixture
 def batch_built(tmp_path):
     """Generate some growth simulation data."""
     batch = Batch(md.test_data(), medium=medium, model_db=md.test_db)
     batch.build(str(tmp_path))
     return batch
+
 
 @pytest.fixture
 def batch_grown(tmp_path):

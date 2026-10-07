@@ -855,8 +855,7 @@ class Community(cobra.Model):
             return self.__db_metrics
         else:
             raise ValueError(
-                "Metrics are only available for models build using a model "
-                "database :("
+                "Metrics are only available for models build using a model database :("
             )
 
     def optcom(self, strategy="lagrangian", min_growth=0.0, fluxes=False, pfba=True):
@@ -1015,11 +1014,11 @@ class Community(cobra.Model):
             taxa = [taxa]
         if any(sp not in self.taxa for sp in taxa):
             raise ValueError(
-                "At least one of the arguments is not a taxon " "in the community."
+                "At least one of the arguments is not a taxon in the community."
             )
         if method not in ["raw", "change", "relative change"]:
             raise ValueError(
-                "`method` must be one of 'raw', 'change', " "or 'relative change'."
+                "`method` must be one of 'raw', 'change', or 'relative change'."
             )
         return knockout_taxa(self, taxa, fraction, method, progress, diag)
 

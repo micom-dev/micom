@@ -62,8 +62,17 @@ def test_zip_build(tmp_path, rank):
     assert m[2] == 1.0
     assert m[3] == 1.0
 
-@mark.xfail(condition=environ.get("GITHUB_ACTIONS") == "true", reason="Fails on GitHub Actions")
-@mark.parametrize("loc", ["default://agora103_gtdb207_genus_1.qza", "https://zenodo.org/records/7739096/files/agora103_gtdb207_genus_1.qza?download=1"])
+
+@mark.xfail(
+    condition=environ.get("GITHUB_ACTIONS") == "true", reason="Fails on GitHub Actions"
+)
+@mark.parametrize(
+    "loc",
+    [
+        "default://agora103_gtdb207_genus_1.qza",
+        "https://zenodo.org/records/7739096/files/agora103_gtdb207_genus_1.qza?download=1",
+    ],
+)
 def test_model_db_download(loc, tmp_path):
     db = mdb.get_database(loc, tmp_path)
     man = mm.qiime_formats.load_qiime_model_db(db, tmp_path / "model_db")
@@ -72,8 +81,17 @@ def test_model_db_download(loc, tmp_path):
     assert "genus" in man.columns
     assert "family" in man.columns
 
-@mark.xfail(condition=environ.get("GITHUB_ACTIONS") == "true", reason="Fails on GitHub Actions")
-@mark.parametrize("loc", ["default://himalaya.qza", "https://raw.githubusercontent.com/micom-dev/media/refs/heads/main/media/vmh_high_fiber_agora.qza"])
+
+@mark.xfail(
+    condition=environ.get("GITHUB_ACTIONS") == "true", reason="Fails on GitHub Actions"
+)
+@mark.parametrize(
+    "loc",
+    [
+        "default://himalaya.qza",
+        "https://raw.githubusercontent.com/micom-dev/media/refs/heads/main/media/vmh_high_fiber_agora.qza",
+    ],
+)
 def test_media_db_download(loc, tmp_path):
     db = mdb.get_database(loc, tmp_path, what="media")
     medium = mm.qiime_formats.load_qiime_medium(db)
@@ -81,6 +99,7 @@ def test_media_db_download(loc, tmp_path):
     assert "flux" in medium.columns
     assert "reaction" in medium.columns
     assert "metabolite" in medium.columns
+
 
 def test_get_database_trivial():
     db = mdb.get_database(mm.data.test_db, "whatever")

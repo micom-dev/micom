@@ -39,6 +39,7 @@ def test_add_prefix():
     assert all(tax.genus == with_prefix.genus)
     assert all(tax.species == with_prefix.species)
 
+
 def test_check_taxonomy():
     tax = test_taxonomy()
     check_taxonomy(no_prefix, samples=False)

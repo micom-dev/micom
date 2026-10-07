@@ -29,9 +29,7 @@ def test_process_medium_duplicates_and_deduplicates():
 
 
 def test_process_medium_requires_each_sample():
-    raw = pd.DataFrame(
-        {"reaction": ["EX_a"], "flux": [1.0], "sample_id": ["sample_a"]}
-    )
+    raw = pd.DataFrame({"reaction": ["EX_a"], "flux": [1.0], "sample_id": ["sample_a"]})
     with pytest.raises(ValueError, match="missing samples.*sample_b"):
         media.process_medium(raw, ["sample_a", "sample_b"])
 
@@ -70,9 +68,7 @@ def test_minimal_medium_helper_failure(monkeypatch):
 def test_fix_medium_success(monkeypatch):
     metabolite = type("Metabolite", (), {"id": "a", "name": "A"})()
     reaction = SimpleNamespace(metabolites={metabolite: -1})
-    community = SimpleNamespace(
-        reactions=SimpleNamespace(get_by_id=lambda _: reaction)
-    )
+    community = SimpleNamespace(reactions=SimpleNamespace(get_by_id=lambda _: reaction))
     monkeypatch.setattr(media, "load_pickle", lambda _: community)
     monkeypatch.setattr(
         media,
@@ -120,9 +116,9 @@ def test_growth_rejects_glpk(monkeypatch):
     community = SimpleNamespace(solver=_fake_solver("glpk"))
     monkeypatch.setattr(grow, "load_pickle", lambda _: community)
     monkeypatch.setattr(grow, "interface_to_str", lambda _: "glpk_interface")
-    assert grow._growth(
-        ("model", 0.5, pd.Series(dtype=float), _growth_config())
-    ) is None
+    assert (
+        grow._growth(("model", 0.5, pd.Series(dtype=float), _growth_config())) is None
+    )
 
 
 def test_growth_tradeoff_failure(monkeypatch):
@@ -137,9 +133,9 @@ def test_growth_tradeoff_failure(monkeypatch):
     )
     monkeypatch.setattr(grow, "load_pickle", lambda _: community)
     monkeypatch.setattr(grow, "interface_to_str", lambda _: "cplex_interface")
-    assert grow._growth(
-        ("model", 0.5, pd.Series({"EX_a": 1.0}), _growth_config())
-    ) is None
+    assert (
+        grow._growth(("model", 0.5, pd.Series({"EX_a": 1.0}), _growth_config())) is None
+    )
 
 
 def test_growth_success(monkeypatch):
@@ -164,17 +160,13 @@ def test_growth_success(monkeypatch):
         lambda _: pd.DataFrame({"reaction": ["EX_a"], "metabolite": ["a"]}),
     )
 
-    result = grow._growth(
-        ("model", 0.5, pd.Series({"EX_a": 1.0}), _growth_config())
-    )
+    result = grow._growth(("model", 0.5, pd.Series({"EX_a": 1.0}), _growth_config()))
     assert result["growth"].sample_id.tolist() == ["sample"]
     assert result["exchanges"].loc["taxon", "sample_id"] == "sample"
 
 
 def test_growth_minimal_import_failure(monkeypatch):
-    rates = pd.DataFrame(
-        {"growth_rate": [0.2, 0.2]}, index=["taxon", "medium"]
-    )
+    rates = pd.DataFrame({"growth_rate": [0.2, 0.2]}, index=["taxon", "medium"])
     solution = SimpleNamespace(members=rates, growth_rate=0.2)
     community = SimpleNamespace(
         id="sample",
@@ -186,14 +178,17 @@ def test_growth_minimal_import_failure(monkeypatch):
     monkeypatch.setattr(grow, "interface_to_str", lambda _: "cplex_interface")
     monkeypatch.setattr(grow, "minimal_medium", lambda *args, **kwargs: None)
 
-    assert grow._growth(
-        (
-            "model",
-            0.5,
-            pd.Series({"EX_a": 1.0}),
-            _growth_config("minimal imports"),
+    assert (
+        grow._growth(
+            (
+                "model",
+                0.5,
+                pd.Series({"EX_a": 1.0}),
+                _growth_config("minimal imports"),
+            )
         )
-    ) is None
+        is None
+    )
 
 
 def test_tradeoff_optimizer_failure(monkeypatch):
@@ -207,9 +202,12 @@ def test_tradeoff_optimizer_failure(monkeypatch):
         optimize=fail,
     )
     monkeypatch.setattr(tradeoff, "load_pickle", lambda _: community)
-    assert tradeoff._tradeoff(
-        ("model", [0.5], pd.Series({"EX_a": 1.0}), None, None, False)
-    ) is None
+    assert (
+        tradeoff._tradeoff(
+            ("model", [0.5], pd.Series({"EX_a": 1.0}), None, None, False)
+        )
+        is None
+    )
 
 
 def test_tradeoff_cooperative_failure(monkeypatch):
@@ -226,9 +224,12 @@ def test_tradeoff_cooperative_failure(monkeypatch):
         cooperative_tradeoff=fail,
     )
     monkeypatch.setattr(tradeoff, "load_pickle", lambda _: community)
-    assert tradeoff._tradeoff(
-        ("model", [0.5], pd.Series({"EX_a": 1.0}), None, None, False)
-    ) is None
+    assert (
+        tradeoff._tradeoff(
+            ("model", [0.5], pd.Series({"EX_a": 1.0}), None, None, False)
+        )
+        is None
+    )
 
 
 def test_tradeoff_success(monkeypatch):

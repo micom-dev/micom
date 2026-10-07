@@ -35,6 +35,7 @@ def test_qiime_medium():
     assert "reaction" in m.columns
     assert "flux" in m.columns
 
+
 @mark.xfail(reason="need to update qiime models")
 def test_qiime_model():
     manifest = qf.load_qiime_manifest(models)

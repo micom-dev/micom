@@ -250,8 +250,9 @@ def check_modification(community):
     """
     if community.modification is not None:
         raise ValueError(
-            "Community already carries a modification "
-            "({})!".format(community.modification)
+            "Community already carries a modification ({})!".format(
+                community.modification
+            )
         )
 
 
@@ -313,9 +314,7 @@ def _apply_min_growth(community, min_growth, atol=1e-6, rtol=1e-6):
             context(partial(reset, sp, obj.lb))
         obj.lb = (1.0 - rtol) * min_growth[sp] - atol
         if obj.lb < atol:
-            logger.info(
-                "minimal growth rate smaller than tolerance," " setting to zero."
-            )
+            logger.info("minimal growth rate smaller than tolerance, setting to zero.")
             obj.lb = 0
 
 

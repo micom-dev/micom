@@ -22,7 +22,9 @@ def test_plot_growth(batch_grown, tmp_path):
     v = viz.plot_growth(batch_grown.results, str(tmp_path / "viz.html"))
     check_viz(v)
     v = viz.plot_growth(
-        batch_grown.results, str(tmp_path / "viz.html"), groups=random_groups(batch_grown.results)
+        batch_grown.results,
+        str(tmp_path / "viz.html"),
+        groups=random_groups(batch_grown.results),
     )
     check_viz(v)
 
@@ -30,7 +32,6 @@ def test_plot_growth(batch_grown, tmp_path):
 def test_plot_tradeoff(batch_tradeoff, tmp_path):
     v = viz.plot_tradeoff(batch_tradeoff.tradeoffs, str(tmp_path / "viz.html"))
     check_viz(v)
-
 
 
 def test_plot_sample_exchanges(batch_grown, tmp_path):
@@ -50,7 +51,6 @@ def test_plot_sample_exchanges(batch_grown, tmp_path):
         )
 
 
-
 def test_plot_taxon_exchanges(batch_grown, tmp_path):
     v = viz.plot_exchanges_per_taxon(batch_grown.results, str(tmp_path / "viz.html"))
     check_viz(v)
@@ -59,7 +59,9 @@ def test_plot_taxon_exchanges(batch_grown, tmp_path):
     )
     check_viz(v)
     v = viz.plot_exchanges_per_taxon(
-        batch_grown.results, str(tmp_path / "viz.html"), groups=random_groups(batch_grown.results)
+        batch_grown.results,
+        str(tmp_path / "viz.html"),
+        groups=random_groups(batch_grown.results),
     )
     check_viz(v)
     with pytest.raises(ValueError):
@@ -68,11 +70,15 @@ def test_plot_taxon_exchanges(batch_grown, tmp_path):
         )
 
 
-
 def test_association(batch_grown, tmp_path):
-    meta = pd.Series([0, 0, 1, 1], index=batch_grown.results.growth_rates.sample_id.unique())
+    meta = pd.Series(
+        [0, 0, 1, 1], index=batch_grown.results.growth_rates.sample_id.unique()
+    )
     v = viz.plot_association(
-        batch_grown.results, meta, filename=str(tmp_path / "viz.html"), fdr_threshold=0.5
+        batch_grown.results,
+        meta,
+        filename=str(tmp_path / "viz.html"),
+        fdr_threshold=0.5,
     )
     check_viz(v)
     v = viz.plot_association(
@@ -86,19 +92,33 @@ def test_association(batch_grown, tmp_path):
 
     with pytest.raises(ValueError):
         v = viz.plot_association(
-            batch_grown.results, meta, variable_type="dog", filename=str(tmp_path / "viz.html")
+            batch_grown.results,
+            meta,
+            variable_type="dog",
+            filename=str(tmp_path / "viz.html"),
         )
 
+
 def test_association_fillna(batch_grown, tmp_path):
-    meta = pd.Series([0, 0, 1, 1], index=batch_grown.results.growth_rates.sample_id.unique())
+    meta = pd.Series(
+        [0, 0, 1, 1], index=batch_grown.results.growth_rates.sample_id.unique()
+    )
     v = viz.plot_association(
-        batch_grown.results, meta, fillna=1e-6, filename=str(tmp_path / "viz.html"), fdr_threshold=0.5
+        batch_grown.results,
+        meta,
+        fillna=1e-6,
+        filename=str(tmp_path / "viz.html"),
+        fdr_threshold=0.5,
     )
     check_viz(v)
 
     with pytest.raises(ValueError):
         v = viz.plot_association(
-            batch_grown.results, meta, fillna=1e-6, variable_type="dog", filename=str(tmp_path / "viz.html")
+            batch_grown.results,
+            meta,
+            fillna=1e-6,
+            variable_type="dog",
+            filename=str(tmp_path / "viz.html"),
         )
 
 

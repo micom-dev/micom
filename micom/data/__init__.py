@@ -1,47 +1,61 @@
 """Submodule including some common data sets."""
 
-from ..workflows import load_results
+from cobra.io import read_sbml_model
+from ..batch import load_results
 from os.path import split, join
 from numpy.random import randint
 import pandas as pd
-import pickle
 
 __all__ = ("agora", "test_taxonomy")
 this_dir, _ = split(__file__)
 
-agora = pd.read_csv(join(this_dir, "agora.csv"))
-agora["file"] = agora["id"] + ".xml"
-
-test_db = join(this_dir, "artifacts", "species_models.qza")
+test_db = join(this_dir, "artifacts", "strain_models.qza")
 test_medium = join(this_dir, "artifacts", "medium.qza")
 
 
-def test_taxonomy(n=4):
+def test_taxonomy(n=4, host=False):
     """Create a simple test taxonomy.
 
     Parameters
     ----------
     n : positive int
         How many species to include.
+    host : bool
+        Whether to include a host in the taxonomy.
 
     Returns
     -------
     pandas.DataFrame
-        Taxonomy specification for a.
+        The taxonomy specification for a test data set.
 
     """
     ecoli_file = join(this_dir, "e_coli_core.xml.gz")
-    ids = ["Escherichia_coli_{}".format(i) for i in range(1, n + 1)]
+    ids = [f"strain_{c}" for c in map(chr, range(97, 97 + n))]
     taxa = pd.DataFrame({"id": ids})
     taxa["genus"] = "Escherichia"
     taxa["species"] = "Escherichia coli"
+    taxa["strain"] = ids = [f"strain {c}" for c in map(chr, range(97, 97 + n))]
     taxa["reactions"] = 95
     taxa["metabolites"] = 72
     taxa["file"] = ecoli_file
+    taxa["abundance"] = 1 / n
+    if host:
+        taxa["is_host"] = False
+        table = pd.DataFrame(
+            {
+                "id": ["human"],
+                "genus": ["Homo"],
+                "species": ["Homo sapiens"],
+                "is_host": [True],
+                "file": [join(this_dir, "toy_host.xml")],
+                "abundance": [1.0],
+            }
+        )
+        taxa = pd.concat([taxa, table], ignore_index=True)
     return taxa
 
 
-def test_data(n_samples=4, uses_db=True):
+def test_data(n_samples=4, uses_db=True, host=False):
     """Create a simple test data set.
 
     Parameters
@@ -50,19 +64,20 @@ def test_data(n_samples=4, uses_db=True):
         How many samples to include.
     uses_db : bool
         Whether the data is used with a model database.
+    host : bool
+        Whether to include a host in the taxonomy.
 
     Returns
     -------
     pandas.DataFrame
-        Taxonomy specification for the example data.
+        The taxonomy specification for the example data.
 
     """
     samples = ["sample_%d" % i for i in range(1, n_samples + 1)]
-    data = [test_taxonomy() for s in samples]
+    data = [test_taxonomy(host=host) for s in samples]
     for i, d in enumerate(data):
         d["sample_id"] = samples[i]
-        d["species"] += " " + d.index.astype("str")
-    data = pd.concat(data)
+    data = pd.concat(data, ignore_index=True)
     data["abundance"] = randint(1, 1000, data.shape[0])
     if uses_db:
         del data["file"]
@@ -95,3 +110,14 @@ def test_tradeoff():
         Growth rates for varying tradeoff values.
     """
     return pd.read_csv(join(this_dir, "artifacts", "crc_tradeoff.csv"), index_col=0)
+
+
+def test_host():
+    """Return a host model for the example data set.
+
+    Returns
+    -------
+    cobra.Model
+        The host model.
+    """
+    return read_sbml_model(join(this_dir, "toy_host.xml"))

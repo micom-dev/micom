@@ -18,7 +18,7 @@ def production_rates(results):
     a phenotype than the net rates which are the excess productin rates, even in the
     absence of another consumer.
 
-    Arguments
+    Parameters
     ---------
     results : micom.GrowthResults
         A growth results as returned by grow.
@@ -31,8 +31,13 @@ def production_rates(results):
     """
     fluxes = results.exchanges
     pos = fluxes[(fluxes.direction == "export") & (fluxes.taxon != "medium")]
+    if pos["sample_id"].nunique() > 1:
+        groups = ["sample_id", "metabolite"]
+    else:
+        groups = "metabolite"
+
     rates = (
-        pos.groupby(["sample_id", "metabolite"])
+        pos.groupby(groups)[["sample_id", "metabolite", "abundance", "flux"]]
         .apply(lambda df: pd.Series({"flux": np.sum(df.abundance * df.flux.abs())}))
         .reset_index()
     )
@@ -55,7 +60,7 @@ def consumption_rates(results):
     The (transient) consumption rates reported here is the total flux of a metabolite
     imported/consumed by taxa in the community.
 
-    Arguments
+    Parameters
     ---------
     results : micom.GrowthResults
         A growth results as returned by grow.
@@ -68,8 +73,13 @@ def consumption_rates(results):
     """
     fluxes = results.exchanges
     neg = fluxes[(fluxes.direction == "import") & (fluxes.taxon != "medium")]
+    if neg["sample_id"].nunique() > 1:
+        groups = ["sample_id", "metabolite"]
+    else:
+        groups = "metabolite"
+
     rates = (
-        neg.groupby(["sample_id", "metabolite"])
+        neg.groupby(groups)[["sample_id", "metabolite", "abundance", "flux"]]
         .apply(lambda df: pd.Series({"flux": np.sum(df.abundance * df.flux.abs())}))
         .reset_index()
     )

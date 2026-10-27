@@ -2,10 +2,10 @@
 
 import pandas as pd
 from cobra.medium import find_external_compartment
-from micom.annotation import annotate_metabolites_from_exchanges
-from micom.db import load_zip_model_db, load_manifest
-from micom.workflows.core import workflow
-from micom.workflows.media import process_medium
+from ..annotation import annotate_metabolites_from_exchanges
+from ..db import load_zip_model_db, load_manifest
+from .core import workflow
+from .media import process_medium
 import micom.media as mm
 from micom.solution import OptimizationError
 from micom.util import load_model
@@ -79,7 +79,7 @@ def _try_complete(args):
 def check_db_medium(model_db, medium, threads=1):
     """Complete a growth medium for all models in a database.
 
-    Arguments
+    Parameters
     ---------
     model_db : str
         A pre-built model database. If ending in `.qza` must be a Qiime 2
@@ -141,7 +141,7 @@ def complete_db_medium(
 ):
     """Complete a growth medium for all models in a database.
 
-    Arguments
+    Parameters
     ---------
     model_db : str
         A pre-built model database. If ending in `.qza` must be a Qiime 2
@@ -254,7 +254,7 @@ def db_annotations(
 ):
     """Get metabolite annotations from a model DB.
 
-    Arguments
+    Parameters
     ---------
     model_db : str
         A pre-built model database. If ending in `.qza` must be a Qiime 2

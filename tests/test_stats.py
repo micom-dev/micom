@@ -1,6 +1,5 @@
 """Test the stats helpers."""
 
-from multiprocessing.sharedctypes import Value
 import micom.stats as ms
 import numpy as np
 import pandas as pd
@@ -55,9 +54,10 @@ def make_correlated_fluxes(n=10):
     )
     return dfs
 
+
 def thin_out(df, fraction=0.05):
     """Remove some random flux values."""
-    return df.sample(frac=1-fraction, random_state=42)
+    return df.sample(frac=1 - fraction, random_state=42)
 
 
 def test_comparison_binary():
@@ -93,6 +93,7 @@ def test_correlation():
     assert "metabolite_4" in tests[tests.p > 0.01].metabolite.values
     assert "covariate" in tests.columns
     assert (tests.covariate == "time").all()
+
 
 def test_comparison_binary_fill():
     data = thin_out(make_grouped_fluxes())

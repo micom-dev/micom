@@ -15,14 +15,15 @@ def _summarize(ints: pd.DataFrame) -> pd.DataFrame:
                 "n_ints": df.metabolite.count(),
             },
             index=[0],
-        )
+        ),
+        include_groups=False,
     )
 
 
 def summarize_interactions(ints: pd.DataFrame) -> pd.DataFrame:
     """Summarize interactions to key quantities.
 
-    Arguments
+    Parameters
     ---------
     ints : pandas.DataFrame
         The interactions for individual metabolites calculated before.
@@ -36,7 +37,7 @@ def summarize_interactions(ints: pd.DataFrame) -> pd.DataFrame:
     """
     return (
         ints.groupby(["sample_id", "focal", "partner"])
-        .apply(_summarize)
+        .apply(_summarize, include_groups=False)
         .reset_index()
         .drop("level_4", axis=1)
     )

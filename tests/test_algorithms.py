@@ -27,7 +27,7 @@ def test_reaction_matrix():
 def test_metabolic_dist(community):
     md = algo.metabolic_dist(community.reactions)
     real = np.zeros((5, 5))
-    real[4, :] = 1
-    real[:, 4] = 1
-    real[4, 4] = 0
+    real[0, :] = 1
+    real[:, 0] = 1
+    real[0, 0] = 0
     assert np.allclose(md, real)

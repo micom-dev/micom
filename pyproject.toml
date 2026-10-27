@@ -1,28 +1,74 @@
 [build-system]
-requires = [
-  'setuptools>=40.6.0',
-  'wheel'
+requires = ["uv_build>=0.12.23,<0.13"]
+build-backend = "uv_build"
+
+[project]
+name = "micom"
+version = "0.39.1"
+description = "Microbial community modeling based on cobrapy."
+readme = "README.rst"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+authors = [{ name = "Christian Diener", email = "mail@cdiener.com" }]
+keywords = ["microbiome", "microbiota", "modeling", "metabolism", "community", "metabolic modeling"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
 ]
-build-backend = "setuptools.build_meta"
+dependencies = [
+  "pandas>=2.1.0",
+  "cobra>=0.32.0",
+  "jinja2>=2.10.0",
+  "scikit-learn>=1.0",
+  "scipy>=1.8.1",
+  "symengine>=0.6.1",
+  "osqp>=1.1.0",
+  "optlang>=1.9.1",
+  "highspy>=1.7.2",
+  "pydantic>=2.0",
+]
 
-[tool.black]
+[dependency-groups]
+test = ["coverage", "pytest", "pytest-cov", "numpy", "Cython", "biom-format", "hopsy", "cplex"]
+lint = ["ruff"]
+docs = ["sphinx>=6.0", "nbsphinx>=0.9.0", "furo", "sphinx-autoapi", "recommonmark"]
+
+[tool.uv]
+default-groups = ["test", "lint"]
+
+[tool.uv.build-backend]
+module-name = "micom"
+module-root = ""
+
+[tool.ruff]
 line-length = 88
-target-version = ['py313']
-include = '\.pyi?$'
-exclude = '''
+target-version = "py311"
+exclude = ["build", "dist", "docs", "micom.egg-info"]
 
-(
-  /(
-      \.eggs         # exclude a few common directories in the
-    | \.git          # root of the project
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-  )/
-)
-'''
+[tool.ruff.lint]
+select = ["E9", "F63", "F7", "F82"]
+
+[tool.pytest.ini_options]
+filterwarnings = ["ignore::DeprecationWarning", "ignore::FutureWarning"]
+
+[tool.coverage.run]
+source = ["micom"]
+branch = true
+
+[tool.coverage.report]
+ignore_errors = true
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "if self\\.debug",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "if 0:",
+  "if __name__ == .__main__:",
+]

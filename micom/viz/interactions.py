@@ -1,10 +1,9 @@
 """Visualizations for interactions."""
 
 from datetime import datetime
-import json
-from micom.interaction import interactions, summarize_interactions, MES
-from micom.workflows import GrowthResults
-from micom.viz.core import Visualization
+from ..interaction import interactions, summarize_interactions, MES
+from ..batch import GrowthResults
+from .core import Visualization
 import pandas as pd
 import re
 

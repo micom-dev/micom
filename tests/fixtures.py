@@ -2,7 +2,7 @@
 
 import micom
 import micom.data as md
-from micom.workflows import build, grow, tradeoff
+from micom.batch import Batch
 import os.path as path
 import pytest
 import pandas as pd
@@ -15,6 +15,12 @@ medium = micom.qiime_formats.load_qiime_medium(md.test_medium)
 def community():
     """A simple community containing 4 species."""
     return micom.Community(micom.data.test_taxonomy(), progress=False)
+
+
+@pytest.fixture
+def community_with_host():
+    """A simple community containing 4 species."""
+    return micom.Community(micom.data.test_taxonomy(host=True), progress=False)
 
 
 @pytest.fixture
@@ -38,18 +44,33 @@ def check_viz(v):
 
 
 @pytest.fixture
-def growth_data(tmp_path):
+def batch(tmp_path):
     """Generate some growth simulation data."""
-    data = md.test_data()
-    built = build(data, md.test_db, str(tmp_path), cutoff=0)
-    grown = grow(built, str(tmp_path), medium, 0.5)
-    return grown
+    batch = Batch(md.test_data(), medium=medium, model_db=md.test_db)
+    return batch
 
 
 @pytest.fixture
-def tradeoff_data(tmp_path):
+def batch_built(tmp_path):
     """Generate some growth simulation data."""
-    data = md.test_data()
-    built = build(data, md.test_db, str(tmp_path), cutoff=0)
-    rates = tradeoff(built, str(tmp_path), medium)
-    return rates
+    batch = Batch(md.test_data(), medium=medium, model_db=md.test_db)
+    batch.build(str(tmp_path))
+    return batch
+
+
+@pytest.fixture
+def batch_grown(tmp_path):
+    """Generate some growth simulation data."""
+    batch = Batch(md.test_data(), medium=medium, model_db=md.test_db)
+    batch.build(str(tmp_path))
+    batch.grow()
+    return batch
+
+
+@pytest.fixture
+def batch_tradeoff(tmp_path):
+    """Generate some growth simulation data."""
+    batch = Batch(md.test_data(), medium=medium, model_db=md.test_db)
+    batch.build(str(tmp_path))
+    batch.tradeoff()
+    return batch

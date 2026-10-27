@@ -1,6 +1,6 @@
 """Test the interaction module."""
 
-from .fixtures import results, growth_data
+from .fixtures import results, batch_grown
 import micom.interaction as mi
 import pytest
 
@@ -43,15 +43,15 @@ def test_summary(results):
     assert all(summ.groupby(["sample_id", "focal", "partner"]).flux.count() <= 3)
 
 
-def test_all_interactions(growth_data):
+def test_all_interactions(batch_grown):
     """Test all vs all."""
-    ints = mi.interactions(growth_data, taxa=None, progress=False)
+    ints = mi.interactions(batch_grown.results, taxa=None, progress=False)
     summ = mi.summarize_interactions(ints)
-    assert ints.focal.nunique() == 3
-    assert ints.partner.nunique() == 3
+    assert ints.focal.nunique() == 4
+    assert ints.partner.nunique() == 4
     assert all(ints.flux > 0)
-    assert summ.focal.nunique() == 3
-    assert summ.partner.nunique() == 3
+    assert summ.focal.nunique() == 4
+    assert summ.partner.nunique() == 4
     for col in ["mass_flux", "flux", "C_flux", "N_flux", "n_ints"]:
         assert col in summ.columns
 
@@ -62,3 +62,25 @@ def test_mes(results):
     assert "MES" in mes.columns
     assert "metabolite" in mes.columns
     assert all(mes.MES >= 0)
+
+
+def test_basic(results):
+    """Test basic producer, consumer, and flux statistics."""
+    basic = mi.basic(results)
+    row = basic.iloc[0]
+    exchanges = results.exchanges[
+        (results.exchanges.metabolite == row.metabolite)
+        & (results.exchanges.sample_id == row.sample_id)
+        & (results.exchanges.taxon != "medium")
+    ]
+    producers = exchanges[exchanges.direction == "export"]
+    consumers = exchanges[exchanges.direction == "import"]
+
+    assert row.producers == producers.taxon.nunique()
+    assert row.consumers == consumers.taxon.nunique()
+    assert row.consumption_flux == pytest.approx(
+        (consumers.abundance * consumers.flux.abs()).sum()
+    )
+    assert row.production_flux == pytest.approx(
+        (producers.abundance * producers.flux.abs()).sum()
+    )

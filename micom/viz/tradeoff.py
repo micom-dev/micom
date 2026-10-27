@@ -1,7 +1,7 @@
 """Visualizations for tradeoff analysis."""
 
 from datetime import datetime
-from micom.viz import Visualization
+from .core import Visualization
 import numpy as np
 import pandas as pd
 

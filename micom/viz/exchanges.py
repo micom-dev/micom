@@ -2,8 +2,8 @@
 
 from datetime import datetime
 from scipy.cluster.hierarchy import linkage, leaves_list
-from micom.workflows.results import GrowthResults
-from micom.viz.core import Visualization
+from ..batch import GrowthResults
+from .core import Visualization
 import pandas as pd
 from sklearn.manifold import TSNE
 import logging
@@ -132,7 +132,7 @@ def plot_exchanges_per_taxon(
     if "learning_rate" not in tsne_args:
         tsne_args["learning_rate"] = 200.0
     if "perplexity" not in tsne_args and n <= 30:
-        logger.warn(f"Not enough samples. Adjusting T-SNE perplexity to {n // 2}.")
+        logger.warning(f"Not enough samples. Adjusting T-SNE perplexity to {n // 2}.")
         tsne_args["perplexity"] = n // 2
 
     reduced = TSNE(**tsne_args).fit_transform(mat.values)

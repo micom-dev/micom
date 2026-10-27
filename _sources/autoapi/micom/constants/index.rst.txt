@@ -15,6 +15,10 @@ Attributes
 .. autoapisummary::
 
    micom.constants.RANKS
+   micom.constants.DB_URL
+   micom.constants.MEDIA_URL
+   micom.constants.DIRECTION
+   micom.constants.ARGS
 
 
 Module Contents
@@ -23,4 +27,16 @@ Module Contents
 .. py:data:: RANKS
    :value: ['kingdom', 'phylum', 'class', 'order', 'family', 'genus', 'species', 'strain']
 
+
+.. py:data:: DB_URL
+   :value: 'https://zenodo.org/records/7739096/files/%s?download=1'
+
+
+.. py:data:: MEDIA_URL
+   :value: 'https://github.com/micom-dev/media/raw/refs/heads/main/media/%s'
+
+
+.. py:data:: DIRECTION
+
+.. py:data:: ARGS
 

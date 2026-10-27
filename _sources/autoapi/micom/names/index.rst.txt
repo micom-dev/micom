@@ -1,0 +1,47 @@
+micom.names
+===========
+
+.. py:module:: micom.names
+
+.. autoapi-nested-parse::
+
+   Module to generate random names.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/micom/names/generate/index
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.names.generate_random_name
+
+
+Package Contents
+----------------
+
+.. py:function:: generate_random_name(adjective=False)
+
+   Generates a random name by combining an adjective, an obsolete
+
+   profession, and a gut microbiome genus from text files using pandas.
+
+   :param adjective: If True, include an adjective in the generated name. Default is False. This will result
+                     in more diverse names, but may also make them longer and more complex.
+   :type adjective: bool, optional
+
+   :returns: A string in the format '[adjective]_[profession]_[genus]' where all words
+             are lowercased and any non-letter characters are substituted with
+             underscores.
+   :rtype: str
+
+

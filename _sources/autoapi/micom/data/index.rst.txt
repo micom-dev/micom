@@ -9,14 +9,6 @@ micom.data
 
 
 
-Attributes
-----------
-
-.. autoapisummary::
-
-   micom.data.agora
-
-
 Functions
 ---------
 
@@ -28,18 +20,16 @@ Functions
 Package Contents
 ----------------
 
-.. py:data:: agora
-   :value: None
-
-
-.. py:function:: test_taxonomy(n=4)
+.. py:function:: test_taxonomy(n=4, host=False)
 
    Create a simple test taxonomy.
 
    :param n: How many species to include.
    :type n: positive int
+   :param host: Whether to include a host in the taxonomy.
+   :type host: bool
 
-   :returns: Taxonomy specification for a.
+   :returns: The taxonomy specification for a test data set.
    :rtype: pandas.DataFrame
 
 

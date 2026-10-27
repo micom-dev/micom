@@ -17,8 +17,10 @@ Submodules
 
    /autoapi/micom/algorithms/index
    /autoapi/micom/annotation/index
+   /autoapi/micom/batch/index
    /autoapi/micom/community/index
    /autoapi/micom/constants/index
+   /autoapi/micom/coupling/index
    /autoapi/micom/data/index
    /autoapi/micom/db/index
    /autoapi/micom/deps/index
@@ -28,15 +30,16 @@ Submodules
    /autoapi/micom/logger/index
    /autoapi/micom/measures/index
    /autoapi/micom/media/index
+   /autoapi/micom/names/index
    /autoapi/micom/optcom/index
    /autoapi/micom/problems/index
    /autoapi/micom/qiime_formats/index
    /autoapi/micom/solution/index
    /autoapi/micom/stats/index
    /autoapi/micom/taxonomy/index
+   /autoapi/micom/types/index
    /autoapi/micom/util/index
    /autoapi/micom/viz/index
-   /autoapi/micom/workflows/index
 
 
 Classes
@@ -44,6 +47,8 @@ Classes
 
 .. autoapisummary::
 
+   micom.Batch
+   micom.Configuration
    micom.Community
 
 
@@ -59,7 +64,383 @@ Functions
 Package Contents
 ----------------
 
-.. py:class:: Community(taxonomy, model_db=None, id=None, name=None, rel_threshold=1e-06, solver=None, progress=True, max_exchange=100, mass=1)
+.. py:class:: Batch(taxonomy: pandas.DataFrame, medium: Union[pandas.DataFrame, str, pathlib.Path] = None, model_db: Union[str, pathlib.Path] = None, config: micom.batch.configuration.Configuration = None, name: str = None)
+
+   Bases: :py:obj:`object`
+
+
+   Manage a batch of community models and the corresponding steps and configuration.
+
+
+   .. py:attribute:: build_manifest
+      :value: None
+
+
+
+   .. py:attribute:: results
+      :value: None
+
+
+
+   .. py:attribute:: tradeoffs
+      :value: None
+
+
+
+   .. py:attribute:: out_folder
+      :value: None
+
+
+
+   .. py:attribute:: _taxonomy
+
+
+   .. py:attribute:: _medium
+      :value: None
+
+
+
+   .. py:attribute:: name
+
+
+   .. py:property:: taxonomy
+      :type: pandas.DataFrame
+
+
+      Get the taxonomy of the batch.
+
+      :returns: The taxonomy of the community models.
+      :rtype: pd.DataFrame
+
+
+   .. py:property:: medium
+      :type: pandas.DataFrame
+
+
+      Get the growth medium for the batch.
+
+      :returns: The growth medium to use for the batch. Should contain columns
+                `reaction`, `flux`, and `sample_id`. If `sample_id` is not present,
+                the same medium will be used for all samples.
+      :rtype: pd.DataFrame
+
+
+   .. py:method:: build(out_folder: Union[pathlib.Path, str]) -> pandas.DataFrame
+
+      Build a series of community models.
+
+      This is a best-practice implementation of building community models
+      for several samples in parallel.
+
+      :param out_folder: The built models and a manifest file will be written to this
+                         folder. Will skip existing models if the folder already exists, contains models,
+                         *and* if config.build.force_rebuild is False.
+      :type out_folder: str
+
+      :returns: The manifest for the built models. Contains taxa abundances,
+                build metrics and file basenames.
+      :rtype: pandas.DataFrame
+
+
+
+   .. py:method:: grow() -> micom.batch.results.GrowthResults
+
+      Simulate growth for a set of community models.
+
+      .. note::
+
+         The strategy `mimimal imports` can become unstable for common carbon sources since
+         it will add in infeasible imports that are very small but import some high-C
+         molecules. If you use it check that only components from your medium have been used
+         and molecules that should be essential are indeed consumed.
+
+      :returns: A named tuple containing the growth rates and exchange fluxes for all
+                samples/models.
+      :rtype: GrowthResults
+
+
+
+   .. py:method:: tradeoff(tradeoffs: numpy.array = np.arange(0.1, 1.0 + 1e-06, 0.1)) -> pandas.DataFrame
+
+      Run growth rate predictions for varying tradeoff values.
+
+      :param tradeoffs: An array of tradeoff values to be tested. One simulation without
+                        a tradeoff (no cooperative tradeoff) will always be run additionally
+                        and will have a tradeoff of "NaN".
+      :type tradeoffs: array of floats in (0.0, 1.0]
+
+      :returns: The predicted growth rates.
+      :rtype: pandas.DataFrame
+
+
+
+   .. py:method:: minimal_medium(community_growth: float = 0.1, taxa_growth: float = 0.001, minimize: str = 'mass', summarize: bool = True) -> pandas.DataFrame
+
+      Calculate the minimal medium for a set of community models.
+
+      This requires specification of either the minimal community growth rate,
+      a minimal taxon growth rate that has to be reachable by all taxa in the sample
+      simultaneously, or a combination of both. All imports will be opened and the
+      minimal medium allowing those growth rates will be returned. What exactly is being
+      minimized (mass flux, carbon flux, number of components) can be specified through
+      the `weights` and `minimize_components` options.
+
+      .. note::
+
+         A common usage example would be to request some realistic growth rate for the entire
+         community and a very low growth rate for all taxa to ensure they are growing ("alive")
+         in the medium. The returned solution comes from the medium minimization problem and
+         does not have to correspond to the cooperative tradeoff solution with the same medium.
+
+      :param community_growth: The minimum community-wide growth rate that has to be achieved on the created
+                               medium.
+      :type community_growth: positive float
+      :param taxa_growth: The minimum growth rate achievable for each individual taxon in the community on the created medium.
+      :type taxa_growth: positive float
+      :param minimize: What is minimized when completing the medium. The, default, "flux" will minimize the total added.
+                       "components" will minimize the number of added compounds in the medium (this may be *very* slow for large models).
+                       "mass" will minimize the added mass flux. Can also be set to any single element like "C" or "N" to minimize the added
+                       flux of that element. If None will use the criterion from the configuration.
+      :type minimize: str
+      :param summarize: Whether to summarize the medium across all samples. If False will
+                        return a medium for each sample (sample-specific medium).
+      :type summarize: boolean
+
+      :returns: A new growth medium with the smallest amount of augmentations such
+                that all communities can grow in it.
+      :rtype: pandas.DataFrame
+
+
+
+   .. py:method:: complete_medium(community_growth: float = 0.1, taxa_growth: float = 0.001, minimize: str = 'mass', summarize: bool = True, medium: pandas.DataFrame = None) -> pandas.DataFrame
+
+      Augment a growth medium so a community or specific taxa can grow on it.
+
+      .. note::
+
+         This will complete a growth medium for a single community/sample. For building
+         growth media that work for arbitrary samples/compositions of taxa see
+         `complete_db_medium` In contrast to `complete_db_medium` this will account for
+         taxon-taxon interactions. However, growth rates will no longer be an emergent
+         property of the simulation, because one needs to specify the community growth rate
+         or growth rates for individual taxa.
+
+      :param community_growth: The minimum community-wide growth rate that has to be achieved on the created
+                               medium.
+      :type community_growth: positive float
+      :param taxa_growth: The minimum growth rate achievable for each individual taxon in the community on the created medium.
+      :type taxa_growth: positive float
+      :param minimize: What is minimized when completing the medium. The, default, "flux" will minimize the total added.
+                       "components" will minimize the number of added compounds in the medium (this may be *very* slow for large models).
+                       "mass" will minimize the added mass flux. Can also be set to any single element like "C" or "N" to minimize the added
+                       flux of that element. If None will use the criterion from the configuration.
+      :type minimize: str
+      :param summarize: Whether to summarize the medium across all samples. If False will
+                        return a medium for each sample (sample-specific medium).
+      :type summarize: boolean
+      :param medium: The medium to augment. If None will use the batch medium.
+      :type medium: pd.DataFrame
+
+      :returns: A new growth medium with the smallest amount of augmentations such
+                that all members of the community can grow in it.
+      :rtype: pandas.DataFrame
+
+
+
+   .. py:property:: is_built
+      :type: bool
+
+
+      Check if the batch has been built.
+
+      :returns: True if the batch has been built, False otherwise.
+      :rtype: bool
+
+
+   .. py:property:: has_results
+      :type: bool
+
+
+      Check if the batch has results.
+
+      :returns: True if the batch has results, False otherwise.
+      :rtype: bool
+
+
+   .. py:property:: has_tradeoffs
+      :type: bool
+
+
+      Check if the batch has tradeoff results.
+
+      :returns: True if the batch has tradeoff results, False otherwise.
+      :rtype: bool
+
+
+   .. py:method:: __repr__() -> str
+
+      Return a string representation of the batch.
+
+      :returns: A string representation of the batch.
+      :rtype: str
+
+
+
+   .. py:method:: __str__() -> str
+
+      Return a string representation of the batch.
+
+      :returns: A string representation of the batch.
+      :rtype: str
+
+
+
+   .. py:method:: _repr_html_() -> str
+
+      Return an HTML representation of the batch.
+
+      :returns: An HTML representation of the batch.
+      :rtype: str
+
+
+
+.. py:class:: Configuration(/, **data: Any)
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+
+   Manage the configuration for a set of MICOM analyses.
+
+
+   .. py:attribute:: tolerance
+      :type:  float
+      :value: 1e-06
+
+
+      Tolerance for the solver.
+
+
+   .. py:attribute:: solver
+      :type:  str
+
+      Name of the solver used for the linear and quadratic problems.
+
+
+   .. py:attribute:: threads
+      :type:  int
+      :value: 4
+
+
+      The number of parallel workers to use when running models.
+
+
+   .. py:attribute:: progress
+      :type:  bool
+      :value: True
+
+
+      Whether to show a progress bar when running models.
+
+
+   .. py:attribute:: simulation
+      :type:  SimulationConfig
+      :value: None
+
+
+
+   .. py:attribute:: coupling
+      :type:  CouplingConfig
+      :value: None
+
+
+
+   .. py:attribute:: build
+      :type:  BuildConfig
+      :value: None
+
+
+
+   .. py:attribute:: dbs
+      :type:  DBConfig
+      :value: None
+
+
+
+   .. py:attribute:: media
+      :type:  MediaConfig
+      :value: None
+
+
+
+   .. py:method:: to_json(path: Union[pathlib.Path, str]) -> None
+
+      Write the configuration to a JSON file.
+
+      :param path: Path to the JSON file.
+      :type path: Path
+
+      :rtype: Nothing.
+
+
+
+   .. py:method:: from_json(path: Union[pathlib.Path, str]) -> Self
+      :classmethod:
+
+
+      Load the configuration from a JSON file.
+
+      :param path: Path to the JSON file.
+      :type path: Union[Path, str]
+
+      :returns: The configuration object.
+      :rtype: Configuration
+
+
+
+   .. py:method:: to_yaml(path: Union[pathlib.Path, str]) -> None
+
+      Write the configuration to a YAML file.
+
+      :param path: Path to the YAML file.
+      :type path: Union[Path, str]
+
+      :rtype: Nothing.
+
+
+
+   .. py:method:: from_yaml(path: Union[pathlib.Path, str]) -> Self
+      :classmethod:
+
+
+      Load the configuration from a YAML file.
+
+      :param path: Path to the YAML file.
+      :type path: Path
+
+      :returns: The configuration object.
+      :rtype: Configuration
+
+
+
+   .. py:method:: __str__() -> str
+
+      Return a string representation of the configuration.
+
+      :returns: String representation of the configuration.
+      :rtype: str
+
+
+
+   .. py:method:: _repr_html_() -> str
+
+      Return an HTML representation of the configuration.
+
+      :returns: HTML representation of the configuration.
+      :rtype: str
+
+
+
+.. py:class:: Community(taxonomy: pandas.DataFrame, model_db: Union[str, pathlib.Path] = None, host_db: Dict[str, pathlib.Path] = None, id: str = None, name: str = None, rel_threshold: float = 1e-06, solver: str = None, progress: bool = True, max_exchange: float = 100.0, mass: float = 1.0)
 
    Bases: :py:obj:`cobra.Model`
 
@@ -102,8 +483,18 @@ Package Contents
 
 
 
+   .. py:attribute:: host
+      :value: []
+
+
+
    .. py:attribute:: mass
-      :value: 1
+      :value: 1.0
+
+
+
+   .. py:attribute:: max_exchange
+      :value: 100.0
 
 
 
@@ -132,13 +523,19 @@ Package Contents
       if there are none).
 
 
-   .. py:method:: __add_exchanges(reactions, info, external_compartment='e', internal_exchange=1000)
+   .. py:method:: __add_model(model, taxon_id)
+
+      Add a new model to the community.
+
+
+
+   .. py:method:: __add_exchanges(reactions, coef, external_compartment='e', internal_exchange=1000, environment_id='m', environment_name='medium')
 
       Add exchange reactions for a new model.
 
 
 
-   .. py:method:: __update_exchanges()
+   .. py:method:: __update_exchanges(compartment='m')
 
       Update exchanges.
 
@@ -201,9 +598,6 @@ Package Contents
       solution by default but only growth rates which is much quicker. You can
       request a full solution by setting the `fluxes` and `pFBA` arguments.
 
-      :param slim: Whether to return a slim solution which does not contain fluxes,
-                   just growth rates.
-      :type slim: boolean, optional
       :param raise_error: Should an error be raised if the solution is not optimal. Defaults
                           to False which will either return a solution with a non-optimal
                           status or None if optimization fails.
@@ -225,7 +619,32 @@ Package Contents
 
 
 
-   .. py:property:: abundances
+   .. py:method:: optimize_host(fluxes=False, pfba=False, raise_error=False, atol=None, rtol=None)
+
+      Maximize the host maintenance or growth rate.
+
+      :param raise_error: Should an error be raised if the solution is not optimal. Defaults
+                          to False which will either return a solution with a non-optimal
+                          status or None if optimization fails.
+      :type raise_error: boolean, optional
+      :param fluxes: Whether to return the fluxes as well.
+      :type fluxes: boolean, optional
+      :param pfba: Whether to obtain fluxes by parsimonious FBA rather than
+                   "classical" FBA. This is highly recommended.
+      :type pfba: boolean, optional
+      :param atol: Absolute tolerance for the growth rates. If None will use the solver
+                   tolerance.
+      :type atol: float
+      :param rtol: Relative tolerqance for the growth rates. If None will use the
+                   solver tolerance.
+      :type rtol: float
+
+      :returns: **dict of str** -- The solution after optimization for each host tissue or None if there is no optimum.
+      :rtype: micom.CommunitySolution
+
+
+
+   .. py:property:: microbial_abundances
 
       The normalized abundances.
 
@@ -235,16 +654,40 @@ Package Contents
       :type: pandas.Series
 
 
-   .. py:method:: set_abundance(value, normalize=True)
+   .. py:method:: set_microbial_abundance(value, normalize=True)
 
-      Change abundances for one or more taxa.
+      Change abundances for one or more microbial taxa.
 
-      :param value: The new abundances. Must contain one value for each taxon. Can
-                    be a named object like a pandas Series.
-      :type value: array-like object
-      :param normalize: Whether to normalize the abundances to a total of 1.0. Many things
+      :param value: The new abundances. Indices must me taxon IDs.
+      :type value: pandas.Series
+      :param normalize: Whether to normalize the *microbial* abundances to a total of 1.0. Many things
                         in micom asssume that this is always the case. Only change this
                         if you know what you are doing :O
+                        Host abundances are adjusted relative to this.
+      :type normalize: boolean, optional
+
+
+
+   .. py:property:: host_abundances
+
+      The host abundances normalized to 1gDW of microbial biomass.
+
+      Setting this attribute will also trigger the appropriate updates in
+      the exchange fluxes and the community objective.
+
+      :type: pandas.Series
+
+
+   .. py:method:: set_host_abundance(value, normalize=True)
+
+      Change abundances for one or more host tissues.
+
+      :param value: The new abundances. Indices must me host IDs.
+      :type value: pandas.Series
+      :param normalize: Whether to normalize the *microbial* abundances to a total of 1.0. Many things
+                        in micom asssume that this is always the case. Only change this
+                        if you know what you are doing :O
+                        Host abundances are adjusted relative to this.
       :type normalize: boolean, optional
 
 
@@ -282,6 +725,23 @@ Package Contents
       Return all internal exchanges.
 
       Internal exchanges are exchanges between individual taxa and the medium.
+
+      :type: list
+
+
+   .. py:property:: internal_reactions
+
+      Return all internal reactions.
+
+      Internal reactions are reactions that only involve metabolites from the
+      inside of the organism and are not demands or sinks.
+
+      :type: list
+
+
+   .. py:property:: host_exchanges
+
+      Return all host-side exchange reactions in the model.
 
       :type: list
 
@@ -390,7 +850,7 @@ Package Contents
 
    .. py:method:: knockout_taxa(taxa=None, fraction=1.0, method='change', progress=True, diag=True)
 
-      Sequentially knowckout a list of taxa in the model.
+      Sequentially knockout a list of taxa in the model.
 
       This uses cooperative tradeoff as optimization criterion in order to
       get unqiue solutions for individual growth rates. Requires a QP
@@ -424,7 +884,7 @@ Package Contents
       Get a scale to improve numerical properties.
 
 
-   .. py:method:: to_pickle(filename)
+   .. py:method:: to_pickle(filename: Union[str, pathlib.Path]) -> None
 
       Save a community in serialized form.
 
@@ -435,14 +895,97 @@ Package Contents
 
 
 
+   .. py:method:: add_host(table: pandas.DataFrame, host_db: Dict[str, pathlib.Path], shared_compartment: str = 'l', own_compartment: str = 'e')
+
+      Add a host model to the community.
+
+      :param model: The host model to add to the community.
+      :type model: str or cobra.Model
+      :param table: A DataFrame containing the columns "id" and "abundance" and additional
+                    columns such as taxonomic ranks and or "file" denoting the location of the
+                    model.
+      :type table: pandas.DataFrame
+      :param shared_compartment: The id for the compartment that is shared with the microbes. For instance,
+                                 the luminal side for an intestinal cell.
+      :type shared_compartment: str
+      :param own_compartment: The id for the compartment that is not shared with the microbes. The
+                              "other side". For instance, the blood stream for intestinal cells.
+      :type own_compartment: str
+      :param abundance: The abundance of the host **relative to 1gDW** bacteria.
+      :type abundance: float
+
+
+
+   .. py:property:: host_medium
+
+      Return the medium for the host side.
+
+
+   .. py:method:: add_coupling_constraints(ids=None, strategy='resource coupling', include_exchanges=False, constraint=1000.0, lower=1e-06)
+
+      Add enzyme resource constraints.
+
+      This will add constraints to the model that couple the enzyme usage to the growth rate
+      or keep it constant. This is useful to model the fact that enzyme usage is proportional
+      to the growth rate in many cases. The following strategie are available:
+
+      resource constraint: The total flux is constrained to be below a certain threshold.
+
+      .. math:: \sum_{i} |v_i| \leq   ext{constraint}
+
+      This is also known as resource allocation constraint [#c1]_.
+
+      resource coupling: The total flux is constrained proportionally to the growth rate.
+
+      .. math:: \sum_{i} |v_i| \leq   ext{constraint} * \mu
+
+      enzyme coupling: Individual enzyme usage is constrained by the growth rate except for a small maintenance flux.
+
+      .. math:: |v_i| \leq    ext{constraint} * \mu +         ext{lower}
+
+      This is the most commonly used version in the literature [#c2]_ but requires adding an additional constraint for each
+      reaction which can be slow for large communities.
+
+      .. note::
+
+         Usually one does not include exchanges in the resource constraints since they are not limited by enzyme availability (often passive transport).
+         However, this can be changed by setting `include_exchanges` to True.
+
+         The default value is based on Figure 6 of [#c1]_ which shows that for microbial communities a resource allocation constraint of 50 for a fixed
+         gowth rate of 0.05 yields the largest alpha diversity. This corresponds to a constraint of 1000 for a growth rate of 1.0.
+
+      :param strategy: The type of coupling to add. One of "resource constraint", "resource coupling",
+                       or "enzyme coupling". Defaults to "resource coupling".
+      :type strategy: str
+      :param ids: The taxa or host tissues to add the constraints for. If None will add constraints for all taxa and host tissues.
+      :type ids: list of str, optional
+      :param include_exchanges: Whether to include exchange reactions in the resource constraints.
+      :type include_exchanges: bool
+      :param constraint: The constraint on the total enzyme usage in mmol/gDW or mmol/gDW/h.
+      :type constraint: float
+      :param lower: A small lower bound for the enzyme usage. Only used for coupled enzyme usages.
+                    Can be used to model a small maintenance flux for enzymes. Defaults to no maintenance flux.
+      :type lower: float
+
+      :rtype: Nothing. Will add constraints to the model inplace.
+
+      .. rubric:: References
+
+      .. [#c1] Kim M, Sung J, Chia N. Resource-allocation constraint governs structure and function of
+         microbial communities in metabolic modeling. Metab Eng. 2022;70: 12–22. doi:10.1016/j.ymben.2021.12.011
+      .. [#c2] Burgard AP, Nikolaev EV, Schilling CH, Maranas CD. Flux coupling analysis of genome-scale
+         metabolic network reconstructions. Genome Res. 2004;14: 301–312. doi:10.1101/gr.1926504
+
+
+
 .. py:function:: show_versions()
 
-.. py:function:: load_pickle(filename)
+.. py:function:: load_pickle(filename: Union[str, pathlib.Path])
 
    Load a community model from a pickled version.
 
-   :param filename: The file the community is stored in.
-   :type filename: str
+   :param filename: The path to the file containing the pickled community model.
+   :type filename: str or Path
 
    :returns: The loaded community model.
    :rtype: micom.Community

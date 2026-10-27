@@ -15,6 +15,7 @@ Functions
 .. autoapisummary::
 
    micom.interaction.scores._mes
+   micom.interaction.scores.basic
    micom.interaction.scores.MES
 
 
@@ -26,7 +27,21 @@ Module Contents
    Helper to calculate the MES score.
 
 
-.. py:function:: MES(results: micom.workflows.GrowthResults, cutoff: float = None) -> pandas.DataFrame
+.. py:function:: basic(results: micom.batch.GrowthResults, cutoff: float = None) -> pandas.DataFrame
+
+   Calculate basic exchange statistics for each metabolite and sample.
+
+   :param results: The growth results to use.
+   :type results: GrowthResults
+   :param cutoff: The smallest flux to consider. Defaults to the solver tolerance.
+   :type cutoff: float
+
+   :returns: Producer and consumer counts and abundance-weighted consumption and
+             production fluxes for each metabolite and sample, including annotations.
+   :rtype: pandas.DataFrame
+
+
+.. py:function:: MES(results: micom.batch.GrowthResults, cutoff: float = None) -> pandas.DataFrame
 
    Calculate the Metabolic Exchange Score (MES) for each metabolite.
 

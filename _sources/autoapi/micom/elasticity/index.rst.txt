@@ -71,7 +71,7 @@ Module Contents
    :param com: The community for which to calculate elasticities.
    :type com: micom.Community
    :param variables: The variables for which to calculate the elasticities. All of these
-                     must have non-zero primal vaues in the previous solution.
+                     must have non-zero primal values in the previous solution.
    :type variables: list of optlang.Variable
 
    :returns: The long/tidy version of the elasticities. Contains columns variable,

@@ -14,7 +14,6 @@ Functions
 
 .. autoapisummary::
 
-   micom.interaction.focal._metabolite_interaction
    micom.interaction.focal.sample_interactions
    micom.interaction.focal._interact
    micom.interaction.focal.interactions
@@ -23,24 +22,27 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: _metabolite_interaction(fluxes: pandas.DataFrame, taxon: str, partner: str) -> pandas.DataFrame
+.. py:function:: sample_interactions(fluxes: pandas.DataFrame, taxon: str) -> pandas.DataFrame
 
-   Checks if and how taxa interact.
+   Quantify interactions in a single sample.
+
+   This attempts to quantify the interactions of a focal taxon with other taxa in a single sample. It does so by comparing the direction
+   of fluxes of the focal taxon with those of other taxa.
+
+   The interaction is classified as follows:
+
+   - co-consumed: both the focal taxon and the partner taxon are consuming the same metabolite (both have import fluxes).
+   - provided: the focal taxon is producing a metabolite that the partner taxon is consuming (focal has export flux, partner has import flux).
+   - received: the focal taxon is consuming a metabolite that the partner taxon is producing (focal has import flux, partner has export flux).
 
 
-.. py:function:: sample_interactions(fluxes: pandas.DataFrame, sample_id: str, taxon: str) -> pandas.DataFrame
-
-   Quantify interactions in a single sammple.
-
-   :param fluxes: A table of exchange fluxes.
-   :type fluxes: pandas.DataFrame
-   :param sample_id: The sample id to use.
-   :type sample_id: str
-   :param taxon: The focal taxon to use.
+   :param fluxes: The fluxes of a single sample.
+   :type fluxes: pd.DataFrame
+   :param taxon: The focal taxon to quantify interactions for.
    :type taxon: str
 
-   :returns: The mapped interactions between the focal taxon and all other taxa.
-   :rtype: pandas.DataFrame
+   :returns: A dataframe with the interactions of the focal taxon with other taxa in the sample. If there are no interactions, returns None.
+   :rtype: pd.DataFrame or None
 
 
 .. py:function:: _interact(args: List) -> pandas.DataFrame
@@ -48,9 +50,13 @@ Module Contents
    Quantify interactions of a focal taxon with other taxa.
 
 
-.. py:function:: interactions(results: micom.workflows.GrowthResults, taxa: Union[None, str, List[str]], threads: int = 1, progress: bool = True) -> pandas.DataFrame
+.. py:function:: interactions(results: micom.batch.GrowthResults, taxa: Union[None, str, List[str]], threads: int = 1, progress: bool = True) -> pandas.DataFrame
 
    Quantify interactions of a focal/reference taxon with other taxa.
+
+   This parallelizes across taxa. Samples are not parallelized, as sample interactions can be vectorized quite well.
+
+   .. note:: The function will attempt to resolve taxa names to taxon IDs. If a taxon name cannot be resolved, a ValueError will be raised.
 
    :param results: The growth results to use.
    :type results: GrowthResults
@@ -60,5 +66,7 @@ Module Contents
 
    :returns: The mapped interactions between the focal taxon and all other taxa.
    :rtype: pandas.DataFrame
+
+   :raises ValueError: If a taxon name cannot be resolved to a taxon ID.
 
 

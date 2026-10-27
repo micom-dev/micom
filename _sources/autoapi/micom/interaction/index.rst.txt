@@ -22,15 +22,20 @@ Functions
 
    micom.interaction.interactions
    micom.interaction.MES
+   micom.interaction.basic
    micom.interaction.summarize_interactions
 
 
 Package Contents
 ----------------
 
-.. py:function:: interactions(results: micom.workflows.GrowthResults, taxa: Union[None, str, List[str]], threads: int = 1, progress: bool = True) -> pandas.DataFrame
+.. py:function:: interactions(results: micom.batch.GrowthResults, taxa: Union[None, str, List[str]], threads: int = 1, progress: bool = True) -> pandas.DataFrame
 
    Quantify interactions of a focal/reference taxon with other taxa.
+
+   This parallelizes across taxa. Samples are not parallelized, as sample interactions can be vectorized quite well.
+
+   .. note:: The function will attempt to resolve taxa names to taxon IDs. If a taxon name cannot be resolved, a ValueError will be raised.
 
    :param results: The growth results to use.
    :type results: GrowthResults
@@ -41,8 +46,10 @@ Package Contents
    :returns: The mapped interactions between the focal taxon and all other taxa.
    :rtype: pandas.DataFrame
 
+   :raises ValueError: If a taxon name cannot be resolved to a taxon ID.
 
-.. py:function:: MES(results: micom.workflows.GrowthResults, cutoff: float = None) -> pandas.DataFrame
+
+.. py:function:: MES(results: micom.batch.GrowthResults, cutoff: float = None) -> pandas.DataFrame
 
    Calculate the Metabolic Exchange Score (MES) for each metabolite.
 
@@ -65,6 +72,20 @@ Package Contents
    .. [1] Marcelino, V.R., et al.
           Disease-specific loss of microbial cross-feeding interactions in the human gut
           Nat Commun 14, 6546 (2023). https://doi.org/10.1038/s41467-023-42112-w
+
+
+.. py:function:: basic(results: micom.batch.GrowthResults, cutoff: float = None) -> pandas.DataFrame
+
+   Calculate basic exchange statistics for each metabolite and sample.
+
+   :param results: The growth results to use.
+   :type results: GrowthResults
+   :param cutoff: The smallest flux to consider. Defaults to the solver tolerance.
+   :type cutoff: float
+
+   :returns: Producer and consumer counts and abundance-weighted consumption and
+             production fluxes for each metabolite and sample, including annotations.
+   :rtype: pandas.DataFrame
 
 
 .. py:function:: summarize_interactions(ints: pandas.DataFrame) -> pandas.DataFrame

@@ -32,7 +32,7 @@ Module Contents
 
 .. py:data:: logger
 
-.. py:function:: regularize_l2_norm(community, min_growth)
+.. py:function:: regularize_l2_norm(community, min_growth, host=False)
 
    Add an objective to find the most "egoistic" solution.
 
@@ -49,14 +49,12 @@ Module Contents
    :type community: micom.Community
    :param min_growth: The minimal community growth rate that has to be mantained.
    :type min_growth: positive float
-   :param linear: Whether to use a non-linear (sum of squares) or linear version of the
-                  cooperativity cost. If set to False requires a QP-capable solver.
-   :type linear: boolean
-   :param max_gcs: The precomputed maximum individual growth rates.
-   :type max_gcs: None or dict
+   :param host: Whether to include the host in the objective. If True, the host will be
+                treated like any other community member.
+   :type host: bool
 
 
-.. py:function:: cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rtol)
+.. py:function:: cooperative_tradeoff(community, min_growth, fraction, fluxes, pfba, atol, rtol, host=False)
 
    Find the best tradeoff between community and individual growth.
 

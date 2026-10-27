@@ -16,6 +16,7 @@ Functions
 
    micom.db.load_manifest
    micom.db.load_zip_model_db
+   micom.db.get_database
 
 
 Module Contents
@@ -29,5 +30,22 @@ Module Contents
 .. py:function:: load_zip_model_db(artifact, extract_path)
 
    Prepare a model database for use.
+
+
+.. py:function:: get_database(url: Union[str, pathlib.Path], out: pathlib.Path, what: str = 'taxa') -> pathlib.Path
+
+   Get a database from several locations.
+
+   If the database is a local file it will be used directly. If it is a URL it will be downloaded to the specified location.
+
+   :param url: The URL of the database to download or a locally downloaded database.
+   :type url: str
+   :param out: The path to the folder where the database should be downloaded.
+   :type out: Path
+   :param what: The type of database to download.
+   :type what: str
+
+   :returns: The path to the downloaded database.
+   :rtype: Path
 
 

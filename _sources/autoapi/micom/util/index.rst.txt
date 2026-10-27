@@ -71,22 +71,22 @@ Module Contents
    Download a model.
 
 
-.. py:function:: _read_model(file)
+.. py:function:: _read_model(file: pathlib.Path)
 
    Read a model from a local file.
 
 
-.. py:function:: load_model(filepath)
+.. py:function:: load_model(filepath: Union[str, pathlib.Path])
 
    Load a cobra model from several file types.
 
 
-.. py:function:: load_pickle(filename)
+.. py:function:: load_pickle(filename: Union[str, pathlib.Path])
 
    Load a community model from a pickled version.
 
-   :param filename: The file the community is stored in.
-   :type filename: str
+   :param filename: The path to the file containing the pickled community model.
+   :type filename: str or Path
 
    :returns: The loaded community model.
    :rtype: micom.Community
@@ -179,7 +179,7 @@ Module Contents
    Adjust the optlang solver configuration for larger problems.
 
 
-.. py:function:: reset_min_community_growth(com)
+.. py:function:: reset_min_community_growth(com, host=False)
 
    Reset the lower bound for the community growth.
 

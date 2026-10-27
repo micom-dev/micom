@@ -1,0 +1,62 @@
+micom.batch.media
+=================
+
+.. py:module:: micom.batch.media
+
+.. autoapi-nested-parse::
+
+   Example workflows for micom.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.batch.media.logger
+   micom.batch.media.DIRECTION
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.batch.media.process_medium
+   micom.batch.media._medium
+   micom.batch.media._fix_medium
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:data:: DIRECTION
+
+.. py:function:: process_medium(medium, samples)
+
+   Prepare a medium for simulation.
+
+   This will set the index to the reaction ID and convert it to a sample-wise medium if it is not already.
+
+   :param medium: The medium to process. Should have columns `reaction`, `flux`, and optionally `sample_id`.
+   :type medium: pd.DataFrame
+   :param samples: The sample IDs to include in the medium.
+   :type samples: list of str
+
+   :returns: The processed medium with columns `reaction`, `flux`, and `sample_id`.
+   :rtype: pd.DataFrame
+
+
+.. py:function:: _medium(args)
+
+   Get minimal medium for a single model.
+
+
+.. py:function:: _fix_medium(args)
+
+   Get the fixed medium for a model.
+
+

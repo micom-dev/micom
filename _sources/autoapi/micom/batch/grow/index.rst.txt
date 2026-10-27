@@ -1,0 +1,40 @@
+micom.batch.grow
+================
+
+.. py:module:: micom.batch.grow
+
+.. autoapi-nested-parse::
+
+   Performs growth and exchange analysis for several models.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.batch.grow.logger
+   micom.batch.grow.DIRECTION
+   micom.batch.grow.ARGS
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.batch.grow._growth
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:data:: DIRECTION
+
+.. py:data:: ARGS
+
+.. py:function:: _growth(args)
+

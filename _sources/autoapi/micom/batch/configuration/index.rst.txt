@@ -1,0 +1,355 @@
+micom.batch.configuration
+=========================
+
+.. py:module:: micom.batch.configuration
+
+.. autoapi-nested-parse::
+
+   Manage the configuration for a set of MICOM analyses.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.batch.configuration.symbols
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   micom.batch.configuration.SimulationConfig
+   micom.batch.configuration.CouplingConfig
+   micom.batch.configuration.BuildConfig
+   micom.batch.configuration.DBConfig
+   micom.batch.configuration.MediaConfig
+   micom.batch.configuration.Configuration
+
+
+Module Contents
+---------------
+
+.. py:data:: symbols
+
+.. py:class:: SimulationConfig(/, **data: Any)
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+
+   Simulation parameters for the cooperative tradeoff and related methods.
+
+
+   .. py:attribute:: strategy
+      :type:  Literal['ctFBA', 'SteadyCom']
+      :value: 'ctFBA'
+
+
+      The strategy to use for the cooperative tradeoff. Can be one of "ctFBA" or "SteadyCom".
+
+
+   .. py:attribute:: tradeoff
+      :type:  float
+      :value: 0.5
+
+
+      The tradeoff between community and individual growth.
+
+
+   .. py:attribute:: flux_method
+      :type:  Literal['minimal imports', 'pFBA', 'none']
+      :value: 'minimal imports'
+
+
+      The method to obtain the fluxes for the community under a given growth rate. Can be one of "minimal imports", "pFBA", or "none".
+
+
+   .. py:attribute:: host_method
+      :type:  Literal['before', 'ctFBA']
+      :value: 'before'
+
+
+      The method to include the host in the simulation. Can be one of "before" or "ctFBA".
+
+
+   .. py:attribute:: host_relative
+      :type:  bool
+      :value: True
+
+
+      Whether to use the host growth rate relative to it's own maximum.
+
+
+   .. py:attribute:: host_growth
+      :type:  float
+      :value: 0.5
+
+
+      The growth rate of the host. If host_relative is True, this must be between 0 and 1 and denotes the percentage of the host's maximum growth rate.
+
+
+.. py:class:: CouplingConfig(/, **data: Any)
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+
+   Parameters for flux coupling to the growth rates of the individual taxa.
+
+
+   .. py:attribute:: enabled
+      :type:  bool
+      :value: True
+
+
+      Whether to enable flux coupling.
+
+
+   .. py:attribute:: strategy
+      :type:  Literal['resource constraint', 'resource coupling', 'enzyme coupling']
+      :value: 'resource coupling'
+
+
+      The strategy to use for flux coupling. Can be one of "resource constraint", "resource coupling", or "enzyme coupling".
+
+
+   .. py:attribute:: include_exchanges
+      :type:  bool
+      :value: False
+
+
+      Whether to include the exchange reactions in the coupling.
+
+
+   .. py:attribute:: constraint
+      :type:  float
+      :value: 1000.0
+
+
+      The constraint to use for the coupling. Its interpretation depends on the strategy used.
+
+
+   .. py:attribute:: lower
+      :type:  float
+      :value: 1e-06
+
+
+      A small lower bound for the enzyme usage. Only used for coupled enzyme usages.
+
+
+.. py:class:: BuildConfig(/, **data: Any)
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+
+   Parameters for building the community models.
+
+
+   .. py:attribute:: cutoff
+      :type:  float
+      :value: 0.0001
+
+
+      The cutoff for the relative abundance of taxa to include in the model.
+
+
+   .. py:attribute:: force_rebuild
+      :type:  bool
+      :value: False
+
+
+      Whether to force rebuilding the models even if they already exist in the output folder.
+
+
+.. py:class:: DBConfig(/, **data: Any)
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+
+   Parameters for the model databases.
+
+
+   .. py:attribute:: microbial
+      :type:  Optional[Union[pathlib.Path, str]]
+      :value: 'default://agora201_refseq216_species_1.qza'
+
+
+      The path to the microbial model database. Can be a local path or a URL.
+
+
+   .. py:attribute:: host
+      :type:  Optional[Dict[str, pathlib.Path]]
+      :value: None
+
+
+      The host database. Currently a dictionary of host_id -> host_model_path. If None, no host model will be used.
+
+
+   .. py:attribute:: download_location
+      :type:  pathlib.Path
+
+      The location where the databases will be downloaded if they are not local already.
+
+
+.. py:class:: MediaConfig(/, **data: Any)
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+
+   Parameters for the media.
+
+
+   .. py:attribute:: weights
+      :type:  Optional[str]
+      :value: None
+
+
+      The weights for the media components.
+
+
+   .. py:attribute:: max_import
+      :type:  float
+      :value: 10.0
+
+
+      The maximum added import rate for the media components.
+
+
+.. py:class:: Configuration(/, **data: Any)
+
+   Bases: :py:obj:`pydantic.BaseModel`
+
+
+   Manage the configuration for a set of MICOM analyses.
+
+
+   .. py:attribute:: tolerance
+      :type:  float
+      :value: 1e-06
+
+
+      Tolerance for the solver.
+
+
+   .. py:attribute:: solver
+      :type:  str
+
+      Name of the solver used for the linear and quadratic problems.
+
+
+   .. py:attribute:: threads
+      :type:  int
+      :value: 4
+
+
+      The number of parallel workers to use when running models.
+
+
+   .. py:attribute:: progress
+      :type:  bool
+      :value: True
+
+
+      Whether to show a progress bar when running models.
+
+
+   .. py:attribute:: simulation
+      :type:  SimulationConfig
+      :value: None
+
+
+
+   .. py:attribute:: coupling
+      :type:  CouplingConfig
+      :value: None
+
+
+
+   .. py:attribute:: build
+      :type:  BuildConfig
+      :value: None
+
+
+
+   .. py:attribute:: dbs
+      :type:  DBConfig
+      :value: None
+
+
+
+   .. py:attribute:: media
+      :type:  MediaConfig
+      :value: None
+
+
+
+   .. py:method:: to_json(path: Union[pathlib.Path, str]) -> None
+
+      Write the configuration to a JSON file.
+
+      :param path: Path to the JSON file.
+      :type path: Path
+
+      :rtype: Nothing.
+
+
+
+   .. py:method:: from_json(path: Union[pathlib.Path, str]) -> Self
+      :classmethod:
+
+
+      Load the configuration from a JSON file.
+
+      :param path: Path to the JSON file.
+      :type path: Union[Path, str]
+
+      :returns: The configuration object.
+      :rtype: Configuration
+
+
+
+   .. py:method:: to_yaml(path: Union[pathlib.Path, str]) -> None
+
+      Write the configuration to a YAML file.
+
+      :param path: Path to the YAML file.
+      :type path: Union[Path, str]
+
+      :rtype: Nothing.
+
+
+
+   .. py:method:: from_yaml(path: Union[pathlib.Path, str]) -> Self
+      :classmethod:
+
+
+      Load the configuration from a YAML file.
+
+      :param path: Path to the YAML file.
+      :type path: Path
+
+      :returns: The configuration object.
+      :rtype: Configuration
+
+
+
+   .. py:method:: __str__() -> str
+
+      Return a string representation of the configuration.
+
+      :returns: String representation of the configuration.
+      :rtype: str
+
+
+
+   .. py:method:: _repr_html_() -> str
+
+      Return an HTML representation of the configuration.
+
+      :returns: HTML representation of the configuration.
+      :rtype: str
+
+
+

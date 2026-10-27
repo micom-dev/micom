@@ -133,6 +133,11 @@ Module Contents
    .. py:attribute:: growth_rate
 
 
+   .. py:attribute:: host_rates
+      :value: None
+
+
+
    .. py:method:: _repr_html_()
 
       Return a rich HTML representation of the solution.

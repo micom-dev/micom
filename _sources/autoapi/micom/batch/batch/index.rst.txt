@@ -1,0 +1,272 @@
+micom.batch.batch
+=================
+
+.. py:module:: micom.batch.batch
+
+.. autoapi-nested-parse::
+
+   Manage a batch of community models and the corresponding steps and configuration.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.batch.batch.logger
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   micom.batch.batch.Batch
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:class:: Batch(taxonomy: pandas.DataFrame, medium: Union[pandas.DataFrame, str, pathlib.Path] = None, model_db: Union[str, pathlib.Path] = None, config: micom.batch.configuration.Configuration = None, name: str = None)
+
+   Bases: :py:obj:`object`
+
+
+   Manage a batch of community models and the corresponding steps and configuration.
+
+
+   .. py:attribute:: build_manifest
+      :value: None
+
+
+
+   .. py:attribute:: results
+      :value: None
+
+
+
+   .. py:attribute:: tradeoffs
+      :value: None
+
+
+
+   .. py:attribute:: out_folder
+      :value: None
+
+
+
+   .. py:attribute:: _taxonomy
+
+
+   .. py:attribute:: _medium
+      :value: None
+
+
+
+   .. py:attribute:: name
+
+
+   .. py:property:: taxonomy
+      :type: pandas.DataFrame
+
+
+      Get the taxonomy of the batch.
+
+      :returns: The taxonomy of the community models.
+      :rtype: pd.DataFrame
+
+
+   .. py:property:: medium
+      :type: pandas.DataFrame
+
+
+      Get the growth medium for the batch.
+
+      :returns: The growth medium to use for the batch. Should contain columns
+                `reaction`, `flux`, and `sample_id`. If `sample_id` is not present,
+                the same medium will be used for all samples.
+      :rtype: pd.DataFrame
+
+
+   .. py:method:: build(out_folder: Union[pathlib.Path, str]) -> pandas.DataFrame
+
+      Build a series of community models.
+
+      This is a best-practice implementation of building community models
+      for several samples in parallel.
+
+      :param out_folder: The built models and a manifest file will be written to this
+                         folder. Will skip existing models if the folder already exists, contains models,
+                         *and* if config.build.force_rebuild is False.
+      :type out_folder: str
+
+      :returns: The manifest for the built models. Contains taxa abundances,
+                build metrics and file basenames.
+      :rtype: pandas.DataFrame
+
+
+
+   .. py:method:: grow() -> micom.batch.results.GrowthResults
+
+      Simulate growth for a set of community models.
+
+      .. note::
+
+         The strategy `mimimal imports` can become unstable for common carbon sources since
+         it will add in infeasible imports that are very small but import some high-C
+         molecules. If you use it check that only components from your medium have been used
+         and molecules that should be essential are indeed consumed.
+
+      :returns: A named tuple containing the growth rates and exchange fluxes for all
+                samples/models.
+      :rtype: GrowthResults
+
+
+
+   .. py:method:: tradeoff(tradeoffs: numpy.array = np.arange(0.1, 1.0 + 1e-06, 0.1)) -> pandas.DataFrame
+
+      Run growth rate predictions for varying tradeoff values.
+
+      :param tradeoffs: An array of tradeoff values to be tested. One simulation without
+                        a tradeoff (no cooperative tradeoff) will always be run additionally
+                        and will have a tradeoff of "NaN".
+      :type tradeoffs: array of floats in (0.0, 1.0]
+
+      :returns: The predicted growth rates.
+      :rtype: pandas.DataFrame
+
+
+
+   .. py:method:: minimal_medium(community_growth: float = 0.1, taxa_growth: float = 0.001, minimize: str = 'mass', summarize: bool = True) -> pandas.DataFrame
+
+      Calculate the minimal medium for a set of community models.
+
+      This requires specification of either the minimal community growth rate,
+      a minimal taxon growth rate that has to be reachable by all taxa in the sample
+      simultaneously, or a combination of both. All imports will be opened and the
+      minimal medium allowing those growth rates will be returned. What exactly is being
+      minimized (mass flux, carbon flux, number of components) can be specified through
+      the `weights` and `minimize_components` options.
+
+      .. note::
+
+         A common usage example would be to request some realistic growth rate for the entire
+         community and a very low growth rate for all taxa to ensure they are growing ("alive")
+         in the medium. The returned solution comes from the medium minimization problem and
+         does not have to correspond to the cooperative tradeoff solution with the same medium.
+
+      :param community_growth: The minimum community-wide growth rate that has to be achieved on the created
+                               medium.
+      :type community_growth: positive float
+      :param taxa_growth: The minimum growth rate achievable for each individual taxon in the community on the created medium.
+      :type taxa_growth: positive float
+      :param minimize: What is minimized when completing the medium. The, default, "flux" will minimize the total added.
+                       "components" will minimize the number of added compounds in the medium (this may be *very* slow for large models).
+                       "mass" will minimize the added mass flux. Can also be set to any single element like "C" or "N" to minimize the added
+                       flux of that element. If None will use the criterion from the configuration.
+      :type minimize: str
+      :param summarize: Whether to summarize the medium across all samples. If False will
+                        return a medium for each sample (sample-specific medium).
+      :type summarize: boolean
+
+      :returns: A new growth medium with the smallest amount of augmentations such
+                that all communities can grow in it.
+      :rtype: pandas.DataFrame
+
+
+
+   .. py:method:: complete_medium(community_growth: float = 0.1, taxa_growth: float = 0.001, minimize: str = 'mass', summarize: bool = True, medium: pandas.DataFrame = None) -> pandas.DataFrame
+
+      Augment a growth medium so a community or specific taxa can grow on it.
+
+      .. note::
+
+         This will complete a growth medium for a single community/sample. For building
+         growth media that work for arbitrary samples/compositions of taxa see
+         `complete_db_medium` In contrast to `complete_db_medium` this will account for
+         taxon-taxon interactions. However, growth rates will no longer be an emergent
+         property of the simulation, because one needs to specify the community growth rate
+         or growth rates for individual taxa.
+
+      :param community_growth: The minimum community-wide growth rate that has to be achieved on the created
+                               medium.
+      :type community_growth: positive float
+      :param taxa_growth: The minimum growth rate achievable for each individual taxon in the community on the created medium.
+      :type taxa_growth: positive float
+      :param minimize: What is minimized when completing the medium. The, default, "flux" will minimize the total added.
+                       "components" will minimize the number of added compounds in the medium (this may be *very* slow for large models).
+                       "mass" will minimize the added mass flux. Can also be set to any single element like "C" or "N" to minimize the added
+                       flux of that element. If None will use the criterion from the configuration.
+      :type minimize: str
+      :param summarize: Whether to summarize the medium across all samples. If False will
+                        return a medium for each sample (sample-specific medium).
+      :type summarize: boolean
+      :param medium: The medium to augment. If None will use the batch medium.
+      :type medium: pd.DataFrame
+
+      :returns: A new growth medium with the smallest amount of augmentations such
+                that all members of the community can grow in it.
+      :rtype: pandas.DataFrame
+
+
+
+   .. py:property:: is_built
+      :type: bool
+
+
+      Check if the batch has been built.
+
+      :returns: True if the batch has been built, False otherwise.
+      :rtype: bool
+
+
+   .. py:property:: has_results
+      :type: bool
+
+
+      Check if the batch has results.
+
+      :returns: True if the batch has results, False otherwise.
+      :rtype: bool
+
+
+   .. py:property:: has_tradeoffs
+      :type: bool
+
+
+      Check if the batch has tradeoff results.
+
+      :returns: True if the batch has tradeoff results, False otherwise.
+      :rtype: bool
+
+
+   .. py:method:: __repr__() -> str
+
+      Return a string representation of the batch.
+
+      :returns: A string representation of the batch.
+      :rtype: str
+
+
+
+   .. py:method:: __str__() -> str
+
+      Return a string representation of the batch.
+
+      :returns: A string representation of the batch.
+      :rtype: str
+
+
+
+   .. py:method:: _repr_html_() -> str
+
+      Return an HTML representation of the batch.
+
+      :returns: An HTML representation of the batch.
+      :rtype: str
+
+
+

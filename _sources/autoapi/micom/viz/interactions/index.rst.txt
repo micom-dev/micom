@@ -34,7 +34,7 @@ Module Contents
 
 .. py:data:: UNITS
 
-.. py:function:: plot_focal_interactions(results: micom.workflows.GrowthResults, taxon: str, filename: str = 'focal_interactions_%s.html' % datetime.now().strftime('%Y%m%d'), kind: str = 'mass') -> None
+.. py:function:: plot_focal_interactions(results: micom.batch.GrowthResults, taxon: str, filename: str = 'focal_interactions_%s.html' % datetime.now().strftime('%Y%m%d'), kind: str = 'mass') -> None
 
    Plot metabolic interactions between a focal taxa and all other taxa.
 
@@ -59,7 +59,7 @@ Module Contents
    :rtype: Visualization
 
 
-.. py:function:: plot_mes(results: micom.workflows.GrowthResults, filename: str = 'mes_%s.html' % datetime.now().strftime('%Y%m%d'), groups: pandas.Series = None, prevalence: float = 0.5) -> None
+.. py:function:: plot_mes(results: micom.batch.GrowthResults, filename: str = 'mes_%s.html' % datetime.now().strftime('%Y%m%d'), groups: pandas.Series = None, prevalence: float = 0.5) -> None
 
    Plot metabolic interactions between a focal taxa and all other taxa.
 

@@ -1,0 +1,34 @@
+micom.batch.tradeoff
+====================
+
+.. py:module:: micom.batch.tradeoff
+
+.. autoapi-nested-parse::
+
+   Workflow to run cooperative tradeoff with various tradeoff values.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.batch.tradeoff.logger
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.batch.tradeoff._tradeoff
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: _tradeoff(args)
+

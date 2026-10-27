@@ -1,0 +1,75 @@
+micom.types
+===========
+
+.. py:module:: micom.types
+
+.. autoapi-nested-parse::
+
+   Type definitions and validations for the micom library.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   micom.types.logger
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   micom.types.pathify
+   micom.types.check_medium
+   micom.types.check_taxonomy
+
+
+Module Contents
+---------------
+
+.. py:data:: logger
+
+.. py:function:: pathify(func)
+
+   Handle arguments that are hinted as Path or PathLike (including Unions) and convert them to pathlib.Path objects.
+
+   Decorator that automatically converts arguments hinted as Path or PathLike
+   (including Unions) into pathlib.Path objects before calling the function.
+
+   :param func: The function to be decorated.
+   :type func: function
+
+   :returns: The decorated function that converts Path or PathLike arguments to pathlib.Path.
+   :rtype: function
+
+
+.. py:function:: check_medium(medium)
+
+   Validate a medium for simulation.
+
+
+   :param medium: The medium to validate.
+   :type medium: pd.DataFrame
+
+   :raises ValueError: If the medium is invalid.
+
+   :rtype: None
+
+
+.. py:function:: check_taxonomy(taxonomy: pandas.DataFrame, samples: bool = True) -> None
+
+   Check if the taxonomy is valid.
+
+   :param taxonomy: The taxonomy of the community models.
+   :type taxonomy: pd.DataFrame
+   :param samples: Whether to allow multiple samples in the taxonomy. If False, will raise an error if multiple samples are found. Default is True.
+   :type samples: bool
+
+   :raises ValueError: If the taxonomy has issues.
+
+   :rtype: Nothing.
+
+

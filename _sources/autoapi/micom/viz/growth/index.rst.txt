@@ -20,7 +20,7 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: plot_growth(results: micom.workflows.results.GrowthResults, filename: str = 'growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), groups: pandas.Series = None, tolerance: float = 1e-06) -> None
+.. py:function:: plot_growth(results: micom.batch.GrowthResults, filename: str = 'growth_rates_%s.html' % datetime.now().strftime('%Y%m%d'), groups: pandas.Series = None, tolerance: float = 1e-06) -> None
 
    Plot the taxa growth rates.
 

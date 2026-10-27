@@ -1,9 +1,10 @@
 """Manage the configuration for a set of MICOM analyses."""
 
+import cobra.util.solver as sutil
 from pathlib import Path
 from ruamel.yaml import YAML
 from pydantic import BaseModel, Field
-from typing import Any, Optional, Union, Self, Literal, Dict
+from typing import Optional, Union, Self, Literal, Dict
 import json
 
 from ..types import pathify
@@ -85,7 +86,7 @@ class Configuration(BaseModel, validate_assignment=True):
 
     tolerance: float = 1e-6
     """Tolerance for the solver."""
-    solver: str = "cplex"
+    solver: str = [s for s in ["cplex", "gurobi", "hybrid"] if s in sutil.solvers][0]
     """Name of the solver used for the linear and quadratic problems."""
     threads: int = 4
     """The number of parallel workers to use when running models."""

@@ -1,6 +1,6 @@
 """Simple init file for micom."""
 
-from importlib.metadata import PackageNotFoundError, version as _distribution_version
+from importlib.metadata import PackageNotFoundError, version as pversion
 
 from .batch import Batch, Configuration
 from .community import Community
@@ -45,6 +45,6 @@ __all__ = (
 )
 
 try:
-    __version__ = _distribution_version("micom")
+    __version__ = pversion("micom")
 except PackageNotFoundError:
     __version__ = "0+unknown"

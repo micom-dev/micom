@@ -118,17 +118,15 @@ def plot_association(
     scaled = StandardScaler().fit_transform(fluxes)
     if variable_type == "binary":
         model = LogisticRegressionCV(
-            penalty="l1",
+            l1_ratio=1.0,,
             scoring="accuracy",
-            solver="liblinear",
             cv=2,
             Cs=np.power(10.0, np.arange(-6, 6, 0.5)),
             max_iter=50000,
         )
         fit = model.fit(scaled, meta)
         model = LogisticRegression(
-            penalty="l1",
-            solver="liblinear",
+            l1_ratio=1.0,
             C=fit.C_[0],
             max_iter=10000,
         )

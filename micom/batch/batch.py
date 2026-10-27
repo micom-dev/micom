@@ -31,7 +31,7 @@ class Batch(object):
         taxonomy: pd.DataFrame,
         medium: Union[pd.DataFrame, str, Path] = None,
         model_db: Union[str, Path] = None,
-        config: Configuration = Configuration(),
+        config: Configuration = None,
         name: str = None,
     ) -> None:
         """Initialize the batch with a configuration.
@@ -47,7 +47,7 @@ class Batch(object):
             The database of models to use for the batch. Can be a path to a database file or a download URL.
             If None it will use the DB from the configuration, if this is None as well it will use the 'file' column in the taxonomy table.
         config : Configuration
-            The configuration object.
+            The configuration object. If not provided a new configuration will be created with default values.
         name : str
             The name of the batch. If None a random name will be generated.
 
@@ -63,12 +63,17 @@ class Batch(object):
         self.out_folder = None
         check_taxonomy(taxonomy)
         self._taxonomy = taxonomy
-        self.config = config
+        if config is None:
+            self.config = Configuration()
+        else:
+            self.config = config
         if model_db is not None:
             self.config.dbs.microbial = (
                 model_db if isinstance(model_db, str) else Path(model_db)
             )
-        self.medium = medium
+        self._medium = None
+        if medium is not None:
+            self.medium = medium
         self.name = name if name is not None else generate_random_name()
 
     @property
@@ -275,9 +280,12 @@ class Batch(object):
                 "SteadyCom is not yet implemented in the batch workflow. Please use `config.simulation.strategy = 'ctFBA'` for now."
             )
 
-        flux_method = self.config.simulation.flux_method
-        weights = self.config.media.weights
-        medium = self.medium
+        if self.medium is None:
+            raise ValueError(
+                "No medium has been specified. Please set `Batch.medium` to a valid medium first."
+            )
+        else:
+            medium = self.medium
         tradeoff = self.config.simulation.tradeoff
         man = self.build_manifest
         samples = man.sample_id.unique()

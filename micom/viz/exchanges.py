@@ -2,10 +2,12 @@
 
 from datetime import datetime
 from scipy.cluster.hierarchy import linkage, leaves_list
+from sklearn.preprocessing import StandardScaler
 from ..batch import GrowthResults
 from .core import Visualization
+import numpy as np
 import pandas as pd
-from sklearn.manifold import TSNE
+from umap import UMAP
 import logging
 
 logger = logging.getLogger(__name__)
@@ -80,8 +82,9 @@ def plot_exchanges_per_taxon(
     filename: str = "taxon_exchanges_%s.html" % datetime.now().strftime("%Y%m%d"),
     direction: str = "import",
     groups: pd.Series = None,
+    standardize: bool = False,
     use_total_flux: bool = False,
-    **tsne_args,
+    **umap_args,
 ) -> None:
     """Plot the exchange fluxes per taxon.
 
@@ -97,10 +100,12 @@ def plot_exchanges_per_taxon(
         Additional metadata to color exchanges. The index must correspond to the
         `sample_id` in the results and values must be categorical. The `.name` attribute
         will be used to name the groups. If not provided will color by taxon.
-    use_total_fluxes : bool
-        Whether to use fluxes normalized to 1gDW of bacteria or the total flux.
-    tsne_args : dict
-        Additional arguments passed to TSNE.
+    standardize : bool
+        Whether to standardize the fluxes per taxon. Default is False.
+    use_total_flux : bool
+        Whether to use the total flux (flux * abundance) or just the flux. Default is False.
+    umap_args : dict
+        Additional arguments passed to UMAP.
 
     Returns
     -------
@@ -119,7 +124,7 @@ def plot_exchanges_per_taxon(
         exchanges["flux"] = exchanges.flux.abs() * exchanges.abundance
     else:
         exchanges["flux"] = exchanges.flux.abs()
-    mat = exchanges.pivot_table(
+    ex = exchanges.pivot_table(
         values="flux",
         index=["sample_id", "taxon"],
         columns="reaction",
@@ -127,21 +132,30 @@ def plot_exchanges_per_taxon(
     )
 
     n = exchanges.sample_id.nunique()
-    if "init" not in tsne_args:
-        tsne_args["init"] = "pca"
-    if "learning_rate" not in tsne_args:
-        tsne_args["learning_rate"] = 200.0
-    if "perplexity" not in tsne_args and n <= 30:
-        logger.warning(f"Not enough samples. Adjusting T-SNE perplexity to {n // 2}.")
-        tsne_args["perplexity"] = n // 2
+    if "init" not in umap_args:
+        umap_args["init"] = "spectral"
+    if "n_neighbors" not in umap_args:
+        umap_args["n_neighbors"] = min(8, n // 2)
+    if "min_dist" not in umap_args:
+        umap_args["min_dist"] = 0.1
+    if "metric" not in umap_args:
+        umap_args["metric"] = "euclidean"
 
-    reduced = TSNE(**tsne_args).fit_transform(mat.values)
+    if umap_args["metric"] in ["braycurtis", "canberra", "jaccard", "dice"]:
+        mat = ex.values
+    else:
+        mat = np.log10(ex.values + 1e-6)
+
+    if standardize:
+        mat = StandardScaler().fit_transform(mat)
+
+    reduced = UMAP(**umap_args).fit_transform(mat)
     reduced = pd.DataFrame(
-        reduced, index=mat.index, columns=["TSNE 1", "TSNE 2"]
+        reduced, index=ex.index, columns=["UMAP 1", "UMAP 2"]
     ).reset_index()
 
     if groups is not None:
-        if groups.dtype not in ["object", "category", "bool"]:
+        if groups.dtype not in ["str", "object", "category", "bool"]:
             raise ValueError("Groups need to be categorical.")
         name = "group" if groups.name is None else groups.name
         reduced[name] = groups[reduced.sample_id].values

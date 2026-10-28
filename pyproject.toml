@@ -32,6 +32,7 @@ dependencies = [
   "optlang>=1.9.1",
   "highspy>=1.7.2",
   "pydantic>=2.0",
+  "umap-learn>=0.5.12",
 ]
 
 [dependency-groups]

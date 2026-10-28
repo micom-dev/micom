@@ -436,8 +436,6 @@
     <span class="n">scaled</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">fluxes</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">variable_type</span> <span class="o">==</span> <span class="s2">"binary"</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span>
-            <span class="n">l1_ratios</span><span class="o">=</span><span class="p">[</span><span class="mf">1.0</span><span class="p">],</span>
-            <span class="n">solver</span><span class="o">=</span><span class="s2">"liblinear"</span><span class="p">,</span>
             <span class="n">scoring</span><span class="o">=</span><span class="s2">"accuracy"</span><span class="p">,</span>
             <span class="n">cv</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="n">Cs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)),</span>
@@ -445,8 +443,6 @@
         <span class="p">)</span>
         <span class="n">fit</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scaled</span><span class="p">,</span> <span class="n">meta</span><span class="p">)</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span>
-            <span class="n">l1_ratio</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
-            <span class="n">solver</span><span class="o">=</span><span class="s2">"liblinear"</span><span class="p">,</span>
             <span class="n">C</span><span class="o">=</span><span class="n">fit</span><span class="o">.</span><span class="n">C_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
             <span class="n">max_iter</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
         <span class="p">)</span>

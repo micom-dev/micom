@@ -116,7 +116,7 @@ Package Contents
    :rtype: Visualization
 
 
-.. py:function:: plot_exchanges_per_taxon(results: micom.batch.GrowthResults, filename: str = 'taxon_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction: str = 'import', groups: pandas.Series = None, use_total_flux: bool = False, **tsne_args) -> None
+.. py:function:: plot_exchanges_per_taxon(results: micom.batch.GrowthResults, filename: str = 'taxon_exchanges_%s.html' % datetime.now().strftime('%Y%m%d'), direction: str = 'import', groups: pandas.Series = None, standardize: bool = False, use_total_flux: bool = False, **umap_args) -> None
 
    Plot the exchange fluxes per taxon.
 
@@ -130,10 +130,12 @@ Package Contents
                   `sample_id` in the results and values must be categorical. The `.name` attribute
                   will be used to name the groups. If not provided will color by taxon.
    :type groups: pandas.Series
-   :param use_total_fluxes: Whether to use fluxes normalized to 1gDW of bacteria or the total flux.
-   :type use_total_fluxes: bool
-   :param tsne_args: Additional arguments passed to TSNE.
-   :type tsne_args: dict
+   :param standardize: Whether to standardize the fluxes per taxon. Default is False.
+   :type standardize: bool
+   :param use_total_flux: Whether to use the total flux (flux * abundance) or just the flux. Default is False.
+   :type use_total_flux: bool
+   :param umap_args: Additional arguments passed to UMAP.
+   :type umap_args: dict
 
    :returns: A MICOM visualization. Can be served with `viz.serve`.
    :rtype: Visualization

@@ -7,7 +7,7 @@
         <link rel="prefetch" href="../../../_static/micom.png" as="image">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>micom.viz - version 1.0.0b3</title>
+        <title>micom.viz - version 1.0.0b4</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
@@ -165,7 +165,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../../index.html"><div class="brand">version 1.0.0b3</div></a>
+      <a href="../../../index.html"><div class="brand">version 1.0.0b4</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -189,7 +189,7 @@
     <img class="sidebar-logo" src="../../../_static/micom.png" alt="Logo"/>
   </div>
   
-  <span class="sidebar-brand-text">version 1.0.0b3</span>
+  <span class="sidebar-brand-text">version 1.0.0b4</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -474,7 +474,7 @@ fluxes are close to another.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="micom.viz.plot_exchanges_per_taxon">
-<span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_exchanges_per_taxon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../batch/index.html#micom.batch.GrowthResults" title="micom.batch.GrowthResults"><span class="pre">micom.batch.GrowthResults</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'taxon_exchanges_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'import'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_total_flux</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">tsne_args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/micom/viz/exchanges.html#plot_exchanges_per_taxon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_exchanges_per_taxon" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">micom.viz.</span></span><span class="sig-name descname"><span class="pre">plot_exchanges_per_taxon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../batch/index.html#micom.batch.GrowthResults" title="micom.batch.GrowthResults"><span class="pre">micom.batch.GrowthResults</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'taxon_exchanges_%s.html'</span> <span class="pre">%</span> <span class="pre">datetime.now().strftime('%Y%m%d')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'import'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standardize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_total_flux</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">umap_args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../../_modules/micom/viz/exchanges.html#plot_exchanges_per_taxon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#micom.viz.plot_exchanges_per_taxon" title="Link to this definition">¶</a></dt>
 <dd><p>Plot the exchange fluxes per taxon.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -485,8 +485,9 @@ fluxes are close to another.</p></li>
 <li><p><strong>groups</strong> (<em>pandas.Series</em>) – Additional metadata to color exchanges. The index must correspond to the
 <cite>sample_id</cite> in the results and values must be categorical. The <cite>.name</cite> attribute
 will be used to name the groups. If not provided will color by taxon.</p></li>
-<li><p><strong>use_total_fluxes</strong> (<em>bool</em>) – Whether to use fluxes normalized to 1gDW of bacteria or the total flux.</p></li>
-<li><p><strong>tsne_args</strong> (<em>dict</em>) – Additional arguments passed to TSNE.</p></li>
+<li><p><strong>standardize</strong> (<em>bool</em>) – Whether to standardize the fluxes per taxon. Default is False.</p></li>
+<li><p><strong>use_total_flux</strong> (<em>bool</em>) – Whether to use the total flux (flux * abundance) or just the flux. Default is False.</p></li>
+<li><p><strong>umap_args</strong> (<em>dict</em>) – Additional arguments passed to UMAP.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -704,7 +705,7 @@ considered not growing.</p></li>
       
     </aside>
   </div>
-</div><script src="../../../_static/documentation_options.js?v=9a509e8f"></script>
+</div><script src="../../../_static/documentation_options.js?v=51d90e42"></script>
     <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>

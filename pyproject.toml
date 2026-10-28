@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "micom"
-version = "1.0.0b3"
+version = "1.0.0b4"
 description = "Microbial community modeling based on cobrapy."
 readme = "README.rst"
 requires-python = ">=3.11"

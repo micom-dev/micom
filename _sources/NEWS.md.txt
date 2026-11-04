@@ -5,6 +5,35 @@ This includes a list of major changes for each minor version starting from 0.19.
 For information on how to use `micom` please refer to
 [the documentation](https://micom-dev.github.io/micom).
 
+## 1.0.0
+
+This is a major release for MICOM and introduces several changes. This is likely to break
+existing code, so make sure to pin MICOM to the last pre-1.0.0 version for legacy code (0.39.1).
+
+**Major changes**
+
+This release introduces the new [`Batch`](https://micom-dev.github.io/micom/batch.html) interface and its associated `Configuration`. With the last
+releases we noticed that calls to the "old" workflow functions like `build` and `grow` required
+more and more arguments. Batches now come with their own Configuration that separates settings
+from the calls while also providing strong provenance for settings. We hope that this makes MICOM
+easier to use while still providing transparency for the used methods.
+
+MICOM now supports host models to be integrated with the microbial community. All host models will interact with
+microbes in the shared environment but also have an extraluminal side (for instance the interior of the epithelium
+or blood stream). An arbitrary number of host models can be included in a community. Right now those models
+are provided as a dictionary and not as a dedicated database because we feel that the most common use case will
+be the inclusion of a single host model.
+
+MICOM now uses flux coupling to the Biomass by default. This avoids large exchanges by non-growing organisms
+and is particularly important for models including host(s). There are three different algorithms to choose
+from, two previously reported ones, and a new hybrid option that couples total flux to the biomass.
+
+**Minor changes**
+
+`plot_exchanges_per_taxon` now uses UMAP.
+
+
+
 ### 0.39.1
 
 The `fillna` parameter is now also exposed in `plot_association`.

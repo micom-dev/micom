@@ -1666,7 +1666,7 @@ wheels = [
 
 [[package]]
 name = "micom"
-version = "1.0.0b4"
+version = "1.0.0b5"
 source = { editable = "." }
 default-groups = ["lint", "test"]
 dependencies = [
